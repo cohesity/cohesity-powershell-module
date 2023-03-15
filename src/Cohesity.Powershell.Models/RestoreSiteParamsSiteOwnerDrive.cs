@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.RestorePathVec == input.RestorePathVec ||
                     this.RestorePathVec != null &&
                     input.RestorePathVec != null &&
-                    this.RestorePathVec.Equals(input.RestorePathVec)
+                    this.RestorePathVec.SequenceEqual(input.RestorePathVec)
                 );
         }
 

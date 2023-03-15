@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.RunStartTimeUsecs = runStartTimeUsecs;
             this.RunType = runType;
             this.SourceIds = sourceIds;
+            this.CopyRunTargets = copyRunTargets;
+            this.JobUid = jobUid;
+            this.RunStartTimeUsecs = runStartTimeUsecs;
+            this.RunType = runType;
+            this.SourceIds = sourceIds;
         }
         
         /// <summary>
@@ -114,7 +119,7 @@ namespace Cohesity.Model
                     this.CopyRunTargets == input.CopyRunTargets ||
                     this.CopyRunTargets != null &&
                     input.CopyRunTargets != null &&
-                    this.CopyRunTargets.Equals(input.CopyRunTargets)
+                    this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
@@ -135,7 +140,7 @@ namespace Cohesity.Model
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
-                    this.SourceIds.Equals(input.SourceIds)
+                    this.SourceIds.SequenceEqual(input.SourceIds)
                 );
         }
 

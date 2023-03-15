@@ -183,7 +183,7 @@ namespace Cohesity.Model
                     this.VaultStatsList == input.VaultStatsList ||
                     this.VaultStatsList != null &&
                     input.VaultStatsList != null &&
-                    this.VaultStatsList.Equals(input.VaultStatsList)
+                    this.VaultStatsList.SequenceEqual(input.VaultStatsList)
                 );
         }
 

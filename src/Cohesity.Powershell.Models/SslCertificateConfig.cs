@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.Certificate = certificate;
             this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
             this.PrivateKey = privateKey;
+            this.Certificate = certificate;
+            this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
+            this.PrivateKey = privateKey;
         }
         
         /// <summary>

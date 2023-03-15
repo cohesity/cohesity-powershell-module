@@ -192,7 +192,7 @@ namespace Cohesity.Model
                     this.DeviceNodes == input.DeviceNodes ||
                     this.DeviceNodes != null &&
                     input.DeviceNodes != null &&
-                    this.DeviceNodes.Equals(input.DeviceNodes)
+                    this.DeviceNodes.SequenceEqual(input.DeviceNodes)
                 ) && 
                 (
                     this.StripeSize == input.StripeSize ||

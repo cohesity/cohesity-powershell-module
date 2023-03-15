@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.SnapshotsInfo == input.SnapshotsInfo ||
                     this.SnapshotsInfo != null &&
                     input.SnapshotsInfo != null &&
-                    this.SnapshotsInfo.Equals(input.SnapshotsInfo)
+                    this.SnapshotsInfo.SequenceEqual(input.SnapshotsInfo)
                 );
         }
 

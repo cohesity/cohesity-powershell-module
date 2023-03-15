@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.DriveItemList == input.DriveItemList ||
                     this.DriveItemList != null &&
                     input.DriveItemList != null &&
-                    this.DriveItemList.Equals(input.DriveItemList)
+                    this.DriveItemList.SequenceEqual(input.DriveItemList)
                 ) && 
                 (
                     this.RestoreEntireDrive == input.RestoreEntireDrive ||

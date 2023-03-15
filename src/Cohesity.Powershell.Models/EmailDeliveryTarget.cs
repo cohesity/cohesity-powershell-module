@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.EmailAddress = emailAddress;
             this.Locale = locale;
             this.RecipientType = recipientType;
+            this.EmailAddress = emailAddress;
+            this.Locale = locale;
+            this.RecipientType = recipientType;
         }
         
         /// <summary>

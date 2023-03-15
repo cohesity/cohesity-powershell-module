@@ -32,6 +32,8 @@ namespace Cohesity.Model
         public OutlookRestoreParameters(List<OutlookMailbox> outlookMailboxList = default(List<OutlookMailbox>), PstParameters pstParams = default(PstParameters), string targetFolderPath = default(string), ProtectionSource targetMailbox = default(ProtectionSource))
         {
             this.OutlookMailboxList = outlookMailboxList;
+            this.TargetFolderPath = targetFolderPath;
+            this.OutlookMailboxList = outlookMailboxList;
             this.PstParams = pstParams;
             this.TargetFolderPath = targetFolderPath;
             this.TargetMailbox = targetMailbox;
@@ -103,7 +105,7 @@ namespace Cohesity.Model
                     this.OutlookMailboxList == input.OutlookMailboxList ||
                     this.OutlookMailboxList != null &&
                     input.OutlookMailboxList != null &&
-                    this.OutlookMailboxList.Equals(input.OutlookMailboxList)
+                    this.OutlookMailboxList.SequenceEqual(input.OutlookMailboxList)
                 ) && 
                 (
                     this.PstParams == input.PstParams ||

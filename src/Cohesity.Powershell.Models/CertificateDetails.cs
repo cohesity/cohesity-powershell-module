@@ -145,7 +145,7 @@ namespace Cohesity.Model
                     this.HostIps == input.HostIps ||
                     this.HostIps != null &&
                     input.HostIps != null &&
-                    this.HostIps.Equals(input.HostIps)
+                    this.HostIps.SequenceEqual(input.HostIps)
                 ) && 
                 (
                     this.Type == input.Type ||

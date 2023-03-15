@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.DomainControllers == input.DomainControllers ||
                     this.DomainControllers != null &&
                     input.DomainControllers != null &&
-                    this.DomainControllers.Equals(input.DomainControllers)
+                    this.DomainControllers.SequenceEqual(input.DomainControllers)
                 ) && 
                 (
                     this.DomainName == input.DomainName ||

@@ -132,7 +132,7 @@ namespace Cohesity.Model
                     this.FleetTags == input.FleetTags ||
                     this.FleetTags != null &&
                     input.FleetTags != null &&
-                    this.FleetTags.Equals(input.FleetTags)
+                    this.FleetTags.SequenceEqual(input.FleetTags)
                 );
         }
 

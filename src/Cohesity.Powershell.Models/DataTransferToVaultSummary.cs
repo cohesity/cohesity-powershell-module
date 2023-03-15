@@ -303,13 +303,13 @@ namespace Cohesity.Model
                     this.DataTransferPerProtectionJob == input.DataTransferPerProtectionJob ||
                     this.DataTransferPerProtectionJob != null &&
                     input.DataTransferPerProtectionJob != null &&
-                    this.DataTransferPerProtectionJob.Equals(input.DataTransferPerProtectionJob)
+                    this.DataTransferPerProtectionJob.SequenceEqual(input.DataTransferPerProtectionJob)
                 ) && 
                 (
                     this.LogicalDataTransferredBytesDuringTimeRange == input.LogicalDataTransferredBytesDuringTimeRange ||
                     this.LogicalDataTransferredBytesDuringTimeRange != null &&
                     input.LogicalDataTransferredBytesDuringTimeRange != null &&
-                    this.LogicalDataTransferredBytesDuringTimeRange.Equals(input.LogicalDataTransferredBytesDuringTimeRange)
+                    this.LogicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.LogicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.NumLogicalBytesTransferred == input.NumLogicalBytesTransferred ||
@@ -330,7 +330,7 @@ namespace Cohesity.Model
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
                     input.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    this.PhysicalDataTransferredBytesDuringTimeRange.Equals(input.PhysicalDataTransferredBytesDuringTimeRange)
+                    this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.StorageConsumedBytes == input.StorageConsumedBytes ||

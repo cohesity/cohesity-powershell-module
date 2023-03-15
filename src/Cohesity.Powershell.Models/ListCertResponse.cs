@@ -78,7 +78,7 @@ namespace Cohesity.Model
                     this.CertificateList == input.CertificateList ||
                     this.CertificateList != null &&
                     input.CertificateList != null &&
-                    this.CertificateList.Equals(input.CertificateList)
+                    this.CertificateList.SequenceEqual(input.CertificateList)
                 );
         }
 

@@ -40,6 +40,13 @@ namespace Cohesity.Model
             this.IsRegisteredBySp = isRegisteredBySp;
             this.RegisteringTenantId = registeringTenantId;
             this.Users = users;
+            this.EntityId = entityId;
+            this.Groups = groups;
+            this.IsInferred = isInferred;
+            this.IsRegisteredBySp = isRegisteredBySp;
+            this.RegisteringTenantId = registeringTenantId;
+            this.Tenant = tenant;
+            this.Users = users;
         }
         
         /// <summary>
@@ -135,7 +142,7 @@ namespace Cohesity.Model
                     this.Groups == input.Groups ||
                     this.Groups != null &&
                     input.Groups != null &&
-                    this.Groups.Equals(input.Groups)
+                    this.Groups.SequenceEqual(input.Groups)
                 ) && 
                 (
                     this.IsInferred == input.IsInferred ||
@@ -161,7 +168,7 @@ namespace Cohesity.Model
                     this.Users == input.Users ||
                     this.Users != null &&
                     input.Users != null &&
-                    this.Users.Equals(input.Users)
+                    this.Users.SequenceEqual(input.Users)
                 );
         }
 

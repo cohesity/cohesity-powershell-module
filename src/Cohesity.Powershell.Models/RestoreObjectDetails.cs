@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -333,6 +328,16 @@ namespace Cohesity.Model
         /// <param name="startedTimeUsecs">Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds)..</param>
         public RestoreObjectDetails(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), EnvironmentEnum? environment = default(EnvironmentEnum?), long? jobId = default(long?), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), long? pointInTimeUsecs = default(long?), long? protectionSourceId = default(long?), string sourceName = default(string), long? startedTimeUsecs = default(long?))
         {
+            this.ArchivalTarget = archivalTarget;
+            this.CloudDeployTarget = cloudDeployTarget;
+            this.Environment = environment;
+            this.JobId = jobId;
+            this.JobRunId = jobRunId;
+            this.JobUid = jobUid;
+            this.PointInTimeUsecs = pointInTimeUsecs;
+            this.ProtectionSourceId = protectionSourceId;
+            this.SourceName = sourceName;
+            this.StartedTimeUsecs = startedTimeUsecs;
             this.ArchivalTarget = archivalTarget;
             this.CloudDeployTarget = cloudDeployTarget;
             this.Environment = environment;

@@ -260,7 +260,7 @@ namespace Cohesity.Model
                     this.BackupUnsupportedReasons == input.BackupUnsupportedReasons ||
                     this.BackupUnsupportedReasons != null &&
                     input.BackupUnsupportedReasons != null &&
-                    this.BackupUnsupportedReasons.Equals(input.BackupUnsupportedReasons)
+                    this.BackupUnsupportedReasons.SequenceEqual(input.BackupUnsupportedReasons)
                 ) && 
                 (
                     this.CopyGuid == input.CopyGuid ||

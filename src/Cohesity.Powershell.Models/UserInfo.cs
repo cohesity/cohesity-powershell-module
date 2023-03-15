@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.Sid = sid;
             this.TenantId = tenantId;
             this.UserName = userName;
+            this.Domain = domain;
+            this.Sid = sid;
+            this.TenantId = tenantId;
+            this.UserName = userName;
         }
         
         /// <summary>

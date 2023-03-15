@@ -150,6 +150,18 @@ namespace Cohesity.Model
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
             this.TenantId = tenantId;
+            this.Component = component;
+            this.Description = description;
+            this.Id = id;
+            this.Ip = ip;
+            this.NetmaskBits = netmaskBits;
+            this.NetmaskIp4 = netmaskIp4;
+            this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
+            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
@@ -331,16 +343,13 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetmaskBits.GetHashCode();
                 if (this.NetmaskIp4 != null)
                     hashCode = hashCode * 59 + this.NetmaskIp4.GetHashCode();
-                if (this.NfsAccess != null)
-					hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
                 if (this.NfsAllSquash != null)
                     hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
-                if (this.S3Access != null)
-					hashCode = hashCode * 59 + this.S3Access.GetHashCode();
-                if (this.SmbAccess != null)
-					hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
+                hashCode = hashCode * 59 + this.S3Access.GetHashCode();
+                hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;

@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.Endpoints == input.Endpoints ||
                     this.Endpoints != null &&
                     input.Endpoints != null &&
-                    this.Endpoints.Equals(input.Endpoints)
+                    this.Endpoints.SequenceEqual(input.Endpoints)
                 ) && 
                 (
                     this.Type == input.Type ||

@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.SupportedFormats == input.SupportedFormats ||
                     this.SupportedFormats != null &&
                     input.SupportedFormats != null &&
-                    this.SupportedFormats.Equals(input.SupportedFormats)
+                    this.SupportedFormats.SequenceEqual(input.SupportedFormats)
                 );
         }
 

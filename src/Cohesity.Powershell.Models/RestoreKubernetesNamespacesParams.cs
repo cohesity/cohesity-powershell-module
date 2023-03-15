@@ -39,6 +39,14 @@ namespace Cohesity.Model
         {
             this.BackupClusterId = backupClusterId;
             this.BackupJobName = backupJobName;
+            this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.InitContainerImage = initContainerImage;
+            this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
+            this.ManagementNamespace = managementNamespace;
+            this.PodMetadataVec = podMetadataVec;
+            this.S3AccountId = s3AccountId;
+            this.BackupClusterId = backupClusterId;
+            this.BackupJobName = backupJobName;
             this.ClusterEntity = clusterEntity;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.InitContainerImage = initContainerImage;
@@ -192,7 +200,7 @@ namespace Cohesity.Model
                     this.PodMetadataVec == input.PodMetadataVec ||
                     this.PodMetadataVec != null &&
                     input.PodMetadataVec != null &&
-                    this.PodMetadataVec.Equals(input.PodMetadataVec)
+                    this.PodMetadataVec.SequenceEqual(input.PodMetadataVec)
                 ) && 
                 (
                     this.RenameRestoredObjectParam == input.RenameRestoredObjectParam ||

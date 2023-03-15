@@ -40,6 +40,15 @@ namespace Cohesity.Model
         {
             this.BytesTransferred = bytesTransferred;
             this.EndTimestampUsecs = endTimestampUsecs;
+            this.LogicalBytesTransferred = logicalBytesTransferred;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RelativeSnapshotDir = relativeSnapshotDir;
+            this.StartTimestampUsecs = startTimestampUsecs;
+            this.Status = status;
+            this.UptierExpiryTimestampUsecs = uptierExpiryTimestampUsecs;
+            this.BytesTransferred = bytesTransferred;
+            this.EndTimestampUsecs = endTimestampUsecs;
             this.Entity = entity;
             this.Error = error;
             this.LogicalBytesTransferred = logicalBytesTransferred;

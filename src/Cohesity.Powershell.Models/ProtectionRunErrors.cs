@@ -99,13 +99,13 @@ namespace Cohesity.Model
                     this.Errors == input.Errors ||
                     this.Errors != null &&
                     input.Errors != null &&
-                    this.Errors.Equals(input.Errors)
+                    this.Errors.SequenceEqual(input.Errors)
                 ) && 
                 (
                     this.FileNames == input.FileNames ||
                     this.FileNames != null &&
                     input.FileNames != null &&
-                    this.FileNames.Equals(input.FileNames)
+                    this.FileNames.SequenceEqual(input.FileNames)
                 ) && 
                 (
                     this.PaginationCookie == input.PaginationCookie ||

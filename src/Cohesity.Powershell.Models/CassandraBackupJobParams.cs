@@ -37,6 +37,10 @@ namespace Cohesity.Model
             this.RetentionPeriodInSecs = retentionPeriodInSecs;
             this.SelectedDataCenterVec = selectedDataCenterVec;
             this.CassandraAdditionalInfo = cassandraAdditionalInfo;
+            this.GraphHandlingEnabled = graphHandlingEnabled;
+            this.IsOnlyLogBackupJob = isOnlyLogBackupJob;
+            this.RetentionPeriodInSecs = retentionPeriodInSecs;
+            this.SelectedDataCenterVec = selectedDataCenterVec;
         }
         
         /// <summary>
@@ -133,7 +137,7 @@ namespace Cohesity.Model
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
                     input.SelectedDataCenterVec != null &&
-                    this.SelectedDataCenterVec.Equals(input.SelectedDataCenterVec)
+                    this.SelectedDataCenterVec.SequenceEqual(input.SelectedDataCenterVec)
                 );
         }
 

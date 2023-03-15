@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.StorageProfiles == input.StorageProfiles ||
                     this.StorageProfiles != null &&
                     input.StorageProfiles != null &&
-                    this.StorageProfiles.Equals(input.StorageProfiles)
+                    this.StorageProfiles.SequenceEqual(input.StorageProfiles)
                 );
         }
 

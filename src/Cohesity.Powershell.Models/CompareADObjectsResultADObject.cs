@@ -157,7 +157,7 @@ namespace Cohesity.Model
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
                     input.AttributeVec != null &&
-                    this.AttributeVec.Equals(input.AttributeVec)
+                    this.AttributeVec.SequenceEqual(input.AttributeVec)
                 ) && 
                 (
                     this.DestGuid == input.DestGuid ||

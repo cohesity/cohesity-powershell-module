@@ -23,58 +23,6 @@ namespace Cohesity.Model
     public partial class AcropolisProtectionSource :  IEquatable<AcropolisProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
-        /// </summary>
-        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum TypeEnum
-        {
-            /// <summary>
-            /// Enum KPrismCentral for value: kPrismCentral
-            /// </summary>
-            [EnumMember(Value = "kPrismCentral")]
-            KPrismCentral = 1,
-
-            /// <summary>
-            /// Enum KStandaloneCluster for value: kStandaloneCluster
-            /// </summary>
-            [EnumMember(Value = "kStandaloneCluster")]
-            KStandaloneCluster = 2,
-
-            /// <summary>
-            /// Enum KCluster for value: kCluster
-            /// </summary>
-            [EnumMember(Value = "kCluster")]
-            KCluster = 3,
-
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 4,
-
-            /// <summary>
-            /// Enum KVirtualMachine for value: kVirtualMachine
-            /// </summary>
-            [EnumMember(Value = "kVirtualMachine")]
-            KVirtualMachine = 5,
-
-            /// <summary>
-            /// Enum KNetwork for value: kNetwork
-            /// </summary>
-            [EnumMember(Value = "kNetwork")]
-            KNetwork = 6,
-
-            /// <summary>
-            /// Enum KStorageContainer for value: kStorageContainer
-            /// </summary>
-            [EnumMember(Value = "kStorageContainer")]
-            KStorageContainer = 7
-
-        }
-
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AcropolisProtectionSource" /> class.
         /// </summary>
         /// <param name="clusterUuid">Specifies the UUID of the Acropolis cluster instance to which this entity belongs to..</param>
@@ -89,7 +37,8 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc..</param>
         /// <param name="uuid">Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment..</param>
         /// <param name="version">Specifies the version of an Acropolis cluster or standalone cluster..</param>
-        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), int? type = default(int?), string uuid = default(string), string version = default(string))
+        /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
+        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), int? type = default(int?), string uuid = default(string), string version = default(string), List<VirtualDiskConfig> virtualDisks = default(List<VirtualDiskConfig>))
         {
             this.ClusterUuid = clusterUuid;
             this.Description = description;
@@ -103,6 +52,20 @@ namespace Cohesity.Model
             this.Type = type;
             this.Uuid = uuid;
             this.Version = version;
+            this.VirtualDisks = virtualDisks;
+            this.ClusterUuid = clusterUuid;
+            this.Description = description;
+            this.MountPath = mountPath;
+            this.Name = name;
+            this.NgtCapabilities = ngtCapabilities;
+            this.NgtEnableStatus = ngtEnableStatus;
+            this.NgtInstallStatus = ngtInstallStatus;
+            this.NgtReachable = ngtReachable;
+            this.NgtVersion = ngtVersion;
+            this.Type = type;
+            this.Uuid = uuid;
+            this.Version = version;
+            this.VirtualDisks = virtualDisks;
         }
         
         /// <summary>
@@ -190,6 +153,13 @@ namespace Cohesity.Model
         public string Version { get; set; }
 
         /// <summary>
+        /// Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.
+        /// </summary>
+        /// <value>Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.</value>
+        [DataMember(Name="virtualDisks", EmitDefaultValue=true)]
+        public List<VirtualDiskConfig> VirtualDisks { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -249,7 +219,7 @@ namespace Cohesity.Model
                     this.NgtCapabilities == input.NgtCapabilities ||
                     this.NgtCapabilities != null &&
                     input.NgtCapabilities != null &&
-                    this.NgtCapabilities.Equals(input.NgtCapabilities)
+                    this.NgtCapabilities.SequenceEqual(input.NgtCapabilities)
                 ) && 
                 (
                     this.NgtEnableStatus == input.NgtEnableStatus ||
@@ -285,6 +255,12 @@ namespace Cohesity.Model
                     this.Version == input.Version ||
                     (this.Version != null &&
                     this.Version.Equals(input.Version))
+                ) && 
+                (
+                    this.VirtualDisks == input.VirtualDisks ||
+                    this.VirtualDisks != null &&
+                    input.VirtualDisks != null &&
+                    this.VirtualDisks.SequenceEqual(input.VirtualDisks)
                 );
         }
 
@@ -321,6 +297,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
+                if (this.VirtualDisks != null)
+                    hashCode = hashCode * 59 + this.VirtualDisks.GetHashCode();
                 return hashCode;
             }
         }

@@ -33,6 +33,10 @@ namespace Cohesity.Model
         public SqlAagHostAndDatabases(List<AagAndDatabases> aagDatabases = default(List<AagAndDatabases>), ProtectionSourceNode applicationNode = default(ProtectionSourceNode), List<ProtectionSource> databases = default(List<ProtectionSource>), string errorMessage = default(string), string unknownHostName = default(string))
         {
             this.AagDatabases = aagDatabases;
+            this.Databases = databases;
+            this.ErrorMessage = errorMessage;
+            this.UnknownHostName = unknownHostName;
+            this.AagDatabases = aagDatabases;
             this.ApplicationNode = applicationNode;
             this.Databases = databases;
             this.ErrorMessage = errorMessage;
@@ -113,7 +117,7 @@ namespace Cohesity.Model
                     this.AagDatabases == input.AagDatabases ||
                     this.AagDatabases != null &&
                     input.AagDatabases != null &&
-                    this.AagDatabases.Equals(input.AagDatabases)
+                    this.AagDatabases.SequenceEqual(input.AagDatabases)
                 ) && 
                 (
                     this.ApplicationNode == input.ApplicationNode ||
@@ -124,7 +128,7 @@ namespace Cohesity.Model
                     this.Databases == input.Databases ||
                     this.Databases != null &&
                     input.Databases != null &&
-                    this.Databases.Equals(input.Databases)
+                    this.Databases.SequenceEqual(input.Databases)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

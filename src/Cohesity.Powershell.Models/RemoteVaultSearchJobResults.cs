@@ -272,7 +272,7 @@ namespace Cohesity.Model
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.Equals(input.ProtectionJobs)
+                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.SearchJobStatus == input.SearchJobStatus ||

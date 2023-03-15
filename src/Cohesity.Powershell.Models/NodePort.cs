@@ -74,6 +74,10 @@ namespace Cohesity.Model
             this.Port = port;
             this.ServiceName = serviceName;
             this.Tag = tag;
+            this.IsUiPort = isUiPort;
+            this.Port = port;
+            this.ServiceName = serviceName;
+            this.Tag = tag;
         }
         
         /// <summary>
@@ -166,8 +170,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
                 if (this.ServiceName != null)
                     hashCode = hashCode * 59 + this.ServiceName.GetHashCode();
-                if (this.Tag != null)
-					hashCode = hashCode * 59 + this.Tag.GetHashCode();
+                hashCode = hashCode * 59 + this.Tag.GetHashCode();
                 return hashCode;
             }
         }

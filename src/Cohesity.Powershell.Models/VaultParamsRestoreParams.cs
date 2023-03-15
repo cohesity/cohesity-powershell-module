@@ -30,6 +30,7 @@ namespace Cohesity.Model
         public VaultParamsRestoreParams(bool? allowMarkedForRemoval = default(bool?), VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
         {
             this.AllowMarkedForRemoval = allowMarkedForRemoval;
+            this.AllowMarkedForRemoval = allowMarkedForRemoval;
             this.Glacier = glacier;
         }
         

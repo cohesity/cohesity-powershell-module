@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.PdbEntityInfoVec == input.PdbEntityInfoVec ||
                     this.PdbEntityInfoVec != null &&
                     input.PdbEntityInfoVec != null &&
-                    this.PdbEntityInfoVec.Equals(input.PdbEntityInfoVec)
+                    this.PdbEntityInfoVec.SequenceEqual(input.PdbEntityInfoVec)
                 );
         }
 

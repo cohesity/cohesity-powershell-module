@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.OwnerSid = ownerSid;
             this.Permissions = permissions;
+            this.OwnerSid = ownerSid;
+            this.Permissions = permissions;
         }
         
         /// <summary>
@@ -92,7 +94,7 @@ namespace Cohesity.Model
                     this.Permissions == input.Permissions ||
                     this.Permissions != null &&
                     input.Permissions != null &&
-                    this.Permissions.Equals(input.Permissions)
+                    this.Permissions.SequenceEqual(input.Permissions)
                 );
         }
 

@@ -43,6 +43,14 @@ namespace Cohesity.Model
             this.IconImage = iconImage;
             this.LastModifiedDate = lastModifiedDate;
             this.Name = name;
+            this.Author = author;
+            this.CreatedDate = createdDate;
+            this.DeploymentParameters = deploymentParameters;
+            this.Description = description;
+            this.DevVersion = devVersion;
+            this.IconImage = iconImage;
+            this.LastModifiedDate = lastModifiedDate;
+            this.Name = name;
         }
         
         /// <summary>

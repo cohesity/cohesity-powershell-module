@@ -109,6 +109,14 @@ namespace Cohesity.Model
             this.Password = password;
             this.SkipValidation = skipValidation;
             this.Username = username;
+            this.Domain = domain;
+            this.DomainController = domainController;
+            this.ManagePasswordByCohesity = managePasswordByCohesity;
+            this.NasProtocol = nasProtocol;
+            this.NasType = nasType;
+            this.Password = password;
+            this.SkipValidation = skipValidation;
+            this.Username = username;
         }
         
         /// <summary>

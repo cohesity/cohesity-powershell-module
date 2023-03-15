@@ -112,6 +112,14 @@ namespace Cohesity.Model
             this.Password = password;
             this.ShareType = shareType;
             this.Username = username;
+            this.Host = host;
+            this.KerberosRealmName = kerberosRealmName;
+            this.MountPath = mountPath;
+            this.NfsSecurityType = nfsSecurityType;
+            this.NfsVersionNumber = nfsVersionNumber;
+            this.Password = password;
+            this.ShareType = shareType;
+            this.Username = username;
         }
         
         /// <summary>
@@ -239,14 +247,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KerberosRealmName.GetHashCode();
                 if (this.MountPath != null)
                     hashCode = hashCode * 59 + this.MountPath.GetHashCode();
-                if (this.NfsSecurityType != null)
-					hashCode = hashCode * 59 + this.NfsSecurityType.GetHashCode();
-                if (this.NfsVersionNumber != null)
-					hashCode = hashCode * 59 + this.NfsVersionNumber.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsSecurityType.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsVersionNumber.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
-                if (this.ShareType != null)
-					hashCode = hashCode * 59 + this.ShareType.GetHashCode();
+                hashCode = hashCode * 59 + this.ShareType.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

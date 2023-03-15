@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
                     input.NodeIds != null &&
-                    this.NodeIds.Equals(input.NodeIds)
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 ) && 
                 (
                     this.TargetSwVersion == input.TargetSwVersion ||

@@ -122,7 +122,7 @@ namespace Cohesity.Model
                     this.RenamePdbMap == input.RenamePdbMap ||
                     this.RenamePdbMap != null &&
                     input.RenamePdbMap != null &&
-                    this.RenamePdbMap.Equals(input.RenamePdbMap)
+                    this.RenamePdbMap.SequenceEqual(input.RenamePdbMap)
                 );
         }
 

@@ -235,6 +235,18 @@ namespace Cohesity.Model
             this.ExtendedStyle = extendedStyle;
             this.JunctionPath = junctionPath;
             this.Name = name;
+            this.State = state;
+            this.Type = type;
+            this.UsedBytes = usedBytes;
+            this.AggregateName = aggregateName;
+            this.CapacityBytes = capacityBytes;
+            this.CifsShares = cifsShares;
+            this.CreationTimeUsecs = creationTimeUsecs;
+            this.DataProtocols = dataProtocols;
+            this.ExportPolicyName = exportPolicyName;
+            this.ExtendedStyle = extendedStyle;
+            this.JunctionPath = junctionPath;
+            this.Name = name;
             this.SecurityInfo = securityInfo;
             this.State = state;
             this.Type = type;
@@ -353,7 +365,7 @@ namespace Cohesity.Model
                     this.CifsShares == input.CifsShares ||
                     this.CifsShares != null &&
                     input.CifsShares != null &&
-                    this.CifsShares.Equals(input.CifsShares)
+                    this.CifsShares.SequenceEqual(input.CifsShares)
                 ) && 
                 (
                     this.CreationTimeUsecs == input.CreationTimeUsecs ||
@@ -362,7 +374,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.Equals(input.DataProtocols)
+                    this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (
                     this.ExportPolicyName == input.ExportPolicyName ||
@@ -420,22 +432,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CifsShares.GetHashCode();
                 if (this.CreationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.CreationTimeUsecs.GetHashCode();
-                if (this.DataProtocols != null)
-					hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.ExportPolicyName != null)
                     hashCode = hashCode * 59 + this.ExportPolicyName.GetHashCode();
-                if (this.ExtendedStyle != null)
-					hashCode = hashCode * 59 + this.ExtendedStyle.GetHashCode();
+                hashCode = hashCode * 59 + this.ExtendedStyle.GetHashCode();
                 if (this.JunctionPath != null)
                     hashCode = hashCode * 59 + this.JunctionPath.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SecurityInfo != null)
                     hashCode = hashCode * 59 + this.SecurityInfo.GetHashCode();
-                if (this.State != null)
-					hashCode = hashCode * 59 + this.State.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.State.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UsedBytes != null)
                     hashCode = hashCode * 59 + this.UsedBytes.GetHashCode();
                 return hashCode;

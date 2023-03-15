@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.DocErrors == input.DocErrors ||
                     this.DocErrors != null &&
                     input.DocErrors != null &&
-                    this.DocErrors.Equals(input.DocErrors)
+                    this.DocErrors.SequenceEqual(input.DocErrors)
                 );
         }
 

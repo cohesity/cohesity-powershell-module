@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.NodeChannelList == input.NodeChannelList ||
                     this.NodeChannelList != null &&
                     input.NodeChannelList != null &&
-                    this.NodeChannelList.Equals(input.NodeChannelList)
+                    this.NodeChannelList.SequenceEqual(input.NodeChannelList)
                 );
         }
 

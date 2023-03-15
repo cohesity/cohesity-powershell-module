@@ -164,6 +164,20 @@ namespace Cohesity.Model
             this.IsProxyHost = isProxyHost;
             this.MemorySizeBytes = memorySizeBytes;
             this.Name = name;
+            this.NumProcessors = numProcessors;
+            this.OsName = osName;
+            this.Type = type;
+            this.VcsVersion = vcsVersion;
+            this.Volumes = volumes;
+            this.Vsswriters = vsswriters;
+            this.Agents = agents;
+            this.ClusterSourceType = clusterSourceType;
+            this.HostName = hostName;
+            this.HostType = hostType;
+            this.Id = id;
+            this.IsProxyHost = isProxyHost;
+            this.MemorySizeBytes = memorySizeBytes;
+            this.Name = name;
             this.NetworkingInfo = networkingInfo;
             this.NumProcessors = numProcessors;
             this.OsName = osName;
@@ -303,7 +317,7 @@ namespace Cohesity.Model
                     this.Agents == input.Agents ||
                     this.Agents != null &&
                     input.Agents != null &&
-                    this.Agents.Equals(input.Agents)
+                    this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
                     this.ClusterSourceType == input.ClusterSourceType ||
@@ -367,13 +381,13 @@ namespace Cohesity.Model
                     this.Volumes == input.Volumes ||
                     this.Volumes != null &&
                     input.Volumes != null &&
-                    this.Volumes.Equals(input.Volumes)
+                    this.Volumes.SequenceEqual(input.Volumes)
                 ) && 
                 (
                     this.Vsswriters == input.Vsswriters ||
                     this.Vsswriters != null &&
                     input.Vsswriters != null &&
-                    this.Vsswriters.Equals(input.Vsswriters)
+                    this.Vsswriters.SequenceEqual(input.Vsswriters)
                 );
         }
 

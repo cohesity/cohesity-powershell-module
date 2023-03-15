@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,61 +25,117 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ActiveAlertsStats" /> class.
         /// </summary>
-        /// <param name="numCriticalAlerts">Specifies the count of active critical Alerts..</param>
+        /// <param name="numCriticalAlerts">Specifies the count of active critical Alerts excluding alerts that belong to other bucket..</param>
+        /// <param name="numCriticalAlertsCategories">Specifies the count of active critical alerts categories..</param>
+        /// <param name="numDataServiceAlerts">Specifies the count of active service Alerts..</param>
+        /// <param name="numDataServiceCriticalAlerts">Specifies the count of active service critical Alerts..</param>
+        /// <param name="numDataServiceInfoAlerts">Specifies the count of active service info Alerts..</param>
+        /// <param name="numDataServiceWarningAlerts">Specifies the count of active service warning Alerts..</param>
         /// <param name="numHardwareAlerts">Specifies the count of active hardware Alerts..</param>
         /// <param name="numHardwareCriticalAlerts">Specifies the count of active hardware critical Alerts..</param>
         /// <param name="numHardwareInfoAlerts">Specifies the count of active hardware info Alerts..</param>
         /// <param name="numHardwareWarningAlerts">Specifies the count of active hardware warning Alerts..</param>
-        /// <param name="numInfoAlerts">Specifies the count of active info Alerts..</param>
-        /// <param name="numServiceAlerts">Specifies the count of active service Alerts..</param>
-        /// <param name="numServiceCriticalAlerts">Specifies the count of active service critical Alerts..</param>
-        /// <param name="numServiceInfoAlerts">Specifies the count of active service info Alerts..</param>
-        /// <param name="numServiceWarningAlerts">Specifies the count of active service warning Alerts..</param>
+        /// <param name="numInfoAlerts">Specifies the count of active info Alerts excluding alerts that belong to other bucket..</param>
+        /// <param name="numInfoAlertsCategories">Specifies the count of active info alerts categories..</param>
+        /// <param name="numMaintenanceAlerts">Specifies the count of active Alerts of maintenance bucket.</param>
+        /// <param name="numMaintenanceCriticalAlerts">Specifies the count of active other critical Alerts..</param>
+        /// <param name="numMaintenanceInfoAlerts">Specifies the count of active other info Alerts..</param>
+        /// <param name="numMaintenanceWarningAlerts">Specifies the count of active other warning Alerts..</param>
         /// <param name="numSoftwareAlerts">Specifies the count of active software Alerts..</param>
         /// <param name="numSoftwareCriticalAlerts">Specifies the count of active software critical Alerts..</param>
         /// <param name="numSoftwareInfoAlerts">Specifies the count of active software info Alerts..</param>
         /// <param name="numSoftwareWarningAlerts">Specifies the count of active software warning Alerts..</param>
-        /// <param name="numWarningAlerts">Specifies the count of active warning Alerts..</param>
-        public ActiveAlertsStats(long? numCriticalAlerts = default(long?), long? numHardwareAlerts = default(long?), long? numHardwareCriticalAlerts = default(long?), long? numHardwareInfoAlerts = default(long?), long? numHardwareWarningAlerts = default(long?), long? numInfoAlerts = default(long?), long? numServiceAlerts = default(long?), long? numServiceCriticalAlerts = default(long?), long? numServiceInfoAlerts = default(long?), long? numServiceWarningAlerts = default(long?), long? numSoftwareAlerts = default(long?), long? numSoftwareCriticalAlerts = default(long?), long? numSoftwareInfoAlerts = default(long?), long? numSoftwareWarningAlerts = default(long?), long? numWarningAlerts = default(long?))
+        /// <param name="numWarningAlerts">Specifies the count of active warning Alerts excluding alerts that belong to other bucket..</param>
+        /// <param name="numWarningAlertsCategories">Specifies the count of active warning alerts categories..</param>
+        public ActiveAlertsStats(long? numCriticalAlerts = default(long?), long? numCriticalAlertsCategories = default(long?), long? numDataServiceAlerts = default(long?), long? numDataServiceCriticalAlerts = default(long?), long? numDataServiceInfoAlerts = default(long?), long? numDataServiceWarningAlerts = default(long?), long? numHardwareAlerts = default(long?), long? numHardwareCriticalAlerts = default(long?), long? numHardwareInfoAlerts = default(long?), long? numHardwareWarningAlerts = default(long?), long? numInfoAlerts = default(long?), long? numInfoAlertsCategories = default(long?), long? numMaintenanceAlerts = default(long?), long? numMaintenanceCriticalAlerts = default(long?), long? numMaintenanceInfoAlerts = default(long?), long? numMaintenanceWarningAlerts = default(long?), long? numSoftwareAlerts = default(long?), long? numSoftwareCriticalAlerts = default(long?), long? numSoftwareInfoAlerts = default(long?), long? numSoftwareWarningAlerts = default(long?), long? numWarningAlerts = default(long?), long? numWarningAlertsCategories = default(long?))
         {
             this.NumCriticalAlerts = numCriticalAlerts;
+            this.NumCriticalAlertsCategories = numCriticalAlertsCategories;
+            this.NumDataServiceAlerts = numDataServiceAlerts;
+            this.NumDataServiceCriticalAlerts = numDataServiceCriticalAlerts;
+            this.NumDataServiceInfoAlerts = numDataServiceInfoAlerts;
+            this.NumDataServiceWarningAlerts = numDataServiceWarningAlerts;
             this.NumHardwareAlerts = numHardwareAlerts;
             this.NumHardwareCriticalAlerts = numHardwareCriticalAlerts;
             this.NumHardwareInfoAlerts = numHardwareInfoAlerts;
             this.NumHardwareWarningAlerts = numHardwareWarningAlerts;
             this.NumInfoAlerts = numInfoAlerts;
-            this.NumServiceAlerts = numServiceAlerts;
-            this.NumServiceCriticalAlerts = numServiceCriticalAlerts;
-            this.NumServiceInfoAlerts = numServiceInfoAlerts;
-            this.NumServiceWarningAlerts = numServiceWarningAlerts;
+            this.NumInfoAlertsCategories = numInfoAlertsCategories;
+            this.NumMaintenanceAlerts = numMaintenanceAlerts;
+            this.NumMaintenanceCriticalAlerts = numMaintenanceCriticalAlerts;
+            this.NumMaintenanceInfoAlerts = numMaintenanceInfoAlerts;
+            this.NumMaintenanceWarningAlerts = numMaintenanceWarningAlerts;
             this.NumSoftwareAlerts = numSoftwareAlerts;
             this.NumSoftwareCriticalAlerts = numSoftwareCriticalAlerts;
             this.NumSoftwareInfoAlerts = numSoftwareInfoAlerts;
             this.NumSoftwareWarningAlerts = numSoftwareWarningAlerts;
             this.NumWarningAlerts = numWarningAlerts;
+            this.NumWarningAlertsCategories = numWarningAlertsCategories;
             this.NumCriticalAlerts = numCriticalAlerts;
+            this.NumCriticalAlertsCategories = numCriticalAlertsCategories;
+            this.NumDataServiceAlerts = numDataServiceAlerts;
+            this.NumDataServiceCriticalAlerts = numDataServiceCriticalAlerts;
+            this.NumDataServiceInfoAlerts = numDataServiceInfoAlerts;
+            this.NumDataServiceWarningAlerts = numDataServiceWarningAlerts;
             this.NumHardwareAlerts = numHardwareAlerts;
             this.NumHardwareCriticalAlerts = numHardwareCriticalAlerts;
             this.NumHardwareInfoAlerts = numHardwareInfoAlerts;
             this.NumHardwareWarningAlerts = numHardwareWarningAlerts;
             this.NumInfoAlerts = numInfoAlerts;
-            this.NumServiceAlerts = numServiceAlerts;
-            this.NumServiceCriticalAlerts = numServiceCriticalAlerts;
-            this.NumServiceInfoAlerts = numServiceInfoAlerts;
-            this.NumServiceWarningAlerts = numServiceWarningAlerts;
+            this.NumInfoAlertsCategories = numInfoAlertsCategories;
+            this.NumMaintenanceAlerts = numMaintenanceAlerts;
+            this.NumMaintenanceCriticalAlerts = numMaintenanceCriticalAlerts;
+            this.NumMaintenanceInfoAlerts = numMaintenanceInfoAlerts;
+            this.NumMaintenanceWarningAlerts = numMaintenanceWarningAlerts;
             this.NumSoftwareAlerts = numSoftwareAlerts;
             this.NumSoftwareCriticalAlerts = numSoftwareCriticalAlerts;
             this.NumSoftwareInfoAlerts = numSoftwareInfoAlerts;
             this.NumSoftwareWarningAlerts = numSoftwareWarningAlerts;
             this.NumWarningAlerts = numWarningAlerts;
+            this.NumWarningAlertsCategories = numWarningAlertsCategories;
         }
         
         /// <summary>
-        /// Specifies the count of active critical Alerts.
+        /// Specifies the count of active critical Alerts excluding alerts that belong to other bucket.
         /// </summary>
-        /// <value>Specifies the count of active critical Alerts.</value>
+        /// <value>Specifies the count of active critical Alerts excluding alerts that belong to other bucket.</value>
         [DataMember(Name="numCriticalAlerts", EmitDefaultValue=true)]
         public long? NumCriticalAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active critical alerts categories.
+        /// </summary>
+        /// <value>Specifies the count of active critical alerts categories.</value>
+        [DataMember(Name="numCriticalAlertsCategories", EmitDefaultValue=true)]
+        public long? NumCriticalAlertsCategories { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active service Alerts.
+        /// </summary>
+        /// <value>Specifies the count of active service Alerts.</value>
+        [DataMember(Name="numDataServiceAlerts", EmitDefaultValue=true)]
+        public long? NumDataServiceAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active service critical Alerts.
+        /// </summary>
+        /// <value>Specifies the count of active service critical Alerts.</value>
+        [DataMember(Name="numDataServiceCriticalAlerts", EmitDefaultValue=true)]
+        public long? NumDataServiceCriticalAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active service info Alerts.
+        /// </summary>
+        /// <value>Specifies the count of active service info Alerts.</value>
+        [DataMember(Name="numDataServiceInfoAlerts", EmitDefaultValue=true)]
+        public long? NumDataServiceInfoAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active service warning Alerts.
+        /// </summary>
+        /// <value>Specifies the count of active service warning Alerts.</value>
+        [DataMember(Name="numDataServiceWarningAlerts", EmitDefaultValue=true)]
+        public long? NumDataServiceWarningAlerts { get; set; }
 
         /// <summary>
         /// Specifies the count of active hardware Alerts.
@@ -108,39 +166,46 @@ namespace Cohesity.Model
         public long? NumHardwareWarningAlerts { get; set; }
 
         /// <summary>
-        /// Specifies the count of active info Alerts.
+        /// Specifies the count of active info Alerts excluding alerts that belong to other bucket.
         /// </summary>
-        /// <value>Specifies the count of active info Alerts.</value>
+        /// <value>Specifies the count of active info Alerts excluding alerts that belong to other bucket.</value>
         [DataMember(Name="numInfoAlerts", EmitDefaultValue=true)]
         public long? NumInfoAlerts { get; set; }
 
         /// <summary>
-        /// Specifies the count of active service Alerts.
+        /// Specifies the count of active info alerts categories.
         /// </summary>
-        /// <value>Specifies the count of active service Alerts.</value>
-        [DataMember(Name="numServiceAlerts", EmitDefaultValue=true)]
-        public long? NumServiceAlerts { get; set; }
+        /// <value>Specifies the count of active info alerts categories.</value>
+        [DataMember(Name="numInfoAlertsCategories", EmitDefaultValue=true)]
+        public long? NumInfoAlertsCategories { get; set; }
 
         /// <summary>
-        /// Specifies the count of active service critical Alerts.
+        /// Specifies the count of active Alerts of maintenance bucket
         /// </summary>
-        /// <value>Specifies the count of active service critical Alerts.</value>
-        [DataMember(Name="numServiceCriticalAlerts", EmitDefaultValue=true)]
-        public long? NumServiceCriticalAlerts { get; set; }
+        /// <value>Specifies the count of active Alerts of maintenance bucket</value>
+        [DataMember(Name="numMaintenanceAlerts", EmitDefaultValue=true)]
+        public long? NumMaintenanceAlerts { get; set; }
 
         /// <summary>
-        /// Specifies the count of active service info Alerts.
+        /// Specifies the count of active other critical Alerts.
         /// </summary>
-        /// <value>Specifies the count of active service info Alerts.</value>
-        [DataMember(Name="numServiceInfoAlerts", EmitDefaultValue=true)]
-        public long? NumServiceInfoAlerts { get; set; }
+        /// <value>Specifies the count of active other critical Alerts.</value>
+        [DataMember(Name="numMaintenanceCriticalAlerts", EmitDefaultValue=true)]
+        public long? NumMaintenanceCriticalAlerts { get; set; }
 
         /// <summary>
-        /// Specifies the count of active service warning Alerts.
+        /// Specifies the count of active other info Alerts.
         /// </summary>
-        /// <value>Specifies the count of active service warning Alerts.</value>
-        [DataMember(Name="numServiceWarningAlerts", EmitDefaultValue=true)]
-        public long? NumServiceWarningAlerts { get; set; }
+        /// <value>Specifies the count of active other info Alerts.</value>
+        [DataMember(Name="numMaintenanceInfoAlerts", EmitDefaultValue=true)]
+        public long? NumMaintenanceInfoAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active other warning Alerts.
+        /// </summary>
+        /// <value>Specifies the count of active other warning Alerts.</value>
+        [DataMember(Name="numMaintenanceWarningAlerts", EmitDefaultValue=true)]
+        public long? NumMaintenanceWarningAlerts { get; set; }
 
         /// <summary>
         /// Specifies the count of active software Alerts.
@@ -171,11 +236,18 @@ namespace Cohesity.Model
         public long? NumSoftwareWarningAlerts { get; set; }
 
         /// <summary>
-        /// Specifies the count of active warning Alerts.
+        /// Specifies the count of active warning Alerts excluding alerts that belong to other bucket.
         /// </summary>
-        /// <value>Specifies the count of active warning Alerts.</value>
+        /// <value>Specifies the count of active warning Alerts excluding alerts that belong to other bucket.</value>
         [DataMember(Name="numWarningAlerts", EmitDefaultValue=true)]
         public long? NumWarningAlerts { get; set; }
+
+        /// <summary>
+        /// Specifies the count of active warning alerts categories.
+        /// </summary>
+        /// <value>Specifies the count of active warning alerts categories.</value>
+        [DataMember(Name="numWarningAlertsCategories", EmitDefaultValue=true)]
+        public long? NumWarningAlertsCategories { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -219,6 +291,31 @@ namespace Cohesity.Model
                     this.NumCriticalAlerts.Equals(input.NumCriticalAlerts))
                 ) && 
                 (
+                    this.NumCriticalAlertsCategories == input.NumCriticalAlertsCategories ||
+                    (this.NumCriticalAlertsCategories != null &&
+                    this.NumCriticalAlertsCategories.Equals(input.NumCriticalAlertsCategories))
+                ) && 
+                (
+                    this.NumDataServiceAlerts == input.NumDataServiceAlerts ||
+                    (this.NumDataServiceAlerts != null &&
+                    this.NumDataServiceAlerts.Equals(input.NumDataServiceAlerts))
+                ) && 
+                (
+                    this.NumDataServiceCriticalAlerts == input.NumDataServiceCriticalAlerts ||
+                    (this.NumDataServiceCriticalAlerts != null &&
+                    this.NumDataServiceCriticalAlerts.Equals(input.NumDataServiceCriticalAlerts))
+                ) && 
+                (
+                    this.NumDataServiceInfoAlerts == input.NumDataServiceInfoAlerts ||
+                    (this.NumDataServiceInfoAlerts != null &&
+                    this.NumDataServiceInfoAlerts.Equals(input.NumDataServiceInfoAlerts))
+                ) && 
+                (
+                    this.NumDataServiceWarningAlerts == input.NumDataServiceWarningAlerts ||
+                    (this.NumDataServiceWarningAlerts != null &&
+                    this.NumDataServiceWarningAlerts.Equals(input.NumDataServiceWarningAlerts))
+                ) && 
+                (
                     this.NumHardwareAlerts == input.NumHardwareAlerts ||
                     (this.NumHardwareAlerts != null &&
                     this.NumHardwareAlerts.Equals(input.NumHardwareAlerts))
@@ -244,24 +341,29 @@ namespace Cohesity.Model
                     this.NumInfoAlerts.Equals(input.NumInfoAlerts))
                 ) && 
                 (
-                    this.NumServiceAlerts == input.NumServiceAlerts ||
-                    (this.NumServiceAlerts != null &&
-                    this.NumServiceAlerts.Equals(input.NumServiceAlerts))
+                    this.NumInfoAlertsCategories == input.NumInfoAlertsCategories ||
+                    (this.NumInfoAlertsCategories != null &&
+                    this.NumInfoAlertsCategories.Equals(input.NumInfoAlertsCategories))
                 ) && 
                 (
-                    this.NumServiceCriticalAlerts == input.NumServiceCriticalAlerts ||
-                    (this.NumServiceCriticalAlerts != null &&
-                    this.NumServiceCriticalAlerts.Equals(input.NumServiceCriticalAlerts))
+                    this.NumMaintenanceAlerts == input.NumMaintenanceAlerts ||
+                    (this.NumMaintenanceAlerts != null &&
+                    this.NumMaintenanceAlerts.Equals(input.NumMaintenanceAlerts))
                 ) && 
                 (
-                    this.NumServiceInfoAlerts == input.NumServiceInfoAlerts ||
-                    (this.NumServiceInfoAlerts != null &&
-                    this.NumServiceInfoAlerts.Equals(input.NumServiceInfoAlerts))
+                    this.NumMaintenanceCriticalAlerts == input.NumMaintenanceCriticalAlerts ||
+                    (this.NumMaintenanceCriticalAlerts != null &&
+                    this.NumMaintenanceCriticalAlerts.Equals(input.NumMaintenanceCriticalAlerts))
                 ) && 
                 (
-                    this.NumServiceWarningAlerts == input.NumServiceWarningAlerts ||
-                    (this.NumServiceWarningAlerts != null &&
-                    this.NumServiceWarningAlerts.Equals(input.NumServiceWarningAlerts))
+                    this.NumMaintenanceInfoAlerts == input.NumMaintenanceInfoAlerts ||
+                    (this.NumMaintenanceInfoAlerts != null &&
+                    this.NumMaintenanceInfoAlerts.Equals(input.NumMaintenanceInfoAlerts))
+                ) && 
+                (
+                    this.NumMaintenanceWarningAlerts == input.NumMaintenanceWarningAlerts ||
+                    (this.NumMaintenanceWarningAlerts != null &&
+                    this.NumMaintenanceWarningAlerts.Equals(input.NumMaintenanceWarningAlerts))
                 ) && 
                 (
                     this.NumSoftwareAlerts == input.NumSoftwareAlerts ||
@@ -287,6 +389,11 @@ namespace Cohesity.Model
                     this.NumWarningAlerts == input.NumWarningAlerts ||
                     (this.NumWarningAlerts != null &&
                     this.NumWarningAlerts.Equals(input.NumWarningAlerts))
+                ) && 
+                (
+                    this.NumWarningAlertsCategories == input.NumWarningAlertsCategories ||
+                    (this.NumWarningAlertsCategories != null &&
+                    this.NumWarningAlertsCategories.Equals(input.NumWarningAlertsCategories))
                 );
         }
 
@@ -301,6 +408,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.NumCriticalAlerts != null)
                     hashCode = hashCode * 59 + this.NumCriticalAlerts.GetHashCode();
+                if (this.NumCriticalAlertsCategories != null)
+                    hashCode = hashCode * 59 + this.NumCriticalAlertsCategories.GetHashCode();
+                if (this.NumDataServiceAlerts != null)
+                    hashCode = hashCode * 59 + this.NumDataServiceAlerts.GetHashCode();
+                if (this.NumDataServiceCriticalAlerts != null)
+                    hashCode = hashCode * 59 + this.NumDataServiceCriticalAlerts.GetHashCode();
+                if (this.NumDataServiceInfoAlerts != null)
+                    hashCode = hashCode * 59 + this.NumDataServiceInfoAlerts.GetHashCode();
+                if (this.NumDataServiceWarningAlerts != null)
+                    hashCode = hashCode * 59 + this.NumDataServiceWarningAlerts.GetHashCode();
                 if (this.NumHardwareAlerts != null)
                     hashCode = hashCode * 59 + this.NumHardwareAlerts.GetHashCode();
                 if (this.NumHardwareCriticalAlerts != null)
@@ -311,14 +428,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumHardwareWarningAlerts.GetHashCode();
                 if (this.NumInfoAlerts != null)
                     hashCode = hashCode * 59 + this.NumInfoAlerts.GetHashCode();
-                if (this.NumServiceAlerts != null)
-                    hashCode = hashCode * 59 + this.NumServiceAlerts.GetHashCode();
-                if (this.NumServiceCriticalAlerts != null)
-                    hashCode = hashCode * 59 + this.NumServiceCriticalAlerts.GetHashCode();
-                if (this.NumServiceInfoAlerts != null)
-                    hashCode = hashCode * 59 + this.NumServiceInfoAlerts.GetHashCode();
-                if (this.NumServiceWarningAlerts != null)
-                    hashCode = hashCode * 59 + this.NumServiceWarningAlerts.GetHashCode();
+                if (this.NumInfoAlertsCategories != null)
+                    hashCode = hashCode * 59 + this.NumInfoAlertsCategories.GetHashCode();
+                if (this.NumMaintenanceAlerts != null)
+                    hashCode = hashCode * 59 + this.NumMaintenanceAlerts.GetHashCode();
+                if (this.NumMaintenanceCriticalAlerts != null)
+                    hashCode = hashCode * 59 + this.NumMaintenanceCriticalAlerts.GetHashCode();
+                if (this.NumMaintenanceInfoAlerts != null)
+                    hashCode = hashCode * 59 + this.NumMaintenanceInfoAlerts.GetHashCode();
+                if (this.NumMaintenanceWarningAlerts != null)
+                    hashCode = hashCode * 59 + this.NumMaintenanceWarningAlerts.GetHashCode();
                 if (this.NumSoftwareAlerts != null)
                     hashCode = hashCode * 59 + this.NumSoftwareAlerts.GetHashCode();
                 if (this.NumSoftwareCriticalAlerts != null)
@@ -329,6 +448,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumSoftwareWarningAlerts.GetHashCode();
                 if (this.NumWarningAlerts != null)
                     hashCode = hashCode * 59 + this.NumWarningAlerts.GetHashCode();
+                if (this.NumWarningAlertsCategories != null)
+                    hashCode = hashCode * 59 + this.NumWarningAlertsCategories.GetHashCode();
                 return hashCode;
             }
         }

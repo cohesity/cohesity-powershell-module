@@ -37,8 +37,12 @@ namespace Cohesity.Model
             this.O365EmulatorEntityInfo = o365EmulatorEntityInfo;
             this.UseGetSearchableMailboxesApi = useGetSearchableMailboxesApi;
             this.UseOutlookEwsOauth = useOutlookEwsOauth;
+            this.MaxVmwareHttpSessions = maxVmwareHttpSessions;
+            this.O365EmulatorEntityInfo = o365EmulatorEntityInfo;
             this.O365Region = o365Region;
             this.RegisteredEntitySfdcParams = registeredEntitySfdcParams;
+            this.UseGetSearchableMailboxesApi = useGetSearchableMailboxesApi;
+            this.UseOutlookEwsOauth = useOutlookEwsOauth;
         }
         
         /// <summary>

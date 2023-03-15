@@ -226,7 +226,7 @@ namespace Cohesity.Model
                     this.TagMap == input.TagMap ||
                     this.TagMap != null &&
                     input.TagMap != null &&
-                    this.TagMap.Equals(input.TagMap)
+                    this.TagMap.SequenceEqual(input.TagMap)
                 ) && 
                 (
                     this.VersioningState == input.VersioningState ||

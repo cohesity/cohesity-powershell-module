@@ -87,6 +87,12 @@ namespace Cohesity.Model
         {
             this.Id = id;
             this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
+            this.Target = target;
+            this.Id = id;
+            this.CopyPartial = copyPartial;
             this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
@@ -226,8 +232,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                if (this.Periodicity != null)
-					hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.Target != null)
                     hashCode = hashCode * 59 + this.Target.GetHashCode();
                 return hashCode;

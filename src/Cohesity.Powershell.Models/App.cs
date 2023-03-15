@@ -188,6 +188,21 @@ namespace Cohesity.Model
             this.UninstallTime = uninstallTime;
             this.Version = version;
             this.VmNameInfoList = vmNameInfoList;
+            this.AppId = appId;
+            this.Clusters = clusters;
+            this.DownloadProgressPct = downloadProgressPct;
+            this.ExternalIpRequired = externalIpRequired;
+            this.ExternalNetworks = externalNetworks;
+            this.InstallState = installState;
+            this.InstallTime = installTime;
+            this.InstanceSizes = instanceSizes;
+            this.IsLatest = isLatest;
+            this.LatestVersion = latestVersion;
+            this.Metadata = metadata;
+            this.RequiredPrivileges = requiredPrivileges;
+            this.UninstallTime = uninstallTime;
+            this.Version = version;
+            this.VmNameInfoList = vmNameInfoList;
         }
         
         /// <summary>
@@ -325,7 +340,7 @@ namespace Cohesity.Model
                     this.Clusters == input.Clusters ||
                     this.Clusters != null &&
                     input.Clusters != null &&
-                    this.Clusters.Equals(input.Clusters)
+                    this.Clusters.SequenceEqual(input.Clusters)
                 ) && 
                 (
                     this.DownloadProgressPct == input.DownloadProgressPct ||
@@ -341,7 +356,7 @@ namespace Cohesity.Model
                     this.ExternalNetworks == input.ExternalNetworks ||
                     this.ExternalNetworks != null &&
                     input.ExternalNetworks != null &&
-                    this.ExternalNetworks.Equals(input.ExternalNetworks)
+                    this.ExternalNetworks.SequenceEqual(input.ExternalNetworks)
                 ) && 
                 (
                     this.InstallState == input.InstallState ||
@@ -356,7 +371,7 @@ namespace Cohesity.Model
                     this.InstanceSizes == input.InstanceSizes ||
                     this.InstanceSizes != null &&
                     input.InstanceSizes != null &&
-                    this.InstanceSizes.Equals(input.InstanceSizes)
+                    this.InstanceSizes.SequenceEqual(input.InstanceSizes)
                 ) && 
                 (
                     this.IsLatest == input.IsLatest ||
@@ -375,7 +390,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RequiredPrivileges == input.RequiredPrivileges ||
-                    this.RequiredPrivileges.Equals(input.RequiredPrivileges)
+                    this.RequiredPrivileges.SequenceEqual(input.RequiredPrivileges)
                 ) && 
                 (
                     this.UninstallTime == input.UninstallTime ||
@@ -391,7 +406,7 @@ namespace Cohesity.Model
                     this.VmNameInfoList == input.VmNameInfoList ||
                     this.VmNameInfoList != null &&
                     input.VmNameInfoList != null &&
-                    this.VmNameInfoList.Equals(input.VmNameInfoList)
+                    this.VmNameInfoList.SequenceEqual(input.VmNameInfoList)
                 );
         }
 
@@ -414,8 +429,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ExternalIpRequired.GetHashCode();
                 if (this.ExternalNetworks != null)
                     hashCode = hashCode * 59 + this.ExternalNetworks.GetHashCode();
-				if (this.InstallState != null)
-                	hashCode = hashCode * 59 + this.InstallState.GetHashCode();
+                hashCode = hashCode * 59 + this.InstallState.GetHashCode();
                 if (this.InstallTime != null)
                     hashCode = hashCode * 59 + this.InstallTime.GetHashCode();
                 if (this.InstanceSizes != null)

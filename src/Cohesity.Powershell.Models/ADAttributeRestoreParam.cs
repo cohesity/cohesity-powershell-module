@@ -119,13 +119,13 @@ namespace Cohesity.Model
                     this.ExcludedPropertyVec == input.ExcludedPropertyVec ||
                     this.ExcludedPropertyVec != null &&
                     input.ExcludedPropertyVec != null &&
-                    this.ExcludedPropertyVec.Equals(input.ExcludedPropertyVec)
+                    this.ExcludedPropertyVec.SequenceEqual(input.ExcludedPropertyVec)
                 ) && 
                 (
                     this.GuidpairVec == input.GuidpairVec ||
                     this.GuidpairVec != null &&
                     input.GuidpairVec != null &&
-                    this.GuidpairVec.Equals(input.GuidpairVec)
+                    this.GuidpairVec.SequenceEqual(input.GuidpairVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||
@@ -136,7 +136,7 @@ namespace Cohesity.Model
                     this.PropertyVec == input.PropertyVec ||
                     this.PropertyVec != null &&
                     input.PropertyVec != null &&
-                    this.PropertyVec.Equals(input.PropertyVec)
+                    this.PropertyVec.SequenceEqual(input.PropertyVec)
                 ) && 
                 (
                     this.SrcSysvolFolder == input.SrcSysvolFolder ||

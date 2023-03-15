@@ -41,6 +41,13 @@ namespace Cohesity.Model
             this.IssuerId = issuerId;
             this.UserId = userId;
             this.Vendor = vendor;
+            this.GroupSids = groupSids;
+            this.Groups = groups;
+            this.IdpId = idpId;
+            this.IsFloatingUser = isFloatingUser;
+            this.IssuerId = issuerId;
+            this.UserId = userId;
+            this.Vendor = vendor;
         }
         
         /// <summary>
@@ -132,13 +139,13 @@ namespace Cohesity.Model
                     this.GroupSids == input.GroupSids ||
                     this.GroupSids != null &&
                     input.GroupSids != null &&
-                    this.GroupSids.Equals(input.GroupSids)
+                    this.GroupSids.SequenceEqual(input.GroupSids)
                 ) && 
                 (
                     this.Groups == input.Groups ||
                     this.Groups != null &&
                     input.Groups != null &&
-                    this.Groups.Equals(input.Groups)
+                    this.Groups.SequenceEqual(input.Groups)
                 ) && 
                 (
                     this.IdpId == input.IdpId ||

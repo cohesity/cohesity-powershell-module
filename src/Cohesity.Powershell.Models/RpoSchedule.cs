@@ -57,13 +57,7 @@ namespace Cohesity.Model
             /// Enum KMonths for value: kMonths
             /// </summary>
             [EnumMember(Value = "kMonths")]
-            KMonths = 5,
-
-            /// <summary>
-            /// Enum KMonths for value: kMonths
-            /// </summary>
-            [EnumMember(Value = "kDay")]
-            KDay = 6
+            KMonths = 5
 
         }
 
@@ -80,6 +74,8 @@ namespace Cohesity.Model
         /// <param name="multiplier">Specifies the multiplier value to be used with the  RPO interval unit value..</param>
         public RpoSchedule(IntervalUnitEnum? intervalUnit = default(IntervalUnitEnum?), long? multiplier = default(long?))
         {
+            this.IntervalUnit = intervalUnit;
+            this.Multiplier = multiplier;
             this.IntervalUnit = intervalUnit;
             this.Multiplier = multiplier;
         }

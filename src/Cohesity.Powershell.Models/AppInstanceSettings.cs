@@ -73,6 +73,9 @@ namespace Cohesity.Model
         /// <param name="vmNumReplicasList">List of vm-name, replica count pairs to be used at the time of app instance launch..</param>
         public AppInstanceSettings(ExternalNetworkInfo externalNetworkInfo = default(ExternalNetworkInfo), string instanceSize = default(string), ProtectedObjectPrivileges protectedObjectPrivileges = default(ProtectedObjectPrivileges), QosTierEnum? qosTier = default(QosTierEnum?), ViewPrivileges readViewPrivileges = default(ViewPrivileges), ViewPrivileges readWriteViewPrivileges = default(ViewPrivileges), List<VmNumReplicas> vmNumReplicasList = default(List<VmNumReplicas>))
         {
+            this.InstanceSize = instanceSize;
+            this.QosTier = qosTier;
+            this.VmNumReplicasList = vmNumReplicasList;
             this.ExternalNetworkInfo = externalNetworkInfo;
             this.InstanceSize = instanceSize;
             this.ProtectedObjectPrivileges = protectedObjectPrivileges;
@@ -189,7 +192,7 @@ namespace Cohesity.Model
                     this.VmNumReplicasList == input.VmNumReplicasList ||
                     this.VmNumReplicasList != null &&
                     input.VmNumReplicasList != null &&
-                    this.VmNumReplicasList.Equals(input.VmNumReplicasList)
+                    this.VmNumReplicasList.SequenceEqual(input.VmNumReplicasList)
                 );
         }
 
@@ -208,8 +211,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InstanceSize.GetHashCode();
                 if (this.ProtectedObjectPrivileges != null)
                     hashCode = hashCode * 59 + this.ProtectedObjectPrivileges.GetHashCode();
-				if (this.QosTier != null)
-					hashCode = hashCode * 59 + this.QosTier.GetHashCode();
+                hashCode = hashCode * 59 + this.QosTier.GetHashCode();
                 if (this.ReadViewPrivileges != null)
                     hashCode = hashCode * 59 + this.ReadViewPrivileges.GetHashCode();
                 if (this.ReadWriteViewPrivileges != null)

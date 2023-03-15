@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.CreatedDateMsecs = createdDateMsecs;
             this.DatabaseId = databaseId;
             this.InstanceId = instanceId;
+            this.CreatedDateMsecs = createdDateMsecs;
+            this.DatabaseId = databaseId;
+            this.InstanceId = instanceId;
         }
         
         /// <summary>
@@ -106,7 +109,7 @@ namespace Cohesity.Model
                     this.InstanceId == input.InstanceId ||
                     this.InstanceId != null &&
                     input.InstanceId != null &&
-                    this.InstanceId.Equals(input.InstanceId)
+                    this.InstanceId.SequenceEqual(input.InstanceId)
                 );
         }
 

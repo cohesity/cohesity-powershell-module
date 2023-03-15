@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.DataTransferSummary == input.DataTransferSummary ||
                     this.DataTransferSummary != null &&
                     input.DataTransferSummary != null &&
-                    this.DataTransferSummary.Equals(input.DataTransferSummary)
+                    this.DataTransferSummary.SequenceEqual(input.DataTransferSummary)
                 );
         }
 

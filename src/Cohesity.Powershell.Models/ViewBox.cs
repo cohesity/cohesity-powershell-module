@@ -391,7 +391,7 @@ namespace Cohesity.Model
                     this.ClientSubnetWhiteList == input.ClientSubnetWhiteList ||
                     this.ClientSubnetWhiteList != null &&
                     input.ClientSubnetWhiteList != null &&
-                    this.ClientSubnetWhiteList.Equals(input.ClientSubnetWhiteList)
+                    this.ClientSubnetWhiteList.SequenceEqual(input.ClientSubnetWhiteList)
                 ) && 
                 (
                     this.CloudDomainId == input.CloudDomainId ||
@@ -472,7 +472,7 @@ namespace Cohesity.Model
                     this.NisDomainNameVec == input.NisDomainNameVec ||
                     this.NisDomainNameVec != null &&
                     input.NisDomainNameVec != null &&
-                    this.NisDomainNameVec.Equals(input.NisDomainNameVec)
+                    this.NisDomainNameVec.SequenceEqual(input.NisDomainNameVec)
                 ) && 
                 (
                     this.PhysicalQuota == input.PhysicalQuota ||
@@ -492,7 +492,7 @@ namespace Cohesity.Model
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
                     input.SchemaInfoList != null &&
-                    this.SchemaInfoList.Equals(input.SchemaInfoList)
+                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -508,7 +508,7 @@ namespace Cohesity.Model
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.Equals(input.TenantIdVec)
+                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
                 ) && 
                 (
                     this.TreatFileSyncAsDataSync == input.TreatFileSyncAsDataSync ||
@@ -576,8 +576,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NisDomainNameVec.GetHashCode();
                 if (this.PhysicalQuota != null)
                     hashCode = hashCode * 59 + this.PhysicalQuota.GetHashCode();
-                if (this.RemovalState != null)
-					hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.S3BucketsAllowed != null)
                     hashCode = hashCode * 59 + this.S3BucketsAllowed.GetHashCode();
                 if (this.SchemaInfoList != null)

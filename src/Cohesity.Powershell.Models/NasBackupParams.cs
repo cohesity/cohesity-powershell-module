@@ -48,6 +48,19 @@ namespace Cohesity.Model
             this.BlacklistedIpAddrs = blacklistedIpAddrs;
             this.ContinueOnError = continueOnError;
             this.EncryptionEnabled = encryptionEnabled;
+            this.FullBackupSnapshotLabel = fullBackupSnapshotLabel;
+            this.IncrementalBackupSnapshotLabel = incrementalBackupSnapshotLabel;
+            this.IsSourceInitiatedBackup = isSourceInitiatedBackup;
+            this.MixedModePreference = mixedModePreference;
+            this.ModifySourcePermissions = modifySourcePermissions;
+            this.NfsVersionPreference = nfsVersionPreference;
+            this.SharedViewName = sharedViewName;
+            this.SnapshotChangeEnabled = snapshotChangeEnabled;
+            this.WhitelistedIpAddrs = whitelistedIpAddrs;
+            this.BackupExistingSnapshot = backupExistingSnapshot;
+            this.BlacklistedIpAddrs = blacklistedIpAddrs;
+            this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
             this.FilteringPolicy = filteringPolicy;
             this.FldConfig = fldConfig;
             this.FullBackupSnapshotLabel = fullBackupSnapshotLabel;
@@ -223,7 +236,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
                     this.BlacklistedIpAddrs != null &&
                     input.BlacklistedIpAddrs != null &&
-                    this.BlacklistedIpAddrs.Equals(input.BlacklistedIpAddrs)
+                    this.BlacklistedIpAddrs.SequenceEqual(input.BlacklistedIpAddrs)
                 ) && 
                 (
                     this.ContinueOnError == input.ContinueOnError ||
@@ -299,7 +312,7 @@ namespace Cohesity.Model
                     this.WhitelistedIpAddrs == input.WhitelistedIpAddrs ||
                     this.WhitelistedIpAddrs != null &&
                     input.WhitelistedIpAddrs != null &&
-                    this.WhitelistedIpAddrs.Equals(input.WhitelistedIpAddrs)
+                    this.WhitelistedIpAddrs.SequenceEqual(input.WhitelistedIpAddrs)
                 );
         }
 

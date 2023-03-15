@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.RestoreItemVec == input.RestoreItemVec ||
                     this.RestoreItemVec != null &&
                     input.RestoreItemVec != null &&
-                    this.RestoreItemVec.Equals(input.RestoreItemVec)
+                    this.RestoreItemVec.SequenceEqual(input.RestoreItemVec)
                 );
         }
 

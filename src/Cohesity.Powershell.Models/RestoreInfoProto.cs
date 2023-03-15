@@ -125,7 +125,7 @@ namespace Cohesity.Model
                     this.RestoreEntityVec == input.RestoreEntityVec ||
                     this.RestoreEntityVec != null &&
                     input.RestoreEntityVec != null &&
-                    this.RestoreEntityVec.Equals(input.RestoreEntityVec)
+                    this.RestoreEntityVec.SequenceEqual(input.RestoreEntityVec)
                 ) && 
                 (
                     this.TargetType == input.TargetType ||

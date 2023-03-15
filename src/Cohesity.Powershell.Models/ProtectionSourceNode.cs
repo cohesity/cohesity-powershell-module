@@ -40,6 +40,15 @@ namespace Cohesity.Model
         public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), PaginationParameters entityPaginationParameters = default(PaginationParameters), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), ObjectProtectionInfo objectProtectionInfo = default(ObjectProtectionInfo), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
             this.ApplicationNodes = applicationNodes;
+            this.LogicalSize = logicalSize;
+            this.Nodes = nodes;
+            this.ProtectedSourcesSummary = protectedSourcesSummary;
+            this.ProtectionSource = protectionSource;
+            this.RegistrationInfo = registrationInfo;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
+            this.UnprotectedSourcesSummary = unprotectedSourcesSummary;
+            this.ApplicationNodes = applicationNodes;
             this.EntityPaginationParameters = entityPaginationParameters;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSize = logicalSize;
@@ -174,7 +183,7 @@ namespace Cohesity.Model
                     this.ApplicationNodes == input.ApplicationNodes ||
                     this.ApplicationNodes != null &&
                     input.ApplicationNodes != null &&
-                    this.ApplicationNodes.Equals(input.ApplicationNodes)
+                    this.ApplicationNodes.SequenceEqual(input.ApplicationNodes)
                 ) && 
                 (
                     this.EntityPaginationParameters == input.EntityPaginationParameters ||
@@ -195,7 +204,7 @@ namespace Cohesity.Model
                     this.Nodes == input.Nodes ||
                     this.Nodes != null &&
                     input.Nodes != null &&
-                    this.Nodes.Equals(input.Nodes)
+                    this.Nodes.SequenceEqual(input.Nodes)
                 ) && 
                 (
                     this.ObjectProtectionInfo == input.ObjectProtectionInfo ||
@@ -206,7 +215,7 @@ namespace Cohesity.Model
                     this.ProtectedSourcesSummary == input.ProtectedSourcesSummary ||
                     this.ProtectedSourcesSummary != null &&
                     input.ProtectedSourcesSummary != null &&
-                    this.ProtectedSourcesSummary.Equals(input.ProtectedSourcesSummary)
+                    this.ProtectedSourcesSummary.SequenceEqual(input.ProtectedSourcesSummary)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
@@ -232,7 +241,7 @@ namespace Cohesity.Model
                     this.UnprotectedSourcesSummary == input.UnprotectedSourcesSummary ||
                     this.UnprotectedSourcesSummary != null &&
                     input.UnprotectedSourcesSummary != null &&
-                    this.UnprotectedSourcesSummary.Equals(input.UnprotectedSourcesSummary)
+                    this.UnprotectedSourcesSummary.SequenceEqual(input.UnprotectedSourcesSummary)
                 );
         }
 

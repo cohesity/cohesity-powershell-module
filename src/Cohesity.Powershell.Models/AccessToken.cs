@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.Equals(input.Privileges)
+                    this.Privileges.SequenceEqual(input.Privileges)
                 ) && 
                 (
                     this.TokenType == input.TokenType ||

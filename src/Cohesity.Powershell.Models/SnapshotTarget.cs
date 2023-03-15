@@ -32,6 +32,7 @@ namespace Cohesity.Model
         /// <param name="type">The type of snapshot target this proto represents..</param>
         public SnapshotTarget(ArchivalTarget archivalTarget = default(ArchivalTarget), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), OnPremDeployTarget onpremDeployTarget = default(OnPremDeployTarget), ReplicationTarget replicationTarget = default(ReplicationTarget), int? type = default(int?))
         {
+            this.Type = type;
             this.ArchivalTarget = archivalTarget;
             this.CloudDeployTarget = cloudDeployTarget;
             this.OnpremDeployTarget = onpremDeployTarget;

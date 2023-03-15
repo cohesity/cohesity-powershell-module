@@ -133,7 +133,7 @@ namespace Cohesity.Model
                     this.AccessModes == input.AccessModes ||
                     this.AccessModes != null &&
                     input.AccessModes != null &&
-                    this.AccessModes.Equals(input.AccessModes)
+                    this.AccessModes.SequenceEqual(input.AccessModes)
                 ) && 
                 (
                     this.DataSource == input.DataSource ||

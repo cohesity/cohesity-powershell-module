@@ -62,6 +62,10 @@ namespace Cohesity.Model
             this.Name = name;
             this.Pattern = pattern;
             this.PatternType = patternType;
+            this.IsSystemDefined = isSystemDefined;
+            this.Name = name;
+            this.Pattern = pattern;
+            this.PatternType = patternType;
         }
         
         /// <summary>

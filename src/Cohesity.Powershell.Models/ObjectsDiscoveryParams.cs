@@ -87,7 +87,7 @@ namespace Cohesity.Model
                     this.DiscoverableObjectTypeList == input.DiscoverableObjectTypeList ||
                     this.DiscoverableObjectTypeList != null &&
                     input.DiscoverableObjectTypeList != null &&
-                    this.DiscoverableObjectTypeList.Equals(input.DiscoverableObjectTypeList)
+                    this.DiscoverableObjectTypeList.SequenceEqual(input.DiscoverableObjectTypeList)
                 ) && 
                 (
                     this.UsersDiscoveryParams == input.UsersDiscoveryParams ||

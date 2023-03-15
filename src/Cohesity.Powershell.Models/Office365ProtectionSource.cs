@@ -152,6 +152,13 @@ namespace Cohesity.Model
             this.Name = name;
             this.PrimarySMTPAddress = primarySMTPAddress;
             this.ProxyHostSourceIdList = proxyHostSourceIdList;
+            this.Type = type;
+            this.Uuid = uuid;
+            this.WebUrl = webUrl;
+            this.Description = description;
+            this.Name = name;
+            this.PrimarySMTPAddress = primarySMTPAddress;
+            this.ProxyHostSourceIdList = proxyHostSourceIdList;
             this.SiteInfo = siteInfo;
             this.TeamInfo = teamInfo;
             this.Type = type;
@@ -275,7 +282,7 @@ namespace Cohesity.Model
                     this.ProxyHostSourceIdList == input.ProxyHostSourceIdList ||
                     this.ProxyHostSourceIdList != null &&
                     input.ProxyHostSourceIdList != null &&
-                    this.ProxyHostSourceIdList.Equals(input.ProxyHostSourceIdList)
+                    this.ProxyHostSourceIdList.SequenceEqual(input.ProxyHostSourceIdList)
                 ) && 
                 (
                     this.SiteInfo == input.SiteInfo ||
@@ -329,8 +336,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SiteInfo.GetHashCode();
                 if (this.TeamInfo != null)
                     hashCode = hashCode * 59 + this.TeamInfo.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UserInfo != null)
                     hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
                 if (this.Uuid != null)

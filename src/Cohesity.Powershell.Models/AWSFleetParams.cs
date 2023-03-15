@@ -66,6 +66,9 @@ namespace Cohesity.Model
             this.FleetSubnetType = fleetSubnetType;
             this.FleetTags = fleetTags;
             this.NetworkParamsList = networkParamsList;
+            this.FleetSubnetType = fleetSubnetType;
+            this.FleetTags = fleetTags;
+            this.NetworkParamsList = networkParamsList;
         }
         
         /// <summary>
@@ -126,13 +129,13 @@ namespace Cohesity.Model
                     this.FleetTags == input.FleetTags ||
                     this.FleetTags != null &&
                     input.FleetTags != null &&
-                    this.FleetTags.Equals(input.FleetTags)
+                    this.FleetTags.SequenceEqual(input.FleetTags)
                 ) && 
                 (
                     this.NetworkParamsList == input.NetworkParamsList ||
                     this.NetworkParamsList != null &&
                     input.NetworkParamsList != null &&
-                    this.NetworkParamsList.Equals(input.NetworkParamsList)
+                    this.NetworkParamsList.SequenceEqual(input.NetworkParamsList)
                 );
         }
 
@@ -145,8 +148,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-				if (this.FleetSubnetType != null)
-	                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
+                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
                 if (this.FleetTags != null)
                     hashCode = hashCode * 59 + this.FleetTags.GetHashCode();
                 if (this.NetworkParamsList != null)

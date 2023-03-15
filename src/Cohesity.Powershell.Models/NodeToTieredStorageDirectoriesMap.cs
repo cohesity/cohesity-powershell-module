@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.TieredStorageDirectoriesVec == input.TieredStorageDirectoriesVec ||
                     this.TieredStorageDirectoriesVec != null &&
                     input.TieredStorageDirectoriesVec != null &&
-                    this.TieredStorageDirectoriesVec.Equals(input.TieredStorageDirectoriesVec)
+                    this.TieredStorageDirectoriesVec.SequenceEqual(input.TieredStorageDirectoriesVec)
                 );
         }
 

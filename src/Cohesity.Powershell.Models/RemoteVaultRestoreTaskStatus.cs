@@ -39,6 +39,13 @@ namespace Cohesity.Model
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;
             this.ParentJobUid = parentJobUid;
+            this.SearchJobUid = searchJobUid;
+            this.VaultId = vaultId;
+            this.VaultName = vaultName;
+            this.CurrentIndexingStatus = currentIndexingStatus;
+            this.CurrentSnapshotStatus = currentSnapshotStatus;
+            this.LocalProtectionJobUid = localProtectionJobUid;
+            this.ParentJobUid = parentJobUid;
             this.RemoteProtectionJobInformation = remoteProtectionJobInformation;
             this.SearchJobUid = searchJobUid;
             this.VaultId = vaultId;

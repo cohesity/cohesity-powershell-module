@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.Region = region;
             this.Subnet = subnet;
             this.Vpc = vpc;
+            this.Region = region;
+            this.Subnet = subnet;
+            this.Vpc = vpc;
         }
         
         /// <summary>

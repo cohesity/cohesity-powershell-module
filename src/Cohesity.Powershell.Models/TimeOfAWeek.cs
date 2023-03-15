@@ -157,7 +157,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.Days == input.Days ||
-                    this.Days.Equals(input.Days)
+                    this.Days.SequenceEqual(input.Days)
                 ) && 
                 (
                     this.EndTime == input.EndTime ||

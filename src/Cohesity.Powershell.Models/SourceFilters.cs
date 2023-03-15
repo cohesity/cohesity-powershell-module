@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ExcludeSourceFilterVec == input.ExcludeSourceFilterVec ||
                     this.ExcludeSourceFilterVec != null &&
                     input.ExcludeSourceFilterVec != null &&
-                    this.ExcludeSourceFilterVec.Equals(input.ExcludeSourceFilterVec)
+                    this.ExcludeSourceFilterVec.SequenceEqual(input.ExcludeSourceFilterVec)
                 );
         }
 

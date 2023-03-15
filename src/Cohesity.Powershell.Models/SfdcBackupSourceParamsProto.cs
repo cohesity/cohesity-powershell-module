@@ -127,13 +127,13 @@ namespace Cohesity.Model
                     this.ExcludedObjectIdsVec == input.ExcludedObjectIdsVec ||
                     this.ExcludedObjectIdsVec != null &&
                     input.ExcludedObjectIdsVec != null &&
-                    this.ExcludedObjectIdsVec.Equals(input.ExcludedObjectIdsVec)
+                    this.ExcludedObjectIdsVec.SequenceEqual(input.ExcludedObjectIdsVec)
                 ) && 
                 (
                     this.ObjectLevelParamsVec == input.ObjectLevelParamsVec ||
                     this.ObjectLevelParamsVec != null &&
                     input.ObjectLevelParamsVec != null &&
-                    this.ObjectLevelParamsVec.Equals(input.ObjectLevelParamsVec)
+                    this.ObjectLevelParamsVec.SequenceEqual(input.ObjectLevelParamsVec)
                 ) && 
                 (
                     this.S3BucketPrefix == input.S3BucketPrefix ||

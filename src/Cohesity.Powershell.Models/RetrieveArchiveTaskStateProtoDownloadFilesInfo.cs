@@ -34,6 +34,10 @@ namespace Cohesity.Model
         public RetrieveArchiveTaskStateProtoDownloadFilesInfo(List<string> filePathVec = default(List<string>), MagnetoInstanceId magnetoInstanceId = default(MagnetoInstanceId), MagnetoObjectId objectId = default(MagnetoObjectId), bool? skipRestoreInStubView = default(bool?), string targetDirPath = default(string), string targetViewName = default(string))
         {
             this.FilePathVec = filePathVec;
+            this.SkipRestoreInStubView = skipRestoreInStubView;
+            this.TargetDirPath = targetDirPath;
+            this.TargetViewName = targetViewName;
+            this.FilePathVec = filePathVec;
             this.MagnetoInstanceId = magnetoInstanceId;
             this.ObjectId = objectId;
             this.SkipRestoreInStubView = skipRestoreInStubView;
@@ -121,7 +125,7 @@ namespace Cohesity.Model
                     this.FilePathVec == input.FilePathVec ||
                     this.FilePathVec != null &&
                     input.FilePathVec != null &&
-                    this.FilePathVec.Equals(input.FilePathVec)
+                    this.FilePathVec.SequenceEqual(input.FilePathVec)
                 ) && 
                 (
                     this.MagnetoInstanceId == input.MagnetoInstanceId ||

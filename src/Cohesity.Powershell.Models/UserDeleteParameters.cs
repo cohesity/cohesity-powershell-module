@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.Users == input.Users ||
                     this.Users != null &&
                     input.Users != null &&
-                    this.Users.Equals(input.Users)
+                    this.Users.SequenceEqual(input.Users)
                 );
         }
 

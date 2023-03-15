@@ -30,6 +30,8 @@ namespace Cohesity.Model
         /// <param name="quotas">Specifies the list of directory quota policies applied on the view..</param>
         public DirQuotaInfo(DirQuotaConfig config = default(DirQuotaConfig), long? cookie = default(long?), List<DirQuotaPolicy> quotas = default(List<DirQuotaPolicy>))
         {
+            this.Cookie = cookie;
+            this.Quotas = quotas;
             this.Config = config;
             this.Cookie = cookie;
             this.Quotas = quotas;
@@ -105,7 +107,7 @@ namespace Cohesity.Model
                     this.Quotas == input.Quotas ||
                     this.Quotas != null &&
                     input.Quotas != null &&
-                    this.Quotas.Equals(input.Quotas)
+                    this.Quotas.SequenceEqual(input.Quotas)
                 );
         }
 

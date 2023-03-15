@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ApplicationEntityIds == input.ApplicationEntityIds ||
                     this.ApplicationEntityIds != null &&
                     input.ApplicationEntityIds != null &&
-                    this.ApplicationEntityIds.Equals(input.ApplicationEntityIds)
+                    this.ApplicationEntityIds.SequenceEqual(input.ApplicationEntityIds)
                 );
         }
 

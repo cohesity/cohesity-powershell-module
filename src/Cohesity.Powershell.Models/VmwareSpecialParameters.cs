@@ -102,7 +102,7 @@ namespace Cohesity.Model
                     this.ExcludedDisks == input.ExcludedDisks ||
                     this.ExcludedDisks != null &&
                     input.ExcludedDisks != null &&
-                    this.ExcludedDisks.Equals(input.ExcludedDisks)
+                    this.ExcludedDisks.SequenceEqual(input.ExcludedDisks)
                 ) && 
                 (
                     this.VmCredentials == input.VmCredentials ||

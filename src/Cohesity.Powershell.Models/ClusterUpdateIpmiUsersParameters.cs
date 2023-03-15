@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.NodeIpmiUsers == input.NodeIpmiUsers ||
                     this.NodeIpmiUsers != null &&
                     input.NodeIpmiUsers != null &&
-                    this.NodeIpmiUsers.Equals(input.NodeIpmiUsers)
+                    this.NodeIpmiUsers.SequenceEqual(input.NodeIpmiUsers)
                 );
         }
 

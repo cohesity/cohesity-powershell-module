@@ -406,6 +406,21 @@ namespace Cohesity.Model
         {
             this.AgentId = agentId;
             this.Agents = agents;
+            this.ConnectionState = connectionState;
+            this.FolderType = folderType;
+            this.HasPersistentAgent = hasPersistentAgent;
+            this.HostType = hostType;
+            this.IsVmTemplate = isVmTemplate;
+            this.IsVmcEntity = isVmcEntity;
+            this.Name = name;
+            this.TagAttributes = tagAttributes;
+            this.ToolsRunningStatus = toolsRunningStatus;
+            this.Type = type;
+            this.VCloudDirectorInfo = vCloudDirectorInfo;
+            this.Version = version;
+            this.VirtualDisks = virtualDisks;
+            this.AgentId = agentId;
+            this.Agents = agents;
             this.CdpInfo = cdpInfo;
             this.ConnectionState = connectionState;
             this.DatastoreInfo = datastoreInfo;
@@ -571,7 +586,7 @@ namespace Cohesity.Model
                     this.Agents == input.Agents ||
                     this.Agents != null &&
                     input.Agents != null &&
-                    this.Agents.Equals(input.Agents)
+                    this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
                     this.CdpInfo == input.CdpInfo ||
@@ -629,7 +644,7 @@ namespace Cohesity.Model
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
                     input.TagAttributes != null &&
-                    this.TagAttributes.Equals(input.TagAttributes)
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
                 ) && 
                 (
                     this.ToolsRunningStatus == input.ToolsRunningStatus ||
@@ -643,7 +658,7 @@ namespace Cohesity.Model
                     this.VCloudDirectorInfo == input.VCloudDirectorInfo ||
                     this.VCloudDirectorInfo != null &&
                     input.VCloudDirectorInfo != null &&
-                    this.VCloudDirectorInfo.Equals(input.VCloudDirectorInfo)
+                    this.VCloudDirectorInfo.SequenceEqual(input.VCloudDirectorInfo)
                 ) && 
                 (
                     this.Version == input.Version ||
@@ -654,7 +669,7 @@ namespace Cohesity.Model
                     this.VirtualDisks == input.VirtualDisks ||
                     this.VirtualDisks != null &&
                     input.VirtualDisks != null &&
-                    this.VirtualDisks.Equals(input.VirtualDisks)
+                    this.VirtualDisks.SequenceEqual(input.VirtualDisks)
                 ) && 
                 (
                     this.VmLinkingInfo == input.VmLinkingInfo ||
@@ -678,16 +693,13 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
                 if (this.CdpInfo != null)
                     hashCode = hashCode * 59 + this.CdpInfo.GetHashCode();
-                if (this.ConnectionState != null)
-					hashCode = hashCode * 59 + this.ConnectionState.GetHashCode();
+                hashCode = hashCode * 59 + this.ConnectionState.GetHashCode();
                 if (this.DatastoreInfo != null)
                     hashCode = hashCode * 59 + this.DatastoreInfo.GetHashCode();
-                if (this.FolderType != null)
-					hashCode = hashCode * 59 + this.FolderType.GetHashCode();
+                hashCode = hashCode * 59 + this.FolderType.GetHashCode();
                 if (this.HasPersistentAgent != null)
                     hashCode = hashCode * 59 + this.HasPersistentAgent.GetHashCode();
-                if (this.HostType != null)
-					hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IpDetails != null)
@@ -700,10 +712,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                if (this.ToolsRunningStatus != null)
-					hashCode = hashCode * 59 + this.ToolsRunningStatus.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.ToolsRunningStatus.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VCloudDirectorInfo != null)
                     hashCode = hashCode * 59 + this.VCloudDirectorInfo.GetHashCode();
                 if (this.Version != null)

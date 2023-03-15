@@ -159,7 +159,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.AdAttributeFlags == input.AdAttributeFlags ||
-                    this.AdAttributeFlags.Equals(input.AdAttributeFlags)
+                    this.AdAttributeFlags.SequenceEqual(input.AdAttributeFlags)
                 ) && 
                 (
                     this.DestinationValue == input.DestinationValue ||

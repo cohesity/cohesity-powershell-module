@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.MatchLabels == input.MatchLabels ||
                     this.MatchLabels != null &&
                     input.MatchLabels != null &&
-                    this.MatchLabels.Equals(input.MatchLabels)
+                    this.MatchLabels.SequenceEqual(input.MatchLabels)
                 ) && 
                 (
                     this.Name == input.Name ||

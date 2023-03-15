@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
                     input.Hosts != null &&
-                    this.Hosts.Equals(input.Hosts)
+                    this.Hosts.SequenceEqual(input.Hosts)
                 );
         }
 

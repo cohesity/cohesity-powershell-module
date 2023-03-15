@@ -34,6 +34,11 @@ namespace Cohesity.Model
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box)..</param>
         public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), ProtectionShellInfo protectionShellInfo = default(ProtectionShellInfo), long? viewBoxId = default(long?))
         {
+            this.CopyRun = copyRun;
+            this.JobId = jobId;
+            this.JobName = jobName;
+            this.JobUid = jobUid;
+            this.ViewBoxId = viewBoxId;
             this.BackupRun = backupRun;
             this.CopyRun = copyRun;
             this.JobId = jobId;
@@ -135,7 +140,7 @@ namespace Cohesity.Model
                     this.CopyRun == input.CopyRun ||
                     this.CopyRun != null &&
                     input.CopyRun != null &&
-                    this.CopyRun.Equals(input.CopyRun)
+                    this.CopyRun.SequenceEqual(input.CopyRun)
                 ) && 
                 (
                     this.JobId == input.JobId ||

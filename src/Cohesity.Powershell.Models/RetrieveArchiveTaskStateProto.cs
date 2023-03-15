@@ -51,6 +51,21 @@ namespace Cohesity.Model
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for this retrieval task. Retrieved snapshots of the entities will be placed in this view..</param>
         public RetrieveArchiveTaskStateProto(ArchivalTarget archivalTarget = default(ArchivalTarget), UniversalIdProto archiveTaskUid = default(UniversalIdProto), long? backupRunStartTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), RetrieveArchiveTaskStateProtoDownloadFilesInfo downloadFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? endTimeUsecs = default(long?), List<EntityProto> entityVec = default(List<EntityProto>), ErrorProto error = default(ErrorProto), string fullViewNameDEPRECATED = default(string), int? glacierFlrRestoreOption = default(int?), bool? isUptierRestoreJob = default(bool?), UniversalIdProto jobUid = default(UniversalIdProto), string name = default(string), string progressMonitorTaskPath = default(string), RetrieveArchiveTaskStateProtoDownloadFilesInfo restoreArchiveFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? restoreTaskId = default(long?), RetrieveArchiveInfo retrievalInfo = default(RetrieveArchiveInfo), long? startTimeUsecs = default(long?), int? status = default(int?), UniversalIdProto taskUid = default(UniversalIdProto), string user = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
+            this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
+            this.CancellationRequested = cancellationRequested;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.EntityVec = entityVec;
+            this.FullViewNameDEPRECATED = fullViewNameDEPRECATED;
+            this.GlacierFlrRestoreOption = glacierFlrRestoreOption;
+            this.IsUptierRestoreJob = isUptierRestoreJob;
+            this.Name = name;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RestoreTaskId = restoreTaskId;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.User = user;
+            this.ViewBoxId = viewBoxId;
+            this.ViewNameDEPRECATED = viewNameDEPRECATED;
             this.ArchivalTarget = archivalTarget;
             this.ArchiveTaskUid = archiveTaskUid;
             this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
@@ -306,7 +321,7 @@ namespace Cohesity.Model
                     this.EntityVec == input.EntityVec ||
                     this.EntityVec != null &&
                     input.EntityVec != null &&
-                    this.EntityVec.Equals(input.EntityVec)
+                    this.EntityVec.SequenceEqual(input.EntityVec)
                 ) && 
                 (
                     this.Error == input.Error ||

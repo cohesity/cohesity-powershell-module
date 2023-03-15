@@ -87,13 +87,13 @@ namespace Cohesity.Model
                     this.ExclusionTagVec == input.ExclusionTagVec ||
                     this.ExclusionTagVec != null &&
                     input.ExclusionTagVec != null &&
-                    this.ExclusionTagVec.Equals(input.ExclusionTagVec)
+                    this.ExclusionTagVec.SequenceEqual(input.ExclusionTagVec)
                 ) && 
                 (
                     this.InclusionTagVec == input.InclusionTagVec ||
                     this.InclusionTagVec != null &&
                     input.InclusionTagVec != null &&
-                    this.InclusionTagVec.Equals(input.InclusionTagVec)
+                    this.InclusionTagVec.SequenceEqual(input.InclusionTagVec)
                 );
         }
 

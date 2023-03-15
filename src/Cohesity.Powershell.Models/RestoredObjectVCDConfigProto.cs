@@ -38,6 +38,8 @@ namespace Cohesity.Model
         {
             this.IsVapp = isVapp;
             this.IsVappTemplate = isVappTemplate;
+            this.IsVapp = isVapp;
+            this.IsVappTemplate = isVappTemplate;
             this.RestoredVappInfo = restoredVappInfo;
             this.RestoredVappObject = restoredVappObject;
             this.RestoredVappTemplateInfo = restoredVappTemplateInfo;

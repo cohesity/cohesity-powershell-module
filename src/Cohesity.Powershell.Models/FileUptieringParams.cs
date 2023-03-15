@@ -47,6 +47,16 @@ namespace Cohesity.Model
             this.SourceViewMap = sourceViewMap;
             this.SourceViewName = sourceViewName;
             this.UptierAllFiles = uptierAllFiles;
+            this.EnableAuditLogging = enableAuditLogging;
+            this.FileSelectPolicy = fileSelectPolicy;
+            this.FileSize = fileSize;
+            this.FileSizePolicy = fileSizePolicy;
+            this.HotFileWindow = hotFileWindow;
+            this.NfsMountPath = nfsMountPath;
+            this.NumFileAccess = numFileAccess;
+            this.SourceViewMap = sourceViewMap;
+            this.SourceViewName = sourceViewName;
+            this.UptierAllFiles = uptierAllFiles;
         }
         
         /// <summary>
@@ -194,7 +204,7 @@ namespace Cohesity.Model
                     this.SourceViewMap == input.SourceViewMap ||
                     this.SourceViewMap != null &&
                     input.SourceViewMap != null &&
-                    this.SourceViewMap.Equals(input.SourceViewMap)
+                    this.SourceViewMap.SequenceEqual(input.SourceViewMap)
                 ) && 
                 (
                     this.SourceViewName == input.SourceViewName ||

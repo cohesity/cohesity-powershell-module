@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -329,6 +324,12 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the name of the View that is cloned. NOTE: This field is only populated for View cloning..</param>
         public SnapshotInfo(EnvironmentEnum? environment = default(EnvironmentEnum?), string relativeSnapshotDirectory = default(string), string rootPath = default(string), long? sourceSnapshotCreateTimeUsecs = default(long?), string sourceSnapshotName = default(string), string viewName = default(string))
         {
+            this.Environment = environment;
+            this.RelativeSnapshotDirectory = relativeSnapshotDirectory;
+            this.RootPath = rootPath;
+            this.SourceSnapshotCreateTimeUsecs = sourceSnapshotCreateTimeUsecs;
+            this.SourceSnapshotName = sourceSnapshotName;
+            this.ViewName = viewName;
             this.Environment = environment;
             this.RelativeSnapshotDirectory = relativeSnapshotDirectory;
             this.RootPath = rootPath;

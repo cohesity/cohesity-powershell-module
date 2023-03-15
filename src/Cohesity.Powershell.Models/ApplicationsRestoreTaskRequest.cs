@@ -303,12 +303,8 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
+            KO365PublicFolders = 46
 
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
         }
 
         /// <summary>
@@ -449,7 +445,7 @@ namespace Cohesity.Model
                     this.ApplicationRestoreObjects == input.ApplicationRestoreObjects ||
                     this.ApplicationRestoreObjects != null &&
                     input.ApplicationRestoreObjects != null &&
-                    this.ApplicationRestoreObjects.Equals(input.ApplicationRestoreObjects)
+                    this.ApplicationRestoreObjects.SequenceEqual(input.ApplicationRestoreObjects)
                 ) && 
                 (
                     this.HostingProtectionSource == input.HostingProtectionSource ||
@@ -470,7 +466,7 @@ namespace Cohesity.Model
                     this.ProtectionSourceAndApplicationObjects == input.ProtectionSourceAndApplicationObjects ||
                     this.ProtectionSourceAndApplicationObjects != null &&
                     input.ProtectionSourceAndApplicationObjects != null &&
-                    this.ProtectionSourceAndApplicationObjects.Equals(input.ProtectionSourceAndApplicationObjects)
+                    this.ProtectionSourceAndApplicationObjects.SequenceEqual(input.ProtectionSourceAndApplicationObjects)
                 ) && 
                 (
                     this.Username == input.Username ||

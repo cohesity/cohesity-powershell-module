@@ -75,7 +75,13 @@ namespace Cohesity.Model
             /// Enum KInProgress for value: kInProgress
             /// </summary>
             [EnumMember(Value = "kInProgress")]
-            KInProgress = 8
+            KInProgress = 8,
+
+            /// <summary>
+            /// Enum KCancelled for value: kCancelled
+            /// </summary>
+            [EnumMember(Value = "kCancelled")]
+            KCancelled = 9
 
         }
 

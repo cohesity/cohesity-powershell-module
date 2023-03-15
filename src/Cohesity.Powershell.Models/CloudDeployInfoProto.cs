@@ -36,6 +36,12 @@ namespace Cohesity.Model
         {
             this.CloudDeployEntityVec = cloudDeployEntityVec;
             this.IsIncremental = isIncremental;
+            this.TargetType = targetType;
+            this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
+            this.Type = type;
+            this.Warnings = warnings;
+            this.CloudDeployEntityVec = cloudDeployEntityVec;
+            this.IsIncremental = isIncremental;
             this.RestoreInfo = restoreInfo;
             this.TargetType = targetType;
             this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
@@ -131,7 +137,7 @@ namespace Cohesity.Model
                     this.CloudDeployEntityVec == input.CloudDeployEntityVec ||
                     this.CloudDeployEntityVec != null &&
                     input.CloudDeployEntityVec != null &&
-                    this.CloudDeployEntityVec.Equals(input.CloudDeployEntityVec)
+                    this.CloudDeployEntityVec.SequenceEqual(input.CloudDeployEntityVec)
                 ) && 
                 (
                     this.IsIncremental == input.IsIncremental ||
@@ -162,7 +168,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.ProtectionJobIds == input.ProtectionJobIds ||
                     this.ProtectionJobIds != null &&
                     input.ProtectionJobIds != null &&
-                    this.ProtectionJobIds.Equals(input.ProtectionJobIds)
+                    this.ProtectionJobIds.SequenceEqual(input.ProtectionJobIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

@@ -231,7 +231,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Changes == input.Changes ||
-                    this.Changes.Equals(input.Changes)
+                    this.Changes.SequenceEqual(input.Changes)
                 );
         }
 

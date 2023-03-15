@@ -53,6 +53,19 @@ namespace Cohesity.Model
             this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
             this.SoftwareVersion = softwareVersion;
+            this.ChassisSerial = chassisSerial;
+            this.ConnectedTo = connectedTo;
+            this.Hostname = hostname;
+            this.Id = id;
+            this.Ip = ip;
+            this.IpmiIp = ipmiIp;
+            this.Ips = ips;
+            this.NodeSerial = nodeSerial;
+            this.NodeUiSlot = nodeUiSlot;
+            this.NumSlotsInChassis = numSlotsInChassis;
+            this.ProductModel = productModel;
+            this.SlotNumber = slotNumber;
+            this.SoftwareVersion = softwareVersion;
         }
         
         /// <summary>
@@ -216,7 +229,7 @@ namespace Cohesity.Model
                     this.Ips == input.Ips ||
                     this.Ips != null &&
                     input.Ips != null &&
-                    this.Ips.Equals(input.Ips)
+                    this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
                     this.NodeSerial == input.NodeSerial ||

@@ -157,13 +157,13 @@ namespace Cohesity.Model
                     this.ActionVec == input.ActionVec ||
                     this.ActionVec != null &&
                     input.ActionVec != null &&
-                    this.ActionVec.Equals(input.ActionVec)
+                    this.ActionVec.SequenceEqual(input.ActionVec)
                 ) && 
                 (
                     this.ConditionVec == input.ConditionVec ||
                     this.ConditionVec != null &&
                     input.ConditionVec != null &&
-                    this.ConditionVec.Equals(input.ConditionVec)
+                    this.ConditionVec.SequenceEqual(input.ConditionVec)
                 ) && 
                 (
                     this.IsAllow == input.IsAllow ||
@@ -194,7 +194,7 @@ namespace Cohesity.Model
                     this.ResourceVec == input.ResourceVec ||
                     this.ResourceVec != null &&
                     input.ResourceVec != null &&
-                    this.ResourceVec.Equals(input.ResourceVec)
+                    this.ResourceVec.SequenceEqual(input.ResourceVec)
                 ) && 
                 (
                     this.Sid == input.Sid ||

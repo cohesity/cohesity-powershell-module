@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.NlmLocks == input.NlmLocks ||
                     this.NlmLocks != null &&
                     input.NlmLocks != null &&
-                    this.NlmLocks.Equals(input.NlmLocks)
+                    this.NlmLocks.SequenceEqual(input.NlmLocks)
                 );
         }
 

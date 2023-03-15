@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.Filename = filename;
             this.LogicalSizeBytes = logicalSizeBytes;
             this.UnitNumber = unitNumber;
+            this.BusNumber = busNumber;
+            this.ControllerType = controllerType;
+            this.Filename = filename;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.UnitNumber = unitNumber;
         }
         
         /// <summary>

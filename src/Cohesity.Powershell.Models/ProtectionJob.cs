@@ -336,18 +336,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KAWSSnapshotManager for kAWSSnapshotManager
-            /// </summary>
-            [EnumMember(Value = "kAWSSnapshotManager")]
-            KAWSSnapshotManager = 47,
-
-			/// <summary>
-            /// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 48
+            KO365PublicFolders = 46
 
         }
 
@@ -1073,7 +1062,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy.Equals(input.AlertingPolicy)
+                    this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
                 ) && 
                 (
                     this.AllowParallelRuns == input.AllowParallelRuns ||
@@ -1109,7 +1098,7 @@ namespace Cohesity.Model
                     this.DedupDisabledSourceIds == input.DedupDisabledSourceIds ||
                     this.DedupDisabledSourceIds != null &&
                     input.DedupDisabledSourceIds != null &&
-                    this.DedupDisabledSourceIds.Equals(input.DedupDisabledSourceIds)
+                    this.DedupDisabledSourceIds.SequenceEqual(input.DedupDisabledSourceIds)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -1134,19 +1123,19 @@ namespace Cohesity.Model
                     this.ExcludeLabelIds == input.ExcludeLabelIds ||
                     this.ExcludeLabelIds != null &&
                     input.ExcludeLabelIds != null &&
-                    this.ExcludeLabelIds.Equals(input.ExcludeLabelIds)
+                    this.ExcludeLabelIds.SequenceEqual(input.ExcludeLabelIds)
                 ) && 
                 (
                     this.ExcludeSourceIds == input.ExcludeSourceIds ||
                     this.ExcludeSourceIds != null &&
                     input.ExcludeSourceIds != null &&
-                    this.ExcludeSourceIds.Equals(input.ExcludeSourceIds)
+                    this.ExcludeSourceIds.SequenceEqual(input.ExcludeSourceIds)
                 ) && 
                 (
                     this.ExcludeVmTagIds == input.ExcludeVmTagIds ||
                     this.ExcludeVmTagIds != null &&
                     input.ExcludeVmTagIds != null &&
-                    this.ExcludeVmTagIds.Equals(input.ExcludeVmTagIds)
+                    this.ExcludeVmTagIds.SequenceEqual(input.ExcludeVmTagIds)
                 ) && 
                 (
                     this.FullProtectionSlaTimeMins == input.FullProtectionSlaTimeMins ||
@@ -1207,7 +1196,7 @@ namespace Cohesity.Model
                     this.LabelIds == input.LabelIds ||
                     this.LabelIds != null &&
                     input.LabelIds != null &&
-                    this.LabelIds.Equals(input.LabelIds)
+                    this.LabelIds.SequenceEqual(input.LabelIds)
                 ) && 
                 (
                     this.LastRun == input.LastRun ||
@@ -1243,7 +1232,7 @@ namespace Cohesity.Model
                     this.MissingEntities == input.MissingEntities ||
                     this.MissingEntities != null &&
                     input.MissingEntities != null &&
-                    this.MissingEntities.Equals(input.MissingEntities)
+                    this.MissingEntities.SequenceEqual(input.MissingEntities)
                 ) && 
                 (
                     this.ModificationTimeUsecs == input.ModificationTimeUsecs ||
@@ -1317,7 +1306,7 @@ namespace Cohesity.Model
                     this.RemoteViewConfigList == input.RemoteViewConfigList ||
                     this.RemoteViewConfigList != null &&
                     input.RemoteViewConfigList != null &&
-                    this.RemoteViewConfigList.Equals(input.RemoteViewConfigList)
+                    this.RemoteViewConfigList.SequenceEqual(input.RemoteViewConfigList)
                 ) && 
                 (
                     this.RemoteViewName == input.RemoteViewName ||
@@ -1328,13 +1317,13 @@ namespace Cohesity.Model
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
-                    this.SourceIds.Equals(input.SourceIds)
+                    this.SourceIds.SequenceEqual(input.SourceIds)
                 ) && 
                 (
                     this.SourceSpecialParameters == input.SourceSpecialParameters ||
                     this.SourceSpecialParameters != null &&
                     input.SourceSpecialParameters != null &&
-                    this.SourceSpecialParameters.Equals(input.SourceSpecialParameters)
+                    this.SourceSpecialParameters.SequenceEqual(input.SourceSpecialParameters)
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
@@ -1365,7 +1354,7 @@ namespace Cohesity.Model
                     this.UserSpecifiedTags == input.UserSpecifiedTags ||
                     this.UserSpecifiedTags != null &&
                     input.UserSpecifiedTags != null &&
-                    this.UserSpecifiedTags.Equals(input.UserSpecifiedTags)
+                    this.UserSpecifiedTags.SequenceEqual(input.UserSpecifiedTags)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -1381,7 +1370,7 @@ namespace Cohesity.Model
                     this.VmTagIds == input.VmTagIds ||
                     this.VmTagIds != null &&
                     input.VmTagIds != null &&
-                    this.VmTagIds.Equals(input.VmTagIds)
+                    this.VmTagIds.SequenceEqual(input.VmTagIds)
                 );
         }
 
@@ -1398,8 +1387,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AbortInBlackoutPeriod.GetHashCode();
                 if (this.AlertingConfig != null)
                     hashCode = hashCode * 59 + this.AlertingConfig.GetHashCode();
-                if (this.AlertingPolicy != null)
-					hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
                 if (this.AllowParallelRuns != null)
                     hashCode = hashCode * 59 + this.AllowParallelRuns.GetHashCode();
                 if (this.CloudParameters != null)
@@ -1418,8 +1406,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
-                if (this.Environment != null)
-					hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.EnvironmentParameters != null)
                     hashCode = hashCode * 59 + this.EnvironmentParameters.GetHashCode();
                 if (this.ExcludeLabelIds != null)
@@ -1486,10 +1473,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PostBackupScript.GetHashCode();
                 if (this.PreBackupScript != null)
                     hashCode = hashCode * 59 + this.PreBackupScript.GetHashCode();
-                if (this.Priority != null)
-					hashCode = hashCode * 59 + this.Priority.GetHashCode();
-                if (this.QosType != null)
-					hashCode = hashCode * 59 + this.QosType.GetHashCode();
+                hashCode = hashCode * 59 + this.Priority.GetHashCode();
+                hashCode = hashCode * 59 + this.QosType.GetHashCode();
                 if (this.Quiesce != null)
                     hashCode = hashCode * 59 + this.Quiesce.GetHashCode();
                 if (this.RemoteScript != null)

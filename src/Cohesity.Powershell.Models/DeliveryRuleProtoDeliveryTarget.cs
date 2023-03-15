@@ -43,6 +43,14 @@ namespace Cohesity.Model
             this.SnmpNotification = snmpNotification;
             this.SyslogNotification = syslogNotification;
             this.TenantId = tenantId;
+            this.EmailAddress = emailAddress;
+            this.EmailRecipientType = emailRecipientType;
+            this.ExternalApiCurlOptions = externalApiCurlOptions;
+            this.ExternalApiUrl = externalApiUrl;
+            this.Locale = locale;
+            this.SnmpNotification = snmpNotification;
+            this.SyslogNotification = syslogNotification;
+            this.TenantId = tenantId;
         }
         
         /// <summary>

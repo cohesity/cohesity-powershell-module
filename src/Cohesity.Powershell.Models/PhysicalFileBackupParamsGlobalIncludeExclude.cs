@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.ExcludeVec = excludeVec;
             this.FsExclude = fsExclude;
+            this.ExcludeVec = excludeVec;
+            this.FsExclude = fsExclude;
         }
         
         /// <summary>
@@ -87,13 +89,13 @@ namespace Cohesity.Model
                     this.ExcludeVec == input.ExcludeVec ||
                     this.ExcludeVec != null &&
                     input.ExcludeVec != null &&
-                    this.ExcludeVec.Equals(input.ExcludeVec)
+                    this.ExcludeVec.SequenceEqual(input.ExcludeVec)
                 ) && 
                 (
                     this.FsExclude == input.FsExclude ||
                     this.FsExclude != null &&
                     input.FsExclude != null &&
-                    this.FsExclude.Equals(input.FsExclude)
+                    this.FsExclude.SequenceEqual(input.FsExclude)
                 );
         }
 

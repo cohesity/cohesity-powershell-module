@@ -119,13 +119,13 @@ namespace Cohesity.Model
                     this.Annotations == input.Annotations ||
                     this.Annotations != null &&
                     input.Annotations != null &&
-                    this.Annotations.Equals(input.Annotations)
+                    this.Annotations.SequenceEqual(input.Annotations)
                 ) && 
                 (
                     this.Labels == input.Labels ||
                     this.Labels != null &&
                     input.Labels != null &&
-                    this.Labels.Equals(input.Labels)
+                    this.Labels.SequenceEqual(input.Labels)
                 ) && 
                 (
                     this.Name == input.Name ||

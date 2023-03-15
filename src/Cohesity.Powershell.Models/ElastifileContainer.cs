@@ -192,7 +192,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (
                     this.UsedBytes == input.UsedBytes ||

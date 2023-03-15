@@ -393,7 +393,7 @@ namespace Cohesity.Model
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
                     input.StatsByEnv != null &&
-                    this.StatsByEnv.Equals(input.StatsByEnv)
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 ) && 
                 (
                     this.VaultGroup == input.VaultGroup ||

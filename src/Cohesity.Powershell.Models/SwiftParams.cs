@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.OperatorRoles == input.OperatorRoles ||
                     this.OperatorRoles != null &&
                     input.OperatorRoles != null &&
-                    this.OperatorRoles.Equals(input.OperatorRoles)
+                    this.OperatorRoles.SequenceEqual(input.OperatorRoles)
                 );
         }
 

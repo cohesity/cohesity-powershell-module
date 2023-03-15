@@ -139,7 +139,7 @@ namespace Cohesity.Model
                     this.ObjectsProtectedByPolicy == input.ObjectsProtectedByPolicy ||
                     this.ObjectsProtectedByPolicy != null &&
                     input.ObjectsProtectedByPolicy != null &&
-                    this.ObjectsProtectedByPolicy.Equals(input.ObjectsProtectedByPolicy)
+                    this.ObjectsProtectedByPolicy.SequenceEqual(input.ObjectsProtectedByPolicy)
                 );
         }
 

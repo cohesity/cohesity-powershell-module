@@ -70,6 +70,9 @@ namespace Cohesity.Model
             this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.KeyspaceInfo = keyspaceInfo;
+            this.Name = name;
+            this.Type = type;
+            this.Uuid = uuid;
         }
         
         /// <summary>

@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -113,19 +114,19 @@ namespace Cohesity.Model
                     this.PulseAttributeVec == input.PulseAttributeVec ||
                     this.PulseAttributeVec != null &&
                     input.PulseAttributeVec != null &&
-                    this.PulseAttributeVec.Equals(input.PulseAttributeVec)
+                    this.PulseAttributeVec.SequenceEqual(input.PulseAttributeVec)
                 ) && 
                 (
                     this.SidVec == input.SidVec ||
                     this.SidVec != null &&
                     input.SidVec != null &&
-                    this.SidVec.Equals(input.SidVec)
+                    this.SidVec.SequenceEqual(input.SidVec)
                 ) && 
                 (
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.Equals(input.TenantIdVec)
+                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
                 );
         }
 

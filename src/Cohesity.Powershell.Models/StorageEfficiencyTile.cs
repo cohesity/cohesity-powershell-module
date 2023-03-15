@@ -55,6 +55,20 @@ namespace Cohesity.Model
             this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
             this.StorageReductionRatio = storageReductionRatio;
             this.StorageReductionSamples = storageReductionSamples;
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesSamples = dataInBytesSamples;
+            this.DataInDedupedBytes = dataInDedupedBytes;
+            this.DataInDedupedBytesSamples = dataInDedupedBytesSamples;
+            this.DedupeRatio = dedupeRatio;
+            this.DedupeRatioSamples = dedupeRatioSamples;
+            this.DurationDays = durationDays;
+            this.IntervalSeconds = intervalSeconds;
+            this.LogicalUsedBytes = logicalUsedBytes;
+            this.LogicalUsedBytesSamples = logicalUsedBytesSamples;
+            this.PhysicalUsedBytes = physicalUsedBytes;
+            this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
+            this.StorageReductionRatio = storageReductionRatio;
+            this.StorageReductionSamples = storageReductionSamples;
         }
         
         /// <summary>
@@ -200,7 +214,7 @@ namespace Cohesity.Model
                     this.DataInBytesSamples == input.DataInBytesSamples ||
                     this.DataInBytesSamples != null &&
                     input.DataInBytesSamples != null &&
-                    this.DataInBytesSamples.Equals(input.DataInBytesSamples)
+                    this.DataInBytesSamples.SequenceEqual(input.DataInBytesSamples)
                 ) && 
                 (
                     this.DataInDedupedBytes == input.DataInDedupedBytes ||
@@ -211,7 +225,7 @@ namespace Cohesity.Model
                     this.DataInDedupedBytesSamples == input.DataInDedupedBytesSamples ||
                     this.DataInDedupedBytesSamples != null &&
                     input.DataInDedupedBytesSamples != null &&
-                    this.DataInDedupedBytesSamples.Equals(input.DataInDedupedBytesSamples)
+                    this.DataInDedupedBytesSamples.SequenceEqual(input.DataInDedupedBytesSamples)
                 ) && 
                 (
                     this.DedupeRatio == input.DedupeRatio ||
@@ -222,7 +236,7 @@ namespace Cohesity.Model
                     this.DedupeRatioSamples == input.DedupeRatioSamples ||
                     this.DedupeRatioSamples != null &&
                     input.DedupeRatioSamples != null &&
-                    this.DedupeRatioSamples.Equals(input.DedupeRatioSamples)
+                    this.DedupeRatioSamples.SequenceEqual(input.DedupeRatioSamples)
                 ) && 
                 (
                     this.DurationDays == input.DurationDays ||
@@ -243,7 +257,7 @@ namespace Cohesity.Model
                     this.LogicalUsedBytesSamples == input.LogicalUsedBytesSamples ||
                     this.LogicalUsedBytesSamples != null &&
                     input.LogicalUsedBytesSamples != null &&
-                    this.LogicalUsedBytesSamples.Equals(input.LogicalUsedBytesSamples)
+                    this.LogicalUsedBytesSamples.SequenceEqual(input.LogicalUsedBytesSamples)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||
@@ -254,7 +268,7 @@ namespace Cohesity.Model
                     this.PhysicalUsedBytesSamples == input.PhysicalUsedBytesSamples ||
                     this.PhysicalUsedBytesSamples != null &&
                     input.PhysicalUsedBytesSamples != null &&
-                    this.PhysicalUsedBytesSamples.Equals(input.PhysicalUsedBytesSamples)
+                    this.PhysicalUsedBytesSamples.SequenceEqual(input.PhysicalUsedBytesSamples)
                 ) && 
                 (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
@@ -265,7 +279,7 @@ namespace Cohesity.Model
                     this.StorageReductionSamples == input.StorageReductionSamples ||
                     this.StorageReductionSamples != null &&
                     input.StorageReductionSamples != null &&
-                    this.StorageReductionSamples.Equals(input.StorageReductionSamples)
+                    this.StorageReductionSamples.SequenceEqual(input.StorageReductionSamples)
                 );
         }
 

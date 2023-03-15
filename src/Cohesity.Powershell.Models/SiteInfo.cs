@@ -397,7 +397,7 @@ namespace Cohesity.Model
                     this.OwnerVec == input.OwnerVec ||
                     this.OwnerVec != null &&
                     input.OwnerVec != null &&
-                    this.OwnerVec.Equals(input.OwnerVec)
+                    this.OwnerVec.SequenceEqual(input.OwnerVec)
                 ) && 
                 (
                     this.ReadOnly == input.ReadOnly ||
@@ -418,7 +418,7 @@ namespace Cohesity.Model
                     this.SitepropVec == input.SitepropVec ||
                     this.SitepropVec != null &&
                     input.SitepropVec != null &&
-                    this.SitepropVec.Equals(input.SitepropVec)
+                    this.SitepropVec.SequenceEqual(input.SitepropVec)
                 ) && 
                 (
                     this.Template == input.Template ||
@@ -429,7 +429,7 @@ namespace Cohesity.Model
                     this.TenantsitepropVec == input.TenantsitepropVec ||
                     this.TenantsitepropVec != null &&
                     input.TenantsitepropVec != null &&
-                    this.TenantsitepropVec.Equals(input.TenantsitepropVec)
+                    this.TenantsitepropVec.SequenceEqual(input.TenantsitepropVec)
                 ) && 
                 (
                     this.TimezoneId == input.TimezoneId ||
@@ -440,7 +440,7 @@ namespace Cohesity.Model
                     this.WebpropVec == input.WebpropVec ||
                     this.WebpropVec != null &&
                     input.WebpropVec != null &&
-                    this.WebpropVec.Equals(input.WebpropVec)
+                    this.WebpropVec.SequenceEqual(input.WebpropVec)
                 );
         }
 

@@ -114,13 +114,13 @@ namespace Cohesity.Model
                     this.DeniedReferrerVec == input.DeniedReferrerVec ||
                     this.DeniedReferrerVec != null &&
                     input.DeniedReferrerVec != null &&
-                    this.DeniedReferrerVec.Equals(input.DeniedReferrerVec)
+                    this.DeniedReferrerVec.SequenceEqual(input.DeniedReferrerVec)
                 ) && 
                 (
                     this.GrantedReferrerVec == input.GrantedReferrerVec ||
                     this.GrantedReferrerVec != null &&
                     input.GrantedReferrerVec != null &&
-                    this.GrantedReferrerVec.Equals(input.GrantedReferrerVec)
+                    this.GrantedReferrerVec.SequenceEqual(input.GrantedReferrerVec)
                 ) && 
                 (
                     this.Rlistings == input.Rlistings ||

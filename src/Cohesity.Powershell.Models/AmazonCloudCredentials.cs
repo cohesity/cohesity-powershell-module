@@ -146,6 +146,21 @@ namespace Cohesity.Model
             this.TierType = tierType;
             this.Tiers = tiers;
             this.UseHttps = useHttps;
+            this.IsLambdaBasedGCEnabled = isLambdaBasedGCEnabled;
+            this.AccessKeyId = accessKeyId;
+            this.AuthMethod = authMethod;
+            this.C2sAccessPortal = c2sAccessPortal;
+            this.CredentialBlob = credentialBlob;
+            this.CredentialEndpoint = credentialEndpoint;
+            this.IamRoleArn = iamRoleArn;
+            this.ReadOnlyIamRoleArn = readOnlyIamRoleArn;
+            this.Region = region;
+            this.SecretAccessKey = secretAccessKey;
+            this.ServiceUrl = serviceUrl;
+            this.SignatureVersion = signatureVersion;
+            this.TierType = tierType;
+            this.Tiers = tiers;
+            this.UseHttps = useHttps;
         }
         
         /// <summary>
@@ -341,7 +356,7 @@ namespace Cohesity.Model
                     this.Tiers == input.Tiers ||
                     this.Tiers != null &&
                     input.Tiers != null &&
-                    this.Tiers.Equals(input.Tiers)
+                    this.Tiers.SequenceEqual(input.Tiers)
                 ) && 
                 (
                     this.UseHttps == input.UseHttps ||
@@ -363,8 +378,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsLambdaBasedGCEnabled.GetHashCode();
                 if (this.AccessKeyId != null)
                     hashCode = hashCode * 59 + this.AccessKeyId.GetHashCode();
-				if (this.AuthMethod != null)
-	                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.C2sAccessPortal != null)
                     hashCode = hashCode * 59 + this.C2sAccessPortal.GetHashCode();
                 if (this.CredentialBlob != null)

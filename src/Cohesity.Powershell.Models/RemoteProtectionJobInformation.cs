@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -327,6 +322,10 @@ namespace Cohesity.Model
         /// <param name="jobUid">Specifies the globally unique id of the original Protection Job that archived the data to the Vault. This id is assigned by the original Cluster that archived the data..</param>
         public RemoteProtectionJobInformation(string clusterName = default(string), EnvironmentEnum? environment = default(EnvironmentEnum?), string jobName = default(string), UniversalId jobUid = default(UniversalId))
         {
+            this.ClusterName = clusterName;
+            this.Environment = environment;
+            this.JobName = jobName;
+            this.JobUid = jobUid;
             this.ClusterName = clusterName;
             this.Environment = environment;
             this.JobName = jobName;

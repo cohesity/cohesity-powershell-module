@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.EntityLogs == input.EntityLogs ||
                     this.EntityLogs != null &&
                     input.EntityLogs != null &&
-                    this.EntityLogs.Equals(input.EntityLogs)
+                    this.EntityLogs.SequenceEqual(input.EntityLogs)
                 ) && 
                 (
                     this.JobEndTimeUsecs == input.JobEndTimeUsecs ||
@@ -130,7 +130,7 @@ namespace Cohesity.Model
                     this.RestoreObjects == input.RestoreObjects ||
                     this.RestoreObjects != null &&
                     input.RestoreObjects != null &&
-                    this.RestoreObjects.Equals(input.RestoreObjects)
+                    this.RestoreObjects.SequenceEqual(input.RestoreObjects)
                 ) && 
                 (
                     this.StartSequencer == input.StartSequencer ||

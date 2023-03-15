@@ -125,7 +125,7 @@ namespace Cohesity.Model
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
                     input.JobIds != null &&
-                    this.JobIds.Equals(input.JobIds)
+                    this.JobIds.SequenceEqual(input.JobIds)
                 );
         }
 

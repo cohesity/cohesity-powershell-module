@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.TagVec == input.TagVec ||
                     this.TagVec != null &&
                     input.TagVec != null &&
-                    this.TagVec.Equals(input.TagVec)
+                    this.TagVec.SequenceEqual(input.TagVec)
                 );
         }
 

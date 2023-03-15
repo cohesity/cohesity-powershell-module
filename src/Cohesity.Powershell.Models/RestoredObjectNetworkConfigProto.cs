@@ -37,6 +37,10 @@ namespace Cohesity.Model
             this.DetachNetwork = detachNetwork;
             this.DisableNetwork = disableNetwork;
             this.Mappings = mappings;
+            this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
+            this.DetachNetwork = detachNetwork;
+            this.DisableNetwork = disableNetwork;
+            this.Mappings = mappings;
             this.NetworkEntity = networkEntity;
             this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
             this.VcdNetwork = vcdNetwork;
@@ -139,7 +143,7 @@ namespace Cohesity.Model
                     this.Mappings == input.Mappings ||
                     this.Mappings != null &&
                     input.Mappings != null &&
-                    this.Mappings.Equals(input.Mappings)
+                    this.Mappings.SequenceEqual(input.Mappings)
                 ) && 
                 (
                     this.NetworkEntity == input.NetworkEntity ||

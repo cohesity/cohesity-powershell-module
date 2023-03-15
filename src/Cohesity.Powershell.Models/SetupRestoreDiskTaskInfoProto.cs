@@ -34,6 +34,11 @@ namespace Cohesity.Model
         /// <param name="viewName">Destination view into which the files will be cloned..</param>
         public SetupRestoreDiskTaskInfoProto(EntityProto entity = default(EntityProto), string progressMonitorRootTaskPath = default(string), EntityProto rootEntity = default(EntityProto), string sourceViewName = default(string), long? taskId = default(long?), long? viewBoxId = default(long?), string viewName = default(string))
         {
+            this.ProgressMonitorRootTaskPath = progressMonitorRootTaskPath;
+            this.SourceViewName = sourceViewName;
+            this.TaskId = taskId;
+            this.ViewBoxId = viewBoxId;
+            this.ViewName = viewName;
             this.Entity = entity;
             this.ProgressMonitorRootTaskPath = progressMonitorRootTaskPath;
             this.RootEntity = rootEntity;

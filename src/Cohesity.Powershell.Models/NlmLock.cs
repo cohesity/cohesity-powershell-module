@@ -93,7 +93,7 @@ namespace Cohesity.Model
                     this.LockRanges == input.LockRanges ||
                     this.LockRanges != null &&
                     input.LockRanges != null &&
-                    this.LockRanges.Equals(input.LockRanges)
+                    this.LockRanges.SequenceEqual(input.LockRanges)
                 );
         }
 

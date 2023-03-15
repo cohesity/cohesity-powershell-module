@@ -54,6 +54,19 @@ namespace Cohesity.Model
             this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.StorageProfileName = storageProfileName;
+            this.StorageProfileVcdUuid = storageProfileVcdUuid;
+            this.AttemptDifferentialRestore = attemptDifferentialRestore;
+            this.CatalogUuid = catalogUuid;
+            this.CopyRecovery = copyRecovery;
+            this.DatastoreEntityVec = datastoreEntityVec;
+            this.IsOnPremDeploy = isOnPremDeploy;
+            this.OrgVdcNetworkName = orgVdcNetworkName;
+            this.OrgVdcNetworkVcdUuid = orgVdcNetworkVcdUuid;
+            this.OverwriteExistingVm = overwriteExistingVm;
+            this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveTagsDuringClone = preserveTagsDuringClone;
             this.ResourcePoolEntity = resourcePoolEntity;
             this.StorageProfileName = storageProfileName;
             this.StorageProfileVcdUuid = storageProfileVcdUuid;
@@ -225,7 +238,7 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec == input.DatastoreEntityVec ||
                     this.DatastoreEntityVec != null &&
                     input.DatastoreEntityVec != null &&
-                    this.DatastoreEntityVec.Equals(input.DatastoreEntityVec)
+                    this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
                 ) && 
                 (
                     this.IsOnPremDeploy == input.IsOnPremDeploy ||

@@ -78,7 +78,7 @@ namespace Cohesity.Model
                     this.UserIdVec == input.UserIdVec ||
                     this.UserIdVec != null &&
                     input.UserIdVec != null &&
-                    this.UserIdVec.Equals(input.UserIdVec)
+                    this.UserIdVec.SequenceEqual(input.UserIdVec)
                 );
         }
 

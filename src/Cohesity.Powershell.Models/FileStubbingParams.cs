@@ -49,6 +49,20 @@ namespace Cohesity.Model
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
+            this.NfsMountPath = nfsMountPath;
+            this.NfsMountPathPrefix = nfsMountPathPrefix;
+            this.TargetViewMap = targetViewMap;
+            this.TargetViewName = targetViewName;
+            this.TargetViewPrefix = targetViewPrefix;
+            this.TieringGoal = tieringGoal;
+            this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
+            this.EnableAuditLogging = enableAuditLogging;
+            this.EnableChecksumVerification = enableChecksumVerification;
+            this.FileSelectPolicy = fileSelectPolicy;
+            this.FileSize = fileSize;
+            this.FileSizePolicy = fileSizePolicy;
             this.FilteringPolicy = filteringPolicy;
             this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
@@ -258,7 +272,7 @@ namespace Cohesity.Model
                     this.TargetViewMap == input.TargetViewMap ||
                     this.TargetViewMap != null &&
                     input.TargetViewMap != null &&
-                    this.TargetViewMap.Equals(input.TargetViewMap)
+                    this.TargetViewMap.SequenceEqual(input.TargetViewMap)
                 ) && 
                 (
                     this.TargetViewName == input.TargetViewName ||

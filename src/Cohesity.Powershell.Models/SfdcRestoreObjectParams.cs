@@ -133,7 +133,7 @@ namespace Cohesity.Model
                     this.RecordIdVec == input.RecordIdVec ||
                     this.RecordIdVec != null &&
                     input.RecordIdVec != null &&
-                    this.RecordIdVec.Equals(input.RecordIdVec)
+                    this.RecordIdVec.SequenceEqual(input.RecordIdVec)
                 ) && 
                 (
                     this.RestoreType == input.RestoreType ||

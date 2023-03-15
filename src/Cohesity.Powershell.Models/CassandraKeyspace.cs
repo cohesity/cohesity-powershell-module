@@ -66,6 +66,9 @@ namespace Cohesity.Model
             this.ChildrenCount = childrenCount;
             this.DcList = dcList;
             this.ReplicationStrategy = replicationStrategy;
+            this.ChildrenCount = childrenCount;
+            this.DcList = dcList;
+            this.ReplicationStrategy = replicationStrategy;
         }
         
         /// <summary>
@@ -127,7 +130,7 @@ namespace Cohesity.Model
                     this.DcList == input.DcList ||
                     this.DcList != null &&
                     input.DcList != null &&
-                    this.DcList.Equals(input.DcList)
+                    this.DcList.SequenceEqual(input.DcList)
                 ) && 
                 (
                     this.ReplicationStrategy == input.ReplicationStrategy ||
@@ -148,8 +151,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ChildrenCount.GetHashCode();
                 if (this.DcList != null)
                     hashCode = hashCode * 59 + this.DcList.GetHashCode();
-                if (this.DcList != null)
-					hashCode = hashCode * 59 + this.ReplicationStrategy.GetHashCode();
+                hashCode = hashCode * 59 + this.ReplicationStrategy.GetHashCode();
                 return hashCode;
             }
         }

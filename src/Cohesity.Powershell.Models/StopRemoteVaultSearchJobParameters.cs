@@ -29,6 +29,7 @@ namespace Cohesity.Model
         public StopRemoteVaultSearchJobParameters(UniversalId searchJobUid = default(UniversalId))
         {
             this.SearchJobUid = searchJobUid;
+            this.SearchJobUid = searchJobUid;
         }
         
         /// <summary>

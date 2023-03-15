@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.DriveVec == input.DriveVec ||
                     this.DriveVec != null &&
                     input.DriveVec != null &&
-                    this.DriveVec.Equals(input.DriveVec)
+                    this.DriveVec.SequenceEqual(input.DriveVec)
                 ) && 
                 (
                     this.Id == input.Id ||

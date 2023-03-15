@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.PluggableDatabaseInfoList == input.PluggableDatabaseInfoList ||
                     this.PluggableDatabaseInfoList != null &&
                     input.PluggableDatabaseInfoList != null &&
-                    this.PluggableDatabaseInfoList.Equals(input.PluggableDatabaseInfoList)
+                    this.PluggableDatabaseInfoList.SequenceEqual(input.PluggableDatabaseInfoList)
                 );
         }
 

@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.ActiveDirectoryDomains == input.ActiveDirectoryDomains ||
                     this.ActiveDirectoryDomains != null &&
                     input.ActiveDirectoryDomains != null &&
-                    this.ActiveDirectoryDomains.Equals(input.ActiveDirectoryDomains)
+                    this.ActiveDirectoryDomains.SequenceEqual(input.ActiveDirectoryDomains)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

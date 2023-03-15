@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.UserIds == input.UserIds ||
                     this.UserIds != null &&
                     input.UserIds != null &&
-                    this.UserIds.Equals(input.UserIds)
+                    this.UserIds.SequenceEqual(input.UserIds)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

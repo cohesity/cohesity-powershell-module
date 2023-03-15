@@ -36,6 +36,10 @@ namespace Cohesity.Model
             this.NumRunsFailed = numRunsFailed;
             this.NumRunsFailedSla = numRunsFailedSla;
             this.NumRunsMetSla = numRunsMetSla;
+            this.NumObjectsFailed = numObjectsFailed;
+            this.NumRunsFailed = numRunsFailed;
+            this.NumRunsFailedSla = numRunsFailedSla;
+            this.NumRunsMetSla = numRunsMetSla;
             this.StatsByEnv = statsByEnv;
         }
         
@@ -134,7 +138,7 @@ namespace Cohesity.Model
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
                     input.StatsByEnv != null &&
-                    this.StatsByEnv.Equals(input.StatsByEnv)
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 );
         }
 

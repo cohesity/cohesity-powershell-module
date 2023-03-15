@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.Description = description;
             this.Name = name;
             this.Privileges = privileges;
+            this.Description = description;
+            this.Name = name;
+            this.Privileges = privileges;
         }
         
         /// <summary>
@@ -106,7 +109,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.Equals(input.Privileges)
+                    this.Privileges.SequenceEqual(input.Privileges)
                 );
         }
 

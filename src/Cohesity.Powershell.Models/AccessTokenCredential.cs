@@ -68,6 +68,13 @@ namespace Cohesity.Model
             this.Password = password;
             this.PrivateKey = privateKey;
             this.Username = username;
+            this.Certificate = certificate;
+            this.Domain = domain;
+            this.OtpCode = otpCode;
+            this.OtpType = otpType;
+            this.Password = password;
+            this.PrivateKey = privateKey;
+            this.Username = username;
         }
         
         /// <summary>
@@ -152,31 +159,31 @@ namespace Cohesity.Model
                     this.Certificate == input.Certificate ||
                     (this.Certificate != null &&
                     this.Certificate.Equals(input.Certificate))
-                ) &&
+                ) && 
                 (
                     this.Domain == input.Domain ||
                     (this.Domain != null &&
                     this.Domain.Equals(input.Domain))
-                ) &&
+                ) && 
                 (
                     this.OtpCode == input.OtpCode ||
                     (this.OtpCode != null &&
                     this.OtpCode.Equals(input.OtpCode))
-                ) &&
+                ) && 
                 (
                     this.OtpType == input.OtpType ||
                     this.OtpType.Equals(input.OtpType)
-                ) &&
+                ) && 
                 (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
-                ) &&
+                ) && 
                 (
                     this.PrivateKey == input.PrivateKey ||
                     (this.PrivateKey != null &&
                     this.PrivateKey.Equals(input.PrivateKey))
-                ) &&
+                ) && 
                 (
                     this.Username == input.Username ||
                     (this.Username != null &&
@@ -199,8 +206,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.OtpCode != null)
                     hashCode = hashCode * 59 + this.OtpCode.GetHashCode();
-                if (this.OtpType != null)
-                    hashCode = hashCode * 59 + this.OtpType.GetHashCode();
+                hashCode = hashCode * 59 + this.OtpType.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PrivateKey != null)
@@ -214,3 +220,4 @@ namespace Cohesity.Model
     }
 
 }
+

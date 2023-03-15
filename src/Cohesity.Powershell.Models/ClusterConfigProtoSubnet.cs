@@ -51,6 +51,18 @@ namespace Cohesity.Model
             this.NfsRootSquash = nfsRootSquash;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
+            this.Component = component;
+            this.Description = description;
+            this.Gateway = gateway;
+            this.Id = id;
+            this.Ip = ip;
+            this.NetmaskBits = netmaskBits;
+            this.NetmaskIp4 = netmaskIp4;
+            this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
+            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
         }
         
         /// <summary>

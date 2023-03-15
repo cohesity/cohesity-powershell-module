@@ -34,6 +34,9 @@ namespace Cohesity.Model
             this.AmiCreationFrequency = amiCreationFrequency;
             this.CreateAmiForRun = createAmiForRun;
             this.ShouldCreateAmi = shouldCreateAmi;
+            this.AmiCreationFrequency = amiCreationFrequency;
+            this.CreateAmiForRun = createAmiForRun;
+            this.ShouldCreateAmi = shouldCreateAmi;
             this.VolumeExclusionParams = volumeExclusionParams;
         }
         

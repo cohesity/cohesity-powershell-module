@@ -97,7 +97,7 @@ namespace Cohesity.Model
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
                     input.AlertIdList != null &&
-                    this.AlertIdList.Equals(input.AlertIdList)
+                    this.AlertIdList.SequenceEqual(input.AlertIdList)
                 ) && 
                 (
                     this.ResolutionDetails == input.ResolutionDetails ||
@@ -108,7 +108,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 

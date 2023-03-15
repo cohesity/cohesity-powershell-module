@@ -402,7 +402,7 @@ namespace Cohesity.Model
                     this.Tenants == input.Tenants ||
                     this.Tenants != null &&
                     input.Tenants != null &&
-                    this.Tenants.Equals(input.Tenants)
+                    this.Tenants.SequenceEqual(input.Tenants)
                 );
         }
 

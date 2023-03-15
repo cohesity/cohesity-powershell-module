@@ -82,6 +82,11 @@ namespace Cohesity.Model
             this.PrincipalName = principalName;
             this.Restricted = restricted;
             this.Roles = roles;
+            this.Domain = domain;
+            this.ObjectClass = objectClass;
+            this.PrincipalName = principalName;
+            this.Restricted = restricted;
+            this.Roles = roles;
         }
         
         /// <summary>
@@ -171,7 +176,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 );
         }
 

@@ -29,6 +29,7 @@ namespace Cohesity.Model
         public ShowSystemLedInfoResult(string ledInfo = default(string))
         {
             this.LedInfo = ledInfo;
+            this.LedInfo = ledInfo;
         }
         
         /// <summary>

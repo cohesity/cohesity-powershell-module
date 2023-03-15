@@ -133,7 +133,7 @@ namespace Cohesity.Model
                     this.VolumeGuidVec == input.VolumeGuidVec ||
                     this.VolumeGuidVec != null &&
                     input.VolumeGuidVec != null &&
-                    this.VolumeGuidVec.Equals(input.VolumeGuidVec)
+                    this.VolumeGuidVec.SequenceEqual(input.VolumeGuidVec)
                 );
         }
 

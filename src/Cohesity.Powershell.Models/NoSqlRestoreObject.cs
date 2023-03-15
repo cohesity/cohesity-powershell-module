@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.ObjectRestorePropertiesMap == input.ObjectRestorePropertiesMap ||
                     this.ObjectRestorePropertiesMap != null &&
                     input.ObjectRestorePropertiesMap != null &&
-                    this.ObjectRestorePropertiesMap.Equals(input.ObjectRestorePropertiesMap)
+                    this.ObjectRestorePropertiesMap.SequenceEqual(input.ObjectRestorePropertiesMap)
                 ) && 
                 (
                     this.ObjectUuid == input.ObjectUuid ||

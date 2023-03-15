@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.LabelVec == input.LabelVec ||
                     this.LabelVec != null &&
                     input.LabelVec != null &&
-                    this.LabelVec.Equals(input.LabelVec)
+                    this.LabelVec.SequenceEqual(input.LabelVec)
                 );
         }
 

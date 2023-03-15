@@ -78,7 +78,7 @@ namespace Cohesity.Model
                     this.MountPathInfoVec == input.MountPathInfoVec ||
                     this.MountPathInfoVec != null &&
                     input.MountPathInfoVec != null &&
-                    this.MountPathInfoVec.Equals(input.MountPathInfoVec)
+                    this.MountPathInfoVec.SequenceEqual(input.MountPathInfoVec)
                 );
         }
 

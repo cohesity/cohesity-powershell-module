@@ -189,13 +189,8 @@ namespace Cohesity.Model
             /// Enum KCustomProperty for value: kCustomProperty
             /// </summary>
             [EnumMember(Value = "kCustomProperty")]
-            KCustomProperty = 11,
+            KCustomProperty = 11
 
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 12
         }
 
         /// <summary>
@@ -227,7 +222,6 @@ namespace Cohesity.Model
             this.BackupType = backupType;
             this.BuildNumber = buildNumber;
             this.ClusterName = clusterName;
-            this.DatastoreInfo = datastoreInfo;
             this.Description = description;
             this.HostType = hostType;
             this.HypervUuid = hypervUuid;
@@ -367,7 +361,7 @@ namespace Cohesity.Model
                     this.Agents == input.Agents ||
                     this.Agents != null &&
                     input.Agents != null &&
-                    this.Agents.Equals(input.Agents)
+                    this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
                     this.BackupType == input.BackupType ||
@@ -411,7 +405,7 @@ namespace Cohesity.Model
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
                     input.TagAttributes != null &&
-                    this.TagAttributes.Equals(input.TagAttributes)
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||

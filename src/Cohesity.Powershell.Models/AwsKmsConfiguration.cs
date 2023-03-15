@@ -80,6 +80,16 @@ namespace Cohesity.Model
             this.Region = region;
             this.SecretAccessKey = secretAccessKey;
             this.VerifySSL = verifySSL;
+            this.AccessKeyId = accessKeyId;
+            this.AuthMethod = authMethod;
+            this.CaCertificate = caCertificate;
+            this.CmkAlias = cmkAlias;
+            this.CmkArn = cmkArn;
+            this.CmkKeyId = cmkKeyId;
+            this.IamRoleArn = iamRoleArn;
+            this.Region = region;
+            this.SecretAccessKey = secretAccessKey;
+            this.VerifySSL = verifySSL;
         }
         
         /// <summary>
@@ -243,8 +253,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AccessKeyId != null)
                     hashCode = hashCode * 59 + this.AccessKeyId.GetHashCode();
-				if (this.AuthMethod != null)
-                	hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.CaCertificate != null)
                     hashCode = hashCode * 59 + this.CaCertificate.GetHashCode();
                 if (this.CmkAlias != null)

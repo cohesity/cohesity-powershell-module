@@ -25,6 +25,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EnvBackupParams" /> class.
         /// </summary>
+        /// <param name="acropolisBackupJobParams">acropolisBackupJobParams.</param>
         /// <param name="awsNativeEnvParams">awsNativeEnvParams.</param>
         /// <param name="exchangeBackupJobParams">exchangeBackupJobParams.</param>
         /// <param name="externallyTriggeredJobParams">externallyTriggeredJobParams.</param>
@@ -45,8 +46,9 @@ namespace Cohesity.Model
         /// <param name="sqlBackupJobParams">sqlBackupJobParams.</param>
         /// <param name="udaBackupJobParams">udaBackupJobParams.</param>
         /// <param name="vmwareBackupParams">vmwareBackupParams.</param>
-        public EnvBackupParams(AWSNativeEnvParams awsNativeEnvParams = default(AWSNativeEnvParams), ExchangeBackupJobParams exchangeBackupJobParams = default(ExchangeBackupJobParams), ExternallyTriggeredJobParams externallyTriggeredJobParams = default(ExternallyTriggeredJobParams), FileStubbingParams fileStubbingParams = default(FileStubbingParams), FileUptieringParams fileUptieringParams = default(FileUptieringParams), HyperVBackupEnvParams hypervBackupParams = default(HyperVBackupEnvParams), IsilonEnvParams isilonEnvParams = default(IsilonEnvParams), KubernetesEnvParams kubernetesEnvParams = default(KubernetesEnvParams), NasAnalysisJobParams nasAnalysisJobParams = default(NasAnalysisJobParams), NasBackupParams nasBackupParams = default(NasBackupParams), NoSqlBackupJobParams nosqlBackupJobParams = default(NoSqlBackupJobParams), O365BackupEnvParams o365BackupParams = default(O365BackupEnvParams), OracleBackupJobParams oracleBackupJobParams = default(OracleBackupJobParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PhysicalBackupEnvParams physicalBackupParams = default(PhysicalBackupEnvParams), SfdcBackupJobParams sfdcBackupJobParams = default(SfdcBackupJobParams), SnapshotManagerParams snapshotManagerParams = default(SnapshotManagerParams), SqlBackupJobParams sqlBackupJobParams = default(SqlBackupJobParams), UdaBackupJobParams udaBackupJobParams = default(UdaBackupJobParams), VMwareBackupEnvParams vmwareBackupParams = default(VMwareBackupEnvParams))
+        public EnvBackupParams(AcropolisBackupJobParams acropolisBackupJobParams = default(AcropolisBackupJobParams), AWSNativeEnvParams awsNativeEnvParams = default(AWSNativeEnvParams), ExchangeBackupJobParams exchangeBackupJobParams = default(ExchangeBackupJobParams), ExternallyTriggeredJobParams externallyTriggeredJobParams = default(ExternallyTriggeredJobParams), FileStubbingParams fileStubbingParams = default(FileStubbingParams), FileUptieringParams fileUptieringParams = default(FileUptieringParams), HyperVBackupEnvParams hypervBackupParams = default(HyperVBackupEnvParams), IsilonEnvParams isilonEnvParams = default(IsilonEnvParams), KubernetesEnvParams kubernetesEnvParams = default(KubernetesEnvParams), NasAnalysisJobParams nasAnalysisJobParams = default(NasAnalysisJobParams), NasBackupParams nasBackupParams = default(NasBackupParams), NoSqlBackupJobParams nosqlBackupJobParams = default(NoSqlBackupJobParams), O365BackupEnvParams o365BackupParams = default(O365BackupEnvParams), OracleBackupJobParams oracleBackupJobParams = default(OracleBackupJobParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PhysicalBackupEnvParams physicalBackupParams = default(PhysicalBackupEnvParams), SfdcBackupJobParams sfdcBackupJobParams = default(SfdcBackupJobParams), SnapshotManagerParams snapshotManagerParams = default(SnapshotManagerParams), SqlBackupJobParams sqlBackupJobParams = default(SqlBackupJobParams), UdaBackupJobParams udaBackupJobParams = default(UdaBackupJobParams), VMwareBackupEnvParams vmwareBackupParams = default(VMwareBackupEnvParams))
         {
+            this.AcropolisBackupJobParams = acropolisBackupJobParams;
             this.AwsNativeEnvParams = awsNativeEnvParams;
             this.ExchangeBackupJobParams = exchangeBackupJobParams;
             this.ExternallyTriggeredJobParams = externallyTriggeredJobParams;
@@ -69,6 +71,12 @@ namespace Cohesity.Model
             this.VmwareBackupParams = vmwareBackupParams;
         }
         
+        /// <summary>
+        /// Gets or Sets AcropolisBackupJobParams
+        /// </summary>
+        [DataMember(Name="acropolisBackupJobParams", EmitDefaultValue=false)]
+        public AcropolisBackupJobParams AcropolisBackupJobParams { get; set; }
+
         /// <summary>
         /// Gets or Sets AwsNativeEnvParams
         /// </summary>
@@ -226,6 +234,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AcropolisBackupJobParams == input.AcropolisBackupJobParams ||
+                    (this.AcropolisBackupJobParams != null &&
+                    this.AcropolisBackupJobParams.Equals(input.AcropolisBackupJobParams))
+                ) && 
+                (
                     this.AwsNativeEnvParams == input.AwsNativeEnvParams ||
                     (this.AwsNativeEnvParams != null &&
                     this.AwsNativeEnvParams.Equals(input.AwsNativeEnvParams))
@@ -336,6 +349,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AcropolisBackupJobParams != null)
+                    hashCode = hashCode * 59 + this.AcropolisBackupJobParams.GetHashCode();
                 if (this.AwsNativeEnvParams != null)
                     hashCode = hashCode * 59 + this.AwsNativeEnvParams.GetHashCode();
                 if (this.ExchangeBackupJobParams != null)

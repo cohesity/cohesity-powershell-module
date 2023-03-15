@@ -87,6 +87,18 @@ namespace Cohesity.Model
             this.PeakReadThroughput = peakReadThroughput;
             this.PeakWriteThroughput = peakWriteThroughput;
             this.PhysicalUsedBytes = physicalUsedBytes;
+            this.Stats = stats;
+            this.StorageReductionRatio = storageReductionRatio;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.DataReadBytes = dataReadBytes;
+            this.DataWrittenBytes = dataWrittenBytes;
+            this.LogicalUsedBytes = logicalUsedBytes;
+            this.PeakReadThroughput = peakReadThroughput;
+            this.PeakWriteThroughput = peakWriteThroughput;
+            this.PhysicalUsedBytes = physicalUsedBytes;
             this.Protocols = protocols;
             this.Stats = stats;
             this.StorageReductionRatio = storageReductionRatio;
@@ -256,13 +268,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (
                     this.Stats == input.Stats ||
                     this.Stats != null &&
                     input.Stats != null &&
-                    this.Stats.Equals(input.Stats)
+                    this.Stats.SequenceEqual(input.Stats)
                 ) && 
                 (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
@@ -306,8 +318,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PeakWriteThroughput.GetHashCode();
                 if (this.PhysicalUsedBytes != null)
                     hashCode = hashCode * 59 + this.PhysicalUsedBytes.GetHashCode();
-                if (this.Protocols != null)
-					hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StorageReductionRatio != null)

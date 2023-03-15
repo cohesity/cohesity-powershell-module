@@ -123,7 +123,7 @@ namespace Cohesity.Model
                     this.ObjectInfoVec == input.ObjectInfoVec ||
                     this.ObjectInfoVec != null &&
                     input.ObjectInfoVec != null &&
-                    this.ObjectInfoVec.Equals(input.ObjectInfoVec)
+                    this.ObjectInfoVec.SequenceEqual(input.ObjectInfoVec)
                 ) && 
                 (
                     this.RegisteredEntitySfdcParams == input.RegisteredEntitySfdcParams ||

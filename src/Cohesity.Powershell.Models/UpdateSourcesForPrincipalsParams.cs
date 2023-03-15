@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.SourcesForPrincipals == input.SourcesForPrincipals ||
                     this.SourcesForPrincipals != null &&
                     input.SourcesForPrincipals != null &&
-                    this.SourcesForPrincipals.Equals(input.SourcesForPrincipals)
+                    this.SourcesForPrincipals.SequenceEqual(input.SourcesForPrincipals)
                 );
         }
 

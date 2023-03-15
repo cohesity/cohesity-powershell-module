@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.ObjectGuids = objectGuids;
             this.ProtectionSourceId = protectionSourceId;
             this.SamAccountNames = samAccountNames;
+            this.DistinguishedNames = distinguishedNames;
+            this.ObjectGuids = objectGuids;
+            this.ProtectionSourceId = protectionSourceId;
+            this.SamAccountNames = samAccountNames;
         }
         
         /// <summary>
@@ -105,13 +109,13 @@ namespace Cohesity.Model
                     this.DistinguishedNames == input.DistinguishedNames ||
                     this.DistinguishedNames != null &&
                     input.DistinguishedNames != null &&
-                    this.DistinguishedNames.Equals(input.DistinguishedNames)
+                    this.DistinguishedNames.SequenceEqual(input.DistinguishedNames)
                 ) && 
                 (
                     this.ObjectGuids == input.ObjectGuids ||
                     this.ObjectGuids != null &&
                     input.ObjectGuids != null &&
-                    this.ObjectGuids.Equals(input.ObjectGuids)
+                    this.ObjectGuids.SequenceEqual(input.ObjectGuids)
                 ) && 
                 (
                     this.ProtectionSourceId == input.ProtectionSourceId ||
@@ -122,7 +126,7 @@ namespace Cohesity.Model
                     this.SamAccountNames == input.SamAccountNames ||
                     this.SamAccountNames != null &&
                     input.SamAccountNames != null &&
-                    this.SamAccountNames.Equals(input.SamAccountNames)
+                    this.SamAccountNames.SequenceEqual(input.SamAccountNames)
                 );
         }
 

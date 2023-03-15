@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ZoneConfigMap == input.ZoneConfigMap ||
                     this.ZoneConfigMap != null &&
                     input.ZoneConfigMap != null &&
-                    this.ZoneConfigMap.Equals(input.ZoneConfigMap)
+                    this.ZoneConfigMap.SequenceEqual(input.ZoneConfigMap)
                 );
         }
 

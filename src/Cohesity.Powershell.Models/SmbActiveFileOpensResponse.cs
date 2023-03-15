@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.ActiveFilePaths = activeFilePaths;
             this.Cookie = cookie;
+            this.ActiveFilePaths = activeFilePaths;
+            this.Cookie = cookie;
         }
         
         /// <summary>
@@ -87,7 +89,7 @@ namespace Cohesity.Model
                     this.ActiveFilePaths == input.ActiveFilePaths ||
                     this.ActiveFilePaths != null &&
                     input.ActiveFilePaths != null &&
-                    this.ActiveFilePaths.Equals(input.ActiveFilePaths)
+                    this.ActiveFilePaths.SequenceEqual(input.ActiveFilePaths)
                 ) && 
                 (
                     this.Cookie == input.Cookie ||

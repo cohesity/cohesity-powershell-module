@@ -172,6 +172,11 @@ namespace Cohesity.Model
             this.OthersCanDelete = othersCanDelete;
             this.OthersCanRead = othersCanRead;
             this.OthersCanWrite = othersCanWrite;
+            this.AccessInfoList = accessInfoList;
+            this.OpenId = openId;
+            this.OthersCanDelete = othersCanDelete;
+            this.OthersCanRead = othersCanRead;
+            this.OthersCanWrite = othersCanWrite;
         }
         
         /// <summary>
@@ -240,7 +245,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.AccessInfoList == input.AccessInfoList ||
-                    this.AccessInfoList.Equals(input.AccessInfoList)
+                    this.AccessInfoList.SequenceEqual(input.AccessInfoList)
                 ) && 
                 (
                     this.OpenId == input.OpenId ||

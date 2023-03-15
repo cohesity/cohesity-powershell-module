@@ -99,19 +99,19 @@ namespace Cohesity.Model
                     this.ArchivalRuns == input.ArchivalRuns ||
                     this.ArchivalRuns != null &&
                     input.ArchivalRuns != null &&
-                    this.ArchivalRuns.Equals(input.ArchivalRuns)
+                    this.ArchivalRuns.SequenceEqual(input.ArchivalRuns)
                 ) && 
                 (
                     this.BackupRuns == input.BackupRuns ||
                     this.BackupRuns != null &&
                     input.BackupRuns != null &&
-                    this.BackupRuns.Equals(input.BackupRuns)
+                    this.BackupRuns.SequenceEqual(input.BackupRuns)
                 ) && 
                 (
                     this.ReplicationRuns == input.ReplicationRuns ||
                     this.ReplicationRuns != null &&
                     input.ReplicationRuns != null &&
-                    this.ReplicationRuns.Equals(input.ReplicationRuns)
+                    this.ReplicationRuns.SequenceEqual(input.ReplicationRuns)
                 );
         }
 

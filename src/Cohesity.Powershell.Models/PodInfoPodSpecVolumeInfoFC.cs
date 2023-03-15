@@ -107,7 +107,7 @@ namespace Cohesity.Model
                     this.TargetWWNs == input.TargetWWNs ||
                     this.TargetWWNs != null &&
                     input.TargetWWNs != null &&
-                    this.TargetWWNs.Equals(input.TargetWWNs)
+                    this.TargetWWNs.SequenceEqual(input.TargetWWNs)
                 );
         }
 

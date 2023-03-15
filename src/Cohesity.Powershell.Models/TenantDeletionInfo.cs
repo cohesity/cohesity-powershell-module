@@ -189,6 +189,12 @@ namespace Cohesity.Model
             this.RetryCount = retryCount;
             this.StartedAtTimeMsecs = startedAtTimeMsecs;
             this.State = state;
+            this.Category = category;
+            this.FinishedAtTimeMsecs = finishedAtTimeMsecs;
+            this.ProcessedAtNode = processedAtNode;
+            this.RetryCount = retryCount;
+            this.StartedAtTimeMsecs = startedAtTimeMsecs;
+            this.State = state;
         }
         
         /// <summary>
@@ -294,8 +300,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Category != null)
-                    hashCode = hashCode * 59 + this.Category.GetHashCode();
+                hashCode = hashCode * 59 + this.Category.GetHashCode();
                 if (this.FinishedAtTimeMsecs != null)
                     hashCode = hashCode * 59 + this.FinishedAtTimeMsecs.GetHashCode();
                 if (this.ProcessedAtNode != null)
@@ -304,8 +309,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RetryCount.GetHashCode();
                 if (this.StartedAtTimeMsecs != null)
                     hashCode = hashCode * 59 + this.StartedAtTimeMsecs.GetHashCode();
-                if (this.State != null)
-                    hashCode = hashCode * 59 + this.State.GetHashCode();
+                hashCode = hashCode * 59 + this.State.GetHashCode();
                 return hashCode;
             }
         }

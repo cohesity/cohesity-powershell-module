@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.JobRuns == input.JobRuns ||
                     this.JobRuns != null &&
                     input.JobRuns != null &&
-                    this.JobRuns.Equals(input.JobRuns)
+                    this.JobRuns.SequenceEqual(input.JobRuns)
                 );
         }
 

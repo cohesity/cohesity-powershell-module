@@ -174,6 +174,12 @@ namespace Cohesity.Model
             this.SpecialAccessMask = specialAccessMask;
             this.SpecialType = specialType;
             this.Type = type;
+            this.Access = access;
+            this.Mode = mode;
+            this.Sid = sid;
+            this.SpecialAccessMask = specialAccessMask;
+            this.SpecialType = specialType;
+            this.Type = type;
         }
         
         /// <summary>

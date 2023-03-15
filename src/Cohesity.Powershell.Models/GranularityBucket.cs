@@ -30,6 +30,8 @@ namespace Cohesity.Model
         /// <param name="multiplier">A factor to multiply the granularity by. For example, if this is 2 and the granularity is kHour, then snapshots from the first eligible run from every 2 hour period will be copied..</param>
         public GranularityBucket(GranularityBucketExactDatesInfo exactDates = default(GranularityBucketExactDatesInfo), int? granularity = default(int?), int? multiplier = default(int?))
         {
+            this.Granularity = granularity;
+            this.Multiplier = multiplier;
             this.ExactDates = exactDates;
             this.Granularity = granularity;
             this.Multiplier = multiplier;

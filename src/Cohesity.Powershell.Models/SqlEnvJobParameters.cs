@@ -152,6 +152,16 @@ namespace Cohesity.Model
             this.NumStreams = numStreams;
             this.UserDatabasePreference = userDatabasePreference;
             this.WithClause = withClause;
+            this.AagPreference = aagPreference;
+            this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
+            this.BackupSystemDatabases = backupSystemDatabases;
+            this.BackupType = backupType;
+            this.BackupVolumesOnly = backupVolumesOnly;
+            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
+            this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.NumStreams = numStreams;
+            this.UserDatabasePreference = userDatabasePreference;
+            this.WithClause = withClause;
         }
         
         /// <summary>

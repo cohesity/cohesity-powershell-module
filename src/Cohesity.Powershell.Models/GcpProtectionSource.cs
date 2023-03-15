@@ -536,7 +536,7 @@ namespace Cohesity.Model
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
                     input.TagAttributes != null &&
-                    this.TagAttributes.Equals(input.TagAttributes)
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||

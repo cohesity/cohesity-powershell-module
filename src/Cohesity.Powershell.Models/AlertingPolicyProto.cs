@@ -109,13 +109,13 @@ namespace Cohesity.Model
                     this.DeliveryTargetVec == input.DeliveryTargetVec ||
                     this.DeliveryTargetVec != null &&
                     input.DeliveryTargetVec != null &&
-                    this.DeliveryTargetVec.Equals(input.DeliveryTargetVec)
+                    this.DeliveryTargetVec.SequenceEqual(input.DeliveryTargetVec)
                 ) && 
                 (
                     this.Emails == input.Emails ||
                     this.Emails != null &&
                     input.Emails != null &&
-                    this.Emails.Equals(input.Emails)
+                    this.Emails.SequenceEqual(input.Emails)
                 ) && 
                 (
                     this.Policy == input.Policy ||

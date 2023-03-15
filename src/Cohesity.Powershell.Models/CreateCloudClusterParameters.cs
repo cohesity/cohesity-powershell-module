@@ -93,7 +93,10 @@ namespace Cohesity.Model
             }
 
             this.NodeIps = nodeIps;
+            this.ClusterSize = clusterSize;
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
+            this.MetadataFaultTolerance = metadataFaultTolerance;
         }
         
         /// <summary>
@@ -205,7 +208,7 @@ namespace Cohesity.Model
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
                     input.NodeIps != null &&
-                    this.NodeIps.Equals(input.NodeIps)
+                    this.NodeIps.SequenceEqual(input.NodeIps)
                 );
         }
 
@@ -220,8 +223,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
-                if (this.ClusterSize != null)
-					hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
                 if (this.IpPreference != null)

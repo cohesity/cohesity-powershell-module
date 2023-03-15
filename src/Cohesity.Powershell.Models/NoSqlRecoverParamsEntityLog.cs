@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.LogDataVec == input.LogDataVec ||
                     this.LogDataVec != null &&
                     input.LogDataVec != null &&
-                    this.LogDataVec.Equals(input.LogDataVec)
+                    this.LogDataVec.SequenceEqual(input.LogDataVec)
                 );
         }
 

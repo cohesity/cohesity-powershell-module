@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.MachineAccounts == input.MachineAccounts ||
                     this.MachineAccounts != null &&
                     input.MachineAccounts != null &&
-                    this.MachineAccounts.Equals(input.MachineAccounts)
+                    this.MachineAccounts.SequenceEqual(input.MachineAccounts)
                 ) && 
                 (
                     this.OverwriteExistingAccounts == input.OverwriteExistingAccounts ||

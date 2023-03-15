@@ -115,7 +115,7 @@ namespace Cohesity.Model
                     this.RestoreAppObjectVec == input.RestoreAppObjectVec ||
                     this.RestoreAppObjectVec != null &&
                     input.RestoreAppObjectVec != null &&
-                    this.RestoreAppObjectVec.Equals(input.RestoreAppObjectVec)
+                    this.RestoreAppObjectVec.SequenceEqual(input.RestoreAppObjectVec)
                 ) && 
                 (
                     this.Type == input.Type ||

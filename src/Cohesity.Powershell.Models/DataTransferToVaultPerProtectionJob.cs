@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.ProtectionJobName = protectionJobName;
             this.StorageConsumed = storageConsumed;
+            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
+            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
+            this.ProtectionJobName = protectionJobName;
+            this.StorageConsumed = storageConsumed;
         }
         
         /// <summary>

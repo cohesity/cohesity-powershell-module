@@ -763,19 +763,19 @@ namespace Cohesity.Model
                     this.AccessSids == input.AccessSids ||
                     this.AccessSids != null &&
                     input.AccessSids != null &&
-                    this.AccessSids.Equals(input.AccessSids)
+                    this.AccessSids.SequenceEqual(input.AccessSids)
                 ) && 
                 (
                     this.Aliases == input.Aliases ||
                     this.Aliases != null &&
                     input.Aliases != null &&
-                    this.Aliases.Equals(input.Aliases)
+                    this.Aliases.SequenceEqual(input.Aliases)
                 ) && 
                 (
                     this.AllSmbMountPaths == input.AllSmbMountPaths ||
                     this.AllSmbMountPaths != null &&
                     input.AllSmbMountPaths != null &&
-                    this.AllSmbMountPaths.Equals(input.AllSmbMountPaths)
+                    this.AllSmbMountPaths.SequenceEqual(input.AllSmbMountPaths)
                 ) && 
                 (
                     this.AntivirusScanConfig == input.AntivirusScanConfig ||
@@ -916,7 +916,7 @@ namespace Cohesity.Model
                     this.NetgroupWhitelist == input.NetgroupWhitelist ||
                     this.NetgroupWhitelist != null &&
                     input.NetgroupWhitelist != null &&
-                    this.NetgroupWhitelist.Equals(input.NetgroupWhitelist)
+                    this.NetgroupWhitelist.SequenceEqual(input.NetgroupWhitelist)
                 ) && 
                 (
                     this.NfsAllSquash == input.NfsAllSquash ||
@@ -984,7 +984,7 @@ namespace Cohesity.Model
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
                     input.SharePermissions != null &&
-                    this.SharePermissions.Equals(input.SharePermissions)
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SmbMountPath == input.SmbMountPath ||
@@ -1010,13 +1010,13 @@ namespace Cohesity.Model
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
                     input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
                     this.SuperUserSids == input.SuperUserSids ||
                     this.SuperUserSids != null &&
                     input.SuperUserSids != null &&
-                    this.SuperUserSids.Equals(input.SuperUserSids)
+                    this.SuperUserSids.SequenceEqual(input.SuperUserSids)
                 ) && 
                 (
                     this.SwiftProjectDomain == input.SwiftProjectDomain ||
@@ -1155,18 +1155,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OverrideGlobalWhitelist.GetHashCode();
                 if (this.OwnerSid != null)
                     hashCode = hashCode * 59 + this.OwnerSid.GetHashCode();
-                if (this.ProtocolAccess != null)
-					hashCode = hashCode * 59 + this.ProtocolAccess.GetHashCode();
+                hashCode = hashCode * 59 + this.ProtocolAccess.GetHashCode();
                 if (this.Qos != null)
                     hashCode = hashCode * 59 + this.Qos.GetHashCode();
                 if (this.S3AccessPath != null)
                     hashCode = hashCode * 59 + this.S3AccessPath.GetHashCode();
                 if (this.S3FolderSupportEnabled != null)
                     hashCode = hashCode * 59 + this.S3FolderSupportEnabled.GetHashCode();
-                if (this.S3KeyMappingConfig != null)
-					hashCode = hashCode * 59 + this.S3KeyMappingConfig.GetHashCode();
-                if (this.SecurityMode != null)
-					hashCode = hashCode * 59 + this.SecurityMode.GetHashCode();
+                hashCode = hashCode * 59 + this.S3KeyMappingConfig.GetHashCode();
+                hashCode = hashCode * 59 + this.SecurityMode.GetHashCode();
                 if (this.SharePermissions != null)
                     hashCode = hashCode * 59 + this.SharePermissions.GetHashCode();
                 if (this.SmbMountPath != null)

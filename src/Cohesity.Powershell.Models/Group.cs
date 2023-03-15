@@ -219,7 +219,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -230,25 +230,25 @@ namespace Cohesity.Model
                     this.SmbPrincipals == input.SmbPrincipals ||
                     this.SmbPrincipals != null &&
                     input.SmbPrincipals != null &&
-                    this.SmbPrincipals.Equals(input.SmbPrincipals)
+                    this.SmbPrincipals.SequenceEqual(input.SmbPrincipals)
                 ) && 
                 (
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 ) && 
                 (
                     this.Usernames == input.Usernames ||
                     this.Usernames != null &&
                     input.Usernames != null &&
-                    this.Usernames.Equals(input.Usernames)
+                    this.Usernames.SequenceEqual(input.Usernames)
                 ) && 
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
                     input.Users != null &&
-                    this.Users.Equals(input.Users)
+                    this.Users.SequenceEqual(input.Users)
                 );
         }
 

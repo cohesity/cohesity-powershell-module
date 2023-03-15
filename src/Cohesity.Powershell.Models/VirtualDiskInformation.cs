@@ -177,7 +177,7 @@ namespace Cohesity.Model
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
                     input.MountPoints != null &&
-                    this.MountPoints.Equals(input.MountPoints)
+                    this.MountPoints.SequenceEqual(input.MountPoints)
                 ) && 
                 (
                     this.UnitNumber == input.UnitNumber ||

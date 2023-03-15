@@ -135,7 +135,7 @@ namespace Cohesity.Model
                     this.ClientSubnetWhitelistVec == input.ClientSubnetWhitelistVec ||
                     this.ClientSubnetWhitelistVec != null &&
                     input.ClientSubnetWhitelistVec != null &&
-                    this.ClientSubnetWhitelistVec.Equals(input.ClientSubnetWhitelistVec)
+                    this.ClientSubnetWhitelistVec.SequenceEqual(input.ClientSubnetWhitelistVec)
                 ) && 
                 (
                     this.DisableNfsAccess == input.DisableNfsAccess ||
@@ -151,7 +151,7 @@ namespace Cohesity.Model
                     this.QosMappingVec == input.QosMappingVec ||
                     this.QosMappingVec != null &&
                     input.QosMappingVec != null &&
-                    this.QosMappingVec.Equals(input.QosMappingVec)
+                    this.QosMappingVec.SequenceEqual(input.QosMappingVec)
                 ) && 
                 (
                     this.StoragePolicyOverride == input.StoragePolicyOverride ||

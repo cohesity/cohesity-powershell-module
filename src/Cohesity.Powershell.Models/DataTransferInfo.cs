@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.PrivateNetworkInfoVec == input.PrivateNetworkInfoVec ||
                     this.PrivateNetworkInfoVec != null &&
                     input.PrivateNetworkInfoVec != null &&
-                    this.PrivateNetworkInfoVec.Equals(input.PrivateNetworkInfoVec)
+                    this.PrivateNetworkInfoVec.SequenceEqual(input.PrivateNetworkInfoVec)
                 ) && 
                 (
                     this.UseProtectionJobInfo == input.UseProtectionJobInfo ||

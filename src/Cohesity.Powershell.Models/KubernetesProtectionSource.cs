@@ -139,6 +139,17 @@ namespace Cohesity.Model
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
+            this.DatamoverImageLocation = datamoverImageLocation;
+            this.Description = description;
+            this.Distribution = distribution;
+            this.InitContainerImageLocation = initContainerImageLocation;
+            this.LabelAttributes = labelAttributes;
+            this.Name = name;
+            this.Type = type;
+            this.Uuid = uuid;
+            this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
+            this.VeleroImageLocation = veleroImageLocation;
+            this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
         }
         
         /// <summary>
@@ -263,7 +274,7 @@ namespace Cohesity.Model
                     this.LabelAttributes == input.LabelAttributes ||
                     this.LabelAttributes != null &&
                     input.LabelAttributes != null &&
-                    this.LabelAttributes.Equals(input.LabelAttributes)
+                    this.LabelAttributes.SequenceEqual(input.LabelAttributes)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -309,16 +320,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatamoverImageLocation.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                if (this.Distribution != null)
-					hashCode = hashCode * 59 + this.Distribution.GetHashCode();
+                hashCode = hashCode * 59 + this.Distribution.GetHashCode();
                 if (this.InitContainerImageLocation != null)
                     hashCode = hashCode * 59 + this.InitContainerImageLocation.GetHashCode();
                 if (this.LabelAttributes != null)
                     hashCode = hashCode * 59 + this.LabelAttributes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.VeleroAwsPluginImageLocation != null)

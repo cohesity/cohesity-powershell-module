@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.MountVolumeResults == input.MountVolumeResults ||
                     this.MountVolumeResults != null &&
                     input.MountVolumeResults != null &&
-                    this.MountVolumeResults.Equals(input.MountVolumeResults)
+                    this.MountVolumeResults.SequenceEqual(input.MountVolumeResults)
                 ) && 
                 (
                     this.OtherError == input.OtherError ||

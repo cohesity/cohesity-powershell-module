@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.SnapshotTarget == input.SnapshotTarget ||
                     this.SnapshotTarget != null &&
                     input.SnapshotTarget != null &&
-                    this.SnapshotTarget.Equals(input.SnapshotTarget)
+                    this.SnapshotTarget.SequenceEqual(input.SnapshotTarget)
                 );
         }
 

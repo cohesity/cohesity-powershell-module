@@ -269,7 +269,7 @@ namespace Cohesity.Model
                     this.CopyTasks == input.CopyTasks ||
                     this.CopyTasks != null &&
                     input.CopyTasks != null &&
-                    this.CopyTasks.Equals(input.CopyTasks)
+                    this.CopyTasks.SequenceEqual(input.CopyTasks)
                 ) && 
                 (
                     this.JobId == input.JobId ||

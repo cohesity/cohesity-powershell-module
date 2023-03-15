@@ -144,7 +144,7 @@ namespace Cohesity.Model
                     this.MsGroupsVec == input.MsGroupsVec ||
                     this.MsGroupsVec != null &&
                     input.MsGroupsVec != null &&
-                    this.MsGroupsVec.Equals(input.MsGroupsVec)
+                    this.MsGroupsVec.SequenceEqual(input.MsGroupsVec)
                 ) && 
                 (
                     this.RestoreOriginalOwnersMembers == input.RestoreOriginalOwnersMembers ||

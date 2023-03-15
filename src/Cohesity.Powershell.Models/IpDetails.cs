@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.IpAddresses == input.IpAddresses ||
                     this.IpAddresses != null &&
                     input.IpAddresses != null &&
-                    this.IpAddresses.Equals(input.IpAddresses)
+                    this.IpAddresses.SequenceEqual(input.IpAddresses)
                 );
         }
 

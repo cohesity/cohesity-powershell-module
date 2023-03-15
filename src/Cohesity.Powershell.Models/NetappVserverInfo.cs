@@ -147,6 +147,9 @@ namespace Cohesity.Model
         {
             this.DataProtocols = dataProtocols;
             this.Interfaces = interfaces;
+            this.Type = type;
+            this.DataProtocols = dataProtocols;
+            this.Interfaces = interfaces;
             this.RootCifsShare = rootCifsShare;
             this.Type = type;
         }
@@ -202,13 +205,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.Equals(input.DataProtocols)
+                    this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (
                     this.Interfaces == input.Interfaces ||
                     this.Interfaces != null &&
                     input.Interfaces != null &&
-                    this.Interfaces.Equals(input.Interfaces)
+                    this.Interfaces.SequenceEqual(input.Interfaces)
                 ) && 
                 (
                     this.RootCifsShare == input.RootCifsShare ||

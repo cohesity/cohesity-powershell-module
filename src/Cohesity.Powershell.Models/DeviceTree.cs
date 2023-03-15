@@ -128,7 +128,7 @@ namespace Cohesity.Model
                     this.ChildVec == input.ChildVec ||
                     this.ChildVec != null &&
                     input.ChildVec != null &&
-                    this.ChildVec.Equals(input.ChildVec)
+                    this.ChildVec.SequenceEqual(input.ChildVec)
                 ) && 
                 (
                     this.DeviceId == input.DeviceId ||

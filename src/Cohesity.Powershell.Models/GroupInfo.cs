@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.GroupName = groupName;
             this.Sid = sid;
             this.TenantIds = tenantIds;
+            this.Domain = domain;
+            this.GroupName = groupName;
+            this.Sid = sid;
+            this.TenantIds = tenantIds;
         }
         
         /// <summary>
@@ -120,7 +124,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 

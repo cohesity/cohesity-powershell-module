@@ -45,6 +45,15 @@ namespace Cohesity.Model
             this.IsSalesUser = isSalesUser;
             this.IsSupportUser = isSupportUser;
             this.UserId = userId;
+            this.AccountId = accountId;
+            this.HeliosAccessGrantStatus = heliosAccessGrantStatus;
+            this.IsDGaaSUser = isDGaaSUser;
+            this.IsDMaaSUser = isDMaaSUser;
+            this.IsDRaaSUser = isDRaaSUser;
+            this.IsRPaaSUser = isRPaaSUser;
+            this.IsSalesUser = isSalesUser;
+            this.IsSupportUser = isSupportUser;
+            this.UserId = userId;
         }
         
         /// <summary>

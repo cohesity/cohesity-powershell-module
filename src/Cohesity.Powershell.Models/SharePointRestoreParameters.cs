@@ -122,7 +122,7 @@ namespace Cohesity.Model
                     this.SiteOwnerList == input.SiteOwnerList ||
                     this.SiteOwnerList != null &&
                     input.SiteOwnerList != null &&
-                    this.SiteOwnerList.Equals(input.SiteOwnerList)
+                    this.SiteOwnerList.SequenceEqual(input.SiteOwnerList)
                 ) && 
                 (
                     this.TargetDocumentLibraryName == input.TargetDocumentLibraryName ||

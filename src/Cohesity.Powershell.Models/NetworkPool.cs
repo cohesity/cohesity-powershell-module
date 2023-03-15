@@ -224,7 +224,7 @@ namespace Cohesity.Model
                     this.Ranges == input.Ranges ||
                     this.Ranges != null &&
                     input.Ranges != null &&
-                    this.Ranges.Equals(input.Ranges)
+                    this.Ranges.SequenceEqual(input.Ranges)
                 ) && 
                 (
                     this.SmartConnectDnsZone == input.SmartConnectDnsZone ||

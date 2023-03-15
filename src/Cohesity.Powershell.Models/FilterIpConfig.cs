@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses == input.AllowedIpAddresses ||
                     this.AllowedIpAddresses != null &&
                     input.AllowedIpAddresses != null &&
-                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                    this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
-                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
+                    this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
                 );
         }
 

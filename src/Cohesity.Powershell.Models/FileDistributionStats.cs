@@ -139,7 +139,7 @@ namespace Cohesity.Model
                     this.MetricsList == input.MetricsList ||
                     this.MetricsList != null &&
                     input.MetricsList != null &&
-                    this.MetricsList.Equals(input.MetricsList)
+                    this.MetricsList.SequenceEqual(input.MetricsList)
                 );
         }
 

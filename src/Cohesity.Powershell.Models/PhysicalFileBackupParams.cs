@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
             this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
+            this.BackupPathInfoVec = backupPathInfoVec;
+            this.MetadataFilePath = metadataFilePath;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
         }
         
         /// <summary>
@@ -114,7 +119,7 @@ namespace Cohesity.Model
                     this.BackupPathInfoVec == input.BackupPathInfoVec ||
                     this.BackupPathInfoVec != null &&
                     input.BackupPathInfoVec != null &&
-                    this.BackupPathInfoVec.Equals(input.BackupPathInfoVec)
+                    this.BackupPathInfoVec.SequenceEqual(input.BackupPathInfoVec)
                 ) && 
                 (
                     this.MetadataFilePath == input.MetadataFilePath ||
@@ -125,7 +130,7 @@ namespace Cohesity.Model
                     this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
                     this.SkipNestedVolumesVec != null &&
                     input.SkipNestedVolumesVec != null &&
-                    this.SkipNestedVolumesVec.Equals(input.SkipNestedVolumesVec)
+                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
                 ) && 
                 (
                     this.SymlinkFollowNasTarget == input.SymlinkFollowNasTarget ||

@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.OracleArchiveLogRangeVec == input.OracleArchiveLogRangeVec ||
                     this.OracleArchiveLogRangeVec != null &&
                     input.OracleArchiveLogRangeVec != null &&
-                    this.OracleArchiveLogRangeVec.Equals(input.OracleArchiveLogRangeVec)
+                    this.OracleArchiveLogRangeVec.SequenceEqual(input.OracleArchiveLogRangeVec)
                 ) && 
                 (
                     this.OracleArchiveLogRestoreDest == input.OracleArchiveLogRestoreDest ||

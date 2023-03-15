@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.FileExtensionsList == input.FileExtensionsList ||
                     this.FileExtensionsList != null &&
                     input.FileExtensionsList != null &&
-                    this.FileExtensionsList.Equals(input.FileExtensionsList)
+                    this.FileExtensionsList.SequenceEqual(input.FileExtensionsList)
                 ) && 
                 (
                     this.IsEnabled == input.IsEnabled ||

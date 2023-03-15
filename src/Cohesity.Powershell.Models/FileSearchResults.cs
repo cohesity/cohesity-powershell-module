@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.Files == input.Files ||
                     this.Files != null &&
                     input.Files != null &&
-                    this.Files.Equals(input.Files)
+                    this.Files.SequenceEqual(input.Files)
                 ) && 
                 (
                     this.PaginationCookie == input.PaginationCookie ||

@@ -62,6 +62,24 @@ namespace Cohesity.Model
             this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
             this.WithClause = withClause;
             this.WithNoRecovery = withNoRecovery;
+            this.CaptureTailLogs = captureTailLogs;
+            this.ContinueAfterError = continueAfterError;
+            this.DataFileDestination = dataFileDestination;
+            this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
+            this.EnableChecksum = enableChecksum;
+            this.InstanceName = instanceName;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
+            this.IsMultiStageRestore = isMultiStageRestore;
+            this.KeepCdc = keepCdc;
+            this.LogFileDestination = logFileDestination;
+            this.MultiStageRestoreOptions = multiStageRestoreOptions;
+            this.NewDatabaseName = newDatabaseName;
+            this.RestoreTimeSecs = restoreTimeSecs;
+            this.ResumeRestore = resumeRestore;
+            this.SecondaryDataFileDestination = secondaryDataFileDestination;
+            this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
+            this.WithClause = withClause;
+            this.WithNoRecovery = withNoRecovery;
         }
         
         /// <summary>
@@ -304,7 +322,7 @@ namespace Cohesity.Model
                     this.SecondaryDataFileDestinationVec == input.SecondaryDataFileDestinationVec ||
                     this.SecondaryDataFileDestinationVec != null &&
                     input.SecondaryDataFileDestinationVec != null &&
-                    this.SecondaryDataFileDestinationVec.Equals(input.SecondaryDataFileDestinationVec)
+                    this.SecondaryDataFileDestinationVec.SequenceEqual(input.SecondaryDataFileDestinationVec)
                 ) && 
                 (
                     this.WithClause == input.WithClause ||

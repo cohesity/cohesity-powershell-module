@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.ExclusionRanges == input.ExclusionRanges ||
                     this.ExclusionRanges != null &&
                     input.ExclusionRanges != null &&
-                    this.ExclusionRanges.Equals(input.ExclusionRanges)
+                    this.ExclusionRanges.SequenceEqual(input.ExclusionRanges)
                 );
         }
 

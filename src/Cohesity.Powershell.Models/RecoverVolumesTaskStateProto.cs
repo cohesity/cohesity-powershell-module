@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.TaskResultVec == input.TaskResultVec ||
                     this.TaskResultVec != null &&
                     input.TaskResultVec != null &&
-                    this.TaskResultVec.Equals(input.TaskResultVec)
+                    this.TaskResultVec.SequenceEqual(input.TaskResultVec)
                 );
         }
 

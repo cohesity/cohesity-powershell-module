@@ -33,6 +33,8 @@ namespace Cohesity.Model
             this.JobRunId = jobRunId;
             this.TaskIdList = taskIdList;
             this.CopyTaskUid = copyTaskUid;
+            this.JobRunId = jobRunId;
+            this.TaskIdList = taskIdList;
         }
         
         /// <summary>
@@ -105,7 +107,7 @@ namespace Cohesity.Model
                     this.TaskIdList == input.TaskIdList ||
                     this.TaskIdList != null &&
                     input.TaskIdList != null &&
-                    this.TaskIdList.Equals(input.TaskIdList)
+                    this.TaskIdList.SequenceEqual(input.TaskIdList)
                 );
         }
 

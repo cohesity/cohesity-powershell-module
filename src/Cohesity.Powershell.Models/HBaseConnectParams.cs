@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.KerberosPrincipal = kerberosPrincipal;
             this.RootDataDirectory = rootDataDirectory;
             this.ZookeeperQuorum = zookeeperQuorum;
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.RootDataDirectory = rootDataDirectory;
+            this.ZookeeperQuorum = zookeeperQuorum;
         }
         
         /// <summary>
@@ -120,7 +124,7 @@ namespace Cohesity.Model
                     this.ZookeeperQuorum == input.ZookeeperQuorum ||
                     this.ZookeeperQuorum != null &&
                     input.ZookeeperQuorum != null &&
-                    this.ZookeeperQuorum.Equals(input.ZookeeperQuorum)
+                    this.ZookeeperQuorum.SequenceEqual(input.ZookeeperQuorum)
                 );
         }
 

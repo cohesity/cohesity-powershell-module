@@ -34,6 +34,9 @@ namespace Cohesity.Model
         public RestoreWrapperProto(List<DestroyClonedTaskStateProto> destroyClonedTaskStateVec = default(List<DestroyClonedTaskStateProto>), RestoreWrapperProto ownerRestoreWrapperProto = default(RestoreWrapperProto), List<PerformRestoreTaskStateProto> performRefreshTaskStateVec = default(List<PerformRestoreTaskStateProto>), PerformRestoreJobStateProto performRestoreJobState = default(PerformRestoreJobStateProto), PerformRestoreTaskStateProto performRestoreTaskState = default(PerformRestoreTaskStateProto), List<Object> restoreSubTaskWrapperProtoVec = default(List<Object>))
         {
             this.DestroyClonedTaskStateVec = destroyClonedTaskStateVec;
+            this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
+            this.RestoreSubTaskWrapperProtoVec = restoreSubTaskWrapperProtoVec;
+            this.DestroyClonedTaskStateVec = destroyClonedTaskStateVec;
             this.OwnerRestoreWrapperProto = ownerRestoreWrapperProto;
             this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
             this.PerformRestoreJobState = performRestoreJobState;
@@ -120,7 +123,7 @@ namespace Cohesity.Model
                     this.DestroyClonedTaskStateVec == input.DestroyClonedTaskStateVec ||
                     this.DestroyClonedTaskStateVec != null &&
                     input.DestroyClonedTaskStateVec != null &&
-                    this.DestroyClonedTaskStateVec.Equals(input.DestroyClonedTaskStateVec)
+                    this.DestroyClonedTaskStateVec.SequenceEqual(input.DestroyClonedTaskStateVec)
                 ) && 
                 (
                     this.OwnerRestoreWrapperProto == input.OwnerRestoreWrapperProto ||
@@ -131,7 +134,7 @@ namespace Cohesity.Model
                     this.PerformRefreshTaskStateVec == input.PerformRefreshTaskStateVec ||
                     this.PerformRefreshTaskStateVec != null &&
                     input.PerformRefreshTaskStateVec != null &&
-                    this.PerformRefreshTaskStateVec.Equals(input.PerformRefreshTaskStateVec)
+                    this.PerformRefreshTaskStateVec.SequenceEqual(input.PerformRefreshTaskStateVec)
                 ) && 
                 (
                     this.PerformRestoreJobState == input.PerformRestoreJobState ||
@@ -147,7 +150,7 @@ namespace Cohesity.Model
                     this.RestoreSubTaskWrapperProtoVec == input.RestoreSubTaskWrapperProtoVec ||
                     this.RestoreSubTaskWrapperProtoVec != null &&
                     input.RestoreSubTaskWrapperProtoVec != null &&
-                    this.RestoreSubTaskWrapperProtoVec.Equals(input.RestoreSubTaskWrapperProtoVec)
+                    this.RestoreSubTaskWrapperProtoVec.SequenceEqual(input.RestoreSubTaskWrapperProtoVec)
                 );
         }
 

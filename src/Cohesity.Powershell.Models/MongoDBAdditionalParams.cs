@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.SecondaryNodeTag == input.SecondaryNodeTag ||
                     this.SecondaryNodeTag != null &&
                     input.SecondaryNodeTag != null &&
-                    this.SecondaryNodeTag.Equals(input.SecondaryNodeTag)
+                    this.SecondaryNodeTag.SequenceEqual(input.SecondaryNodeTag)
                 ) && 
                 (
                     this.UseSecondaryForBackup == input.UseSecondaryForBackup ||

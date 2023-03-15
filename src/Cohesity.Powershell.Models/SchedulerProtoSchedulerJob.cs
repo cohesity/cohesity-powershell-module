@@ -171,7 +171,7 @@ namespace Cohesity.Model
                     this.Schedules == input.Schedules ||
                     this.Schedules != null &&
                     input.Schedules != null &&
-                    this.Schedules.Equals(input.Schedules)
+                    this.Schedules.SequenceEqual(input.Schedules)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

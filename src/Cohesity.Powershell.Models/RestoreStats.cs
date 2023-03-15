@@ -32,6 +32,8 @@ namespace Cohesity.Model
         {
             this.NumClonedObjects = numClonedObjects;
             this.NumRecoveredObjects = numRecoveredObjects;
+            this.NumClonedObjects = numClonedObjects;
+            this.NumRecoveredObjects = numRecoveredObjects;
             this.StatsByEnvironment = statsByEnvironment;
         }
         
@@ -106,7 +108,7 @@ namespace Cohesity.Model
                     this.StatsByEnvironment == input.StatsByEnvironment ||
                     this.StatsByEnvironment != null &&
                     input.StatsByEnvironment != null &&
-                    this.StatsByEnvironment.Equals(input.StatsByEnvironment)
+                    this.StatsByEnvironment.SequenceEqual(input.StatsByEnvironment)
                 );
         }
 

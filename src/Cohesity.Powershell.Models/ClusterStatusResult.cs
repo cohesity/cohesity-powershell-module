@@ -158,151 +158,7 @@ namespace Cohesity.Model
             /// Enum KIrisProxy for value: kIrisProxy
             /// </summary>
             [EnumMember(Value = "kIrisProxy")]
-            KIrisProxy = 7,
-
-            /// <summary>
-            /// Enum KScribe for value: kScribe
-            /// </summary>
-            [EnumMember(Value = "kScribe")]
-            KScribe = 8,
-
-            /// <summary>
-            /// Enum KStats for value: kStats
-            /// </summary>
-            [EnumMember(Value = "kStats")]
-            KStats = 9,
-
-            /// <summary>
-            /// Enum KYoda for value: kYoda
-            /// </summary>
-            [EnumMember(Value = "kYoda")]
-            KYoda = 10,
-
-            /// <summary>
-            /// Enum KAlerts for value: kAlerts
-            /// </summary>
-            [EnumMember(Value = "kAlerts")]
-            KAlerts = 11,
-
-            /// <summary>
-            /// Enum KKeychain for value: kKeychain
-            /// </summary>
-            [EnumMember(Value = "kKeychain")]
-            KKeychain = 12,
-
-            /// <summary>
-            /// Enum KLogWatcher for value: kLogWatcher
-            /// </summary>
-            [EnumMember(Value = "kLogWatcher")]
-            KLogWatcher = 13,
-
-            /// <summary>
-            /// Enum KStatsCollecter for value: kStatsCollecter
-            /// </summary>
-            [EnumMember(Value = "kStatsCollecter")]
-            KStatsCollecter = 14,
-
-            /// <summary>
-            /// Enum KGandalf for value: kGandalf
-            /// </summary>
-            [EnumMember(Value = "kGandalf")]
-            KGandalf = 15,
-
-            /// <summary>
-            /// Enum KNexus for value: kNexus
-            /// </summary>
-            [EnumMember(Value = "kNexus")]
-            KNexus = 16,
-
-            /// <summary>
-            /// Enum KNexusProxy for value: kNexusProxy
-            /// </summary>
-            [EnumMember(Value = "kNexusProxy")]
-            KNexusProxy = 17,
-
-            /// <summary>
-            /// Enum KStorageProxy for value: kStorageProxy
-            /// </summary>
-            [EnumMember(Value = "kStorageProxy")]
-            KStorageProxy = 18,
-
-            /// <summary>
-            /// Enum KTricorder for value: kTricorder
-            /// </summary>
-            [EnumMember(Value = "kTricorder")]
-            KTricorder = 19,
-
-            /// <summary>
-            /// Enum KRtClient for value: kRtClient
-            /// </summary>
-            [EnumMember(Value = "kRtClient")]
-            KRtClient = 20,
-
-            /// <summary>
-            /// Enum KVaultProxy for value: kVaultProxy
-            /// </summary>
-            [EnumMember(Value = "kVaultProxy")]
-            KVaultProxy = 21,
-
-            /// <summary>
-            /// Enum KSmbProxy for value: kSmbProxy
-            /// </summary>
-            [EnumMember(Value = "kSmbProxy")]
-            KSmbProxy = 22,
-
-            /// <summary>
-            /// Enum KBridgeProxy for value: kBridgeProxy
-            /// </summary>
-            [EnumMember(Value = "kBridgeProxy")]
-            KBridgeProxy = 23,
-
-            /// <summary>
-            /// Enum KLibrarian for value: kLibrarian
-            /// </summary>
-            [EnumMember(Value = "kLibrarian")]
-            KLibrarian = 24,
-
-            /// <summary>
-            /// Enum KGroot for value: kGroot
-            /// </summary>
-            [EnumMember(Value = "kGroot")]
-            KGroot = 25,
-
-            /// <summary>
-            /// Enum KEagleAgent for value: kEagleAgent
-            /// </summary>
-            [EnumMember(Value = "kEagleAgent")]
-            KEagleAgent = 26,
-
-            /// <summary>
-            /// Enum KAthena for value: kAthena
-            /// </summary>
-            [EnumMember(Value = "kAthena")]
-            KAthena = 27,
-
-            /// <summary>
-            /// Enum KBifrostBroker for value: kBifrostBroker
-            /// </summary>
-            [EnumMember(Value = "kBifrostBroker")]
-            KBifrostBroker = 28,
-
-            /// <summary>
-            /// Enum KSmb2Proxy for value: kSmb2Proxy
-            /// </summary>
-            [EnumMember(Value = "kSmb2Proxy")]
-            KSmb2Proxy = 29,
-
-            /// <summary>
-            /// Enum KOs for value: kOs
-            /// </summary>
-            [EnumMember(Value = "kOs")]
-            KOs = 30,
-
-            /// <summary>
-            /// Enum KAtom for value: kAtom
-            /// </summary>
-            [EnumMember(Value = "kAtom")]
-            KAtom = 31
+            KIrisProxy = 7
 
         }
 
@@ -329,6 +185,17 @@ namespace Cohesity.Model
         /// <param name="systemAppStatus">Specifies the status of each system app on the Cluster.</param>
         public ClusterStatusResult(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), string message = default(string), string name = default(string), List<NodeStatusResult> nodeStatuses = default(List<NodeStatusResult>), RemovalStateEnum? removalState = default(RemovalStateEnum?), bool? servicesSynced = default(bool?), string softwareVersion = default(string), List<StoppedServicesEnum> stoppedServices = default(List<StoppedServicesEnum>), List<SystemAppStatusResult> systemAppStatus = default(List<SystemAppStatusResult>))
         {
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.CurrentOperation = currentOperation;
+            this.Message = message;
+            this.Name = name;
+            this.NodeStatuses = nodeStatuses;
+            this.RemovalState = removalState;
+            this.ServicesSynced = servicesSynced;
+            this.SoftwareVersion = softwareVersion;
+            this.StoppedServices = stoppedServices;
+            this.SystemAppStatus = systemAppStatus;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CurrentOperation = currentOperation;
@@ -462,7 +329,7 @@ namespace Cohesity.Model
                     this.NodeStatuses == input.NodeStatuses ||
                     this.NodeStatuses != null &&
                     input.NodeStatuses != null &&
-                    this.NodeStatuses.Equals(input.NodeStatuses)
+                    this.NodeStatuses.SequenceEqual(input.NodeStatuses)
                 ) && 
                 (
                     this.RemovalState == input.RemovalState ||
@@ -480,13 +347,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.StoppedServices == input.StoppedServices ||
-                    this.StoppedServices.Equals(input.StoppedServices)
+                    this.StoppedServices.SequenceEqual(input.StoppedServices)
                 ) && 
                 (
                     this.SystemAppStatus == input.SystemAppStatus ||
                     this.SystemAppStatus != null &&
                     input.SystemAppStatus != null &&
-                    this.SystemAppStatus.Equals(input.SystemAppStatus)
+                    this.SystemAppStatus.SequenceEqual(input.SystemAppStatus)
                 );
         }
 
@@ -503,22 +370,19 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.ClusterIncarnationId != null)
                     hashCode = hashCode * 59 + this.ClusterIncarnationId.GetHashCode();
-                if (this.CurrentOperation != null)
-					hashCode = hashCode * 59 + this.CurrentOperation.GetHashCode();
+                hashCode = hashCode * 59 + this.CurrentOperation.GetHashCode();
                 if (this.Message != null)
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NodeStatuses != null)
                     hashCode = hashCode * 59 + this.NodeStatuses.GetHashCode();
-                if (this.RemovalState != null)
-					hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.ServicesSynced != null)
                     hashCode = hashCode * 59 + this.ServicesSynced.GetHashCode();
                 if (this.SoftwareVersion != null)
                     hashCode = hashCode * 59 + this.SoftwareVersion.GetHashCode();
-                if (this.StoppedServices != null)
-					hashCode = hashCode * 59 + this.StoppedServices.GetHashCode();
+                hashCode = hashCode * 59 + this.StoppedServices.GetHashCode();
                 if (this.SystemAppStatus != null)
                     hashCode = hashCode * 59 + this.SystemAppStatus.GetHashCode();
                 return hashCode;

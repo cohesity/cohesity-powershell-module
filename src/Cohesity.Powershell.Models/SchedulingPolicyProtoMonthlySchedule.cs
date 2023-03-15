@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.Count = count;
             this.Day = day;
             this.DayOfMonth = dayOfMonth;
+            this.Count = count;
+            this.Day = day;
+            this.DayOfMonth = dayOfMonth;
         }
         
         /// <summary>

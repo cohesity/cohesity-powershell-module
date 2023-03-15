@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.InterfaceName = interfaceName;
             this.IpFamily = ipFamily;
             this.NodeIds = nodeIds;
+            this.InterfaceName = interfaceName;
+            this.IpFamily = ipFamily;
+            this.NodeIds = nodeIds;
         }
         
         /// <summary>
@@ -106,7 +109,7 @@ namespace Cohesity.Model
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
                     input.NodeIds != null &&
-                    this.NodeIds.Equals(input.NodeIds)
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 );
         }
 

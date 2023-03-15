@@ -159,19 +159,19 @@ namespace Cohesity.Model
                     this.AccessibleUsers == input.AccessibleUsers ||
                     this.AccessibleUsers != null &&
                     input.AccessibleUsers != null &&
-                    this.AccessibleUsers.Equals(input.AccessibleUsers)
+                    this.AccessibleUsers.SequenceEqual(input.AccessibleUsers)
                 ) && 
                 (
                     this.AuditLogs == input.AuditLogs ||
                     this.AuditLogs != null &&
                     input.AuditLogs != null &&
-                    this.AuditLogs.Equals(input.AuditLogs)
+                    this.AuditLogs.SequenceEqual(input.AuditLogs)
                 ) && 
                 (
                     this.CopyTaskInfo == input.CopyTaskInfo ||
                     this.CopyTaskInfo != null &&
                     input.CopyTaskInfo != null &&
-                    this.CopyTaskInfo.Equals(input.CopyTaskInfo)
+                    this.CopyTaskInfo.SequenceEqual(input.CopyTaskInfo)
                 ) && 
                 (
                     this.IsProtected == input.IsProtected ||
@@ -187,7 +187,7 @@ namespace Cohesity.Model
                     this.ProtectionInfo == input.ProtectionInfo ||
                     this.ProtectionInfo != null &&
                     input.ProtectionInfo != null &&
-                    this.ProtectionInfo.Equals(input.ProtectionInfo)
+                    this.ProtectionInfo.SequenceEqual(input.ProtectionInfo)
                 ) && 
                 (
                     this.RootNodeId == input.RootNodeId ||

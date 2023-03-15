@@ -307,7 +307,7 @@ namespace Cohesity.Model
                     this.ActiveDirectories == input.ActiveDirectories ||
                     this.ActiveDirectories != null &&
                     input.ActiveDirectories != null &&
-                    this.ActiveDirectories.Equals(input.ActiveDirectories)
+                    this.ActiveDirectories.SequenceEqual(input.ActiveDirectories)
                 ) && 
                 (
                     this.BifrostEnabled == input.BifrostEnabled ||
@@ -323,7 +323,7 @@ namespace Cohesity.Model
                     this.ClusterIps == input.ClusterIps ||
                     this.ClusterIps != null &&
                     input.ClusterIps != null &&
-                    this.ClusterIps.Equals(input.ClusterIps)
+                    this.ClusterIps.SequenceEqual(input.ClusterIps)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -349,7 +349,7 @@ namespace Cohesity.Model
                     this.DeletionInfoVec == input.DeletionInfoVec ||
                     this.DeletionInfoVec != null &&
                     input.DeletionInfoVec != null &&
-                    this.DeletionInfoVec.Equals(input.DeletionInfoVec)
+                    this.DeletionInfoVec.SequenceEqual(input.DeletionInfoVec)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -360,7 +360,7 @@ namespace Cohesity.Model
                     this.EntityIds == input.EntityIds ||
                     this.EntityIds != null &&
                     input.EntityIds != null &&
-                    this.EntityIds.Equals(input.EntityIds)
+                    this.EntityIds.SequenceEqual(input.EntityIds)
                 ) && 
                 (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
@@ -371,7 +371,7 @@ namespace Cohesity.Model
                     this.LdapProviders == input.LdapProviders ||
                     this.LdapProviders != null &&
                     input.LdapProviders != null &&
-                    this.LdapProviders.Equals(input.LdapProviders)
+                    this.LdapProviders.SequenceEqual(input.LdapProviders)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -392,13 +392,13 @@ namespace Cohesity.Model
                     this.PolicyIds == input.PolicyIds ||
                     this.PolicyIds != null &&
                     input.PolicyIds != null &&
-                    this.PolicyIds.Equals(input.PolicyIds)
+                    this.PolicyIds.SequenceEqual(input.PolicyIds)
                 ) && 
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.Equals(input.ProtectionJobs)
+                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.SubscribeToAlertEmails == input.SubscribeToAlertEmails ||
@@ -419,19 +419,19 @@ namespace Cohesity.Model
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
                     input.ViewBoxIds != null &&
-                    this.ViewBoxIds.Equals(input.ViewBoxIds)
+                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
                 ) && 
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.Equals(input.Views)
+                    this.Views.SequenceEqual(input.Views)
                 ) && 
                 (
                     this.VlanIfaceNames == input.VlanIfaceNames ||
                     this.VlanIfaceNames != null &&
                     input.VlanIfaceNames != null &&
-                    this.VlanIfaceNames.Equals(input.VlanIfaceNames)
+                    this.VlanIfaceNames.SequenceEqual(input.VlanIfaceNames)
                 );
         }
 

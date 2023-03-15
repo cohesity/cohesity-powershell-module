@@ -119,13 +119,13 @@ namespace Cohesity.Model
                     this.ReadThroughputSamples == input.ReadThroughputSamples ||
                     this.ReadThroughputSamples != null &&
                     input.ReadThroughputSamples != null &&
-                    this.ReadThroughputSamples.Equals(input.ReadThroughputSamples)
+                    this.ReadThroughputSamples.SequenceEqual(input.ReadThroughputSamples)
                 ) && 
                 (
                     this.WriteThroughputSamples == input.WriteThroughputSamples ||
                     this.WriteThroughputSamples != null &&
                     input.WriteThroughputSamples != null &&
-                    this.WriteThroughputSamples.Equals(input.WriteThroughputSamples)
+                    this.WriteThroughputSamples.SequenceEqual(input.WriteThroughputSamples)
                 );
         }
 

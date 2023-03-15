@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.MrInstances == input.MrInstances ||
                     this.MrInstances != null &&
                     input.MrInstances != null &&
-                    this.MrInstances.Equals(input.MrInstances)
+                    this.MrInstances.SequenceEqual(input.MrInstances)
                 );
         }
 

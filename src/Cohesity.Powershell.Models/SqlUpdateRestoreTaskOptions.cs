@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.EnableAutoSync = enableAutoSync;
             this.MultiStageRestoreAction = multiStageRestoreAction;
+            this.EnableAutoSync = enableAutoSync;
+            this.MultiStageRestoreAction = multiStageRestoreAction;
         }
         
         /// <summary>

@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.SharesList == input.SharesList ||
                     this.SharesList != null &&
                     input.SharesList != null &&
-                    this.SharesList.Equals(input.SharesList)
+                    this.SharesList.SequenceEqual(input.SharesList)
                 );
         }
 

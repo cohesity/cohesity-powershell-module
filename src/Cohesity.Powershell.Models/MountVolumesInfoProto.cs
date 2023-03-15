@@ -156,7 +156,7 @@ namespace Cohesity.Model
                     this.MountVolumeResultVec == input.MountVolumeResultVec ||
                     this.MountVolumeResultVec != null &&
                     input.MountVolumeResultVec != null &&
-                    this.MountVolumeResultVec.Equals(input.MountVolumeResultVec)
+                    this.MountVolumeResultVec.SequenceEqual(input.MountVolumeResultVec)
                 ) && 
                 (
                     this.RestoreDisksTaskInfoProto == input.RestoreDisksTaskInfoProto ||

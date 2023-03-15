@@ -425,7 +425,7 @@ namespace Cohesity.Model
                     this.RemovalProgressList == input.RemovalProgressList ||
                     this.RemovalProgressList != null &&
                     input.RemovalProgressList != null &&
-                    this.RemovalProgressList.Equals(input.RemovalProgressList)
+                    this.RemovalProgressList.SequenceEqual(input.RemovalProgressList)
                 ) && 
                 (
                     this.RemovalReason == input.RemovalReason ||
@@ -435,13 +435,13 @@ namespace Cohesity.Model
                     this.Services == input.Services ||
                     this.Services != null &&
                     input.Services != null &&
-                    this.Services.Equals(input.Services)
+                    this.Services.SequenceEqual(input.Services)
                 ) && 
                 (
                     this.ServicesAckedList == input.ServicesAckedList ||
                     this.ServicesAckedList != null &&
                     input.ServicesAckedList != null &&
-                    this.ServicesAckedList.Equals(input.ServicesAckedList)
+                    this.ServicesAckedList.SequenceEqual(input.ServicesAckedList)
                 ) && 
                 (
                     this.ServicesNotAcked == input.ServicesNotAcked ||
@@ -452,7 +452,7 @@ namespace Cohesity.Model
                     this.ServicesNotAckedList == input.ServicesNotAckedList ||
                     this.ServicesNotAckedList != null &&
                     input.ServicesNotAckedList != null &&
-                    this.ServicesNotAckedList.Equals(input.ServicesNotAckedList)
+                    this.ServicesNotAckedList.SequenceEqual(input.ServicesNotAckedList)
                 ) && 
                 (
                     this.SoftwareVersion == input.SoftwareVersion ||

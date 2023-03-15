@@ -82,6 +82,11 @@ namespace Cohesity.Model
             this.MonthlySchedule = monthlySchedule;
             this.Periodicity = periodicity;
             this.RpoSchedule = rpoSchedule;
+            this.ContinuousSchedule = continuousSchedule;
+            this.DailySchedule = dailySchedule;
+            this.MonthlySchedule = monthlySchedule;
+            this.Periodicity = periodicity;
+            this.RpoSchedule = rpoSchedule;
         }
         
         /// <summary>

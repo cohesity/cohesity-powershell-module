@@ -92,6 +92,10 @@ namespace Cohesity.Model
             this.Day = day;
             this.EndTime = endTime;
             this.StartTime = startTime;
+            this.Id = id;
+            this.Day = day;
+            this.EndTime = endTime;
+            this.StartTime = startTime;
         }
         
         /// <summary>
@@ -183,8 +187,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.Day != null)
-					hashCode = hashCode * 59 + this.Day.GetHashCode();
+                hashCode = hashCode * 59 + this.Day.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
                 if (this.StartTime != null)

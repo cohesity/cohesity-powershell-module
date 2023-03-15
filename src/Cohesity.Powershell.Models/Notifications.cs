@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.NotificationList == input.NotificationList ||
                     this.NotificationList != null &&
                     input.NotificationList != null &&
-                    this.NotificationList.Equals(input.NotificationList)
+                    this.NotificationList.SequenceEqual(input.NotificationList)
                 ) && 
                 (
                     this.UnreadCount == input.UnreadCount ||

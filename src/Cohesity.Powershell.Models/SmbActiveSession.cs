@@ -39,6 +39,12 @@ namespace Cohesity.Model
             this.ServerIp = serverIp;
             this.SessionId = sessionId;
             this.Username = username;
+            this.ActiveOpens = activeOpens;
+            this.ClientIp = clientIp;
+            this.Domain = domain;
+            this.ServerIp = serverIp;
+            this.SessionId = sessionId;
+            this.Username = username;
         }
         
         /// <summary>
@@ -123,7 +129,7 @@ namespace Cohesity.Model
                     this.ActiveOpens == input.ActiveOpens ||
                     this.ActiveOpens != null &&
                     input.ActiveOpens != null &&
-                    this.ActiveOpens.Equals(input.ActiveOpens)
+                    this.ActiveOpens.SequenceEqual(input.ActiveOpens)
                 ) && 
                 (
                     this.ClientIp == input.ClientIp ||

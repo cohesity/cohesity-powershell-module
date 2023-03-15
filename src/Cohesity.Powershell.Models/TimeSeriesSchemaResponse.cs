@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
                     input.SchemaInfoList != null &&
-                    this.SchemaInfoList.Equals(input.SchemaInfoList)
+                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
                 );
         }
 

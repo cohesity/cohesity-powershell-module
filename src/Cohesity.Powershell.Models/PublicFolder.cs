@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.PublicFolderItemIdList == input.PublicFolderItemIdList ||
                     this.PublicFolderItemIdList != null &&
                     input.PublicFolderItemIdList != null &&
-                    this.PublicFolderItemIdList.Equals(input.PublicFolderItemIdList)
+                    this.PublicFolderItemIdList.SequenceEqual(input.PublicFolderItemIdList)
                 ) && 
                 (
                     this.RestoreEntireFolder == input.RestoreEntireFolder ||

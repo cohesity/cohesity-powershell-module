@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
                     input.Mappers != null &&
-                    this.Mappers.Equals(input.Mappers)
+                    this.Mappers.SequenceEqual(input.Mappers)
                 );
         }
 

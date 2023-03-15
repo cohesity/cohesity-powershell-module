@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.Days = days;
             this.Frequency = frequency;
+            this.Days = days;
+            this.Frequency = frequency;
         }
         
         /// <summary>
@@ -87,7 +89,7 @@ namespace Cohesity.Model
                     this.Days == input.Days ||
                     this.Days != null &&
                     input.Days != null &&
-                    this.Days.Equals(input.Days)
+                    this.Days.SequenceEqual(input.Days)
                 ) && 
                 (
                     this.Frequency == input.Frequency ||

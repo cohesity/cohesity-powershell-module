@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.ExcludePaths == input.ExcludePaths ||
                     this.ExcludePaths != null &&
                     input.ExcludePaths != null &&
-                    this.ExcludePaths.Equals(input.ExcludePaths)
+                    this.ExcludePaths.SequenceEqual(input.ExcludePaths)
                 ) && 
                 (
                     this.IncludePath == input.IncludePath ||

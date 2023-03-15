@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.CesAddresses == input.CesAddresses ||
                     this.CesAddresses != null &&
                     input.CesAddresses != null &&
-                    this.CesAddresses.Equals(input.CesAddresses)
+                    this.CesAddresses.SequenceEqual(input.CesAddresses)
                 ) && 
                 (
                     this.Id == input.Id ||

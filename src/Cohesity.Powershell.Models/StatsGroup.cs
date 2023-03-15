@@ -35,6 +35,13 @@ namespace Cohesity.Model
         /// <param name="viewBoxName">Specifies the name of the view box (storage domain) with respect to this group..</param>
         public StatsGroup(Consumer consumer = default(Consumer), string entityId = default(string), long? id = default(long?), string name = default(string), string tenantId = default(string), string tenantName = default(string), long? viewBoxId = default(long?), string viewBoxName = default(string))
         {
+            this.EntityId = entityId;
+            this.Id = id;
+            this.Name = name;
+            this.TenantId = tenantId;
+            this.TenantName = tenantName;
+            this.ViewBoxId = viewBoxId;
+            this.ViewBoxName = viewBoxName;
             this.Consumer = consumer;
             this.EntityId = entityId;
             this.Id = id;

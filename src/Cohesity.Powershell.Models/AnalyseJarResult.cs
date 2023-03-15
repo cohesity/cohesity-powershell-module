@@ -102,13 +102,13 @@ namespace Cohesity.Model
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
                     input.Mappers != null &&
-                    this.Mappers.Equals(input.Mappers)
+                    this.Mappers.SequenceEqual(input.Mappers)
                 ) && 
                 (
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
                     input.Reducers != null &&
-                    this.Reducers.Equals(input.Reducers)
+                    this.Reducers.SequenceEqual(input.Reducers)
                 );
         }
 

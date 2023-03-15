@@ -37,6 +37,7 @@ namespace Cohesity.Model
         /// <param name="jobUid">jobUid.</param>
         /// <param name="nosqlRecoverParams">nosqlRecoverParams.</param>
         /// <param name="parentSource">parentSource.</param>
+        /// <param name="pitPreferredArchivalTarget">pitPreferredArchivalTarget.</param>
         /// <param name="pointInTimeRestoreTimeUsecs">The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP..</param>
         /// <param name="recoverFromStandby">This field indicates if the object should be recovered from standby if it is enabled..</param>
         /// <param name="restoreAcropolisVmParam">restoreAcropolisVmParam.</param>
@@ -47,8 +48,19 @@ namespace Cohesity.Model
         /// <param name="udaRecoverParams">udaRecoverParams.</param>
         /// <param name="viewName">The name of the view where the object&#39;s snapshot is located..</param>
         /// <param name="vmHadIndependentDisks">This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up..</param>
-        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), ArchivalTarget pitPreferredArchivalTarget = default(ArchivalTarget), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
+            this.AttemptNum = attemptNum;
+            this.BackupType = backupType;
+            this.HydrationTimeUsecs = hydrationTimeUsecs;
+            this.JobId = jobId;
+            this.JobInstanceId = jobInstanceId;
+            this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
+            this.RecoverFromStandby = recoverFromStandby;
+            this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.ViewName = viewName;
+            this.VmHadIndependentDisks = vmHadIndependentDisks;
             this.ArchivalTarget = archivalTarget;
             this.AttemptNum = attemptNum;
             this.BackupType = backupType;
@@ -61,6 +73,7 @@ namespace Cohesity.Model
             this.JobUid = jobUid;
             this.NosqlRecoverParams = nosqlRecoverParams;
             this.ParentSource = parentSource;
+            this.PitPreferredArchivalTarget = pitPreferredArchivalTarget;
             this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
             this.RecoverFromStandby = recoverFromStandby;
             this.RestoreAcropolisVmParam = restoreAcropolisVmParam;
@@ -149,6 +162,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="parentSource", EmitDefaultValue=false)]
         public EntityProto ParentSource { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PitPreferredArchivalTarget
+        /// </summary>
+        [DataMember(Name="pitPreferredArchivalTarget", EmitDefaultValue=false)]
+        public ArchivalTarget PitPreferredArchivalTarget { get; set; }
 
         /// <summary>
         /// The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP.
@@ -313,6 +332,11 @@ namespace Cohesity.Model
                     this.ParentSource.Equals(input.ParentSource))
                 ) && 
                 (
+                    this.PitPreferredArchivalTarget == input.PitPreferredArchivalTarget ||
+                    (this.PitPreferredArchivalTarget != null &&
+                    this.PitPreferredArchivalTarget.Equals(input.PitPreferredArchivalTarget))
+                ) && 
+                (
                     this.PointInTimeRestoreTimeUsecs == input.PointInTimeRestoreTimeUsecs ||
                     (this.PointInTimeRestoreTimeUsecs != null &&
                     this.PointInTimeRestoreTimeUsecs.Equals(input.PointInTimeRestoreTimeUsecs))
@@ -397,6 +421,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NosqlRecoverParams.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
+                if (this.PitPreferredArchivalTarget != null)
+                    hashCode = hashCode * 59 + this.PitPreferredArchivalTarget.GetHashCode();
                 if (this.PointInTimeRestoreTimeUsecs != null)
                     hashCode = hashCode * 59 + this.PointInTimeRestoreTimeUsecs.GetHashCode();
                 if (this.RecoverFromStandby != null)

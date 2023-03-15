@@ -154,25 +154,25 @@ namespace Cohesity.Model
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
                     input.NodeIds != null &&
-                    this.NodeIds.Equals(input.NodeIds)
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 ) && 
                 (
                     this.Vips == input.Vips ||
                     this.Vips != null &&
                     input.Vips != null &&
-                    this.Vips.Equals(input.Vips)
+                    this.Vips.SequenceEqual(input.Vips)
                 ) && 
                 (
                     this.VlanIps == input.VlanIps ||
                     this.VlanIps != null &&
                     input.VlanIps != null &&
-                    this.VlanIps.Equals(input.VlanIps)
+                    this.VlanIps.SequenceEqual(input.VlanIps)
                 ) && 
                 (
                     this.Vlans == input.Vlans ||
                     this.Vlans != null &&
                     input.Vlans != null &&
-                    this.Vlans.Equals(input.Vlans)
+                    this.Vlans.SequenceEqual(input.Vlans)
                 );
         }
 

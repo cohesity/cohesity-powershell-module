@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.PermissionVec == input.PermissionVec ||
                     this.PermissionVec != null &&
                     input.PermissionVec != null &&
-                    this.PermissionVec.Equals(input.PermissionVec)
+                    this.PermissionVec.SequenceEqual(input.PermissionVec)
                 );
         }
 

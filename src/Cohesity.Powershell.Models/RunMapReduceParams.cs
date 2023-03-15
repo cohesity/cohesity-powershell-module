@@ -33,6 +33,8 @@ namespace Cohesity.Model
         {
             this.AppId = appId;
             this.InputParams = inputParams;
+            this.AppId = appId;
+            this.InputParams = inputParams;
             this.MrInput = mrInput;
             this.MrOutput = mrOutput;
         }
@@ -108,7 +110,7 @@ namespace Cohesity.Model
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
                     input.InputParams != null &&
-                    this.InputParams.Equals(input.InputParams)
+                    this.InputParams.SequenceEqual(input.InputParams)
                 ) && 
                 (
                     this.MrInput == input.MrInput ||

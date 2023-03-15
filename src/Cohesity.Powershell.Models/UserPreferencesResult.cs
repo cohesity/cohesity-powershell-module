@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Preferences == input.Preferences ||
                     this.Preferences != null &&
                     input.Preferences != null &&
-                    this.Preferences.Equals(input.Preferences)
+                    this.Preferences.SequenceEqual(input.Preferences)
                 );
         }
 

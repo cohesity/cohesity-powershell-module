@@ -155,7 +155,7 @@ namespace Cohesity.Model
                     this.Monitors == input.Monitors ||
                     this.Monitors != null &&
                     input.Monitors != null &&
-                    this.Monitors.Equals(input.Monitors)
+                    this.Monitors.SequenceEqual(input.Monitors)
                 ) && 
                 (
                     this.Pool == input.Pool ||

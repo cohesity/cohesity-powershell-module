@@ -96,7 +96,7 @@ namespace Cohesity.Model
                     this.RootPublicFolderVec == input.RootPublicFolderVec ||
                     this.RootPublicFolderVec != null &&
                     input.RootPublicFolderVec != null &&
-                    this.RootPublicFolderVec.Equals(input.RootPublicFolderVec)
+                    this.RootPublicFolderVec.SequenceEqual(input.RootPublicFolderVec)
                 ) && 
                 (
                     this.TargetFolderPath == input.TargetFolderPath ||

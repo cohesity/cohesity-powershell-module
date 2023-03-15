@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.AttributeRestoreInfo == input.AttributeRestoreInfo ||
                     this.AttributeRestoreInfo != null &&
                     input.AttributeRestoreInfo != null &&
-                    this.AttributeRestoreInfo.Equals(input.AttributeRestoreInfo)
+                    this.AttributeRestoreInfo.SequenceEqual(input.AttributeRestoreInfo)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

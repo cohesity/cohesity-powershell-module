@@ -126,6 +126,14 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
         /// <summary>
         /// <para type="description">
+        /// Cohesity Session Id key
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false, ParameterSetName = "UsingSessionId")]
+        public String SessionId { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
         /// Do MFA required ?
         /// </para>
         /// </summary>
@@ -183,6 +191,26 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 };
                 userProfileProvider.SetUserProfile(userProfile);
                 if (APIKeyAdapter.ValidateAPIKey(this.Server, this.APIKey))
+                {
+                    WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
+                    return;
+                }
+                userProfileProvider.DeleteUserProfile();
+                WriteObject("Failed to connect to the Cohesity Cluster.");
+                return;
+            }
+            if (this.SessionId != null)
+            {
+                // allow the user profile for validating the api key
+                var userProfile = new UserProfile
+                {
+                    ClusterUri = clusterUri,
+                    AccessToken = null,
+                    AllowInvalidServerCertificates = true,
+                    SessionId = this.SessionId
+                };
+                userProfileProvider.SetUserProfile(userProfile);
+                if (SessionIdAdapter.ValidateSessionId(this.Server, this.SessionId))
                 {
                     WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
                     return;

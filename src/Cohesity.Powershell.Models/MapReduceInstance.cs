@@ -127,7 +127,7 @@ namespace Cohesity.Model
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
                     input.InputParams != null &&
-                    this.InputParams.Equals(input.InputParams)
+                    this.InputParams.SequenceEqual(input.InputParams)
                 ) && 
                 (
                     this.InputSpec == input.InputSpec ||

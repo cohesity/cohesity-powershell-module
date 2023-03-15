@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.IpAddress = ipAddress;
             this.TenantId = tenantId;
             this.Version = version;
+            this.ConstituentId = constituentId;
+            this.IpAddress = ipAddress;
+            this.TenantId = tenantId;
+            this.Version = version;
         }
         
         /// <summary>
@@ -138,6 +142,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IpAddress.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                if (this.Version != null)
+                    hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;
             }
         }

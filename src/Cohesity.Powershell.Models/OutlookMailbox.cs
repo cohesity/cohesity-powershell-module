@@ -102,7 +102,7 @@ namespace Cohesity.Model
                     this.OutlookFolderList == input.OutlookFolderList ||
                     this.OutlookFolderList != null &&
                     input.OutlookFolderList != null &&
-                    this.OutlookFolderList.Equals(input.OutlookFolderList)
+                    this.OutlookFolderList.SequenceEqual(input.OutlookFolderList)
                 ) && 
                 (
                     this.RestoreEntireMailbox == input.RestoreEntireMailbox ||

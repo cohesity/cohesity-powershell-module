@@ -65,6 +65,7 @@ namespace Cohesity.Model
             this.BondingMode = bondingMode;
             this.Name = name;
             this.Slaves = slaves;
+            this.BondingMode = bondingMode;
         }
         
         /// <summary>
@@ -130,7 +131,7 @@ namespace Cohesity.Model
                     this.Slaves == input.Slaves ||
                     this.Slaves != null &&
                     input.Slaves != null &&
-                    this.Slaves.Equals(input.Slaves)
+                    this.Slaves.SequenceEqual(input.Slaves)
                 );
         }
 

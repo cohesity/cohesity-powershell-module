@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.ConditionKeyValuesMap == input.ConditionKeyValuesMap ||
                     this.ConditionKeyValuesMap != null &&
                     input.ConditionKeyValuesMap != null &&
-                    this.ConditionKeyValuesMap.Equals(input.ConditionKeyValuesMap)
+                    this.ConditionKeyValuesMap.SequenceEqual(input.ConditionKeyValuesMap)
                 ) && 
                 (
                     this.ForAllValues == input.ForAllValues ||

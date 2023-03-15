@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.PolicyType = policyType;
             this.RetentionSecs = retentionSecs;
             this.Version = version;
+            this.EnableWormOnExternalTarget = enableWormOnExternalTarget;
+            this.PolicyType = policyType;
+            this.RetentionSecs = retentionSecs;
+            this.Version = version;
         }
         
         /// <summary>

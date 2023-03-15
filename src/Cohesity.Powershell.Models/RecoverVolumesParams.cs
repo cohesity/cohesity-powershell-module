@@ -102,7 +102,7 @@ namespace Cohesity.Model
                     this.MappingVec == input.MappingVec ||
                     this.MappingVec != null &&
                     input.MappingVec != null &&
-                    this.MappingVec.Equals(input.MappingVec)
+                    this.MappingVec.SequenceEqual(input.MappingVec)
                 ) && 
                 (
                     this.TargetEntity == input.TargetEntity ||

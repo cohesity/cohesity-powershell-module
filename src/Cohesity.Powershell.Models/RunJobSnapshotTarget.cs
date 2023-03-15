@@ -78,6 +78,9 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform..</param>
         public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), long? daysToKeep = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
         {
+            this.DaysToKeep = daysToKeep;
+            this.HoldForLegalPurpose = holdForLegalPurpose;
+            this.Type = type;
             this.ArchivalTarget = archivalTarget;
             this.CloudReplicationTarget = cloudReplicationTarget;
             this.DaysToKeep = daysToKeep;

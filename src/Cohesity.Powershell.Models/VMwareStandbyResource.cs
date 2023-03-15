@@ -127,7 +127,7 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec == input.DatastoreEntityVec ||
                     this.DatastoreEntityVec != null &&
                     input.DatastoreEntityVec != null &&
-                    this.DatastoreEntityVec.Equals(input.DatastoreEntityVec)
+                    this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
                 ) && 
                 (
                     this.NetworkConfig == input.NetworkConfig ||

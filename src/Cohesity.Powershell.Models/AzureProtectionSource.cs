@@ -373,6 +373,26 @@ namespace Cohesity.Model
             this.TagAttributes = tagAttributes;
             this.TenantId = tenantId;
             this.Type = type;
+            this.ApplicationId = applicationId;
+            this.ApplicationKey = applicationKey;
+            this.AzureType = azureType;
+            this.DomainName = domainName;
+            this.HostType = hostType;
+            this.IpAddresses = ipAddresses;
+            this.IsManagedVm = isManagedVm;
+            this.Location = location;
+            this.MemoryMbytes = memoryMbytes;
+            this.Name = name;
+            this.NumCores = numCores;
+            this.PhysicalSourceId = physicalSourceId;
+            this.Region = region;
+            this.ResourceId = resourceId;
+            this.RestoreTaskId = restoreTaskId;
+            this.SubscriptionId = subscriptionId;
+            this.SubscriptionType = subscriptionType;
+            this.TagAttributes = tagAttributes;
+            this.TenantId = tenantId;
+            this.Type = type;
         }
         
         /// <summary>
@@ -550,7 +570,7 @@ namespace Cohesity.Model
                     this.IpAddresses == input.IpAddresses ||
                     this.IpAddresses != null &&
                     input.IpAddresses != null &&
-                    this.IpAddresses.Equals(input.IpAddresses)
+                    this.IpAddresses.SequenceEqual(input.IpAddresses)
                 ) && 
                 (
                     this.IsManagedVm == input.IsManagedVm ||
@@ -610,7 +630,7 @@ namespace Cohesity.Model
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
                     input.TagAttributes != null &&
-                    this.TagAttributes.Equals(input.TagAttributes)
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -636,12 +656,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ApplicationId.GetHashCode();
                 if (this.ApplicationKey != null)
                     hashCode = hashCode * 59 + this.ApplicationKey.GetHashCode();
-                if (this.AzureType != null)
-					hashCode = hashCode * 59 + this.AzureType.GetHashCode();
+                hashCode = hashCode * 59 + this.AzureType.GetHashCode();
                 if (this.DomainName != null)
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
-                if (this.HostType != null)
-					hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IpAddresses != null)
                     hashCode = hashCode * 59 + this.IpAddresses.GetHashCode();
                 if (this.IsManagedVm != null)
@@ -664,14 +682,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.SubscriptionId != null)
                     hashCode = hashCode * 59 + this.SubscriptionId.GetHashCode();
-                if (this.SubscriptionType != null)
-					hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

@@ -107,13 +107,13 @@ namespace Cohesity.Model
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.Equals(input.ProtectionJobs)
+                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionPolicies == input.ProtectionPolicies ||
                     this.ProtectionPolicies != null &&
                     input.ProtectionPolicies != null &&
-                    this.ProtectionPolicies.Equals(input.ProtectionPolicies)
+                    this.ProtectionPolicies.SequenceEqual(input.ProtectionPolicies)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||

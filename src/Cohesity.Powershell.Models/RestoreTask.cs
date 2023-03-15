@@ -126,13 +126,7 @@ namespace Cohesity.Model
             /// Enum KCancelled for value: kCancelled
             /// </summary>
             [EnumMember(Value = "kCancelled")]
-            KCancelled = 10,
-
-			/// <summary>
-            /// Enum KOnHold for value: kOnHold
-            /// </summary>
-            [EnumMember(Value = "kOnHold")]
-            KOnHold = 11
+            KCancelled = 10
 
         }
 
@@ -313,6 +307,26 @@ namespace Cohesity.Model
         /// <param name="vmwareParameters">vmwareParameters.</param>
         public RestoreTask(AcropolisRestoreParameters acropolisParameters = default(AcropolisRestoreParameters), ApplicationRestoreParameters applicationParameters = default(ApplicationRestoreParameters), UniversalId archiveTaskUid = default(UniversalId), List<UniversalId> archiveTaskUids = default(List<UniversalId>), CloneStatusEnum? cloneStatus = default(CloneStatusEnum?), UpdateViewParam cloneViewParameters = default(UpdateViewParam), bool? continueOnError = default(bool?), long? datastoreId = default(long?), DeployVmsToCloud deployVmsToCloud = default(DeployVmsToCloud), long? endTimeUsecs = default(long?), RequestError error = default(RequestError), string fullViewName = default(string), HypervRestoreParameters hypervParameters = default(HypervRestoreParameters), long? id = default(long?), MountVolumesState mountVolumesState = default(MountVolumesState), string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), OneDriveRestoreParameters oneDriveParameters = default(OneDriveRestoreParameters), OutlookRestoreParameters outlookParameters = default(OutlookRestoreParameters), PublicFoldersRestoreParameters publicFoldersParameters = default(PublicFoldersRestoreParameters), List<RestoreObjectState> restoreObjectState = default(List<RestoreObjectState>), SharePointRestoreParameters sharePointParameters = default(SharePointRestoreParameters), long? startTimeUsecs = default(long?), StatusEnum? status = default(StatusEnum?), bool? targetViewCreated = default(bool?), TypeEnum? type = default(TypeEnum?), string username = default(string), long? viewBoxId = default(long?), VirtualDiskRecoverTaskState virtualDiskRestoreState = default(VirtualDiskRecoverTaskState), VlanParameters vlanParameters = default(VlanParameters), VmwareRestoreParameters vmwareParameters = default(VmwareRestoreParameters))
         {
+            this.ArchiveTaskUid = archiveTaskUid;
+            this.ArchiveTaskUids = archiveTaskUids;
+            this.CloneStatus = cloneStatus;
+            this.CloneViewParameters = cloneViewParameters;
+            this.ContinueOnError = continueOnError;
+            this.DatastoreId = datastoreId;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.Error = error;
+            this.FullViewName = fullViewName;
+            this.Id = id;
+            this.Name = name;
+            this.NewParentId = newParentId;
+            this.Objects = objects;
+            this.RestoreObjectState = restoreObjectState;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.TargetViewCreated = targetViewCreated;
+            this.Type = type;
+            this.Username = username;
+            this.ViewBoxId = viewBoxId;
             this.AcropolisParameters = acropolisParameters;
             this.ApplicationParameters = applicationParameters;
             this.ArchiveTaskUid = archiveTaskUid;
@@ -328,7 +342,6 @@ namespace Cohesity.Model
             this.HypervParameters = hypervParameters;
             this.Id = id;
             this.MountVolumesState = mountVolumesState;
-            this.Name = name;
             this.NewParentId = newParentId;
             this.Objects = objects;
             this.OneDriveParameters = oneDriveParameters;
@@ -593,7 +606,7 @@ namespace Cohesity.Model
                     this.ArchiveTaskUids == input.ArchiveTaskUids ||
                     this.ArchiveTaskUids != null &&
                     input.ArchiveTaskUids != null &&
-                    this.ArchiveTaskUids.Equals(input.ArchiveTaskUids)
+                    this.ArchiveTaskUids.SequenceEqual(input.ArchiveTaskUids)
                 ) && 
                 (
                     this.CloneStatus == input.CloneStatus ||
@@ -663,7 +676,7 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.OneDriveParameters == input.OneDriveParameters ||
@@ -684,7 +697,7 @@ namespace Cohesity.Model
                     this.RestoreObjectState == input.RestoreObjectState ||
                     this.RestoreObjectState != null &&
                     input.RestoreObjectState != null &&
-                    this.RestoreObjectState.Equals(input.RestoreObjectState)
+                    this.RestoreObjectState.SequenceEqual(input.RestoreObjectState)
                 ) && 
                 (
                     this.SharePointParameters == input.SharePointParameters ||

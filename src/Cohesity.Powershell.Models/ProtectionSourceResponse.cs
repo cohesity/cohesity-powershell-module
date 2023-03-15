@@ -125,7 +125,7 @@ namespace Cohesity.Model
                     this.Jobs == input.Jobs ||
                     this.Jobs != null &&
                     input.Jobs != null &&
-                    this.Jobs.Equals(input.Jobs)
+                    this.Jobs.SequenceEqual(input.Jobs)
                 ) && 
                 (
                     this.LogicalSizeInBytes == input.LogicalSizeInBytes ||
@@ -141,7 +141,7 @@ namespace Cohesity.Model
                     this.ProtectionSourceUidList == input.ProtectionSourceUidList ||
                     this.ProtectionSourceUidList != null &&
                     input.ProtectionSourceUidList != null &&
-                    this.ProtectionSourceUidList.Equals(input.ProtectionSourceUidList)
+                    this.ProtectionSourceUidList.SequenceEqual(input.ProtectionSourceUidList)
                 ) && 
                 (
                     this.Source == input.Source ||

@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.Core.dll'
 
 # Version number of this module.
-ModuleVersion = '1.8.3'
+ModuleVersion = '1.8.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -132,6 +132,7 @@ FunctionsToExport = @(
                     'Restore-CohesityBackupToView',
                     'Restore-CohesityFileV2'                    
                     'Restore-CohesityRemoteFile',
+                    'Restore-CohesityOracleDatabase',
                     'Restore-CohesityRemoteMSSQLObject',
                     'Restore-CohesityVMwareVM',
                     'Save-CohesityFile',
@@ -140,7 +141,7 @@ FunctionsToExport = @(
                     'Set-CohesityCmdletConfig',
                     'Set-CohesityProtectionJob',
                     'Set-CohesityProtectionPolicy',
-                    'Set-CohesityProtectionSource'
+                    'Set-CohesityProtectionSource',
                     'Set-CohesitySnapshotRetention',
                     'Set-CohesityStorageDomain',
                     'Set-CohesityUser',

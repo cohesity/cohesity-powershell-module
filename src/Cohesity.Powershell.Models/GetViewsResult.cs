@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.Equals(input.Views)
+                    this.Views.SequenceEqual(input.Views)
                 );
         }
 

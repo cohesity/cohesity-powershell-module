@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.HdfsExcludePattern = hdfsExcludePattern;
             this.HdfsProtectPattern = hdfsProtectPattern;
+            this.HdfsExcludePattern = hdfsExcludePattern;
+            this.HdfsProtectPattern = hdfsProtectPattern;
         }
         
         /// <summary>
@@ -87,13 +89,13 @@ namespace Cohesity.Model
                     this.HdfsExcludePattern == input.HdfsExcludePattern ||
                     this.HdfsExcludePattern != null &&
                     input.HdfsExcludePattern != null &&
-                    this.HdfsExcludePattern.Equals(input.HdfsExcludePattern)
+                    this.HdfsExcludePattern.SequenceEqual(input.HdfsExcludePattern)
                 ) && 
                 (
                     this.HdfsProtectPattern == input.HdfsProtectPattern ||
                     this.HdfsProtectPattern != null &&
                     input.HdfsProtectPattern != null &&
-                    this.HdfsProtectPattern.Equals(input.HdfsProtectPattern)
+                    this.HdfsProtectPattern.SequenceEqual(input.HdfsProtectPattern)
                 );
         }
 

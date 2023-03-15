@@ -52,6 +52,23 @@ namespace Cohesity.Model
         {
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
+            this.IsInternal = isInternal;
+            this.Name = name;
+            this.PublicStatus = publicStatus;
+            this.RefreshStatus = refreshStatus;
+            this.ScheduledConstituentId = scheduledConstituentId;
+            this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.TaskId = taskId;
+            this.TotalLogicalSizeBytes = totalLogicalSizeBytes;
+            this.TotalPhysicalSizeBytes = totalPhysicalSizeBytes;
+            this.Type = type;
+            this.User = user;
+            this.UserMessages = userMessages;
+            this.Warnings = warnings;
+            this.CancellationRequested = cancellationRequested;
+            this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
             this.IsInternal = isInternal;
             this.Name = name;
@@ -374,13 +391,13 @@ namespace Cohesity.Model
                     this.UserMessages == input.UserMessages ||
                     this.UserMessages != null &&
                     input.UserMessages != null &&
-                    this.UserMessages.Equals(input.UserMessages)
+                    this.UserMessages.SequenceEqual(input.UserMessages)
                 ) && 
                 (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

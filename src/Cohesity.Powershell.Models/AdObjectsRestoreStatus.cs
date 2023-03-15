@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.NumObjectsFailed = numObjectsFailed;
             this.NumObjectsRunning = numObjectsRunning;
             this.NumObjectsSucceeded = numObjectsSucceeded;
+            this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
+            this.NumObjectsFailed = numObjectsFailed;
+            this.NumObjectsRunning = numObjectsRunning;
+            this.NumObjectsSucceeded = numObjectsSucceeded;
         }
         
         /// <summary>
@@ -105,7 +109,7 @@ namespace Cohesity.Model
                     this.AdObjectsRestoreInfo == input.AdObjectsRestoreInfo ||
                     this.AdObjectsRestoreInfo != null &&
                     input.AdObjectsRestoreInfo != null &&
-                    this.AdObjectsRestoreInfo.Equals(input.AdObjectsRestoreInfo)
+                    this.AdObjectsRestoreInfo.SequenceEqual(input.AdObjectsRestoreInfo)
                 ) && 
                 (
                     this.NumObjectsFailed == input.NumObjectsFailed ||

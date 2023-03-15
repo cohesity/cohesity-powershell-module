@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.TierInfoVec == input.TierInfoVec ||
                     this.TierInfoVec != null &&
                     input.TierInfoVec != null &&
-                    this.TierInfoVec.Equals(input.TierInfoVec)
+                    this.TierInfoVec.SequenceEqual(input.TierInfoVec)
                 );
         }
 

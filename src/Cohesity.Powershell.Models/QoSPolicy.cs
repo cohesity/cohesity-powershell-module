@@ -76,6 +76,17 @@ namespace Cohesity.Model
             this.SeqWriteSsdPct = seqWriteSsdPct;
             this.Weight = weight;
             this.WorkLoadType = workLoadType;
+            this.AlwaysUseSsd = alwaysUseSsd;
+            this.Id = id;
+            this.MinRequests = minRequests;
+            this.Name = name;
+            this.Priority = priority;
+            this.RandomWriteHydraPct = randomWriteHydraPct;
+            this.RandomWriteSsdPct = randomWriteSsdPct;
+            this.SeqWriteHydraPct = seqWriteHydraPct;
+            this.SeqWriteSsdPct = seqWriteSsdPct;
+            this.Weight = weight;
+            this.WorkLoadType = workLoadType;
         }
         
         /// <summary>

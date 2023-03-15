@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.IgnoredTrustedDomains == input.IgnoredTrustedDomains ||
                     this.IgnoredTrustedDomains != null &&
                     input.IgnoredTrustedDomains != null &&
-                    this.IgnoredTrustedDomains.Equals(input.IgnoredTrustedDomains)
+                    this.IgnoredTrustedDomains.SequenceEqual(input.IgnoredTrustedDomains)
                 );
         }
 

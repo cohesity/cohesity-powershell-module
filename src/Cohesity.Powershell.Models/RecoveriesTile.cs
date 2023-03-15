@@ -114,7 +114,7 @@ namespace Cohesity.Model
                     this.LastMonthRecoveriesByType == input.LastMonthRecoveriesByType ||
                     this.LastMonthRecoveriesByType != null &&
                     input.LastMonthRecoveriesByType != null &&
-                    this.LastMonthRecoveriesByType.Equals(input.LastMonthRecoveriesByType)
+                    this.LastMonthRecoveriesByType.SequenceEqual(input.LastMonthRecoveriesByType)
                 ) && 
                 (
                     this.LastMonthRecoverySizeBytes == input.LastMonthRecoverySizeBytes ||

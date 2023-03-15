@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
             this.StartedTimeUsecs = startedTimeUsecs;
+            this.AttemptNumber = attemptNumber;
+            this.JobRunId = jobRunId;
+            this.StartedTimeUsecs = startedTimeUsecs;
         }
         
         /// <summary>

@@ -253,7 +253,7 @@ namespace Cohesity.Model
                     this.ThreatDescriptions == input.ThreatDescriptions ||
                     this.ThreatDescriptions != null &&
                     input.ThreatDescriptions != null &&
-                    this.ThreatDescriptions.Equals(input.ThreatDescriptions)
+                    this.ThreatDescriptions.SequenceEqual(input.ThreatDescriptions)
                 ) && 
                 (
                     this.ViewId == input.ViewId ||

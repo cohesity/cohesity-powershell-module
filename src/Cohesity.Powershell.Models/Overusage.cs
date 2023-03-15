@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.FeatureName = featureName;
             this.OverusedGiB = overusedGiB;
             this.OverusedVm = overusedVm;
+            this.FeatureName = featureName;
+            this.OverusedGiB = overusedGiB;
+            this.OverusedVm = overusedVm;
         }
         
         /// <summary>

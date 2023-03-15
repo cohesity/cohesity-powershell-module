@@ -83,7 +83,7 @@ namespace Cohesity.Model
                     this.AgentIds == input.AgentIds ||
                     this.AgentIds != null &&
                     input.AgentIds != null &&
-                    this.AgentIds.Equals(input.AgentIds)
+                    this.AgentIds.SequenceEqual(input.AgentIds)
                 );
         }
 

@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.AllowFilters == input.AllowFilters ||
                     this.AllowFilters != null &&
                     input.AllowFilters != null &&
-                    this.AllowFilters.Equals(input.AllowFilters)
+                    this.AllowFilters.SequenceEqual(input.AllowFilters)
                 ) && 
                 (
                     this.DenyFilters == input.DenyFilters ||
                     this.DenyFilters != null &&
                     input.DenyFilters != null &&
-                    this.DenyFilters.Equals(input.DenyFilters)
+                    this.DenyFilters.SequenceEqual(input.DenyFilters)
                 );
         }
 

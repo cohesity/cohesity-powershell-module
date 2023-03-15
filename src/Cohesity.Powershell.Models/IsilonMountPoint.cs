@@ -150,13 +150,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (
                     this.SmbMountPoints == input.SmbMountPoints ||
                     this.SmbMountPoints != null &&
                     input.SmbMountPoints != null &&
-                    this.SmbMountPoints.Equals(input.SmbMountPoints)
+                    this.SmbMountPoints.SequenceEqual(input.SmbMountPoints)
                 );
         }
 

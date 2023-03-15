@@ -122,7 +122,7 @@ namespace Cohesity.Model
                     this.StorageArraySnapshotThrottlingPolicies == input.StorageArraySnapshotThrottlingPolicies ||
                     this.StorageArraySnapshotThrottlingPolicies != null &&
                     input.StorageArraySnapshotThrottlingPolicies != null &&
-                    this.StorageArraySnapshotThrottlingPolicies.Equals(input.StorageArraySnapshotThrottlingPolicies)
+                    this.StorageArraySnapshotThrottlingPolicies.SequenceEqual(input.StorageArraySnapshotThrottlingPolicies)
                 );
         }
 

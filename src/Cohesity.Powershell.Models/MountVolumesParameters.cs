@@ -154,7 +154,7 @@ namespace Cohesity.Model
                     this.VolumeNames == input.VolumeNames ||
                     this.VolumeNames != null &&
                     input.VolumeNames != null &&
-                    this.VolumeNames.Equals(input.VolumeNames)
+                    this.VolumeNames.SequenceEqual(input.VolumeNames)
                 );
         }
 

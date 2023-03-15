@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -329,6 +324,12 @@ namespace Cohesity.Model
         /// <param name="version">Version is updated each time the connector parameters are updated. This is used to discard older connector parameters..</param>
         public ConnectorParameters(long? connectionId = default(long?), long? connectorGroupId = default(long?), string endpoint = default(string), EnvironmentEnum? environment = default(EnvironmentEnum?), long? id = default(long?), long? version = default(long?))
         {
+            this.ConnectionId = connectionId;
+            this.ConnectorGroupId = connectorGroupId;
+            this.Endpoint = endpoint;
+            this.Environment = environment;
+            this.Id = id;
+            this.Version = version;
             this.ConnectionId = connectionId;
             this.ConnectorGroupId = connectorGroupId;
             this.Endpoint = endpoint;
@@ -454,8 +455,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConnectorGroupId.GetHashCode();
                 if (this.Endpoint != null)
                     hashCode = hashCode * 59 + this.Endpoint.GetHashCode();
-                if (this.Environment != null)
-					hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Version != null)

@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.IfName = ifName;
             this.IfaceGroupName = ifaceGroupName;
             this.NodeGroupName = nodeGroupName;
+            this.DestNetwork = destNetwork;
+            this.IfName = ifName;
+            this.IfaceGroupName = ifaceGroupName;
+            this.NodeGroupName = nodeGroupName;
         }
         
         /// <summary>

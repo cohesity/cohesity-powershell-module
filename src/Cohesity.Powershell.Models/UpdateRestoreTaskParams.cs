@@ -67,6 +67,10 @@ namespace Cohesity.Model
         /// <param name="sqlOptions">Specifies the sql options to update the Restore Task with. Specifies the action type of multi stage SQL restore.  &#39;kCreate&#39; specifies the create action for a restore. &#39;kUpdate&#39; specifies the user action to update an ongoing restore. &#39;kFinalize&#39; specifies the user action to finalize a restore..</param>
         public UpdateRestoreTaskParams(AdRestoreOptions adOptions = default(AdRestoreOptions), List<long> childRestoreTaskIds = default(List<long>), bool? enableAutoSync = default(bool?), UpdateRestoreTaskOptions options = default(UpdateRestoreTaskOptions), OracleUpdateRestoreTaskOptions oracleOptions = default(OracleUpdateRestoreTaskOptions), long? restoreTaskId = default(long?), SqlOptionsEnum? sqlOptions = default(SqlOptionsEnum?))
         {
+            this.ChildRestoreTaskIds = childRestoreTaskIds;
+            this.EnableAutoSync = enableAutoSync;
+            this.RestoreTaskId = restoreTaskId;
+            this.SqlOptions = sqlOptions;
             this.AdOptions = adOptions;
             this.ChildRestoreTaskIds = childRestoreTaskIds;
             this.EnableAutoSync = enableAutoSync;
@@ -160,7 +164,7 @@ namespace Cohesity.Model
                     this.ChildRestoreTaskIds == input.ChildRestoreTaskIds ||
                     this.ChildRestoreTaskIds != null &&
                     input.ChildRestoreTaskIds != null &&
-                    this.ChildRestoreTaskIds.Equals(input.ChildRestoreTaskIds)
+                    this.ChildRestoreTaskIds.SequenceEqual(input.ChildRestoreTaskIds)
                 ) && 
                 (
                     this.EnableAutoSync == input.EnableAutoSync ||
@@ -209,8 +213,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OracleOptions.GetHashCode();
                 if (this.RestoreTaskId != null)
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
-                if (this.SqlOptions != null)
-					hashCode = hashCode * 59 + this.SqlOptions.GetHashCode();
+                hashCode = hashCode * 59 + this.SqlOptions.GetHashCode();
                 return hashCode;
             }
         }

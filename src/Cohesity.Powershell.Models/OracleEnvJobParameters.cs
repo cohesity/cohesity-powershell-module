@@ -30,6 +30,7 @@ namespace Cohesity.Model
         public OracleEnvJobParameters(bool? persistMountpoints = default(bool?), VlanParams vlanParams = default(VlanParams))
         {
             this.PersistMountpoints = persistMountpoints;
+            this.PersistMountpoints = persistMountpoints;
             this.VlanParams = vlanParams;
         }
         

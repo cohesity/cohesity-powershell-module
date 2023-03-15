@@ -122,7 +122,7 @@ namespace Cohesity.Model
                     this.GuidVec == input.GuidVec ||
                     this.GuidVec != null &&
                     input.GuidVec != null &&
-                    this.GuidVec.Equals(input.GuidVec)
+                    this.GuidVec.SequenceEqual(input.GuidVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||

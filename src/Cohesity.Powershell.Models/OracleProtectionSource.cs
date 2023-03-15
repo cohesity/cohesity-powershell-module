@@ -126,6 +126,23 @@ namespace Cohesity.Model
         {
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
+            this.DatabaseUniqueName = databaseUniqueName;
+            this.DbType = dbType;
+            this.Domain = domain;
+            this.FraSize = fraSize;
+            this.Hosts = hosts;
+            this.Name = name;
+            this.OwnerId = ownerId;
+            this.SgaTargetSize = sgaTargetSize;
+            this.SharedPoolSize = sharedPoolSize;
+            this.Size = size;
+            this.TdeEncryptedTsCount = tdeEncryptedTsCount;
+            this.TempFilesCount = tempFilesCount;
+            this.Type = type;
+            this.Uuid = uuid;
+            this.Version = version;
+            this.ArchiveLogEnabled = archiveLogEnabled;
+            this.BctEnabled = bctEnabled;
             this.ContainerDatabaseInfo = containerDatabaseInfo;
             this.DataGuardInfo = dataGuardInfo;
             this.DatabaseUniqueName = databaseUniqueName;
@@ -341,7 +358,7 @@ namespace Cohesity.Model
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
                     input.Hosts != null &&
-                    this.Hosts.Equals(input.Hosts)
+                    this.Hosts.SequenceEqual(input.Hosts)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -413,8 +430,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DataGuardInfo.GetHashCode();
                 if (this.DatabaseUniqueName != null)
                     hashCode = hashCode * 59 + this.DatabaseUniqueName.GetHashCode();
-                if (this.DbType != null)
-					hashCode = hashCode * 59 + this.DbType.GetHashCode();
+                hashCode = hashCode * 59 + this.DbType.GetHashCode();
                 if (this.Domain != null)
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.FraSize != null)
@@ -435,8 +451,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TdeEncryptedTsCount.GetHashCode();
                 if (this.TempFilesCount != null)
                     hashCode = hashCode * 59 + this.TempFilesCount.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.Version != null)

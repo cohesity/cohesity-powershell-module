@@ -43,6 +43,14 @@ namespace Cohesity.Model
             this.JobInstanceIds = jobInstanceIds;
             this.TagIds = tagIds;
             this.Tags = tags;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.DocumentIds = documentIds;
+            this.EntityId = entityId;
+            this.JobId = jobId;
+            this.JobInstanceIds = jobInstanceIds;
+            this.TagIds = tagIds;
+            this.Tags = tags;
         }
         
         /// <summary>
@@ -151,7 +159,7 @@ namespace Cohesity.Model
                     this.DocumentIds == input.DocumentIds ||
                     this.DocumentIds != null &&
                     input.DocumentIds != null &&
-                    this.DocumentIds.Equals(input.DocumentIds)
+                    this.DocumentIds.SequenceEqual(input.DocumentIds)
                 ) && 
                 (
                     this.EntityId == input.EntityId ||
@@ -167,19 +175,19 @@ namespace Cohesity.Model
                     this.JobInstanceIds == input.JobInstanceIds ||
                     this.JobInstanceIds != null &&
                     input.JobInstanceIds != null &&
-                    this.JobInstanceIds.Equals(input.JobInstanceIds)
+                    this.JobInstanceIds.SequenceEqual(input.JobInstanceIds)
                 ) && 
                 (
                     this.TagIds == input.TagIds ||
                     this.TagIds != null &&
                     input.TagIds != null &&
-                    this.TagIds.Equals(input.TagIds)
+                    this.TagIds.SequenceEqual(input.TagIds)
                 ) && 
                 (
                     this.Tags == input.Tags ||
                     this.Tags != null &&
                     input.Tags != null &&
-                    this.Tags.Equals(input.Tags)
+                    this.Tags.SequenceEqual(input.Tags)
                 );
         }
 

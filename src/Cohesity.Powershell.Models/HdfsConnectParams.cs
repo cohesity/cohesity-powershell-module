@@ -64,6 +64,11 @@ namespace Cohesity.Model
             this.KerberosPrincipal = kerberosPrincipal;
             this.Namenode = namenode;
             this.Port = port;
+            this.HadoopDistribution = hadoopDistribution;
+            this.HadoopVersion = hadoopVersion;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.Namenode = namenode;
+            this.Port = port;
         }
         
         /// <summary>

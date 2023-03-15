@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.DataPointVec == input.DataPointVec ||
                     this.DataPointVec != null &&
                     input.DataPointVec != null &&
-                    this.DataPointVec.Equals(input.DataPointVec)
+                    this.DataPointVec.SequenceEqual(input.DataPointVec)
                 ) && 
                 (
                     this.MetricName == input.MetricName ||

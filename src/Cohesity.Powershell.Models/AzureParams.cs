@@ -125,6 +125,22 @@ namespace Cohesity.Model
             this.TempVmSubnetId = tempVmSubnetId;
             this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
             this.VirtualNetworkId = virtualNetworkId;
+            this.AvailabilitySetId = availabilitySetId;
+            this.DataDiskType = dataDiskType;
+            this.InstanceId = instanceId;
+            this.NetworkResourceGroupId = networkResourceGroupId;
+            this.OsDiskType = osDiskType;
+            this.ResourceGroup = resourceGroup;
+            this.StorageAccount = storageAccount;
+            this.StorageContainer = storageContainer;
+            this.StorageResourceGroupId = storageResourceGroupId;
+            this.SubnetId = subnetId;
+            this.TempVmResourceGroupId = tempVmResourceGroupId;
+            this.TempVmStorageAccountId = tempVmStorageAccountId;
+            this.TempVmStorageContainerId = tempVmStorageContainerId;
+            this.TempVmSubnetId = tempVmSubnetId;
+            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
+            this.VirtualNetworkId = virtualNetworkId;
         }
         
         /// <summary>
@@ -352,14 +368,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AvailabilitySetId != null)
                     hashCode = hashCode * 59 + this.AvailabilitySetId.GetHashCode();
-                if (this.DataDiskType != null)
-					hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
+                hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
                 if (this.InstanceId != null)
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkResourceGroupId != null)
                     hashCode = hashCode * 59 + this.NetworkResourceGroupId.GetHashCode();
-                if (this.OsDiskType != null)
-					hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
+                hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
                 if (this.ResourceGroup != null)
                     hashCode = hashCode * 59 + this.ResourceGroup.GetHashCode();
                 if (this.StorageAccount != null)

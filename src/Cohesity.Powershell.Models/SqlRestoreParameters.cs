@@ -78,6 +78,18 @@ namespace Cohesity.Model
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
             this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
             this.WithClause = withClause;
+            this.CaptureTailLogs = captureTailLogs;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
+            this.KeepCdc = keepCdc;
+            this.KeepOffline = keepOffline;
+            this.NewDatabaseName = newDatabaseName;
+            this.NewInstanceName = newInstanceName;
+            this.OverwritePolicy = overwritePolicy;
+            this.RestoreTimeSecs = restoreTimeSecs;
+            this.TargetDataFilesDirectory = targetDataFilesDirectory;
+            this.TargetLogFilesDirectory = targetLogFilesDirectory;
+            this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
+            this.WithClause = withClause;
         }
         
         /// <summary>
@@ -246,7 +258,7 @@ namespace Cohesity.Model
                     this.TargetSecondaryDataFilesDirectoryList == input.TargetSecondaryDataFilesDirectoryList ||
                     this.TargetSecondaryDataFilesDirectoryList != null &&
                     input.TargetSecondaryDataFilesDirectoryList != null &&
-                    this.TargetSecondaryDataFilesDirectoryList.Equals(input.TargetSecondaryDataFilesDirectoryList)
+                    this.TargetSecondaryDataFilesDirectoryList.SequenceEqual(input.TargetSecondaryDataFilesDirectoryList)
                 ) && 
                 (
                     this.WithClause == input.WithClause ||
@@ -276,8 +288,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
                 if (this.NewInstanceName != null)
                     hashCode = hashCode * 59 + this.NewInstanceName.GetHashCode();
-                if (this.OverwritePolicy != null)
-					hashCode = hashCode * 59 + this.OverwritePolicy.GetHashCode();
+                hashCode = hashCode * 59 + this.OverwritePolicy.GetHashCode();
                 if (this.RestoreTimeSecs != null)
                     hashCode = hashCode * 59 + this.RestoreTimeSecs.GetHashCode();
                 if (this.TargetDataFilesDirectory != null)

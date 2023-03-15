@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
                     input.Reducers != null &&
-                    this.Reducers.Equals(input.Reducers)
+                    this.Reducers.SequenceEqual(input.Reducers)
                 );
         }
 

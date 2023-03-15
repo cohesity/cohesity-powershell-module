@@ -841,7 +841,7 @@ namespace Cohesity.Model
                     this.CloudDomainList == input.CloudDomainList ||
                     this.CloudDomainList != null &&
                     input.CloudDomainList != null &&
-                    this.CloudDomainList.Equals(input.CloudDomainList)
+                    this.CloudDomainList.SequenceEqual(input.CloudDomainList)
                 ) && 
                 (
                     this.CompressionPolicy == input.CompressionPolicy ||
@@ -957,7 +957,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -1002,8 +1002,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudArchivalDirectConfig.GetHashCode();
                 if (this.CloudDomainList != null)
                     hashCode = hashCode * 59 + this.CloudDomainList.GetHashCode();
-                if (this.CompressionPolicy != null)
-					hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
+                hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
                 if (this.Config != null)
                     hashCode = hashCode * 59 + this.Config.GetHashCode();
                 if (this.CustomerManagingEncryptionKeys != null)
@@ -1016,14 +1015,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DeleteVaultError.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                if (this.DesiredWalLocation != null)
-					hashCode = hashCode * 59 + this.DesiredWalLocation.GetHashCode();
+                hashCode = hashCode * 59 + this.DesiredWalLocation.GetHashCode();
                 if (this.EncryptionKeyFileDownloaded != null)
                     hashCode = hashCode * 59 + this.EncryptionKeyFileDownloaded.GetHashCode();
-                if (this.EncryptionPolicy != null)
-					hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
-                if (this.ExternalTargetType != null)
-					hashCode = hashCode * 59 + this.ExternalTargetType.GetHashCode();
+                hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
+                hashCode = hashCode * 59 + this.ExternalTargetType.GetHashCode();
                 if (this.FullArchiveIntervalDays != null)
                     hashCode = hashCode * 59 + this.FullArchiveIntervalDays.GetHashCode();
                 if (this.GlobalId != null)
@@ -1046,18 +1042,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KmsServerId.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.RemovalState != null)
-					hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.TenantIds != null)
                     hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
-                if (this.UsageType != null)
-					hashCode = hashCode * 59 + this.UsageType.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.UsageType.GetHashCode();
                 if (this.VaultBandwidthLimits != null)
                     hashCode = hashCode * 59 + this.VaultBandwidthLimits.GetHashCode();
-                if (this.VaultOwnership != null)
-					hashCode = hashCode * 59 + this.VaultOwnership.GetHashCode();
+                hashCode = hashCode * 59 + this.VaultOwnership.GetHashCode();
                 if (this.ViewBoxName != null)
                     hashCode = hashCode * 59 + this.ViewBoxName.GetHashCode();
                 return hashCode;

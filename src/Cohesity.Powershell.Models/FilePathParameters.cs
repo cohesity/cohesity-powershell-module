@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.ExcludedFilePaths == input.ExcludedFilePaths ||
                     this.ExcludedFilePaths != null &&
                     input.ExcludedFilePaths != null &&
-                    this.ExcludedFilePaths.Equals(input.ExcludedFilePaths)
+                    this.ExcludedFilePaths.SequenceEqual(input.ExcludedFilePaths)
                 ) && 
                 (
                     this.SkipNestedVolumes == input.SkipNestedVolumes ||

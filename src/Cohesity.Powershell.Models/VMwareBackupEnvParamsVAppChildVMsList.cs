@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.VmEntityIds == input.VmEntityIds ||
                     this.VmEntityIds != null &&
                     input.VmEntityIds != null &&
-                    this.VmEntityIds.Equals(input.VmEntityIds)
+                    this.VmEntityIds.SequenceEqual(input.VmEntityIds)
                 );
         }
 

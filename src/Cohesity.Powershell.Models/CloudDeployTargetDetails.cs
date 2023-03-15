@@ -72,6 +72,9 @@ namespace Cohesity.Model
             this.AwsParams = awsParams;
             this.AzureParams = azureParams;
             this.GcpParams = gcpParams;
+            this.Id = id;
+            this.Name = name;
+            this.Type = type;
         }
         
         /// <summary>

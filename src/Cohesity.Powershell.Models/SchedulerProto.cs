@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.SchedulerJobs == input.SchedulerJobs ||
                     this.SchedulerJobs != null &&
                     input.SchedulerJobs != null &&
-                    this.SchedulerJobs.Equals(input.SchedulerJobs)
+                    this.SchedulerJobs.SequenceEqual(input.SchedulerJobs)
                 );
         }
 

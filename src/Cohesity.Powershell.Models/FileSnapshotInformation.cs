@@ -40,6 +40,12 @@ namespace Cohesity.Model
             this.ModifiedTimeUsecs = modifiedTimeUsecs;
             this.ReplicaInfoList = replicaInfoList;
             this.SizeBytes = sizeBytes;
+            this.HasArchivalCopy = hasArchivalCopy;
+            this.HasLocalCopy = hasLocalCopy;
+            this.HasRemoteCopy = hasRemoteCopy;
+            this.ModifiedTimeUsecs = modifiedTimeUsecs;
+            this.ReplicaInfoList = replicaInfoList;
+            this.SizeBytes = sizeBytes;
             this.Snapshot = snapshot;
         }
         
@@ -151,7 +157,7 @@ namespace Cohesity.Model
                     this.ReplicaInfoList == input.ReplicaInfoList ||
                     this.ReplicaInfoList != null &&
                     input.ReplicaInfoList != null &&
-                    this.ReplicaInfoList.Equals(input.ReplicaInfoList)
+                    this.ReplicaInfoList.SequenceEqual(input.ReplicaInfoList)
                 ) && 
                 (
                     this.SizeBytes == input.SizeBytes ||

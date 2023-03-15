@@ -149,7 +149,7 @@ namespace Cohesity.Model
                     this.ChildObjects == input.ChildObjects ||
                     this.ChildObjects != null &&
                     input.ChildObjects != null &&
-                    this.ChildObjects.Equals(input.ChildObjects)
+                    this.ChildObjects.SequenceEqual(input.ChildObjects)
                 ) && 
                 (
                     this.Description == input.Description ||

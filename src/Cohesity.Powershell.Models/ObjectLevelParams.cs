@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.ExcludedFieldsVec == input.ExcludedFieldsVec ||
                     this.ExcludedFieldsVec != null &&
                     input.ExcludedFieldsVec != null &&
-                    this.ExcludedFieldsVec.Equals(input.ExcludedFieldsVec)
+                    this.ExcludedFieldsVec.SequenceEqual(input.ExcludedFieldsVec)
                 );
         }
 

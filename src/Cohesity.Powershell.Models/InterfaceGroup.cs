@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
             this.Name = name;
+            this.NodeInterfacePairs = nodeInterfacePairs;
+            this.GroupType = groupType;
+            this.Id = id;
+            this.ModelInterfaceLists = modelInterfaceLists;
+            this.Name = name;
             this.NetworkParams = networkParams;
             this.NodeInterfacePairs = nodeInterfacePairs;
         }
@@ -132,7 +137,7 @@ namespace Cohesity.Model
                     this.ModelInterfaceLists == input.ModelInterfaceLists ||
                     this.ModelInterfaceLists != null &&
                     input.ModelInterfaceLists != null &&
-                    this.ModelInterfaceLists.Equals(input.ModelInterfaceLists)
+                    this.ModelInterfaceLists.SequenceEqual(input.ModelInterfaceLists)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -148,7 +153,7 @@ namespace Cohesity.Model
                     this.NodeInterfacePairs == input.NodeInterfacePairs ||
                     this.NodeInterfacePairs != null &&
                     input.NodeInterfacePairs != null &&
-                    this.NodeInterfacePairs.Equals(input.NodeInterfacePairs)
+                    this.NodeInterfacePairs.SequenceEqual(input.NodeInterfacePairs)
                 );
         }
 

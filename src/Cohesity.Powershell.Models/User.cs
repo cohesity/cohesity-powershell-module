@@ -920,7 +920,7 @@ namespace Cohesity.Model
                     this.AdditionalGroupNames == input.AdditionalGroupNames ||
                     this.AdditionalGroupNames != null &&
                     input.AdditionalGroupNames != null &&
-                    this.AdditionalGroupNames.Equals(input.AdditionalGroupNames)
+                    this.AdditionalGroupNames.SequenceEqual(input.AdditionalGroupNames)
                 ) && 
                 (
                     this.AllowDsoModify == input.AllowDsoModify ||
@@ -940,7 +940,7 @@ namespace Cohesity.Model
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
                     input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -991,7 +991,7 @@ namespace Cohesity.Model
                     this.GroupRoles == input.GroupRoles ||
                     this.GroupRoles != null &&
                     input.GroupRoles != null &&
-                    this.GroupRoles.Equals(input.GroupRoles)
+                    this.GroupRoles.SequenceEqual(input.GroupRoles)
                 ) && 
                 (
                     this.IdpUserInfo == input.IdpUserInfo ||
@@ -1041,13 +1041,13 @@ namespace Cohesity.Model
                     this.MfaMethods == input.MfaMethods ||
                     this.MfaMethods != null &&
                     input.MfaMethods != null &&
-                    this.MfaMethods.Equals(input.MfaMethods)
+                    this.MfaMethods.SequenceEqual(input.MfaMethods)
                 ) && 
                 (
                     this.OrgMembership == input.OrgMembership ||
                     this.OrgMembership != null &&
                     input.OrgMembership != null &&
-                    this.OrgMembership.Equals(input.OrgMembership)
+                    this.OrgMembership.SequenceEqual(input.OrgMembership)
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -1071,13 +1071,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.PrivilegeIds == input.PrivilegeIds ||
-                    this.PrivilegeIds.Equals(input.PrivilegeIds)
+                    this.PrivilegeIds.SequenceEqual(input.PrivilegeIds)
                 ) && 
                 (
                     this.Profiles == input.Profiles ||
                     this.Profiles != null &&
                     input.Profiles != null &&
-                    this.Profiles.Equals(input.Profiles)
+                    this.Profiles.SequenceEqual(input.Profiles)
                 ) && 
                 (
                     this.Restricted == input.Restricted ||
@@ -1088,7 +1088,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.S3AccessKeyId == input.S3AccessKeyId ||
@@ -1124,7 +1124,7 @@ namespace Cohesity.Model
                     this.TenantAccesses == input.TenantAccesses ||
                     this.TenantAccesses != null &&
                     input.TenantAccesses != null &&
-                    this.TenantAccesses.Equals(input.TenantAccesses)
+                    this.TenantAccesses.SequenceEqual(input.TenantAccesses)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -1153,8 +1153,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AllowDsoModify.GetHashCode();
                 if (this.AuditLogSettings != null)
                     hashCode = hashCode * 59 + this.AuditLogSettings.GetHashCode();
-                if (this.AuthenticationType != null)
-					hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
                 if (this.ClusterIdentifiers != null)
                     hashCode = hashCode * 59 + this.ClusterIdentifiers.GetHashCode();
                 if (this.CreatedTimeMsecs != null)
@@ -1191,8 +1190,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LastSuccessfulLoginTimeMsecs.GetHashCode();
                 if (this.LastUpdatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.LastUpdatedTimeMsecs.GetHashCode();
-                if (this.LockoutReason != null)
-					hashCode = hashCode * 59 + this.LockoutReason.GetHashCode();
+                hashCode = hashCode * 59 + this.LockoutReason.GetHashCode();
                 if (this.MfaInfo != null)
                     hashCode = hashCode * 59 + this.MfaInfo.GetHashCode();
                 if (this.MfaMethods != null)
@@ -1207,8 +1205,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreviousLoginTimeMsecs.GetHashCode();
                 if (this.PrimaryGroupName != null)
                     hashCode = hashCode * 59 + this.PrimaryGroupName.GetHashCode();
-                if (this.PrivilegeIds != null)
-					hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
                 if (this.Profiles != null)
                     hashCode = hashCode * 59 + this.Profiles.GetHashCode();
                 if (this.Restricted != null)

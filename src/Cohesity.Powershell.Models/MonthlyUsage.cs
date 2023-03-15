@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.MonthlyAvgUsage == input.MonthlyAvgUsage ||
                     this.MonthlyAvgUsage != null &&
                     input.MonthlyAvgUsage != null &&
-                    this.MonthlyAvgUsage.Equals(input.MonthlyAvgUsage)
+                    this.MonthlyAvgUsage.SequenceEqual(input.MonthlyAvgUsage)
                 );
         }
 

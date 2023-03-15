@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.Rules == input.Rules ||
                     this.Rules != null &&
                     input.Rules != null &&
-                    this.Rules.Equals(input.Rules)
+                    this.Rules.SequenceEqual(input.Rules)
                 ) && 
                 (
                     this.VersionId == input.VersionId ||

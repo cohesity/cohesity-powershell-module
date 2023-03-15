@@ -39,6 +39,12 @@ namespace Cohesity.Model
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
             this.Slot = slot;
+            this.ChassisSerial = chassisSerial;
+            this.Interfaces = interfaces;
+            this.Message = message;
+            this.NodeId = nodeId;
+            this.NodeIp = nodeIp;
+            this.Slot = slot;
         }
         
         /// <summary>
@@ -128,7 +134,7 @@ namespace Cohesity.Model
                     this.Interfaces == input.Interfaces ||
                     this.Interfaces != null &&
                     input.Interfaces != null &&
-                    this.Interfaces.Equals(input.Interfaces)
+                    this.Interfaces.SequenceEqual(input.Interfaces)
                 ) && 
                 (
                     this.Message == input.Message ||

@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.ValueInLastHours == input.ValueInLastHours ||
                     this.ValueInLastHours != null &&
                     input.ValueInLastHours != null &&
-                    this.ValueInLastHours.Equals(input.ValueInLastHours)
+                    this.ValueInLastHours.SequenceEqual(input.ValueInLastHours)
                 );
         }
 

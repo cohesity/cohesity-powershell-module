@@ -117,7 +117,7 @@ namespace Cohesity.Model
                     this.Data == input.Data ||
                     this.Data != null &&
                     input.Data != null &&
-                    this.Data.Equals(input.Data)
+                    this.Data.SequenceEqual(input.Data)
                 ) && 
                 (
                     this.Eof == input.Eof ||

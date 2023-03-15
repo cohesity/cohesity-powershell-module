@@ -105,7 +105,7 @@ namespace Cohesity.Model
                     this.VmwareDiskExclusionInfo == input.VmwareDiskExclusionInfo ||
                     this.VmwareDiskExclusionInfo != null &&
                     input.VmwareDiskExclusionInfo != null &&
-                    this.VmwareDiskExclusionInfo.Equals(input.VmwareDiskExclusionInfo)
+                    this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
                 );
         }
 

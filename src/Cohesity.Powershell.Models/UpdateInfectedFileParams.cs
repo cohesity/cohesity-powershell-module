@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.InfectedFileIds == input.InfectedFileIds ||
                     this.InfectedFileIds != null &&
                     input.InfectedFileIds != null &&
-                    this.InfectedFileIds.Equals(input.InfectedFileIds)
+                    this.InfectedFileIds.SequenceEqual(input.InfectedFileIds)
                 ) && 
                 (
                     this.RemediationState == input.RemediationState ||

@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
                     input.AlertIdList != null &&
-                    this.AlertIdList.Equals(input.AlertIdList)
+                    this.AlertIdList.SequenceEqual(input.AlertIdList)
                 );
         }
 

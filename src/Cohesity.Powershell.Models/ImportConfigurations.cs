@@ -239,19 +239,19 @@ namespace Cohesity.Model
                     this.ActiveDirectories == input.ActiveDirectories ||
                     this.ActiveDirectories != null &&
                     input.ActiveDirectories != null &&
-                    this.ActiveDirectories.Equals(input.ActiveDirectories)
+                    this.ActiveDirectories.SequenceEqual(input.ActiveDirectories)
                 ) && 
                 (
                     this.All == input.All ||
                     this.All != null &&
                     input.All != null &&
-                    this.All.Equals(input.All)
+                    this.All.SequenceEqual(input.All)
                 ) && 
                 (
                     this.Clusters == input.Clusters ||
                     this.Clusters != null &&
                     input.Clusters != null &&
-                    this.Clusters.Equals(input.Clusters)
+                    this.Clusters.SequenceEqual(input.Clusters)
                 ) && 
                 (
                     this.File == input.File ||
@@ -262,79 +262,79 @@ namespace Cohesity.Model
                     this.Groups == input.Groups ||
                     this.Groups != null &&
                     input.Groups != null &&
-                    this.Groups.Equals(input.Groups)
+                    this.Groups.SequenceEqual(input.Groups)
                 ) && 
                 (
                     this.Partitions == input.Partitions ||
                     this.Partitions != null &&
                     input.Partitions != null &&
-                    this.Partitions.Equals(input.Partitions)
+                    this.Partitions.SequenceEqual(input.Partitions)
                 ) && 
                 (
                     this.PrincipalSources == input.PrincipalSources ||
                     this.PrincipalSources != null &&
                     input.PrincipalSources != null &&
-                    this.PrincipalSources.Equals(input.PrincipalSources)
+                    this.PrincipalSources.SequenceEqual(input.PrincipalSources)
                 ) && 
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.Equals(input.ProtectionJobs)
+                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionPolicies == input.ProtectionPolicies ||
                     this.ProtectionPolicies != null &&
                     input.ProtectionPolicies != null &&
-                    this.ProtectionPolicies.Equals(input.ProtectionPolicies)
+                    this.ProtectionPolicies.SequenceEqual(input.ProtectionPolicies)
                 ) && 
                 (
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
                     input.ProtectionSources != null &&
-                    this.ProtectionSources.Equals(input.ProtectionSources)
+                    this.ProtectionSources.SequenceEqual(input.ProtectionSources)
                 ) && 
                 (
                     this.RemoteClusters == input.RemoteClusters ||
                     this.RemoteClusters != null &&
                     input.RemoteClusters != null &&
-                    this.RemoteClusters.Equals(input.RemoteClusters)
+                    this.RemoteClusters.SequenceEqual(input.RemoteClusters)
                 ) && 
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.Sql == input.Sql ||
                     this.Sql != null &&
                     input.Sql != null &&
-                    this.Sql.Equals(input.Sql)
+                    this.Sql.SequenceEqual(input.Sql)
                 ) && 
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
                     input.Users != null &&
-                    this.Users.Equals(input.Users)
+                    this.Users.SequenceEqual(input.Users)
                 ) && 
                 (
                     this.Vaults == input.Vaults ||
                     this.Vaults != null &&
                     input.Vaults != null &&
-                    this.Vaults.Equals(input.Vaults)
+                    this.Vaults.SequenceEqual(input.Vaults)
                 ) && 
                 (
                     this.ViewBoxes == input.ViewBoxes ||
                     this.ViewBoxes != null &&
                     input.ViewBoxes != null &&
-                    this.ViewBoxes.Equals(input.ViewBoxes)
+                    this.ViewBoxes.SequenceEqual(input.ViewBoxes)
                 ) && 
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.Equals(input.Views)
+                    this.Views.SequenceEqual(input.Views)
                 );
         }
 

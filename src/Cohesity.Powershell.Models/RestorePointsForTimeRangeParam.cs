@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -336,6 +331,10 @@ namespace Cohesity.Model
             this.EndTimeUsecs = endTimeUsecs;
             this.Environment = environment;
             this.JobUids = jobUids;
+            this.ProtectionSourceId = protectionSourceId;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.Environment = environment;
             this.ProtectionSourceId = protectionSourceId;
             this.StartTimeUsecs = startTimeUsecs;
         }
@@ -417,7 +416,7 @@ namespace Cohesity.Model
                     this.JobUids == input.JobUids ||
                     this.JobUids != null &&
                     input.JobUids != null &&
-                    this.JobUids.Equals(input.JobUids)
+                    this.JobUids.SequenceEqual(input.JobUids)
                 ) && 
                 (
                     this.ProtectionSourceId == input.ProtectionSourceId ||

@@ -459,7 +459,7 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses == input.AllowedIpAddresses ||
                     this.AllowedIpAddresses != null &&
                     input.AllowedIpAddresses != null &&
-                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                    this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
                     this.AwsCredentials == input.AwsCredentials ||
@@ -480,7 +480,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddresses == input.BlacklistedIpAddresses ||
                     this.BlacklistedIpAddresses != null &&
                     input.BlacklistedIpAddresses != null &&
-                    this.BlacklistedIpAddresses.Equals(input.BlacklistedIpAddresses)
+                    this.BlacklistedIpAddresses.SequenceEqual(input.BlacklistedIpAddresses)
                 ) && 
                 (
                     this.ClusterNetworkInfo == input.ClusterNetworkInfo ||
@@ -491,7 +491,7 @@ namespace Cohesity.Model
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
-                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
+                    this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
                 ) && 
                 (
                     this.Endpoint == input.Endpoint ||
@@ -551,7 +551,7 @@ namespace Cohesity.Model
                     this.Office365CredentialsList == input.Office365CredentialsList ||
                     this.Office365CredentialsList != null &&
                     input.Office365CredentialsList != null &&
-                    this.Office365CredentialsList.Equals(input.Office365CredentialsList)
+                    this.Office365CredentialsList.SequenceEqual(input.Office365CredentialsList)
                 ) && 
                 (
                     this.Office365Region == input.Office365Region ||
@@ -562,7 +562,7 @@ namespace Cohesity.Model
                     this.Office365ServiceAccountCredentialsList == input.Office365ServiceAccountCredentialsList ||
                     this.Office365ServiceAccountCredentialsList != null &&
                     input.Office365ServiceAccountCredentialsList != null &&
-                    this.Office365ServiceAccountCredentialsList.Equals(input.Office365ServiceAccountCredentialsList)
+                    this.Office365ServiceAccountCredentialsList.SequenceEqual(input.Office365ServiceAccountCredentialsList)
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -573,7 +573,7 @@ namespace Cohesity.Model
                     this.ProxyHostSourceIdList == input.ProxyHostSourceIdList ||
                     this.ProxyHostSourceIdList != null &&
                     input.ProxyHostSourceIdList != null &&
-                    this.ProxyHostSourceIdList.Equals(input.ProxyHostSourceIdList)
+                    this.ProxyHostSourceIdList.SequenceEqual(input.ProxyHostSourceIdList)
                 ) && 
                 (
                     this.SourceSideDedupEnabled == input.SourceSideDedupEnabled ||
@@ -589,7 +589,7 @@ namespace Cohesity.Model
                     this.Subnets == input.Subnets ||
                     this.Subnets != null &&
                     input.Subnets != null &&
-                    this.Subnets.Equals(input.Subnets)
+                    this.Subnets.SequenceEqual(input.Subnets)
                 ) && 
                 (
                     this.ThrottlingPolicy == input.ThrottlingPolicy ||
@@ -600,7 +600,7 @@ namespace Cohesity.Model
                     this.ThrottlingPolicyOverrides == input.ThrottlingPolicyOverrides ||
                     this.ThrottlingPolicyOverrides != null &&
                     input.ThrottlingPolicyOverrides != null &&
-                    this.ThrottlingPolicyOverrides.Equals(input.ThrottlingPolicyOverrides)
+                    this.ThrottlingPolicyOverrides.SequenceEqual(input.ThrottlingPolicyOverrides)
                 ) && 
                 (
                     this.UseExistingCredentials == input.UseExistingCredentials ||
@@ -659,8 +659,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ForceRegister.GetHashCode();
                 if (this.GcpCredentials != null)
                     hashCode = hashCode * 59 + this.GcpCredentials.GetHashCode();
-				if (this.HostType != null)
-                	hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IsProxyHost != null)
                     hashCode = hashCode * 59 + this.IsProxyHost.GetHashCode();
                 if (this.IsilonParams != null)

@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.MtimeUsecs = mtimeUsecs;
             this.Size = size;
             this.Type = type;
+            this.BackupSourceInodeId = backupSourceInodeId;
+            this.MtimeUsecs = mtimeUsecs;
+            this.Size = size;
+            this.Type = type;
         }
         
         /// <summary>

@@ -39,6 +39,12 @@ namespace Cohesity.Model
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
             this.SwiftAccess = swiftAccess;
+            this.IscsiAccess = iscsiAccess;
+            this.Nfs4Access = nfs4Access;
+            this.NfsAccess = nfsAccess;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
+            this.SwiftAccess = swiftAccess;
         }
         
         /// <summary>

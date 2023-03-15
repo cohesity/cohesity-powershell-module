@@ -149,7 +149,7 @@ namespace Cohesity.Model
                     this.Events == input.Events ||
                     this.Events != null &&
                     input.Events != null &&
-                    this.Events.Equals(input.Events)
+                    this.Events.SequenceEqual(input.Events)
                 ) && 
                 (
                     this.InProgress == input.InProgress ||

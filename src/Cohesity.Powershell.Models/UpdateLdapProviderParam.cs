@@ -92,6 +92,25 @@ namespace Cohesity.Model
             this.UseSsl = useSsl;
             this.UserDistinguishedName = userDistinguishedName;
             this.UserPassword = userPassword;
+            this.AdDomainName = adDomainName;
+            this.AttributeCommonName = attributeCommonName;
+            this.AttributeGid = attributeGid;
+            this.AttributeMemberOf = attributeMemberOf;
+            this.AttributeUid = attributeUid;
+            this.AttributeUserName = attributeUserName;
+            this.AuthType = authType;
+            this.BaseDistinguishedName = baseDistinguishedName;
+            this.DomainName = domainName;
+            this.Id = id;
+            this.Name = name;
+            this.ObjectClassGroup = objectClassGroup;
+            this.ObjectClassUser = objectClassUser;
+            this.Port = port;
+            this.PreferredLdapServerList = preferredLdapServerList;
+            this.TenantId = tenantId;
+            this.UseSsl = useSsl;
+            this.UserDistinguishedName = userDistinguishedName;
+            this.UserPassword = userPassword;
         }
         
         /// <summary>
@@ -329,7 +348,7 @@ namespace Cohesity.Model
                     this.PreferredLdapServerList == input.PreferredLdapServerList ||
                     this.PreferredLdapServerList != null &&
                     input.PreferredLdapServerList != null &&
-                    this.PreferredLdapServerList.Equals(input.PreferredLdapServerList)
+                    this.PreferredLdapServerList.SequenceEqual(input.PreferredLdapServerList)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -374,8 +393,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttributeUid.GetHashCode();
                 if (this.AttributeUserName != null)
                     hashCode = hashCode * 59 + this.AttributeUserName.GetHashCode();
-                if (this.AuthType != null)
-					hashCode = hashCode * 59 + this.AuthType.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthType.GetHashCode();
                 if (this.BaseDistinguishedName != null)
                     hashCode = hashCode * 59 + this.BaseDistinguishedName.GetHashCode();
                 if (this.DomainName != null)

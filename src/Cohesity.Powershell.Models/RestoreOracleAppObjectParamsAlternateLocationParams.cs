@@ -42,6 +42,13 @@ namespace Cohesity.Model
             this.NewSidDeprecated = newSidDeprecated;
             this.NewnameClause = newnameClause;
             this.Nofilenamecheck = nofilenamecheck;
+            this.BaseDir = baseDir;
+            this.DatabaseFileDestination = databaseFileDestination;
+            this.HomeDir = homeDir;
+            this.NewDatabaseName = newDatabaseName;
+            this.NewSidDeprecated = newSidDeprecated;
+            this.NewnameClause = newnameClause;
+            this.Nofilenamecheck = nofilenamecheck;
             this.OracleDbConfig = oracleDbConfig;
         }
         

@@ -69,13 +69,8 @@ namespace Cohesity.Model
             /// Enum KCheckSQLDiskSpace for value: kCheckSQLDiskSpace
             /// </summary>
             [EnumMember(Value = "kCheckSQLDiskSpace")]
-            KCheckSQLDiskSpace = 7,
+            KCheckSQLDiskSpace = 7
 
-            /// <summary>
-            /// Enum KIsSQLWriterRunningCheck for value: kIsSQLWriterRunningCheck
-            /// <summary>
-            [EnumMember(Value = "kIsSQLWriterRunningCheck")]
-            KIsSQLWriterRunningCheck = 8
         }
 
         /// <summary>

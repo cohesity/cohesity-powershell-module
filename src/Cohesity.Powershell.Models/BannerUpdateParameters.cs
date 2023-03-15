@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -28,6 +29,8 @@ namespace Cohesity.Model
         /// <param name="description">description field is deprecated. Specifies the description of this banner..</param>
         public BannerUpdateParameters(string content = default(string), string description = default(string))
         {
+            this.Content = content;
+            this.Description = description;
             this.Content = content;
             this.Description = description;
         }

@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.CaCertificate = caCertificate;
             this.IsEnabled = isEnabled;
+            this.CaCertificate = caCertificate;
+            this.IsEnabled = isEnabled;
         }
         
         /// <summary>

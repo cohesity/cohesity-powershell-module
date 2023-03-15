@@ -87,6 +87,12 @@ namespace Cohesity.Model
         public SnapshotReplicationCopyPolicy(string id = default(string), CloudDeployTargetDetails cloudTarget = default(CloudDeployTargetDetails), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), ReplicationTargetSettings target = default(ReplicationTargetSettings))
         {
             this.Id = id;
+            this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
+            this.Target = target;
+            this.Id = id;
             this.CloudTarget = cloudTarget;
             this.CopyPartial = copyPartial;
             this.DatalockConfig = datalockConfig;
@@ -241,8 +247,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                if (this.Periodicity != null)
-					hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.Target != null)
                     hashCode = hashCode * 59 + this.Target.GetHashCode();
                 return hashCode;

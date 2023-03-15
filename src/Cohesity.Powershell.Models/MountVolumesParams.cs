@@ -148,7 +148,7 @@ namespace Cohesity.Model
                     this.VolumeNameVec == input.VolumeNameVec ||
                     this.VolumeNameVec != null &&
                     input.VolumeNameVec != null &&
-                    this.VolumeNameVec.Equals(input.VolumeNameVec)
+                    this.VolumeNameVec.SequenceEqual(input.VolumeNameVec)
                 );
         }
 

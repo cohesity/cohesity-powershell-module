@@ -225,7 +225,7 @@ namespace Cohesity.Model
                     this.DiskBlocks == input.DiskBlocks ||
                     this.DiskBlocks != null &&
                     input.DiskBlocks != null &&
-                    this.DiskBlocks.Equals(input.DiskBlocks)
+                    this.DiskBlocks.SequenceEqual(input.DiskBlocks)
                 ) && 
                 (
                     this.DiskFormat == input.DiskFormat ||
@@ -235,7 +235,7 @@ namespace Cohesity.Model
                     this.DiskPartitions == input.DiskPartitions ||
                     this.DiskPartitions != null &&
                     input.DiskPartitions != null &&
-                    this.DiskPartitions.Equals(input.DiskPartitions)
+                    this.DiskPartitions.SequenceEqual(input.DiskPartitions)
                 ) && 
                 (
                     this.PartitionTableFormat == input.PartitionTableFormat ||

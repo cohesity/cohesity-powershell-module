@@ -179,7 +179,7 @@ namespace Cohesity.Model
                     this.ExcludedDataSourceVec == input.ExcludedDataSourceVec ||
                     this.ExcludedDataSourceVec != null &&
                     input.ExcludedDataSourceVec != null &&
-                    this.ExcludedDataSourceVec.Equals(input.ExcludedDataSourceVec)
+                    this.ExcludedDataSourceVec.SequenceEqual(input.ExcludedDataSourceVec)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -210,7 +210,7 @@ namespace Cohesity.Model
                     this.RequiredPropertyVec == input.RequiredPropertyVec ||
                     this.RequiredPropertyVec != null &&
                     input.RequiredPropertyVec != null &&
-                    this.RequiredPropertyVec.Equals(input.RequiredPropertyVec)
+                    this.RequiredPropertyVec.SequenceEqual(input.RequiredPropertyVec)
                 );
         }
 

@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.NodePorts == input.NodePorts ||
                     this.NodePorts != null &&
                     input.NodePorts != null &&
-                    this.NodePorts.Equals(input.NodePorts)
+                    this.NodePorts.SequenceEqual(input.NodePorts)
                 );
         }
 

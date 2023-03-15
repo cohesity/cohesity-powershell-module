@@ -149,13 +149,13 @@ namespace Cohesity.Model
                     this.Ips == input.Ips ||
                     this.Ips != null &&
                     input.Ips != null &&
-                    this.Ips.Equals(input.Ips)
+                    this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
                     input.NodeIds != null &&
-                    this.NodeIds.Equals(input.NodeIds)
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 ) && 
                 (
                     this.Role == input.Role ||

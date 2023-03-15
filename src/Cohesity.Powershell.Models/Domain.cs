@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.TrustedDomains == input.TrustedDomains ||
                     this.TrustedDomains != null &&
                     input.TrustedDomains != null &&
-                    this.TrustedDomains.Equals(input.TrustedDomains)
+                    this.TrustedDomains.SequenceEqual(input.TrustedDomains)
                 );
         }
 

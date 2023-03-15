@@ -129,7 +129,7 @@ namespace Cohesity.Model
                     this.DataTransferPerTask == input.DataTransferPerTask ||
                     this.DataTransferPerTask != null &&
                     input.DataTransferPerTask != null &&
-                    this.DataTransferPerTask.Equals(input.DataTransferPerTask)
+                    this.DataTransferPerTask.SequenceEqual(input.DataTransferPerTask)
                 ) && 
                 (
                     this.NumLogicalBytesTransferred == input.NumLogicalBytesTransferred ||
@@ -150,7 +150,7 @@ namespace Cohesity.Model
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
                     input.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    this.PhysicalDataTransferredBytesDuringTimeRange.Equals(input.PhysicalDataTransferredBytesDuringTimeRange)
+                    this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.VaultName == input.VaultName ||

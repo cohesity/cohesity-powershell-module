@@ -173,11 +173,11 @@ namespace Cohesity.Model
                     this.AdAttributes == input.AdAttributes ||
                     this.AdAttributes != null &&
                     input.AdAttributes != null &&
-                    this.AdAttributes.Equals(input.AdAttributes)
+                    this.AdAttributes.SequenceEqual(input.AdAttributes)
                 ) && 
                 (
                     this.AdObjectFlags == input.AdObjectFlags ||
-                    this.AdObjectFlags.Equals(input.AdObjectFlags)
+                    this.AdObjectFlags.SequenceEqual(input.AdObjectFlags)
                 ) && 
                 (
                     this.DestinationGuid == input.DestinationGuid ||

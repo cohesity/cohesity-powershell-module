@@ -36,6 +36,10 @@ namespace Cohesity.Model
         {
             this.CopyPartiallySuccessfulRun = copyPartiallySuccessfulRun;
             this.ExtendedRetentionPolicyVec = extendedRetentionPolicyVec;
+            this.Id = id;
+            this.NumDaysToKeep = numDaysToKeep;
+            this.CopyPartiallySuccessfulRun = copyPartiallySuccessfulRun;
+            this.ExtendedRetentionPolicyVec = extendedRetentionPolicyVec;
             this.GranularityBucket = granularityBucket;
             this.Id = id;
             this.NumDaysToKeep = numDaysToKeep;
@@ -134,7 +138,7 @@ namespace Cohesity.Model
                     this.ExtendedRetentionPolicyVec == input.ExtendedRetentionPolicyVec ||
                     this.ExtendedRetentionPolicyVec != null &&
                     input.ExtendedRetentionPolicyVec != null &&
-                    this.ExtendedRetentionPolicyVec.Equals(input.ExtendedRetentionPolicyVec)
+                    this.ExtendedRetentionPolicyVec.SequenceEqual(input.ExtendedRetentionPolicyVec)
                 ) && 
                 (
                     this.GranularityBucket == input.GranularityBucket ||

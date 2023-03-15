@@ -239,7 +239,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.SamlAttributeName == input.SamlAttributeName ||

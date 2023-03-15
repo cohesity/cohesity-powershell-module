@@ -86,7 +86,7 @@ namespace Cohesity.Model
         /// <param name="maxRetentionDurationMsecs">Specifies a maximum duration in milliseconds for which any file in this view can be retained for. Set to -1 if the required retention duration is forever. If set, it should be greater than or equal to the default retention period as well as the min retention period..</param>
         /// <param name="minRetentionDurationMsecs">Specifies a minimum retention duration in milliseconds after a file gets locked. The file cannot be modified or deleted during this timeframe. Set to -1 if the required retention duration is forever. This should be set less than or equal to the default retention duration..</param>
         /// <param name="mode">Specifies the mode of file level datalock. Enterprise mode can be upgraded to Compliance mode, but Compliance mode cannot be downgraded to Enterprise mode, unless view&#39;s FileLevelDataLockConfig has coexisting_lock_mode set. kCompliance: This mode would disallow all user to delete/modify file or view under any condition when it &#39;s in locked status except for deleting view when the view is empty. kEnterprise: This mode would follow the rules as compliance mode for normal users. But it would allow the storage admin (1) to delete view or file anytime no matter it is in locked status or expired. (2) to rename the view (3) to bring back the retention period when it&#39;s in locked mode A lock mode of a file in a view can be in one of the following:  &#39;kCompliance&#39;: Default mode of datalock, in this mode, Data Security Admin cannot modify/delete this view when datalock is in effect. Data Security Admin can delete this view when datalock is expired. &#39;kEnterprise&#39; : In this mode, Data Security Admin can change view name or delete view when datalock is in effect. Datalock in this mode can be upgraded to &#39;kCompliance&#39; mode..</param>
-        public FileLevelDataLockConfig(int? autoLockAfterDurationIdle = default(int?), long? defaultFileRetentionDurationMsecs = default(long?), long? expiryTimestampMsecs = default(long?), LockingProtocolEnum? lockingProtocol = default(LockingProtocolEnum?), long? maxRetentionDurationMsecs = default(long?), long? minRetentionDurationMsecs = default(long?), ModeEnum? mode = default(ModeEnum?))
+        public FileLevelDataLockConfig(int? autoLockAfterDurationIdle = default(int?), long? defaultFileRetentionDurationMsecs = default(long?), int? expiryTimestampMsecs = default(int?), LockingProtocolEnum? lockingProtocol = default(LockingProtocolEnum?), long? maxRetentionDurationMsecs = default(long?), long? minRetentionDurationMsecs = default(long?), ModeEnum? mode = default(ModeEnum?))
         {
             this.AutoLockAfterDurationIdle = autoLockAfterDurationIdle;
             this.DefaultFileRetentionDurationMsecs = defaultFileRetentionDurationMsecs;
@@ -123,7 +123,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies a definite timestamp in milliseconds for retaining the file.</value>
         [DataMember(Name="expiryTimestampMsecs", EmitDefaultValue=true)]
-        public long? ExpiryTimestampMsecs { get; set; }
+        public int? ExpiryTimestampMsecs { get; set; }
 
         /// <summary>
         /// Specifies a maximum duration in milliseconds for which any file in this view can be retained for. Set to -1 if the required retention duration is forever. If set, it should be greater than or equal to the default retention period as well as the min retention period.

@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.TargetPathVec == input.TargetPathVec ||
                     this.TargetPathVec != null &&
                     input.TargetPathVec != null &&
-                    this.TargetPathVec.Equals(input.TargetPathVec)
+                    this.TargetPathVec.SequenceEqual(input.TargetPathVec)
                 );
         }
 

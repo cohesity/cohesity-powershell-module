@@ -99,13 +99,13 @@ namespace Cohesity.Model
                     this.HdfsExcludePattern == input.HdfsExcludePattern ||
                     this.HdfsExcludePattern != null &&
                     input.HdfsExcludePattern != null &&
-                    this.HdfsExcludePattern.Equals(input.HdfsExcludePattern)
+                    this.HdfsExcludePattern.SequenceEqual(input.HdfsExcludePattern)
                 ) && 
                 (
                     this.HdfsRecoverPattern == input.HdfsRecoverPattern ||
                     this.HdfsRecoverPattern != null &&
                     input.HdfsRecoverPattern != null &&
-                    this.HdfsRecoverPattern.Equals(input.HdfsRecoverPattern)
+                    this.HdfsRecoverPattern.SequenceEqual(input.HdfsRecoverPattern)
                 ) && 
                 (
                     this.TargetDirectory == input.TargetDirectory ||

@@ -43,6 +43,14 @@ namespace Cohesity.Model
             this.Mtu = mtu;
             this.NextHop = nextHop;
             this.NodeGroupName = nodeGroupName;
+            this.Advmss = advmss;
+            this.Description = description;
+            this.DestNetwork = destNetwork;
+            this.IfName = ifName;
+            this.IfaceGroupName = ifaceGroupName;
+            this.Mtu = mtu;
+            this.NextHop = nextHop;
+            this.NodeGroupName = nodeGroupName;
         }
         
         /// <summary>

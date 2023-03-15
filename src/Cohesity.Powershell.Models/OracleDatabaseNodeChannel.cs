@@ -43,6 +43,14 @@ namespace Cohesity.Model
             this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.MaxNodeCount = maxNodeCount;
             this.RmanBackupType = rmanBackupType;
+            this.ArchiveLogKeepDays = archiveLogKeepDays;
+            this.DatabaseNodeList = databaseNodeList;
+            this.DatabaseUniqueName = databaseUniqueName;
+            this.DatabaseUuid = databaseUuid;
+            this.DefaultChannelCount = defaultChannelCount;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
+            this.MaxNodeCount = maxNodeCount;
+            this.RmanBackupType = rmanBackupType;
         }
         
         /// <summary>
@@ -146,7 +154,7 @@ namespace Cohesity.Model
                     this.DatabaseNodeList == input.DatabaseNodeList ||
                     this.DatabaseNodeList != null &&
                     input.DatabaseNodeList != null &&
-                    this.DatabaseNodeList.Equals(input.DatabaseNodeList)
+                    this.DatabaseNodeList.SequenceEqual(input.DatabaseNodeList)
                 ) && 
                 (
                     this.DatabaseUniqueName == input.DatabaseUniqueName ||

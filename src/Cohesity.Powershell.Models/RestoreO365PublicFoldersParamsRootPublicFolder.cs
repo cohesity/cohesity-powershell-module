@@ -97,7 +97,7 @@ namespace Cohesity.Model
                     this.FolderVec == input.FolderVec ||
                     this.FolderVec != null &&
                     input.FolderVec != null &&
-                    this.FolderVec.Equals(input.FolderVec)
+                    this.FolderVec.SequenceEqual(input.FolderVec)
                 ) && 
                 (
                     this.IsEntireRootFolderRequired == input.IsEntireRootFolderRequired ||

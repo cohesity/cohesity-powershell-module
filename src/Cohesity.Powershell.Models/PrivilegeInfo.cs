@@ -422,6 +422,16 @@ namespace Cohesity.Model
             this.IsViewOnly = isViewOnly;
             this.Label = label;
             this.Name = name;
+            this.PrivilegeId = privilegeId;
+            this.Category = category;
+            this.Description = description;
+            this.IsAvailableOnHelios = isAvailableOnHelios;
+            this.IsCustomRoleDefault = isCustomRoleDefault;
+            this.IsSaaSOnly = isSaaSOnly;
+            this.IsSpecial = isSpecial;
+            this.IsViewOnly = isViewOnly;
+            this.Label = label;
+            this.Name = name;
         }
         
         /// <summary>

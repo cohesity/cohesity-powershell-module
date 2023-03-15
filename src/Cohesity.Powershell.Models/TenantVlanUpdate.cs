@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.VlanIfaceNames == input.VlanIfaceNames ||
                     this.VlanIfaceNames != null &&
                     input.VlanIfaceNames != null &&
-                    this.VlanIfaceNames.Equals(input.VlanIfaceNames)
+                    this.VlanIfaceNames.SequenceEqual(input.VlanIfaceNames)
                 );
         }
 

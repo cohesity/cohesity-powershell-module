@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.SolrNodeVec == input.SolrNodeVec ||
                     this.SolrNodeVec != null &&
                     input.SolrNodeVec != null &&
-                    this.SolrNodeVec.Equals(input.SolrNodeVec)
+                    this.SolrNodeVec.SequenceEqual(input.SolrNodeVec)
                 ) && 
                 (
                     this.SolrPort == input.SolrPort ||

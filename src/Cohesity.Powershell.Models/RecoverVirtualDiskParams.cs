@@ -121,7 +121,7 @@ namespace Cohesity.Model
                     this.VirtualDiskMappings == input.VirtualDiskMappings ||
                     this.VirtualDiskMappings != null &&
                     input.VirtualDiskMappings != null &&
-                    this.VirtualDiskMappings.Equals(input.VirtualDiskMappings)
+                    this.VirtualDiskMappings.SequenceEqual(input.VirtualDiskMappings)
                 );
         }
 

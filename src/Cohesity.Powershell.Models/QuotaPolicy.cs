@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;
+            this.AlertLimitBytes = alertLimitBytes;
+            this.AlertThresholdPercentage = alertThresholdPercentage;
+            this.HardLimitBytes = hardLimitBytes;
         }
         
         /// <summary>

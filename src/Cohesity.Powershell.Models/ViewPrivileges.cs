@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -118,7 +119,7 @@ namespace Cohesity.Model
                     this.ViewIds == input.ViewIds ||
                     this.ViewIds != null &&
                     input.ViewIds != null &&
-                    this.ViewIds.Equals(input.ViewIds)
+                    this.ViewIds.SequenceEqual(input.ViewIds)
                 );
         }
 

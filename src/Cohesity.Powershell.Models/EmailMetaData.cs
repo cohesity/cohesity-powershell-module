@@ -67,6 +67,26 @@ namespace Cohesity.Model
             this.SentTimeSeconds = sentTimeSeconds;
             this.ShowOnlyEmailFolders = showOnlyEmailFolders;
             this.TenantId = tenantId;
+            this.AllUnderHierarchy = allUnderHierarchy;
+            this.BccRecipientAddresses = bccRecipientAddresses;
+            this.CcRecipientAddresses = ccRecipientAddresses;
+            this.DirectoryPath = directoryPath;
+            this.DomainIds = domainIds;
+            this.EmailSubject = emailSubject;
+            this.FolderKey = folderKey;
+            this.FolderName = folderName;
+            this.HasAttachments = hasAttachments;
+            this.ItemKey = itemKey;
+            this.MailboxIds = mailboxIds;
+            this.ProtectionJobIds = protectionJobIds;
+            this.ReceivedEndTime = receivedEndTime;
+            this.ReceivedStartTime = receivedStartTime;
+            this.ReceivedTimeSeconds = receivedTimeSeconds;
+            this.RecipientAddresses = recipientAddresses;
+            this.SenderAddress = senderAddress;
+            this.SentTimeSeconds = sentTimeSeconds;
+            this.ShowOnlyEmailFolders = showOnlyEmailFolders;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
@@ -254,13 +274,13 @@ namespace Cohesity.Model
                     this.BccRecipientAddresses == input.BccRecipientAddresses ||
                     this.BccRecipientAddresses != null &&
                     input.BccRecipientAddresses != null &&
-                    this.BccRecipientAddresses.Equals(input.BccRecipientAddresses)
+                    this.BccRecipientAddresses.SequenceEqual(input.BccRecipientAddresses)
                 ) && 
                 (
                     this.CcRecipientAddresses == input.CcRecipientAddresses ||
                     this.CcRecipientAddresses != null &&
                     input.CcRecipientAddresses != null &&
-                    this.CcRecipientAddresses.Equals(input.CcRecipientAddresses)
+                    this.CcRecipientAddresses.SequenceEqual(input.CcRecipientAddresses)
                 ) && 
                 (
                     this.DirectoryPath == input.DirectoryPath ||
@@ -271,7 +291,7 @@ namespace Cohesity.Model
                     this.DomainIds == input.DomainIds ||
                     this.DomainIds != null &&
                     input.DomainIds != null &&
-                    this.DomainIds.Equals(input.DomainIds)
+                    this.DomainIds.SequenceEqual(input.DomainIds)
                 ) && 
                 (
                     this.EmailSubject == input.EmailSubject ||
@@ -302,13 +322,13 @@ namespace Cohesity.Model
                     this.MailboxIds == input.MailboxIds ||
                     this.MailboxIds != null &&
                     input.MailboxIds != null &&
-                    this.MailboxIds.Equals(input.MailboxIds)
+                    this.MailboxIds.SequenceEqual(input.MailboxIds)
                 ) && 
                 (
                     this.ProtectionJobIds == input.ProtectionJobIds ||
                     this.ProtectionJobIds != null &&
                     input.ProtectionJobIds != null &&
-                    this.ProtectionJobIds.Equals(input.ProtectionJobIds)
+                    this.ProtectionJobIds.SequenceEqual(input.ProtectionJobIds)
                 ) && 
                 (
                     this.ReceivedEndTime == input.ReceivedEndTime ||
@@ -329,7 +349,7 @@ namespace Cohesity.Model
                     this.RecipientAddresses == input.RecipientAddresses ||
                     this.RecipientAddresses != null &&
                     input.RecipientAddresses != null &&
-                    this.RecipientAddresses.Equals(input.RecipientAddresses)
+                    this.RecipientAddresses.SequenceEqual(input.RecipientAddresses)
                 ) && 
                 (
                     this.SenderAddress == input.SenderAddress ||

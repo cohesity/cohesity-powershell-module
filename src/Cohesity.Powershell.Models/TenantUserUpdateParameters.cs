@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.Sids == input.Sids ||
                     this.Sids != null &&
                     input.Sids != null &&
-                    this.Sids.Equals(input.Sids)
+                    this.Sids.SequenceEqual(input.Sids)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

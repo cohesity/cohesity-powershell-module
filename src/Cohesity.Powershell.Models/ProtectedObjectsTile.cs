@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.ObjectsProtected == input.ObjectsProtected ||
                     this.ObjectsProtected != null &&
                     input.ObjectsProtected != null &&
-                    this.ObjectsProtected.Equals(input.ObjectsProtected)
+                    this.ObjectsProtected.SequenceEqual(input.ObjectsProtected)
                 ) && 
                 (
                     this.ProtectedCount == input.ProtectedCount ||

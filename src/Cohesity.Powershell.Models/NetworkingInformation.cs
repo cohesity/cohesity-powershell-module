@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ResourceVec == input.ResourceVec ||
                     this.ResourceVec != null &&
                     input.ResourceVec != null &&
-                    this.ResourceVec.Equals(input.ResourceVec)
+                    this.ResourceVec.SequenceEqual(input.ResourceVec)
                 );
         }
 

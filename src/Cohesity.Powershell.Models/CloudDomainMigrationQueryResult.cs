@@ -127,7 +127,7 @@ namespace Cohesity.Model
                     this.AppJobUidList == input.AppJobUidList ||
                     this.AppJobUidList != null &&
                     input.AppJobUidList != null &&
-                    this.AppJobUidList.Equals(input.AppJobUidList)
+                    this.AppJobUidList.SequenceEqual(input.AppJobUidList)
                 ) && 
                 (
                     this.CloudDomainId == input.CloudDomainId ||

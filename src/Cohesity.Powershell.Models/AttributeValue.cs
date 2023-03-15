@@ -113,13 +113,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Flags == input.Flags ||
-                    this.Flags.Equals(input.Flags)
+                    this.Flags.SequenceEqual(input.Flags)
                 ) && 
                 (
                     this.Values == input.Values ||
                     this.Values != null &&
                     input.Values != null &&
-                    this.Values.Equals(input.Values)
+                    this.Values.SequenceEqual(input.Values)
                 );
         }
 

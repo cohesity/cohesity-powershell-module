@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Requests == input.Requests ||
                     this.Requests != null &&
                     input.Requests != null &&
-                    this.Requests.Equals(input.Requests)
+                    this.Requests.SequenceEqual(input.Requests)
                 );
         }
 

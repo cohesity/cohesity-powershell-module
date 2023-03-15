@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.CurrentUsageGiB = currentUsageGiB;
             this.FeatureName = featureName;
             this.NumVm = numVm;
+            this.CurrentUsageGiB = currentUsageGiB;
+            this.FeatureName = featureName;
+            this.NumVm = numVm;
         }
         
         /// <summary>

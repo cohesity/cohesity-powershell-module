@@ -32,6 +32,8 @@ namespace Cohesity.Model
         {
             this.NumDaysToKeep = numDaysToKeep;
             this.NumSecsToKeep = numSecsToKeep;
+            this.NumDaysToKeep = numDaysToKeep;
+            this.NumSecsToKeep = numSecsToKeep;
             this.WormRetention = wormRetention;
         }
         

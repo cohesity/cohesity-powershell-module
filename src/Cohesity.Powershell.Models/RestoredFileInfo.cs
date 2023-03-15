@@ -53,6 +53,19 @@ namespace Cohesity.Model
             this.VirtualDiskFile = virtualDiskFile;
             this.VolumeId = volumeId;
             this.VolumePath = volumePath;
+            this.AbsolutePath = absolutePath;
+            this.AttachedDiskId = attachedDiskId;
+            this.DiskPartitionId = diskPartitionId;
+            this.FsUuid = fsUuid;
+            this.InodeNumber = inodeNumber;
+            this.IsDirectory = isDirectory;
+            this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
+            this.RestoreBaseDirectory = restoreBaseDirectory;
+            this.RestoreMountPoint = restoreMountPoint;
+            this.SizeBytes = sizeBytes;
+            this.VirtualDiskFile = virtualDiskFile;
+            this.VolumeId = volumeId;
+            this.VolumePath = volumePath;
         }
         
         /// <summary>

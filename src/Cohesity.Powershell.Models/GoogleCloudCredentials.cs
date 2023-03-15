@@ -82,6 +82,11 @@ namespace Cohesity.Model
             this.ProjectId = projectId;
             this.TierType = tierType;
             this.Tiers = tiers;
+            this.ClientEmailAddress = clientEmailAddress;
+            this.ClientPrivateKey = clientPrivateKey;
+            this.ProjectId = projectId;
+            this.TierType = tierType;
+            this.Tiers = tiers;
         }
         
         /// <summary>
@@ -171,7 +176,7 @@ namespace Cohesity.Model
                     this.Tiers == input.Tiers ||
                     this.Tiers != null &&
                     input.Tiers != null &&
-                    this.Tiers.Equals(input.Tiers)
+                    this.Tiers.SequenceEqual(input.Tiers)
                 );
         }
 
@@ -190,8 +195,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 if (this.ProjectId != null)
                     hashCode = hashCode * 59 + this.ProjectId.GetHashCode();
-                if (this.TierType != null)
-					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 if (this.Tiers != null)
                     hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;

@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.Content == input.Content ||
                     this.Content != null &&
                     input.Content != null &&
-                    this.Content.Equals(input.Content)
+                    this.Content.SequenceEqual(input.Content)
                 ) && 
                 (
                     this.FileName == input.FileName ||

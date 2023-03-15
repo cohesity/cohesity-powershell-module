@@ -39,6 +39,11 @@ namespace Cohesity.Model
             this.UsageType = usageType;
             this.VaultId = vaultId;
             this.CloudTierSetting = cloudTierSetting;
+            this.Name = name;
+            this.OwnershipContext = ownershipContext;
+            this.Type = type;
+            this.UsageType = usageType;
+            this.VaultId = vaultId;
         }
         
         /// <summary>

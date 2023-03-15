@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.RemoteViewMap == input.RemoteViewMap ||
                     this.RemoteViewMap != null &&
                     input.RemoteViewMap != null &&
-                    this.RemoteViewMap.Equals(input.RemoteViewMap)
+                    this.RemoteViewMap.SequenceEqual(input.RemoteViewMap)
                 );
         }
 

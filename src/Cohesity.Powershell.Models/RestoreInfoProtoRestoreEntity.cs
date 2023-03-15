@@ -38,6 +38,13 @@ namespace Cohesity.Model
         /// <param name="warnings">Optional warnings if any..</param>
         public RestoreInfoProtoRestoreEntity(EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), string restoredViewName = default(string), int? status = default(int?), long? totalBytesRestored = default(long?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.PublicStatus = publicStatus;
+            this.RelativeRestorePaths = relativeRestorePaths;
+            this.RestoredViewName = restoredViewName;
+            this.Status = status;
+            this.TotalBytesRestored = totalBytesRestored;
+            this.Warnings = warnings;
             this.Entity = entity;
             this.Error = error;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
@@ -184,7 +191,7 @@ namespace Cohesity.Model
                     this.RelativeRestorePaths == input.RelativeRestorePaths ||
                     this.RelativeRestorePaths != null &&
                     input.RelativeRestorePaths != null &&
-                    this.RelativeRestorePaths.Equals(input.RelativeRestorePaths)
+                    this.RelativeRestorePaths.SequenceEqual(input.RelativeRestorePaths)
                 ) && 
                 (
                     this.ResourcePoolEntity == input.ResourcePoolEntity ||
@@ -215,7 +222,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

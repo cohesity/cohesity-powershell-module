@@ -175,7 +175,7 @@ namespace Cohesity.Model
                     this.PreviousRelativeClonePaths == input.PreviousRelativeClonePaths ||
                     this.PreviousRelativeClonePaths != null &&
                     input.PreviousRelativeClonePaths != null &&
-                    this.PreviousRelativeClonePaths.Equals(input.PreviousRelativeClonePaths)
+                    this.PreviousRelativeClonePaths.SequenceEqual(input.PreviousRelativeClonePaths)
                 ) && 
                 (
                     this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
@@ -191,7 +191,7 @@ namespace Cohesity.Model
                     this.RelativeClonePaths == input.RelativeClonePaths ||
                     this.RelativeClonePaths != null &&
                     input.RelativeClonePaths != null &&
-                    this.RelativeClonePaths.Equals(input.RelativeClonePaths)
+                    this.RelativeClonePaths.SequenceEqual(input.RelativeClonePaths)
                 ) && 
                 (
                     this.Status == input.Status ||

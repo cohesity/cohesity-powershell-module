@@ -101,7 +101,7 @@ namespace Cohesity.Model
                     this.FilesAndFoldersInfo == input.FilesAndFoldersInfo ||
                     this.FilesAndFoldersInfo != null &&
                     input.FilesAndFoldersInfo != null &&
-                    this.FilesAndFoldersInfo.Equals(input.FilesAndFoldersInfo)
+                    this.FilesAndFoldersInfo.SequenceEqual(input.FilesAndFoldersInfo)
                 ) && 
                 (
                     this.Name == input.Name ||

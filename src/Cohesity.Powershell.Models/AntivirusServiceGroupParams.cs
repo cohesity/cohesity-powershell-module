@@ -103,7 +103,7 @@ namespace Cohesity.Model
                     this.AntivirusServices == input.AntivirusServices ||
                     this.AntivirusServices != null &&
                     input.AntivirusServices != null &&
-                    this.AntivirusServices.Equals(input.AntivirusServices)
+                    this.AntivirusServices.SequenceEqual(input.AntivirusServices)
                 ) && 
                 (
                     this.Description == input.Description ||

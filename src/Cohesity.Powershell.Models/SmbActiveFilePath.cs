@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.FilePath = filePath;
             this.ViewId = viewId;
             this.ViewName = viewName;
+            this.ActiveSessions = activeSessions;
+            this.FilePath = filePath;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
         }
         
         /// <summary>
@@ -105,7 +109,7 @@ namespace Cohesity.Model
                     this.ActiveSessions == input.ActiveSessions ||
                     this.ActiveSessions != null &&
                     input.ActiveSessions != null &&
-                    this.ActiveSessions.Equals(input.ActiveSessions)
+                    this.ActiveSessions.SequenceEqual(input.ActiveSessions)
                 ) && 
                 (
                     this.FilePath == input.FilePath ||

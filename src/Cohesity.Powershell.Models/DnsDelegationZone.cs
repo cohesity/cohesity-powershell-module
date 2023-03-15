@@ -104,13 +104,13 @@ namespace Cohesity.Model
                     this.DnsZoneResolvedVips == input.DnsZoneResolvedVips ||
                     this.DnsZoneResolvedVips != null &&
                     input.DnsZoneResolvedVips != null &&
-                    this.DnsZoneResolvedVips.Equals(input.DnsZoneResolvedVips)
+                    this.DnsZoneResolvedVips.SequenceEqual(input.DnsZoneResolvedVips)
                 ) && 
                 (
                     this.DnsZoneVips == input.DnsZoneVips ||
                     this.DnsZoneVips != null &&
                     input.DnsZoneVips != null &&
-                    this.DnsZoneVips.Equals(input.DnsZoneVips)
+                    this.DnsZoneVips.SequenceEqual(input.DnsZoneVips)
                 );
         }
 

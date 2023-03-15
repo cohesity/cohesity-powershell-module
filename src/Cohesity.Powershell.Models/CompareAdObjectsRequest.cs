@@ -167,7 +167,7 @@ namespace Cohesity.Model
                     this.GuidPairs == input.GuidPairs ||
                     this.GuidPairs != null &&
                     input.GuidPairs != null &&
-                    this.GuidPairs.Equals(input.GuidPairs)
+                    this.GuidPairs.SequenceEqual(input.GuidPairs)
                 ) && 
                 (
                     this.QuickCompare == input.QuickCompare ||

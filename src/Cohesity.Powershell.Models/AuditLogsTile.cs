@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.ClusterAuditLogs == input.ClusterAuditLogs ||
                     this.ClusterAuditLogs != null &&
                     input.ClusterAuditLogs != null &&
-                    this.ClusterAuditLogs.Equals(input.ClusterAuditLogs)
+                    this.ClusterAuditLogs.SequenceEqual(input.ClusterAuditLogs)
                 ) && 
                 (
                     this.TotalCount == input.TotalCount ||

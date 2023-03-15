@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.Vms == input.Vms ||
                     this.Vms != null &&
                     input.Vms != null &&
-                    this.Vms.Equals(input.Vms)
+                    this.Vms.SequenceEqual(input.Vms)
                 );
         }
 

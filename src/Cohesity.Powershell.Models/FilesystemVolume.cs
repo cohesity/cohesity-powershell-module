@@ -185,7 +185,7 @@ namespace Cohesity.Model
                     this.Disks == input.Disks ||
                     this.Disks != null &&
                     input.Disks != null &&
-                    this.Disks.Equals(input.Disks)
+                    this.Disks.SequenceEqual(input.Disks)
                 ) && 
                 (
                     this.DisplayName == input.DisplayName ||

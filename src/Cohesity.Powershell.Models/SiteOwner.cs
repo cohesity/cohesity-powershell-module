@@ -87,7 +87,7 @@ namespace Cohesity.Model
                     this.DriveInfoList == input.DriveInfoList ||
                     this.DriveInfoList != null &&
                     input.DriveInfoList != null &&
-                    this.DriveInfoList.Equals(input.DriveInfoList)
+                    this.DriveInfoList.SequenceEqual(input.DriveInfoList)
                 ) && 
                 (
                     this.SiteDetailObject == input.SiteDetailObject ||

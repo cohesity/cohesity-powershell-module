@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.SnapshotTargetPolicyVec == input.SnapshotTargetPolicyVec ||
                     this.SnapshotTargetPolicyVec != null &&
                     input.SnapshotTargetPolicyVec != null &&
-                    this.SnapshotTargetPolicyVec.Equals(input.SnapshotTargetPolicyVec)
+                    this.SnapshotTargetPolicyVec.SequenceEqual(input.SnapshotTargetPolicyVec)
                 );
         }
 

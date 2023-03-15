@@ -245,13 +245,13 @@ namespace Cohesity.Model
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
                     input.SelectedDataCenterVec != null &&
-                    this.SelectedDataCenterVec.Equals(input.SelectedDataCenterVec)
+                    this.SelectedDataCenterVec.SequenceEqual(input.SelectedDataCenterVec)
                 ) && 
                 (
                     this.StagingDirectoryVec == input.StagingDirectoryVec ||
                     this.StagingDirectoryVec != null &&
                     input.StagingDirectoryVec != null &&
-                    this.StagingDirectoryVec.Equals(input.StagingDirectoryVec)
+                    this.StagingDirectoryVec.SequenceEqual(input.StagingDirectoryVec)
                 ) && 
                 (
                     this.Suffix == input.Suffix ||

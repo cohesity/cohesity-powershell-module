@@ -87,6 +87,11 @@ namespace Cohesity.Model
         {
             this.Id = id;
             this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
+            this.Id = id;
+            this.CopyPartial = copyPartial;
             this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;

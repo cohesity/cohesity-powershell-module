@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.ScriptParams = scriptParams;
             this.ScriptPath = scriptPath;
             this.TimeoutSecs = timeoutSecs;
+            this.ContinueOnError = continueOnError;
+            this.IsActive = isActive;
+            this.ScriptParams = scriptParams;
+            this.ScriptPath = scriptPath;
+            this.TimeoutSecs = timeoutSecs;
         }
         
         /// <summary>

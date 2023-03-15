@@ -110,6 +110,16 @@ namespace Cohesity.Model
             this.DeduplicateCompressDelaySecs = deduplicateCompressDelaySecs;
             this.DeduplicationEnabled = deduplicationEnabled;
             this.EncryptionPolicy = encryptionPolicy;
+            this.InlineCompress = inlineCompress;
+            this.InlineDeduplicate = inlineDeduplicate;
+            this.NumFailuresTolerated = numFailuresTolerated;
+            this.NumNodeFailuresTolerated = numNodeFailuresTolerated;
+            this.AppMarkerDetection = appMarkerDetection;
+            this.CloudSpillVaultId = cloudSpillVaultId;
+            this.CompressionPolicy = compressionPolicy;
+            this.DeduplicateCompressDelaySecs = deduplicateCompressDelaySecs;
+            this.DeduplicationEnabled = deduplicationEnabled;
+            this.EncryptionPolicy = encryptionPolicy;
             this.ErasureCodingInfo = erasureCodingInfo;
             this.InlineCompress = inlineCompress;
             this.InlineDeduplicate = inlineDeduplicate;

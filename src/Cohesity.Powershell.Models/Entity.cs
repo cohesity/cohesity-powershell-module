@@ -239,7 +239,7 @@ namespace Cohesity.Model
                     this.LabelAttributesVec == input.LabelAttributesVec ||
                     this.LabelAttributesVec != null &&
                     input.LabelAttributesVec != null &&
-                    this.LabelAttributesVec.Equals(input.LabelAttributesVec)
+                    this.LabelAttributesVec.SequenceEqual(input.LabelAttributesVec)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -260,7 +260,7 @@ namespace Cohesity.Model
                     this.ServicesToConnectorIdsMap == input.ServicesToConnectorIdsMap ||
                     this.ServicesToConnectorIdsMap != null &&
                     input.ServicesToConnectorIdsMap != null &&
-                    this.ServicesToConnectorIdsMap.Equals(input.ServicesToConnectorIdsMap)
+                    this.ServicesToConnectorIdsMap.SequenceEqual(input.ServicesToConnectorIdsMap)
                 ) && 
                 (
                     this.Type == input.Type ||

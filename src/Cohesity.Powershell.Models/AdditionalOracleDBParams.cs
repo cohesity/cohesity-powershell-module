@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.DbInfoChannelVec == input.DbInfoChannelVec ||
                     this.DbInfoChannelVec != null &&
                     input.DbInfoChannelVec != null &&
-                    this.DbInfoChannelVec.Equals(input.DbInfoChannelVec)
+                    this.DbInfoChannelVec.SequenceEqual(input.DbInfoChannelVec)
                 );
         }
 

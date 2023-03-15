@@ -125,6 +125,11 @@ namespace Cohesity.Model
         {
             this.Id = id;
             this.BackupRunType = backupRunType;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
+            this.Id = id;
+            this.BackupRunType = backupRunType;
             this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
@@ -235,16 +240,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.BackupRunType != null)
-					hashCode = hashCode * 59 + this.BackupRunType.GetHashCode();
+                hashCode = hashCode * 59 + this.BackupRunType.GetHashCode();
                 if (this.DatalockConfig != null)
                     hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                if (this.Periodicity != null)
-					hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 return hashCode;
             }
         }

@@ -44,6 +44,19 @@ namespace Cohesity.Model
             this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
             this.BytesTransferred = bytesTransferred;
             this.EndTimeUsecs = endTimeUsecs;
+            this.LogicalBytesTransferred = logicalBytesTransferred;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RetrievedEntityVec = retrievedEntityVec;
+            this.SkipCloningView = skipCloningView;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.StubViewName = stubViewName;
+            this.StubViewRelativeDirName = stubViewRelativeDirName;
+            this.TargetViewName = targetViewName;
+            this.UserActionRequiredMsg = userActionRequiredMsg;
+            this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
+            this.BytesTransferred = bytesTransferred;
+            this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
             this.LogicalBytesTransferred = logicalBytesTransferred;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -229,7 +242,7 @@ namespace Cohesity.Model
                     this.RetrievedEntityVec == input.RetrievedEntityVec ||
                     this.RetrievedEntityVec != null &&
                     input.RetrievedEntityVec != null &&
-                    this.RetrievedEntityVec.Equals(input.RetrievedEntityVec)
+                    this.RetrievedEntityVec.SequenceEqual(input.RetrievedEntityVec)
                 ) && 
                 (
                     this.SkipCloningView == input.SkipCloningView ||

@@ -29,6 +29,7 @@ namespace Cohesity.Model
         public RunDiagnosticsMessage(string message = default(string))
         {
             this.Message = message;
+            this.Message = message;
         }
         
         /// <summary>

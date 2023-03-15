@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.ProtectionSourceIds == input.ProtectionSourceIds ||
                     this.ProtectionSourceIds != null &&
                     input.ProtectionSourceIds != null &&
-                    this.ProtectionSourceIds.Equals(input.ProtectionSourceIds)
+                    this.ProtectionSourceIds.SequenceEqual(input.ProtectionSourceIds)
                 );
         }
 

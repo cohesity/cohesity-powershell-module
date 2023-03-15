@@ -25,6 +25,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BackupSourceParams" /> class.
         /// </summary>
+        /// <param name="acropolisParams">acropolisParams.</param>
         /// <param name="appEntityIdVec">If we are backing up an application (such as SQL), this contains the entity ids of the app entities (such as SQL instances and databases) that will be protected on the backup source.  If this vector is empty, it implies that we are protecting all app entities on the source..</param>
         /// <param name="awsNativeParams">awsNativeParams.</param>
         /// <param name="awsSnapshotManagerParams">awsSnapshotManagerParams.</param>
@@ -36,11 +37,12 @@ namespace Cohesity.Model
         /// <param name="skipIndexing">Set to true, if indexing is not required for given source..</param>
         /// <param name="sourceId">Source entity id. NOTE: This is expected to point to a leaf-level entity..</param>
         /// <param name="vmwareParams">vmwareParams.</param>
-        public BackupSourceParams(List<long> appEntityIdVec = default(List<long>), AWSNativeBackupSourceParams awsNativeParams = default(AWSNativeBackupSourceParams), AWSSnapshotManagerBackupSourceParams awsSnapshotManagerParams = default(AWSSnapshotManagerBackupSourceParams), HyperVBackupSourceParams hypervParams = default(HyperVBackupSourceParams), OracleSourceParams oracleParams = default(OracleSourceParams), PhysicalBackupSourceParams physicalParams = default(PhysicalBackupSourceParams), SfdcBackupSourceParamsProto sfdcParams = default(SfdcBackupSourceParamsProto), SharepointBackupSourceParams sharepointParams = default(SharepointBackupSourceParams), bool? skipIndexing = default(bool?), long? sourceId = default(long?), VMwareBackupSourceParams vmwareParams = default(VMwareBackupSourceParams))
+        public BackupSourceParams(AcropolisBackupSourceParams acropolisParams = default(AcropolisBackupSourceParams), List<long> appEntityIdVec = default(List<long>), AWSNativeBackupSourceParams awsNativeParams = default(AWSNativeBackupSourceParams), AWSSnapshotManagerBackupSourceParams awsSnapshotManagerParams = default(AWSSnapshotManagerBackupSourceParams), HyperVBackupSourceParams hypervParams = default(HyperVBackupSourceParams), OracleSourceParams oracleParams = default(OracleSourceParams), PhysicalBackupSourceParams physicalParams = default(PhysicalBackupSourceParams), SfdcBackupSourceParamsProto sfdcParams = default(SfdcBackupSourceParamsProto), SharepointBackupSourceParams sharepointParams = default(SharepointBackupSourceParams), bool? skipIndexing = default(bool?), long? sourceId = default(long?), VMwareBackupSourceParams vmwareParams = default(VMwareBackupSourceParams))
         {
             this.AppEntityIdVec = appEntityIdVec;
             this.SkipIndexing = skipIndexing;
             this.SourceId = sourceId;
+            this.AcropolisParams = acropolisParams;
             this.AppEntityIdVec = appEntityIdVec;
             this.AwsNativeParams = awsNativeParams;
             this.AwsSnapshotManagerParams = awsSnapshotManagerParams;
@@ -54,6 +56,12 @@ namespace Cohesity.Model
             this.VmwareParams = vmwareParams;
         }
         
+        /// <summary>
+        /// Gets or Sets AcropolisParams
+        /// </summary>
+        [DataMember(Name="acropolisParams", EmitDefaultValue=false)]
+        public AcropolisBackupSourceParams AcropolisParams { get; set; }
+
         /// <summary>
         /// If we are backing up an application (such as SQL), this contains the entity ids of the app entities (such as SQL instances and databases) that will be protected on the backup source.  If this vector is empty, it implies that we are protecting all app entities on the source.
         /// </summary>
@@ -160,10 +168,15 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AcropolisParams == input.AcropolisParams ||
+                    (this.AcropolisParams != null &&
+                    this.AcropolisParams.Equals(input.AcropolisParams))
+                ) && 
+                (
                     this.AppEntityIdVec == input.AppEntityIdVec ||
                     this.AppEntityIdVec != null &&
                     input.AppEntityIdVec != null &&
-                    this.AppEntityIdVec.Equals(input.AppEntityIdVec)
+                    this.AppEntityIdVec.SequenceEqual(input.AppEntityIdVec)
                 ) && 
                 (
                     this.AwsNativeParams == input.AwsNativeParams ||
@@ -226,6 +239,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AcropolisParams != null)
+                    hashCode = hashCode * 59 + this.AcropolisParams.GetHashCode();
                 if (this.AppEntityIdVec != null)
                     hashCode = hashCode * 59 + this.AppEntityIdVec.GetHashCode();
                 if (this.AwsNativeParams != null)

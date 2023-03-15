@@ -168,7 +168,7 @@ namespace Cohesity.Model
                     this.MsTeamsVec == input.MsTeamsVec ||
                     this.MsTeamsVec != null &&
                     input.MsTeamsVec != null &&
-                    this.MsTeamsVec.Equals(input.MsTeamsVec)
+                    this.MsTeamsVec.SequenceEqual(input.MsTeamsVec)
                 ) && 
                 (
                     this.RestoreOriginalOwnersMembers == input.RestoreOriginalOwnersMembers ||

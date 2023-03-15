@@ -30,6 +30,7 @@ namespace Cohesity.Model
         public SourceAppParams(bool? isVssCopyOnly = default(bool?), MSExchangeParams msExchangeParams = default(MSExchangeParams))
         {
             this.IsVssCopyOnly = isVssCopyOnly;
+            this.IsVssCopyOnly = isVssCopyOnly;
             this.MsExchangeParams = msExchangeParams;
         }
         

@@ -45,6 +45,15 @@ namespace Cohesity.Model
             this.Privileges = privileges;
             this.TenantId = tenantId;
             this.TenantIds = tenantIds;
+            this.CreatedTimeMsecs = createdTimeMsecs;
+            this.Description = description;
+            this.IsCustomRole = isCustomRole;
+            this.Label = label;
+            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
+            this.Name = name;
+            this.Privileges = privileges;
+            this.TenantId = tenantId;
+            this.TenantIds = tenantIds;
         }
         
         /// <summary>
@@ -180,7 +189,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.Equals(input.Privileges)
+                    this.Privileges.SequenceEqual(input.Privileges)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -191,7 +200,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 

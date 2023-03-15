@@ -128,7 +128,7 @@ namespace Cohesity.Model
                     this.QuotaAndUsageInAllViews == input.QuotaAndUsageInAllViews ||
                     this.QuotaAndUsageInAllViews != null &&
                     input.QuotaAndUsageInAllViews != null &&
-                    this.QuotaAndUsageInAllViews.Equals(input.QuotaAndUsageInAllViews)
+                    this.QuotaAndUsageInAllViews.SequenceEqual(input.QuotaAndUsageInAllViews)
                 ) && 
                 (
                     this.SummaryForUser == input.SummaryForUser ||
@@ -149,7 +149,7 @@ namespace Cohesity.Model
                     this.UsersQuotaAndUsage == input.UsersQuotaAndUsage ||
                     this.UsersQuotaAndUsage != null &&
                     input.UsersQuotaAndUsage != null &&
-                    this.UsersQuotaAndUsage.Equals(input.UsersQuotaAndUsage)
+                    this.UsersQuotaAndUsage.SequenceEqual(input.UsersQuotaAndUsage)
                 );
         }
 

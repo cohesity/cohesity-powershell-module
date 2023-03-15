@@ -87,7 +87,7 @@ namespace Cohesity.Model
                     this._DailyUsage == input._DailyUsage ||
                     this._DailyUsage != null &&
                     input._DailyUsage != null &&
-                    this._DailyUsage.Equals(input._DailyUsage)
+                    this._DailyUsage.SequenceEqual(input._DailyUsage)
                 ) && 
                 (
                     this.FeatureName == input.FeatureName ||

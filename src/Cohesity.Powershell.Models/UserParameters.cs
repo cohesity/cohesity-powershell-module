@@ -432,6 +432,21 @@ namespace Cohesity.Model
             this.Roles = roles;
             this.TenantAccesses = tenantAccesses;
             this.Username = username;
+            this.AdditionalGroupNames = additionalGroupNames;
+            this.ClusterIdentifiers = clusterIdentifiers;
+            this.Description = description;
+            this.Domain = domain;
+            this.EffectiveTimeMsecs = effectiveTimeMsecs;
+            this.EmailAddress = emailAddress;
+            this.ExpiredTimeMsecs = expiredTimeMsecs;
+            this.Password = password;
+            this.PrimaryGroupName = primaryGroupName;
+            this.PrivilegeIds = privilegeIds;
+            this.Profiles = profiles;
+            this.Restricted = restricted;
+            this.Roles = roles;
+            this.TenantAccesses = tenantAccesses;
+            this.Username = username;
         }
         
         /// <summary>
@@ -572,13 +587,13 @@ namespace Cohesity.Model
                     this.AdditionalGroupNames == input.AdditionalGroupNames ||
                     this.AdditionalGroupNames != null &&
                     input.AdditionalGroupNames != null &&
-                    this.AdditionalGroupNames.Equals(input.AdditionalGroupNames)
+                    this.AdditionalGroupNames.SequenceEqual(input.AdditionalGroupNames)
                 ) && 
                 (
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
                     input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -617,13 +632,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.PrivilegeIds == input.PrivilegeIds ||
-                    this.PrivilegeIds.Equals(input.PrivilegeIds)
+                    this.PrivilegeIds.SequenceEqual(input.PrivilegeIds)
                 ) && 
                 (
                     this.Profiles == input.Profiles ||
                     this.Profiles != null &&
                     input.Profiles != null &&
-                    this.Profiles.Equals(input.Profiles)
+                    this.Profiles.SequenceEqual(input.Profiles)
                 ) && 
                 (
                     this.Restricted == input.Restricted ||
@@ -634,13 +649,13 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.TenantAccesses == input.TenantAccesses ||
                     this.TenantAccesses != null &&
                     input.TenantAccesses != null &&
-                    this.TenantAccesses.Equals(input.TenantAccesses)
+                    this.TenantAccesses.SequenceEqual(input.TenantAccesses)
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -676,8 +691,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PrimaryGroupName != null)
                     hashCode = hashCode * 59 + this.PrimaryGroupName.GetHashCode();
-                if (this.PrivilegeIds != null)
-					hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
                 if (this.Profiles != null)
                     hashCode = hashCode * 59 + this.Profiles.GetHashCode();
                 if (this.Restricted != null)

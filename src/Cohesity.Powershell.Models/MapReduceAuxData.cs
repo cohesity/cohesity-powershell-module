@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.PatternVec == input.PatternVec ||
                     this.PatternVec != null &&
                     input.PatternVec != null &&
-                    this.PatternVec.Equals(input.PatternVec)
+                    this.PatternVec.SequenceEqual(input.PatternVec)
                 );
         }
 

@@ -303,12 +303,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -517,7 +512,7 @@ namespace Cohesity.Model
                     this.Trends == input.Trends ||
                     this.Trends != null &&
                     input.Trends != null &&
-                    this.Trends.Equals(input.Trends)
+                    this.Trends.SequenceEqual(input.Trends)
                 );
         }
 

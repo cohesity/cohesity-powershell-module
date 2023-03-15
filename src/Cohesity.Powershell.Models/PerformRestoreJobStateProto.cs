@@ -74,6 +74,27 @@ namespace Cohesity.Model
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.Name = name;
+            this.Objects = objects;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
+            this.PreserveTags = preserveTags;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RestoreJobId = restoreJobId;
+            this.RestoreTaskVec = restoreTaskVec;
+            this.RestoredToDifferentSource = restoredToDifferentSource;
+            this.SkipImageDeploy = skipImageDeploy;
+            this.SkipRigelForRestore = skipRigelForRestore;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.TargetViewName = targetViewName;
+            this.Type = type;
+            this.User = user;
+            this.ViewBoxId = viewBoxId;
+            this.Warnings = warnings;
+            this.AdmittedTimeUsecs = admittedTimeUsecs;
+            this.CancellationRequested = cancellationRequested;
+            this.ContinueRestoreOnError = continueRestoreOnError;
             this.DeployVmsToCloudTaskState = deployVmsToCloudTaskState;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
@@ -487,7 +508,7 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.ParentSourceConnectionParams == input.ParentSourceConnectionParams ||
@@ -578,7 +599,7 @@ namespace Cohesity.Model
                     this.RestoreTaskVec == input.RestoreTaskVec ||
                     this.RestoreTaskVec != null &&
                     input.RestoreTaskVec != null &&
-                    this.RestoreTaskVec.Equals(input.RestoreTaskVec)
+                    this.RestoreTaskVec.SequenceEqual(input.RestoreTaskVec)
                 ) && 
                 (
                     this.RestoreTeamsParams == input.RestoreTeamsParams ||
@@ -659,7 +680,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

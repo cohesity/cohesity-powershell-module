@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.ItemIdVec == input.ItemIdVec ||
                     this.ItemIdVec != null &&
                     input.ItemIdVec != null &&
-                    this.ItemIdVec.Equals(input.ItemIdVec)
+                    this.ItemIdVec.SequenceEqual(input.ItemIdVec)
                 );
         }
 

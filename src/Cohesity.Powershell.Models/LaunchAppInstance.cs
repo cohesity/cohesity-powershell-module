@@ -38,6 +38,11 @@ namespace Cohesity.Model
             this.CreationUid = creationUid;
             this.DeploymentParameters = deploymentParameters;
             this.Description = description;
+            this.AppUid = appUid;
+            this.AppVersion = appVersion;
+            this.CreationUid = creationUid;
+            this.DeploymentParameters = deploymentParameters;
+            this.Description = description;
             this.Settings = settings;
         }
         

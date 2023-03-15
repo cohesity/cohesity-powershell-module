@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
                     input.ViewBoxIds != null &&
-                    this.ViewBoxIds.Equals(input.ViewBoxIds)
+                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
                 );
         }
 

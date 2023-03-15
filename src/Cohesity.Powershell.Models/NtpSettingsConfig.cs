@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.NtpAuthenticationEnabled = ntpAuthenticationEnabled;
             this.NtpServersInternal = ntpServersInternal;
+            this.NtpAuthenticationEnabled = ntpAuthenticationEnabled;
+            this.NtpServersInternal = ntpServersInternal;
         }
         
         /// <summary>

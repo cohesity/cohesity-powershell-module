@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.DisableDedup = disableDedup;
             this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
+            this.DisableDedup = disableDedup;
+            this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
         }
         
         /// <summary>

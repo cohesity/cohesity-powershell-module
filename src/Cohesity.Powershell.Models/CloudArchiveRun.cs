@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ArchivalInfo == input.ArchivalInfo ||
                     this.ArchivalInfo != null &&
                     input.ArchivalInfo != null &&
-                    this.ArchivalInfo.Equals(input.ArchivalInfo)
+                    this.ArchivalInfo.SequenceEqual(input.ArchivalInfo)
                 );
         }
 

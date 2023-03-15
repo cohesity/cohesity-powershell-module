@@ -181,7 +181,7 @@ namespace Cohesity.Model
                     this.VolumeAttributes == input.VolumeAttributes ||
                     this.VolumeAttributes != null &&
                     input.VolumeAttributes != null &&
-                    this.VolumeAttributes.Equals(input.VolumeAttributes)
+                    this.VolumeAttributes.SequenceEqual(input.VolumeAttributes)
                 ) && 
                 (
                     this.VolumeHandle == input.VolumeHandle ||

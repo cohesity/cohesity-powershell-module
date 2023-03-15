@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.MinNodesAllowed = minNodesAllowed;
             this.SupportedErasureCoding = supportedErasureCoding;
+            this.MinNodesAllowed = minNodesAllowed;
+            this.SupportedErasureCoding = supportedErasureCoding;
         }
         
         /// <summary>
@@ -92,7 +94,7 @@ namespace Cohesity.Model
                     this.SupportedErasureCoding == input.SupportedErasureCoding ||
                     this.SupportedErasureCoding != null &&
                     input.SupportedErasureCoding != null &&
-                    this.SupportedErasureCoding.Equals(input.SupportedErasureCoding)
+                    this.SupportedErasureCoding.SequenceEqual(input.SupportedErasureCoding)
                 );
         }
 

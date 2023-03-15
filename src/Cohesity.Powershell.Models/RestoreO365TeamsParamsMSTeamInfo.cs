@@ -107,7 +107,7 @@ namespace Cohesity.Model
                     this.SourceChannelVec == input.SourceChannelVec ||
                     this.SourceChannelVec != null &&
                     input.SourceChannelVec != null &&
-                    this.SourceChannelVec.Equals(input.SourceChannelVec)
+                    this.SourceChannelVec.SequenceEqual(input.SourceChannelVec)
                 );
         }
 

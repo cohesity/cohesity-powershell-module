@@ -136,7 +136,7 @@ namespace Cohesity.Model
                     this.SourceParameters == input.SourceParameters ||
                     this.SourceParameters != null &&
                     input.SourceParameters != null &&
-                    this.SourceParameters.Equals(input.SourceParameters)
+                    this.SourceParameters.SequenceEqual(input.SourceParameters)
                 );
         }
 

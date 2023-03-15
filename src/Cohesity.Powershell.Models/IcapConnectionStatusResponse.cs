@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.FailedConnectionStatus == input.FailedConnectionStatus ||
                     this.FailedConnectionStatus != null &&
                     input.FailedConnectionStatus != null &&
-                    this.FailedConnectionStatus.Equals(input.FailedConnectionStatus)
+                    this.FailedConnectionStatus.SequenceEqual(input.FailedConnectionStatus)
                 ) && 
                 (
                     this.SucceededConnectionStatus == input.SucceededConnectionStatus ||
                     this.SucceededConnectionStatus != null &&
                     input.SucceededConnectionStatus != null &&
-                    this.SucceededConnectionStatus.Equals(input.SucceededConnectionStatus)
+                    this.SucceededConnectionStatus.SequenceEqual(input.SucceededConnectionStatus)
                 );
         }
 

@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Applications == input.Applications ||
                     this.Applications != null &&
                     input.Applications != null &&
-                    this.Applications.Equals(input.Applications)
+                    this.Applications.SequenceEqual(input.Applications)
                 );
         }
 

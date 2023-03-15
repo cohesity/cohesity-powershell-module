@@ -26,7 +26,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SchedulingPolicyProtoDateSchedule" /> class.
         /// </summary>
         /// <param name="datesVec">If this field is set, backups will be performed on specified list of dates only..</param>
-        public SchedulingPolicyProtoDateSchedule(List<DateTimeOffset> datesVec = default(List<DateTimeOffset>))
+        public SchedulingPolicyProtoDateSchedule(List<DateTime> datesVec = default(List<DateTime>))
         {
             this.DatesVec = datesVec;
             this.DatesVec = datesVec;
@@ -37,7 +37,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>If this field is set, backups will be performed on specified list of dates only.</value>
         [DataMember(Name="datesVec", EmitDefaultValue=true)]
-        public List<DateTimeOffset> DatesVec { get; set; }
+        public List<DateTime> DatesVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.DatesVec == input.DatesVec ||
                     this.DatesVec != null &&
                     input.DatesVec != null &&
-                    this.DatesVec.Equals(input.DatesVec)
+                    this.DatesVec.SequenceEqual(input.DatesVec)
                 );
         }
 

@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.Restricted = restricted;
             this.Roles = roles;
             this.TenantId = tenantId;
+            this.BifrostEnabled = bifrostEnabled;
+            this.Name = name;
+            this.Restricted = restricted;
+            this.Roles = roles;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
@@ -129,7 +134,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

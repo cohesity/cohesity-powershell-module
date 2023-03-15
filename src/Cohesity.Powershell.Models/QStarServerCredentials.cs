@@ -41,6 +41,13 @@ namespace Cohesity.Model
             this.ShareType = shareType;
             this.UseHttps = useHttps;
             this.Username = username;
+            this.Host = host;
+            this.IntegralVolumeNames = integralVolumeNames;
+            this.Password = password;
+            this.Port = port;
+            this.ShareType = shareType;
+            this.UseHttps = useHttps;
+            this.Username = username;
         }
         
         /// <summary>
@@ -137,7 +144,7 @@ namespace Cohesity.Model
                     this.IntegralVolumeNames == input.IntegralVolumeNames ||
                     this.IntegralVolumeNames != null &&
                     input.IntegralVolumeNames != null &&
-                    this.IntegralVolumeNames.Equals(input.IntegralVolumeNames)
+                    this.IntegralVolumeNames.SequenceEqual(input.IntegralVolumeNames)
                 ) && 
                 (
                     this.Password == input.Password ||

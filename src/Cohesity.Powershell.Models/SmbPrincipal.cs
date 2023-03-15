@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.Name = name;
             this.Sid = sid;
             this.Type = type;
+            this.Domain = domain;
+            this.Name = name;
+            this.Sid = sid;
+            this.Type = type;
         }
         
         /// <summary>

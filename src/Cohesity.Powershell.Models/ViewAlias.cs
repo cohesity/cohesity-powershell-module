@@ -47,6 +47,16 @@ namespace Cohesity.Model
             this.SuperUserSids = superUserSids;
             this.ViewName = viewName;
             this.ViewPath = viewPath;
+            this.AliasName = aliasName;
+            this.EnableFilerAuditLog = enableFilerAuditLog;
+            this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
+            this.EnforceSmbEncryption = enforceSmbEncryption;
+            this.SharePermissions = sharePermissions;
+            this.SubnetWhitelist = subnetWhitelist;
+            this.SuperUserSids = superUserSids;
+            this.ViewName = viewName;
+            this.ViewPath = viewPath;
         }
         
         /// <summary>
@@ -184,19 +194,19 @@ namespace Cohesity.Model
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
                     input.SharePermissions != null &&
-                    this.SharePermissions.Equals(input.SharePermissions)
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
                     input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
                     this.SuperUserSids == input.SuperUserSids ||
                     this.SuperUserSids != null &&
                     input.SuperUserSids != null &&
-                    this.SuperUserSids.Equals(input.SuperUserSids)
+                    this.SuperUserSids.SequenceEqual(input.SuperUserSids)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

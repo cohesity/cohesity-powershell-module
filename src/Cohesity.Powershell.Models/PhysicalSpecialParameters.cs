@@ -35,6 +35,12 @@ namespace Cohesity.Model
         /// <param name="windowsParameters">windowsParameters.</param>
         public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), string metadataFilePath = default(string), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
         {
+            this.EnableSystemBackup = enableSystemBackup;
+            this.FilePaths = filePaths;
+            this.MetadataFilePath = metadataFilePath;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
+            this.VolumeGuid = volumeGuid;
             this.ApplicationParameters = applicationParameters;
             this.EnableSystemBackup = enableSystemBackup;
             this.FilePaths = filePaths;
@@ -149,7 +155,7 @@ namespace Cohesity.Model
                     this.FilePaths == input.FilePaths ||
                     this.FilePaths != null &&
                     input.FilePaths != null &&
-                    this.FilePaths.Equals(input.FilePaths)
+                    this.FilePaths.SequenceEqual(input.FilePaths)
                 ) && 
                 (
                     this.MetadataFilePath == input.MetadataFilePath ||
@@ -160,7 +166,7 @@ namespace Cohesity.Model
                     this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
                     this.SkipNestedVolumesVec != null &&
                     input.SkipNestedVolumesVec != null &&
-                    this.SkipNestedVolumesVec.Equals(input.SkipNestedVolumesVec)
+                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
                 ) && 
                 (
                     this.UsesSkipNestedVolumesVec == input.UsesSkipNestedVolumesVec ||
@@ -171,7 +177,7 @@ namespace Cohesity.Model
                     this.VolumeGuid == input.VolumeGuid ||
                     this.VolumeGuid != null &&
                     input.VolumeGuid != null &&
-                    this.VolumeGuid.Equals(input.VolumeGuid)
+                    this.VolumeGuid.SequenceEqual(input.VolumeGuid)
                 ) && 
                 (
                     this.WindowsParameters == input.WindowsParameters ||

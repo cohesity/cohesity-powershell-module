@@ -114,7 +114,7 @@ namespace Cohesity.Model
                     this.Ports == input.Ports ||
                     this.Ports != null &&
                     input.Ports != null &&
-                    this.Ports.Equals(input.Ports)
+                    this.Ports.SequenceEqual(input.Ports)
                 ) && 
                 (
                     this.Revision == input.Revision ||

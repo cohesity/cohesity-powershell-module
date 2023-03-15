@@ -119,13 +119,13 @@ namespace Cohesity.Model
                     this.VipVec == input.VipVec ||
                     this.VipVec != null &&
                     input.VipVec != null &&
-                    this.VipVec.Equals(input.VipVec)
+                    this.VipVec.SequenceEqual(input.VipVec)
                 ) && 
                 (
                     this.VlanInfoVec == input.VlanInfoVec ||
                     this.VlanInfoVec != null &&
                     input.VlanInfoVec != null &&
-                    this.VlanInfoVec.Equals(input.VlanInfoVec)
+                    this.VlanInfoVec.SequenceEqual(input.VlanInfoVec)
                 );
         }
 

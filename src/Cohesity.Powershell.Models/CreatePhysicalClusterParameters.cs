@@ -70,7 +70,13 @@ namespace Cohesity.Model
             }
 
             this.NodeConfigs = nodeConfigs;
+            this.TrustDomain = trustDomain;
+            this.AllowApiBasedFetch = allowApiBasedFetch;
+            this.ClusterDestroyHmacKey = clusterDestroyHmacKey;
+            this.EnableClusterDestroy = enableClusterDestroy;
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
+            this.MetadataFaultTolerance = metadataFaultTolerance;
             this.TrustDomain = trustDomain;
         }
         
@@ -233,7 +239,7 @@ namespace Cohesity.Model
                     this.NodeConfigs == input.NodeConfigs ||
                     this.NodeConfigs != null &&
                     input.NodeConfigs != null &&
-                    this.NodeConfigs.Equals(input.NodeConfigs)
+                    this.NodeConfigs.SequenceEqual(input.NodeConfigs)
                 ) && 
                 (
                     this.TrustDomain == input.TrustDomain ||

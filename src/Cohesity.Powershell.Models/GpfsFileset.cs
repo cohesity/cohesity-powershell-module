@@ -64,6 +64,11 @@ namespace Cohesity.Model
             this.Name = name;
             this.Path = path;
             this.Protocols = protocols;
+            this.Id = id;
+            this.IsIndependentFileset = isIndependentFileset;
+            this.Name = name;
+            this.Path = path;
+            this.Protocols = protocols;
         }
         
         /// <summary>
@@ -152,7 +157,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 );
         }
 
@@ -173,8 +178,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Path != null)
                     hashCode = hashCode * 59 + this.Path.GetHashCode();
-                if (this.Protocols != null)
-					hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 return hashCode;
             }
         }

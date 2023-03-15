@@ -31,6 +31,9 @@ namespace Cohesity.Model
         /// <param name="viewName">View name..</param>
         public QuotaAndUsageInView(QuotaPolicy quota = default(QuotaPolicy), long? usageBytes = default(long?), long? viewId = default(long?), string viewName = default(string))
         {
+            this.UsageBytes = usageBytes;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
             this.Quota = quota;
             this.UsageBytes = usageBytes;
             this.ViewId = viewId;

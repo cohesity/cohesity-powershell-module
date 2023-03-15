@@ -29,6 +29,7 @@ namespace Cohesity.Model
         public ShowSystemLedInfoParameters(string nodeIp = default(string))
         {
             this.NodeIp = nodeIp;
+            this.NodeIp = nodeIp;
         }
         
         /// <summary>

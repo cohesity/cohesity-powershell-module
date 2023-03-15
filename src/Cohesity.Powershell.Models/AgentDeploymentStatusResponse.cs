@@ -247,6 +247,14 @@ namespace Cohesity.Model
             this.Upgradability = upgradability;
             this.UpgradeStatusMessage = upgradeStatusMessage;
             this.Version = version;
+            this.CompactVersion = compactVersion;
+            this.HealthStatus = healthStatus;
+            this.HostIp = hostIp;
+            this.HostOsType = hostOsType;
+            this.LastUpgradeStatus = lastUpgradeStatus;
+            this.Upgradability = upgradability;
+            this.UpgradeStatusMessage = upgradeStatusMessage;
+            this.Version = version;
         }
         
         /// <summary>

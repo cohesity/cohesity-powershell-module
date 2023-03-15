@@ -139,7 +139,7 @@ namespace Cohesity.Model
                     this.Networks == input.Networks ||
                     this.Networks != null &&
                     input.Networks != null &&
-                    this.Networks.Equals(input.Networks)
+                    this.Networks.SequenceEqual(input.Networks)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||

@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.GroupMemberVec == input.GroupMemberVec ||
                     this.GroupMemberVec != null &&
                     input.GroupMemberVec != null &&
-                    this.GroupMemberVec.Equals(input.GroupMemberVec)
+                    this.GroupMemberVec.SequenceEqual(input.GroupMemberVec)
                 ) && 
                 (
                     this.MemberPrefix == input.MemberPrefix ||

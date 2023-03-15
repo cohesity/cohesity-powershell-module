@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.Acls == input.Acls ||
                     this.Acls != null &&
                     input.Acls != null &&
-                    this.Acls.Equals(input.Acls)
+                    this.Acls.SequenceEqual(input.Acls)
                 ) && 
                 (
                     this.Name == input.Name ||

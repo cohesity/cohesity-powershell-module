@@ -99,13 +99,13 @@ namespace Cohesity.Model
                     this.AppParamsList == input.AppParamsList ||
                     this.AppParamsList != null &&
                     input.AppParamsList != null &&
-                    this.AppParamsList.Equals(input.AppParamsList)
+                    this.AppParamsList.SequenceEqual(input.AppParamsList)
                 ) && 
                 (
                     this.ApplicationEntityIds == input.ApplicationEntityIds ||
                     this.ApplicationEntityIds != null &&
                     input.ApplicationEntityIds != null &&
-                    this.ApplicationEntityIds.Equals(input.ApplicationEntityIds)
+                    this.ApplicationEntityIds.SequenceEqual(input.ApplicationEntityIds)
                 ) && 
                 (
                     this.PersistMountpoints == input.PersistMountpoints ||

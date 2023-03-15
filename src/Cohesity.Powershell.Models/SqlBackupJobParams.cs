@@ -59,6 +59,22 @@ namespace Cohesity.Model
             this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
             this.UserDbPreferenceType = userDbPreferenceType;
             this.WithClause = withClause;
+            this.AagBackupPreferenceType = aagBackupPreferenceType;
+            this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
+            this.BackupSystemDbs = backupSystemDbs;
+            this.ContinueAfterError = continueAfterError;
+            this.EnableChecksum = enableChecksum;
+            this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
+            this.FullBackupType = fullBackupType;
+            this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.IsCopyOnlyLog = isCopyOnlyLog;
+            this.LogBackupNumStreams = logBackupNumStreams;
+            this.LogBackupWithClause = logBackupWithClause;
+            this.NumDbsPerBatch = numDbsPerBatch;
+            this.NumStreams = numStreams;
+            this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
+            this.UserDbPreferenceType = userDbPreferenceType;
+            this.WithClause = withClause;
         }
         
         /// <summary>

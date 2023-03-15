@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ProtectionSourcesJobsSummary == input.ProtectionSourcesJobsSummary ||
                     this.ProtectionSourcesJobsSummary != null &&
                     input.ProtectionSourcesJobsSummary != null &&
-                    this.ProtectionSourcesJobsSummary.Equals(input.ProtectionSourcesJobsSummary)
+                    this.ProtectionSourcesJobsSummary.SequenceEqual(input.ProtectionSourcesJobsSummary)
                 );
         }
 

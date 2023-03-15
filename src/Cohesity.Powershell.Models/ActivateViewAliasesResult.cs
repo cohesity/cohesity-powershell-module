@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Aliases == input.Aliases ||
                     this.Aliases != null &&
                     input.Aliases != null &&
-                    this.Aliases.Equals(input.Aliases)
+                    this.Aliases.SequenceEqual(input.Aliases)
                 );
         }
 

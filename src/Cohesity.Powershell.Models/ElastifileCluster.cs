@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.EnodeIpAddressVec == input.EnodeIpAddressVec ||
                     this.EnodeIpAddressVec != null &&
                     input.EnodeIpAddressVec != null &&
-                    this.EnodeIpAddressVec.Equals(input.EnodeIpAddressVec)
+                    this.EnodeIpAddressVec.SequenceEqual(input.EnodeIpAddressVec)
                 ) && 
                 (
                     this.LoadBalancerVip == input.LoadBalancerVip ||

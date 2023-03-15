@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.PassiveCopyPreferenceServerGuidList == input.PassiveCopyPreferenceServerGuidList ||
                     this.PassiveCopyPreferenceServerGuidList != null &&
                     input.PassiveCopyPreferenceServerGuidList != null &&
-                    this.PassiveCopyPreferenceServerGuidList.Equals(input.PassiveCopyPreferenceServerGuidList)
+                    this.PassiveCopyPreferenceServerGuidList.SequenceEqual(input.PassiveCopyPreferenceServerGuidList)
                 ) && 
                 (
                     this.PassiveOnly == input.PassiveOnly ||

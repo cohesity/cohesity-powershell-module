@@ -149,7 +149,7 @@ namespace Cohesity.Model
                     this.ClusterIps == input.ClusterIps ||
                     this.ClusterIps != null &&
                     input.ClusterIps != null &&
-                    this.ClusterIps.Equals(input.ClusterIps)
+                    this.ClusterIps.SequenceEqual(input.ClusterIps)
                 ) && 
                 (
                     this.Description == input.Description ||

@@ -78,7 +78,7 @@ namespace Cohesity.Model
                     this.Items == input.Items ||
                     this.Items != null &&
                     input.Items != null &&
-                    this.Items.Equals(input.Items)
+                    this.Items.SequenceEqual(input.Items)
                 );
         }
 

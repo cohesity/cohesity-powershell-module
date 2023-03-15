@@ -36,6 +36,10 @@ namespace Cohesity.Model
             this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
             this.LogAutoKillTimeoutSecs = logAutoKillTimeoutSecs;
             this.PersistMountpoints = persistMountpoints;
+            this.FullAutoKillTimeoutSecs = fullAutoKillTimeoutSecs;
+            this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
+            this.LogAutoKillTimeoutSecs = logAutoKillTimeoutSecs;
+            this.PersistMountpoints = persistMountpoints;
             this.VlanParams = vlanParams;
         }
         

@@ -452,7 +452,7 @@ namespace Cohesity.Model
                     this.Runs == input.Runs ||
                     this.Runs != null &&
                     input.Runs != null &&
-                    this.Runs.Equals(input.Runs)
+                    this.Runs.SequenceEqual(input.Runs)
                 );
         }
 

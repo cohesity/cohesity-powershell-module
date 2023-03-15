@@ -99,7 +99,7 @@ namespace Cohesity.Model
                     this.DatabaseCopyInfoList == input.DatabaseCopyInfoList ||
                     this.DatabaseCopyInfoList != null &&
                     input.DatabaseCopyInfoList != null &&
-                    this.DatabaseCopyInfoList.Equals(input.DatabaseCopyInfoList)
+                    this.DatabaseCopyInfoList.SequenceEqual(input.DatabaseCopyInfoList)
                 ) && 
                 (
                     this.Guid == input.Guid ||

@@ -124,7 +124,7 @@ namespace Cohesity.Model
                     this.ExcludedVssWriters == input.ExcludedVssWriters ||
                     this.ExcludedVssWriters != null &&
                     input.ExcludedVssWriters != null &&
-                    this.ExcludedVssWriters.Equals(input.ExcludedVssWriters)
+                    this.ExcludedVssWriters.SequenceEqual(input.ExcludedVssWriters)
                 );
         }
 

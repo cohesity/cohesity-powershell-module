@@ -134,7 +134,7 @@ namespace Cohesity.Model
                     this.ObjectNames == input.ObjectNames ||
                     this.ObjectNames != null &&
                     input.ObjectNames != null &&
-                    this.ObjectNames.Equals(input.ObjectNames)
+                    this.ObjectNames.SequenceEqual(input.ObjectNames)
                 ) && 
                 (
                     this.StartTimeForLogReplayInUsecs == input.StartTimeForLogReplayInUsecs ||

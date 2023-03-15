@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.ObjectSnapshotInfo == input.ObjectSnapshotInfo ||
                     this.ObjectSnapshotInfo != null &&
                     input.ObjectSnapshotInfo != null &&
-                    this.ObjectSnapshotInfo.Equals(input.ObjectSnapshotInfo)
+                    this.ObjectSnapshotInfo.SequenceEqual(input.ObjectSnapshotInfo)
                 ) && 
                 (
                     this.TotalCount == input.TotalCount ||

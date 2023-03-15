@@ -215,7 +215,7 @@ namespace Cohesity.Model
                     this.Versions == input.Versions ||
                     this.Versions != null &&
                     input.Versions != null &&
-                    this.Versions.Equals(input.Versions)
+                    this.Versions.SequenceEqual(input.Versions)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||

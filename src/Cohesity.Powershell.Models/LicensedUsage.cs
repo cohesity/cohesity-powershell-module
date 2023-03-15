@@ -41,6 +41,13 @@ namespace Cohesity.Model
             this.NumVm = numVm;
             this.ProductDescription = productDescription;
             this.ProductInfo = productInfo;
+            this.CapacityGiB = capacityGiB;
+            this.ExpiryTime = expiryTime;
+            this.FeatureName = featureName;
+            this.LicenseType = licenseType;
+            this.NumVm = numVm;
+            this.ProductDescription = productDescription;
+            this.ProductInfo = productInfo;
         }
         
         /// <summary>

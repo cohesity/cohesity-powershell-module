@@ -113,6 +113,51 @@ namespace Cohesity.Model
         {
             this.ActionExecutorTargetType = actionExecutorTargetType;
             this.BackupRunLockVec = backupRunLockVec;
+            this.CanTeardown = canTeardown;
+            this.CdpRestoreProgressMonitorTaskPath = cdpRestoreProgressMonitorTaskPath;
+            this.CdpRestoreTaskId = cdpRestoreTaskId;
+            this.CdpRestoreViewName = cdpRestoreViewName;
+            this.ChildCloneTaskId = childCloneTaskId;
+            this.ChildDestroyTaskId = childDestroyTaskId;
+            this.ContinueRestoreOnError = continueRestoreOnError;
+            this.CreateView = createView;
+            this.DatastoreEntityVec = datastoreEntityVec;
+            this.FullViewName = fullViewName;
+            this.IncludeVmConfig = includeVmConfig;
+            this.IsMultiStageRestore = isMultiStageRestore;
+            this.MultiRestoreTaskId = multiRestoreTaskId;
+            this.ObjectNameDEPRECATED = objectNameDEPRECATED;
+            this.Objects = objects;
+            this.ObjectsProgressMonitorTaskPaths = objectsProgressMonitorTaskPaths;
+            this.ParentRestoreJobId = parentRestoreJobId;
+            this.ParentRestoreTaskId = parentRestoreTaskId;
+            this.PathPrefixDEPRECATED = pathPrefixDEPRECATED;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
+            this.PhysicalFlrUseNewLockingMethod = physicalFlrUseNewLockingMethod;
+            this.PreserveTags = preserveTags;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RelatedRestoreTaskId = relatedRestoreTaskId;
+            this.RestoreSubTaskVec = restoreSubTaskVec;
+            this.RestoreTaskPurged = restoreTaskPurged;
+            this.RestoredDataStorageDomainId = restoredDataStorageDomainId;
+            this.RestoredToDifferentSource = restoredToDifferentSource;
+            this.RetrieveArchiveProgressMonitorTaskPath = retrieveArchiveProgressMonitorTaskPath;
+            this.RetrieveArchiveStubViewName = retrieveArchiveStubViewName;
+            this.RetrieveArchiveTaskUidVec = retrieveArchiveTaskUidVec;
+            this.RetrieveArchiveTaskVec = retrieveArchiveTaskVec;
+            this.RetrieveArchiveViewName = retrieveArchiveViewName;
+            this.SelectedDatastoreIdx = selectedDatastoreIdx;
+            this.SkipCloningRetrieveArchiveView = skipCloningRetrieveArchiveView;
+            this.SkipImageDeploy = skipImageDeploy;
+            this.SkipRigelForRestore = skipRigelForRestore;
+            this.StubViewRelativeDirName = stubViewRelativeDirName;
+            this.VcdStorageProfileDatastoreMorefVec = vcdStorageProfileDatastoreMorefVec;
+            this.ViewBoxId = viewBoxId;
+            this.ViewNameDEPRECATED = viewNameDEPRECATED;
+            this.VmRestoreReuseCdpView = vmRestoreReuseCdpView;
+            this.VolumeInfoVec = volumeInfoVec;
+            this.ActionExecutorTargetType = actionExecutorTargetType;
+            this.BackupRunLockVec = backupRunLockVec;
             this.Base = _base;
             this.CanTeardown = canTeardown;
             this.CdpRestoreProgressMonitorTaskPath = cdpRestoreProgressMonitorTaskPath;
@@ -790,7 +835,7 @@ namespace Cohesity.Model
                     this.BackupRunLockVec == input.BackupRunLockVec ||
                     this.BackupRunLockVec != null &&
                     input.BackupRunLockVec != null &&
-                    this.BackupRunLockVec.Equals(input.BackupRunLockVec)
+                    this.BackupRunLockVec.SequenceEqual(input.BackupRunLockVec)
                 ) && 
                 (
                     this.Base == input.Base ||
@@ -856,7 +901,7 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec == input.DatastoreEntityVec ||
                     this.DatastoreEntityVec != null &&
                     input.DatastoreEntityVec != null &&
-                    this.DatastoreEntityVec.Equals(input.DatastoreEntityVec)
+                    this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
                 ) && 
                 (
                     this.DeployVmsToCloudTaskState == input.DeployVmsToCloudTaskState ||
@@ -917,13 +962,13 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.ObjectsProgressMonitorTaskPaths == input.ObjectsProgressMonitorTaskPaths ||
                     this.ObjectsProgressMonitorTaskPaths != null &&
                     input.ObjectsProgressMonitorTaskPaths != null &&
-                    this.ObjectsProgressMonitorTaskPaths.Equals(input.ObjectsProgressMonitorTaskPaths)
+                    this.ObjectsProgressMonitorTaskPaths.SequenceEqual(input.ObjectsProgressMonitorTaskPaths)
                 ) && 
                 (
                     this.ParentRestoreJobId == input.ParentRestoreJobId ||
@@ -1069,7 +1114,7 @@ namespace Cohesity.Model
                     this.RestoreSubTaskVec == input.RestoreSubTaskVec ||
                     this.RestoreSubTaskVec != null &&
                     input.RestoreSubTaskVec != null &&
-                    this.RestoreSubTaskVec.Equals(input.RestoreSubTaskVec)
+                    this.RestoreSubTaskVec.SequenceEqual(input.RestoreSubTaskVec)
                 ) && 
                 (
                     this.RestoreTaskPurged == input.RestoreTaskPurged ||
@@ -1120,13 +1165,13 @@ namespace Cohesity.Model
                     this.RetrieveArchiveTaskUidVec == input.RetrieveArchiveTaskUidVec ||
                     this.RetrieveArchiveTaskUidVec != null &&
                     input.RetrieveArchiveTaskUidVec != null &&
-                    this.RetrieveArchiveTaskUidVec.Equals(input.RetrieveArchiveTaskUidVec)
+                    this.RetrieveArchiveTaskUidVec.SequenceEqual(input.RetrieveArchiveTaskUidVec)
                 ) && 
                 (
                     this.RetrieveArchiveTaskVec == input.RetrieveArchiveTaskVec ||
                     this.RetrieveArchiveTaskVec != null &&
                     input.RetrieveArchiveTaskVec != null &&
-                    this.RetrieveArchiveTaskVec.Equals(input.RetrieveArchiveTaskVec)
+                    this.RetrieveArchiveTaskVec.SequenceEqual(input.RetrieveArchiveTaskVec)
                 ) && 
                 (
                     this.RetrieveArchiveViewName == input.RetrieveArchiveViewName ||
@@ -1182,7 +1227,7 @@ namespace Cohesity.Model
                     this.VcdStorageProfileDatastoreMorefVec == input.VcdStorageProfileDatastoreMorefVec ||
                     this.VcdStorageProfileDatastoreMorefVec != null &&
                     input.VcdStorageProfileDatastoreMorefVec != null &&
-                    this.VcdStorageProfileDatastoreMorefVec.Equals(input.VcdStorageProfileDatastoreMorefVec)
+                    this.VcdStorageProfileDatastoreMorefVec.SequenceEqual(input.VcdStorageProfileDatastoreMorefVec)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -1208,7 +1253,7 @@ namespace Cohesity.Model
                     this.VolumeInfoVec == input.VolumeInfoVec ||
                     this.VolumeInfoVec != null &&
                     input.VolumeInfoVec != null &&
-                    this.VolumeInfoVec.Equals(input.VolumeInfoVec)
+                    this.VolumeInfoVec.SequenceEqual(input.VolumeInfoVec)
                 );
         }
 

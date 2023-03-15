@@ -107,7 +107,7 @@ namespace Cohesity.Model
                     this.GroupSids == input.GroupSids ||
                     this.GroupSids != null &&
                     input.GroupSids != null &&
-                    this.GroupSids.Equals(input.GroupSids)
+                    this.GroupSids.SequenceEqual(input.GroupSids)
                 ) && 
                 (
                     this.IsNodeInCluster == input.IsNodeInCluster ||
@@ -118,7 +118,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.Equals(input.Privileges)
+                    this.Privileges.SequenceEqual(input.Privileges)
                 ) && 
                 (
                     this.User == input.User ||

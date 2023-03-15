@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.KerberosPrincipal = kerberosPrincipal;
             this.Metastore = metastore;
             this.ThriftPort = thriftPort;
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.Metastore = metastore;
+            this.ThriftPort = thriftPort;
         }
         
         /// <summary>

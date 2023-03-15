@@ -39,6 +39,12 @@ namespace Cohesity.Model
             this.KmipProtocolVersion = kmipProtocolVersion;
             this.ServerIp = serverIp;
             this.ServerPort = serverPort;
+            this.CaCertificate = caCertificate;
+            this.ClientCertificate = clientCertificate;
+            this.ClientKey = clientKey;
+            this.KmipProtocolVersion = kmipProtocolVersion;
+            this.ServerIp = serverIp;
+            this.ServerPort = serverPort;
         }
         
         /// <summary>

@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.OrgVdcNetworks == input.OrgVdcNetworks ||
                     this.OrgVdcNetworks != null &&
                     input.OrgVdcNetworks != null &&
-                    this.OrgVdcNetworks.Equals(input.OrgVdcNetworks)
+                    this.OrgVdcNetworks.SequenceEqual(input.OrgVdcNetworks)
                 );
         }
 

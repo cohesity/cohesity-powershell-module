@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.BytesValue == input.BytesValue ||
                     this.BytesValue != null &&
                     input.BytesValue != null &&
-                    this.BytesValue.Equals(input.BytesValue)
+                    this.BytesValue.SequenceEqual(input.BytesValue)
                 ) && 
                 (
                     this.DoubleValue == input.DoubleValue ||

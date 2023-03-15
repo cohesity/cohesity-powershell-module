@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.BifrostEnabled = bifrostEnabled;
             this.Name = name;
             this.TenantId = tenantId;
+            this.BifrostEnabled = bifrostEnabled;
+            this.Name = name;
+            this.TenantId = tenantId;
         }
         
         /// <summary>

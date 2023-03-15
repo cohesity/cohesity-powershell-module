@@ -33,43 +33,18 @@ namespace Cohesity.Model
             this.EmailAddresses = emailAddresses;
             this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.EmailAddresses = emailAddresses;
+            this.EmailDeliveryTargets = emailDeliveryTargets;
+            this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
         }
-
-        // Bug fix : Support for email configuration for older versions 6.1.1 and 6.3.1
+        
         /// <summary>
-        /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
+        /// Exists to maintain backwards compatibility with versions before eff8198.
         /// </summary>
-        /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
-        private List<string> __emailAddresses;
-        [DataMember(Name = "emailAddresses", EmitDefaultValue = true)]
-        public List<string> EmailAddresses
-        {
-            get
-            {
-                return this.__emailAddresses;
-            }
+        /// <value>Exists to maintain backwards compatibility with versions before eff8198.</value>
+        [DataMember(Name="emailAddresses", EmitDefaultValue=true)]
+        public List<string> EmailAddresses { get; set; }
 
-            set
-            {
-                this.__emailAddresses = value;
-                SetEmailDeliveryTargets(this.__emailAddresses);
-            }
-        }
-        private void SetEmailDeliveryTargets(List<string> emailAddresses)
-        {
-            if (null != emailAddresses)
-            {
-                if (null == this.EmailDeliveryTargets)
-                {
-                    this.EmailDeliveryTargets = new List<EmailDeliveryTarget>();
-                }
-                this.EmailDeliveryTargets.Clear();
-                foreach (string item in this.__emailAddresses)
-                {
-                    this.EmailDeliveryTargets.Add(new EmailDeliveryTarget(item));
-                }
-            }
-        }
         /// <summary>
         /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
         /// </summary>
@@ -124,13 +99,13 @@ namespace Cohesity.Model
                     this.EmailAddresses == input.EmailAddresses ||
                     this.EmailAddresses != null &&
                     input.EmailAddresses != null &&
-                    this.EmailAddresses.Equals(input.EmailAddresses)
+                    this.EmailAddresses.SequenceEqual(input.EmailAddresses)
                 ) && 
                 (
                     this.EmailDeliveryTargets == input.EmailDeliveryTargets ||
                     this.EmailDeliveryTargets != null &&
                     input.EmailDeliveryTargets != null &&
-                    this.EmailDeliveryTargets.Equals(input.EmailDeliveryTargets)
+                    this.EmailDeliveryTargets.SequenceEqual(input.EmailDeliveryTargets)
                 ) && 
                 (
                     this.RaiseObjectLevelFailureAlert == input.RaiseObjectLevelFailureAlert ||

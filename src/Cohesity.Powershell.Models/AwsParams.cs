@@ -37,6 +37,12 @@ namespace Cohesity.Model
             this.CustomTagList = customTagList;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
+            this.Region = region;
+            this.SubnetId = subnetId;
+            this.VirtualPrivateCloudId = virtualPrivateCloudId;
+            this.CustomTagList = customTagList;
+            this.InstanceId = instanceId;
+            this.NetworkSecurityGroupIds = networkSecurityGroupIds;
             this.RdsParams = rdsParams;
             this.Region = region;
             this.SubnetId = subnetId;
@@ -131,7 +137,7 @@ namespace Cohesity.Model
                     this.CustomTagList == input.CustomTagList ||
                     this.CustomTagList != null &&
                     input.CustomTagList != null &&
-                    this.CustomTagList.Equals(input.CustomTagList)
+                    this.CustomTagList.SequenceEqual(input.CustomTagList)
                 ) && 
                 (
                     this.InstanceId == input.InstanceId ||
@@ -142,7 +148,7 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroupIds == input.NetworkSecurityGroupIds ||
                     this.NetworkSecurityGroupIds != null &&
                     input.NetworkSecurityGroupIds != null &&
-                    this.NetworkSecurityGroupIds.Equals(input.NetworkSecurityGroupIds)
+                    this.NetworkSecurityGroupIds.SequenceEqual(input.NetworkSecurityGroupIds)
                 ) && 
                 (
                     this.RdsParams == input.RdsParams ||

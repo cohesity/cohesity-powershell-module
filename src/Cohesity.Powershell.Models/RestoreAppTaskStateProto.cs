@@ -112,7 +112,7 @@ namespace Cohesity.Model
                     this.ChildRestoreAppParamsVec == input.ChildRestoreAppParamsVec ||
                     this.ChildRestoreAppParamsVec != null &&
                     input.ChildRestoreAppParamsVec != null &&
-                    this.ChildRestoreAppParamsVec.Equals(input.ChildRestoreAppParamsVec)
+                    this.ChildRestoreAppParamsVec.SequenceEqual(input.ChildRestoreAppParamsVec)
                 ) && 
                 (
                     this.LastFinishedLogBackupStartTimeUsecs == input.LastFinishedLogBackupStartTimeUsecs ||

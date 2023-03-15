@@ -55,6 +55,20 @@ namespace Cohesity.Model
             this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
             this.WriteIos = writeIos;
             this.WriteLatencyMsecs = writeLatencyMsecs;
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesAfterReduction = dataInBytesAfterReduction;
+            this.MinUsablePhysicalCapacityBytes = minUsablePhysicalCapacityBytes;
+            this.NumBytesRead = numBytesRead;
+            this.NumBytesWritten = numBytesWritten;
+            this.PhysicalCapacityBytes = physicalCapacityBytes;
+            this.ReadIos = readIos;
+            this.ReadLatencyMsecs = readLatencyMsecs;
+            this.SystemCapacityBytes = systemCapacityBytes;
+            this.SystemUsageBytes = systemUsageBytes;
+            this.TotalPhysicalRawUsageBytes = totalPhysicalRawUsageBytes;
+            this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
+            this.WriteIos = writeIos;
+            this.WriteLatencyMsecs = writeLatencyMsecs;
         }
         
         /// <summary>

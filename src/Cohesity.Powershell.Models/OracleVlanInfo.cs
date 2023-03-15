@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.IpVec == input.IpVec ||
                     this.IpVec != null &&
                     input.IpVec != null &&
-                    this.IpVec.Equals(input.IpVec)
+                    this.IpVec.SequenceEqual(input.IpVec)
                 ) && 
                 (
                     this.SubnetIp == input.SubnetIp ||

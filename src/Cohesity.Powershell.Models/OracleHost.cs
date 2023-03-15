@@ -114,19 +114,19 @@ namespace Cohesity.Model
                     this.IpAddresses == input.IpAddresses ||
                     this.IpAddresses != null &&
                     input.IpAddresses != null &&
-                    this.IpAddresses.Equals(input.IpAddresses)
+                    this.IpAddresses.SequenceEqual(input.IpAddresses)
                 ) && 
                 (
                     this.Ports == input.Ports ||
                     this.Ports != null &&
                     input.Ports != null &&
-                    this.Ports.Equals(input.Ports)
+                    this.Ports.SequenceEqual(input.Ports)
                 ) && 
                 (
                     this.Sessions == input.Sessions ||
                     this.Sessions != null &&
                     input.Sessions != null &&
-                    this.Sessions.Equals(input.Sessions)
+                    this.Sessions.SequenceEqual(input.Sessions)
                 );
         }
 

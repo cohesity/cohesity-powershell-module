@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.BandwidthLimitOverrides == input.BandwidthLimitOverrides ||
                     this.BandwidthLimitOverrides != null &&
                     input.BandwidthLimitOverrides != null &&
-                    this.BandwidthLimitOverrides.Equals(input.BandwidthLimitOverrides)
+                    this.BandwidthLimitOverrides.SequenceEqual(input.BandwidthLimitOverrides)
                 ) && 
                 (
                     this.IoRate == input.IoRate ||

@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.FullSnapshotInfo == input.FullSnapshotInfo ||
                     this.FullSnapshotInfo != null &&
                     input.FullSnapshotInfo != null &&
-                    this.FullSnapshotInfo.Equals(input.FullSnapshotInfo)
+                    this.FullSnapshotInfo.SequenceEqual(input.FullSnapshotInfo)
                 ) && 
                 (
                     this.TimeRanges == input.TimeRanges ||
                     this.TimeRanges != null &&
                     input.TimeRanges != null &&
-                    this.TimeRanges.Equals(input.TimeRanges)
+                    this.TimeRanges.SequenceEqual(input.TimeRanges)
                 );
         }
 

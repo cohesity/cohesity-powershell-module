@@ -39,6 +39,12 @@ namespace Cohesity.Model
             this.EnableCbtAllowed = enableCbtAllowed;
             this.VappsToVmsList = vappsToVmsList;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
+            this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
+            this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
+            this.EnableCbtAllowed = enableCbtAllowed;
+            this.VappsToVmsList = vappsToVmsList;
+            this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
         }
         
         /// <summary>
@@ -143,13 +149,13 @@ namespace Cohesity.Model
                     this.VappsToVmsList == input.VappsToVmsList ||
                     this.VappsToVmsList != null &&
                     input.VappsToVmsList != null &&
-                    this.VappsToVmsList.Equals(input.VappsToVmsList)
+                    this.VappsToVmsList.SequenceEqual(input.VappsToVmsList)
                 ) && 
                 (
                     this.VmwareDiskExclusionInfo == input.VmwareDiskExclusionInfo ||
                     this.VmwareDiskExclusionInfo != null &&
                     input.VmwareDiskExclusionInfo != null &&
-                    this.VmwareDiskExclusionInfo.Equals(input.VmwareDiskExclusionInfo)
+                    this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
                 );
         }
 

@@ -215,7 +215,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SearchResultFlags == input.SearchResultFlags ||
-                    this.SearchResultFlags.Equals(input.SearchResultFlags)
+                    this.SearchResultFlags.SequenceEqual(input.SearchResultFlags)
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||

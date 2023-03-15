@@ -33,6 +33,9 @@ namespace Cohesity.Model
         public RestoreOutlookParams(List<RestoreOutlookParamsMailbox> mailboxVec = default(List<RestoreOutlookParamsMailbox>), EwsToPstConversionParams pstParams = default(EwsToPstConversionParams), bool? skipMbxPermitForPst = default(bool?), string targetFolderPath = default(string), EntityProto targetMailbox = default(EntityProto))
         {
             this.MailboxVec = mailboxVec;
+            this.SkipMbxPermitForPst = skipMbxPermitForPst;
+            this.TargetFolderPath = targetFolderPath;
+            this.MailboxVec = mailboxVec;
             this.PstParams = pstParams;
             this.SkipMbxPermitForPst = skipMbxPermitForPst;
             this.TargetFolderPath = targetFolderPath;
@@ -112,7 +115,7 @@ namespace Cohesity.Model
                     this.MailboxVec == input.MailboxVec ||
                     this.MailboxVec != null &&
                     input.MailboxVec != null &&
-                    this.MailboxVec.Equals(input.MailboxVec)
+                    this.MailboxVec.SequenceEqual(input.MailboxVec)
                 ) && 
                 (
                     this.PstParams == input.PstParams ||

@@ -429,7 +429,7 @@ namespace Cohesity.Model
                     this.BlackoutPeriods == input.BlackoutPeriods ||
                     this.BlackoutPeriods != null &&
                     input.BlackoutPeriods != null &&
-                    this.BlackoutPeriods.Equals(input.BlackoutPeriods)
+                    this.BlackoutPeriods.SequenceEqual(input.BlackoutPeriods)
                 ) && 
                 (
                     this.CdpSchedulingPolicy == input.CdpSchedulingPolicy ||
@@ -440,7 +440,7 @@ namespace Cohesity.Model
                     this.CloudDeployPolicies == input.CloudDeployPolicies ||
                     this.CloudDeployPolicies != null &&
                     input.CloudDeployPolicies != null &&
-                    this.CloudDeployPolicies.Equals(input.CloudDeployPolicies)
+                    this.CloudDeployPolicies.SequenceEqual(input.CloudDeployPolicies)
                 ) && 
                 (
                     this.DatalockConfig == input.DatalockConfig ||
@@ -481,7 +481,7 @@ namespace Cohesity.Model
                     this.ExtendedRetentionPolicies == input.ExtendedRetentionPolicies ||
                     this.ExtendedRetentionPolicies != null &&
                     input.ExtendedRetentionPolicies != null &&
-                    this.ExtendedRetentionPolicies.Equals(input.ExtendedRetentionPolicies)
+                    this.ExtendedRetentionPolicies.SequenceEqual(input.ExtendedRetentionPolicies)
                 ) && 
                 (
                     this.FullSchedulingPolicy == input.FullSchedulingPolicy ||
@@ -562,13 +562,13 @@ namespace Cohesity.Model
                     this.SnapshotArchivalCopyPolicies == input.SnapshotArchivalCopyPolicies ||
                     this.SnapshotArchivalCopyPolicies != null &&
                     input.SnapshotArchivalCopyPolicies != null &&
-                    this.SnapshotArchivalCopyPolicies.Equals(input.SnapshotArchivalCopyPolicies)
+                    this.SnapshotArchivalCopyPolicies.SequenceEqual(input.SnapshotArchivalCopyPolicies)
                 ) && 
                 (
                     this.SnapshotReplicationCopyPolicies == input.SnapshotReplicationCopyPolicies ||
                     this.SnapshotReplicationCopyPolicies != null &&
                     input.SnapshotReplicationCopyPolicies != null &&
-                    this.SnapshotReplicationCopyPolicies.Equals(input.SnapshotReplicationCopyPolicies)
+                    this.SnapshotReplicationCopyPolicies.SequenceEqual(input.SnapshotReplicationCopyPolicies)
                 ) && 
                 (
                     this.StorageArraySnapshotSchedulingPolicy == input.StorageArraySnapshotSchedulingPolicy ||
@@ -584,7 +584,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 ) && 
                 (
                     this.Type == input.Type ||

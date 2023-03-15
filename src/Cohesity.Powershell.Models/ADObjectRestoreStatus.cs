@@ -137,7 +137,7 @@ namespace Cohesity.Model
                     this.PropertyStatusVec == input.PropertyStatusVec ||
                     this.PropertyStatusVec != null &&
                     input.PropertyStatusVec != null &&
-                    this.PropertyStatusVec.Equals(input.PropertyStatusVec)
+                    this.PropertyStatusVec.SequenceEqual(input.PropertyStatusVec)
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||

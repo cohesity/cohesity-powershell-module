@@ -159,7 +159,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.Equals(input.DataProtocols)
+                    this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (
                     this.IpAddress == input.IpAddress ||

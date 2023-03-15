@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.Sources == input.Sources ||
                     this.Sources != null &&
                     input.Sources != null &&
-                    this.Sources.Equals(input.Sources)
+                    this.Sources.SequenceEqual(input.Sources)
                 );
         }
 

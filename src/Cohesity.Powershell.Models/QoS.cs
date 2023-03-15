@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.PrincipalId = principalId;
             this.PrincipalName = principalName;
+            this.PrincipalId = principalId;
+            this.PrincipalName = principalName;
         }
         
         /// <summary>

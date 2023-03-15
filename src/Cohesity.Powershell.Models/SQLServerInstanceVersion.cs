@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.MinorVersion = minorVersion;
             this.Revision = revision;
             this.VersionString = versionString;
+            this.Build = build;
+            this.MajorVersion = majorVersion;
+            this.MinorVersion = minorVersion;
+            this.Revision = revision;
+            this.VersionString = versionString;
         }
         
         /// <summary>

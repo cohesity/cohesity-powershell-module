@@ -131,6 +131,19 @@ namespace Cohesity.Model
             this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
+            this.AuthenticationType = authenticationType;
+            this.BannerEnabled = bannerEnabled;
+            this.ClusterDomains = clusterDomains;
+            this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.ClusterType = clusterType;
+            this.Domains = domains;
+            this.IdpConfigured = idpConfigured;
+            this.IdpTenantExists = idpTenantExists;
+            this.LanguageLocale = languageLocale;
+            this.McmMode = mcmMode;
+            this.McmOnPremMode = mcmOnPremMode;
+            this.MultiTenancyEnabled = multiTenancyEnabled;
+            this.Name = name;
         }
         
         /// <summary>
@@ -259,7 +272,7 @@ namespace Cohesity.Model
                     this.ClusterDomains == input.ClusterDomains ||
                     this.ClusterDomains != null &&
                     input.ClusterDomains != null &&
-                    this.ClusterDomains.Equals(input.ClusterDomains)
+                    this.ClusterDomains.SequenceEqual(input.ClusterDomains)
                 ) && 
                 (
                     this.ClusterSoftwareVersion == input.ClusterSoftwareVersion ||
@@ -274,7 +287,7 @@ namespace Cohesity.Model
                     this.Domains == input.Domains ||
                     this.Domains != null &&
                     input.Domains != null &&
-                    this.Domains.Equals(input.Domains)
+                    this.Domains.SequenceEqual(input.Domains)
                 ) && 
                 (
                     this.IdpConfigured == input.IdpConfigured ||
@@ -329,8 +342,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterDomains.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
-                if (this.ClusterType != null)
-					hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
                 if (this.Domains != null)
                     hashCode = hashCode * 59 + this.Domains.GetHashCode();
                 if (this.IdpConfigured != null)

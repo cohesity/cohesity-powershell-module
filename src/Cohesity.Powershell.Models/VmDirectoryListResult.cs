@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.Entries == input.Entries ||
                     this.Entries != null &&
                     input.Entries != null &&
-                    this.Entries.Equals(input.Entries)
+                    this.Entries.SequenceEqual(input.Entries)
                 );
         }
 

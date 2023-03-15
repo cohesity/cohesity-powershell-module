@@ -145,7 +145,7 @@ namespace Cohesity.Model
                     this.AdRestoreStatusVec == input.AdRestoreStatusVec ||
                     this.AdRestoreStatusVec != null &&
                     input.AdRestoreStatusVec != null &&
-                    this.AdRestoreStatusVec.Equals(input.AdRestoreStatusVec)
+                    this.AdRestoreStatusVec.SequenceEqual(input.AdRestoreStatusVec)
                 ) && 
                 (
                     this.AdUpdateOptions == input.AdUpdateOptions ||

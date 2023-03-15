@@ -389,7 +389,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.Applications == input.Applications ||
-                    this.Applications.Equals(input.Applications)
+                    this.Applications.SequenceEqual(input.Applications)
                 ) && 
                 (
                     this.Password == input.Password ||

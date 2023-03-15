@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.MountPathIdentifier = mountPathIdentifier;
             this.ReadOnlyViewExpose = readOnlyViewExpose;
+            this.MountPathIdentifier = mountPathIdentifier;
+            this.ReadOnlyViewExpose = readOnlyViewExpose;
         }
         
         /// <summary>

@@ -117,7 +117,7 @@ namespace Cohesity.Model
                     this.DriveOwnerVec == input.DriveOwnerVec ||
                     this.DriveOwnerVec != null &&
                     input.DriveOwnerVec != null &&
-                    this.DriveOwnerVec.Equals(input.DriveOwnerVec)
+                    this.DriveOwnerVec.SequenceEqual(input.DriveOwnerVec)
                 ) && 
                 (
                     this.RestoreToOriginal == input.RestoreToOriginal ||

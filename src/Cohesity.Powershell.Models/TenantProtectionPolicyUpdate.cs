@@ -31,6 +31,8 @@ namespace Cohesity.Model
         {
             this.PolicyIds = policyIds;
             this.TenantId = tenantId;
+            this.PolicyIds = policyIds;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
@@ -87,7 +89,7 @@ namespace Cohesity.Model
                     this.PolicyIds == input.PolicyIds ||
                     this.PolicyIds != null &&
                     input.PolicyIds != null &&
-                    this.PolicyIds.Equals(input.PolicyIds)
+                    this.PolicyIds.SequenceEqual(input.PolicyIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

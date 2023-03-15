@@ -129,7 +129,7 @@ namespace Cohesity.Model
                     this.DestroyClonedEntityInfoVec == input.DestroyClonedEntityInfoVec ||
                     this.DestroyClonedEntityInfoVec != null &&
                     input.DestroyClonedEntityInfoVec != null &&
-                    this.DestroyClonedEntityInfoVec.Equals(input.DestroyClonedEntityInfoVec)
+                    this.DestroyClonedEntityInfoVec.SequenceEqual(input.DestroyClonedEntityInfoVec)
                 ) && 
                 (
                     this.Type == input.Type ||

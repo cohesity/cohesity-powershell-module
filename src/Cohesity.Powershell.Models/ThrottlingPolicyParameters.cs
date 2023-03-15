@@ -38,6 +38,11 @@ namespace Cohesity.Model
             this.EnforceMaxStreams = enforceMaxStreams;
             this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
             this.IsEnabled = isEnabled;
+            this.MaxConcurrentStreams = maxConcurrentStreams;
+            this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
+            this.EnforceMaxStreams = enforceMaxStreams;
+            this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
+            this.IsEnabled = isEnabled;
             this.LatencyThresholds = latencyThresholds;
             this.MaxConcurrentStreams = maxConcurrentStreams;
             this.NasSourceParams = nasSourceParams;

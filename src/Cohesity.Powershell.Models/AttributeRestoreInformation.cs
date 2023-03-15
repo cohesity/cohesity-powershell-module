@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.ErrorMessage == input.ErrorMessage ||
                     this.ErrorMessage != null &&
                     input.ErrorMessage != null &&
-                    this.ErrorMessage.Equals(input.ErrorMessage)
+                    this.ErrorMessage.SequenceEqual(input.ErrorMessage)
                 ) && 
                 (
                     this.Name == input.Name ||

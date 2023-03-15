@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Seeds == input.Seeds ||
                     this.Seeds != null &&
                     input.Seeds != null &&
-                    this.Seeds.Equals(input.Seeds)
+                    this.Seeds.SequenceEqual(input.Seeds)
                 );
         }
 

@@ -97,7 +97,7 @@ namespace Cohesity.Model
                     this.PublicFolderList == input.PublicFolderList ||
                     this.PublicFolderList != null &&
                     input.PublicFolderList != null &&
-                    this.PublicFolderList.Equals(input.PublicFolderList)
+                    this.PublicFolderList.SequenceEqual(input.PublicFolderList)
                 ) && 
                 (
                     this.RestoreEntireRootPublicFolder == input.RestoreEntireRootPublicFolder ||

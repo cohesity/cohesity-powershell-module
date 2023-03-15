@@ -109,7 +109,7 @@ namespace Cohesity.Model
                     this.ThrottlingWindows == input.ThrottlingWindows ||
                     this.ThrottlingWindows != null &&
                     input.ThrottlingWindows != null &&
-                    this.ThrottlingWindows.Equals(input.ThrottlingWindows)
+                    this.ThrottlingWindows.SequenceEqual(input.ThrottlingWindows)
                 );
         }
 

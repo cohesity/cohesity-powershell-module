@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.FilesNlmLocks == input.FilesNlmLocks ||
                     this.FilesNlmLocks != null &&
                     input.FilesNlmLocks != null &&
-                    this.FilesNlmLocks.Equals(input.FilesNlmLocks)
+                    this.FilesNlmLocks.SequenceEqual(input.FilesNlmLocks)
                 );
         }
 

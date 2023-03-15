@@ -138,7 +138,7 @@ namespace Cohesity.Model
                     this.CopyRuns == input.CopyRuns ||
                     this.CopyRuns != null &&
                     input.CopyRuns != null &&
-                    this.CopyRuns.Equals(input.CopyRuns)
+                    this.CopyRuns.SequenceEqual(input.CopyRuns)
                 ) && 
                 (
                     this.IsPaused == input.IsPaused ||
@@ -164,7 +164,7 @@ namespace Cohesity.Model
                     this.SourceParameters == input.SourceParameters ||
                     this.SourceParameters != null &&
                     input.SourceParameters != null &&
-                    this.SourceParameters.Equals(input.SourceParameters)
+                    this.SourceParameters.SequenceEqual(input.SourceParameters)
                 );
         }
 

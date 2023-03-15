@@ -66,6 +66,12 @@ namespace Cohesity.Model
             this.Tenant = tenant;
             this.TierType = tierType;
             this.Tiers = tiers;
+            this.AccessKeyId = accessKeyId;
+            this.Region = region;
+            this.SecretAccessKey = secretAccessKey;
+            this.Tenant = tenant;
+            this.TierType = tierType;
+            this.Tiers = tiers;
         }
         
         /// <summary>
@@ -167,7 +173,7 @@ namespace Cohesity.Model
                     this.Tiers == input.Tiers ||
                     this.Tiers != null &&
                     input.Tiers != null &&
-                    this.Tiers.Equals(input.Tiers)
+                    this.Tiers.SequenceEqual(input.Tiers)
                 );
         }
 
@@ -188,8 +194,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
                 if (this.Tenant != null)
                     hashCode = hashCode * 59 + this.Tenant.GetHashCode();
-                if (this.TierType != null)
-					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 if (this.Tiers != null)
                     hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;

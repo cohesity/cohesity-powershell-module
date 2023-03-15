@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.Entities == input.Entities ||
                     this.Entities != null &&
                     input.Entities != null &&
-                    this.Entities.Equals(input.Entities)
+                    this.Entities.SequenceEqual(input.Entities)
                 );
         }
 

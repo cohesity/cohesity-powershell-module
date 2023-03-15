@@ -107,7 +107,7 @@ namespace Cohesity.Model
                     this.DagApplicationServerInfoList == input.DagApplicationServerInfoList ||
                     this.DagApplicationServerInfoList != null &&
                     input.DagApplicationServerInfoList != null &&
-                    this.DagApplicationServerInfoList.Equals(input.DagApplicationServerInfoList)
+                    this.DagApplicationServerInfoList.SequenceEqual(input.DagApplicationServerInfoList)
                 ) && 
                 (
                     this.ExchangeDagProtectionPreference == input.ExchangeDagProtectionPreference ||

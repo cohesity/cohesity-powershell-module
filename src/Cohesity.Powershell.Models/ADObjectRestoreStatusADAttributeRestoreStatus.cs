@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.AttrstatusVec == input.AttrstatusVec ||
                     this.AttrstatusVec != null &&
                     input.AttrstatusVec != null &&
-                    this.AttrstatusVec.Equals(input.AttrstatusVec)
+                    this.AttrstatusVec.SequenceEqual(input.AttrstatusVec)
                 ) && 
                 (
                     this.LdapName == input.LdapName ||

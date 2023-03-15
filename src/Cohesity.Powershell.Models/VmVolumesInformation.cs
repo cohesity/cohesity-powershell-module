@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.FilesystemVolumes == input.FilesystemVolumes ||
                     this.FilesystemVolumes != null &&
                     input.FilesystemVolumes != null &&
-                    this.FilesystemVolumes.Equals(input.FilesystemVolumes)
+                    this.FilesystemVolumes.SequenceEqual(input.FilesystemVolumes)
                 );
         }
 

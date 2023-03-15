@@ -35,6 +35,10 @@ namespace Cohesity.Model
         /// <param name="vmwareParams">vmwareParams.</param>
         public DestroyMountVolumesTaskInfoProto(ErrorProto error = default(ErrorProto), bool? finished = default(bool?), string hostName = default(string), MountVolumesInfoProto mountVolumesInfoProto = default(MountVolumesInfoProto), long? slaveTaskStartTimeUsecs = default(long?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams))
         {
+            this.Finished = finished;
+            this.HostName = hostName;
+            this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
+            this.UseExistingAgent = useExistingAgent;
             this.Error = error;
             this.Finished = finished;
             this.HostName = hostName;

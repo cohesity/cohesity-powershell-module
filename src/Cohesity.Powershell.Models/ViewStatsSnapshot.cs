@@ -93,7 +93,7 @@ namespace Cohesity.Model
                     this.ViewStatsList == input.ViewStatsList ||
                     this.ViewStatsList != null &&
                     input.ViewStatsList != null &&
-                    this.ViewStatsList.Equals(input.ViewStatsList)
+                    this.ViewStatsList.SequenceEqual(input.ViewStatsList)
                 );
         }
 

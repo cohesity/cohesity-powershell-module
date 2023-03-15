@@ -81,6 +81,26 @@ namespace Cohesity.Model
             this.DisableNetwork = disableNetwork;
             this.NetworkId = networkId;
             this.NetworkMappings = networkMappings;
+            this.OverwriteExistingVm = overwriteExistingVm;
+            this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
+            this.PoweredOn = poweredOn;
+            this.Prefix = prefix;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveTags = preserveTags;
+            this.RecoveryProcessType = recoveryProcessType;
+            this.ResourcePoolId = resourcePoolId;
+            this.StorageProfileName = storageProfileName;
+            this.StorageProfileVcdUuid = storageProfileVcdUuid;
+            this.Suffix = suffix;
+            this.VAppId = vAppId;
+            this.VdcId = vdcId;
+            this.VmFolderId = vmFolderId;
+            this.AttemptDifferentialRestore = attemptDifferentialRestore;
+            this.DatastoreFolderId = datastoreFolderId;
+            this.DetachNetwork = detachNetwork;
+            this.DisableNetwork = disableNetwork;
+            this.NetworkId = networkId;
+            this.NetworkMappings = networkMappings;
             this.OrgVdcNetwork = orgVdcNetwork;
             this.OverwriteExistingVm = overwriteExistingVm;
             this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
@@ -302,7 +322,7 @@ namespace Cohesity.Model
                     this.NetworkMappings == input.NetworkMappings ||
                     this.NetworkMappings != null &&
                     input.NetworkMappings != null &&
-                    this.NetworkMappings.Equals(input.NetworkMappings)
+                    this.NetworkMappings.SequenceEqual(input.NetworkMappings)
                 ) && 
                 (
                     this.OrgVdcNetwork == input.OrgVdcNetwork ||
@@ -415,8 +435,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
                 if (this.PreserveTags != null)
                     hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
-                if (this.RecoveryProcessType != null)
-					hashCode = hashCode * 59 + this.RecoveryProcessType.GetHashCode();
+                hashCode = hashCode * 59 + this.RecoveryProcessType.GetHashCode();
                 if (this.ResourcePoolId != null)
                     hashCode = hashCode * 59 + this.ResourcePoolId.GetHashCode();
                 if (this.StorageProfileName != null)

@@ -49,6 +49,18 @@ namespace Cohesity.Model
             this.IsBootable = isBootable;
             this.IsDedup = isDedup;
             this.IsSupported = isSupported;
+            this.VolumeGuid = volumeGuid;
+            this.VolumeIdentifier = volumeIdentifier;
+            this.VolumeSourceType = volumeSourceType;
+            this.VolumeType = volumeType;
+            this.DiskVec = diskVec;
+            this.DisplayName = displayName;
+            this.FilesystemType = filesystemType;
+            this.FsLabel = fsLabel;
+            this.FsUuid = fsUuid;
+            this.IsBootable = isBootable;
+            this.IsDedup = isDedup;
+            this.IsSupported = isSupported;
             this.LvInfo = lvInfo;
             this.SubvolInfo = subvolInfo;
             this.VolumeGuid = volumeGuid;
@@ -193,7 +205,7 @@ namespace Cohesity.Model
                     this.DiskVec == input.DiskVec ||
                     this.DiskVec != null &&
                     input.DiskVec != null &&
-                    this.DiskVec.Equals(input.DiskVec)
+                    this.DiskVec.SequenceEqual(input.DiskVec)
                 ) && 
                 (
                     this.DisplayName == input.DisplayName ||

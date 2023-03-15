@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.FailedJobIds == input.FailedJobIds ||
                     this.FailedJobIds != null &&
                     input.FailedJobIds != null &&
-                    this.FailedJobIds.Equals(input.FailedJobIds)
+                    this.FailedJobIds.SequenceEqual(input.FailedJobIds)
                 ) && 
                 (
                     this.SuccessfulJobIds == input.SuccessfulJobIds ||
                     this.SuccessfulJobIds != null &&
                     input.SuccessfulJobIds != null &&
-                    this.SuccessfulJobIds.Equals(input.SuccessfulJobIds)
+                    this.SuccessfulJobIds.SequenceEqual(input.SuccessfulJobIds)
                 );
         }
 

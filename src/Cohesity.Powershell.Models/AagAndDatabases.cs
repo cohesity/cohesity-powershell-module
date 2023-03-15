@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.Databases == input.Databases ||
                     this.Databases != null &&
                     input.Databases != null &&
-                    this.Databases.Equals(input.Databases)
+                    this.Databases.SequenceEqual(input.Databases)
                 );
         }
 

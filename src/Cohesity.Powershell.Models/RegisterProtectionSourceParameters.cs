@@ -30,46 +30,10 @@ namespace Cohesity.Model
         public enum AcropolisTypeEnum
         {
             /// <summary>
-            /// Enum KPrismCentral for value: kPrismCentral
-            /// </summary>
-            [EnumMember(Value = "kPrismCentral")]
-            KPrismCentral = 1,
-
-            /// <summary>
             /// Enum KStandaloneCluster for value: kStandaloneCluster
             /// </summary>
             [EnumMember(Value = "kStandaloneCluster")]
-            KStandaloneCluster = 2,
-
-            /// <summary>
-            /// Enum KCluster for value: kCluster
-            /// </summary>
-            [EnumMember(Value = "kCluster")]
-            KCluster = 3,
-
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 4,
-
-            /// <summary>
-            /// Enum KVirtualMachine for value: kVirtualMachine
-            /// </summary>
-            [EnumMember(Value = "kVirtualMachine")]
-            KVirtualMachine = 5,
-
-            /// <summary>
-            /// Enum KNetwork for value: kNetwork
-            /// </summary>
-            [EnumMember(Value = "kNetwork")]
-            KNetwork = 6,
-
-            /// <summary>
-            /// Enum KStorageContainer for value: kStorageContainer
-            /// </summary>
-            [EnumMember(Value = "kStorageContainer")]
-            KStorageContainer = 7
+            KStandaloneCluster = 1
 
         }
 
@@ -82,7 +46,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Specifies the environment such as &#39;kPhysical&#39; or &#39;kVMware&#39; of the Protection Source. overrideDescription: true Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.
         /// </summary>
-        /// <value>Specifies the environment such as &#39;kPhysical&#39; or &#39;kVMware&#39; of the Protection Source. overrideDescription: true Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment.</value>
+        /// <value>Specifies the environment such as &#39;kPhysical&#39; or &#39;kVMware&#39; of the Protection Source. overrideDescription: true Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum EnvironmentEnum
         {
@@ -360,12 +324,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -467,55 +426,7 @@ namespace Cohesity.Model
             /// Enum KStandaloneCluster for value: kStandaloneCluster
             /// </summary>
             [EnumMember(Value = "kStandaloneCluster")]
-            KStandaloneCluster = 3,
-
-            /// <summary>
-            /// Enum KHostGroup for value: kHostGroup
-            /// </summary>
-            [EnumMember(Value = "kHostGroup")]
-            KHostGroup = 4,
-
-            /// <summary>
-            /// Enum KHypervHost for value: kHypervHost
-            /// </summary>
-            [EnumMember(Value = "kHypervHost")]
-            KHypervHost = 5,
-
-            /// <summary>
-            /// Enum KHostCluster for value: kHostCluster
-            /// </summary>
-            [EnumMember(Value = "kHostCluster")]
-            KHostCluster = 6,
-
-            /// <summary>
-            /// Enum KVirtualMachine for value: kVirtualMachine
-            /// </summary>
-            [EnumMember(Value = "kVirtualMachine")]
-            KVirtualMachine = 7,
-
-            /// <summary>
-            /// Enum KNetwork for value: kNetwork
-            /// </summary>
-            [EnumMember(Value = "kNetwork")]
-            KNetwork = 8,
-
-            /// <summary>
-            /// Enum KDatastore for value: kDatastore
-            /// </summary>
-            [EnumMember(Value = "kDatastore")]
-            KDatastore = 9,
-
-            /// <summary>
-            /// Enum KTag for value: kTag
-            /// </summary>
-            [EnumMember(Value = "kTag")]
-            KTag = 10,
-
-            /// <summary>
-            /// Enum KCustomProperty for value: kCustomProperty
-            /// </summary>
-            [EnumMember(Value = "kCustomProperty")]
-            KCustomProperty = 11
+            KStandaloneCluster = 3
 
         }
 
@@ -536,19 +447,7 @@ namespace Cohesity.Model
             /// Enum KCluster for value: kCluster
             /// </summary>
             [EnumMember(Value = "kCluster")]
-            KCluster = 1,
-
-            /// <summary>
-            /// Enum KNamespace for value: kNamespace
-            /// </summary>
-            [EnumMember(Value = "kNamespace")]
-            KNamespace = 2,
-
-            /// <summary>
-            /// Enum KService for value: kService
-            /// </summary>
-            [EnumMember(Value = "kService")]
-            KService = 3
+            KCluster = 1
 
         }
 
@@ -569,55 +468,7 @@ namespace Cohesity.Model
             /// Enum KOVirtManager for value: kOVirtManager
             /// </summary>
             [EnumMember(Value = "kOVirtManager")]
-            KOVirtManager = 1,
-
-            /// <summary>
-            /// Enum KStandaloneHost for value: kStandaloneHost
-            /// </summary>
-            [EnumMember(Value = "kStandaloneHost")]
-            KStandaloneHost = 2,
-
-            /// <summary>
-            /// Enum KDatacenter for value: kDatacenter
-            /// </summary>
-            [EnumMember(Value = "kDatacenter")]
-            KDatacenter = 3,
-
-            /// <summary>
-            /// Enum KCluster for value: kCluster
-            /// </summary>
-            [EnumMember(Value = "kCluster")]
-            KCluster = 4,
-
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 5,
-
-            /// <summary>
-            /// Enum KVirtualMachine for value: kVirtualMachine
-            /// </summary>
-            [EnumMember(Value = "kVirtualMachine")]
-            KVirtualMachine = 6,
-
-            /// <summary>
-            /// Enum KNetwork for value: kNetwork
-            /// </summary>
-            [EnumMember(Value = "kNetwork")]
-            KNetwork = 7,
-
-            /// <summary>
-            /// Enum KStorageDomain for value: kStorageDomain
-            /// </summary>
-            [EnumMember(Value = "kStorageDomain")]
-            KStorageDomain = 8,
-
-            /// <summary>
-            /// Enum KVNicProfile for value: kVNicProfile
-            /// </summary>
-            [EnumMember(Value = "kVNicProfile")]
-            KVNicProfile = 9
+            KOVirtManager = 1
 
         }
 
@@ -644,13 +495,7 @@ namespace Cohesity.Model
             /// Enum KVserver for value: kVserver
             /// </summary>
             [EnumMember(Value = "kVserver")]
-            KVserver = 2,
-
-            /// <summary>
-            /// Enum KVolume for value: kVolume
-            /// </summary>
-            [EnumMember(Value = "kVolume")]
-            KVolume = 3
+            KVserver = 2
 
         }
 
@@ -671,13 +516,7 @@ namespace Cohesity.Model
             /// Enum KStorageArray for value: kStorageArray
             /// </summary>
             [EnumMember(Value = "kStorageArray")]
-            KStorageArray = 1,
-
-            /// <summary>
-            /// Enum KVolume for value: kVolume
-            /// </summary>
-            [EnumMember(Value = "kVolume")]
-            KVolume = 2
+            KStorageArray = 1
 
         }
 
@@ -698,19 +537,7 @@ namespace Cohesity.Model
             /// Enum KDomain for value: kDomain
             /// </summary>
             [EnumMember(Value = "kDomain")]
-            KDomain = 1,
-
-            /// <summary>
-            /// Enum KOutlook for value: kOutlook
-            /// </summary>
-            [EnumMember(Value = "kOutlook")]
-            KOutlook = 2,
-
-            /// <summary>
-            /// Enum KMailbox for value: kMailbox
-            /// </summary>
-            [EnumMember(Value = "kMailbox")]
-            KMailbox = 3
+            KDomain = 1
 
         }
 
@@ -728,34 +555,10 @@ namespace Cohesity.Model
         public enum PhysicalTypeEnum
         {
             /// <summary>
-            /// Enum KGroup for value: kGroup
-            /// </summary>
-            [EnumMember(Value = "kGroup")]
-            KGroup = 1,
-
-            /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
-            KHost = 2,
-
-            /// <summary>
-            /// Enum KWindowsCluster for value: kWindowsCluster
-            /// </summary>
-            [EnumMember(Value = "kWindowsCluster")]
-            KWindowsCluster = 3,
-
-            /// <summary>
-            /// Enum KOracleRACCluster for value: kOracleRACCluster
-            /// </summary>
-            [EnumMember(Value = "kOracleRACCluster")]
-            KOracleRACCluster = 4,
-
-            /// <summary>
-            /// Enum KOracleAPCluster for value: kOracleAPCluster
-            /// </summary>
-            [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 5
+            KHost = 1
 
         }
 
@@ -776,13 +579,7 @@ namespace Cohesity.Model
             /// Enum KStorageArray for value: kStorageArray
             /// </summary>
             [EnumMember(Value = "kStorageArray")]
-            KStorageArray = 1,
-
-            /// <summary>
-            /// Enum KVolume for value: kVolume
-            /// </summary>
-            [EnumMember(Value = "kVolume")]
-            KVolume = 2
+            KStorageArray = 1
 
         }
 
@@ -806,136 +603,16 @@ namespace Cohesity.Model
             KVCenter = 1,
 
             /// <summary>
-            /// Enum KFolder for value: kFolder
-            /// </summary>
-            [EnumMember(Value = "kFolder")]
-            KFolder = 2,
-
-            /// <summary>
-            /// Enum KDatacenter for value: kDatacenter
-            /// </summary>
-            [EnumMember(Value = "kDatacenter")]
-            KDatacenter = 3,
-
-            /// <summary>
-            /// Enum KComputeResource for value: kComputeResource
-            /// </summary>
-            [EnumMember(Value = "kComputeResource")]
-            KComputeResource = 4,
-
-            /// <summary>
-            /// Enum KClusterComputeResource for value: kClusterComputeResource
-            /// </summary>
-            [EnumMember(Value = "kClusterComputeResource")]
-            KClusterComputeResource = 5,
-
-            /// <summary>
-            /// Enum KResourcePool for value: kResourcePool
-            /// </summary>
-            [EnumMember(Value = "kResourcePool")]
-            KResourcePool = 6,
-
-            /// <summary>
-            /// Enum KDatastore for value: kDatastore
-            /// </summary>
-            [EnumMember(Value = "kDatastore")]
-            KDatastore = 7,
-
-            /// <summary>
-            /// Enum KHostSystem for value: kHostSystem
-            /// </summary>
-            [EnumMember(Value = "kHostSystem")]
-            KHostSystem = 8,
-
-            /// <summary>
-            /// Enum KVirtualMachine for value: kVirtualMachine
-            /// </summary>
-            [EnumMember(Value = "kVirtualMachine")]
-            KVirtualMachine = 9,
-
-            /// <summary>
-            /// Enum KVirtualApp for value: kVirtualApp
-            /// </summary>
-            [EnumMember(Value = "kVirtualApp")]
-            KVirtualApp = 10,
-
-            /// <summary>
             /// Enum KStandaloneHost for value: kStandaloneHost
             /// </summary>
             [EnumMember(Value = "kStandaloneHost")]
-            KStandaloneHost = 11,
-
-            /// <summary>
-            /// Enum KStoragePod for value: kStoragePod
-            /// </summary>
-            [EnumMember(Value = "kStoragePod")]
-            KStoragePod = 12,
-
-            /// <summary>
-            /// Enum KNetwork for value: kNetwork
-            /// </summary>
-            [EnumMember(Value = "kNetwork")]
-            KNetwork = 13,
-
-            /// <summary>
-            /// Enum KDistributedVirtualPortgroup for value: kDistributedVirtualPortgroup
-            /// </summary>
-            [EnumMember(Value = "kDistributedVirtualPortgroup")]
-            KDistributedVirtualPortgroup = 14,
-
-            /// <summary>
-            /// Enum KTagCategory for value: kTagCategory
-            /// </summary>
-            [EnumMember(Value = "kTagCategory")]
-            KTagCategory = 15,
-
-            /// <summary>
-            /// Enum KTag for value: kTag
-            /// </summary>
-            [EnumMember(Value = "kTag")]
-            KTag = 16,
-
-            /// <summary>
-            /// Enum KOpaqueNetwork for value: kOpaqueNetwork
-            /// </summary>
-            [EnumMember(Value = "kOpaqueNetwork")]
-            KOpaqueNetwork = 17,
+            KStandaloneHost = 2,
 
             /// <summary>
             /// Enum KvCloudDirector for value: kvCloudDirector
             /// </summary>
             [EnumMember(Value = "kvCloudDirector")]
-            KvCloudDirector = 18,
-
-            /// <summary>
-            /// Enum KOrganization for value: kOrganization
-            /// </summary>
-            [EnumMember(Value = "kOrganization")]
-            KOrganization = 19,
-
-            /// <summary>
-            /// Enum KVirtualDatacenter for value: kVirtualDatacenter
-            /// </summary>
-            [EnumMember(Value = "kVirtualDatacenter")]
-            KVirtualDatacenter = 20,
-
-            /// <summary>
-            /// Enum KCatalog for value: kCatalog
-            /// </summary>
-            [EnumMember(Value = "kCatalog")]
-            KCatalog = 21,
-
-            /// <summary>
-            /// Enum KOrgMetadata for value: kOrgMetadata
-            /// </summary>
-            [EnumMember(Value = "kOrgMetadata")]
-            KOrgMetadata = 22,
-
-            /// <summary>
-            /// Enum KStoragePolicy for value: kStoragePolicy
-            /// </summary>
-            [EnumMember(Value = "kStoragePolicy")]
-            KStoragePolicy = 23
+            KvCloudDirector = 3
 
         }
 
@@ -1376,7 +1053,7 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses == input.AllowedIpAddresses ||
                     this.AllowedIpAddresses != null &&
                     input.AllowedIpAddresses != null &&
-                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                    this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
                     this.AwsCredentials == input.AwsCredentials ||
@@ -1397,7 +1074,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddresses == input.BlacklistedIpAddresses ||
                     this.BlacklistedIpAddresses != null &&
                     input.BlacklistedIpAddresses != null &&
-                    this.BlacklistedIpAddresses.Equals(input.BlacklistedIpAddresses)
+                    this.BlacklistedIpAddresses.SequenceEqual(input.BlacklistedIpAddresses)
                 ) && 
                 (
                     this.ClusterNetworkInfo == input.ClusterNetworkInfo ||
@@ -1408,7 +1085,7 @@ namespace Cohesity.Model
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
-                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
+                    this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
                 ) && 
                 (
                     this.EncryptionKey == input.EncryptionKey ||
@@ -1497,7 +1174,7 @@ namespace Cohesity.Model
                     this.Office365CredentialsList == input.Office365CredentialsList ||
                     this.Office365CredentialsList != null &&
                     input.Office365CredentialsList != null &&
-                    this.Office365CredentialsList.Equals(input.Office365CredentialsList)
+                    this.Office365CredentialsList.SequenceEqual(input.Office365CredentialsList)
                 ) && 
                 (
                     this.Office365Region == input.Office365Region ||
@@ -1508,7 +1185,7 @@ namespace Cohesity.Model
                     this.Office365ServiceAccountCredentialsList == input.Office365ServiceAccountCredentialsList ||
                     this.Office365ServiceAccountCredentialsList != null &&
                     input.Office365ServiceAccountCredentialsList != null &&
-                    this.Office365ServiceAccountCredentialsList.Equals(input.Office365ServiceAccountCredentialsList)
+                    this.Office365ServiceAccountCredentialsList.SequenceEqual(input.Office365ServiceAccountCredentialsList)
                 ) && 
                 (
                     this.Office365Type == input.Office365Type ||
@@ -1532,7 +1209,7 @@ namespace Cohesity.Model
                     this.ProxyHostSourceIdList == input.ProxyHostSourceIdList ||
                     this.ProxyHostSourceIdList != null &&
                     input.ProxyHostSourceIdList != null &&
-                    this.ProxyHostSourceIdList.Equals(input.ProxyHostSourceIdList)
+                    this.ProxyHostSourceIdList.SequenceEqual(input.ProxyHostSourceIdList)
                 ) && 
                 (
                     this.PureType == input.PureType ||
@@ -1552,7 +1229,7 @@ namespace Cohesity.Model
                     this.Subnets == input.Subnets ||
                     this.Subnets != null &&
                     input.Subnets != null &&
-                    this.Subnets.Equals(input.Subnets)
+                    this.Subnets.SequenceEqual(input.Subnets)
                 ) && 
                 (
                     this.ThrottlingPolicy == input.ThrottlingPolicy ||
@@ -1563,7 +1240,7 @@ namespace Cohesity.Model
                     this.ThrottlingPolicyOverrides == input.ThrottlingPolicyOverrides ||
                     this.ThrottlingPolicyOverrides != null &&
                     input.ThrottlingPolicyOverrides != null &&
-                    this.ThrottlingPolicyOverrides.Equals(input.ThrottlingPolicyOverrides)
+                    this.ThrottlingPolicyOverrides.SequenceEqual(input.ThrottlingPolicyOverrides)
                 ) && 
                 (
                     this.UseExistingCredentials == input.UseExistingCredentials ||

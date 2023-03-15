@@ -99,13 +99,13 @@ namespace Cohesity.Model
                     this.AllowPrefixes == input.AllowPrefixes ||
                     this.AllowPrefixes != null &&
                     input.AllowPrefixes != null &&
-                    this.AllowPrefixes.Equals(input.AllowPrefixes)
+                    this.AllowPrefixes.SequenceEqual(input.AllowPrefixes)
                 ) && 
                 (
                     this.DenyPrefixes == input.DenyPrefixes ||
                     this.DenyPrefixes != null &&
                     input.DenyPrefixes != null &&
-                    this.DenyPrefixes.Equals(input.DenyPrefixes)
+                    this.DenyPrefixes.SequenceEqual(input.DenyPrefixes)
                 ) && 
                 (
                     this.DisableIndexing == input.DisableIndexing ||

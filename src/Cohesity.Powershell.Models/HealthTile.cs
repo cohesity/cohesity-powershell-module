@@ -169,7 +169,7 @@ namespace Cohesity.Model
                     this.LastDayAlerts == input.LastDayAlerts ||
                     this.LastDayAlerts != null &&
                     input.LastDayAlerts != null &&
-                    this.LastDayAlerts.Equals(input.LastDayAlerts)
+                    this.LastDayAlerts.SequenceEqual(input.LastDayAlerts)
                 ) && 
                 (
                     this.LastDayNumCriticals == input.LastDayNumCriticals ||

@@ -158,7 +158,7 @@ namespace Cohesity.Model
                     this.RestoreFilesResultVec == input.RestoreFilesResultVec ||
                     this.RestoreFilesResultVec != null &&
                     input.RestoreFilesResultVec != null &&
-                    this.RestoreFilesResultVec.Equals(input.RestoreFilesResultVec)
+                    this.RestoreFilesResultVec.SequenceEqual(input.RestoreFilesResultVec)
                 ) && 
                 (
                     this.SlaveTaskStartTimeUsecs == input.SlaveTaskStartTimeUsecs ||

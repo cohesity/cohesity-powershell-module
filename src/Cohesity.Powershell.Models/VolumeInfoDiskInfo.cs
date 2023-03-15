@@ -169,13 +169,13 @@ namespace Cohesity.Model
                     this.PartitionVec == input.PartitionVec ||
                     this.PartitionVec != null &&
                     input.PartitionVec != null &&
-                    this.PartitionVec.Equals(input.PartitionVec)
+                    this.PartitionVec.SequenceEqual(input.PartitionVec)
                 ) && 
                 (
                     this.PhysicalRangeVec == input.PhysicalRangeVec ||
                     this.PhysicalRangeVec != null &&
                     input.PhysicalRangeVec != null &&
-                    this.PhysicalRangeVec.Equals(input.PhysicalRangeVec)
+                    this.PhysicalRangeVec.SequenceEqual(input.PhysicalRangeVec)
                 ) && 
                 (
                     this.SectorSize == input.SectorSize ||

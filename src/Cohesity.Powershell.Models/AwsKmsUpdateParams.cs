@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.IamRoleArn = iamRoleArn;
             this.SecretAccessKey = secretAccessKey;
             this.VerifySSL = verifySSL;
+            this.AccessKeyId = accessKeyId;
+            this.CaCertificatePath = caCertificatePath;
+            this.IamRoleArn = iamRoleArn;
+            this.SecretAccessKey = secretAccessKey;
+            this.VerifySSL = verifySSL;
         }
         
         /// <summary>

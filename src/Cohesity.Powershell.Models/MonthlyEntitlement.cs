@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.MonthlyAvgEntitlement == input.MonthlyAvgEntitlement ||
                     this.MonthlyAvgEntitlement != null &&
                     input.MonthlyAvgEntitlement != null &&
-                    this.MonthlyAvgEntitlement.Equals(input.MonthlyAvgEntitlement)
+                    this.MonthlyAvgEntitlement.SequenceEqual(input.MonthlyAvgEntitlement)
                 );
         }
 

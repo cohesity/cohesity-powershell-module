@@ -107,7 +107,7 @@ namespace Cohesity.Model
                     this.OutputFilePathList == input.OutputFilePathList ||
                     this.OutputFilePathList != null &&
                     input.OutputFilePathList != null &&
-                    this.OutputFilePathList.Equals(input.OutputFilePathList)
+                    this.OutputFilePathList.SequenceEqual(input.OutputFilePathList)
                 );
         }
 

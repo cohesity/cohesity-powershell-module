@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.FileTypeBucketExtensions == input.FileTypeBucketExtensions ||
                     this.FileTypeBucketExtensions != null &&
                     input.FileTypeBucketExtensions != null &&
-                    this.FileTypeBucketExtensions.Equals(input.FileTypeBucketExtensions)
+                    this.FileTypeBucketExtensions.SequenceEqual(input.FileTypeBucketExtensions)
                 ) && 
                 (
                     this.FileTypeBucketName == input.FileTypeBucketName ||

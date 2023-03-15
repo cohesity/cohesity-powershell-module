@@ -37,6 +37,11 @@ namespace Cohesity.Model
             this.ChassisSerial = chassisSerial;
             this.Location = location;
             this.RackId = rackId;
+            this.ChassisId = chassisId;
+            this.ChassisName = chassisName;
+            this.ChassisSerial = chassisSerial;
+            this.Location = location;
+            this.RackId = rackId;
         }
         
         /// <summary>

@@ -113,13 +113,13 @@ namespace Cohesity.Model
                     this.RestoreChildsObjectVec == input.RestoreChildsObjectVec ||
                     this.RestoreChildsObjectVec != null &&
                     input.RestoreChildsObjectVec != null &&
-                    this.RestoreChildsObjectVec.Equals(input.RestoreChildsObjectVec)
+                    this.RestoreChildsObjectVec.SequenceEqual(input.RestoreChildsObjectVec)
                 ) && 
                 (
                     this.RestoreParentObjectVec == input.RestoreParentObjectVec ||
                     this.RestoreParentObjectVec != null &&
                     input.RestoreParentObjectVec != null &&
-                    this.RestoreParentObjectVec.Equals(input.RestoreParentObjectVec)
+                    this.RestoreParentObjectVec.SequenceEqual(input.RestoreParentObjectVec)
                 ) && 
                 (
                     this.RunStartTimeUsecs == input.RunStartTimeUsecs ||

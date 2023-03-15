@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.DeleteFailedInfectedFiles == input.DeleteFailedInfectedFiles ||
                     this.DeleteFailedInfectedFiles != null &&
                     input.DeleteFailedInfectedFiles != null &&
-                    this.DeleteFailedInfectedFiles.Equals(input.DeleteFailedInfectedFiles)
+                    this.DeleteFailedInfectedFiles.SequenceEqual(input.DeleteFailedInfectedFiles)
                 ) && 
                 (
                     this.DeleteSucceededInfectedFiles == input.DeleteSucceededInfectedFiles ||
                     this.DeleteSucceededInfectedFiles != null &&
                     input.DeleteSucceededInfectedFiles != null &&
-                    this.DeleteSucceededInfectedFiles.Equals(input.DeleteSucceededInfectedFiles)
+                    this.DeleteSucceededInfectedFiles.SequenceEqual(input.DeleteSucceededInfectedFiles)
                 );
         }
 

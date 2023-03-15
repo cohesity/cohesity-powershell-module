@@ -47,6 +47,16 @@ namespace Cohesity.Model
             this.UserName = userName;
             this.ViewId = viewId;
             this.ViewName = viewName;
+            this.ClientIp = clientIp;
+            this.DomainName = domainName;
+            this.NodeIp = nodeIp;
+            this.Path = path;
+            this.ServerIp = serverIp;
+            this.SessionId = sessionId;
+            this.Sids = sids;
+            this.UserName = userName;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
         }
         
         /// <summary>
@@ -189,7 +199,7 @@ namespace Cohesity.Model
                     this.Sids == input.Sids ||
                     this.Sids != null &&
                     input.Sids != null &&
-                    this.Sids.Equals(input.Sids)
+                    this.Sids.SequenceEqual(input.Sids)
                 ) && 
                 (
                     this.UserName == input.UserName ||

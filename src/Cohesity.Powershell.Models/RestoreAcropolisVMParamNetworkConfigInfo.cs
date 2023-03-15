@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.NicVec == input.NicVec ||
                     this.NicVec != null &&
                     input.NicVec != null &&
-                    this.NicVec.Equals(input.NicVec)
+                    this.NicVec.SequenceEqual(input.NicVec)
                 );
         }
 

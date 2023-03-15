@@ -129,7 +129,7 @@ namespace Cohesity.Model
                     this.ObjectGuids == input.ObjectGuids ||
                     this.ObjectGuids != null &&
                     input.ObjectGuids != null &&
-                    this.ObjectGuids.Equals(input.ObjectGuids)
+                    this.ObjectGuids.SequenceEqual(input.ObjectGuids)
                 ) && 
                 (
                     this.OrganizationUnitPath == input.OrganizationUnitPath ||

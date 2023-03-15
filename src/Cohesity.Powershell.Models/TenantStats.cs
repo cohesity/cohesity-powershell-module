@@ -117,7 +117,7 @@ namespace Cohesity.Model
                     this.GroupList == input.GroupList ||
                     this.GroupList != null &&
                     input.GroupList != null &&
-                    this.GroupList.Equals(input.GroupList)
+                    this.GroupList.SequenceEqual(input.GroupList)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -133,7 +133,7 @@ namespace Cohesity.Model
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
                     input.SchemaInfoList != null &&
-                    this.SchemaInfoList.Equals(input.SchemaInfoList)
+                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
                 ) && 
                 (
                     this.Stats == input.Stats ||

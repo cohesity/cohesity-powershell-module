@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.UpdateFailedInfectedFiles == input.UpdateFailedInfectedFiles ||
                     this.UpdateFailedInfectedFiles != null &&
                     input.UpdateFailedInfectedFiles != null &&
-                    this.UpdateFailedInfectedFiles.Equals(input.UpdateFailedInfectedFiles)
+                    this.UpdateFailedInfectedFiles.SequenceEqual(input.UpdateFailedInfectedFiles)
                 ) && 
                 (
                     this.UpdateSucceededInfectedFiles == input.UpdateSucceededInfectedFiles ||
                     this.UpdateSucceededInfectedFiles != null &&
                     input.UpdateSucceededInfectedFiles != null &&
-                    this.UpdateSucceededInfectedFiles.Equals(input.UpdateSucceededInfectedFiles)
+                    this.UpdateSucceededInfectedFiles.SequenceEqual(input.UpdateSucceededInfectedFiles)
                 );
         }
 

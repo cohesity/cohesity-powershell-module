@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.EntityIds == input.EntityIds ||
                     this.EntityIds != null &&
                     input.EntityIds != null &&
-                    this.EntityIds.Equals(input.EntityIds)
+                    this.EntityIds.SequenceEqual(input.EntityIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

@@ -83,7 +83,7 @@ namespace Cohesity.Model
                     this.Names == input.Names ||
                     this.Names != null &&
                     input.Names != null &&
-                    this.Names.Equals(input.Names)
+                    this.Names.SequenceEqual(input.Names)
                 );
         }
 

@@ -123,7 +123,7 @@ namespace Cohesity.Model
                     this.Options == input.Options ||
                     this.Options != null &&
                     input.Options != null &&
-                    this.Options.Equals(input.Options)
+                    this.Options.SequenceEqual(input.Options)
                 ) && 
                 (
                     this.ReadOnly == input.ReadOnly ||

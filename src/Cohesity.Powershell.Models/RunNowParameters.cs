@@ -31,6 +31,8 @@ namespace Cohesity.Model
         public RunNowParameters(List<long> databaseIds = default(List<long>), RunNowPhysicalParameters physicalParams = default(RunNowPhysicalParameters), long? sourceId = default(long?))
         {
             this.DatabaseIds = databaseIds;
+            this.SourceId = sourceId;
+            this.DatabaseIds = databaseIds;
             this.PhysicalParams = physicalParams;
             this.SourceId = sourceId;
         }
@@ -95,7 +97,7 @@ namespace Cohesity.Model
                     this.DatabaseIds == input.DatabaseIds ||
                     this.DatabaseIds != null &&
                     input.DatabaseIds != null &&
-                    this.DatabaseIds.Equals(input.DatabaseIds)
+                    this.DatabaseIds.SequenceEqual(input.DatabaseIds)
                 ) && 
                 (
                     this.PhysicalParams == input.PhysicalParams ||

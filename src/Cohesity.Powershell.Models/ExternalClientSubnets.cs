@@ -79,7 +79,7 @@ namespace Cohesity.Model
                     this.ClientSubnets == input.ClientSubnets ||
                     this.ClientSubnets != null &&
                     input.ClientSubnets != null &&
-                    this.ClientSubnets.Equals(input.ClientSubnets)
+                    this.ClientSubnets.SequenceEqual(input.ClientSubnets)
                 );
         }
 

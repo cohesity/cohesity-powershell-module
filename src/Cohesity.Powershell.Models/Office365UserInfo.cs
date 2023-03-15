@@ -76,6 +76,17 @@ namespace Cohesity.Model
             this.MailboxType = mailboxType;
             this.OneDriveId = oneDriveId;
             this.OneDriveSize = oneDriveSize;
+            this.City = city;
+            this.Country = country;
+            this.Department = department;
+            this.Designation = designation;
+            this.GraphUuid = graphUuid;
+            this.IsMailboxEnabled = isMailboxEnabled;
+            this.IsOneDriveEnabled = isOneDriveEnabled;
+            this.MailboxSize = mailboxSize;
+            this.MailboxType = mailboxType;
+            this.OneDriveId = oneDriveId;
+            this.OneDriveSize = oneDriveSize;
         }
         
         /// <summary>
@@ -265,8 +276,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsOneDriveEnabled.GetHashCode();
                 if (this.MailboxSize != null)
                     hashCode = hashCode * 59 + this.MailboxSize.GetHashCode();
-                if (this.MailboxType != null)
-					hashCode = hashCode * 59 + this.MailboxType.GetHashCode();
+                hashCode = hashCode * 59 + this.MailboxType.GetHashCode();
                 if (this.OneDriveId != null)
                     hashCode = hashCode * 59 + this.OneDriveId.GetHashCode();
                 if (this.OneDriveSize != null)

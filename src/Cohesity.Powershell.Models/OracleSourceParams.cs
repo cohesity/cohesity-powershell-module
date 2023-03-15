@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.AdditionalOracleDbParamsVec == input.AdditionalOracleDbParamsVec ||
                     this.AdditionalOracleDbParamsVec != null &&
                     input.AdditionalOracleDbParamsVec != null &&
-                    this.AdditionalOracleDbParamsVec.Equals(input.AdditionalOracleDbParamsVec)
+                    this.AdditionalOracleDbParamsVec.SequenceEqual(input.AdditionalOracleDbParamsVec)
                 ) && 
                 (
                     this.PersistMountpoints == input.PersistMountpoints ||

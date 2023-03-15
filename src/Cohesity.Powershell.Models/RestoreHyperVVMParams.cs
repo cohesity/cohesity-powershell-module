@@ -36,6 +36,8 @@ namespace Cohesity.Model
         public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? useSmbService = default(bool?), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
             this.CopyRecovery = copyRecovery;
+            this.UseSmbService = useSmbService;
+            this.CopyRecovery = copyRecovery;
             this.DatastoreEntity = datastoreEntity;
             this.PowerStateConfig = powerStateConfig;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;

@@ -72,6 +72,30 @@ namespace Cohesity.Model
             this.Speed = speed;
             this.StaticIp = staticIp;
             this.StaticIp6 = staticIp6;
+            this.Subnet = subnet;
+            this.Subnet6 = subnet6;
+            this.Type = type;
+            this.VirtualIp = virtualIp;
+            this.ActiveBondSlave = activeBondSlave;
+            this.BondSlaveSlotTypes = bondSlaveSlotTypes;
+            this.BondSlaves = bondSlaves;
+            this.BondSlavesDetails = bondSlavesDetails;
+            this.BondingMode = bondingMode;
+            this.Gateway = gateway;
+            this.Gateway6 = gateway6;
+            this.Group = group;
+            this.Id = id;
+            this.IsConnected = isConnected;
+            this.IsDefaultRoute = isDefaultRoute;
+            this.IsUp = isUp;
+            this.MacAddress = macAddress;
+            this.Mtu = mtu;
+            this.Name = name;
+            this.Role = role;
+            this.Services = services;
+            this.Speed = speed;
+            this.StaticIp = staticIp;
+            this.StaticIp6 = staticIp6;
             this.Stats = stats;
             this.Subnet = subnet;
             this.Subnet6 = subnet6;
@@ -298,19 +322,19 @@ namespace Cohesity.Model
                     this.BondSlaveSlotTypes == input.BondSlaveSlotTypes ||
                     this.BondSlaveSlotTypes != null &&
                     input.BondSlaveSlotTypes != null &&
-                    this.BondSlaveSlotTypes.Equals(input.BondSlaveSlotTypes)
+                    this.BondSlaveSlotTypes.SequenceEqual(input.BondSlaveSlotTypes)
                 ) && 
                 (
                     this.BondSlaves == input.BondSlaves ||
                     this.BondSlaves != null &&
                     input.BondSlaves != null &&
-                    this.BondSlaves.Equals(input.BondSlaves)
+                    this.BondSlaves.SequenceEqual(input.BondSlaves)
                 ) && 
                 (
                     this.BondSlavesDetails == input.BondSlavesDetails ||
                     this.BondSlavesDetails != null &&
                     input.BondSlavesDetails != null &&
-                    this.BondSlavesDetails.Equals(input.BondSlavesDetails)
+                    this.BondSlavesDetails.SequenceEqual(input.BondSlavesDetails)
                 ) && 
                 (
                     this.BondingMode == input.BondingMode ||
@@ -376,7 +400,7 @@ namespace Cohesity.Model
                     this.Services == input.Services ||
                     this.Services != null &&
                     input.Services != null &&
-                    this.Services.Equals(input.Services)
+                    this.Services.SequenceEqual(input.Services)
                 ) && 
                 (
                     this.Speed == input.Speed ||

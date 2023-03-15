@@ -119,7 +119,7 @@ namespace Cohesity.Model
                     this.StatementVec == input.StatementVec ||
                     this.StatementVec != null &&
                     input.StatementVec != null &&
-                    this.StatementVec.Equals(input.StatementVec)
+                    this.StatementVec.SequenceEqual(input.StatementVec)
                 ) && 
                 (
                     this.Version == input.Version ||

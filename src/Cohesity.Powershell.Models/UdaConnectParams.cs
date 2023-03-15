@@ -63,7 +63,13 @@ namespace Cohesity.Model
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 6
+            KOther = 6,
+
+            /// <summary>
+            /// Enum KHPUX for value: kHPUX
+            /// </summary>
+            [EnumMember(Value = "kHPUX")]
+            KHPUX = 7
 
         }
 
@@ -243,7 +249,7 @@ namespace Cohesity.Model
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
                     input.Hosts != null &&
-                    this.Hosts.Equals(input.Hosts)
+                    this.Hosts.SequenceEqual(input.Hosts)
                 ) && 
                 (
                     this.LiveDataView == input.LiveDataView ||
@@ -279,7 +285,7 @@ namespace Cohesity.Model
                     this.SourceRegistrationArguments == input.SourceRegistrationArguments ||
                     this.SourceRegistrationArguments != null &&
                     input.SourceRegistrationArguments != null &&
-                    this.SourceRegistrationArguments.Equals(input.SourceRegistrationArguments)
+                    this.SourceRegistrationArguments.SequenceEqual(input.SourceRegistrationArguments)
                 ) && 
                 (
                     this.SourceType == input.SourceType ||

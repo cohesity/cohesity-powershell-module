@@ -132,7 +132,7 @@ namespace Cohesity.Model
                     this.ExchangeHostInfoList == input.ExchangeHostInfoList ||
                     this.ExchangeHostInfoList != null &&
                     input.ExchangeHostInfoList != null &&
-                    this.ExchangeHostInfoList.Equals(input.ExchangeHostInfoList)
+                    this.ExchangeHostInfoList.SequenceEqual(input.ExchangeHostInfoList)
                 ) && 
                 (
                     this.Guid == input.Guid ||

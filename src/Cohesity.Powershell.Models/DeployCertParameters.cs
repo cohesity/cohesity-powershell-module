@@ -140,7 +140,7 @@ namespace Cohesity.Model
                     this.HostsInfoList == input.HostsInfoList ||
                     this.HostsInfoList != null &&
                     input.HostsInfoList != null &&
-                    this.HostsInfoList.Equals(input.HostsInfoList)
+                    this.HostsInfoList.SequenceEqual(input.HostsInfoList)
                 ) && 
                 (
                     this.Type == input.Type ||

@@ -82,6 +82,11 @@ namespace Cohesity.Model
             this.ObjectClass = objectClass;
             this.PrincipalName = principalName;
             this.Sid = sid;
+            this.Domain = domain;
+            this.FullName = fullName;
+            this.ObjectClass = objectClass;
+            this.PrincipalName = principalName;
+            this.Sid = sid;
         }
         
         /// <summary>

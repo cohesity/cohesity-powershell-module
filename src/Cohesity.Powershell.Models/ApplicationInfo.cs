@@ -303,12 +303,8 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
+            KO365PublicFolders = 46
 
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
         }
 
         /// <summary>
@@ -377,7 +373,7 @@ namespace Cohesity.Model
                     this.ApplicationTreeInfo == input.ApplicationTreeInfo ||
                     this.ApplicationTreeInfo != null &&
                     input.ApplicationTreeInfo != null &&
-                    this.ApplicationTreeInfo.Equals(input.ApplicationTreeInfo)
+                    this.ApplicationTreeInfo.SequenceEqual(input.ApplicationTreeInfo)
                 ) && 
                 (
                     this.Environment == input.Environment ||

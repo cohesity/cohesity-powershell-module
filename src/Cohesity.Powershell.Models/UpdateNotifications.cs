@@ -94,7 +94,7 @@ namespace Cohesity.Model
                     this.NotificationIds == input.NotificationIds ||
                     this.NotificationIds != null &&
                     input.NotificationIds != null &&
-                    this.NotificationIds.Equals(input.NotificationIds)
+                    this.NotificationIds.SequenceEqual(input.NotificationIds)
                 );
         }
 

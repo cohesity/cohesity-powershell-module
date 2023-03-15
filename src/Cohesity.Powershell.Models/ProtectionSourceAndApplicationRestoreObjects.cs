@@ -101,7 +101,7 @@ namespace Cohesity.Model
                     this.ApplicationRestoreObjects == input.ApplicationRestoreObjects ||
                     this.ApplicationRestoreObjects != null &&
                     input.ApplicationRestoreObjects != null &&
-                    this.ApplicationRestoreObjects.Equals(input.ApplicationRestoreObjects)
+                    this.ApplicationRestoreObjects.SequenceEqual(input.ApplicationRestoreObjects)
                 ) && 
                 (
                     this.HostingProtectionSource == input.HostingProtectionSource ||

@@ -114,7 +114,7 @@ namespace Cohesity.Model
                     this.InstalledOnNodes == input.InstalledOnNodes ||
                     this.InstalledOnNodes != null &&
                     input.InstalledOnNodes != null &&
-                    this.InstalledOnNodes.Equals(input.InstalledOnNodes)
+                    this.InstalledOnNodes.SequenceEqual(input.InstalledOnNodes)
                 ) && 
                 (
                     this.PackageName == input.PackageName ||

@@ -51,6 +51,25 @@ namespace Cohesity.Model
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
             this.AutoRegistration = autoRegistration;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.CompressionEnabled = compressionEnabled;
+            this.Description = description;
+            this.EncryptionKey = encryptionKey;
+            this.Name = name;
+            this.NetworkInterface = networkInterface;
+            this.Password = password;
+            this.PurposeRemoteAccess = purposeRemoteAccess;
+            this.PurposeReplication = purposeReplication;
+            this.RemoteIps = remoteIps;
+            this.RemoteIrisPorts = remoteIrisPorts;
+            this.ReverseRegisted = reverseRegisted;
+            this.UserName = userName;
+            this.ValidateOnly = validateOnly;
+            this.ViewBoxPairInfo = viewBoxPairInfo;
+            this.AllEndpointsReachable = allEndpointsReachable;
+            this.AutoRegisterTarget = autoRegisterTarget;
+            this.AutoRegistration = autoRegistration;
             this.BandwidthLimit = bandwidthLimit;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
@@ -331,13 +350,13 @@ namespace Cohesity.Model
                     this.RemoteIps == input.RemoteIps ||
                     this.RemoteIps != null &&
                     input.RemoteIps != null &&
-                    this.RemoteIps.Equals(input.RemoteIps)
+                    this.RemoteIps.SequenceEqual(input.RemoteIps)
                 ) && 
                 (
                     this.RemoteIrisPorts == input.RemoteIrisPorts ||
                     this.RemoteIrisPorts != null &&
                     input.RemoteIrisPorts != null &&
-                    this.RemoteIrisPorts.Equals(input.RemoteIrisPorts)
+                    this.RemoteIrisPorts.SequenceEqual(input.RemoteIrisPorts)
                 ) && 
                 (
                     this.ReverseRegisted == input.ReverseRegisted ||
@@ -358,7 +377,7 @@ namespace Cohesity.Model
                     this.ViewBoxPairInfo == input.ViewBoxPairInfo ||
                     this.ViewBoxPairInfo != null &&
                     input.ViewBoxPairInfo != null &&
-                    this.ViewBoxPairInfo.Equals(input.ViewBoxPairInfo)
+                    this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
                 );
         }
 

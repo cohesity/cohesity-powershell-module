@@ -45,6 +45,15 @@ namespace Cohesity.Model
             this.TotalCapacityBytes = totalCapacityBytes;
             this.ViewBackupLogicalUsageBytes = viewBackupLogicalUsageBytes;
             this.ViewBackupPhysicalUsageBytes = viewBackupPhysicalUsageBytes;
+            this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
+            this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
+            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
+            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
+            this.LocalAvailableBytes = localAvailableBytes;
+            this.LocalUsageBytes = localUsageBytes;
+            this.TotalCapacityBytes = totalCapacityBytes;
+            this.ViewBackupLogicalUsageBytes = viewBackupLogicalUsageBytes;
+            this.ViewBackupPhysicalUsageBytes = viewBackupPhysicalUsageBytes;
         }
         
         /// <summary>

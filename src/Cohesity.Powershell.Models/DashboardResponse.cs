@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.Dashboards == input.Dashboards ||
                     this.Dashboards != null &&
                     input.Dashboards != null &&
-                    this.Dashboards.Equals(input.Dashboards)
+                    this.Dashboards.SequenceEqual(input.Dashboards)
                 );
         }
 

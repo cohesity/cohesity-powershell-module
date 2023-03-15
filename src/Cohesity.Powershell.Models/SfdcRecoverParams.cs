@@ -78,7 +78,7 @@ namespace Cohesity.Model
                     this.RestoreObjects == input.RestoreObjects ||
                     this.RestoreObjects != null &&
                     input.RestoreObjects != null &&
-                    this.RestoreObjects.Equals(input.RestoreObjects)
+                    this.RestoreObjects.SequenceEqual(input.RestoreObjects)
                 );
         }
 

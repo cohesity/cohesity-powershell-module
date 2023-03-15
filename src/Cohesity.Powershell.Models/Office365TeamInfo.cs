@@ -104,7 +104,7 @@ namespace Cohesity.Model
                     this.Channels == input.Channels ||
                     this.Channels != null &&
                     input.Channels != null &&
-                    this.Channels.Equals(input.Channels)
+                    this.Channels.SequenceEqual(input.Channels)
                 ) && 
                 (
                     this.MembersCount == input.MembersCount ||

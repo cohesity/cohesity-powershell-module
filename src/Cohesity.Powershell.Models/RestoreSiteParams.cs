@@ -33,6 +33,7 @@ namespace Cohesity.Model
         /// <param name="restoreToOriginal">Whether or not all sites are restored to original location..</param>
         /// <param name="siteOwnerVec">The list of sites whose drives are being restored..</param>
         /// <param name="siteResult">siteResult.</param>
+        /// <param name="siteVersion">Versions for site restores. There can be incompatible changes across process restarts or across restores. To avoid issues, maintain a version for restore..</param>
         /// <param name="snapFsRelativeSiteBackupResultPath">SnapFS relative path where the site template backup result proto is stored..</param>
         /// <param name="snapFsRelativeTemplatePath">SnapFS relative path where the template data is stored..</param>
         /// <param name="sourceSiteName">Entity name of source site in case of sharepoint restore..</param>
@@ -42,7 +43,7 @@ namespace Cohesity.Model
         /// <param name="targetDocLibPrefix">If alternate site is provided, customer may want to provide a custom prefix to document libraries that we create. In any case we would also have to distinguish the newly created document library as the alternate site provided by the customer may as well turn out to be the original backup site..</param>
         /// <param name="targetFolderPathPrefix">Target folder path prefix for granular restore. This is set in case of teams or groups restore..</param>
         /// <param name="targetSite">targetSite.</param>
-        public RestoreSiteParams(string dstSiteName = default(string), string dstSiteUuid = default(string), string dstSiteWebUrl = default(string), string parentSourceSharepointDomainName = default(string), bool? restoreTemplate = default(bool?), bool? restoreToOriginal = default(bool?), List<RestoreSiteParamsSiteOwner> siteOwnerVec = default(List<RestoreSiteParamsSiteOwner>), SiteBackupStatus siteResult = default(SiteBackupStatus), string snapFsRelativeSiteBackupResultPath = default(string), string snapFsRelativeTemplatePath = default(string), string sourceSiteName = default(string), string sourceSiteUuid = default(string), string sourceWebUrl = default(string), string targetDocLibName = default(string), string targetDocLibPrefix = default(string), string targetFolderPathPrefix = default(string), EntityProto targetSite = default(EntityProto))
+        public RestoreSiteParams(string dstSiteName = default(string), string dstSiteUuid = default(string), string dstSiteWebUrl = default(string), string parentSourceSharepointDomainName = default(string), bool? restoreTemplate = default(bool?), bool? restoreToOriginal = default(bool?), List<RestoreSiteParamsSiteOwner> siteOwnerVec = default(List<RestoreSiteParamsSiteOwner>), SiteBackupStatus siteResult = default(SiteBackupStatus), int? siteVersion = default(int?), string snapFsRelativeSiteBackupResultPath = default(string), string snapFsRelativeTemplatePath = default(string), string sourceSiteName = default(string), string sourceSiteUuid = default(string), string sourceWebUrl = default(string), string targetDocLibName = default(string), string targetDocLibPrefix = default(string), string targetFolderPathPrefix = default(string), EntityProto targetSite = default(EntityProto))
         {
             this.DstSiteName = dstSiteName;
             this.DstSiteUuid = dstSiteUuid;
@@ -51,6 +52,7 @@ namespace Cohesity.Model
             this.RestoreTemplate = restoreTemplate;
             this.RestoreToOriginal = restoreToOriginal;
             this.SiteOwnerVec = siteOwnerVec;
+            this.SiteVersion = siteVersion;
             this.SnapFsRelativeSiteBackupResultPath = snapFsRelativeSiteBackupResultPath;
             this.SnapFsRelativeTemplatePath = snapFsRelativeTemplatePath;
             this.SourceSiteName = sourceSiteName;
@@ -67,6 +69,7 @@ namespace Cohesity.Model
             this.RestoreToOriginal = restoreToOriginal;
             this.SiteOwnerVec = siteOwnerVec;
             this.SiteResult = siteResult;
+            this.SiteVersion = siteVersion;
             this.SnapFsRelativeSiteBackupResultPath = snapFsRelativeSiteBackupResultPath;
             this.SnapFsRelativeTemplatePath = snapFsRelativeTemplatePath;
             this.SourceSiteName = sourceSiteName;
@@ -132,6 +135,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="siteResult", EmitDefaultValue=false)]
         public SiteBackupStatus SiteResult { get; set; }
+
+        /// <summary>
+        /// Versions for site restores. There can be incompatible changes across process restarts or across restores. To avoid issues, maintain a version for restore.
+        /// </summary>
+        /// <value>Versions for site restores. There can be incompatible changes across process restarts or across restores. To avoid issues, maintain a version for restore.</value>
+        [DataMember(Name="siteVersion", EmitDefaultValue=true)]
+        public int? SiteVersion { get; set; }
 
         /// <summary>
         /// SnapFS relative path where the site template backup result proto is stored.
@@ -265,12 +275,17 @@ namespace Cohesity.Model
                     this.SiteOwnerVec == input.SiteOwnerVec ||
                     this.SiteOwnerVec != null &&
                     input.SiteOwnerVec != null &&
-                    this.SiteOwnerVec.Equals(input.SiteOwnerVec)
+                    this.SiteOwnerVec.SequenceEqual(input.SiteOwnerVec)
                 ) && 
                 (
                     this.SiteResult == input.SiteResult ||
                     (this.SiteResult != null &&
                     this.SiteResult.Equals(input.SiteResult))
+                ) && 
+                (
+                    this.SiteVersion == input.SiteVersion ||
+                    (this.SiteVersion != null &&
+                    this.SiteVersion.Equals(input.SiteVersion))
                 ) && 
                 (
                     this.SnapFsRelativeSiteBackupResultPath == input.SnapFsRelativeSiteBackupResultPath ||
@@ -344,6 +359,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SiteOwnerVec.GetHashCode();
                 if (this.SiteResult != null)
                     hashCode = hashCode * 59 + this.SiteResult.GetHashCode();
+                if (this.SiteVersion != null)
+                    hashCode = hashCode * 59 + this.SiteVersion.GetHashCode();
                 if (this.SnapFsRelativeSiteBackupResultPath != null)
                     hashCode = hashCode * 59 + this.SnapFsRelativeSiteBackupResultPath.GetHashCode();
                 if (this.SnapFsRelativeTemplatePath != null)

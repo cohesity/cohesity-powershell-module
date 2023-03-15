@@ -35,6 +35,10 @@ namespace Cohesity.Model
             this.EnableHardwareEncryption = enableHardwareEncryption;
             this.EnableSoftwareEncryption = enableSoftwareEncryption;
             this.RotationPeriod = rotationPeriod;
+            this.EnableFipsMode = enableFipsMode;
+            this.EnableHardwareEncryption = enableHardwareEncryption;
+            this.EnableSoftwareEncryption = enableSoftwareEncryption;
+            this.RotationPeriod = rotationPeriod;
         }
         
         /// <summary>

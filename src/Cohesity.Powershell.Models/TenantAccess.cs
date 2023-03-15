@@ -209,7 +209,7 @@ namespace Cohesity.Model
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
                     input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -250,7 +250,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

@@ -34,6 +34,9 @@ namespace Cohesity.Model
             this.CopyStatus = copyStatus;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.Message = message;
+            this.CopyStatus = copyStatus;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
+            this.Message = message;
             this.SnapshotTarget = snapshotTarget;
         }
         

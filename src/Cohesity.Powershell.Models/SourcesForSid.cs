@@ -33,6 +33,9 @@ namespace Cohesity.Model
             this.ProtectionSources = protectionSources;
             this.Sid = sid;
             this.Views = views;
+            this.ProtectionSources = protectionSources;
+            this.Sid = sid;
+            this.Views = views;
         }
         
         /// <summary>
@@ -96,7 +99,7 @@ namespace Cohesity.Model
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
                     input.ProtectionSources != null &&
-                    this.ProtectionSources.Equals(input.ProtectionSources)
+                    this.ProtectionSources.SequenceEqual(input.ProtectionSources)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -107,7 +110,7 @@ namespace Cohesity.Model
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.Equals(input.Views)
+                    this.Views.SequenceEqual(input.Views)
                 );
         }
 

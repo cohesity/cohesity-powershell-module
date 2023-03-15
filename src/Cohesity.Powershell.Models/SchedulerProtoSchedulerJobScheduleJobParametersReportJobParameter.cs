@@ -89,13 +89,13 @@ namespace Cohesity.Model
                     this.ReceiverEmails == input.ReceiverEmails ||
                     this.ReceiverEmails != null &&
                     input.ReceiverEmails != null &&
-                    this.ReceiverEmails.Equals(input.ReceiverEmails)
+                    this.ReceiverEmails.SequenceEqual(input.ReceiverEmails)
                 ) && 
                 (
                     this.Reports == input.Reports ||
                     this.Reports != null &&
                     input.Reports != null &&
-                    this.Reports.Equals(input.Reports)
+                    this.Reports.SequenceEqual(input.Reports)
                 );
         }
 

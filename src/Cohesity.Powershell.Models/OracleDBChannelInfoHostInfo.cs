@@ -34,6 +34,9 @@ namespace Cohesity.Model
             this.Host = host;
             this.NumChannels = numChannels;
             this.Portnum = portnum;
+            this.Host = host;
+            this.NumChannels = numChannels;
+            this.Portnum = portnum;
             this.SbtHostParams = sbtHostParams;
         }
         

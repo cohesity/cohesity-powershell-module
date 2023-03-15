@@ -83,7 +83,7 @@ namespace Cohesity.Model
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
                     input.NodeIps != null &&
-                    this.NodeIps.Equals(input.NodeIps)
+                    this.NodeIps.SequenceEqual(input.NodeIps)
                 );
         }
 

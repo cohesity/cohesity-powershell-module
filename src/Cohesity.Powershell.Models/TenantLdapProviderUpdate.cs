@@ -89,7 +89,7 @@ namespace Cohesity.Model
                     this.LdapProviderIds == input.LdapProviderIds ||
                     this.LdapProviderIds != null &&
                     input.LdapProviderIds != null &&
-                    this.LdapProviderIds.Equals(input.LdapProviderIds)
+                    this.LdapProviderIds.SequenceEqual(input.LdapProviderIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
