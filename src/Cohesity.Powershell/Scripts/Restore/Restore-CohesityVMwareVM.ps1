@@ -58,6 +58,10 @@ function Restore-CohesityVMwareVM {
         # By default, the VM is powered off.
         [switch]$PoweredOn = $false,
         [Parameter(Mandatory = $false)]
+        # Specifies overwriting the existing VM with the restored VM.
+        # By default, the existing VM is not overwritten.
+        [switch]$overwriteExistingVm = $false,
+        [Parameter(Mandatory = $false)]
         # Specifies the datastore where the VM should be recovered.
         # This field is mandatory when recovering the VM to a different resource pool or to a different parent source such as vCenter.
         # If not specified, VM is recovered to its original datastore location in the parent source.
@@ -252,6 +256,7 @@ function Restore-CohesityVMwareVM {
                     disableNetwork = $DisableNetwork.IsPresent
                     networkId      = $NetworkId
                     poweredOn      = $PoweredOn.IsPresent
+                    overwriteExistingVm = $overwriteExistingVm.IsPresent
                     prefix         = $VmNamePrefix
                     resourcePoolId = $ResourcePoolId
                     suffix         = $VmNameSuffix
