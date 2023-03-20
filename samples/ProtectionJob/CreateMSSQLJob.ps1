@@ -38,5 +38,13 @@ $protectionJobObject.parentSourceId = $rootObject.Id
 $protectionJobObject.sourceSpecialParameters = New-Object 'System.Collections.Generic.List[Cohesity.Model.SourceSpecialParameter]'
 $protectionJobObject.sourceSpecialParameters.Add($sourceSpecialParam)
 
+$environmentParams = [Cohesity.Model.EnvironmentTypeJobParameters]::new()
+$sqlParameters = [Cohesity.Model.SqlEnvJobParameters]::new()
+$sqlParameters.isCopyOnlyFull = $true
+$sqlParameters.aagPreference = "kPrimaryReplicaOnly"
+$sqlParameters.backupType = "kSqlVSSVolume"
+$environmentParams.sqlParameters = $sqlParameters
+$protectionJobObject.environmentParameters = $environmentParams
+
 # use the generic protection job cmdlet to create an MSSQL protection job
 New-CohesityGenericProtectionJob -ProtectionJobObject $protectionJobObject -Confirm:$false

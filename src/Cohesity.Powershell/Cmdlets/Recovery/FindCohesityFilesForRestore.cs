@@ -119,6 +119,30 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// Specifies bool to control pagination of search results. Only valid for librarian queries. If this is set to true and a pagination cookie is provided, search will be resumed.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public bool? Paginate { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies pagesize for pagination. Only valid for librarian queries. Effective only when Paginate is set to true.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? PageSize { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies cookie for resuming search if pagination is being used. Only valid for librarian queries. Effective only when Paginate is set to true.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public string PaginationCookie { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Filter by a list of storage domain (view box) ids. Only items stored in the listed domains (view boxes) are returned.
         /// </para> 
         /// </summary>
@@ -180,13 +204,25 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (StorageDomainIds != null && StorageDomainIds.Any())
                 queries.Add("viewBoxIds", string.Join(",", StorageDomainIds));
 
+            if (Paginate != null && Paginate.HasValue)
+                queries.Add("paginate", Paginate.ToString());
+
+            if (PaginationCookie != null)
+                queries.Add("paginationCookie", PaginationCookie);
+
+            if (PageSize != null && PageSize.HasValue)
+                queries.Add("pageSize", PageSize.ToString());
+
             var queryString = string.Empty;
             if (queries.Any())
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var url = $"/public/restore/files{queryString}";
+            WriteObject(url);
             var result = Session.ApiClient.Get<FileSearchResults>(url);
             WriteObject(result.Files, true);
+            if (Paginate != null && Paginate.HasValue)
+                WriteObject("PaginationCookie:" + " " + result.PaginationCookie);
         }
 
         private bool IsValidTime(long? time)
