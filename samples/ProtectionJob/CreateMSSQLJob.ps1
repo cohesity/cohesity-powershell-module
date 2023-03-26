@@ -40,6 +40,11 @@ $protectionJobObject.sourceSpecialParameters.Add($sourceSpecialParam)
 
 $environmentParams = [Cohesity.Model.EnvironmentTypeJobParameters]::new()
 $sqlParameters = [Cohesity.Model.SqlEnvJobParameters]::new()
+$sqlParameters.userDatabasePreference = "kBackupAllDatabases"
+$sqlParameters.numStreams = 1
+$sqlParameters.backupSystemDatabases = $true
+$sqlParameters.backupType = "kSqlNative"
+$sqlParameters.withClause = ""
 $sqlParameters.isCopyOnlyFull = $true
 $sqlParameters.aagPreference = "kPrimaryReplicaOnly"
 $sqlParameters.backupType = "kSqlVSSVolume"

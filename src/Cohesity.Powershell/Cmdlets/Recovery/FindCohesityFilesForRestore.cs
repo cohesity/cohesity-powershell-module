@@ -24,6 +24,24 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Returns only the files and folders that match the search pattern "txt".
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PageSize 120
+    ///   </code>
+    ///   <para>
+    ///   Returns 120(pageSize) entries that match the search pattern "txt". Pagination Cookie in the response can be used to fetch next list of entries.
+    ///   </para>
+    /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PaginationCookie rrrgcrsgre -PageSize 200
+    ///   </code>
+    ///   <para>
+    ///   Returns next set of entries that match the search pattern "txt" based on provided Pagiantion cookie.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Find, "CohesityFilesForRestore")]
     [OutputType(typeof(FileSearchResult))]
     public class FindCohesityFilesForRestore : PSCmdlet
