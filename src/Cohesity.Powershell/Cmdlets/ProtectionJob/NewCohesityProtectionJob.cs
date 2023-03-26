@@ -75,6 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the name of the protection policy associated with the protection job.
         /// </para>
         /// </summary>
+
         [Parameter(Mandatory = true, ParameterSetName = "CreateByName")]
         [ValidateNotNullOrEmpty()]
         public string PolicyName { get; set; }

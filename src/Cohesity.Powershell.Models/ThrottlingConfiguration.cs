@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="fixedThreshold">Fixed baseline threshold for throttling. This is mandatory for any other throttling type than kNoThrottling..</param>
         /// <param name="patternType">Type of the throttling pattern..</param>
         /// <param name="throttlingWindows">Throttling windows which will be applicable in case of pattern_type &#x3D; kScheduleBased..</param>
-        public ThrottlingConfiguration(long? fixedThreshold = default(long?), int? patternType = default(int?), List<ThrottlingWindow> throttlingWindows = default(List<ThrottlingWindow>))
+        public ThrottlingConfiguration(long? fixedThreshold = default(long?), string patternType = default(string), List<ThrottlingWindow> throttlingWindows = default(List<ThrottlingWindow>))
         {
             this.FixedThreshold = fixedThreshold;
             this.PatternType = patternType;
@@ -50,7 +50,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Type of the throttling pattern.</value>
         [DataMember(Name="patternType", EmitDefaultValue=true)]
-        public int? PatternType { get; set; }
+        public string PatternType { get; set; }
 
         /// <summary>
         /// Throttling windows which will be applicable in case of pattern_type &#x3D; kScheduleBased.
