@@ -35,7 +35,7 @@ function Get-CohesityAgentStatus {
 
         foreach ($agent in $agents){
             if ($agent.healthStatus -eq "kUnHealthy"){
-                $agent | Add-Member -name error -Value $errors[$agent.hostIp] -MemberType NoteProperty
+                $agent | Add-Member -name errorStatus -Value $errors[$agent.hostIp] -MemberType NoteProperty
             }
         }
 
