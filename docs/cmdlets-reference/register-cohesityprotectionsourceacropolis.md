@@ -58,13 +58,13 @@ Accept wildcard characters: False
 Specifies entity type for acropolis.
 Recommend to use the default value 'KStandaloneCluster'.
 
-Possible values: KPrismCentral, KStandaloneCluster, KCluster, KHost, KVirtualMachine, KNetwork, KStorageContainer
+Possible values: KStandaloneCluster
 
 ```yaml
 Type: AcropolisTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KPrismCentral, KStandaloneCluster, KCluster, KHost, KVirtualMachine, KNetwork, KStorageContainer
+Accepted values: KStandaloneCluster
 
 Required: False
 Position: Named

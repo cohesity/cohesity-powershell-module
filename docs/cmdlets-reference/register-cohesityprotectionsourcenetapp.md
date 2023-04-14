@@ -58,13 +58,13 @@ Accept wildcard characters: False
 Type of NetApp server.
 Must be set to KCluster or KVserver.
 
-Possible values: KCluster, KVserver, KVolume
+Possible values: KCluster, KVserver
 
 ```yaml
 Type: NetappTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KCluster, KVserver, KVolume
+Accepted values: KCluster, KVserver
 
 Required: True
 Position: Named

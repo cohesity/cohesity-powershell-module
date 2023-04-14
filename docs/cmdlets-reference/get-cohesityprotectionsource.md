@@ -6,7 +6,8 @@ Gets a list of the registered protection sources filtered by the specified param
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSource [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [[-Name] <String>] [<CommonParameters>]
+Get-CohesityProtectionSource [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [[-Name] <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,7 +46,7 @@ For example, set this parameter to 'kVMware' to only return the VMware sources.
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KVCD
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
 
 Required: False
 Position: 1
@@ -70,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-Return only the protection source that matches the specified name.
+Return only the protection source that matches the sepecified object name.
 
 ```yaml
 Type: String

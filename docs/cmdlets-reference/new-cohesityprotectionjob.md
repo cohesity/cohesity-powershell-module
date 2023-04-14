@@ -39,13 +39,6 @@ New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -
 
 Creates a protection job for protecting a Cohesity View.
 
-### EXAMPLE 2
-```
-New-CohesityProtectionJob -Name 'Test-Job-VMware' -Description 'Protects a VM' -PolicyName Bronze -Environment kVMware -SourceIds 123 -ParentSourceId 1 -StorageDomainName DefaultStorageDomain -AlertOn KFailure,KSuccess -EmailAddress abc@gmail.com -PauseFutureRuns
-```
-
-Creates a protection job for protecting a VM with specified settings.
-
 ## PARAMETERS
 
 ### -Name
@@ -211,7 +204,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 12/12/2022 7:17:04 PM
+Default value: 4/14/2023 5:12:13 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -297,13 +290,13 @@ Accept wildcard characters: False
 Specifies the environment that this job is protecting.
 Default is kView.
 
-Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders, KAWSSnapshotManager, KVCD
+Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders, KAWSSnapshotManager, KVCD
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
 
 Required: False
 Position: Named

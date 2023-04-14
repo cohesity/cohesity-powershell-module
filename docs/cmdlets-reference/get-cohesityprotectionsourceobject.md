@@ -102,7 +102,7 @@ For example, set this parameter to 'kVMware' to only return the Sources (and the
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KVCD
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
 
 Required: False
 Position: 1

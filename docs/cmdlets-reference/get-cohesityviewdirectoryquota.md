@@ -6,7 +6,7 @@ Request to fetch directory quota for a view filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityViewDirectoryQuota [[-ViewName] <String>] [<CommonParameters>]
+Get-CohesityViewDirectoryQuota [[-ViewName] <String>] [[-PageCount] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,6 +23,8 @@ Get-CohesityViewDirectoryQuota -ViewName view1
 ```
 Get-CohesityViewDirectoryQuota -ViewName view1 -PageCount 10
 ```
+
+Returns only specified count of view directory quota for each rest api call
 
 ## PARAMETERS
 
@@ -42,10 +44,10 @@ Accept wildcard characters: False
 ```
 
 ### -PageCount
-Specifies the number of view directory quota need to be returned while calling rest api
+Specifies number of views to be returned in each api call
 
 ```yaml
-Type: Integer
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

@@ -1,16 +1,16 @@
 # Get-CohesityAgentStatus
 
 ## SYNOPSIS
-Gets a list of the agent status of physical servers.
+Get all agent status in a table view.
 
 ## SYNTAX
 
 ```
-Get-CohesityAgentStatus [<CommonParameters>]
+Get-CohesityAgentStatus
 ```
 
 ## DESCRIPTION
-Gets a list of the agent status of physical servers.
+Get all agent status in a table view.
 
 ## EXAMPLES
 
@@ -19,19 +19,14 @@ Gets a list of the agent status of physical servers.
 Get-CohesityAgentStatus
 ```
 
-Returns the agent status of physcial servers.
-The attributes authenticationErrorMessage and refreshErrorMessage would provide the error messages.
+Get all agent status.
 
 ## PARAMETERS
-
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
-### System.Array
 ## NOTES
 Published by Cohesity
 
