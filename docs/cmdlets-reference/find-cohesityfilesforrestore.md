@@ -8,8 +8,7 @@ Finds a list of files and folders for restore based on the specified parameters.
 ```
 Find-CohesityFilesForRestore [-Environments <EnvironmentEnum[]>] [-FolderOnly <Boolean>] [-Search <String>]
  [-StartTime <Int64>] [-EndTime <Int64>] [-JobIds <Int64[]>] [-SourceIds <Int64[]>]
- [-RegisteredSourceIds <Int64[]>] [-Paginate <Boolean>] [-PageSize <Int64>] [-PaginationCookie <String>]
- [-StorageDomainIds <Int64[]>] [<CommonParameters>]
+ [-RegisteredSourceIds <Int64[]>] [-StorageDomainIds <Int64[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,21 +22,6 @@ Find-CohesityFilesForRestore -Search "*txt"
 ```
 
 Returns only the files and folders that match the search pattern "txt".
-
-### EXAMPLE 2
-```
-Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PageSize 120
-```
-
-Returns 120(pageSize) entries that match the search pattern "txt".
-Pagination Cookie in the response can be used to fetch next list of entries.
-
-### EXAMPLE 3
-```
-Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PaginationCookie rrrgcrsgre -PageSize 200
-```
-
-Returns next set of entries that match the search pattern "txt" based on provided Pagiantion cookie.
 
 ## PARAMETERS
 
@@ -163,57 +147,6 @@ Only items from the listed registered sources are returned.
 
 ```yaml
 Type: Int64[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Paginate
-Specifies bool to control pagination of search results.
-Only valid for librarian queries.
-If this is set to true and a pagination cookie is provided, search will be resumed.
-
-```yaml
-Type: Boolean
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PageSize
-Specifies pagesize for pagination.
-Only valid for librarian queries.
-Effective only when Paginate is set to true.
-
-```yaml
-Type: Int64
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PaginationCookie
-Specifies cookie for resuming search if pagination is being used.
-Only valid for librarian queries.
-Effective only when Paginate is set to true.
-
-```yaml
-Type: String
 Parameter Sets: (All)
 Aliases:
 

@@ -53,26 +53,12 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1"
 
 ### EXAMPLE 4
 ```
-Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "LOCAL\user1@tenant1", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
-```
-
-Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1" in the tenant "tenant1".
-
-### EXAMPLE 5
-```
-Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sNsZuuvambLmrGO4XASUe+sIxeWpiv8udWXRAxVcOkk="
-```
-
-Connects to a Cohesity Cluster at the address "192.168.1.100" using the sessionId.
-
-### EXAMPLE 6
-```
-Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-0000000000000"
+Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-000000000000"
 ```
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
 
-### EXAMPLE 7
+### EXAMPLE 5
 ```
 Connect-CohesityCluster -Server 192.168.1.100 -UseMFA -OtpType Email
 ```
