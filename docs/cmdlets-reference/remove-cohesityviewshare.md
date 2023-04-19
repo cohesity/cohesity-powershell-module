@@ -10,7 +10,7 @@ Remove-CohesityViewShare -ShareName <String> [-WhatIf] [-Confirm] [<CommonParame
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Returns success if the Share is deleted.
 
 ## EXAMPLES
 
