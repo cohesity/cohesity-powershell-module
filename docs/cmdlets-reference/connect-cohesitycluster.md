@@ -60,7 +60,7 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key 
 
 ### EXAMPLE 5
 ```
-Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sNsZuuvambLmrGO4XASUe+sIxeWpiv8udWXRAxVcOkk="
+Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sessionId"
 ```
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the Session Id.

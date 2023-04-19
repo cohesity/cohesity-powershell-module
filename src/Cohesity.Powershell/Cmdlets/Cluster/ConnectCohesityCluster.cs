@@ -58,7 +58,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sNsZuuvambLmrGO4XASUe+sIxeWpiv8udWXRAxVcOkk="
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sessionId"
     ///   </code>
     ///   <para>
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the Session Id.
