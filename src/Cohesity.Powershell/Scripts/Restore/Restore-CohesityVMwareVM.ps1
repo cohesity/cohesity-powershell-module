@@ -83,11 +83,7 @@ function Restore-CohesityVMwareVM {
         [Parameter(Mandatory = $false)]
         # Specifies a new parent source such as vCenter to recover the VM.
         # If not specified, the VM is recovered to its original parent source.
-        $NewParentId,
-        [Parameter(Mandatory = $false)]
-        # Specifies the whether to overwrite the existing VM.
-        # By default, the Recovered VM is not overwritten.
-        [switch]$overwriteExistingVm = $false
+        $NewParentId
     )
     Begin {
     }
@@ -265,7 +261,6 @@ function Restore-CohesityVMwareVM {
                     resourcePoolId = $ResourcePoolId
                     suffix         = $VmNameSuffix
                     vmFolderId     = $VmFolderId
-                    overwriteExistingVm = $overwriteExistingVm.IsPresent
                 }
                 newParentId      = $NewParentId
             }
