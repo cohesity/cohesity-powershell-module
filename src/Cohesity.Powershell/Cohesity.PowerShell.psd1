@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.dll'
 
 # Version number of this module.
-ModuleVersion = '1.8.5'
+ModuleVersion = '1.8.6'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -50,7 +50,7 @@ PowerShellVersion = '5.1'
 # RequiredModules = @('Newtonsoft.Json.dll')
 
 # Assemblies that must be loaded prior to importing this module
- RequiredAssemblies = @('TimeZoneConverter.dll')
+# RequiredAssemblies = @('TimeZoneConverter.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()

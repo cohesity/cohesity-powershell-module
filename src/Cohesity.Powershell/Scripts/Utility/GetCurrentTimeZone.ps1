@@ -11,7 +11,9 @@ function GetCurrentTimeZone {
         if ($itsWindows) {
             # need to convert the time zone for windows (for consistency)
             # Ref : https://devblogs.microsoft.com/dotnet/cross-platform-time-zones-with-net-core/
-            $standardTZ = [TimeZoneConverter.TZConvert]::WindowsToIana($standardTZ)
+            # $standardTZ = [TimeZoneConverter.TZConvert]::WindowsToIana($standardTZ)
+            $tz = get-content timezone_mapping.json | ConvertFrom-Json
+            $standardTZ = $tz.$standardTZ
         }
         $timeZone = $standardTZ
     }
