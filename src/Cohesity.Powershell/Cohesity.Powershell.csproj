@@ -10,7 +10,6 @@
       $(BuildDependsOn);
       CopyCmdletDoc;
 	  CopyNLog;
-	  <!--CopyTimeZoneConverter;-->
     </BuildDependsOn>
 
     <Authors>Cohesity</Authors>
@@ -83,7 +82,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="NLog" Version="4.7.9" />
-	<!--<PackageReference Include="TimeZoneConverter" Version="3.5.0" />-->
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
@@ -127,9 +125,4 @@
   <Target Name="CopyNLog" AfterTargets="Build">
     <Copy SourceFiles="$(net451Target)\NLog.dll" DestinationFiles="$(netcoreapp20Target)\NLog.dll" ContinueOnError="false" />
   </Target>
-  <!--
-  <Target Name="CopyTimeZoneConverter" AfterTargets="Build">
-    <Copy SourceFiles="$(net451Target)\TimeZoneConverter.dll" DestinationFiles="$(netcoreapp20Target)\TimeZoneConverter.dll" ContinueOnError="false" />
-  </Target>
-  -->
 </Project>
