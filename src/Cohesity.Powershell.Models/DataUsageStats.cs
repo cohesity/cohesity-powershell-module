@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -67,7 +65,8 @@ namespace Cohesity.Model
         /// <param name="totalLogicalUsageBytes">Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression..</param>
         /// <param name="totalLogicalUsageBytesTimestampUsec">Specifies Timestamp of TotalLogicalUsageBytes..</param>
         /// <param name="uniquePhysicalDataBytes">Specifies the unique physical data usage in bytes..</param>
-        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesPrev = default(long?), long? dataInBytesPrevTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesPrev = default(long?), long? dataWrittenBytesPrevTimestampUsec = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesPrev = default(long?), long? localTierResiliencyImpactBytesPrevTimestampUsec = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? numDirectories = default(long?), long? numDirectoriesPrev = default(long?), long? numFiles = default(long?), long? numFilesPrev = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesPrev = default(long?), long? storageConsumedBytesPrevTimestampUsec = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?))
+        /// <param name="uniquePhysicalDataBytesTimestampUsec">Specifies Timestamp of UniquePhysicalDataBytes..</param>
+        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesPrev = default(long?), long? dataInBytesPrevTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesPrev = default(long?), long? dataWrittenBytesPrevTimestampUsec = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesPrev = default(long?), long? localTierResiliencyImpactBytesPrevTimestampUsec = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? numDirectories = default(long?), long? numDirectoriesPrev = default(long?), long? numFiles = default(long?), long? numFilesPrev = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesPrev = default(long?), long? storageConsumedBytesPrevTimestampUsec = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?), long? uniquePhysicalDataBytesTimestampUsec = default(long?))
         {
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
@@ -111,6 +110,7 @@ namespace Cohesity.Model
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
             this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
             this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
+            this.UniquePhysicalDataBytesTimestampUsec = uniquePhysicalDataBytesTimestampUsec;
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
             this.CloudTotalPhysicalUsageBytes = cloudTotalPhysicalUsageBytes;
@@ -153,6 +153,7 @@ namespace Cohesity.Model
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
             this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
             this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
+            this.UniquePhysicalDataBytesTimestampUsec = uniquePhysicalDataBytesTimestampUsec;
         }
         
         /// <summary>
@@ -450,6 +451,13 @@ namespace Cohesity.Model
         public long? UniquePhysicalDataBytes { get; set; }
 
         /// <summary>
+        /// Specifies Timestamp of UniquePhysicalDataBytes.
+        /// </summary>
+        /// <value>Specifies Timestamp of UniquePhysicalDataBytes.</value>
+        [DataMember(Name="uniquePhysicalDataBytesTimestampUsec", EmitDefaultValue=true)]
+        public long? UniquePhysicalDataBytesTimestampUsec { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -694,6 +702,11 @@ namespace Cohesity.Model
                     this.UniquePhysicalDataBytes == input.UniquePhysicalDataBytes ||
                     (this.UniquePhysicalDataBytes != null &&
                     this.UniquePhysicalDataBytes.Equals(input.UniquePhysicalDataBytes))
+                ) && 
+                (
+                    this.UniquePhysicalDataBytesTimestampUsec == input.UniquePhysicalDataBytesTimestampUsec ||
+                    (this.UniquePhysicalDataBytesTimestampUsec != null &&
+                    this.UniquePhysicalDataBytesTimestampUsec.Equals(input.UniquePhysicalDataBytesTimestampUsec))
                 );
         }
 
@@ -790,6 +803,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TotalLogicalUsageBytesTimestampUsec.GetHashCode();
                 if (this.UniquePhysicalDataBytes != null)
                     hashCode = hashCode * 59 + this.UniquePhysicalDataBytes.GetHashCode();
+                if (this.UniquePhysicalDataBytesTimestampUsec != null)
+                    hashCode = hashCode * 59 + this.UniquePhysicalDataBytesTimestampUsec.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -27,6 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="attributesDescriptor">attributesDescriptor.</param>
         /// <param name="enableRollup">Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble..</param>
+        /// <param name="entitiesTimeToLiveSecs">Time to live for all entities for this schema. Entities will be deleted if no stats has been published for this TTL time..</param>
         /// <param name="flushIntervalSecs">Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats..</param>
         /// <param name="isInternalSchema">Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed..</param>
         /// <param name="largestFlushIntervalSecs">Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan..</param>
@@ -37,9 +36,10 @@ namespace Cohesity.Model
         /// <param name="timeSeriesDescriptorVec">Array of Time Series.  List of time series of data (set of data points) for metrics..</param>
         /// <param name="timeToLiveSecs">Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected..</param>
         /// <param name="version">Specifies the version of the entity schema..</param>
-        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? enableRollup = default(bool?), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), List<EntitySchemaProtoGranularity> rollupGranularityVec = default(List<EntitySchemaProtoGranularity>), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? timeToLiveSecs = default(long?), long? version = default(long?))
+        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? enableRollup = default(bool?), long? entitiesTimeToLiveSecs = default(long?), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), List<EntitySchemaProtoGranularity> rollupGranularityVec = default(List<EntitySchemaProtoGranularity>), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? timeToLiveSecs = default(long?), long? version = default(long?))
         {
             this.EnableRollup = enableRollup;
+            this.EntitiesTimeToLiveSecs = entitiesTimeToLiveSecs;
             this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
             this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
@@ -52,6 +52,7 @@ namespace Cohesity.Model
             this.Version = version;
             this.AttributesDescriptor = attributesDescriptor;
             this.EnableRollup = enableRollup;
+            this.EntitiesTimeToLiveSecs = entitiesTimeToLiveSecs;
             this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
             this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
@@ -76,6 +77,13 @@ namespace Cohesity.Model
         /// <value>Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble.</value>
         [DataMember(Name="enableRollup", EmitDefaultValue=true)]
         public bool? EnableRollup { get; set; }
+
+        /// <summary>
+        /// Time to live for all entities for this schema. Entities will be deleted if no stats has been published for this TTL time.
+        /// </summary>
+        /// <value>Time to live for all entities for this schema. Entities will be deleted if no stats has been published for this TTL time.</value>
+        [DataMember(Name="entitiesTimeToLiveSecs", EmitDefaultValue=true)]
+        public long? EntitiesTimeToLiveSecs { get; set; }
 
         /// <summary>
         /// Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.
@@ -193,6 +201,11 @@ namespace Cohesity.Model
                     this.EnableRollup.Equals(input.EnableRollup))
                 ) && 
                 (
+                    this.EntitiesTimeToLiveSecs == input.EntitiesTimeToLiveSecs ||
+                    (this.EntitiesTimeToLiveSecs != null &&
+                    this.EntitiesTimeToLiveSecs.Equals(input.EntitiesTimeToLiveSecs))
+                ) && 
+                (
                     this.FlushIntervalSecs == input.FlushIntervalSecs ||
                     (this.FlushIntervalSecs != null &&
                     this.FlushIntervalSecs.Equals(input.FlushIntervalSecs))
@@ -259,6 +272,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttributesDescriptor.GetHashCode();
                 if (this.EnableRollup != null)
                     hashCode = hashCode * 59 + this.EnableRollup.GetHashCode();
+                if (this.EntitiesTimeToLiveSecs != null)
+                    hashCode = hashCode * 59 + this.EntitiesTimeToLiveSecs.GetHashCode();
                 if (this.FlushIntervalSecs != null)
                     hashCode = hashCode * 59 + this.FlushIntervalSecs.GetHashCode();
                 if (this.IsInternalSchema != null)

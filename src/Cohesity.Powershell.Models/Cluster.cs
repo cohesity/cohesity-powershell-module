@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -205,6 +203,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Cluster" /> class.
         /// </summary>
+        /// <param name="aesEncryptionMode">Specifies the default AES Encryption mode on the cluster..</param>
         /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
         /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="assignedRacksCount">Specifies the number of racks in cluster with at least one rack assigned..</param>
@@ -240,6 +239,7 @@ namespace Cohesity.Model
         /// <param name="isAthenaSubnetClash">Specifies whether or not athena subnet is clashing with some other internal subnet.</param>
         /// <param name="isClusterMfaEnabled">Specifies if MFA is enabled on cluster..</param>
         /// <param name="isDocumentationLocal">Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help..</param>
+        /// <param name="isUpgradeAborted">Flag to indicate if the current upgrade has been aborted..</param>
         /// <param name="kmsServerId">Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster..</param>
         /// <param name="languageLocale">Specifies the language and locale for this Cohesity Cluster..</param>
         /// <param name="licenseState">Specifies the Licensing State information..</param>
@@ -258,10 +258,12 @@ namespace Cohesity.Model
         /// <param name="proxyVMSubnet">The subnet reserved for ProxyVM.</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
+        /// <param name="sataHddTierAdmissionControl">Specifies the admission control for cluster SATAHDD storage tier..</param>
         /// <param name="schemaInfoList">Specifies the time series schema info of the cluster..</param>
         /// <param name="securityModeDod">Specifies if Security Mode DOD is enabled or not..</param>
         /// <param name="smbAdDisabled">Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled..</param>
         /// <param name="smbMultichannelEnabled">Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server..</param>
+        /// <param name="splitKeyHostAccess">Specifies if split key host access is enabled..</param>
         /// <param name="stats">stats.</param>
         /// <param name="stigMode">TODO(mitch) StigMode is deprecated. Should it still be in this list??.</param>
         /// <param name="supportedConfig">supportedConfig.</param>
@@ -272,10 +274,12 @@ namespace Cohesity.Model
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="trustDomain">Trust Domain..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
+        /// <param name="upgradeFailureErrorString">Error string to capture why the upgrade failed..</param>
         /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
         /// <param name="usedMetadataSpacePct">UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata.</param>
-        public Cluster(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? hardwareEncryptionEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isAthenaSubnetClash = default(bool?), bool? isClusterMfaEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), int? minimumFailureDomainsNeeded = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string patchVersion = default(string), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), string trustDomain = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?), double? usedMetadataSpacePct = default(double?))
+        public Cluster(string aesEncryptionMode = default(string), AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? hardwareEncryptionEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isAthenaSubnetClash = default(bool?), bool? isClusterMfaEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), bool? isUpgradeAborted = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), int? minimumFailureDomainsNeeded = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string patchVersion = default(string), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), int? sataHddTierAdmissionControl = default(int?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? splitKeyHostAccess = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), string trustDomain = default(string), bool? turboMode = default(bool?), string upgradeFailureErrorString = default(string), bool? useHeimdall = default(bool?), double? usedMetadataSpacePct = default(double?))
         {
+            this.AesEncryptionMode = aesEncryptionMode;
             this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
             this.BannerEnabled = bannerEnabled;
@@ -306,6 +310,7 @@ namespace Cohesity.Model
             this.IsAthenaSubnetClash = isAthenaSubnetClash;
             this.IsClusterMfaEnabled = isClusterMfaEnabled;
             this.IsDocumentationLocal = isDocumentationLocal;
+            this.IsUpgradeAborted = isUpgradeAborted;
             this.KmsServerId = kmsServerId;
             this.LanguageLocale = languageLocale;
             this.LicenseState = licenseState;
@@ -323,10 +328,12 @@ namespace Cohesity.Model
             this.ProxyVMSubnet = proxyVMSubnet;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SchemaInfoList = schemaInfoList;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
             this.SmbMultichannelEnabled = smbMultichannelEnabled;
+            this.SplitKeyHostAccess = splitKeyHostAccess;
             this.StigMode = stigMode;
             this.SyslogServers = syslogServers;
             this.TargetSoftwareVersion = targetSoftwareVersion;
@@ -334,8 +341,10 @@ namespace Cohesity.Model
             this.Timezone = timezone;
             this.TrustDomain = trustDomain;
             this.TurboMode = turboMode;
+            this.UpgradeFailureErrorString = upgradeFailureErrorString;
             this.UseHeimdall = useHeimdall;
             this.UsedMetadataSpacePct = usedMetadataSpacePct;
+            this.AesEncryptionMode = aesEncryptionMode;
             this.AmqpTargetConfig = amqpTargetConfig;
             this.AppsSubnet = appsSubnet;
             this.AssignedRacksCount = assignedRacksCount;
@@ -371,6 +380,7 @@ namespace Cohesity.Model
             this.IsAthenaSubnetClash = isAthenaSubnetClash;
             this.IsClusterMfaEnabled = isClusterMfaEnabled;
             this.IsDocumentationLocal = isDocumentationLocal;
+            this.IsUpgradeAborted = isUpgradeAborted;
             this.KmsServerId = kmsServerId;
             this.LanguageLocale = languageLocale;
             this.LicenseState = licenseState;
@@ -389,10 +399,12 @@ namespace Cohesity.Model
             this.ProxyVMSubnet = proxyVMSubnet;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SchemaInfoList = schemaInfoList;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
             this.SmbMultichannelEnabled = smbMultichannelEnabled;
+            this.SplitKeyHostAccess = splitKeyHostAccess;
             this.Stats = stats;
             this.StigMode = stigMode;
             this.SupportedConfig = supportedConfig;
@@ -403,10 +415,18 @@ namespace Cohesity.Model
             this.Timezone = timezone;
             this.TrustDomain = trustDomain;
             this.TurboMode = turboMode;
+            this.UpgradeFailureErrorString = upgradeFailureErrorString;
             this.UseHeimdall = useHeimdall;
             this.UsedMetadataSpacePct = usedMetadataSpacePct;
         }
         
+        /// <summary>
+        /// Specifies the default AES Encryption mode on the cluster.
+        /// </summary>
+        /// <value>Specifies the default AES Encryption mode on the cluster.</value>
+        [DataMember(Name="aesEncryptionMode", EmitDefaultValue=true)]
+        public string AesEncryptionMode { get; set; }
+
         /// <summary>
         /// Gets or Sets AmqpTargetConfig
         /// </summary>
@@ -627,6 +647,13 @@ namespace Cohesity.Model
         public bool? IsDocumentationLocal { get; set; }
 
         /// <summary>
+        /// Flag to indicate if the current upgrade has been aborted.
+        /// </summary>
+        /// <value>Flag to indicate if the current upgrade has been aborted.</value>
+        [DataMember(Name="isUpgradeAborted", EmitDefaultValue=true)]
+        public bool? IsUpgradeAborted { get; set; }
+
+        /// <summary>
         /// Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster.
         /// </summary>
         /// <value>Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster.</value>
@@ -752,6 +779,13 @@ namespace Cohesity.Model
         public long? ReverseTunnelEndTimeMsecs { get; set; }
 
         /// <summary>
+        /// Specifies the admission control for cluster SATAHDD storage tier.
+        /// </summary>
+        /// <value>Specifies the admission control for cluster SATAHDD storage tier.</value>
+        [DataMember(Name="sataHddTierAdmissionControl", EmitDefaultValue=true)]
+        public int? SataHddTierAdmissionControl { get; set; }
+
+        /// <summary>
         /// Specifies the time series schema info of the cluster.
         /// </summary>
         /// <value>Specifies the time series schema info of the cluster.</value>
@@ -778,6 +812,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server.</value>
         [DataMember(Name="smbMultichannelEnabled", EmitDefaultValue=true)]
         public bool? SmbMultichannelEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies if split key host access is enabled.
+        /// </summary>
+        /// <value>Specifies if split key host access is enabled.</value>
+        [DataMember(Name="splitKeyHostAccess", EmitDefaultValue=true)]
+        public bool? SplitKeyHostAccess { get; set; }
 
         /// <summary>
         /// Gets or Sets Stats
@@ -847,6 +888,13 @@ namespace Cohesity.Model
         public bool? TurboMode { get; set; }
 
         /// <summary>
+        /// Error string to capture why the upgrade failed.
+        /// </summary>
+        /// <value>Error string to capture why the upgrade failed.</value>
+        [DataMember(Name="upgradeFailureErrorString", EmitDefaultValue=true)]
+        public string UpgradeFailureErrorString { get; set; }
+
+        /// <summary>
         /// Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall.
         /// </summary>
         /// <value>Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall.</value>
@@ -896,6 +944,11 @@ namespace Cohesity.Model
                 return false;
 
             return 
+                (
+                    this.AesEncryptionMode == input.AesEncryptionMode ||
+                    (this.AesEncryptionMode != null &&
+                    this.AesEncryptionMode.Equals(input.AesEncryptionMode))
+                ) && 
                 (
                     this.AmqpTargetConfig == input.AmqpTargetConfig ||
                     (this.AmqpTargetConfig != null &&
@@ -1076,6 +1129,11 @@ namespace Cohesity.Model
                     this.IsDocumentationLocal.Equals(input.IsDocumentationLocal))
                 ) && 
                 (
+                    this.IsUpgradeAborted == input.IsUpgradeAborted ||
+                    (this.IsUpgradeAborted != null &&
+                    this.IsUpgradeAborted.Equals(input.IsUpgradeAborted))
+                ) && 
+                (
                     this.KmsServerId == input.KmsServerId ||
                     (this.KmsServerId != null &&
                     this.KmsServerId.Equals(input.KmsServerId))
@@ -1166,6 +1224,11 @@ namespace Cohesity.Model
                     this.ReverseTunnelEndTimeMsecs.Equals(input.ReverseTunnelEndTimeMsecs))
                 ) && 
                 (
+                    this.SataHddTierAdmissionControl == input.SataHddTierAdmissionControl ||
+                    (this.SataHddTierAdmissionControl != null &&
+                    this.SataHddTierAdmissionControl.Equals(input.SataHddTierAdmissionControl))
+                ) && 
+                (
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
                     input.SchemaInfoList != null &&
@@ -1185,6 +1248,11 @@ namespace Cohesity.Model
                     this.SmbMultichannelEnabled == input.SmbMultichannelEnabled ||
                     (this.SmbMultichannelEnabled != null &&
                     this.SmbMultichannelEnabled.Equals(input.SmbMultichannelEnabled))
+                ) && 
+                (
+                    this.SplitKeyHostAccess == input.SplitKeyHostAccess ||
+                    (this.SplitKeyHostAccess != null &&
+                    this.SplitKeyHostAccess.Equals(input.SplitKeyHostAccess))
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -1238,6 +1306,11 @@ namespace Cohesity.Model
                     this.TurboMode.Equals(input.TurboMode))
                 ) && 
                 (
+                    this.UpgradeFailureErrorString == input.UpgradeFailureErrorString ||
+                    (this.UpgradeFailureErrorString != null &&
+                    this.UpgradeFailureErrorString.Equals(input.UpgradeFailureErrorString))
+                ) && 
+                (
                     this.UseHeimdall == input.UseHeimdall ||
                     (this.UseHeimdall != null &&
                     this.UseHeimdall.Equals(input.UseHeimdall))
@@ -1258,6 +1331,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AesEncryptionMode != null)
+                    hashCode = hashCode * 59 + this.AesEncryptionMode.GetHashCode();
                 if (this.AmqpTargetConfig != null)
                     hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
                 if (this.AppsSubnet != null)
@@ -1326,6 +1401,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsClusterMfaEnabled.GetHashCode();
                 if (this.IsDocumentationLocal != null)
                     hashCode = hashCode * 59 + this.IsDocumentationLocal.GetHashCode();
+                if (this.IsUpgradeAborted != null)
+                    hashCode = hashCode * 59 + this.IsUpgradeAborted.GetHashCode();
                 if (this.KmsServerId != null)
                     hashCode = hashCode * 59 + this.KmsServerId.GetHashCode();
                 if (this.LanguageLocale != null)
@@ -1362,6 +1439,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReverseTunnelEnabled.GetHashCode();
                 if (this.ReverseTunnelEndTimeMsecs != null)
                     hashCode = hashCode * 59 + this.ReverseTunnelEndTimeMsecs.GetHashCode();
+                if (this.SataHddTierAdmissionControl != null)
+                    hashCode = hashCode * 59 + this.SataHddTierAdmissionControl.GetHashCode();
                 if (this.SchemaInfoList != null)
                     hashCode = hashCode * 59 + this.SchemaInfoList.GetHashCode();
                 if (this.SecurityModeDod != null)
@@ -1370,6 +1449,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SmbAdDisabled.GetHashCode();
                 if (this.SmbMultichannelEnabled != null)
                     hashCode = hashCode * 59 + this.SmbMultichannelEnabled.GetHashCode();
+                if (this.SplitKeyHostAccess != null)
+                    hashCode = hashCode * 59 + this.SplitKeyHostAccess.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StigMode != null)
@@ -1390,6 +1471,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TrustDomain.GetHashCode();
                 if (this.TurboMode != null)
                     hashCode = hashCode * 59 + this.TurboMode.GetHashCode();
+                if (this.UpgradeFailureErrorString != null)
+                    hashCode = hashCode * 59 + this.UpgradeFailureErrorString.GetHashCode();
                 if (this.UseHeimdall != null)
                     hashCode = hashCode * 59 + this.UseHeimdall.GetHashCode();
                 if (this.UsedMetadataSpacePct != null)

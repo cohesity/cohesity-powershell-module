@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -370,12 +368,14 @@ namespace Cohesity.Model
         /// <param name="isDbAuthenticated">Specifies if application entity dbAuthenticated or not. ex: oracle database..</param>
         /// <param name="isStorageArraySnapshotEnabled">Specifies if this source entity has enabled storage array snapshot or not..</param>
         /// <param name="isilonParams">isilonParams.</param>
+        /// <param name="linkVmsAcrossVcenter">Specifies if the VM linking feature is enabled for this VCenter This means that VMs present in this VCenter which earlier belonged to some other VCenter(also registerd on same cluster) and were migrated, will be linked during EH refresh. This will enable preserving snapshot chains for migrated VMs..</param>
         /// <param name="minimumFreeSpaceGB">Specifies the minimum free space in GiB of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in GiB) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments..</param>
+        /// <param name="minimumFreeSpacePercent">Specifies the minimum free space in percentage of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in percentage) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments..</param>
         /// <param name="mongodbParams">mongodbParams.</param>
         /// <param name="nasMountCredentials">Specifies the credentials required to mount directories on the NetApp server if given..</param>
         /// <param name="o365Params">o365Params.</param>
         /// <param name="office365CredentialsList">Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365..</param>
-        /// <param name="office365Region">Specifies the region for Office365..</param>
+        /// <param name="office365Region">Specifies the region for Office365. Inorder to truly categorize M365 region, clients should not depend upon the endpoint, instead look at this attribute for the same..</param>
         /// <param name="office365ServiceAccountCredentialsList">Office365 Service Account Credentials.  Specifies credentials for improving mailbox backup performance for O365..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="physicalParams">physicalParams.</param>
@@ -384,6 +384,7 @@ namespace Cohesity.Model
         /// <param name="refreshTimeUsecs">Specifies the Unix epoch time (in microseconds) when the Protection Source tree was most recently fetched and built..</param>
         /// <param name="registeredAppsInfo">Specifies information of the applications registered on this protection source..</param>
         /// <param name="registrationTimeUsecs">Specifies the Unix epoch time (in microseconds) when the Protection Source was registered..</param>
+        /// <param name="sfdcParams">sfdcParams.</param>
         /// <param name="subnets">Specifies the list of subnets added during creation or updation of vmare source. Currently, this field will only be populated in case of VMware registration..</param>
         /// <param name="throttlingPolicy">throttlingPolicy.</param>
         /// <param name="throttlingPolicyOverrides">Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply..</param>
@@ -394,7 +395,7 @@ namespace Cohesity.Model
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="vlanParams">vlanParams.</param>
         /// <param name="warningMessages">Specifies a list of warnings encountered during registration. Though the registration may succeed, warning messages imply the host environment requires some cleanup or fixing..</param>
-        public RegisteredSourceInfo(ConnectorParameters accessInfo = default(ConnectorParameters), List<string> allowedIpAddresses = default(List<string>), string authenticationErrorMessage = default(string), AuthenticationStatusEnum? authenticationStatus = default(AuthenticationStatusEnum?), List<string> blacklistedIpAddresses = default(List<string>), CassandraConnectParams cassandraParams = default(CassandraConnectParams), CouchbaseConnectParams couchbaseParams = default(CouchbaseConnectParams), List<string> deniedIpAddresses = default(List<string>), List<EnvironmentsEnum> environments = default(List<EnvironmentsEnum>), HBaseConnectParams hbaseParams = default(HBaseConnectParams), HdfsConnectParams hdfsParams = default(HdfsConnectParams), HiveConnectParams hiveParams = default(HiveConnectParams), bool? isDbAuthenticated = default(bool?), bool? isStorageArraySnapshotEnabled = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), long? minimumFreeSpaceGB = default(long?), MongoDBConnectParams mongodbParams = default(MongoDBConnectParams), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), O365ConnectParams o365Params = default(O365ConnectParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), PhysicalParams physicalParams = default(PhysicalParams), string progressMonitorPath = default(string), string refreshErrorMessage = default(string), long? refreshTimeUsecs = default(long?), List<RegisteredAppInfo> registeredAppsInfo = default(List<RegisteredAppInfo>), long? registrationTimeUsecs = default(long?), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), UdaConnectParams udaParams = default(UdaConnectParams), bool? useOAuthForExchangeOnline = default(bool?), bool? useVmBiosUuid = default(bool?), List<string> userMessages = default(List<string>), string username = default(string), VlanParameters vlanParams = default(VlanParameters), List<string> warningMessages = default(List<string>))
+        public RegisteredSourceInfo(ConnectorParameters accessInfo = default(ConnectorParameters), List<string> allowedIpAddresses = default(List<string>), string authenticationErrorMessage = default(string), AuthenticationStatusEnum? authenticationStatus = default(AuthenticationStatusEnum?), List<string> blacklistedIpAddresses = default(List<string>), CassandraConnectParams cassandraParams = default(CassandraConnectParams), CouchbaseConnectParams couchbaseParams = default(CouchbaseConnectParams), List<string> deniedIpAddresses = default(List<string>), List<EnvironmentsEnum> environments = default(List<EnvironmentsEnum>), HBaseConnectParams hbaseParams = default(HBaseConnectParams), HdfsConnectParams hdfsParams = default(HdfsConnectParams), HiveConnectParams hiveParams = default(HiveConnectParams), bool? isDbAuthenticated = default(bool?), bool? isStorageArraySnapshotEnabled = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), bool? linkVmsAcrossVcenter = default(bool?), long? minimumFreeSpaceGB = default(long?), long? minimumFreeSpacePercent = default(long?), MongoDBConnectParams mongodbParams = default(MongoDBConnectParams), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), O365ConnectParams o365Params = default(O365ConnectParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), PhysicalParams physicalParams = default(PhysicalParams), string progressMonitorPath = default(string), string refreshErrorMessage = default(string), long? refreshTimeUsecs = default(long?), List<RegisteredAppInfo> registeredAppsInfo = default(List<RegisteredAppInfo>), long? registrationTimeUsecs = default(long?), SfdcParams sfdcParams = default(SfdcParams), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), UdaConnectParams udaParams = default(UdaConnectParams), bool? useOAuthForExchangeOnline = default(bool?), bool? useVmBiosUuid = default(bool?), List<string> userMessages = default(List<string>), string username = default(string), VlanParameters vlanParams = default(VlanParameters), List<string> warningMessages = default(List<string>))
         {
             this.AllowedIpAddresses = allowedIpAddresses;
             this.AuthenticationErrorMessage = authenticationErrorMessage;
@@ -404,7 +405,9 @@ namespace Cohesity.Model
             this.Environments = environments;
             this.IsDbAuthenticated = isDbAuthenticated;
             this.IsStorageArraySnapshotEnabled = isStorageArraySnapshotEnabled;
+            this.LinkVmsAcrossVcenter = linkVmsAcrossVcenter;
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
+            this.MinimumFreeSpacePercent = minimumFreeSpacePercent;
             this.NasMountCredentials = nasMountCredentials;
             this.Office365CredentialsList = office365CredentialsList;
             this.Office365Region = office365Region;
@@ -437,7 +440,9 @@ namespace Cohesity.Model
             this.IsDbAuthenticated = isDbAuthenticated;
             this.IsStorageArraySnapshotEnabled = isStorageArraySnapshotEnabled;
             this.IsilonParams = isilonParams;
+            this.LinkVmsAcrossVcenter = linkVmsAcrossVcenter;
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
+            this.MinimumFreeSpacePercent = minimumFreeSpacePercent;
             this.MongodbParams = mongodbParams;
             this.NasMountCredentials = nasMountCredentials;
             this.O365Params = o365Params;
@@ -451,6 +456,7 @@ namespace Cohesity.Model
             this.RefreshTimeUsecs = refreshTimeUsecs;
             this.RegisteredAppsInfo = registeredAppsInfo;
             this.RegistrationTimeUsecs = registrationTimeUsecs;
+            this.SfdcParams = sfdcParams;
             this.Subnets = subnets;
             this.ThrottlingPolicy = throttlingPolicy;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
@@ -548,11 +554,25 @@ namespace Cohesity.Model
         public RegisteredProtectionSourceIsilonParams IsilonParams { get; set; }
 
         /// <summary>
+        /// Specifies if the VM linking feature is enabled for this VCenter This means that VMs present in this VCenter which earlier belonged to some other VCenter(also registerd on same cluster) and were migrated, will be linked during EH refresh. This will enable preserving snapshot chains for migrated VMs.
+        /// </summary>
+        /// <value>Specifies if the VM linking feature is enabled for this VCenter This means that VMs present in this VCenter which earlier belonged to some other VCenter(also registerd on same cluster) and were migrated, will be linked during EH refresh. This will enable preserving snapshot chains for migrated VMs.</value>
+        [DataMember(Name="linkVmsAcrossVcenter", EmitDefaultValue=true)]
+        public bool? LinkVmsAcrossVcenter { get; set; }
+
+        /// <summary>
         /// Specifies the minimum free space in GiB of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in GiB) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments.
         /// </summary>
         /// <value>Specifies the minimum free space in GiB of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in GiB) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments.</value>
         [DataMember(Name="minimumFreeSpaceGB", EmitDefaultValue=true)]
         public long? MinimumFreeSpaceGB { get; set; }
+
+        /// <summary>
+        /// Specifies the minimum free space in percentage of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in percentage) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments.
+        /// </summary>
+        /// <value>Specifies the minimum free space in percentage of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in percentage) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments.</value>
+        [DataMember(Name="minimumFreeSpacePercent", EmitDefaultValue=true)]
+        public long? MinimumFreeSpacePercent { get; set; }
 
         /// <summary>
         /// Gets or Sets MongodbParams
@@ -581,9 +601,9 @@ namespace Cohesity.Model
         public List<Office365Credentials> Office365CredentialsList { get; set; }
 
         /// <summary>
-        /// Specifies the region for Office365.
+        /// Specifies the region for Office365. Inorder to truly categorize M365 region, clients should not depend upon the endpoint, instead look at this attribute for the same.
         /// </summary>
-        /// <value>Specifies the region for Office365.</value>
+        /// <value>Specifies the region for Office365. Inorder to truly categorize M365 region, clients should not depend upon the endpoint, instead look at this attribute for the same.</value>
         [DataMember(Name="office365Region", EmitDefaultValue=true)]
         public string Office365Region { get; set; }
 
@@ -641,6 +661,12 @@ namespace Cohesity.Model
         /// <value>Specifies the Unix epoch time (in microseconds) when the Protection Source was registered.</value>
         [DataMember(Name="registrationTimeUsecs", EmitDefaultValue=true)]
         public long? RegistrationTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SfdcParams
+        /// </summary>
+        [DataMember(Name="sfdcParams", EmitDefaultValue=false)]
+        public SfdcParams SfdcParams { get; set; }
 
         /// <summary>
         /// Specifies the list of subnets added during creation or updation of vmare source. Currently, this field will only be populated in case of VMware registration.
@@ -822,9 +848,19 @@ namespace Cohesity.Model
                     this.IsilonParams.Equals(input.IsilonParams))
                 ) && 
                 (
+                    this.LinkVmsAcrossVcenter == input.LinkVmsAcrossVcenter ||
+                    (this.LinkVmsAcrossVcenter != null &&
+                    this.LinkVmsAcrossVcenter.Equals(input.LinkVmsAcrossVcenter))
+                ) && 
+                (
                     this.MinimumFreeSpaceGB == input.MinimumFreeSpaceGB ||
                     (this.MinimumFreeSpaceGB != null &&
                     this.MinimumFreeSpaceGB.Equals(input.MinimumFreeSpaceGB))
+                ) && 
+                (
+                    this.MinimumFreeSpacePercent == input.MinimumFreeSpacePercent ||
+                    (this.MinimumFreeSpacePercent != null &&
+                    this.MinimumFreeSpacePercent.Equals(input.MinimumFreeSpacePercent))
                 ) && 
                 (
                     this.MongodbParams == input.MongodbParams ||
@@ -893,6 +929,11 @@ namespace Cohesity.Model
                     this.RegistrationTimeUsecs == input.RegistrationTimeUsecs ||
                     (this.RegistrationTimeUsecs != null &&
                     this.RegistrationTimeUsecs.Equals(input.RegistrationTimeUsecs))
+                ) && 
+                (
+                    this.SfdcParams == input.SfdcParams ||
+                    (this.SfdcParams != null &&
+                    this.SfdcParams.Equals(input.SfdcParams))
                 ) && 
                 (
                     this.Subnets == input.Subnets ||
@@ -987,8 +1028,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsStorageArraySnapshotEnabled.GetHashCode();
                 if (this.IsilonParams != null)
                     hashCode = hashCode * 59 + this.IsilonParams.GetHashCode();
+                if (this.LinkVmsAcrossVcenter != null)
+                    hashCode = hashCode * 59 + this.LinkVmsAcrossVcenter.GetHashCode();
                 if (this.MinimumFreeSpaceGB != null)
                     hashCode = hashCode * 59 + this.MinimumFreeSpaceGB.GetHashCode();
+                if (this.MinimumFreeSpacePercent != null)
+                    hashCode = hashCode * 59 + this.MinimumFreeSpacePercent.GetHashCode();
                 if (this.MongodbParams != null)
                     hashCode = hashCode * 59 + this.MongodbParams.GetHashCode();
                 if (this.NasMountCredentials != null)
@@ -1015,6 +1060,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RegisteredAppsInfo.GetHashCode();
                 if (this.RegistrationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.RegistrationTimeUsecs.GetHashCode();
+                if (this.SfdcParams != null)
+                    hashCode = hashCode * 59 + this.SfdcParams.GetHashCode();
                 if (this.Subnets != null)
                     hashCode = hashCode * 59 + this.Subnets.GetHashCode();
                 if (this.ThrottlingPolicy != null)

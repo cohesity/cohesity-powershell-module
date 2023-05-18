@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,7 @@ namespace Cohesity.Model
         /// <param name="description">Specifies any additional information if needed..</param>
         /// <param name="encryptionKey">Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster..</param>
         /// <param name="localIps">Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster..</param>
+        /// <param name="multiTenancyEnabled">Specifies if Multi-tenancy is enabled on the remote cluster..</param>
         /// <param name="name">Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster..</param>
         /// <param name="networkInterface">Specifies the name of the network interfaces to use for communicating with the remote Cluster..</param>
         /// <param name="purposeRemoteAccess">Whether the remote cluster will be used for remote access for SPOG..</param>
@@ -43,9 +42,10 @@ namespace Cohesity.Model
         /// <param name="remoteIps">Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
         /// <param name="reverseRegisted">Specifies whether the Rx regiseter the Tx..</param>
         /// <param name="tenantId">Specifies the tenant Id of the organization that created this remote cluster configuration..</param>
+        /// <param name="tenantViewBoxSharingEnabled">Specifies if tenant ViewBox sharing is enabled on the remote cluster..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterface = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), bool? reverseRegisted = default(bool?), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
+        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), bool? multiTenancyEnabled = default(bool?), string name = default(string), string networkInterface = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), bool? reverseRegisted = default(bool?), string tenantId = default(string), bool? tenantViewBoxSharingEnabled = default(bool?), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
@@ -56,6 +56,7 @@ namespace Cohesity.Model
             this.Description = description;
             this.EncryptionKey = encryptionKey;
             this.LocalIps = localIps;
+            this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NetworkInterface = networkInterface;
             this.PurposeRemoteAccess = purposeRemoteAccess;
@@ -63,6 +64,7 @@ namespace Cohesity.Model
             this.RemoteIps = remoteIps;
             this.ReverseRegisted = reverseRegisted;
             this.TenantId = tenantId;
+            this.TenantViewBoxSharingEnabled = tenantViewBoxSharingEnabled;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
             this.AllEndpointsReachable = allEndpointsReachable;
@@ -75,6 +77,7 @@ namespace Cohesity.Model
             this.Description = description;
             this.EncryptionKey = encryptionKey;
             this.LocalIps = localIps;
+            this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NetworkInterface = networkInterface;
             this.PurposeRemoteAccess = purposeRemoteAccess;
@@ -83,6 +86,7 @@ namespace Cohesity.Model
             this.RemoteIps = remoteIps;
             this.ReverseRegisted = reverseRegisted;
             this.TenantId = tenantId;
+            this.TenantViewBoxSharingEnabled = tenantViewBoxSharingEnabled;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
         }
@@ -157,6 +161,13 @@ namespace Cohesity.Model
         public List<string> LocalIps { get; set; }
 
         /// <summary>
+        /// Specifies if Multi-tenancy is enabled on the remote cluster.
+        /// </summary>
+        /// <value>Specifies if Multi-tenancy is enabled on the remote cluster.</value>
+        [DataMember(Name="multiTenancyEnabled", EmitDefaultValue=true)]
+        public bool? MultiTenancyEnabled { get; set; }
+
+        /// <summary>
         /// Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.
         /// </summary>
         /// <value>Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.</value>
@@ -210,6 +221,13 @@ namespace Cohesity.Model
         /// <value>Specifies the tenant Id of the organization that created this remote cluster configuration.</value>
         [DataMember(Name="tenantId", EmitDefaultValue=true)]
         public string TenantId { get; set; }
+
+        /// <summary>
+        /// Specifies if tenant ViewBox sharing is enabled on the remote cluster.
+        /// </summary>
+        /// <value>Specifies if tenant ViewBox sharing is enabled on the remote cluster.</value>
+        [DataMember(Name="tenantViewBoxSharingEnabled", EmitDefaultValue=true)]
+        public bool? TenantViewBoxSharingEnabled { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user name used to connect to the remote Cluster.
@@ -313,6 +331,11 @@ namespace Cohesity.Model
                     this.LocalIps.SequenceEqual(input.LocalIps)
                 ) && 
                 (
+                    this.MultiTenancyEnabled == input.MultiTenancyEnabled ||
+                    (this.MultiTenancyEnabled != null &&
+                    this.MultiTenancyEnabled.Equals(input.MultiTenancyEnabled))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -352,6 +375,11 @@ namespace Cohesity.Model
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
+                    this.TenantViewBoxSharingEnabled == input.TenantViewBoxSharingEnabled ||
+                    (this.TenantViewBoxSharingEnabled != null &&
+                    this.TenantViewBoxSharingEnabled.Equals(input.TenantViewBoxSharingEnabled))
                 ) && 
                 (
                     this.UserName == input.UserName ||
@@ -395,6 +423,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
                 if (this.LocalIps != null)
                     hashCode = hashCode * 59 + this.LocalIps.GetHashCode();
+                if (this.MultiTenancyEnabled != null)
+                    hashCode = hashCode * 59 + this.MultiTenancyEnabled.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NetworkInterface != null)
@@ -411,6 +441,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReverseRegisted.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                if (this.TenantViewBoxSharingEnabled != null)
+                    hashCode = hashCode * 59 + this.TenantViewBoxSharingEnabled.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 if (this.ViewBoxPairInfo != null)

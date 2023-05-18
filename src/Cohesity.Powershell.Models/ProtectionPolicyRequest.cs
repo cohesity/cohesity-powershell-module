@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -85,6 +83,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionPolicyRequest" /> class.
         /// </summary>
+        /// <param name="backupRunTimeouts">Backup Run timeouts after which a run will get cancelled..</param>
         /// <param name="blackoutPeriods">Array of QuietTime Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the QuietTime period starts, the behavior depends on the policy field AbortInBlackoutPeriod..</param>
         /// <param name="cdpSchedulingPolicy">cdpSchedulingPolicy.</param>
         /// <param name="cloudDeployPolicies">Array of Cloud Deploy Policies.  Specifies settings for copying Snapshots to Cloud. CloudDeploy target where backup snapshots may be converted and stored. It also defines the retention of copied Snapshots on the Cloud..</param>
@@ -113,8 +112,9 @@ namespace Cohesity.Model
         /// <param name="systemSchedulingPolicy">systemSchedulingPolicy.</param>
         /// <param name="type">Specifies the type of the protection policy. &#39;kRegular&#39; means a regular Protection Policy. &#39;kRPO&#39; means an RPO Protection Policy..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshots. When a WORM retention type is specified, the snapshots of the Protection Jobs using this policy will be kept until the maximum of the snapshot retention time. During that time, the snapshots cannot be deleted. This field is deprecated. Use DataLockConfig for incremental runs, DataLockConfigLog for log runs, DataLockConfigSystem for BMR runs, and DataLockConfig in extended retention and for copy targets config. deprecated: true &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
-        public ProtectionPolicyRequest(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? numSecsToKeep = default(int?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
+        public ProtectionPolicyRequest(List<CancellationTimeoutParams> backupRunTimeouts = default(List<CancellationTimeoutParams>), List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? numSecsToKeep = default(int?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
+            this.BackupRunTimeouts = backupRunTimeouts;
             this.BlackoutPeriods = blackoutPeriods;
             this.CloudDeployPolicies = cloudDeployPolicies;
             this.DaysToKeep = daysToKeep;
@@ -135,6 +135,7 @@ namespace Cohesity.Model
             this.SnapshotReplicationCopyPolicies = snapshotReplicationCopyPolicies;
             this.Type = type;
             this.WormRetentionType = wormRetentionType;
+            this.BackupRunTimeouts = backupRunTimeouts;
             this.BlackoutPeriods = blackoutPeriods;
             this.CdpSchedulingPolicy = cdpSchedulingPolicy;
             this.CloudDeployPolicies = cloudDeployPolicies;
@@ -165,6 +166,13 @@ namespace Cohesity.Model
             this.WormRetentionType = wormRetentionType;
         }
         
+        /// <summary>
+        /// Backup Run timeouts after which a run will get cancelled.
+        /// </summary>
+        /// <value>Backup Run timeouts after which a run will get cancelled.</value>
+        [DataMember(Name="backupRunTimeouts", EmitDefaultValue=true)]
+        public List<CancellationTimeoutParams> BackupRunTimeouts { get; set; }
+
         /// <summary>
         /// Array of QuietTime Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the QuietTime period starts, the behavior depends on the policy field AbortInBlackoutPeriod.
         /// </summary>
@@ -376,6 +384,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BackupRunTimeouts == input.BackupRunTimeouts ||
+                    this.BackupRunTimeouts != null &&
+                    input.BackupRunTimeouts != null &&
+                    this.BackupRunTimeouts.SequenceEqual(input.BackupRunTimeouts)
+                ) && 
+                (
                     this.BlackoutPeriods == input.BlackoutPeriods ||
                     this.BlackoutPeriods != null &&
                     input.BlackoutPeriods != null &&
@@ -529,6 +543,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BackupRunTimeouts != null)
+                    hashCode = hashCode * 59 + this.BackupRunTimeouts.GetHashCode();
                 if (this.BlackoutPeriods != null)
                     hashCode = hashCode * 59 + this.BlackoutPeriods.GetHashCode();
                 if (this.CdpSchedulingPolicy != null)

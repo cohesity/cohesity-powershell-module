@@ -101,17 +101,17 @@ namespace Cohesity.Powershell.Common
             return domain;
         }
 
-        public static long ConvertDateTimeToUsecs(DateTime dateTime)
+        public static long ConvertDateTimeToUsecs(System.DateTime dateTime)
         {
-            DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            System.DateTime UnixEpoch = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             long microseconds = (dateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
             return microseconds;
         }
 
-        public static DateTime ConvertUsecsToDateTime(long usecs)
+        public static System.DateTime ConvertUsecsToDateTime(long usecs)
         {
             long unixTime = usecs / 1000000;
-            DateTime origin = DateTime.Parse("1970-01-01 00:00:00");
+            System.DateTime origin = System.DateTime.Parse("1970-01-01 00:00:00");
             return origin.AddSeconds(unixTime).ToLocalTime();
         }
 

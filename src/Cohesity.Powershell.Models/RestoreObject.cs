@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,7 @@ namespace Cohesity.Model
         /// <param name="backupType">Backup type of corresponding backup run. Currently, this is only populated for restore tasks..</param>
         /// <param name="cloudDeployTarget">cloudDeployTarget.</param>
         /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
+        /// <param name="configVec">Common Configuration Parameters for recovery.</param>
         /// <param name="entity">entity.</param>
         /// <param name="hydrationTimeUsecs">The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent..</param>
         /// <param name="jobId">The job id from which to restore. This is used while communicating with yoda..</param>
@@ -41,17 +40,20 @@ namespace Cohesity.Model
         /// <param name="pointInTimeRestoreTimeUsecs">The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP..</param>
         /// <param name="recoverFromStandby">This field indicates if the object should be recovered from standby if it is enabled..</param>
         /// <param name="restoreAcropolisVmParam">restoreAcropolisVmParam.</param>
+        /// <param name="restoreExchangeParams">restoreExchangeParams.</param>
         /// <param name="restoreVappInfo">restoreVappInfo.</param>
+        /// <param name="sanRecoverParams">sanRecoverParams.</param>
         /// <param name="sfdcRecoverParams">sfdcRecoverParams.</param>
         /// <param name="snapshotRelativeDirPath">The relative path to the directory containing the entity&#39;s snapshot..</param>
         /// <param name="startTimeUsecs">The start time of the specific job run. Iff &#39;job_instance_id&#39; is set, this field must be set. In-memory indices on the Magneto master are laid-out by the start time of the job, and this is how the master pulls up a specific run. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs.</param>
         /// <param name="udaRecoverParams">udaRecoverParams.</param>
         /// <param name="viewName">The name of the view where the object&#39;s snapshot is located..</param>
         /// <param name="vmHadIndependentDisks">This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up..</param>
-        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), ArchivalTarget pitPreferredArchivalTarget = default(ArchivalTarget), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), ArchivalTarget pitPreferredArchivalTarget = default(ArchivalTarget), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreExchangeParams restoreExchangeParams = default(RestoreExchangeParams), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SANRecoverParams sanRecoverParams = default(SANRecoverParams), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
             this.AttemptNum = attemptNum;
             this.BackupType = backupType;
+            this.ConfigVec = configVec;
             this.HydrationTimeUsecs = hydrationTimeUsecs;
             this.JobId = jobId;
             this.JobInstanceId = jobInstanceId;
@@ -66,6 +68,7 @@ namespace Cohesity.Model
             this.BackupType = backupType;
             this.CloudDeployTarget = cloudDeployTarget;
             this.CloudReplicationTarget = cloudReplicationTarget;
+            this.ConfigVec = configVec;
             this.Entity = entity;
             this.HydrationTimeUsecs = hydrationTimeUsecs;
             this.JobId = jobId;
@@ -77,7 +80,9 @@ namespace Cohesity.Model
             this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
             this.RecoverFromStandby = recoverFromStandby;
             this.RestoreAcropolisVmParam = restoreAcropolisVmParam;
+            this.RestoreExchangeParams = restoreExchangeParams;
             this.RestoreVappInfo = restoreVappInfo;
+            this.SanRecoverParams = sanRecoverParams;
             this.SfdcRecoverParams = sfdcRecoverParams;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
@@ -117,6 +122,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cloudReplicationTarget", EmitDefaultValue=false)]
         public CloudDeployTarget CloudReplicationTarget { get; set; }
+
+        /// <summary>
+        /// Common Configuration Parameters for recovery
+        /// </summary>
+        /// <value>Common Configuration Parameters for recovery</value>
+        [DataMember(Name="configVec", EmitDefaultValue=true)]
+        public List<ConfigurationParams> ConfigVec { get; set; }
 
         /// <summary>
         /// Gets or Sets Entity
@@ -190,10 +202,22 @@ namespace Cohesity.Model
         public RestoreAcropolisVMParam RestoreAcropolisVmParam { get; set; }
 
         /// <summary>
+        /// Gets or Sets RestoreExchangeParams
+        /// </summary>
+        [DataMember(Name="restoreExchangeParams", EmitDefaultValue=false)]
+        public RestoreExchangeParams RestoreExchangeParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreVappInfo
         /// </summary>
         [DataMember(Name="restoreVappInfo", EmitDefaultValue=false)]
         public RestoreVappInfo RestoreVappInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SanRecoverParams
+        /// </summary>
+        [DataMember(Name="sanRecoverParams", EmitDefaultValue=false)]
+        public SANRecoverParams SanRecoverParams { get; set; }
 
         /// <summary>
         /// Gets or Sets SfdcRecoverParams
@@ -297,6 +321,12 @@ namespace Cohesity.Model
                     this.CloudReplicationTarget.Equals(input.CloudReplicationTarget))
                 ) && 
                 (
+                    this.ConfigVec == input.ConfigVec ||
+                    this.ConfigVec != null &&
+                    input.ConfigVec != null &&
+                    this.ConfigVec.SequenceEqual(input.ConfigVec)
+                ) && 
+                (
                     this.Entity == input.Entity ||
                     (this.Entity != null &&
                     this.Entity.Equals(input.Entity))
@@ -352,9 +382,19 @@ namespace Cohesity.Model
                     this.RestoreAcropolisVmParam.Equals(input.RestoreAcropolisVmParam))
                 ) && 
                 (
+                    this.RestoreExchangeParams == input.RestoreExchangeParams ||
+                    (this.RestoreExchangeParams != null &&
+                    this.RestoreExchangeParams.Equals(input.RestoreExchangeParams))
+                ) && 
+                (
                     this.RestoreVappInfo == input.RestoreVappInfo ||
                     (this.RestoreVappInfo != null &&
                     this.RestoreVappInfo.Equals(input.RestoreVappInfo))
+                ) && 
+                (
+                    this.SanRecoverParams == input.SanRecoverParams ||
+                    (this.SanRecoverParams != null &&
+                    this.SanRecoverParams.Equals(input.SanRecoverParams))
                 ) && 
                 (
                     this.SfdcRecoverParams == input.SfdcRecoverParams ||
@@ -407,6 +447,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudDeployTarget.GetHashCode();
                 if (this.CloudReplicationTarget != null)
                     hashCode = hashCode * 59 + this.CloudReplicationTarget.GetHashCode();
+                if (this.ConfigVec != null)
+                    hashCode = hashCode * 59 + this.ConfigVec.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
                 if (this.HydrationTimeUsecs != null)
@@ -429,8 +471,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RecoverFromStandby.GetHashCode();
                 if (this.RestoreAcropolisVmParam != null)
                     hashCode = hashCode * 59 + this.RestoreAcropolisVmParam.GetHashCode();
+                if (this.RestoreExchangeParams != null)
+                    hashCode = hashCode * 59 + this.RestoreExchangeParams.GetHashCode();
                 if (this.RestoreVappInfo != null)
                     hashCode = hashCode * 59 + this.RestoreVappInfo.GetHashCode();
+                if (this.SanRecoverParams != null)
+                    hashCode = hashCode * 59 + this.SanRecoverParams.GetHashCode();
                 if (this.SfdcRecoverParams != null)
                     hashCode = hashCode * 59 + this.SfdcRecoverParams.GetHashCode();
                 if (this.SnapshotRelativeDirPath != null)

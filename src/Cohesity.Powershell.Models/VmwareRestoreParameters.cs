@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -75,7 +73,7 @@ namespace Cohesity.Model
         /// <param name="vAppId">Specifies the ID of the vApp to which a VM should be restored..</param>
         /// <param name="vdcId">Specifies the ID of the VDC to which a VM should be restored..</param>
         /// <param name="vmFolderId">Specifies a folder where the VMs should be restored. This is applicable only when the VMs are being restored to an alternate location or if clone is being performed..</param>
-        public VmwareRestoreParameters(List<long> additionalDatastoreIds = default(List<long>), bool? attemptDifferentialRestore = default(bool?), long? datastoreFolderId = default(long?), long? datastoreId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), OrgVdcNetwork orgVdcNetwork = default(OrgVdcNetwork), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTags = default(bool?), RecoveryProcessTypeEnum? recoveryProcessType = default(RecoveryProcessTypeEnum?), long? resourcePoolId = default(long?), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), string suffix = default(string), long? vAppId = default(long?), long? vdcId = default(long?), long? vmFolderId = default(long?))
+        public VmwareRestoreParameters(List<long> additionalDatastoreIds = default(List<long>), bool? attemptDifferentialRestore = default(bool?), long? datastoreFolderId = default(long?), long? datastoreId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), OrgVdcNetworkParams orgVdcNetwork = default(OrgVdcNetworkParams), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTags = default(bool?), RecoveryProcessTypeEnum? recoveryProcessType = default(RecoveryProcessTypeEnum?), long? resourcePoolId = default(long?), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), string suffix = default(string), long? vAppId = default(long?), long? vdcId = default(long?), long? vmFolderId = default(long?))
         {
             this.AdditionalDatastoreIds = additionalDatastoreIds;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
@@ -184,7 +182,7 @@ namespace Cohesity.Model
         /// Gets or Sets OrgVdcNetwork
         /// </summary>
         [DataMember(Name="orgVdcNetwork", EmitDefaultValue=false)]
-        public OrgVdcNetwork OrgVdcNetwork { get; set; }
+        public OrgVdcNetworkParams OrgVdcNetwork { get; set; }
 
         /// <summary>
         /// Specifies whether to overwrite the existing VM for a recovery when rename parameters are not given.

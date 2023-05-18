@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -27,15 +25,18 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="dropPdbsIfExists">During the restore workflow, drop the pdb if the same name pdb exists..</param>
         /// <param name="existingCdb">Restore given list of pdbs to an existing CDB..</param>
+        /// <param name="includeInRestore">Whether or not to restore the PDB when restoring the CDB. Before this field was added, agent&#39;s behavior was to include the PDBs provided, there was no exclusion. By keeping the value as default true we will ensure the agent behaves the same way if someone upgrades agent service and the magneto service is still old..</param>
         /// <param name="pdbEntityInfoVec">pdbEntityInfoVec.</param>
         /// <param name="renamePdbMap">If rename pdb is provided, list of new names for the pdb..</param>
-        public PDBRestoreParam(bool? dropPdbsIfExists = default(bool?), bool? existingCdb = default(bool?), CDBEntityInfo pdbEntityInfoVec = default(CDBEntityInfo), List<PDBRestoreParamRenamePdbMapEntry> renamePdbMap = default(List<PDBRestoreParamRenamePdbMapEntry>))
+        public PDBRestoreParam(bool? dropPdbsIfExists = default(bool?), bool? existingCdb = default(bool?), bool? includeInRestore = default(bool?), CDBEntityInfo pdbEntityInfoVec = default(CDBEntityInfo), List<PDBRestoreParamRenamePdbMapEntry> renamePdbMap = default(List<PDBRestoreParamRenamePdbMapEntry>))
         {
             this.DropPdbsIfExists = dropPdbsIfExists;
             this.ExistingCdb = existingCdb;
+            this.IncludeInRestore = includeInRestore;
             this.RenamePdbMap = renamePdbMap;
             this.DropPdbsIfExists = dropPdbsIfExists;
             this.ExistingCdb = existingCdb;
+            this.IncludeInRestore = includeInRestore;
             this.PdbEntityInfoVec = pdbEntityInfoVec;
             this.RenamePdbMap = renamePdbMap;
         }
@@ -53,6 +54,13 @@ namespace Cohesity.Model
         /// <value>Restore given list of pdbs to an existing CDB.</value>
         [DataMember(Name="existingCdb", EmitDefaultValue=true)]
         public bool? ExistingCdb { get; set; }
+
+        /// <summary>
+        /// Whether or not to restore the PDB when restoring the CDB. Before this field was added, agent&#39;s behavior was to include the PDBs provided, there was no exclusion. By keeping the value as default true we will ensure the agent behaves the same way if someone upgrades agent service and the magneto service is still old.
+        /// </summary>
+        /// <value>Whether or not to restore the PDB when restoring the CDB. Before this field was added, agent&#39;s behavior was to include the PDBs provided, there was no exclusion. By keeping the value as default true we will ensure the agent behaves the same way if someone upgrades agent service and the magneto service is still old.</value>
+        [DataMember(Name="includeInRestore", EmitDefaultValue=true)]
+        public bool? IncludeInRestore { get; set; }
 
         /// <summary>
         /// Gets or Sets PdbEntityInfoVec
@@ -114,6 +122,11 @@ namespace Cohesity.Model
                     this.ExistingCdb.Equals(input.ExistingCdb))
                 ) && 
                 (
+                    this.IncludeInRestore == input.IncludeInRestore ||
+                    (this.IncludeInRestore != null &&
+                    this.IncludeInRestore.Equals(input.IncludeInRestore))
+                ) && 
+                (
                     this.PdbEntityInfoVec == input.PdbEntityInfoVec ||
                     (this.PdbEntityInfoVec != null &&
                     this.PdbEntityInfoVec.Equals(input.PdbEntityInfoVec))
@@ -139,6 +152,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DropPdbsIfExists.GetHashCode();
                 if (this.ExistingCdb != null)
                     hashCode = hashCode * 59 + this.ExistingCdb.GetHashCode();
+                if (this.IncludeInRestore != null)
+                    hashCode = hashCode * 59 + this.IncludeInRestore.GetHashCode();
                 if (this.PdbEntityInfoVec != null)
                     hashCode = hashCode * 59 + this.PdbEntityInfoVec.GetHashCode();
                 if (this.RenamePdbMap != null)

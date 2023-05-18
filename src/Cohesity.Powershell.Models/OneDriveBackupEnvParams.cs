@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,15 +23,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="OneDriveBackupEnvParams" /> class.
         /// </summary>
+        /// <param name="attrFilterPolicy">attrFilterPolicy.</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
         /// <param name="shouldBackupOnedrive">Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up..</param>
-        public OneDriveBackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupOnedrive = default(bool?))
+        public OneDriveBackupEnvParams(AttributeFilterPolicy attrFilterPolicy = default(AttributeFilterPolicy), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupOnedrive = default(bool?))
         {
             this.ShouldBackupOnedrive = shouldBackupOnedrive;
+            this.AttrFilterPolicy = attrFilterPolicy;
             this.FilteringPolicy = filteringPolicy;
             this.ShouldBackupOnedrive = shouldBackupOnedrive;
         }
         
+        /// <summary>
+        /// Gets or Sets AttrFilterPolicy
+        /// </summary>
+        [DataMember(Name="attrFilterPolicy", EmitDefaultValue=false)]
+        public AttributeFilterPolicy AttrFilterPolicy { get; set; }
+
         /// <summary>
         /// Gets or Sets FilteringPolicy
         /// </summary>
@@ -84,6 +90,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AttrFilterPolicy == input.AttrFilterPolicy ||
+                    (this.AttrFilterPolicy != null &&
+                    this.AttrFilterPolicy.Equals(input.AttrFilterPolicy))
+                ) && 
+                (
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
@@ -104,6 +115,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AttrFilterPolicy != null)
+                    hashCode = hashCode * 59 + this.AttrFilterPolicy.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
                 if (this.ShouldBackupOnedrive != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,26 +26,32 @@ namespace Cohesity.Model
         /// <param name="autoLogBackup">autoLogBackup.</param>
         /// <param name="dynamicConfig">Specifies whether the source supports the &#39;Dynamic Configuration&#39; capability..</param>
         /// <param name="entitySupport">Indicates if source has entity capability..</param>
+        /// <param name="etLogBackup">Specifies whether the source supports externally triggered log backups..</param>
         /// <param name="fullBackup">fullBackup.</param>
         /// <param name="incrBackup">incrBackup.</param>
         /// <param name="logBackup">logBackup.</param>
         /// <param name="multiObjectRestore">Whether the source supports restore of multiple objects..</param>
-        public UdaSourceCapabilities(bool? autoLogBackup = default(bool?), bool? dynamicConfig = default(bool?), bool? entitySupport = default(bool?), bool? fullBackup = default(bool?), bool? incrBackup = default(bool?), bool? logBackup = default(bool?), bool? multiObjectRestore = default(bool?))
+        /// <param name="resourceThrottling">resourceThrottling.</param>
+        public UdaSourceCapabilities(bool? autoLogBackup = default(bool?), bool? dynamicConfig = default(bool?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), bool? fullBackup = default(bool?), bool? incrBackup = default(bool?), bool? logBackup = default(bool?), bool? multiObjectRestore = default(bool?), bool? resourceThrottling = default(bool?))
         {
             this.AutoLogBackup = autoLogBackup;
             this.DynamicConfig = dynamicConfig;
             this.EntitySupport = entitySupport;
+            this.EtLogBackup = etLogBackup;
             this.FullBackup = fullBackup;
             this.IncrBackup = incrBackup;
             this.LogBackup = logBackup;
             this.MultiObjectRestore = multiObjectRestore;
+            this.ResourceThrottling = resourceThrottling;
             this.AutoLogBackup = autoLogBackup;
             this.DynamicConfig = dynamicConfig;
             this.EntitySupport = entitySupport;
+            this.EtLogBackup = etLogBackup;
             this.FullBackup = fullBackup;
             this.IncrBackup = incrBackup;
             this.LogBackup = logBackup;
             this.MultiObjectRestore = multiObjectRestore;
+            this.ResourceThrottling = resourceThrottling;
         }
         
         /// <summary>
@@ -69,6 +73,13 @@ namespace Cohesity.Model
         /// <value>Indicates if source has entity capability.</value>
         [DataMember(Name="entitySupport", EmitDefaultValue=true)]
         public bool? EntitySupport { get; set; }
+
+        /// <summary>
+        /// Specifies whether the source supports externally triggered log backups.
+        /// </summary>
+        /// <value>Specifies whether the source supports externally triggered log backups.</value>
+        [DataMember(Name="etLogBackup", EmitDefaultValue=true)]
+        public bool? EtLogBackup { get; set; }
 
         /// <summary>
         /// Gets or Sets FullBackup
@@ -94,6 +105,12 @@ namespace Cohesity.Model
         /// <value>Whether the source supports restore of multiple objects.</value>
         [DataMember(Name="multiObjectRestore", EmitDefaultValue=true)]
         public bool? MultiObjectRestore { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ResourceThrottling
+        /// </summary>
+        [DataMember(Name="resourceThrottling", EmitDefaultValue=true)]
+        public bool? ResourceThrottling { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -147,6 +164,11 @@ namespace Cohesity.Model
                     this.EntitySupport.Equals(input.EntitySupport))
                 ) && 
                 (
+                    this.EtLogBackup == input.EtLogBackup ||
+                    (this.EtLogBackup != null &&
+                    this.EtLogBackup.Equals(input.EtLogBackup))
+                ) && 
+                (
                     this.FullBackup == input.FullBackup ||
                     (this.FullBackup != null &&
                     this.FullBackup.Equals(input.FullBackup))
@@ -165,6 +187,11 @@ namespace Cohesity.Model
                     this.MultiObjectRestore == input.MultiObjectRestore ||
                     (this.MultiObjectRestore != null &&
                     this.MultiObjectRestore.Equals(input.MultiObjectRestore))
+                ) && 
+                (
+                    this.ResourceThrottling == input.ResourceThrottling ||
+                    (this.ResourceThrottling != null &&
+                    this.ResourceThrottling.Equals(input.ResourceThrottling))
                 );
         }
 
@@ -183,6 +210,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DynamicConfig.GetHashCode();
                 if (this.EntitySupport != null)
                     hashCode = hashCode * 59 + this.EntitySupport.GetHashCode();
+                if (this.EtLogBackup != null)
+                    hashCode = hashCode * 59 + this.EtLogBackup.GetHashCode();
                 if (this.FullBackup != null)
                     hashCode = hashCode * 59 + this.FullBackup.GetHashCode();
                 if (this.IncrBackup != null)
@@ -191,6 +220,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LogBackup.GetHashCode();
                 if (this.MultiObjectRestore != null)
                     hashCode = hashCode * 59 + this.MultiObjectRestore.GetHashCode();
+                if (this.ResourceThrottling != null)
+                    hashCode = hashCode * 59 + this.ResourceThrottling.GetHashCode();
                 return hashCode;
             }
         }

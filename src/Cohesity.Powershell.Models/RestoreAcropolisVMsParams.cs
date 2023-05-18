@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,14 +23,20 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreAcropolisVMsParams" /> class.
         /// </summary>
+        /// <param name="copyRecovery">Whether to perform copy recovery instead of instant recovery..</param>
         /// <param name="powerStateConfig">powerStateConfig.</param>
+        /// <param name="recoverExcludedDisksAsBlankDisks">Whether disks that were excluded during backup should be recovered as blank disks..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
         /// <param name="storageContainer">storageContainer.</param>
         /// <param name="uuidConfig">uuidConfig.</param>
-        public RestoreAcropolisVMsParams(PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), EntityProto storageContainer = default(EntityProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
+        public RestoreAcropolisVMsParams(bool? copyRecovery = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? recoverExcludedDisksAsBlankDisks = default(bool?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), EntityProto storageContainer = default(EntityProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
+            this.CopyRecovery = copyRecovery;
+            this.RecoverExcludedDisksAsBlankDisks = recoverExcludedDisksAsBlankDisks;
+            this.CopyRecovery = copyRecovery;
             this.PowerStateConfig = powerStateConfig;
+            this.RecoverExcludedDisksAsBlankDisks = recoverExcludedDisksAsBlankDisks;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
             this.StorageContainer = storageContainer;
@@ -40,10 +44,24 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Whether to perform copy recovery instead of instant recovery.
+        /// </summary>
+        /// <value>Whether to perform copy recovery instead of instant recovery.</value>
+        [DataMember(Name="copyRecovery", EmitDefaultValue=true)]
+        public bool? CopyRecovery { get; set; }
+
+        /// <summary>
         /// Gets or Sets PowerStateConfig
         /// </summary>
         [DataMember(Name="powerStateConfig", EmitDefaultValue=false)]
         public PowerStateConfigProto PowerStateConfig { get; set; }
+
+        /// <summary>
+        /// Whether disks that were excluded during backup should be recovered as blank disks.
+        /// </summary>
+        /// <value>Whether disks that were excluded during backup should be recovered as blank disks.</value>
+        [DataMember(Name="recoverExcludedDisksAsBlankDisks", EmitDefaultValue=true)]
+        public bool? RecoverExcludedDisksAsBlankDisks { get; set; }
 
         /// <summary>
         /// Gets or Sets RenameRestoredObjectParam
@@ -106,9 +124,19 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CopyRecovery == input.CopyRecovery ||
+                    (this.CopyRecovery != null &&
+                    this.CopyRecovery.Equals(input.CopyRecovery))
+                ) && 
+                (
                     this.PowerStateConfig == input.PowerStateConfig ||
                     (this.PowerStateConfig != null &&
                     this.PowerStateConfig.Equals(input.PowerStateConfig))
+                ) && 
+                (
+                    this.RecoverExcludedDisksAsBlankDisks == input.RecoverExcludedDisksAsBlankDisks ||
+                    (this.RecoverExcludedDisksAsBlankDisks != null &&
+                    this.RecoverExcludedDisksAsBlankDisks.Equals(input.RecoverExcludedDisksAsBlankDisks))
                 ) && 
                 (
                     this.RenameRestoredObjectParam == input.RenameRestoredObjectParam ||
@@ -141,8 +169,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CopyRecovery != null)
+                    hashCode = hashCode * 59 + this.CopyRecovery.GetHashCode();
                 if (this.PowerStateConfig != null)
                     hashCode = hashCode * 59 + this.PowerStateConfig.GetHashCode();
+                if (this.RecoverExcludedDisksAsBlankDisks != null)
+                    hashCode = hashCode * 59 + this.RecoverExcludedDisksAsBlankDisks.GetHashCode();
                 if (this.RenameRestoredObjectParam != null)
                     hashCode = hashCode * 59 + this.RenameRestoredObjectParam.GetHashCode();
                 if (this.RestoredObjectsNetworkConfig != null)

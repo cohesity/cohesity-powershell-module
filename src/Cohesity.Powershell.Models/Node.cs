@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -110,6 +108,7 @@ namespace Cohesity.Model
         /// <param name="cohesityNodeSerial">Cohesity Node Serial Number of the Node..</param>
         /// <param name="diskCount">DiskCount is the number of disks in a node..</param>
         /// <param name="diskCountByTier">DiskCountByTier describes the disk number of each storage tier..</param>
+        /// <param name="hardwareModel">Specifies the hardware model of the node..</param>
         /// <param name="hostName">Host name of the node..</param>
         /// <param name="id">Id is the Id of the Node..</param>
         /// <param name="inMaintenanceMode">InMaintnenanceMode is used to mark a node in maintenance mode..</param>
@@ -123,17 +122,22 @@ namespace Cohesity.Model
         /// <param name="nodeType">Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc..</param>
         /// <param name="offlineDiskCount">OfflineDiskCount is the number of offline disks in a node..</param>
         /// <param name="offlineMountPathsOfDisks">OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again..</param>
+        /// <param name="precheckTimestampSecs">PrecheckTimestampSecs specifies the last run time of the pre-checks execution in Unix epoch timestamp in seconds.</param>
         /// <param name="productModel">Specifies the product model of the node..</param>
+        /// <param name="progressPercentage">ProgressPercentage is the overall progress percentage in removing the entity..</param>
         /// <param name="removalProgressList">Removal progress for various components which are not acked yet..</param>
         /// <param name="removalReason">RemovalReason specifies the removal reason of the node. &#39;kAutoHealthCheck&#39; means the entity health is bad. &#39;kUserGracefulRemoval&#39; means user initiated a graceful removal. &#39;kUserAvoidAccess&#39; means user initiated a mark offline. &#39;kUserGracefulNodeRemoval&#39; mean users initiated graceful node removal. &#39;kUserRemoveDownNode&#39; mean user initiated graceful removal of down node..</param>
         /// <param name="removalState">RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
-        /// <param name="servicesAckedList">[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity..</param>
-        /// <param name="servicesNotAcked">[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal..</param>
+        /// <param name="removalTimestampSecs">RemovalTimestampSecs specifies the Unix epoch timestamp (in seconds) when the entity was marked for removal..</param>
+        /// <param name="servicesAckedList">Services already acked for removal of this entity..</param>
+        /// <param name="servicesNotAcked">[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after the entity is marked for removal..</param>
         /// <param name="servicesNotAckedList">Services not acked yet for removal of this entity..</param>
         /// <param name="slotNumber">Slot number occupied by this node within the chassis..</param>
         /// <param name="stats">stats.</param>
         /// <param name="systemDisks">SystemDisk describes the node system disks..</param>
-        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), string cohesityNodeSerial = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), string hostName = default(string), long? id = default(long?), bool? inMaintenanceMode = default(bool?), string ip = default(string), bool? isAppNode = default(bool?), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), long? offlineDiskCount = default(long?), List<string> offlineMountPathsOfDisks = default(List<string>), string productModel = default(string), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>))
+        /// <param name="timeRemaining">TimeRemaining is the overall total duration left to remove the entity..</param>
+        /// <param name="validationChecks">ValidationChecks specifies list of pre-check validations.</param>
+        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), string cohesityNodeSerial = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), string hardwareModel = default(string), string hostName = default(string), long? id = default(long?), bool? inMaintenanceMode = default(bool?), string ip = default(string), bool? isAppNode = default(bool?), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), long? offlineDiskCount = default(long?), List<string> offlineMountPathsOfDisks = default(List<string>), long? precheckTimestampSecs = default(long?), string productModel = default(string), long? progressPercentage = default(long?), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), long? removalTimestampSecs = default(long?), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>), long? timeRemaining = default(long?), List<PreCheckValidation> validationChecks = default(List<PreCheckValidation>))
         {
             this.CapacityByTier = capacityByTier;
             this.ClusterPartitionId = clusterPartitionId;
@@ -141,6 +145,7 @@ namespace Cohesity.Model
             this.CohesityNodeSerial = cohesityNodeSerial;
             this.DiskCount = diskCount;
             this.DiskCountByTier = diskCountByTier;
+            this.HardwareModel = hardwareModel;
             this.HostName = hostName;
             this.Id = id;
             this.InMaintenanceMode = inMaintenanceMode;
@@ -153,15 +158,20 @@ namespace Cohesity.Model
             this.NodeType = nodeType;
             this.OfflineDiskCount = offlineDiskCount;
             this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
+            this.PrecheckTimestampSecs = precheckTimestampSecs;
             this.ProductModel = productModel;
+            this.ProgressPercentage = progressPercentage;
             this.RemovalProgressList = removalProgressList;
             this.RemovalReason = removalReason;
             this.RemovalState = removalState;
+            this.RemovalTimestampSecs = removalTimestampSecs;
             this.ServicesAckedList = servicesAckedList;
             this.ServicesNotAcked = servicesNotAcked;
             this.ServicesNotAckedList = servicesNotAckedList;
             this.SlotNumber = slotNumber;
             this.SystemDisks = systemDisks;
+            this.TimeRemaining = timeRemaining;
+            this.ValidationChecks = validationChecks;
             this.CapacityByTier = capacityByTier;
             this.ChassisInfo = chassisInfo;
             this.ClusterPartitionId = clusterPartitionId;
@@ -169,6 +179,7 @@ namespace Cohesity.Model
             this.CohesityNodeSerial = cohesityNodeSerial;
             this.DiskCount = diskCount;
             this.DiskCountByTier = diskCountByTier;
+            this.HardwareModel = hardwareModel;
             this.HostName = hostName;
             this.Id = id;
             this.InMaintenanceMode = inMaintenanceMode;
@@ -182,16 +193,21 @@ namespace Cohesity.Model
             this.NodeType = nodeType;
             this.OfflineDiskCount = offlineDiskCount;
             this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
+            this.PrecheckTimestampSecs = precheckTimestampSecs;
             this.ProductModel = productModel;
+            this.ProgressPercentage = progressPercentage;
             this.RemovalProgressList = removalProgressList;
             this.RemovalReason = removalReason;
             this.RemovalState = removalState;
+            this.RemovalTimestampSecs = removalTimestampSecs;
             this.ServicesAckedList = servicesAckedList;
             this.ServicesNotAcked = servicesNotAcked;
             this.ServicesNotAckedList = servicesNotAckedList;
             this.SlotNumber = slotNumber;
             this.Stats = stats;
             this.SystemDisks = systemDisks;
+            this.TimeRemaining = timeRemaining;
+            this.ValidationChecks = validationChecks;
         }
         
         /// <summary>
@@ -241,6 +257,13 @@ namespace Cohesity.Model
         /// <value>DiskCountByTier describes the disk number of each storage tier.</value>
         [DataMember(Name="diskCountByTier", EmitDefaultValue=true)]
         public List<CountByTier> DiskCountByTier { get; set; }
+
+        /// <summary>
+        /// Specifies the hardware model of the node.
+        /// </summary>
+        /// <value>Specifies the hardware model of the node.</value>
+        [DataMember(Name="hardwareModel", EmitDefaultValue=true)]
+        public string HardwareModel { get; set; }
 
         /// <summary>
         /// Host name of the node.
@@ -333,11 +356,25 @@ namespace Cohesity.Model
         public List<string> OfflineMountPathsOfDisks { get; set; }
 
         /// <summary>
+        /// PrecheckTimestampSecs specifies the last run time of the pre-checks execution in Unix epoch timestamp in seconds
+        /// </summary>
+        /// <value>PrecheckTimestampSecs specifies the last run time of the pre-checks execution in Unix epoch timestamp in seconds</value>
+        [DataMember(Name="precheckTimestampSecs", EmitDefaultValue=true)]
+        public long? PrecheckTimestampSecs { get; set; }
+
+        /// <summary>
         /// Specifies the product model of the node.
         /// </summary>
         /// <value>Specifies the product model of the node.</value>
         [DataMember(Name="productModel", EmitDefaultValue=true)]
         public string ProductModel { get; set; }
+
+        /// <summary>
+        /// ProgressPercentage is the overall progress percentage in removing the entity.
+        /// </summary>
+        /// <value>ProgressPercentage is the overall progress percentage in removing the entity.</value>
+        [DataMember(Name="progressPercentage", EmitDefaultValue=true)]
+        public long? ProgressPercentage { get; set; }
 
         /// <summary>
         /// Removal progress for various components which are not acked yet.
@@ -347,16 +384,23 @@ namespace Cohesity.Model
         public List<ComponentRemovalProgress> RemovalProgressList { get; set; }
 
         /// <summary>
-        /// [For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.
+        /// RemovalTimestampSecs specifies the Unix epoch timestamp (in seconds) when the entity was marked for removal.
         /// </summary>
-        /// <value>[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.</value>
+        /// <value>RemovalTimestampSecs specifies the Unix epoch timestamp (in seconds) when the entity was marked for removal.</value>
+        [DataMember(Name="removalTimestampSecs", EmitDefaultValue=true)]
+        public long? RemovalTimestampSecs { get; set; }
+
+        /// <summary>
+        /// Services already acked for removal of this entity.
+        /// </summary>
+        /// <value>Services already acked for removal of this entity.</value>
         [DataMember(Name="servicesAckedList", EmitDefaultValue=true)]
         public List<string> ServicesAckedList { get; set; }
 
         /// <summary>
-        /// [For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.
+        /// [For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after the entity is marked for removal.
         /// </summary>
-        /// <value>[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.</value>
+        /// <value>[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after the entity is marked for removal.</value>
         [DataMember(Name="servicesNotAcked", EmitDefaultValue=true)]
         public string ServicesNotAcked { get; set; }
 
@@ -386,6 +430,20 @@ namespace Cohesity.Model
         /// <value>SystemDisk describes the node system disks.</value>
         [DataMember(Name="systemDisks", EmitDefaultValue=true)]
         public List<NodeSystemDiskInfo> SystemDisks { get; set; }
+
+        /// <summary>
+        /// TimeRemaining is the overall total duration left to remove the entity.
+        /// </summary>
+        /// <value>TimeRemaining is the overall total duration left to remove the entity.</value>
+        [DataMember(Name="timeRemaining", EmitDefaultValue=true)]
+        public long? TimeRemaining { get; set; }
+
+        /// <summary>
+        /// ValidationChecks specifies list of pre-check validations
+        /// </summary>
+        /// <value>ValidationChecks specifies list of pre-check validations</value>
+        [DataMember(Name="validationChecks", EmitDefaultValue=true)]
+        public List<PreCheckValidation> ValidationChecks { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -461,6 +519,11 @@ namespace Cohesity.Model
                     this.DiskCountByTier.SequenceEqual(input.DiskCountByTier)
                 ) && 
                 (
+                    this.HardwareModel == input.HardwareModel ||
+                    (this.HardwareModel != null &&
+                    this.HardwareModel.Equals(input.HardwareModel))
+                ) && 
+                (
                     this.HostName == input.HostName ||
                     (this.HostName != null &&
                     this.HostName.Equals(input.HostName))
@@ -527,9 +590,19 @@ namespace Cohesity.Model
                     this.OfflineMountPathsOfDisks.SequenceEqual(input.OfflineMountPathsOfDisks)
                 ) && 
                 (
+                    this.PrecheckTimestampSecs == input.PrecheckTimestampSecs ||
+                    (this.PrecheckTimestampSecs != null &&
+                    this.PrecheckTimestampSecs.Equals(input.PrecheckTimestampSecs))
+                ) && 
+                (
                     this.ProductModel == input.ProductModel ||
                     (this.ProductModel != null &&
                     this.ProductModel.Equals(input.ProductModel))
+                ) && 
+                (
+                    this.ProgressPercentage == input.ProgressPercentage ||
+                    (this.ProgressPercentage != null &&
+                    this.ProgressPercentage.Equals(input.ProgressPercentage))
                 ) && 
                 (
                     this.RemovalProgressList == input.RemovalProgressList ||
@@ -544,6 +617,11 @@ namespace Cohesity.Model
                 (
                     this.RemovalState == input.RemovalState ||
                     this.RemovalState.Equals(input.RemovalState)
+                ) && 
+                (
+                    this.RemovalTimestampSecs == input.RemovalTimestampSecs ||
+                    (this.RemovalTimestampSecs != null &&
+                    this.RemovalTimestampSecs.Equals(input.RemovalTimestampSecs))
                 ) && 
                 (
                     this.ServicesAckedList == input.ServicesAckedList ||
@@ -577,6 +655,17 @@ namespace Cohesity.Model
                     this.SystemDisks != null &&
                     input.SystemDisks != null &&
                     this.SystemDisks.SequenceEqual(input.SystemDisks)
+                ) && 
+                (
+                    this.TimeRemaining == input.TimeRemaining ||
+                    (this.TimeRemaining != null &&
+                    this.TimeRemaining.Equals(input.TimeRemaining))
+                ) && 
+                (
+                    this.ValidationChecks == input.ValidationChecks ||
+                    this.ValidationChecks != null &&
+                    input.ValidationChecks != null &&
+                    this.ValidationChecks.SequenceEqual(input.ValidationChecks)
                 );
         }
 
@@ -603,6 +692,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DiskCount.GetHashCode();
                 if (this.DiskCountByTier != null)
                     hashCode = hashCode * 59 + this.DiskCountByTier.GetHashCode();
+                if (this.HardwareModel != null)
+                    hashCode = hashCode * 59 + this.HardwareModel.GetHashCode();
                 if (this.HostName != null)
                     hashCode = hashCode * 59 + this.HostName.GetHashCode();
                 if (this.Id != null)
@@ -629,12 +720,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OfflineDiskCount.GetHashCode();
                 if (this.OfflineMountPathsOfDisks != null)
                     hashCode = hashCode * 59 + this.OfflineMountPathsOfDisks.GetHashCode();
+                if (this.PrecheckTimestampSecs != null)
+                    hashCode = hashCode * 59 + this.PrecheckTimestampSecs.GetHashCode();
                 if (this.ProductModel != null)
                     hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
+                if (this.ProgressPercentage != null)
+                    hashCode = hashCode * 59 + this.ProgressPercentage.GetHashCode();
                 if (this.RemovalProgressList != null)
                     hashCode = hashCode * 59 + this.RemovalProgressList.GetHashCode();
                 hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
                 hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                if (this.RemovalTimestampSecs != null)
+                    hashCode = hashCode * 59 + this.RemovalTimestampSecs.GetHashCode();
                 if (this.ServicesAckedList != null)
                     hashCode = hashCode * 59 + this.ServicesAckedList.GetHashCode();
                 if (this.ServicesNotAcked != null)
@@ -647,6 +744,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.SystemDisks != null)
                     hashCode = hashCode * 59 + this.SystemDisks.GetHashCode();
+                if (this.TimeRemaining != null)
+                    hashCode = hashCode * 59 + this.TimeRemaining.GetHashCode();
+                if (this.ValidationChecks != null)
+                    hashCode = hashCode * 59 + this.ValidationChecks.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,40 +23,65 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="S3BucketConfigProto" /> class.
         /// </summary>
+        /// <param name="abacEnabled">bool representing if the view is ABAC enabled or not.</param>
         /// <param name="acl">acl.</param>
         /// <param name="bucketPolicy">bucketPolicy.</param>
+        /// <param name="efficientMpuEnabled">bool representing whether MPUs are organized using S3 MPU 2.0 design. Should only be set while view creation and immutable there after..</param>
         /// <param name="enableObjStoreAccess">If set to false, we disable access to view using S3/Swift protocol. This overrides any &#39;protocol_access_info&#39; set on view for S3/Swift. This flag is added as the transition for S3 native to non-S3 native is disabled and therefore the access using S3/Swift protocol cannot be disabled by madrox..</param>
         /// <param name="initClusterId">The cluster id for the cluster where the view was initially created without replication. For view on Rx, the init_cluster_id will remain same as that of the initial cluster..</param>
         /// <param name="initClusterIncarnationId">The cluster incarnation id for the cluster where the view was initially created without replication. For view on Rx, the init_incarnation_cluster_id will remain same as that of the initial cluster..</param>
         /// <param name="lifecycleConfig">lifecycleConfig.</param>
+        /// <param name="maxSubfilesPerMpu">This tunable field defines the number of maximum subfiles a MPU directory can have..</param>
+        /// <param name="objectTagsAdded">Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view..</param>
         /// <param name="ownerInfo">ownerInfo.</param>
         /// <param name="ownershipControls">ownershipControls.</param>
+        /// <param name="prefixDelimiter">Delimiter used in prefix based request routing. An application needs to explicitly set the prefix_delimiter during bucket creation. If the prefix_delimiter is not explicitly set, &#39;/&#39; will be used as the default prefix delimiter for buckets that has prefix-based-routing enabled. SnapDiff backups uses &#39;/&#39; in the object names hence it was chosen as the default prefix to avoid further UI changes in this project. If there are other use cases that require a different prefix_delimiter, it has to be set during bucket creation. Once prefix_delimiter is chosen, it cannot be changed..</param>
+        /// <param name="prefixToChildBucketMap">Stores the prefix to child bucket mapping to enable prefix based routing of object requests to child buckets..</param>
         /// <param name="protocolType">Protocol type of this bucket..</param>
         /// <param name="swiftContainerTag">swiftContainerTag.</param>
         /// <param name="tagMap">Tags (or labels) assigned to the bucket. Tags are set of &lt;key, value&gt; pairs..</param>
         /// <param name="versioningState">versioningState.</param>
-        public S3BucketConfigProto(ACLProto acl = default(ACLProto), BucketPolicy bucketPolicy = default(BucketPolicy), bool? enableObjStoreAccess = default(bool?), long? initClusterId = default(long?), long? initClusterIncarnationId = default(long?), LifecycleConfigProto lifecycleConfig = default(LifecycleConfigProto), OwnerInfo ownerInfo = default(OwnerInfo), BucketOwnershipControls ownershipControls = default(BucketOwnershipControls), int? protocolType = default(int?), SwiftContainerTaggingProto swiftContainerTag = default(SwiftContainerTaggingProto), List<S3BucketConfigProtoTagMapEntry> tagMap = default(List<S3BucketConfigProtoTagMapEntry>), int? versioningState = default(int?))
+        public S3BucketConfigProto(bool? abacEnabled = default(bool?), ACLProto acl = default(ACLProto), BucketPolicy bucketPolicy = default(BucketPolicy), bool? efficientMpuEnabled = default(bool?), bool? enableObjStoreAccess = default(bool?), long? initClusterId = default(long?), long? initClusterIncarnationId = default(long?), LifecycleConfigProto lifecycleConfig = default(LifecycleConfigProto), int? maxSubfilesPerMpu = default(int?), bool? objectTagsAdded = default(bool?), OwnerInfo ownerInfo = default(OwnerInfo), BucketOwnershipControls ownershipControls = default(BucketOwnershipControls), string prefixDelimiter = default(string), List<S3BucketConfigProtoPrefixToChildBucketMapEntry> prefixToChildBucketMap = default(List<S3BucketConfigProtoPrefixToChildBucketMapEntry>), int? protocolType = default(int?), SwiftContainerTaggingProto swiftContainerTag = default(SwiftContainerTaggingProto), List<S3BucketConfigProtoTagMapEntry> tagMap = default(List<S3BucketConfigProtoTagMapEntry>), int? versioningState = default(int?))
         {
+            this.AbacEnabled = abacEnabled;
+            this.EfficientMpuEnabled = efficientMpuEnabled;
             this.EnableObjStoreAccess = enableObjStoreAccess;
             this.InitClusterId = initClusterId;
             this.InitClusterIncarnationId = initClusterIncarnationId;
+            this.MaxSubfilesPerMpu = maxSubfilesPerMpu;
+            this.ObjectTagsAdded = objectTagsAdded;
+            this.PrefixDelimiter = prefixDelimiter;
+            this.PrefixToChildBucketMap = prefixToChildBucketMap;
             this.ProtocolType = protocolType;
             this.TagMap = tagMap;
             this.VersioningState = versioningState;
+            this.AbacEnabled = abacEnabled;
             this.Acl = acl;
             this.BucketPolicy = bucketPolicy;
+            this.EfficientMpuEnabled = efficientMpuEnabled;
             this.EnableObjStoreAccess = enableObjStoreAccess;
             this.InitClusterId = initClusterId;
             this.InitClusterIncarnationId = initClusterIncarnationId;
             this.LifecycleConfig = lifecycleConfig;
+            this.MaxSubfilesPerMpu = maxSubfilesPerMpu;
+            this.ObjectTagsAdded = objectTagsAdded;
             this.OwnerInfo = ownerInfo;
             this.OwnershipControls = ownershipControls;
+            this.PrefixDelimiter = prefixDelimiter;
+            this.PrefixToChildBucketMap = prefixToChildBucketMap;
             this.ProtocolType = protocolType;
             this.SwiftContainerTag = swiftContainerTag;
             this.TagMap = tagMap;
             this.VersioningState = versioningState;
         }
         
+        /// <summary>
+        /// bool representing if the view is ABAC enabled or not
+        /// </summary>
+        /// <value>bool representing if the view is ABAC enabled or not</value>
+        [DataMember(Name="abacEnabled", EmitDefaultValue=true)]
+        public bool? AbacEnabled { get; set; }
+
         /// <summary>
         /// Gets or Sets Acl
         /// </summary>
@@ -70,6 +93,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="bucketPolicy", EmitDefaultValue=false)]
         public BucketPolicy BucketPolicy { get; set; }
+
+        /// <summary>
+        /// bool representing whether MPUs are organized using S3 MPU 2.0 design. Should only be set while view creation and immutable there after.
+        /// </summary>
+        /// <value>bool representing whether MPUs are organized using S3 MPU 2.0 design. Should only be set while view creation and immutable there after.</value>
+        [DataMember(Name="efficientMpuEnabled", EmitDefaultValue=true)]
+        public bool? EfficientMpuEnabled { get; set; }
 
         /// <summary>
         /// If set to false, we disable access to view using S3/Swift protocol. This overrides any &#39;protocol_access_info&#39; set on view for S3/Swift. This flag is added as the transition for S3 native to non-S3 native is disabled and therefore the access using S3/Swift protocol cannot be disabled by madrox.
@@ -99,6 +129,20 @@ namespace Cohesity.Model
         public LifecycleConfigProto LifecycleConfig { get; set; }
 
         /// <summary>
+        /// This tunable field defines the number of maximum subfiles a MPU directory can have.
+        /// </summary>
+        /// <value>This tunable field defines the number of maximum subfiles a MPU directory can have.</value>
+        [DataMember(Name="maxSubfilesPerMpu", EmitDefaultValue=true)]
+        public int? MaxSubfilesPerMpu { get; set; }
+
+        /// <summary>
+        /// Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view.
+        /// </summary>
+        /// <value>Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view.</value>
+        [DataMember(Name="objectTagsAdded", EmitDefaultValue=true)]
+        public bool? ObjectTagsAdded { get; set; }
+
+        /// <summary>
         /// Gets or Sets OwnerInfo
         /// </summary>
         [DataMember(Name="ownerInfo", EmitDefaultValue=false)]
@@ -109,6 +153,20 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="ownershipControls", EmitDefaultValue=false)]
         public BucketOwnershipControls OwnershipControls { get; set; }
+
+        /// <summary>
+        /// Delimiter used in prefix based request routing. An application needs to explicitly set the prefix_delimiter during bucket creation. If the prefix_delimiter is not explicitly set, &#39;/&#39; will be used as the default prefix delimiter for buckets that has prefix-based-routing enabled. SnapDiff backups uses &#39;/&#39; in the object names hence it was chosen as the default prefix to avoid further UI changes in this project. If there are other use cases that require a different prefix_delimiter, it has to be set during bucket creation. Once prefix_delimiter is chosen, it cannot be changed.
+        /// </summary>
+        /// <value>Delimiter used in prefix based request routing. An application needs to explicitly set the prefix_delimiter during bucket creation. If the prefix_delimiter is not explicitly set, &#39;/&#39; will be used as the default prefix delimiter for buckets that has prefix-based-routing enabled. SnapDiff backups uses &#39;/&#39; in the object names hence it was chosen as the default prefix to avoid further UI changes in this project. If there are other use cases that require a different prefix_delimiter, it has to be set during bucket creation. Once prefix_delimiter is chosen, it cannot be changed.</value>
+        [DataMember(Name="prefixDelimiter", EmitDefaultValue=true)]
+        public string PrefixDelimiter { get; set; }
+
+        /// <summary>
+        /// Stores the prefix to child bucket mapping to enable prefix based routing of object requests to child buckets.
+        /// </summary>
+        /// <value>Stores the prefix to child bucket mapping to enable prefix based routing of object requests to child buckets.</value>
+        [DataMember(Name="prefixToChildBucketMap", EmitDefaultValue=true)]
+        public List<S3BucketConfigProtoPrefixToChildBucketMapEntry> PrefixToChildBucketMap { get; set; }
 
         /// <summary>
         /// Protocol type of this bucket.
@@ -173,6 +231,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AbacEnabled == input.AbacEnabled ||
+                    (this.AbacEnabled != null &&
+                    this.AbacEnabled.Equals(input.AbacEnabled))
+                ) && 
+                (
                     this.Acl == input.Acl ||
                     (this.Acl != null &&
                     this.Acl.Equals(input.Acl))
@@ -181,6 +244,11 @@ namespace Cohesity.Model
                     this.BucketPolicy == input.BucketPolicy ||
                     (this.BucketPolicy != null &&
                     this.BucketPolicy.Equals(input.BucketPolicy))
+                ) && 
+                (
+                    this.EfficientMpuEnabled == input.EfficientMpuEnabled ||
+                    (this.EfficientMpuEnabled != null &&
+                    this.EfficientMpuEnabled.Equals(input.EfficientMpuEnabled))
                 ) && 
                 (
                     this.EnableObjStoreAccess == input.EnableObjStoreAccess ||
@@ -203,6 +271,16 @@ namespace Cohesity.Model
                     this.LifecycleConfig.Equals(input.LifecycleConfig))
                 ) && 
                 (
+                    this.MaxSubfilesPerMpu == input.MaxSubfilesPerMpu ||
+                    (this.MaxSubfilesPerMpu != null &&
+                    this.MaxSubfilesPerMpu.Equals(input.MaxSubfilesPerMpu))
+                ) && 
+                (
+                    this.ObjectTagsAdded == input.ObjectTagsAdded ||
+                    (this.ObjectTagsAdded != null &&
+                    this.ObjectTagsAdded.Equals(input.ObjectTagsAdded))
+                ) && 
+                (
                     this.OwnerInfo == input.OwnerInfo ||
                     (this.OwnerInfo != null &&
                     this.OwnerInfo.Equals(input.OwnerInfo))
@@ -211,6 +289,17 @@ namespace Cohesity.Model
                     this.OwnershipControls == input.OwnershipControls ||
                     (this.OwnershipControls != null &&
                     this.OwnershipControls.Equals(input.OwnershipControls))
+                ) && 
+                (
+                    this.PrefixDelimiter == input.PrefixDelimiter ||
+                    (this.PrefixDelimiter != null &&
+                    this.PrefixDelimiter.Equals(input.PrefixDelimiter))
+                ) && 
+                (
+                    this.PrefixToChildBucketMap == input.PrefixToChildBucketMap ||
+                    this.PrefixToChildBucketMap != null &&
+                    input.PrefixToChildBucketMap != null &&
+                    this.PrefixToChildBucketMap.SequenceEqual(input.PrefixToChildBucketMap)
                 ) && 
                 (
                     this.ProtocolType == input.ProtocolType ||
@@ -244,10 +333,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AbacEnabled != null)
+                    hashCode = hashCode * 59 + this.AbacEnabled.GetHashCode();
                 if (this.Acl != null)
                     hashCode = hashCode * 59 + this.Acl.GetHashCode();
                 if (this.BucketPolicy != null)
                     hashCode = hashCode * 59 + this.BucketPolicy.GetHashCode();
+                if (this.EfficientMpuEnabled != null)
+                    hashCode = hashCode * 59 + this.EfficientMpuEnabled.GetHashCode();
                 if (this.EnableObjStoreAccess != null)
                     hashCode = hashCode * 59 + this.EnableObjStoreAccess.GetHashCode();
                 if (this.InitClusterId != null)
@@ -256,10 +349,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InitClusterIncarnationId.GetHashCode();
                 if (this.LifecycleConfig != null)
                     hashCode = hashCode * 59 + this.LifecycleConfig.GetHashCode();
+                if (this.MaxSubfilesPerMpu != null)
+                    hashCode = hashCode * 59 + this.MaxSubfilesPerMpu.GetHashCode();
+                if (this.ObjectTagsAdded != null)
+                    hashCode = hashCode * 59 + this.ObjectTagsAdded.GetHashCode();
                 if (this.OwnerInfo != null)
                     hashCode = hashCode * 59 + this.OwnerInfo.GetHashCode();
                 if (this.OwnershipControls != null)
                     hashCode = hashCode * 59 + this.OwnershipControls.GetHashCode();
+                if (this.PrefixDelimiter != null)
+                    hashCode = hashCode * 59 + this.PrefixDelimiter.GetHashCode();
+                if (this.PrefixToChildBucketMap != null)
+                    hashCode = hashCode * 59 + this.PrefixToChildBucketMap.GetHashCode();
                 if (this.ProtocolType != null)
                     hashCode = hashCode * 59 + this.ProtocolType.GetHashCode();
                 if (this.SwiftContainerTag != null)

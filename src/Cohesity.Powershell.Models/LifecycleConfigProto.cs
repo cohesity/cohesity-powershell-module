@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="LifecycleConfigProto" /> class.
         /// </summary>
         /// <param name="rules">Specifies lifecycle configuration rules for an Amazon S3 bucket. A maximum of 1000 rules can be specified..</param>
-        /// <param name="versionId">Specifies the uniq monotonically increasing version for lifecycle configuration..</param>
+        /// <param name="versionId">Specifies the unique monotonically increasing version for lifecycle configuration. This field will be set automatically inside bridge. Components outside bridge no needs to set this field. It will be ignored and overwritten by bridge even if it is set..</param>
         public LifecycleConfigProto(List<LifecycleRule> rules = default(List<LifecycleRule>), long? versionId = default(long?))
         {
             this.Rules = rules;
@@ -43,9 +41,9 @@ namespace Cohesity.Model
         public List<LifecycleRule> Rules { get; set; }
 
         /// <summary>
-        /// Specifies the uniq monotonically increasing version for lifecycle configuration.
+        /// Specifies the unique monotonically increasing version for lifecycle configuration. This field will be set automatically inside bridge. Components outside bridge no needs to set this field. It will be ignored and overwritten by bridge even if it is set.
         /// </summary>
-        /// <value>Specifies the uniq monotonically increasing version for lifecycle configuration.</value>
+        /// <value>Specifies the unique monotonically increasing version for lifecycle configuration. This field will be set automatically inside bridge. Components outside bridge no needs to set this field. It will be ignored and overwritten by bridge even if it is set.</value>
         [DataMember(Name="versionId", EmitDefaultValue=true)]
         public long? VersionId { get; set; }
 

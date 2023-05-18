@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -490,6 +488,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="User" /> class.
         /// </summary>
+        /// <param name="adUserInfo">adUserInfo.</param>
         /// <param name="additionalGroupNames">Array of Additional Groups.  Specifies the names of additional groups this User may belong to..</param>
         /// <param name="allowDsoModify">Specifies if the data security user can be modified by the admin users..</param>
         /// <param name="auditLogSettings">auditLogSettings.</param>
@@ -505,6 +504,7 @@ namespace Cohesity.Model
         /// <param name="forcePasswordChange">Specifies whether to force user to change password..</param>
         /// <param name="googleAccount">googleAccount.</param>
         /// <param name="idpUserInfo">idpUserInfo.</param>
+        /// <param name="intercomMessengerToken">Specifies the messenger token for intercom identity verification..</param>
         /// <param name="isAccountLocked">Specifies whether the user account is locked..</param>
         /// <param name="isActive">IsActive specifies whether or not a user is active, or has been disactivated by the customer. The default behavior is &#39;true&#39;..</param>
         /// <param name="lastSuccessfulLoginTimeMsecs">Specifies the epoch time in milliseconds when the user was last logged in successfully..</param>
@@ -526,11 +526,12 @@ namespace Cohesity.Model
         /// <param name="s3SecretKey">Specifies the S3 Account Secret Key..</param>
         /// <param name="salesforceAccount">salesforceAccount.</param>
         /// <param name="sid">Specifies the unique Security ID (SID) of the user. This field is mandatory in modifying user..</param>
+        /// <param name="spogContext">spogContext.</param>
         /// <param name="subscriptionInfo">subscriptionInfo.</param>
         /// <param name="tenantAccesses">Specifies the tenant access available to current user. NOTE: Currently used for Helios..</param>
         /// <param name="tenantId">Specifies the effective Tenant ID of the user..</param>
         /// <param name="username">Specifies the login name of the user..</param>
-        public User(List<string> additionalGroupNames = default(List<string>), bool? allowDsoModify = default(bool?), AuditLogSettings auditLogSettings = default(AuditLogSettings), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string currentPassword = default(string), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), bool? forcePasswordChange = default(bool?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IdpUserInfo idpUserInfo = default(IdpUserInfo), bool? isAccountLocked = default(bool?), bool? isActive = default(bool?), long? lastSuccessfulLoginTimeMsecs = default(long?), long? lastUpdatedTimeMsecs = default(long?), LockoutReasonEnum? lockoutReason = default(LockoutReasonEnum?), MfaInfo mfaInfo = default(MfaInfo), List<string> mfaMethods = default(List<string>), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), long? previousLoginTimeMsecs = default(long?), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), SubscriptionInfo subscriptionInfo = default(SubscriptionInfo), List<TenantAccess> tenantAccesses = default(List<TenantAccess>), string tenantId = default(string), string username = default(string))
+        public User(ADUserInfo adUserInfo = default(ADUserInfo), List<string> additionalGroupNames = default(List<string>), bool? allowDsoModify = default(bool?), AuditLogSettings auditLogSettings = default(AuditLogSettings), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string currentPassword = default(string), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), bool? forcePasswordChange = default(bool?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IdpUserInfo idpUserInfo = default(IdpUserInfo), string intercomMessengerToken = default(string), bool? isAccountLocked = default(bool?), bool? isActive = default(bool?), long? lastSuccessfulLoginTimeMsecs = default(long?), long? lastUpdatedTimeMsecs = default(long?), LockoutReasonEnum? lockoutReason = default(LockoutReasonEnum?), MfaInfo mfaInfo = default(MfaInfo), List<string> mfaMethods = default(List<string>), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), long? previousLoginTimeMsecs = default(long?), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), SpogContext spogContext = default(SpogContext), SubscriptionInfo subscriptionInfo = default(SubscriptionInfo), List<TenantAccess> tenantAccesses = default(List<TenantAccess>), string tenantId = default(string), string username = default(string))
         {
             this.AdditionalGroupNames = additionalGroupNames;
             this.AllowDsoModify = allowDsoModify;
@@ -544,6 +545,7 @@ namespace Cohesity.Model
             this.EmailAddress = emailAddress;
             this.ExpiredTimeMsecs = expiredTimeMsecs;
             this.ForcePasswordChange = forcePasswordChange;
+            this.IntercomMessengerToken = intercomMessengerToken;
             this.IsAccountLocked = isAccountLocked;
             this.IsActive = isActive;
             this.LastSuccessfulLoginTimeMsecs = lastSuccessfulLoginTimeMsecs;
@@ -565,6 +567,7 @@ namespace Cohesity.Model
             this.TenantAccesses = tenantAccesses;
             this.TenantId = tenantId;
             this.Username = username;
+            this.AdUserInfo = adUserInfo;
             this.AdditionalGroupNames = additionalGroupNames;
             this.AllowDsoModify = allowDsoModify;
             this.AuditLogSettings = auditLogSettings;
@@ -580,6 +583,7 @@ namespace Cohesity.Model
             this.ForcePasswordChange = forcePasswordChange;
             this.GoogleAccount = googleAccount;
             this.IdpUserInfo = idpUserInfo;
+            this.IntercomMessengerToken = intercomMessengerToken;
             this.IsAccountLocked = isAccountLocked;
             this.IsActive = isActive;
             this.LastSuccessfulLoginTimeMsecs = lastSuccessfulLoginTimeMsecs;
@@ -601,12 +605,19 @@ namespace Cohesity.Model
             this.S3SecretKey = s3SecretKey;
             this.SalesforceAccount = salesforceAccount;
             this.Sid = sid;
+            this.SpogContext = spogContext;
             this.SubscriptionInfo = subscriptionInfo;
             this.TenantAccesses = tenantAccesses;
             this.TenantId = tenantId;
             this.Username = username;
         }
         
+        /// <summary>
+        /// Gets or Sets AdUserInfo
+        /// </summary>
+        [DataMember(Name="adUserInfo", EmitDefaultValue=false)]
+        public ADUserInfo AdUserInfo { get; set; }
+
         /// <summary>
         /// Array of Additional Groups.  Specifies the names of additional groups this User may belong to.
         /// </summary>
@@ -708,6 +719,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="idpUserInfo", EmitDefaultValue=false)]
         public IdpUserInfo IdpUserInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the messenger token for intercom identity verification.
+        /// </summary>
+        /// <value>Specifies the messenger token for intercom identity verification.</value>
+        [DataMember(Name="intercomMessengerToken", EmitDefaultValue=true)]
+        public string IntercomMessengerToken { get; set; }
 
         /// <summary>
         /// Specifies whether the user account is locked.
@@ -854,6 +872,12 @@ namespace Cohesity.Model
         public string Sid { get; set; }
 
         /// <summary>
+        /// Gets or Sets SpogContext
+        /// </summary>
+        [DataMember(Name="spogContext", EmitDefaultValue=false)]
+        public SpogContext SpogContext { get; set; }
+
+        /// <summary>
         /// Gets or Sets SubscriptionInfo
         /// </summary>
         [DataMember(Name="subscriptionInfo", EmitDefaultValue=false)]
@@ -916,6 +940,11 @@ namespace Cohesity.Model
                 return false;
 
             return 
+                (
+                    this.AdUserInfo == input.AdUserInfo ||
+                    (this.AdUserInfo != null &&
+                    this.AdUserInfo.Equals(input.AdUserInfo))
+                ) && 
                 (
                     this.AdditionalGroupNames == input.AdditionalGroupNames ||
                     this.AdditionalGroupNames != null &&
@@ -997,6 +1026,11 @@ namespace Cohesity.Model
                     this.IdpUserInfo == input.IdpUserInfo ||
                     (this.IdpUserInfo != null &&
                     this.IdpUserInfo.Equals(input.IdpUserInfo))
+                ) && 
+                (
+                    this.IntercomMessengerToken == input.IntercomMessengerToken ||
+                    (this.IntercomMessengerToken != null &&
+                    this.IntercomMessengerToken.Equals(input.IntercomMessengerToken))
                 ) && 
                 (
                     this.IsAccountLocked == input.IsAccountLocked ||
@@ -1116,6 +1150,11 @@ namespace Cohesity.Model
                     this.Sid.Equals(input.Sid))
                 ) && 
                 (
+                    this.SpogContext == input.SpogContext ||
+                    (this.SpogContext != null &&
+                    this.SpogContext.Equals(input.SpogContext))
+                ) && 
+                (
                     this.SubscriptionInfo == input.SubscriptionInfo ||
                     (this.SubscriptionInfo != null &&
                     this.SubscriptionInfo.Equals(input.SubscriptionInfo))
@@ -1147,6 +1186,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdUserInfo != null)
+                    hashCode = hashCode * 59 + this.AdUserInfo.GetHashCode();
                 if (this.AdditionalGroupNames != null)
                     hashCode = hashCode * 59 + this.AdditionalGroupNames.GetHashCode();
                 if (this.AllowDsoModify != null)
@@ -1178,6 +1219,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GroupRoles.GetHashCode();
                 if (this.IdpUserInfo != null)
                     hashCode = hashCode * 59 + this.IdpUserInfo.GetHashCode();
+                if (this.IntercomMessengerToken != null)
+                    hashCode = hashCode * 59 + this.IntercomMessengerToken.GetHashCode();
                 if (this.IsAccountLocked != null)
                     hashCode = hashCode * 59 + this.IsAccountLocked.GetHashCode();
                 if (this.IsAccountMfaEnabled != null)
@@ -1222,6 +1265,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SalesforceAccount.GetHashCode();
                 if (this.Sid != null)
                     hashCode = hashCode * 59 + this.Sid.GetHashCode();
+                if (this.SpogContext != null)
+                    hashCode = hashCode * 59 + this.SpogContext.GetHashCode();
                 if (this.SubscriptionInfo != null)
                     hashCode = hashCode * 59 + this.SubscriptionInfo.GetHashCode();
                 if (this.TenantAccesses != null)

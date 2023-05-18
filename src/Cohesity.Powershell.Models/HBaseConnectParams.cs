@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,22 +23,30 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HBaseConnectParams" /> class.
         /// </summary>
+        /// <param name="hbaseDiscoveryParams">hbaseDiscoveryParams.</param>
         /// <param name="hdfsEntityId">The entity id of the HDFS source for this HBase.</param>
         /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="rootDataDirectory">Specifies the HBase data root directory..</param>
         /// <param name="zookeeperQuorum">Specifies the HBase zookeeper quorum..</param>
-        public HBaseConnectParams(long? hdfsEntityId = default(long?), string kerberosPrincipal = default(string), string rootDataDirectory = default(string), List<string> zookeeperQuorum = default(List<string>))
+        public HBaseConnectParams(HadoopDiscoveryParams hbaseDiscoveryParams = default(HadoopDiscoveryParams), long? hdfsEntityId = default(long?), string kerberosPrincipal = default(string), string rootDataDirectory = default(string), List<string> zookeeperQuorum = default(List<string>))
         {
             this.HdfsEntityId = hdfsEntityId;
             this.KerberosPrincipal = kerberosPrincipal;
             this.RootDataDirectory = rootDataDirectory;
             this.ZookeeperQuorum = zookeeperQuorum;
+            this.HbaseDiscoveryParams = hbaseDiscoveryParams;
             this.HdfsEntityId = hdfsEntityId;
             this.KerberosPrincipal = kerberosPrincipal;
             this.RootDataDirectory = rootDataDirectory;
             this.ZookeeperQuorum = zookeeperQuorum;
         }
         
+        /// <summary>
+        /// Gets or Sets HbaseDiscoveryParams
+        /// </summary>
+        [DataMember(Name="hbaseDiscoveryParams", EmitDefaultValue=false)]
+        public HadoopDiscoveryParams HbaseDiscoveryParams { get; set; }
+
         /// <summary>
         /// The entity id of the HDFS source for this HBase
         /// </summary>
@@ -106,6 +112,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.HbaseDiscoveryParams == input.HbaseDiscoveryParams ||
+                    (this.HbaseDiscoveryParams != null &&
+                    this.HbaseDiscoveryParams.Equals(input.HbaseDiscoveryParams))
+                ) && 
+                (
                     this.HdfsEntityId == input.HdfsEntityId ||
                     (this.HdfsEntityId != null &&
                     this.HdfsEntityId.Equals(input.HdfsEntityId))
@@ -137,6 +148,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.HbaseDiscoveryParams != null)
+                    hashCode = hashCode * 59 + this.HbaseDiscoveryParams.GetHashCode();
                 if (this.HdfsEntityId != null)
                     hashCode = hashCode * 59 + this.HdfsEntityId.GetHashCode();
                 if (this.KerberosPrincipal != null)

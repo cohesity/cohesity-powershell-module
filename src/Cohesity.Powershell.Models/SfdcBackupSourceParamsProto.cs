@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,18 +27,15 @@ namespace Cohesity.Model
         /// <param name="awsIamRole">IAM role used to get access to the Aurora cluster and S3 bucket..</param>
         /// <param name="excludedObjectIdsVec">List of entity ids of the Sfdc objects that are excluded by the user in object protection..</param>
         /// <param name="objectLevelParamsVec">This list is a mapping between an Sfdc object&#39;s entity Id and the list of field names that user has specified to exclude from this object&#39;s backup..</param>
-        /// <param name="s3BucketPrefix">S3 bucket prefix to be used while uploading the data to Aurora-postgres..</param>
-        public SfdcBackupSourceParamsProto(AuroraClusterInfo auroraClusterInfo = default(AuroraClusterInfo), string awsIamRole = default(string), List<long> excludedObjectIdsVec = default(List<long>), List<ObjectLevelParams> objectLevelParamsVec = default(List<ObjectLevelParams>), string s3BucketPrefix = default(string))
+        public SfdcBackupSourceParamsProto(AuroraClusterInfo auroraClusterInfo = default(AuroraClusterInfo), string awsIamRole = default(string), List<long> excludedObjectIdsVec = default(List<long>), List<ObjectLevelParams> objectLevelParamsVec = default(List<ObjectLevelParams>))
         {
             this.AwsIamRole = awsIamRole;
             this.ExcludedObjectIdsVec = excludedObjectIdsVec;
             this.ObjectLevelParamsVec = objectLevelParamsVec;
-            this.S3BucketPrefix = s3BucketPrefix;
             this.AuroraClusterInfo = auroraClusterInfo;
             this.AwsIamRole = awsIamRole;
             this.ExcludedObjectIdsVec = excludedObjectIdsVec;
             this.ObjectLevelParamsVec = objectLevelParamsVec;
-            this.S3BucketPrefix = s3BucketPrefix;
         }
         
         /// <summary>
@@ -69,13 +64,6 @@ namespace Cohesity.Model
         /// <value>This list is a mapping between an Sfdc object&#39;s entity Id and the list of field names that user has specified to exclude from this object&#39;s backup.</value>
         [DataMember(Name="objectLevelParamsVec", EmitDefaultValue=true)]
         public List<ObjectLevelParams> ObjectLevelParamsVec { get; set; }
-
-        /// <summary>
-        /// S3 bucket prefix to be used while uploading the data to Aurora-postgres.
-        /// </summary>
-        /// <value>S3 bucket prefix to be used while uploading the data to Aurora-postgres.</value>
-        [DataMember(Name="s3BucketPrefix", EmitDefaultValue=true)]
-        public string S3BucketPrefix { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -134,11 +122,6 @@ namespace Cohesity.Model
                     this.ObjectLevelParamsVec != null &&
                     input.ObjectLevelParamsVec != null &&
                     this.ObjectLevelParamsVec.SequenceEqual(input.ObjectLevelParamsVec)
-                ) && 
-                (
-                    this.S3BucketPrefix == input.S3BucketPrefix ||
-                    (this.S3BucketPrefix != null &&
-                    this.S3BucketPrefix.Equals(input.S3BucketPrefix))
                 );
         }
 
@@ -159,8 +142,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ExcludedObjectIdsVec.GetHashCode();
                 if (this.ObjectLevelParamsVec != null)
                     hashCode = hashCode * 59 + this.ObjectLevelParamsVec.GetHashCode();
-                if (this.S3BucketPrefix != null)
-                    hashCode = hashCode * 59 + this.S3BucketPrefix.GetHashCode();
                 return hashCode;
             }
         }

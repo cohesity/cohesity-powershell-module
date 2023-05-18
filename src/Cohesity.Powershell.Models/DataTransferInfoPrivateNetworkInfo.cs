@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,16 +23,26 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTransferInfoPrivateNetworkInfo" /> class.
         /// </summary>
+        /// <param name="location">Region/location of the virtual network..</param>
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpn">vpn.</param>
-        public DataTransferInfoPrivateNetworkInfo(EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpn = default(EntityProto))
+        public DataTransferInfoPrivateNetworkInfo(string location = default(string), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpn = default(EntityProto))
         {
+            this.Location = location;
+            this.Location = location;
             this.Region = region;
             this.Subnet = subnet;
             this.Vpn = vpn;
         }
         
+        /// <summary>
+        /// Region/location of the virtual network.
+        /// </summary>
+        /// <value>Region/location of the virtual network.</value>
+        [DataMember(Name="location", EmitDefaultValue=true)]
+        public string Location { get; set; }
+
         /// <summary>
         /// Gets or Sets Region
         /// </summary>
@@ -90,6 +98,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Location == input.Location ||
+                    (this.Location != null &&
+                    this.Location.Equals(input.Location))
+                ) && 
+                (
                     this.Region == input.Region ||
                     (this.Region != null &&
                     this.Region.Equals(input.Region))
@@ -115,6 +128,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Location != null)
+                    hashCode = hashCode * 59 + this.Location.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.Subnet != null)

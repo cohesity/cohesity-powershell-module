@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,15 +27,17 @@ namespace Cohesity.Model
         /// <param name="clusterHostname">The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname..</param>
         /// <param name="clusterIps">Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed..</param>
         /// <param name="description">Specifies the description of this tenant..</param>
+        /// <param name="isManagedOnHelios">Specifies whether this tenant is manged on helios.</param>
         /// <param name="name">Specifies the name of the tenant..</param>
         /// <param name="subscribeToAlertEmails">Service provider can optionally unsubscribe from the Tenant Alert Emails..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantUpdate(bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), string description = default(string), string name = default(string), bool? subscribeToAlertEmails = default(bool?), string tenantId = default(string))
+        public TenantUpdate(bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), string description = default(string), bool? isManagedOnHelios = default(bool?), string name = default(string), bool? subscribeToAlertEmails = default(bool?), string tenantId = default(string))
         {
             this.BifrostEnabled = bifrostEnabled;
             this.ClusterHostname = clusterHostname;
             this.ClusterIps = clusterIps;
             this.Description = description;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.Name = name;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
             this.TenantId = tenantId;
@@ -45,6 +45,7 @@ namespace Cohesity.Model
             this.ClusterHostname = clusterHostname;
             this.ClusterIps = clusterIps;
             this.Description = description;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.Name = name;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
             this.TenantId = tenantId;
@@ -77,6 +78,13 @@ namespace Cohesity.Model
         /// <value>Specifies the description of this tenant.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Specifies whether this tenant is manged on helios
+        /// </summary>
+        /// <value>Specifies whether this tenant is manged on helios</value>
+        [DataMember(Name="isManagedOnHelios", EmitDefaultValue=true)]
+        public bool? IsManagedOnHelios { get; set; }
 
         /// <summary>
         /// Specifies the name of the tenant.
@@ -157,6 +165,11 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.IsManagedOnHelios == input.IsManagedOnHelios ||
+                    (this.IsManagedOnHelios != null &&
+                    this.IsManagedOnHelios.Equals(input.IsManagedOnHelios))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -190,6 +203,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterIps.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.IsManagedOnHelios != null)
+                    hashCode = hashCode * 59 + this.IsManagedOnHelios.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SubscribeToAlertEmails != null)

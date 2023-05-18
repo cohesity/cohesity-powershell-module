@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,9 +26,14 @@ namespace Cohesity.Model
         /// <param name="abortInExclusionWindow">NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window)..</param>
         /// <param name="alertingPolicy">alertingPolicy.</param>
         /// <param name="allArchivalSnapshotsExpired">If job deletion status is kDeleteJobAndBackups and this field is set to true, then it  implies that expiration requests for all archival snapshots of this job (if any) have been acknowledged by Icebox. NOTE: This field may remain false for some period of time even if is_deleted field is set to true for the job..</param>
+        /// <param name="allInternalReplicationViewsDeleted">Indicates that all the internal replication views have been deleted..</param>
         /// <param name="allowParallelRuns">Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter..</param>
         /// <param name="backupQosPrincipal">The backup QoS principal to use for the backup job..</param>
         /// <param name="backupSourceParams">This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs)..</param>
+        /// <param name="cloudPostBackupScript">cloudPostBackupScript.</param>
+        /// <param name="cloudPostSnapshotScript">cloudPostSnapshotScript.</param>
+        /// <param name="cloudPreBackupScript">cloudPreBackupScript.</param>
+        /// <param name="configVec">Common Backup Configuration Parameters.</param>
         /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
         /// <param name="createRemoteView">If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name. NOTE: From 6.6 onwards, remote view is always created for view backups if policy has replication. Hence, this bool is only used for Remote Adapter jobs (kPuppeteer)..</param>
         /// <param name="dataTransferInfo">dataTransferInfo.</param>
@@ -67,6 +70,7 @@ namespace Cohesity.Model
         /// <param name="lastModificationTimeUsecs">Time when this job description was last updated..</param>
         /// <param name="lastPauseModificationTimeUsecs">Time when the job was last paused or unpaused..</param>
         /// <param name="lastPauseReason">Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable..</param>
+        /// <param name="lastStartTimeModificationTimeUsecs">Time when this job description was last updated..</param>
         /// <param name="lastUpdatedUsername">The user who modified the job most recently..</param>
         /// <param name="leverageNutanixSnapshots">This is set to true by the user if nutanix snapshot is requested This is applicable in case if the vcenter in question is registered as a management server on a prism endpoint. This flag will be ignored at the backend if it is not feasible to leverage nutanix snapshot..</param>
         /// <param name="leverageSanTransport">This is set to true by the user in order to backup the objects via a dedicated storage area network (SAN), as opposed to transport via LAN or management network. NOTE: Not all adapters support this method. Currently only VMware..</param>
@@ -86,6 +90,7 @@ namespace Cohesity.Model
         /// <param name="policyId">Id of the policy being applied to the backup job. It is expected to be of the form \&quot;cluster_id:cluster_instance_id:local_identifier\&quot;..</param>
         /// <param name="policyName">The name of the policy referred to by policy_uid. This field can be stale and should not be relied upon for the latest name..</param>
         /// <param name="postBackupScript">postBackupScript.</param>
+        /// <param name="postSnapshotScript">postSnapshotScript.</param>
         /// <param name="preScript">preScript.</param>
         /// <param name="primaryJobUid">primaryJobUid.</param>
         /// <param name="priority">The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority..</param>
@@ -104,18 +109,21 @@ namespace Cohesity.Model
         /// <param name="storageArraySnapshot">Whether this backup job has a policy for storage array snapshot based backups..</param>
         /// <param name="stubbingPolicy">stubbingPolicy.</param>
         /// <param name="tagVec">Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;..</param>
+        /// <param name="taskTimeoutVec">This is a vector of timeouts, for different backup types(kFull, kRegular). A cancellation will automatically gets triggered if the backup tasks inside a run has been running for more than this timeout duration..</param>
         /// <param name="timezone">Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code..</param>
         /// <param name="truncateLogs">Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment..</param>
         /// <param name="type">The type of environment this backup job corresponds to..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box to which data will be written..</param>
-        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), bool? allArchivalSnapshotsExpired = default(bool?), bool? allowParallelRuns = default(bool?), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), List<ErrorProto> ignorableErrorsInErrorDb = default(List<ErrorProto>), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isCdpSyncReplicationEnabled = default(bool?), bool? isCloudArchiveDirect = default(bool?), bool? isContinuousSnapshottingEnabled = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isInternal = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), List<BackupJobProtoIsSourcePausedMapEntry> isSourcePausedMap = default(List<BackupJobProtoIsSourcePausedMapEntry>), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), long? logBackupSlaTimeMins = default(long?), int? maxAllowedSourceSnapshots = default(int?), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), UniversalIdProto objectBackupSpecUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), bool? pauseInBlackoutWindow = default(bool?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), BackupJobProtoRemoteViewParams remoteViewParams = default(BackupJobProtoRemoteViewParams), List<string> requiredFeatureVec = default(List<string>), bool? skipRigelForBackup = default(bool?), bool? skipTenantValidations = default(bool?), long? slaTimeMins = default(long?), SourceFilters sourceFilters = default(SourceFilters), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), List<StandbyResource> standbyResourceVec = default(List<StandbyResource>), Time startTime = default(Time), bool? storageArraySnapshot = default(bool?), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), bool? allArchivalSnapshotsExpired = default(bool?), bool? allInternalReplicationViewsDeleted = default(bool?), bool? allowParallelRuns = default(bool?), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), CloudBackupJobPreOrPostScript cloudPostBackupScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPostSnapshotScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPreBackupScript = default(CloudBackupJobPreOrPostScript), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), List<ErrorProto> ignorableErrorsInErrorDb = default(List<ErrorProto>), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isCdpSyncReplicationEnabled = default(bool?), bool? isCloudArchiveDirect = default(bool?), bool? isContinuousSnapshottingEnabled = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isInternal = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), List<BackupJobProtoIsSourcePausedMapEntry> isSourcePausedMap = default(List<BackupJobProtoIsSourcePausedMapEntry>), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), long? lastStartTimeModificationTimeUsecs = default(long?), string lastUpdatedUsername = default(string), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), long? logBackupSlaTimeMins = default(long?), int? maxAllowedSourceSnapshots = default(int?), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), UniversalIdProto objectBackupSpecUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), bool? pauseInBlackoutWindow = default(bool?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript postSnapshotScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), BackupJobProtoRemoteViewParams remoteViewParams = default(BackupJobProtoRemoteViewParams), List<string> requiredFeatureVec = default(List<string>), bool? skipRigelForBackup = default(bool?), bool? skipTenantValidations = default(bool?), long? slaTimeMins = default(long?), SourceFilters sourceFilters = default(SourceFilters), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), List<StandbyResource> standbyResourceVec = default(List<StandbyResource>), Time startTime = default(Time), bool? storageArraySnapshot = default(bool?), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), List<CancellationTimeout> taskTimeoutVec = default(List<CancellationTimeout>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AbortInExclusionWindow = abortInExclusionWindow;
             this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
+            this.AllInternalReplicationViewsDeleted = allInternalReplicationViewsDeleted;
             this.AllowParallelRuns = allowParallelRuns;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
+            this.ConfigVec = configVec;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
             this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
@@ -143,6 +151,7 @@ namespace Cohesity.Model
             this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
+            this.LastStartTimeModificationTimeUsecs = lastStartTimeModificationTimeUsecs;
             this.LastUpdatedUsername = lastUpdatedUsername;
             this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
             this.LeverageSanTransport = leverageSanTransport;
@@ -170,6 +179,7 @@ namespace Cohesity.Model
             this.StandbyResourceVec = standbyResourceVec;
             this.StorageArraySnapshot = storageArraySnapshot;
             this.TagVec = tagVec;
+            this.TaskTimeoutVec = taskTimeoutVec;
             this.Timezone = timezone;
             this.TruncateLogs = truncateLogs;
             this.Type = type;
@@ -177,9 +187,14 @@ namespace Cohesity.Model
             this.AbortInExclusionWindow = abortInExclusionWindow;
             this.AlertingPolicy = alertingPolicy;
             this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
+            this.AllInternalReplicationViewsDeleted = allInternalReplicationViewsDeleted;
             this.AllowParallelRuns = allowParallelRuns;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
+            this.CloudPostBackupScript = cloudPostBackupScript;
+            this.CloudPostSnapshotScript = cloudPostSnapshotScript;
+            this.CloudPreBackupScript = cloudPreBackupScript;
+            this.ConfigVec = configVec;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
             this.DataTransferInfo = dataTransferInfo;
@@ -216,6 +231,7 @@ namespace Cohesity.Model
             this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
+            this.LastStartTimeModificationTimeUsecs = lastStartTimeModificationTimeUsecs;
             this.LastUpdatedUsername = lastUpdatedUsername;
             this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
             this.LeverageSanTransport = leverageSanTransport;
@@ -235,6 +251,7 @@ namespace Cohesity.Model
             this.PolicyId = policyId;
             this.PolicyName = policyName;
             this.PostBackupScript = postBackupScript;
+            this.PostSnapshotScript = postSnapshotScript;
             this.PreScript = preScript;
             this.PrimaryJobUid = primaryJobUid;
             this.Priority = priority;
@@ -253,6 +270,7 @@ namespace Cohesity.Model
             this.StorageArraySnapshot = storageArraySnapshot;
             this.StubbingPolicy = stubbingPolicy;
             this.TagVec = tagVec;
+            this.TaskTimeoutVec = taskTimeoutVec;
             this.Timezone = timezone;
             this.TruncateLogs = truncateLogs;
             this.Type = type;
@@ -281,6 +299,13 @@ namespace Cohesity.Model
         public bool? AllArchivalSnapshotsExpired { get; set; }
 
         /// <summary>
+        /// Indicates that all the internal replication views have been deleted.
+        /// </summary>
+        /// <value>Indicates that all the internal replication views have been deleted.</value>
+        [DataMember(Name="allInternalReplicationViewsDeleted", EmitDefaultValue=true)]
+        public bool? AllInternalReplicationViewsDeleted { get; set; }
+
+        /// <summary>
         /// Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter.
         /// </summary>
         /// <value>Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter.</value>
@@ -300,6 +325,31 @@ namespace Cohesity.Model
         /// <value>This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs).</value>
         [DataMember(Name="backupSourceParams", EmitDefaultValue=true)]
         public List<BackupSourceParams> BackupSourceParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudPostBackupScript
+        /// </summary>
+        [DataMember(Name="cloudPostBackupScript", EmitDefaultValue=false)]
+        public CloudBackupJobPreOrPostScript CloudPostBackupScript { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudPostSnapshotScript
+        /// </summary>
+        [DataMember(Name="cloudPostSnapshotScript", EmitDefaultValue=false)]
+        public CloudBackupJobPreOrPostScript CloudPostSnapshotScript { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudPreBackupScript
+        /// </summary>
+        [DataMember(Name="cloudPreBackupScript", EmitDefaultValue=false)]
+        public CloudBackupJobPreOrPostScript CloudPreBackupScript { get; set; }
+
+        /// <summary>
+        /// Common Backup Configuration Parameters
+        /// </summary>
+        /// <value>Common Backup Configuration Parameters</value>
+        [DataMember(Name="configVec", EmitDefaultValue=true)]
+        public List<ConfigurationParams> ConfigVec { get; set; }
 
         /// <summary>
         /// Whether to continue backing up on quiesce failure.
@@ -545,6 +595,13 @@ namespace Cohesity.Model
         public int? LastPauseReason { get; set; }
 
         /// <summary>
+        /// Time when this job description was last updated.
+        /// </summary>
+        /// <value>Time when this job description was last updated.</value>
+        [DataMember(Name="lastStartTimeModificationTimeUsecs", EmitDefaultValue=true)]
+        public long? LastStartTimeModificationTimeUsecs { get; set; }
+
+        /// <summary>
         /// The user who modified the job most recently.
         /// </summary>
         /// <value>The user who modified the job most recently.</value>
@@ -674,6 +731,12 @@ namespace Cohesity.Model
         public BackupJobPreOrPostScript PostBackupScript { get; set; }
 
         /// <summary>
+        /// Gets or Sets PostSnapshotScript
+        /// </summary>
+        [DataMember(Name="postSnapshotScript", EmitDefaultValue=false)]
+        public BackupJobPreOrPostScript PostSnapshotScript { get; set; }
+
+        /// <summary>
         /// Gets or Sets PreScript
         /// </summary>
         [DataMember(Name="preScript", EmitDefaultValue=false)]
@@ -794,6 +857,13 @@ namespace Cohesity.Model
         public List<string> TagVec { get; set; }
 
         /// <summary>
+        /// This is a vector of timeouts, for different backup types(kFull, kRegular). A cancellation will automatically gets triggered if the backup tasks inside a run has been running for more than this timeout duration.
+        /// </summary>
+        /// <value>This is a vector of timeouts, for different backup types(kFull, kRegular). A cancellation will automatically gets triggered if the backup tasks inside a run has been running for more than this timeout duration.</value>
+        [DataMember(Name="taskTimeoutVec", EmitDefaultValue=true)]
+        public List<CancellationTimeout> TaskTimeoutVec { get; set; }
+
+        /// <summary>
         /// Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code.
         /// </summary>
         /// <value>Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code.</value>
@@ -879,6 +949,11 @@ namespace Cohesity.Model
                     this.AllArchivalSnapshotsExpired.Equals(input.AllArchivalSnapshotsExpired))
                 ) && 
                 (
+                    this.AllInternalReplicationViewsDeleted == input.AllInternalReplicationViewsDeleted ||
+                    (this.AllInternalReplicationViewsDeleted != null &&
+                    this.AllInternalReplicationViewsDeleted.Equals(input.AllInternalReplicationViewsDeleted))
+                ) && 
+                (
                     this.AllowParallelRuns == input.AllowParallelRuns ||
                     (this.AllowParallelRuns != null &&
                     this.AllowParallelRuns.Equals(input.AllowParallelRuns))
@@ -893,6 +968,27 @@ namespace Cohesity.Model
                     this.BackupSourceParams != null &&
                     input.BackupSourceParams != null &&
                     this.BackupSourceParams.SequenceEqual(input.BackupSourceParams)
+                ) && 
+                (
+                    this.CloudPostBackupScript == input.CloudPostBackupScript ||
+                    (this.CloudPostBackupScript != null &&
+                    this.CloudPostBackupScript.Equals(input.CloudPostBackupScript))
+                ) && 
+                (
+                    this.CloudPostSnapshotScript == input.CloudPostSnapshotScript ||
+                    (this.CloudPostSnapshotScript != null &&
+                    this.CloudPostSnapshotScript.Equals(input.CloudPostSnapshotScript))
+                ) && 
+                (
+                    this.CloudPreBackupScript == input.CloudPreBackupScript ||
+                    (this.CloudPreBackupScript != null &&
+                    this.CloudPreBackupScript.Equals(input.CloudPreBackupScript))
+                ) && 
+                (
+                    this.ConfigVec == input.ConfigVec ||
+                    this.ConfigVec != null &&
+                    input.ConfigVec != null &&
+                    this.ConfigVec.SequenceEqual(input.ConfigVec)
                 ) && 
                 (
                     this.ContinueOnQuiesceFailure == input.ContinueOnQuiesceFailure ||
@@ -1081,6 +1177,11 @@ namespace Cohesity.Model
                     this.LastPauseReason.Equals(input.LastPauseReason))
                 ) && 
                 (
+                    this.LastStartTimeModificationTimeUsecs == input.LastStartTimeModificationTimeUsecs ||
+                    (this.LastStartTimeModificationTimeUsecs != null &&
+                    this.LastStartTimeModificationTimeUsecs.Equals(input.LastStartTimeModificationTimeUsecs))
+                ) && 
+                (
                     this.LastUpdatedUsername == input.LastUpdatedUsername ||
                     (this.LastUpdatedUsername != null &&
                     this.LastUpdatedUsername.Equals(input.LastUpdatedUsername))
@@ -1174,6 +1275,11 @@ namespace Cohesity.Model
                     this.PostBackupScript == input.PostBackupScript ||
                     (this.PostBackupScript != null &&
                     this.PostBackupScript.Equals(input.PostBackupScript))
+                ) && 
+                (
+                    this.PostSnapshotScript == input.PostSnapshotScript ||
+                    (this.PostSnapshotScript != null &&
+                    this.PostSnapshotScript.Equals(input.PostSnapshotScript))
                 ) && 
                 (
                     this.PreScript == input.PreScript ||
@@ -1271,6 +1377,12 @@ namespace Cohesity.Model
                     this.TagVec.SequenceEqual(input.TagVec)
                 ) && 
                 (
+                    this.TaskTimeoutVec == input.TaskTimeoutVec ||
+                    this.TaskTimeoutVec != null &&
+                    input.TaskTimeoutVec != null &&
+                    this.TaskTimeoutVec.SequenceEqual(input.TaskTimeoutVec)
+                ) && 
+                (
                     this.Timezone == input.Timezone ||
                     (this.Timezone != null &&
                     this.Timezone.Equals(input.Timezone))
@@ -1312,12 +1424,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
                 if (this.AllArchivalSnapshotsExpired != null)
                     hashCode = hashCode * 59 + this.AllArchivalSnapshotsExpired.GetHashCode();
+                if (this.AllInternalReplicationViewsDeleted != null)
+                    hashCode = hashCode * 59 + this.AllInternalReplicationViewsDeleted.GetHashCode();
                 if (this.AllowParallelRuns != null)
                     hashCode = hashCode * 59 + this.AllowParallelRuns.GetHashCode();
                 if (this.BackupQosPrincipal != null)
                     hashCode = hashCode * 59 + this.BackupQosPrincipal.GetHashCode();
                 if (this.BackupSourceParams != null)
                     hashCode = hashCode * 59 + this.BackupSourceParams.GetHashCode();
+                if (this.CloudPostBackupScript != null)
+                    hashCode = hashCode * 59 + this.CloudPostBackupScript.GetHashCode();
+                if (this.CloudPostSnapshotScript != null)
+                    hashCode = hashCode * 59 + this.CloudPostSnapshotScript.GetHashCode();
+                if (this.CloudPreBackupScript != null)
+                    hashCode = hashCode * 59 + this.CloudPreBackupScript.GetHashCode();
+                if (this.ConfigVec != null)
+                    hashCode = hashCode * 59 + this.ConfigVec.GetHashCode();
                 if (this.ContinueOnQuiesceFailure != null)
                     hashCode = hashCode * 59 + this.ContinueOnQuiesceFailure.GetHashCode();
                 if (this.CreateRemoteView != null)
@@ -1390,6 +1512,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LastPauseModificationTimeUsecs.GetHashCode();
                 if (this.LastPauseReason != null)
                     hashCode = hashCode * 59 + this.LastPauseReason.GetHashCode();
+                if (this.LastStartTimeModificationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastStartTimeModificationTimeUsecs.GetHashCode();
                 if (this.LastUpdatedUsername != null)
                     hashCode = hashCode * 59 + this.LastUpdatedUsername.GetHashCode();
                 if (this.LeverageNutanixSnapshots != null)
@@ -1428,6 +1552,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PolicyName.GetHashCode();
                 if (this.PostBackupScript != null)
                     hashCode = hashCode * 59 + this.PostBackupScript.GetHashCode();
+                if (this.PostSnapshotScript != null)
+                    hashCode = hashCode * 59 + this.PostSnapshotScript.GetHashCode();
                 if (this.PreScript != null)
                     hashCode = hashCode * 59 + this.PreScript.GetHashCode();
                 if (this.PrimaryJobUid != null)
@@ -1464,6 +1590,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StubbingPolicy.GetHashCode();
                 if (this.TagVec != null)
                     hashCode = hashCode * 59 + this.TagVec.GetHashCode();
+                if (this.TaskTimeoutVec != null)
+                    hashCode = hashCode * 59 + this.TaskTimeoutVec.GetHashCode();
                 if (this.Timezone != null)
                     hashCode = hashCode * 59 + this.Timezone.GetHashCode();
                 if (this.TruncateLogs != null)

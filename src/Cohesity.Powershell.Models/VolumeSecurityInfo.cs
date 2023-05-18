@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -57,25 +55,7 @@ namespace Cohesity.Model
             /// Enum KUnknown for value: kUnknown
             /// </summary>
             [EnumMember(Value = "kUnknown")]
-            KUnknown = 5,
-
-            /// <summary>
-            /// Enum KDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            KDataProtection = 6,
-
-            /// <summary>
-            /// Enum KDataCache for value: kUnknown
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            KDataCache = 7,
-
-            /// <summary>
-            /// Enum KLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            KLoadSharing = 8
+            KUnknown = 5
 
         }
 

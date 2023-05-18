@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -52,16 +50,26 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SfdcObject" /> class.
         /// </summary>
+        /// <param name="fields">Type of this object.</param>
         /// <param name="objectType">Type of this object Specifies the type of an Universal Data Adapter source entity. &#39;kStandard&#39; indicates a Universal Data Adapter source, possibly distributed over several physical nodes. &#39;kCustom&#39; indicates a generic object within the UDA environment..</param>
         /// <param name="recordCount">Number of records in this object..</param>
-        public SfdcObject(ObjectTypeEnum? objectType = default(ObjectTypeEnum?), int? recordCount = default(int?))
+        public SfdcObject(List<SfdcObjectFields> fields = default(List<SfdcObjectFields>), ObjectTypeEnum? objectType = default(ObjectTypeEnum?), int? recordCount = default(int?))
         {
+            this.Fields = fields;
             this.ObjectType = objectType;
             this.RecordCount = recordCount;
+            this.Fields = fields;
             this.ObjectType = objectType;
             this.RecordCount = recordCount;
         }
         
+        /// <summary>
+        /// Type of this object
+        /// </summary>
+        /// <value>Type of this object</value>
+        [DataMember(Name="fields", EmitDefaultValue=true)]
+        public List<SfdcObjectFields> Fields { get; set; }
+
         /// <summary>
         /// Number of records in this object.
         /// </summary>
@@ -106,6 +114,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Fields == input.Fields ||
+                    this.Fields != null &&
+                    input.Fields != null &&
+                    this.Fields.SequenceEqual(input.Fields)
+                ) && 
+                (
                     this.ObjectType == input.ObjectType ||
                     this.ObjectType.Equals(input.ObjectType)
                 ) && 
@@ -125,6 +139,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Fields != null)
+                    hashCode = hashCode * 59 + this.Fields.GetHashCode();
                 hashCode = hashCode * 59 + this.ObjectType.GetHashCode();
                 if (this.RecordCount != null)
                     hashCode = hashCode * 59 + this.RecordCount.GetHashCode();

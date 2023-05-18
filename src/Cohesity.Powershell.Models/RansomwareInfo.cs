@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,11 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
-    /// RansomwareInfo holds information about the Ransomware subscription such as if it is active or not.
+    /// RansomwareInfo holds information about the FortKnox/FortKnoxFreeTrial subscription such as if it is active or not.
     /// </summary>
     [DataContract]
     public partial class RansomwareInfo :  IEquatable<RansomwareInfo>

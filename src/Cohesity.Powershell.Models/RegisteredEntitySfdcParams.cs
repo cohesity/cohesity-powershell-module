@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -27,6 +25,9 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="accessToken">Token that will be used in subsequent api requests..</param>
         /// <param name="apiLimit">Maximum daily api limit.</param>
+        /// <param name="authToken">Token that will be used for fetching access_token from salesforce..</param>
+        /// <param name="callbackUrl">Callback URL that is required to fetch Access token from salesforce..</param>
+        /// <param name="concurrentReqLimit">Concurrent API Request Limits..</param>
         /// <param name="consumerKey">Consumer key from the connected app in Sfdc..</param>
         /// <param name="consumerSecret">Consumer secret from the connected app in Sfdc..</param>
         /// <param name="credentials">credentials.</param>
@@ -36,10 +37,13 @@ namespace Cohesity.Model
         /// <param name="refreshToken">Token that will be used to refresh the access token..</param>
         /// <param name="soapEndpointUrl">Soap endpoint url. All soap requests must be made to this url..</param>
         /// <param name="useBulkApi">use bulk api if set to true.</param>
-        public RegisteredEntitySfdcParams(string accessToken = default(string), long? apiLimit = default(long?), string consumerKey = default(string), string consumerSecret = default(string), Credentials credentials = default(Credentials), string endpoint = default(string), int? endpointType = default(int?), string metadataEndpointUrl = default(string), string refreshToken = default(string), string soapEndpointUrl = default(string), bool? useBulkApi = default(bool?))
+        public RegisteredEntitySfdcParams(string accessToken = default(string), long? apiLimit = default(long?), string authToken = default(string), string callbackUrl = default(string), long? concurrentReqLimit = default(long?), string consumerKey = default(string), string consumerSecret = default(string), Credentials credentials = default(Credentials), string endpoint = default(string), int? endpointType = default(int?), string metadataEndpointUrl = default(string), string refreshToken = default(string), string soapEndpointUrl = default(string), bool? useBulkApi = default(bool?))
         {
             this.AccessToken = accessToken;
             this.ApiLimit = apiLimit;
+            this.AuthToken = authToken;
+            this.CallbackUrl = callbackUrl;
+            this.ConcurrentReqLimit = concurrentReqLimit;
             this.ConsumerKey = consumerKey;
             this.ConsumerSecret = consumerSecret;
             this.Endpoint = endpoint;
@@ -50,6 +54,9 @@ namespace Cohesity.Model
             this.UseBulkApi = useBulkApi;
             this.AccessToken = accessToken;
             this.ApiLimit = apiLimit;
+            this.AuthToken = authToken;
+            this.CallbackUrl = callbackUrl;
+            this.ConcurrentReqLimit = concurrentReqLimit;
             this.ConsumerKey = consumerKey;
             this.ConsumerSecret = consumerSecret;
             this.Credentials = credentials;
@@ -74,6 +81,27 @@ namespace Cohesity.Model
         /// <value>Maximum daily api limit</value>
         [DataMember(Name="apiLimit", EmitDefaultValue=true)]
         public long? ApiLimit { get; set; }
+
+        /// <summary>
+        /// Token that will be used for fetching access_token from salesforce.
+        /// </summary>
+        /// <value>Token that will be used for fetching access_token from salesforce.</value>
+        [DataMember(Name="authToken", EmitDefaultValue=true)]
+        public string AuthToken { get; set; }
+
+        /// <summary>
+        /// Callback URL that is required to fetch Access token from salesforce.
+        /// </summary>
+        /// <value>Callback URL that is required to fetch Access token from salesforce.</value>
+        [DataMember(Name="callbackUrl", EmitDefaultValue=true)]
+        public string CallbackUrl { get; set; }
+
+        /// <summary>
+        /// Concurrent API Request Limits.
+        /// </summary>
+        /// <value>Concurrent API Request Limits.</value>
+        [DataMember(Name="concurrentReqLimit", EmitDefaultValue=true)]
+        public long? ConcurrentReqLimit { get; set; }
 
         /// <summary>
         /// Consumer key from the connected app in Sfdc.
@@ -183,6 +211,21 @@ namespace Cohesity.Model
                     this.ApiLimit.Equals(input.ApiLimit))
                 ) && 
                 (
+                    this.AuthToken == input.AuthToken ||
+                    (this.AuthToken != null &&
+                    this.AuthToken.Equals(input.AuthToken))
+                ) && 
+                (
+                    this.CallbackUrl == input.CallbackUrl ||
+                    (this.CallbackUrl != null &&
+                    this.CallbackUrl.Equals(input.CallbackUrl))
+                ) && 
+                (
+                    this.ConcurrentReqLimit == input.ConcurrentReqLimit ||
+                    (this.ConcurrentReqLimit != null &&
+                    this.ConcurrentReqLimit.Equals(input.ConcurrentReqLimit))
+                ) && 
+                (
                     this.ConsumerKey == input.ConsumerKey ||
                     (this.ConsumerKey != null &&
                     this.ConsumerKey.Equals(input.ConsumerKey))
@@ -242,6 +285,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AccessToken.GetHashCode();
                 if (this.ApiLimit != null)
                     hashCode = hashCode * 59 + this.ApiLimit.GetHashCode();
+                if (this.AuthToken != null)
+                    hashCode = hashCode * 59 + this.AuthToken.GetHashCode();
+                if (this.CallbackUrl != null)
+                    hashCode = hashCode * 59 + this.CallbackUrl.GetHashCode();
+                if (this.ConcurrentReqLimit != null)
+                    hashCode = hashCode * 59 + this.ConcurrentReqLimit.GetHashCode();
                 if (this.ConsumerKey != null)
                     hashCode = hashCode * 59 + this.ConsumerKey.GetHashCode();
                 if (this.ConsumerSecret != null)

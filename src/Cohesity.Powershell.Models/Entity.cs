@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,7 +23,11 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity" /> class.
         /// </summary>
+        /// <param name="datamoverAgentVersion">Software version of the agent running in the DataMover pod..</param>
         /// <param name="datamoverImageLocation">Location of the datamover image specified by the user..</param>
+        /// <param name="datamoverServiceType">Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported..</param>
+        /// <param name="datamoverUpgradability">Indicates if deployed datamover needs to be upgraded for this kubernetes entity..</param>
+        /// <param name="defaultVlanParams">defaultVlanParams.</param>
         /// <param name="description">This is a general description that could be set for some entities..</param>
         /// <param name="distribution">K8s distribution. This will only be applicable to kCluster entities..</param>
         /// <param name="initContainerImageLocation">Location of the init container image specified by the user..</param>
@@ -33,16 +35,24 @@ namespace Cohesity.Model
         /// <param name="name">A human readable name for the object..</param>
         /// <param name="_namespace">Namespace of object, if applicable. For a PV, this field stores the namespace of the PVC which is bound to the PV..</param>
         /// <param name="pvcName">Name of the PVC which is bound to the PV. Applicable only to &#39;kPersistentVolume&#39; type entity..</param>
+        /// <param name="serviceAnnotations">Contains generic annotations to be put on services..</param>
         /// <param name="servicesToConnectorIdsMap">A mapping from datamover services to corresponding unique connector_params IDs. This will be generated during registration and updated during refresh. Applicable only for &#39;kCluster&#39; type entities..</param>
+        /// <param name="tolerationsVec">Custom tolerations for Datamover pods..</param>
         /// <param name="type">The type of entity this proto refers to..</param>
         /// <param name="uuid">The UUID of the object..</param>
         /// <param name="veleroAwsPluginImageLocation">Location of the Velero AWS plugin image specified by the user..</param>
         /// <param name="veleroImageLocation">Location of the Velero image specified by the user..</param>
         /// <param name="veleroOpenshiftPluginImageLocation">Location of the Velero Openshift plugin image specified by the user..</param>
+        /// <param name="veleroUpgradability">Indicates if deployed Velero image needs to be upgraded for this kubernetes entity..</param>
+        /// <param name="veleroVersion">Velero version deployed..</param>
         /// <param name="version">Kubernetes cluster version..</param>
-        public Entity(string datamoverImageLocation = default(string), string description = default(string), int? distribution = default(int?), string initContainerImageLocation = default(string), List<LabelAttributesInfo> labelAttributesVec = default(List<LabelAttributesInfo>), string name = default(string), string _namespace = default(string), string pvcName = default(string), List<EntityServicesToConnectorIdsMapEntry> servicesToConnectorIdsMap = default(List<EntityServicesToConnectorIdsMapEntry>), int? type = default(int?), string uuid = default(string), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), string version = default(string))
+        /// <param name="vlanInfoVec">VLAN information provided during registration..</param>
+        public Entity(string datamoverAgentVersion = default(string), string datamoverImageLocation = default(string), int? datamoverServiceType = default(int?), int? datamoverUpgradability = default(int?), VlanParams defaultVlanParams = default(VlanParams), string description = default(string), int? distribution = default(int?), string initContainerImageLocation = default(string), List<LabelAttributesInfo> labelAttributesVec = default(List<LabelAttributesInfo>), string name = default(string), string _namespace = default(string), string pvcName = default(string), List<EntityServiceAnnotationsEntry> serviceAnnotations = default(List<EntityServiceAnnotationsEntry>), List<EntityServicesToConnectorIdsMapEntry> servicesToConnectorIdsMap = default(List<EntityServicesToConnectorIdsMapEntry>), List<PodInfoPodSpecToleration> tolerationsVec = default(List<PodInfoPodSpecToleration>), int? type = default(int?), string uuid = default(string), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), int? veleroUpgradability = default(int?), string veleroVersion = default(string), string version = default(string), List<VlanInfo> vlanInfoVec = default(List<VlanInfo>))
         {
+            this.DatamoverAgentVersion = datamoverAgentVersion;
             this.DatamoverImageLocation = datamoverImageLocation;
+            this.DatamoverServiceType = datamoverServiceType;
+            this.DatamoverUpgradability = datamoverUpgradability;
             this.Description = description;
             this.Distribution = distribution;
             this.InitContainerImageLocation = initContainerImageLocation;
@@ -50,14 +60,23 @@ namespace Cohesity.Model
             this.Name = name;
             this.Namespace = _namespace;
             this.PvcName = pvcName;
+            this.ServiceAnnotations = serviceAnnotations;
             this.ServicesToConnectorIdsMap = servicesToConnectorIdsMap;
+            this.TolerationsVec = tolerationsVec;
             this.Type = type;
             this.Uuid = uuid;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
+            this.VeleroUpgradability = veleroUpgradability;
+            this.VeleroVersion = veleroVersion;
             this.Version = version;
+            this.VlanInfoVec = vlanInfoVec;
+            this.DatamoverAgentVersion = datamoverAgentVersion;
             this.DatamoverImageLocation = datamoverImageLocation;
+            this.DatamoverServiceType = datamoverServiceType;
+            this.DatamoverUpgradability = datamoverUpgradability;
+            this.DefaultVlanParams = defaultVlanParams;
             this.Description = description;
             this.Distribution = distribution;
             this.InitContainerImageLocation = initContainerImageLocation;
@@ -65,21 +84,53 @@ namespace Cohesity.Model
             this.Name = name;
             this.Namespace = _namespace;
             this.PvcName = pvcName;
+            this.ServiceAnnotations = serviceAnnotations;
             this.ServicesToConnectorIdsMap = servicesToConnectorIdsMap;
+            this.TolerationsVec = tolerationsVec;
             this.Type = type;
             this.Uuid = uuid;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
+            this.VeleroUpgradability = veleroUpgradability;
+            this.VeleroVersion = veleroVersion;
             this.Version = version;
+            this.VlanInfoVec = vlanInfoVec;
         }
         
+        /// <summary>
+        /// Software version of the agent running in the DataMover pod.
+        /// </summary>
+        /// <value>Software version of the agent running in the DataMover pod.</value>
+        [DataMember(Name="datamoverAgentVersion", EmitDefaultValue=true)]
+        public string DatamoverAgentVersion { get; set; }
+
         /// <summary>
         /// Location of the datamover image specified by the user.
         /// </summary>
         /// <value>Location of the datamover image specified by the user.</value>
         [DataMember(Name="datamoverImageLocation", EmitDefaultValue=true)]
         public string DatamoverImageLocation { get; set; }
+
+        /// <summary>
+        /// Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported.
+        /// </summary>
+        /// <value>Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported.</value>
+        [DataMember(Name="datamoverServiceType", EmitDefaultValue=true)]
+        public int? DatamoverServiceType { get; set; }
+
+        /// <summary>
+        /// Indicates if deployed datamover needs to be upgraded for this kubernetes entity.
+        /// </summary>
+        /// <value>Indicates if deployed datamover needs to be upgraded for this kubernetes entity.</value>
+        [DataMember(Name="datamoverUpgradability", EmitDefaultValue=true)]
+        public int? DatamoverUpgradability { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DefaultVlanParams
+        /// </summary>
+        [DataMember(Name="defaultVlanParams", EmitDefaultValue=false)]
+        public VlanParams DefaultVlanParams { get; set; }
 
         /// <summary>
         /// This is a general description that could be set for some entities.
@@ -131,11 +182,25 @@ namespace Cohesity.Model
         public string PvcName { get; set; }
 
         /// <summary>
+        /// Contains generic annotations to be put on services.
+        /// </summary>
+        /// <value>Contains generic annotations to be put on services.</value>
+        [DataMember(Name="serviceAnnotations", EmitDefaultValue=true)]
+        public List<EntityServiceAnnotationsEntry> ServiceAnnotations { get; set; }
+
+        /// <summary>
         /// A mapping from datamover services to corresponding unique connector_params IDs. This will be generated during registration and updated during refresh. Applicable only for &#39;kCluster&#39; type entities.
         /// </summary>
         /// <value>A mapping from datamover services to corresponding unique connector_params IDs. This will be generated during registration and updated during refresh. Applicable only for &#39;kCluster&#39; type entities.</value>
         [DataMember(Name="servicesToConnectorIdsMap", EmitDefaultValue=true)]
         public List<EntityServicesToConnectorIdsMapEntry> ServicesToConnectorIdsMap { get; set; }
+
+        /// <summary>
+        /// Custom tolerations for Datamover pods.
+        /// </summary>
+        /// <value>Custom tolerations for Datamover pods.</value>
+        [DataMember(Name="tolerationsVec", EmitDefaultValue=true)]
+        public List<PodInfoPodSpecToleration> TolerationsVec { get; set; }
 
         /// <summary>
         /// The type of entity this proto refers to.
@@ -173,11 +238,32 @@ namespace Cohesity.Model
         public string VeleroOpenshiftPluginImageLocation { get; set; }
 
         /// <summary>
+        /// Indicates if deployed Velero image needs to be upgraded for this kubernetes entity.
+        /// </summary>
+        /// <value>Indicates if deployed Velero image needs to be upgraded for this kubernetes entity.</value>
+        [DataMember(Name="veleroUpgradability", EmitDefaultValue=true)]
+        public int? VeleroUpgradability { get; set; }
+
+        /// <summary>
+        /// Velero version deployed.
+        /// </summary>
+        /// <value>Velero version deployed.</value>
+        [DataMember(Name="veleroVersion", EmitDefaultValue=true)]
+        public string VeleroVersion { get; set; }
+
+        /// <summary>
         /// Kubernetes cluster version.
         /// </summary>
         /// <value>Kubernetes cluster version.</value>
         [DataMember(Name="version", EmitDefaultValue=true)]
         public string Version { get; set; }
+
+        /// <summary>
+        /// VLAN information provided during registration.
+        /// </summary>
+        /// <value>VLAN information provided during registration.</value>
+        [DataMember(Name="vlanInfoVec", EmitDefaultValue=true)]
+        public List<VlanInfo> VlanInfoVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -216,9 +302,29 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.DatamoverAgentVersion == input.DatamoverAgentVersion ||
+                    (this.DatamoverAgentVersion != null &&
+                    this.DatamoverAgentVersion.Equals(input.DatamoverAgentVersion))
+                ) && 
+                (
                     this.DatamoverImageLocation == input.DatamoverImageLocation ||
                     (this.DatamoverImageLocation != null &&
                     this.DatamoverImageLocation.Equals(input.DatamoverImageLocation))
+                ) && 
+                (
+                    this.DatamoverServiceType == input.DatamoverServiceType ||
+                    (this.DatamoverServiceType != null &&
+                    this.DatamoverServiceType.Equals(input.DatamoverServiceType))
+                ) && 
+                (
+                    this.DatamoverUpgradability == input.DatamoverUpgradability ||
+                    (this.DatamoverUpgradability != null &&
+                    this.DatamoverUpgradability.Equals(input.DatamoverUpgradability))
+                ) && 
+                (
+                    this.DefaultVlanParams == input.DefaultVlanParams ||
+                    (this.DefaultVlanParams != null &&
+                    this.DefaultVlanParams.Equals(input.DefaultVlanParams))
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -257,10 +363,22 @@ namespace Cohesity.Model
                     this.PvcName.Equals(input.PvcName))
                 ) && 
                 (
+                    this.ServiceAnnotations == input.ServiceAnnotations ||
+                    this.ServiceAnnotations != null &&
+                    input.ServiceAnnotations != null &&
+                    this.ServiceAnnotations.SequenceEqual(input.ServiceAnnotations)
+                ) && 
+                (
                     this.ServicesToConnectorIdsMap == input.ServicesToConnectorIdsMap ||
                     this.ServicesToConnectorIdsMap != null &&
                     input.ServicesToConnectorIdsMap != null &&
                     this.ServicesToConnectorIdsMap.SequenceEqual(input.ServicesToConnectorIdsMap)
+                ) && 
+                (
+                    this.TolerationsVec == input.TolerationsVec ||
+                    this.TolerationsVec != null &&
+                    input.TolerationsVec != null &&
+                    this.TolerationsVec.SequenceEqual(input.TolerationsVec)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -288,9 +406,25 @@ namespace Cohesity.Model
                     this.VeleroOpenshiftPluginImageLocation.Equals(input.VeleroOpenshiftPluginImageLocation))
                 ) && 
                 (
+                    this.VeleroUpgradability == input.VeleroUpgradability ||
+                    (this.VeleroUpgradability != null &&
+                    this.VeleroUpgradability.Equals(input.VeleroUpgradability))
+                ) && 
+                (
+                    this.VeleroVersion == input.VeleroVersion ||
+                    (this.VeleroVersion != null &&
+                    this.VeleroVersion.Equals(input.VeleroVersion))
+                ) && 
+                (
                     this.Version == input.Version ||
                     (this.Version != null &&
                     this.Version.Equals(input.Version))
+                ) && 
+                (
+                    this.VlanInfoVec == input.VlanInfoVec ||
+                    this.VlanInfoVec != null &&
+                    input.VlanInfoVec != null &&
+                    this.VlanInfoVec.SequenceEqual(input.VlanInfoVec)
                 );
         }
 
@@ -303,8 +437,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.DatamoverAgentVersion != null)
+                    hashCode = hashCode * 59 + this.DatamoverAgentVersion.GetHashCode();
                 if (this.DatamoverImageLocation != null)
                     hashCode = hashCode * 59 + this.DatamoverImageLocation.GetHashCode();
+                if (this.DatamoverServiceType != null)
+                    hashCode = hashCode * 59 + this.DatamoverServiceType.GetHashCode();
+                if (this.DatamoverUpgradability != null)
+                    hashCode = hashCode * 59 + this.DatamoverUpgradability.GetHashCode();
+                if (this.DefaultVlanParams != null)
+                    hashCode = hashCode * 59 + this.DefaultVlanParams.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Distribution != null)
@@ -319,8 +461,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Namespace.GetHashCode();
                 if (this.PvcName != null)
                     hashCode = hashCode * 59 + this.PvcName.GetHashCode();
+                if (this.ServiceAnnotations != null)
+                    hashCode = hashCode * 59 + this.ServiceAnnotations.GetHashCode();
                 if (this.ServicesToConnectorIdsMap != null)
                     hashCode = hashCode * 59 + this.ServicesToConnectorIdsMap.GetHashCode();
+                if (this.TolerationsVec != null)
+                    hashCode = hashCode * 59 + this.TolerationsVec.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
@@ -331,8 +477,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VeleroImageLocation.GetHashCode();
                 if (this.VeleroOpenshiftPluginImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroOpenshiftPluginImageLocation.GetHashCode();
+                if (this.VeleroUpgradability != null)
+                    hashCode = hashCode * 59 + this.VeleroUpgradability.GetHashCode();
+                if (this.VeleroVersion != null)
+                    hashCode = hashCode * 59 + this.VeleroVersion.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
+                if (this.VlanInfoVec != null)
+                    hashCode = hashCode * 59 + this.VlanInfoVec.GetHashCode();
                 return hashCode;
             }
         }

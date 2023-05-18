@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SqlBackupJobParams" /> class.
         /// </summary>
         /// <param name="aagBackupPreferenceType">Preference type for backing up databases that are part of an AAG. Only applicable if &#39;use_aag_preferences_from_sql_server&#39; is set to false..</param>
+        /// <param name="advancedSettings">advancedSettings.</param>
         /// <param name="backupDatabaseVolumesOnly">If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup..</param>
         /// <param name="backupSystemDbs">Set to true if system databases should be backed up..</param>
         /// <param name="continueAfterError">Whether backup should continue after encountering a page checksum error..</param>
@@ -41,7 +40,7 @@ namespace Cohesity.Model
         /// <param name="useAagPreferencesFromSqlServer">Set to true if we should use AAG preferences specified at the SQL server host..</param>
         /// <param name="userDbPreferenceType">Preference type for backing up user databases on the host..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql backup command. This is only applicable for native sql backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag..</param>
-        public SqlBackupJobParams(int? aagBackupPreferenceType = default(int?), bool? backupDatabaseVolumesOnly = default(bool?), bool? backupSystemDbs = default(bool?), bool? continueAfterError = default(bool?), bool? enableChecksum = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), int? fullBackupType = default(int?), bool? isCopyOnlyFull = default(bool?), bool? isCopyOnlyLog = default(bool?), int? logBackupNumStreams = default(int?), string logBackupWithClause = default(string), int? numDbsPerBatch = default(int?), int? numStreams = default(int?), bool? useAagPreferencesFromSqlServer = default(bool?), int? userDbPreferenceType = default(int?), string withClause = default(string))
+        public SqlBackupJobParams(int? aagBackupPreferenceType = default(int?), AdvancedSettings advancedSettings = default(AdvancedSettings), bool? backupDatabaseVolumesOnly = default(bool?), bool? backupSystemDbs = default(bool?), bool? continueAfterError = default(bool?), bool? enableChecksum = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), int? fullBackupType = default(int?), bool? isCopyOnlyFull = default(bool?), bool? isCopyOnlyLog = default(bool?), int? logBackupNumStreams = default(int?), string logBackupWithClause = default(string), int? numDbsPerBatch = default(int?), int? numStreams = default(int?), bool? useAagPreferencesFromSqlServer = default(bool?), int? userDbPreferenceType = default(int?), string withClause = default(string))
         {
             this.AagBackupPreferenceType = aagBackupPreferenceType;
             this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
@@ -60,6 +59,7 @@ namespace Cohesity.Model
             this.UserDbPreferenceType = userDbPreferenceType;
             this.WithClause = withClause;
             this.AagBackupPreferenceType = aagBackupPreferenceType;
+            this.AdvancedSettings = advancedSettings;
             this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
             this.BackupSystemDbs = backupSystemDbs;
             this.ContinueAfterError = continueAfterError;
@@ -83,6 +83,12 @@ namespace Cohesity.Model
         /// <value>Preference type for backing up databases that are part of an AAG. Only applicable if &#39;use_aag_preferences_from_sql_server&#39; is set to false.</value>
         [DataMember(Name="aagBackupPreferenceType", EmitDefaultValue=true)]
         public int? AagBackupPreferenceType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AdvancedSettings
+        /// </summary>
+        [DataMember(Name="advancedSettings", EmitDefaultValue=false)]
+        public AdvancedSettings AdvancedSettings { get; set; }
 
         /// <summary>
         /// If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup.
@@ -231,6 +237,11 @@ namespace Cohesity.Model
                     this.AagBackupPreferenceType.Equals(input.AagBackupPreferenceType))
                 ) && 
                 (
+                    this.AdvancedSettings == input.AdvancedSettings ||
+                    (this.AdvancedSettings != null &&
+                    this.AdvancedSettings.Equals(input.AdvancedSettings))
+                ) && 
+                (
                     this.BackupDatabaseVolumesOnly == input.BackupDatabaseVolumesOnly ||
                     (this.BackupDatabaseVolumesOnly != null &&
                     this.BackupDatabaseVolumesOnly.Equals(input.BackupDatabaseVolumesOnly))
@@ -318,6 +329,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AagBackupPreferenceType != null)
                     hashCode = hashCode * 59 + this.AagBackupPreferenceType.GetHashCode();
+                if (this.AdvancedSettings != null)
+                    hashCode = hashCode * 59 + this.AdvancedSettings.GetHashCode();
                 if (this.BackupDatabaseVolumesOnly != null)
                     hashCode = hashCode * 59 + this.BackupDatabaseVolumesOnly.GetHashCode();
                 if (this.BackupSystemDbs != null)

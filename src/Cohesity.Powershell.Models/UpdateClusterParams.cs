@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -58,6 +56,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateClusterParams" /> class.
         /// </summary>
+        /// <param name="aesEncryptionMode">Specifies the default AES Encryption mode on the cluster..</param>
         /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
         /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
@@ -85,6 +84,7 @@ namespace Cohesity.Model
         /// <param name="protoRpcEncryptionEnabled">Specifies if protorpc encryption is enabled or not..</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
+        /// <param name="sataHddTierAdmissionControl">Specifies the admission control for cluster SATAHDD storage tier..</param>
         /// <param name="securityModeDod">Specifies if Security Mode DOD is enabled or not..</param>
         /// <param name="smbAdDisabled">Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled..</param>
         /// <param name="smbMultichannelEnabled">Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server..</param>
@@ -95,8 +95,9 @@ namespace Cohesity.Model
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
         /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
-        public UpdateClusterParams(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?))
+        public UpdateClusterParams(string aesEncryptionMode = default(string), AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), int? sataHddTierAdmissionControl = default(int?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?))
         {
+            this.AesEncryptionMode = aesEncryptionMode;
             this.BannerEnabled = bannerEnabled;
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
@@ -119,6 +120,7 @@ namespace Cohesity.Model
             this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
             this.SmbMultichannelEnabled = smbMultichannelEnabled;
@@ -128,6 +130,7 @@ namespace Cohesity.Model
             this.Timezone = timezone;
             this.TurboMode = turboMode;
             this.UseHeimdall = useHeimdall;
+            this.AesEncryptionMode = aesEncryptionMode;
             this.AmqpTargetConfig = amqpTargetConfig;
             this.AppsSubnet = appsSubnet;
             this.BannerEnabled = bannerEnabled;
@@ -155,6 +158,7 @@ namespace Cohesity.Model
             this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
             this.SmbMultichannelEnabled = smbMultichannelEnabled;
@@ -167,6 +171,13 @@ namespace Cohesity.Model
             this.UseHeimdall = useHeimdall;
         }
         
+        /// <summary>
+        /// Specifies the default AES Encryption mode on the cluster.
+        /// </summary>
+        /// <value>Specifies the default AES Encryption mode on the cluster.</value>
+        [DataMember(Name="aesEncryptionMode", EmitDefaultValue=true)]
+        public string AesEncryptionMode { get; set; }
+
         /// <summary>
         /// Gets or Sets AmqpTargetConfig
         /// </summary>
@@ -345,6 +356,13 @@ namespace Cohesity.Model
         public long? ReverseTunnelEndTimeMsecs { get; set; }
 
         /// <summary>
+        /// Specifies the admission control for cluster SATAHDD storage tier.
+        /// </summary>
+        /// <value>Specifies the admission control for cluster SATAHDD storage tier.</value>
+        [DataMember(Name="sataHddTierAdmissionControl", EmitDefaultValue=true)]
+        public int? SataHddTierAdmissionControl { get; set; }
+
+        /// <summary>
         /// Specifies if Security Mode DOD is enabled or not.
         /// </summary>
         /// <value>Specifies if Security Mode DOD is enabled or not.</value>
@@ -449,6 +467,11 @@ namespace Cohesity.Model
                 return false;
 
             return 
+                (
+                    this.AesEncryptionMode == input.AesEncryptionMode ||
+                    (this.AesEncryptionMode != null &&
+                    this.AesEncryptionMode.Equals(input.AesEncryptionMode))
+                ) && 
                 (
                     this.AmqpTargetConfig == input.AmqpTargetConfig ||
                     (this.AmqpTargetConfig != null &&
@@ -586,6 +609,11 @@ namespace Cohesity.Model
                     this.ReverseTunnelEndTimeMsecs.Equals(input.ReverseTunnelEndTimeMsecs))
                 ) && 
                 (
+                    this.SataHddTierAdmissionControl == input.SataHddTierAdmissionControl ||
+                    (this.SataHddTierAdmissionControl != null &&
+                    this.SataHddTierAdmissionControl.Equals(input.SataHddTierAdmissionControl))
+                ) && 
+                (
                     this.SecurityModeDod == input.SecurityModeDod ||
                     (this.SecurityModeDod != null &&
                     this.SecurityModeDod.Equals(input.SecurityModeDod))
@@ -647,6 +675,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AesEncryptionMode != null)
+                    hashCode = hashCode * 59 + this.AesEncryptionMode.GetHashCode();
                 if (this.AmqpTargetConfig != null)
                     hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
                 if (this.AppsSubnet != null)
@@ -700,6 +730,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReverseTunnelEnabled.GetHashCode();
                 if (this.ReverseTunnelEndTimeMsecs != null)
                     hashCode = hashCode * 59 + this.ReverseTunnelEndTimeMsecs.GetHashCode();
+                if (this.SataHddTierAdmissionControl != null)
+                    hashCode = hashCode * 59 + this.SataHddTierAdmissionControl.GetHashCode();
                 if (this.SecurityModeDod != null)
                     hashCode = hashCode * 59 + this.SecurityModeDod.GetHashCode();
                 if (this.SmbAdDisabled != null)

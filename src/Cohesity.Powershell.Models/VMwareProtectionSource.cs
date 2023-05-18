@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -119,9 +117,9 @@ namespace Cohesity.Model
         [DataMember(Name="folderType", EmitDefaultValue=true)]
         public FolderTypeEnum? FolderType { get; set; }
         /// <summary>
-        /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -177,14 +175,68 @@ namespace Cohesity.Model
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 9
+            KOther = 9,
+
+            /// <summary>
+            /// Enum KSapSybase for value: kSapSybase
+            /// </summary>
+            [EnumMember(Value = "kSapSybase")]
+            KSapSybase = 10,
+
+            /// <summary>
+            /// Enum KSapMaxDB for value: kSapMaxDB
+            /// </summary>
+            [EnumMember(Value = "kSapMaxDB")]
+            KSapMaxDB = 11,
+
+            /// <summary>
+            /// Enum KSapSybaseIQ for value: kSapSybaseIQ
+            /// </summary>
+            [EnumMember(Value = "kSapSybaseIQ")]
+            KSapSybaseIQ = 12,
+
+            /// <summary>
+            /// Enum KDB2 for value: kDB2
+            /// </summary>
+            [EnumMember(Value = "kDB2")]
+            KDB2 = 13,
+
+            /// <summary>
+            /// Enum KSapASE for value: kSapASE
+            /// </summary>
+            [EnumMember(Value = "kSapASE")]
+            KSapASE = 14,
+
+            /// <summary>
+            /// Enum KMariaDB for value: kMariaDB
+            /// </summary>
+            [EnumMember(Value = "kMariaDB")]
+            KMariaDB = 15,
+
+            /// <summary>
+            /// Enum KPostgreSQL for value: kPostgreSQL
+            /// </summary>
+            [EnumMember(Value = "kPostgreSQL")]
+            KPostgreSQL = 16,
+
+            /// <summary>
+            /// Enum KVOS for value: kVOS
+            /// </summary>
+            [EnumMember(Value = "kVOS")]
+            KVOS = 17,
+
+            /// <summary>
+            /// Enum KHPUX for value: kHPUX
+            /// </summary>
+            [EnumMember(Value = "kHPUX")]
+            KHPUX = 18
 
         }
 
         /// <summary>
-        /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
@@ -389,9 +441,10 @@ namespace Cohesity.Model
         /// <param name="datastoreInfo">datastoreInfo.</param>
         /// <param name="folderType">Specifies the folder type for the &#39;kFolder&#39; Object. &#39;kVMFolder&#39; indicates folder can hold VMs or vApps. &#39;kHostFolder&#39; indicates folder can hold hosts and compute resources. &#39;kDatastoreFolder&#39; indicates folder can hold datastores and storage pods. &#39;kNetworkFolder&#39; indicates folder can hold networks and switches. &#39;kRootFolder&#39; indicates folder can hold datacenters..</param>
         /// <param name="hasPersistentAgent">Set to true if a persistent agent is running on the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
-        /// <param name="hostType">Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="hostType">Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">id.</param>
         /// <param name="ipDetails">ipDetails.</param>
+        /// <param name="isSaasConnector">The field indicates whether the VM is a Rigel/HyX VM..</param>
         /// <param name="isVmTemplate">IsTemplate specifies if the VM is a template or not..</param>
         /// <param name="isVmcEntity">This field is used for indicating that registered vmware source is a VMC (VMware Cloud) environment..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
@@ -402,7 +455,7 @@ namespace Cohesity.Model
         /// <param name="version">For vCenter and ESXi, this will show the software version. For VMs, this will show the hardware version..</param>
         /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="vmLinkingInfo">vmLinkingInfo.</param>
-        public VMwareProtectionSource(long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), VMwareCdpProtectionSourceInfo cdpInfo = default(VMwareCdpProtectionSourceInfo), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), IpDetails ipDetails = default(IpDetails), bool? isVmTemplate = default(bool?), bool? isVmcEntity = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>), VmLinkingInfo vmLinkingInfo = default(VmLinkingInfo))
+        public VMwareProtectionSource(long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), VMwareCdpProtectionSourceInfo cdpInfo = default(VMwareCdpProtectionSourceInfo), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), IpDetails ipDetails = default(IpDetails), bool? isSaasConnector = default(bool?), bool? isVmTemplate = default(bool?), bool? isVmcEntity = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>), VmLinkingInfo vmLinkingInfo = default(VmLinkingInfo))
         {
             this.AgentId = agentId;
             this.Agents = agents;
@@ -410,6 +463,7 @@ namespace Cohesity.Model
             this.FolderType = folderType;
             this.HasPersistentAgent = hasPersistentAgent;
             this.HostType = hostType;
+            this.IsSaasConnector = isSaasConnector;
             this.IsVmTemplate = isVmTemplate;
             this.IsVmcEntity = isVmcEntity;
             this.Name = name;
@@ -429,6 +483,7 @@ namespace Cohesity.Model
             this.HostType = hostType;
             this.Id = id;
             this.IpDetails = ipDetails;
+            this.IsSaasConnector = isSaasConnector;
             this.IsVmTemplate = isVmTemplate;
             this.IsVmcEntity = isVmcEntity;
             this.Name = name;
@@ -485,6 +540,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="ipDetails", EmitDefaultValue=false)]
         public IpDetails IpDetails { get; set; }
+
+        /// <summary>
+        /// The field indicates whether the VM is a Rigel/HyX VM.
+        /// </summary>
+        /// <value>The field indicates whether the VM is a Rigel/HyX VM.</value>
+        [DataMember(Name="isSaasConnector", EmitDefaultValue=true)]
+        public bool? IsSaasConnector { get; set; }
 
         /// <summary>
         /// IsTemplate specifies if the VM is a template or not.
@@ -626,6 +688,11 @@ namespace Cohesity.Model
                     this.IpDetails.Equals(input.IpDetails))
                 ) && 
                 (
+                    this.IsSaasConnector == input.IsSaasConnector ||
+                    (this.IsSaasConnector != null &&
+                    this.IsSaasConnector.Equals(input.IsSaasConnector))
+                ) && 
+                (
                     this.IsVmTemplate == input.IsVmTemplate ||
                     (this.IsVmTemplate != null &&
                     this.IsVmTemplate.Equals(input.IsVmTemplate))
@@ -704,6 +771,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IpDetails != null)
                     hashCode = hashCode * 59 + this.IpDetails.GetHashCode();
+                if (this.IsSaasConnector != null)
+                    hashCode = hashCode * 59 + this.IsSaasConnector.GetHashCode();
                 if (this.IsVmTemplate != null)
                     hashCode = hashCode * 59 + this.IsVmTemplate.GetHashCode();
                 if (this.IsVmcEntity != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -70,34 +68,47 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteRestoreSnapshotStatus" /> class.
         /// </summary>
+        /// <param name="snapshotTaskStartTimeUsecs">Specifies when the snapshot task started. This time is recorded as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="archiveTaskUid">Specifies the globally unique id of the archival task that archived the Snapshots to the remote Vault..</param>
         /// <param name="error">Specifies the error message if the indexing task fails..</param>
         /// <param name="expiryTimeUsecs">Specifies the time when the Snapshot expires on the remote Vault. This field is recorded as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="jobRunId">Specifies the id of the Job Run that originally captured the Snapshot..</param>
         /// <param name="progressMonitorTask">Specifies the path to the progress monitor task that tracks the progress of building the index..</param>
+        /// <param name="snapshotTaskEndTimeUsecs">Specifies when the snapshot task completed. This time is recorded as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="snapshotTaskStatus">Specifies the status of the indexing task. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused..</param>
         /// <param name="snapshotTaskUid">Specifies the globally unique id of the task capturing the Snapshot..</param>
         /// <param name="snapshotTimeUsecs">Specify the time the Snapshot was captured. This time is recorded as a Unix epoch Timestamp (in microseconds)..</param>
-        public RemoteRestoreSnapshotStatus(UniversalId archiveTaskUid = default(UniversalId), string error = default(string), long? expiryTimeUsecs = default(long?), long? jobRunId = default(long?), string progressMonitorTask = default(string), SnapshotTaskStatusEnum? snapshotTaskStatus = default(SnapshotTaskStatusEnum?), UniversalId snapshotTaskUid = default(UniversalId), long? snapshotTimeUsecs = default(long?))
+        public RemoteRestoreSnapshotStatus(long? snapshotTaskStartTimeUsecs = default(long?), UniversalId archiveTaskUid = default(UniversalId), string error = default(string), long? expiryTimeUsecs = default(long?), long? jobRunId = default(long?), string progressMonitorTask = default(string), long? snapshotTaskEndTimeUsecs = default(long?), SnapshotTaskStatusEnum? snapshotTaskStatus = default(SnapshotTaskStatusEnum?), UniversalId snapshotTaskUid = default(UniversalId), long? snapshotTimeUsecs = default(long?))
         {
+            this.SnapshotTaskStartTimeUsecs = snapshotTaskStartTimeUsecs;
             this.ArchiveTaskUid = archiveTaskUid;
             this.Error = error;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.JobRunId = jobRunId;
             this.ProgressMonitorTask = progressMonitorTask;
+            this.SnapshotTaskEndTimeUsecs = snapshotTaskEndTimeUsecs;
             this.SnapshotTaskStatus = snapshotTaskStatus;
             this.SnapshotTaskUid = snapshotTaskUid;
             this.SnapshotTimeUsecs = snapshotTimeUsecs;
+            this.SnapshotTaskStartTimeUsecs = snapshotTaskStartTimeUsecs;
             this.ArchiveTaskUid = archiveTaskUid;
             this.Error = error;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.JobRunId = jobRunId;
             this.ProgressMonitorTask = progressMonitorTask;
+            this.SnapshotTaskEndTimeUsecs = snapshotTaskEndTimeUsecs;
             this.SnapshotTaskStatus = snapshotTaskStatus;
             this.SnapshotTaskUid = snapshotTaskUid;
             this.SnapshotTimeUsecs = snapshotTimeUsecs;
         }
         
+        /// <summary>
+        /// Specifies when the snapshot task started. This time is recorded as a Unix epoch Timestamp (in microseconds).
+        /// </summary>
+        /// <value>Specifies when the snapshot task started. This time is recorded as a Unix epoch Timestamp (in microseconds).</value>
+        [DataMember(Name="SnapshotTaskStartTimeUsecs", EmitDefaultValue=true)]
+        public long? SnapshotTaskStartTimeUsecs { get; set; }
+
         /// <summary>
         /// Specifies the globally unique id of the archival task that archived the Snapshots to the remote Vault.
         /// </summary>
@@ -132,6 +143,13 @@ namespace Cohesity.Model
         /// <value>Specifies the path to the progress monitor task that tracks the progress of building the index.</value>
         [DataMember(Name="progressMonitorTask", EmitDefaultValue=true)]
         public string ProgressMonitorTask { get; set; }
+
+        /// <summary>
+        /// Specifies when the snapshot task completed. This time is recorded as a Unix epoch Timestamp (in microseconds).
+        /// </summary>
+        /// <value>Specifies when the snapshot task completed. This time is recorded as a Unix epoch Timestamp (in microseconds).</value>
+        [DataMember(Name="snapshotTaskEndTimeUsecs", EmitDefaultValue=true)]
+        public long? SnapshotTaskEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the globally unique id of the task capturing the Snapshot.
@@ -184,6 +202,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.SnapshotTaskStartTimeUsecs == input.SnapshotTaskStartTimeUsecs ||
+                    (this.SnapshotTaskStartTimeUsecs != null &&
+                    this.SnapshotTaskStartTimeUsecs.Equals(input.SnapshotTaskStartTimeUsecs))
+                ) && 
+                (
                     this.ArchiveTaskUid == input.ArchiveTaskUid ||
                     (this.ArchiveTaskUid != null &&
                     this.ArchiveTaskUid.Equals(input.ArchiveTaskUid))
@@ -207,6 +230,11 @@ namespace Cohesity.Model
                     this.ProgressMonitorTask == input.ProgressMonitorTask ||
                     (this.ProgressMonitorTask != null &&
                     this.ProgressMonitorTask.Equals(input.ProgressMonitorTask))
+                ) && 
+                (
+                    this.SnapshotTaskEndTimeUsecs == input.SnapshotTaskEndTimeUsecs ||
+                    (this.SnapshotTaskEndTimeUsecs != null &&
+                    this.SnapshotTaskEndTimeUsecs.Equals(input.SnapshotTaskEndTimeUsecs))
                 ) && 
                 (
                     this.SnapshotTaskStatus == input.SnapshotTaskStatus ||
@@ -233,6 +261,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.SnapshotTaskStartTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.SnapshotTaskStartTimeUsecs.GetHashCode();
                 if (this.ArchiveTaskUid != null)
                     hashCode = hashCode * 59 + this.ArchiveTaskUid.GetHashCode();
                 if (this.Error != null)
@@ -243,6 +273,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobRunId.GetHashCode();
                 if (this.ProgressMonitorTask != null)
                     hashCode = hashCode * 59 + this.ProgressMonitorTask.GetHashCode();
+                if (this.SnapshotTaskEndTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.SnapshotTaskEndTimeUsecs.GetHashCode();
                 hashCode = hashCode * 59 + this.SnapshotTaskStatus.GetHashCode();
                 if (this.SnapshotTaskUid != null)
                     hashCode = hashCode * 59 + this.SnapshotTaskUid.GetHashCode();

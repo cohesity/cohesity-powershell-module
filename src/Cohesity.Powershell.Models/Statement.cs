@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,7 +30,7 @@ namespace Cohesity.Model
         /// <param name="negatePrincipal">If set, users except the specified principal would be considered valid for evaluating the statement. This is set if JSON has \&quot;NotPrincipal\&quot; element..</param>
         /// <param name="negateResourceVec">If set, resources except the ones specified in resource_vec would be considered valid for evaluating the statement. This is set if JSON has \&quot;NotResource\&quot; element..</param>
         /// <param name="principal">principal.</param>
-        /// <param name="resourceVec">This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot;.</param>
+        /// <param name="resourceVec">This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot; We remove the common prefix &#39;urn:csf:s3:::bucket_name&#39; from the string and then store it in proto..</param>
         /// <param name="sid">Statement identifier..</param>
         public Statement(List<string> actionVec = default(List<string>), List<Condition> conditionVec = default(List<Condition>), bool? isAllow = default(bool?), bool? negateActionVec = default(bool?), bool? negatePrincipal = default(bool?), bool? negateResourceVec = default(bool?), Principal principal = default(Principal), List<string> resourceVec = default(List<string>), string sid = default(string))
         {
@@ -104,9 +102,9 @@ namespace Cohesity.Model
         public Principal Principal { get; set; }
 
         /// <summary>
-        /// This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot;
+        /// This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot; We remove the common prefix &#39;urn:csf:s3:::bucket_name&#39; from the string and then store it in proto.
         /// </summary>
-        /// <value>This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot;</value>
+        /// <value>This field indicates the resource for which the statement is applied. The format we will be using is \&quot;urn:csf:s3:::bucket_name/key_name\&quot;. &#39;csf&#39; stands for Cohesity SmartFiles. We support wildcard(&#39;*&#39; and &#39;?&#39;) in the key name. Some of the valid formats are : \&quot;urn:csf:s3:::bucket_name\&quot;, \&quot;urn:csf:s3:::bucket_name/_*\&quot;, \&quot;urn:csf:s3:::bucket_name/_*_/ab?\&quot; We remove the common prefix &#39;urn:csf:s3:::bucket_name&#39; from the string and then store it in proto.</value>
         [DataMember(Name="resourceVec", EmitDefaultValue=true)]
         public List<string> ResourceVec { get; set; }
 

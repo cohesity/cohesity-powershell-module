@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -446,6 +444,7 @@ namespace Cohesity.Model
         /// <param name="fullProtectionSlaTimeMins">If specified, this setting is number of minutes that a Job Run of a Full (no CBT) backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule..</param>
         /// <param name="fullProtectionStartTime">Specifies the time of day to start the Full Protection Schedule. This is optional and only applicable if the Protection Policy defines a monthly or a daily Full (no CBT) Protection Schedule. Default value is 02:00 AM. deprecated: true.</param>
         /// <param name="id">Specifies an id for the Protection Job..</param>
+        /// <param name="ignorableErrorsInErrorDb">Specifies the errors which we can ignore from showing to the user..</param>
         /// <param name="incrementalProtectionSlaTimeMins">If specified, this setting is number of minutes that a Job Run of a CBT-based backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule..</param>
         /// <param name="incrementalProtectionStartTime">Specifies the time of day to start the CBT-based Protection Schedule. This is optional and only applicable if the Protection Policy defines a monthly or a daily CBT-based Protection Schedule. Default value is 02:00 AM. deprecated: true.</param>
         /// <param name="indexingPolicy">indexingPolicy.</param>
@@ -462,7 +461,7 @@ namespace Cohesity.Model
         /// <param name="leverageStorageSnapshotsForHyperflex">Specifies whether to leverage Hyperflex as the storage snapshot array.</param>
         /// <param name="logProtectionSlaTimeMins">If specified, this setting is number of minutes that a Job Run of a Log backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule..</param>
         /// <param name="missingEntities">Specifies Information about missing entities..</param>
-        /// <param name="modificationTimeUsecs">Specifies the last time this Job was updated..</param>
+        /// <param name="modificationTimeUsecs">Specifies the last time this Job was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the protection group was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error..</param>
         /// <param name="modifiedByUser">Specifies the last Cohesity user who updated this Job..</param>
         /// <param name="name">Specifies the name of the Protection Job. (required).</param>
         /// <param name="parentSourceId">Specifies the id of the registered Protection Source that is the parent of the Objects that may be protected by this Job. For example when a vCenter Server is registered on a Cohesity Cluster, the Cohesity Cluster assigns a unique id to this field that represents the vCenter Server..</param>
@@ -482,6 +481,7 @@ namespace Cohesity.Model
         /// <param name="sourceSpecialParameters">Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used. Specific volume selections must be passed in here to take effect. (required).</param>
         /// <param name="startTime">Specifies the time of day to start the Protection Schedule. This is optional and only applicable if the Protection Policy defines a monthly or a daily Protection Schedule. Default value is 02:00 AM..</param>
         /// <param name="summaryStats">summaryStats.</param>
+        /// <param name="taskTimeouts">Specifies task level timeouts for a job..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="timezone">Specifies the timezone to use when calculating time for this Protection Job such as the Job start time. Specify the timezone in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;..</param>
         /// <param name="uid">Specifies a global Protection Job id that is unique across Cohesity Clusters..</param>
@@ -489,7 +489,7 @@ namespace Cohesity.Model
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) id where this Job writes data. (required).</param>
         /// <param name="viewName">For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified. This field is deprecated for view backups. Use sourceIds to specify list of view ids instead..</param>
         /// <param name="vmTagIds">Array of Arrays of VMs Tags Ids that Specify VMs to Protect.  Optionally specify a list of VMs to protect by listing Protection Source ids of VM Tags in this two dimensional array. Using this two dimensional array of Tag ids, the Cluster generates a list of VMs to protect which are derived from intersections of the inner arrays and union of the outer array, as shown by the following example. To protect only &#39;Eng&#39; VMs in the East and all the VMs in the West, specify the following tag id array: [ [1101, 2221], [3031] ], where 1101 is the &#39;Eng&#39; VM Tag id, 2221 is the &#39;East&#39; VM Tag id and 3031 is the &#39;West&#39; VM Tag id. The inner array [1101, 2221] produces a list of VMs that are both tagged with &#39;Eng&#39; and &#39;East&#39; (an intersection). The outer array combines the list from the inner array with list of VMs tagged with &#39;West&#39; (a union). The list of resulting VMs are protected by this Job..</param>
-        public ProtectionJob(bool? abortInBlackoutPeriod = default(bool?), AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), bool? allowParallelRuns = default(bool?), CloudParameters cloudParameters = default(CloudParameters), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), long? creationTimeUsecs = default(long?), DataMigrationPolicy dataMigrationPolicy = default(DataMigrationPolicy), List<long> dedupDisabledSourceIds = default(List<long>), string description = default(string), long? endTimeUsecs = default(long?), EnvironmentEnum? environment = default(EnvironmentEnum?), EnvironmentTypeJobParameters environmentParameters = default(EnvironmentTypeJobParameters), List<List<long>> excludeLabelIds = default(List<List<long>>), List<long> excludeSourceIds = default(List<long>), List<List<long>> excludeVmTagIds = default(List<List<long>>), long? fullProtectionSlaTimeMins = default(long?), TimeOfDay fullProtectionStartTime = default(TimeOfDay), long? id = default(long?), long? incrementalProtectionSlaTimeMins = default(long?), TimeOfDay incrementalProtectionStartTime = default(TimeOfDay), IndexingPolicy indexingPolicy = default(IndexingPolicy), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isNativeFormat = default(bool?), bool? isPaused = default(bool?), List<List<long>> labelIds = default(List<List<long>>), ProtectionRunInstance lastRun = default(ProtectionRunInstance), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), long? logProtectionSlaTimeMins = default(long?), List<ProtectionSource> missingEntities = default(List<ProtectionSource>), long? modificationTimeUsecs = default(long?), string modifiedByUser = default(string), string name = default(string), long? parentSourceId = default(long?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), BackupScript postBackupScript = default(BackupScript), BackupScript preBackupScript = default(BackupScript), PriorityEnum? priority = default(PriorityEnum?), QosTypeEnum? qosType = default(QosTypeEnum?), bool? quiesce = default(bool?), RemoteJobScript remoteScript = default(RemoteJobScript), List<RemoteViewConfig> remoteViewConfigList = default(List<RemoteViewConfig>), string remoteViewName = default(string), List<long> sourceIds = default(List<long>), List<SourceSpecialParameter> sourceSpecialParameters = default(List<SourceSpecialParameter>), TimeOfDay startTime = default(TimeOfDay), ProtectionJobSummaryStats summaryStats = default(ProtectionJobSummaryStats), string tenantId = default(string), string timezone = default(string), UniversalId uid = default(UniversalId), List<string> userSpecifiedTags = default(List<string>), long? viewBoxId = default(long?), string viewName = default(string), List<List<long>> vmTagIds = default(List<List<long>>))
+        public ProtectionJob(bool? abortInBlackoutPeriod = default(bool?), AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), bool? allowParallelRuns = default(bool?), CloudParameters cloudParameters = default(CloudParameters), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), long? creationTimeUsecs = default(long?), DataMigrationPolicy dataMigrationPolicy = default(DataMigrationPolicy), List<long> dedupDisabledSourceIds = default(List<long>), string description = default(string), long? endTimeUsecs = default(long?), EnvironmentEnum? environment = default(EnvironmentEnum?), EnvironmentTypeJobParameters environmentParameters = default(EnvironmentTypeJobParameters), List<List<long>> excludeLabelIds = default(List<List<long>>), List<long> excludeSourceIds = default(List<long>), List<List<long>> excludeVmTagIds = default(List<List<long>>), long? fullProtectionSlaTimeMins = default(long?), TimeOfDay fullProtectionStartTime = default(TimeOfDay), long? id = default(long?), List<int> ignorableErrorsInErrorDb = default(List<int>), long? incrementalProtectionSlaTimeMins = default(long?), TimeOfDay incrementalProtectionStartTime = default(TimeOfDay), IndexingPolicy indexingPolicy = default(IndexingPolicy), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isNativeFormat = default(bool?), bool? isPaused = default(bool?), List<List<long>> labelIds = default(List<List<long>>), ProtectionRunInstance lastRun = default(ProtectionRunInstance), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), long? logProtectionSlaTimeMins = default(long?), List<ProtectionSource> missingEntities = default(List<ProtectionSource>), long? modificationTimeUsecs = default(long?), string modifiedByUser = default(string), string name = default(string), long? parentSourceId = default(long?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), BackupScript postBackupScript = default(BackupScript), BackupScript preBackupScript = default(BackupScript), PriorityEnum? priority = default(PriorityEnum?), QosTypeEnum? qosType = default(QosTypeEnum?), bool? quiesce = default(bool?), RemoteJobScript remoteScript = default(RemoteJobScript), List<RemoteViewConfig> remoteViewConfigList = default(List<RemoteViewConfig>), string remoteViewName = default(string), List<long> sourceIds = default(List<long>), List<SourceSpecialParameter> sourceSpecialParameters = default(List<SourceSpecialParameter>), TimeOfDay startTime = default(TimeOfDay), ProtectionJobSummaryStats summaryStats = default(ProtectionJobSummaryStats), List<CancellationTimeoutParams> taskTimeouts = default(List<CancellationTimeoutParams>), string tenantId = default(string), string timezone = default(string), UniversalId uid = default(UniversalId), List<string> userSpecifiedTags = default(List<string>), long? viewBoxId = default(long?), string viewName = default(string), List<List<long>> vmTagIds = default(List<List<long>>))
         {
             this.AbortInBlackoutPeriod = abortInBlackoutPeriod;
             this.AlertingPolicy = alertingPolicy;
@@ -507,6 +507,7 @@ namespace Cohesity.Model
             this.FullProtectionSlaTimeMins = fullProtectionSlaTimeMins;
             this.FullProtectionStartTime = fullProtectionStartTime;
             this.Id = id;
+            this.IgnorableErrorsInErrorDb = ignorableErrorsInErrorDb;
             this.IncrementalProtectionSlaTimeMins = incrementalProtectionSlaTimeMins;
             this.IncrementalProtectionStartTime = incrementalProtectionStartTime;
             this.IsActive = isActive;
@@ -540,6 +541,7 @@ namespace Cohesity.Model
             this.SourceIds = sourceIds;
             this.SourceSpecialParameters = sourceSpecialParameters;
             this.StartTime = startTime;
+            this.TaskTimeouts = taskTimeouts;
             this.TenantId = tenantId;
             this.Timezone = timezone;
             this.Uid = uid;
@@ -567,6 +569,7 @@ namespace Cohesity.Model
             this.FullProtectionSlaTimeMins = fullProtectionSlaTimeMins;
             this.FullProtectionStartTime = fullProtectionStartTime;
             this.Id = id;
+            this.IgnorableErrorsInErrorDb = ignorableErrorsInErrorDb;
             this.IncrementalProtectionSlaTimeMins = incrementalProtectionSlaTimeMins;
             this.IncrementalProtectionStartTime = incrementalProtectionStartTime;
             this.IndexingPolicy = indexingPolicy;
@@ -600,6 +603,7 @@ namespace Cohesity.Model
             this.SourceIds = sourceIds;
             this.StartTime = startTime;
             this.SummaryStats = summaryStats;
+            this.TaskTimeouts = taskTimeouts;
             this.TenantId = tenantId;
             this.Timezone = timezone;
             this.Uid = uid;
@@ -731,6 +735,13 @@ namespace Cohesity.Model
         public long? Id { get; set; }
 
         /// <summary>
+        /// Specifies the errors which we can ignore from showing to the user.
+        /// </summary>
+        /// <value>Specifies the errors which we can ignore from showing to the user.</value>
+        [DataMember(Name="ignorableErrorsInErrorDb", EmitDefaultValue=true)]
+        public List<int> IgnorableErrorsInErrorDb { get; set; }
+
+        /// <summary>
         /// If specified, this setting is number of minutes that a Job Run of a CBT-based backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
         /// </summary>
         /// <value>If specified, this setting is number of minutes that a Job Run of a CBT-based backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.</value>
@@ -841,9 +852,9 @@ namespace Cohesity.Model
         public List<ProtectionSource> MissingEntities { get; set; }
 
         /// <summary>
-        /// Specifies the last time this Job was updated.
+        /// Specifies the last time this Job was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the protection group was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.
         /// </summary>
-        /// <value>Specifies the last time this Job was updated.</value>
+        /// <value>Specifies the last time this Job was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the protection group was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.</value>
         [DataMember(Name="modificationTimeUsecs", EmitDefaultValue=true)]
         public long? ModificationTimeUsecs { get; set; }
 
@@ -964,6 +975,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="summaryStats", EmitDefaultValue=false)]
         public ProtectionJobSummaryStats SummaryStats { get; set; }
+
+        /// <summary>
+        /// Specifies task level timeouts for a job.
+        /// </summary>
+        /// <value>Specifies task level timeouts for a job.</value>
+        [DataMember(Name="taskTimeouts", EmitDefaultValue=true)]
+        public List<CancellationTimeoutParams> TaskTimeouts { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
@@ -1153,6 +1171,12 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.IgnorableErrorsInErrorDb == input.IgnorableErrorsInErrorDb ||
+                    this.IgnorableErrorsInErrorDb != null &&
+                    input.IgnorableErrorsInErrorDb != null &&
+                    this.IgnorableErrorsInErrorDb.SequenceEqual(input.IgnorableErrorsInErrorDb)
+                ) && 
+                (
                     this.IncrementalProtectionSlaTimeMins == input.IncrementalProtectionSlaTimeMins ||
                     (this.IncrementalProtectionSlaTimeMins != null &&
                     this.IncrementalProtectionSlaTimeMins.Equals(input.IncrementalProtectionSlaTimeMins))
@@ -1336,6 +1360,12 @@ namespace Cohesity.Model
                     this.SummaryStats.Equals(input.SummaryStats))
                 ) && 
                 (
+                    this.TaskTimeouts == input.TaskTimeouts ||
+                    this.TaskTimeouts != null &&
+                    input.TaskTimeouts != null &&
+                    this.TaskTimeouts.SequenceEqual(input.TaskTimeouts)
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -1421,6 +1451,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FullProtectionStartTime.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IgnorableErrorsInErrorDb != null)
+                    hashCode = hashCode * 59 + this.IgnorableErrorsInErrorDb.GetHashCode();
                 if (this.IncrementalProtectionSlaTimeMins != null)
                     hashCode = hashCode * 59 + this.IncrementalProtectionSlaTimeMins.GetHashCode();
                 if (this.IncrementalProtectionStartTime != null)
@@ -1491,6 +1523,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StartTime.GetHashCode();
                 if (this.SummaryStats != null)
                     hashCode = hashCode * 59 + this.SummaryStats.GetHashCode();
+                if (this.TaskTimeouts != null)
+                    hashCode = hashCode * 59 + this.TaskTimeouts.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.Timezone != null)

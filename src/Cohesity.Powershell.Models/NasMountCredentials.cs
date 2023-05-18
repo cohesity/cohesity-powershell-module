@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,45 +23,28 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NasMountCredentials" /> class.
         /// </summary>
-        /// <param name="cohesityManagedPassword">Whether the password managed by cohesity during registration..</param>
-        /// <param name="domainController">Active Domain controller IP or hostname;.</param>
         /// <param name="domainName">The name of the domain which the NAS mount credentials belong to..</param>
         /// <param name="encryptedPassword">AES256 encrypted password. The key for encryption should be obtained from KMS..</param>
+        /// <param name="kdc">KDC hostname or IP for krb5 authentication. KDC stores secret keys for a smb user and provides the krb5 tickets for authentication..</param>
         /// <param name="password">The password field is only populated in RPCs. On disk, instances of this proto should not have this field set, except for legacy records.  TODO(oleg): Change this field type to bytes.j.</param>
         /// <param name="protocol">The protocol of the NAS mount..</param>
         /// <param name="username">The username and password to use for mounting the NAS..</param>
-        public NasMountCredentials(bool? cohesityManagedPassword = default(bool?), string domainController = default(string), string domainName = default(string), List<int> encryptedPassword = default(List<int>), string password = default(string), int? protocol = default(int?), string username = default(string))
+        public NasMountCredentials(string domainName = default(string), List<int> encryptedPassword = default(List<int>), string kdc = default(string), string password = default(string), int? protocol = default(int?), string username = default(string))
         {
-            this.CohesityManagedPassword = cohesityManagedPassword;
-            this.DomainController = domainController;
             this.DomainName = domainName;
             this.EncryptedPassword = encryptedPassword;
+            this.Kdc = kdc;
             this.Password = password;
             this.Protocol = protocol;
             this.Username = username;
-            this.CohesityManagedPassword = cohesityManagedPassword;
-            this.DomainController = domainController;
             this.DomainName = domainName;
             this.EncryptedPassword = encryptedPassword;
+            this.Kdc = kdc;
             this.Password = password;
             this.Protocol = protocol;
             this.Username = username;
         }
         
-        /// <summary>
-        /// Whether the password managed by cohesity during registration.
-        /// </summary>
-        /// <value>Whether the password managed by cohesity during registration.</value>
-        [DataMember(Name="cohesityManagedPassword", EmitDefaultValue=true)]
-        public bool? CohesityManagedPassword { get; set; }
-
-        /// <summary>
-        /// Active Domain controller IP or hostname;
-        /// </summary>
-        /// <value>Active Domain controller IP or hostname;</value>
-        [DataMember(Name="domainController", EmitDefaultValue=true)]
-        public string DomainController { get; set; }
-
         /// <summary>
         /// The name of the domain which the NAS mount credentials belong to.
         /// </summary>
@@ -77,6 +58,13 @@ namespace Cohesity.Model
         /// <value>AES256 encrypted password. The key for encryption should be obtained from KMS.</value>
         [DataMember(Name="encryptedPassword", EmitDefaultValue=true)]
         public List<int> EncryptedPassword { get; set; }
+
+        /// <summary>
+        /// KDC hostname or IP for krb5 authentication. KDC stores secret keys for a smb user and provides the krb5 tickets for authentication.
+        /// </summary>
+        /// <value>KDC hostname or IP for krb5 authentication. KDC stores secret keys for a smb user and provides the krb5 tickets for authentication.</value>
+        [DataMember(Name="kdc", EmitDefaultValue=true)]
+        public string Kdc { get; set; }
 
         /// <summary>
         /// The password field is only populated in RPCs. On disk, instances of this proto should not have this field set, except for legacy records.  TODO(oleg): Change this field type to bytes.j
@@ -136,16 +124,6 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.CohesityManagedPassword == input.CohesityManagedPassword ||
-                    (this.CohesityManagedPassword != null &&
-                    this.CohesityManagedPassword.Equals(input.CohesityManagedPassword))
-                ) && 
-                (
-                    this.DomainController == input.DomainController ||
-                    (this.DomainController != null &&
-                    this.DomainController.Equals(input.DomainController))
-                ) && 
-                (
                     this.DomainName == input.DomainName ||
                     (this.DomainName != null &&
                     this.DomainName.Equals(input.DomainName))
@@ -155,6 +133,11 @@ namespace Cohesity.Model
                     this.EncryptedPassword != null &&
                     input.EncryptedPassword != null &&
                     this.EncryptedPassword.SequenceEqual(input.EncryptedPassword)
+                ) && 
+                (
+                    this.Kdc == input.Kdc ||
+                    (this.Kdc != null &&
+                    this.Kdc.Equals(input.Kdc))
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -182,14 +165,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.CohesityManagedPassword != null)
-                    hashCode = hashCode * 59 + this.CohesityManagedPassword.GetHashCode();
-                if (this.DomainController != null)
-                    hashCode = hashCode * 59 + this.DomainController.GetHashCode();
                 if (this.DomainName != null)
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 if (this.EncryptedPassword != null)
                     hashCode = hashCode * 59 + this.EncryptedPassword.GetHashCode();
+                if (this.Kdc != null)
+                    hashCode = hashCode * 59 + this.Kdc.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.Protocol != null)

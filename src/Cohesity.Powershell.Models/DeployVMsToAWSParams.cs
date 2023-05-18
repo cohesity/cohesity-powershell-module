@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -27,6 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="auroraParams">auroraParams.</param>
         /// <param name="customTagVec">Custom Tags to be applied to permanent and temporary resources during AWS Cloudspin / Convert and Deploy..</param>
+        /// <param name="encryptionParams">encryptionParams.</param>
         /// <param name="instanceType">instanceType.</param>
         /// <param name="keyPairName">keyPairName.</param>
         /// <param name="networkSecurityGroups">Names of the network security groups within the above VPC. At least one entry should be present..</param>
@@ -36,12 +35,13 @@ namespace Cohesity.Model
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpc">vpc.</param>
-        public DeployVMsToAWSParams(DeployDBInstancesToRDSParams auroraParams = default(DeployDBInstancesToRDSParams), List<CustomTag> customTagVec = default(List<CustomTag>), EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
+        public DeployVMsToAWSParams(DeployDBInstancesToRDSParams auroraParams = default(DeployDBInstancesToRDSParams), List<CustomTag> customTagVec = default(List<CustomTag>), EncryptionParams encryptionParams = default(EncryptionParams), EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
             this.CustomTagVec = customTagVec;
             this.NetworkSecurityGroups = networkSecurityGroups;
             this.AuroraParams = auroraParams;
             this.CustomTagVec = customTagVec;
+            this.EncryptionParams = encryptionParams;
             this.InstanceType = instanceType;
             this.KeyPairName = keyPairName;
             this.NetworkSecurityGroups = networkSecurityGroups;
@@ -65,6 +65,12 @@ namespace Cohesity.Model
         /// <value>Custom Tags to be applied to permanent and temporary resources during AWS Cloudspin / Convert and Deploy.</value>
         [DataMember(Name="customTagVec", EmitDefaultValue=true)]
         public List<CustomTag> CustomTagVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EncryptionParams
+        /// </summary>
+        [DataMember(Name="encryptionParams", EmitDefaultValue=false)]
+        public EncryptionParams EncryptionParams { get; set; }
 
         /// <summary>
         /// Gets or Sets InstanceType
@@ -169,6 +175,11 @@ namespace Cohesity.Model
                     this.CustomTagVec.SequenceEqual(input.CustomTagVec)
                 ) && 
                 (
+                    this.EncryptionParams == input.EncryptionParams ||
+                    (this.EncryptionParams != null &&
+                    this.EncryptionParams.Equals(input.EncryptionParams))
+                ) && 
+                (
                     this.InstanceType == input.InstanceType ||
                     (this.InstanceType != null &&
                     this.InstanceType.Equals(input.InstanceType))
@@ -229,6 +240,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AuroraParams.GetHashCode();
                 if (this.CustomTagVec != null)
                     hashCode = hashCode * 59 + this.CustomTagVec.GetHashCode();
+                if (this.EncryptionParams != null)
+                    hashCode = hashCode * 59 + this.EncryptionParams.GetHashCode();
                 if (this.InstanceType != null)
                     hashCode = hashCode * 59 + this.InstanceType.GetHashCode();
                 if (this.KeyPairName != null)

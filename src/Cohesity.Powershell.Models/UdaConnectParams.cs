@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -69,7 +67,13 @@ namespace Cohesity.Model
             /// Enum KHPUX for value: kHPUX
             /// </summary>
             [EnumMember(Value = "kHPUX")]
-            KHPUX = 7
+            KHPUX = 7,
+
+            /// <summary>
+            /// Enum KVOS for value: kVOS
+            /// </summary>
+            [EnumMember(Value = "kVOS")]
+            KVOS = 8
 
         }
 
@@ -84,6 +88,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="capabilities">capabilities.</param>
         /// <param name="credentials">credentials.</param>
+        /// <param name="etEnableLogBackupPolicy">Specifies whether to enable cohesity policy triggered log backups along with externally triggered backups. Only applicable if etLogBackup capability is true..</param>
+        /// <param name="etEnableRunNow">Specifies if the user triggered runs are allowed along with externally triggered backups. Only applicable if etLogBackup is true..</param>
         /// <param name="hostType">Specifies the environment type for the host..</param>
         /// <param name="hosts">List of hosts forming the Universal Data Adapter cluster..</param>
         /// <param name="liveDataView">Whether to use a live view for data backups..</param>
@@ -94,8 +100,10 @@ namespace Cohesity.Model
         /// <param name="sourceArgs">Custom arguments which will be provided to the source registration scripts. This is deprecated. Use &#39;sourceRegistrationArguments&#39; instead..</param>
         /// <param name="sourceRegistrationArguments">Specifies a map of custom arguments to be supplied to the source registration scripts..</param>
         /// <param name="sourceType">Global app source type..</param>
-        public UdaConnectParams(UdaSourceCapabilities capabilities = default(UdaSourceCapabilities), Credentials credentials = default(Credentials), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> hosts = default(List<string>), bool? liveDataView = default(bool?), bool? liveLogView = default(bool?), string mountDir = default(string), bool? mountView = default(bool?), string scriptDir = default(string), string sourceArgs = default(string), List<KeyValuePair> sourceRegistrationArguments = default(List<KeyValuePair>), string sourceType = default(string))
+        public UdaConnectParams(UdaSourceCapabilities capabilities = default(UdaSourceCapabilities), Credentials credentials = default(Credentials), bool? etEnableLogBackupPolicy = default(bool?), bool? etEnableRunNow = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> hosts = default(List<string>), bool? liveDataView = default(bool?), bool? liveLogView = default(bool?), string mountDir = default(string), bool? mountView = default(bool?), string scriptDir = default(string), string sourceArgs = default(string), List<KeyValueStrPair> sourceRegistrationArguments = default(List<KeyValueStrPair>), string sourceType = default(string))
         {
+            this.EtEnableLogBackupPolicy = etEnableLogBackupPolicy;
+            this.EtEnableRunNow = etEnableRunNow;
             this.HostType = hostType;
             this.Hosts = hosts;
             this.LiveDataView = liveDataView;
@@ -108,6 +116,8 @@ namespace Cohesity.Model
             this.SourceType = sourceType;
             this.Capabilities = capabilities;
             this.Credentials = credentials;
+            this.EtEnableLogBackupPolicy = etEnableLogBackupPolicy;
+            this.EtEnableRunNow = etEnableRunNow;
             this.HostType = hostType;
             this.Hosts = hosts;
             this.LiveDataView = liveDataView;
@@ -131,6 +141,20 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="credentials", EmitDefaultValue=false)]
         public Credentials Credentials { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable cohesity policy triggered log backups along with externally triggered backups. Only applicable if etLogBackup capability is true.
+        /// </summary>
+        /// <value>Specifies whether to enable cohesity policy triggered log backups along with externally triggered backups. Only applicable if etLogBackup capability is true.</value>
+        [DataMember(Name="etEnableLogBackupPolicy", EmitDefaultValue=true)]
+        public bool? EtEnableLogBackupPolicy { get; set; }
+
+        /// <summary>
+        /// Specifies if the user triggered runs are allowed along with externally triggered backups. Only applicable if etLogBackup is true.
+        /// </summary>
+        /// <value>Specifies if the user triggered runs are allowed along with externally triggered backups. Only applicable if etLogBackup is true.</value>
+        [DataMember(Name="etEnableRunNow", EmitDefaultValue=true)]
+        public bool? EtEnableRunNow { get; set; }
 
         /// <summary>
         /// List of hosts forming the Universal Data Adapter cluster.
@@ -186,7 +210,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies a map of custom arguments to be supplied to the source registration scripts.</value>
         [DataMember(Name="sourceRegistrationArguments", EmitDefaultValue=true)]
-        public List<KeyValuePair> SourceRegistrationArguments { get; set; }
+        public List<KeyValueStrPair> SourceRegistrationArguments { get; set; }
 
         /// <summary>
         /// Global app source type.
@@ -240,6 +264,16 @@ namespace Cohesity.Model
                     this.Credentials == input.Credentials ||
                     (this.Credentials != null &&
                     this.Credentials.Equals(input.Credentials))
+                ) && 
+                (
+                    this.EtEnableLogBackupPolicy == input.EtEnableLogBackupPolicy ||
+                    (this.EtEnableLogBackupPolicy != null &&
+                    this.EtEnableLogBackupPolicy.Equals(input.EtEnableLogBackupPolicy))
+                ) && 
+                (
+                    this.EtEnableRunNow == input.EtEnableRunNow ||
+                    (this.EtEnableRunNow != null &&
+                    this.EtEnableRunNow.Equals(input.EtEnableRunNow))
                 ) && 
                 (
                     this.HostType == input.HostType ||
@@ -307,6 +341,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Capabilities.GetHashCode();
                 if (this.Credentials != null)
                     hashCode = hashCode * 59 + this.Credentials.GetHashCode();
+                if (this.EtEnableLogBackupPolicy != null)
+                    hashCode = hashCode * 59 + this.EtEnableLogBackupPolicy.GetHashCode();
+                if (this.EtEnableRunNow != null)
+                    hashCode = hashCode * 59 + this.EtEnableRunNow.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Hosts != null)
                     hashCode = hashCode * 59 + this.Hosts.GetHashCode();

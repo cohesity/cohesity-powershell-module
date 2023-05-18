@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,16 +27,22 @@ namespace Cohesity.Model
         /// <param name="emails">The email addresses to send alerts to. This field has been deprecated in favor of the field delivery_target_vec. The clients should take care to ensure that the emails stored in here are migrated to that field, or else utilise both the fields when trying to obtain the complete list of delivery targets..</param>
         /// <param name="policy">&#39;policy&#39; is declared as int32 because ORing the enums will generate values which are invalid as enums. Protobuf doesn&#39;t allow those invalid enums to be set..</param>
         /// <param name="raiseObjectLevelFailureAlert">Raise per object alert for failures..</param>
-        public AlertingPolicyProto(List<DeliveryRuleProtoDeliveryTarget> deliveryTargetVec = default(List<DeliveryRuleProtoDeliveryTarget>), List<string> emails = default(List<string>), int? policy = default(int?), bool? raiseObjectLevelFailureAlert = default(bool?))
+        /// <param name="raiseObjectLevelFailureAlertAfterEachAttempt">Raise per object alert for failures after each backup attempt..</param>
+        /// <param name="raiseObjectLevelFailureAlertAfterLastAttempt">Raise per object alert for failures after last backup attempt..</param>
+        public AlertingPolicyProto(List<DeliveryRuleProtoDeliveryTarget> deliveryTargetVec = default(List<DeliveryRuleProtoDeliveryTarget>), List<string> emails = default(List<string>), int? policy = default(int?), bool? raiseObjectLevelFailureAlert = default(bool?), bool? raiseObjectLevelFailureAlertAfterEachAttempt = default(bool?), bool? raiseObjectLevelFailureAlertAfterLastAttempt = default(bool?))
         {
             this.DeliveryTargetVec = deliveryTargetVec;
             this.Emails = emails;
             this.Policy = policy;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
             this.DeliveryTargetVec = deliveryTargetVec;
             this.Emails = emails;
             this.Policy = policy;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
         }
         
         /// <summary>
@@ -68,6 +72,20 @@ namespace Cohesity.Model
         /// <value>Raise per object alert for failures.</value>
         [DataMember(Name="raiseObjectLevelFailureAlert", EmitDefaultValue=true)]
         public bool? RaiseObjectLevelFailureAlert { get; set; }
+
+        /// <summary>
+        /// Raise per object alert for failures after each backup attempt.
+        /// </summary>
+        /// <value>Raise per object alert for failures after each backup attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterEachAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterEachAttempt { get; set; }
+
+        /// <summary>
+        /// Raise per object alert for failures after last backup attempt.
+        /// </summary>
+        /// <value>Raise per object alert for failures after last backup attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterLastAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterLastAttempt { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -126,6 +144,16 @@ namespace Cohesity.Model
                     this.RaiseObjectLevelFailureAlert == input.RaiseObjectLevelFailureAlert ||
                     (this.RaiseObjectLevelFailureAlert != null &&
                     this.RaiseObjectLevelFailureAlert.Equals(input.RaiseObjectLevelFailureAlert))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt == input.RaiseObjectLevelFailureAlertAfterEachAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterEachAttempt))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt == input.RaiseObjectLevelFailureAlertAfterLastAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterLastAttempt))
                 );
         }
 
@@ -146,6 +174,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Policy.GetHashCode();
                 if (this.RaiseObjectLevelFailureAlert != null)
                     hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlert.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterEachAttempt.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterLastAttempt.GetHashCode();
                 return hashCode;
             }
         }

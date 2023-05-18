@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,10 +23,12 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreVMwareVMParams" /> class.
         /// </summary>
+        /// <param name="allowNbdsslTransportFallback">Whether to fallback to use NBDSSL transport for recovery in case using SAN transport recovery fails..</param>
         /// <param name="attemptDifferentialRestore">This field is only applicable when overwrite_existing_vm is set to true. If this field is true, as part of overwrite existing vm, differential restore will be attempted..</param>
         /// <param name="catalogUuid">Specifies the name of the catalog for vapp template recovery. This is applicable for recovery to a VCD..</param>
         /// <param name="copyRecovery">Whether to perform copy recovery instead of instant recovery..</param>
         /// <param name="datastoreEntityVec">Datastore entities if the restore is to alternate location..</param>
+        /// <param name="diskProvisionType">This specifies vmware virtual disk provisioning policies.</param>
         /// <param name="isOnPremDeploy">This will be true if this is on prem deploy task. attempt_differential_restore should also be set to true in case of doing on prem deploy..</param>
         /// <param name="orgVdcNetworkName">Specifies the name of the org VDC network to be used for the recovery. This is applicable for recovery to a VCD..</param>
         /// <param name="orgVdcNetworkVcdUuid">Specifies the VCD UUID of the org VDC network to be used for the recovery. This is applicable for recovery to a VCD..</param>
@@ -41,12 +41,14 @@ namespace Cohesity.Model
         /// <param name="storageProfileVcdUuid">This is only populated for VCD restore to alternate location. It contains the vcd uuid of the destination storage profile..</param>
         /// <param name="targetDatastoreFolder">targetDatastoreFolder.</param>
         /// <param name="targetVmFolder">targetVmFolder.</param>
-        public RestoreVMwareVMParams(bool? attemptDifferentialRestore = default(bool?), string catalogUuid = default(string), bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), bool? isOnPremDeploy = default(bool?), string orgVdcNetworkName = default(string), string orgVdcNetworkVcdUuid = default(string), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
+        public RestoreVMwareVMParams(bool? allowNbdsslTransportFallback = default(bool?), bool? attemptDifferentialRestore = default(bool?), string catalogUuid = default(string), bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), int? diskProvisionType = default(int?), bool? isOnPremDeploy = default(bool?), string orgVdcNetworkName = default(string), string orgVdcNetworkVcdUuid = default(string), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
         {
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
             this.CatalogUuid = catalogUuid;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntityVec = datastoreEntityVec;
+            this.DiskProvisionType = diskProvisionType;
             this.IsOnPremDeploy = isOnPremDeploy;
             this.OrgVdcNetworkName = orgVdcNetworkName;
             this.OrgVdcNetworkVcdUuid = orgVdcNetworkVcdUuid;
@@ -56,10 +58,12 @@ namespace Cohesity.Model
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
             this.StorageProfileName = storageProfileName;
             this.StorageProfileVcdUuid = storageProfileVcdUuid;
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
             this.CatalogUuid = catalogUuid;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntityVec = datastoreEntityVec;
+            this.DiskProvisionType = diskProvisionType;
             this.IsOnPremDeploy = isOnPremDeploy;
             this.OrgVdcNetworkName = orgVdcNetworkName;
             this.OrgVdcNetworkVcdUuid = orgVdcNetworkVcdUuid;
@@ -74,6 +78,13 @@ namespace Cohesity.Model
             this.TargetVmFolder = targetVmFolder;
         }
         
+        /// <summary>
+        /// Whether to fallback to use NBDSSL transport for recovery in case using SAN transport recovery fails.
+        /// </summary>
+        /// <value>Whether to fallback to use NBDSSL transport for recovery in case using SAN transport recovery fails.</value>
+        [DataMember(Name="allowNbdsslTransportFallback", EmitDefaultValue=true)]
+        public bool? AllowNbdsslTransportFallback { get; set; }
+
         /// <summary>
         /// This field is only applicable when overwrite_existing_vm is set to true. If this field is true, as part of overwrite existing vm, differential restore will be attempted.
         /// </summary>
@@ -101,6 +112,13 @@ namespace Cohesity.Model
         /// <value>Datastore entities if the restore is to alternate location.</value>
         [DataMember(Name="datastoreEntityVec", EmitDefaultValue=true)]
         public List<EntityProto> DatastoreEntityVec { get; set; }
+
+        /// <summary>
+        /// This specifies vmware virtual disk provisioning policies
+        /// </summary>
+        /// <value>This specifies vmware virtual disk provisioning policies</value>
+        [DataMember(Name="diskProvisionType", EmitDefaultValue=true)]
+        public int? DiskProvisionType { get; set; }
 
         /// <summary>
         /// This will be true if this is on prem deploy task. attempt_differential_restore should also be set to true in case of doing on prem deploy.
@@ -220,6 +238,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AllowNbdsslTransportFallback == input.AllowNbdsslTransportFallback ||
+                    (this.AllowNbdsslTransportFallback != null &&
+                    this.AllowNbdsslTransportFallback.Equals(input.AllowNbdsslTransportFallback))
+                ) && 
+                (
                     this.AttemptDifferentialRestore == input.AttemptDifferentialRestore ||
                     (this.AttemptDifferentialRestore != null &&
                     this.AttemptDifferentialRestore.Equals(input.AttemptDifferentialRestore))
@@ -239,6 +262,11 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec != null &&
                     input.DatastoreEntityVec != null &&
                     this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
+                ) && 
+                (
+                    this.DiskProvisionType == input.DiskProvisionType ||
+                    (this.DiskProvisionType != null &&
+                    this.DiskProvisionType.Equals(input.DiskProvisionType))
                 ) && 
                 (
                     this.IsOnPremDeploy == input.IsOnPremDeploy ||
@@ -311,6 +339,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AllowNbdsslTransportFallback != null)
+                    hashCode = hashCode * 59 + this.AllowNbdsslTransportFallback.GetHashCode();
                 if (this.AttemptDifferentialRestore != null)
                     hashCode = hashCode * 59 + this.AttemptDifferentialRestore.GetHashCode();
                 if (this.CatalogUuid != null)
@@ -319,6 +349,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyRecovery.GetHashCode();
                 if (this.DatastoreEntityVec != null)
                     hashCode = hashCode * 59 + this.DatastoreEntityVec.GetHashCode();
+                if (this.DiskProvisionType != null)
+                    hashCode = hashCode * 59 + this.DiskProvisionType.GetHashCode();
                 if (this.IsOnPremDeploy != null)
                     hashCode = hashCode * 59 + this.IsOnPremDeploy.GetHashCode();
                 if (this.OrgVdcNetworkName != null)

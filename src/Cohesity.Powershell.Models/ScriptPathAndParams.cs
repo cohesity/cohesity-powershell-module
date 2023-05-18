@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,7 +26,7 @@ namespace Cohesity.Model
         /// <param name="continueOnError">Applicable only for pre backup scripts. If this flag is set to true, then backup job will start even if the pre backup script fails..</param>
         /// <param name="isActive">Indicates if the script is active. If &#39;is_active&#39; is set to false, this script will not be executed even if it is part of the backup job..</param>
         /// <param name="scriptParams">Custom parameters that users want to pass to the script. For example, if user wants to pass following params: 1. foo&#x3D;bar 2. v&#x3D;10. User can construct the param string as \&quot;far&#x3D;bar v&#x3D;10\&quot;..</param>
-        /// <param name="scriptPath">For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path..</param>
+        /// <param name="scriptPath">For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path. For backup jobs of cloud adapters (GCP, AWS, Azure) script path will capture the full path of the script on the cloud VM instance..</param>
         /// <param name="timeoutSecs">Timeout of the script. The script will be killed if it exceeds this value. &#39;-1&#39; indicates that the timeout is not set for the script..</param>
         public ScriptPathAndParams(bool? continueOnError = default(bool?), bool? isActive = default(bool?), string scriptParams = default(string), string scriptPath = default(string), int? timeoutSecs = default(int?))
         {
@@ -66,9 +64,9 @@ namespace Cohesity.Model
         public string ScriptParams { get; set; }
 
         /// <summary>
-        /// For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path.
+        /// For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path. For backup jobs of cloud adapters (GCP, AWS, Azure) script path will capture the full path of the script on the cloud VM instance.
         /// </summary>
-        /// <value>For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path.</value>
+        /// <value>For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path. For backup jobs of cloud adapters (GCP, AWS, Azure) script path will capture the full path of the script on the cloud VM instance.</value>
         [DataMember(Name="scriptPath", EmitDefaultValue=true)]
         public string ScriptPath { get; set; }
 

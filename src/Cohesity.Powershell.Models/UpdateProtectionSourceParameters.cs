@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,9 +21,9 @@ namespace Cohesity.Model
     public partial class UpdateProtectionSourceParameters :  IEquatable<UpdateProtectionSourceParameters>
     {
         /// <summary>
-        /// Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -81,14 +79,68 @@ namespace Cohesity.Model
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 9
+            KOther = 9,
+
+            /// <summary>
+            /// Enum KSapSybase for value: kSapSybase
+            /// </summary>
+            [EnumMember(Value = "kSapSybase")]
+            KSapSybase = 10,
+
+            /// <summary>
+            /// Enum KSapMaxDB for value: kSapMaxDB
+            /// </summary>
+            [EnumMember(Value = "kSapMaxDB")]
+            KSapMaxDB = 11,
+
+            /// <summary>
+            /// Enum KSapSybaseIQ for value: kSapSybaseIQ
+            /// </summary>
+            [EnumMember(Value = "kSapSybaseIQ")]
+            KSapSybaseIQ = 12,
+
+            /// <summary>
+            /// Enum KDB2 for value: kDB2
+            /// </summary>
+            [EnumMember(Value = "kDB2")]
+            KDB2 = 13,
+
+            /// <summary>
+            /// Enum KSapASE for value: kSapASE
+            /// </summary>
+            [EnumMember(Value = "kSapASE")]
+            KSapASE = 14,
+
+            /// <summary>
+            /// Enum KMariaDB for value: kMariaDB
+            /// </summary>
+            [EnumMember(Value = "kMariaDB")]
+            KMariaDB = 15,
+
+            /// <summary>
+            /// Enum KPostgreSQL for value: kPostgreSQL
+            /// </summary>
+            [EnumMember(Value = "kPostgreSQL")]
+            KPostgreSQL = 16,
+
+            /// <summary>
+            /// Enum KVOS for value: kVOS
+            /// </summary>
+            [EnumMember(Value = "kVOS")]
+            KVOS = 17,
+
+            /// <summary>
+            /// Enum KHPUX for value: kHPUX
+            /// </summary>
+            [EnumMember(Value = "kHPUX")]
+            KHPUX = 18
 
         }
 
         /// <summary>
-        /// Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
@@ -102,12 +154,14 @@ namespace Cohesity.Model
         /// <param name="azureCredentials">azureCredentials.</param>
         /// <param name="blacklistedIpAddresses">This field is deprecated. Use DeniedIpAddresses instead. deprecated: true.</param>
         /// <param name="clusterNetworkInfo">clusterNetworkInfo.</param>
+        /// <param name="connectionId">Specifies the Bifrost realm to be associated with the source root. Whenever needed, the workflows related to this source would then only use Bifrosts from the specified realm..</param>
         /// <param name="deniedIpAddresses">Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations..</param>
         /// <param name="endpoint">Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source..</param>
         /// <param name="exchangeDagProtectionPreference">exchangeDagProtectionPreference.</param>
         /// <param name="forceRegister">ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally..</param>
         /// <param name="gcpCredentials">gcpCredentials.</param>
-        /// <param name="hostType">Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="gcpFleetParams">gcpFleetParams.</param>
+        /// <param name="hostType">Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="isProxyHost">Specifies if the physical host has to be registered as a proxy host..</param>
         /// <param name="isilonParams">isilonParams.</param>
         /// <param name="kubernetesCredentials">kubernetesCredentials.</param>
@@ -119,6 +173,8 @@ namespace Cohesity.Model
         /// <param name="office365ServiceAccountCredentialsList">Office365 Service Account Credentials.  Specifies credentials for improving mailbox backup performance for O365..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="proxyHostSourceIdList">Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to a office365 domain..</param>
+        /// <param name="reRegister">ReRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered with the cluster. By setting this option to true, agent can be re-registered with the current cluster..</param>
+        /// <param name="restoreConfig">RestoreConfig is applicable to Physical Environment. The ReRegister option needs to be true if RestoreConfig is true. By setting this option to true, the agent configuration can be restored..</param>
         /// <param name="sourceSideDedupEnabled">This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers)..</param>
         /// <param name="sslVerification">sslVerification.</param>
         /// <param name="subnets">Specifies the list of subnet IP addresses and CIDR prefix for enabeling network data transfer. Currently, only Subnet IP and NetbaskBits are valid input fields. All other fields provided as input will be ignored..</param>
@@ -128,12 +184,13 @@ namespace Cohesity.Model
         /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public UpdateProtectionSourceParameters(bool? isStorageArraySnapshotEnabled = default(bool?), string agentEndpoint = default(string), List<string> allowedIpAddresses = default(List<string>), AwsCredentials awsCredentials = default(AwsCredentials), AwsFleetParams awsFleetParams = default(AwsFleetParams), AzureCredentials azureCredentials = default(AzureCredentials), List<string> blacklistedIpAddresses = default(List<string>), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), List<string> deniedIpAddresses = default(List<string>), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), HostTypeEnum? hostType = default(HostTypeEnum?), bool? isProxyHost = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), KubernetesParams kubernetesParams = default(KubernetesParams), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), List<long> proxyHostSourceIdList = default(List<long>), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useExistingCredentials = default(bool?), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
+        public UpdateProtectionSourceParameters(bool? isStorageArraySnapshotEnabled = default(bool?), string agentEndpoint = default(string), List<string> allowedIpAddresses = default(List<string>), AwsCredentials awsCredentials = default(AwsCredentials), AwsFleetPublicParams awsFleetParams = default(AwsFleetPublicParams), AzureCredentials azureCredentials = default(AzureCredentials), List<string> blacklistedIpAddresses = default(List<string>), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), long? connectionId = default(long?), List<string> deniedIpAddresses = default(List<string>), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), GcpFleetParams gcpFleetParams = default(GcpFleetParams), HostTypeEnum? hostType = default(HostTypeEnum?), bool? isProxyHost = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), KubernetesParams kubernetesParams = default(KubernetesParams), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), List<long> proxyHostSourceIdList = default(List<long>), bool? reRegister = default(bool?), bool? restoreConfig = default(bool?), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useExistingCredentials = default(bool?), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
         {
             this.IsStorageArraySnapshotEnabled = isStorageArraySnapshotEnabled;
             this.AgentEndpoint = agentEndpoint;
             this.AllowedIpAddresses = allowedIpAddresses;
             this.BlacklistedIpAddresses = blacklistedIpAddresses;
+            this.ConnectionId = connectionId;
             this.DeniedIpAddresses = deniedIpAddresses;
             this.Endpoint = endpoint;
             this.ForceRegister = forceRegister;
@@ -146,6 +203,8 @@ namespace Cohesity.Model
             this.Office365ServiceAccountCredentialsList = office365ServiceAccountCredentialsList;
             this.Password = password;
             this.ProxyHostSourceIdList = proxyHostSourceIdList;
+            this.ReRegister = reRegister;
+            this.RestoreConfig = restoreConfig;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.Subnets = subnets;
             this.ThrottlingPolicy = throttlingPolicy;
@@ -161,11 +220,13 @@ namespace Cohesity.Model
             this.AzureCredentials = azureCredentials;
             this.BlacklistedIpAddresses = blacklistedIpAddresses;
             this.ClusterNetworkInfo = clusterNetworkInfo;
+            this.ConnectionId = connectionId;
             this.DeniedIpAddresses = deniedIpAddresses;
             this.Endpoint = endpoint;
             this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.ForceRegister = forceRegister;
             this.GcpCredentials = gcpCredentials;
+            this.GcpFleetParams = gcpFleetParams;
             this.HostType = hostType;
             this.IsProxyHost = isProxyHost;
             this.IsilonParams = isilonParams;
@@ -178,6 +239,8 @@ namespace Cohesity.Model
             this.Office365ServiceAccountCredentialsList = office365ServiceAccountCredentialsList;
             this.Password = password;
             this.ProxyHostSourceIdList = proxyHostSourceIdList;
+            this.ReRegister = reRegister;
+            this.RestoreConfig = restoreConfig;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.SslVerification = sslVerification;
             this.Subnets = subnets;
@@ -220,7 +283,7 @@ namespace Cohesity.Model
         /// Gets or Sets AwsFleetParams
         /// </summary>
         [DataMember(Name="awsFleetParams", EmitDefaultValue=false)]
-        public AwsFleetParams AwsFleetParams { get; set; }
+        public AwsFleetPublicParams AwsFleetParams { get; set; }
 
         /// <summary>
         /// Gets or Sets AzureCredentials
@@ -240,6 +303,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="clusterNetworkInfo", EmitDefaultValue=false)]
         public FleetNetworkParams ClusterNetworkInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the Bifrost realm to be associated with the source root. Whenever needed, the workflows related to this source would then only use Bifrosts from the specified realm.
+        /// </summary>
+        /// <value>Specifies the Bifrost realm to be associated with the source root. Whenever needed, the workflows related to this source would then only use Bifrosts from the specified realm.</value>
+        [DataMember(Name="connectionId", EmitDefaultValue=true)]
+        public long? ConnectionId { get; set; }
 
         /// <summary>
         /// Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations.
@@ -273,6 +343,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="gcpCredentials", EmitDefaultValue=false)]
         public GcpCredentials GcpCredentials { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GcpFleetParams
+        /// </summary>
+        [DataMember(Name="gcpFleetParams", EmitDefaultValue=false)]
+        public GcpFleetParams GcpFleetParams { get; set; }
 
         /// <summary>
         /// Specifies if the physical host has to be registered as a proxy host.
@@ -347,6 +423,20 @@ namespace Cohesity.Model
         /// <value>Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to a office365 domain.</value>
         [DataMember(Name="proxyHostSourceIdList", EmitDefaultValue=true)]
         public List<long> ProxyHostSourceIdList { get; set; }
+
+        /// <summary>
+        /// ReRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered with the cluster. By setting this option to true, agent can be re-registered with the current cluster.
+        /// </summary>
+        /// <value>ReRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered with the cluster. By setting this option to true, agent can be re-registered with the current cluster.</value>
+        [DataMember(Name="reRegister", EmitDefaultValue=true)]
+        public bool? ReRegister { get; set; }
+
+        /// <summary>
+        /// RestoreConfig is applicable to Physical Environment. The ReRegister option needs to be true if RestoreConfig is true. By setting this option to true, the agent configuration can be restored.
+        /// </summary>
+        /// <value>RestoreConfig is applicable to Physical Environment. The ReRegister option needs to be true if RestoreConfig is true. By setting this option to true, the agent configuration can be restored.</value>
+        [DataMember(Name="restoreConfig", EmitDefaultValue=true)]
+        public bool? RestoreConfig { get; set; }
 
         /// <summary>
         /// This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers).
@@ -488,6 +578,11 @@ namespace Cohesity.Model
                     this.ClusterNetworkInfo.Equals(input.ClusterNetworkInfo))
                 ) && 
                 (
+                    this.ConnectionId == input.ConnectionId ||
+                    (this.ConnectionId != null &&
+                    this.ConnectionId.Equals(input.ConnectionId))
+                ) && 
+                (
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
@@ -512,6 +607,11 @@ namespace Cohesity.Model
                     this.GcpCredentials == input.GcpCredentials ||
                     (this.GcpCredentials != null &&
                     this.GcpCredentials.Equals(input.GcpCredentials))
+                ) && 
+                (
+                    this.GcpFleetParams == input.GcpFleetParams ||
+                    (this.GcpFleetParams != null &&
+                    this.GcpFleetParams.Equals(input.GcpFleetParams))
                 ) && 
                 (
                     this.HostType == input.HostType ||
@@ -574,6 +674,16 @@ namespace Cohesity.Model
                     this.ProxyHostSourceIdList != null &&
                     input.ProxyHostSourceIdList != null &&
                     this.ProxyHostSourceIdList.SequenceEqual(input.ProxyHostSourceIdList)
+                ) && 
+                (
+                    this.ReRegister == input.ReRegister ||
+                    (this.ReRegister != null &&
+                    this.ReRegister.Equals(input.ReRegister))
+                ) && 
+                (
+                    this.RestoreConfig == input.RestoreConfig ||
+                    (this.RestoreConfig != null &&
+                    this.RestoreConfig.Equals(input.RestoreConfig))
                 ) && 
                 (
                     this.SourceSideDedupEnabled == input.SourceSideDedupEnabled ||
@@ -649,6 +759,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BlacklistedIpAddresses.GetHashCode();
                 if (this.ClusterNetworkInfo != null)
                     hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
+                if (this.ConnectionId != null)
+                    hashCode = hashCode * 59 + this.ConnectionId.GetHashCode();
                 if (this.DeniedIpAddresses != null)
                     hashCode = hashCode * 59 + this.DeniedIpAddresses.GetHashCode();
                 if (this.Endpoint != null)
@@ -659,6 +771,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ForceRegister.GetHashCode();
                 if (this.GcpCredentials != null)
                     hashCode = hashCode * 59 + this.GcpCredentials.GetHashCode();
+                if (this.GcpFleetParams != null)
+                    hashCode = hashCode * 59 + this.GcpFleetParams.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IsProxyHost != null)
                     hashCode = hashCode * 59 + this.IsProxyHost.GetHashCode();
@@ -682,6 +796,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.ProxyHostSourceIdList != null)
                     hashCode = hashCode * 59 + this.ProxyHostSourceIdList.GetHashCode();
+                if (this.ReRegister != null)
+                    hashCode = hashCode * 59 + this.ReRegister.GetHashCode();
+                if (this.RestoreConfig != null)
+                    hashCode = hashCode * 59 + this.RestoreConfig.GetHashCode();
                 if (this.SourceSideDedupEnabled != null)
                     hashCode = hashCode * 59 + this.SourceSideDedupEnabled.GetHashCode();
                 if (this.SslVerification != null)

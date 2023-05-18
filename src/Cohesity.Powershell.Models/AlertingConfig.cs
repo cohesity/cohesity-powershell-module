@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,14 +26,20 @@ namespace Cohesity.Model
         /// <param name="emailAddresses">Exists to maintain backwards compatibility with versions before eff8198..</param>
         /// <param name="emailDeliveryTargets">Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent..</param>
         /// <param name="raiseObjectLevelFailureAlert">Specifies the boolean to raise per object alert for failures..</param>
-        public AlertingConfig(List<string> emailAddresses = default(List<string>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), bool? raiseObjectLevelFailureAlert = default(bool?))
+        /// <param name="raiseObjectLevelFailureAlertAfterEachAttempt">Specifies the boolean to raise per object alert for failures after each attempt..</param>
+        /// <param name="raiseObjectLevelFailureAlertAfterLastAttempt">Specifies the boolean to raise per object alert for failures after last attempt..</param>
+        public AlertingConfig(List<string> emailAddresses = default(List<string>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), bool? raiseObjectLevelFailureAlert = default(bool?), bool? raiseObjectLevelFailureAlertAfterEachAttempt = default(bool?), bool? raiseObjectLevelFailureAlertAfterLastAttempt = default(bool?))
         {
             this.EmailAddresses = emailAddresses;
             this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
             this.EmailAddresses = emailAddresses;
             this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
         }
         
         /// <summary>
@@ -58,6 +62,20 @@ namespace Cohesity.Model
         /// <value>Specifies the boolean to raise per object alert for failures.</value>
         [DataMember(Name="raiseObjectLevelFailureAlert", EmitDefaultValue=true)]
         public bool? RaiseObjectLevelFailureAlert { get; set; }
+
+        /// <summary>
+        /// Specifies the boolean to raise per object alert for failures after each attempt.
+        /// </summary>
+        /// <value>Specifies the boolean to raise per object alert for failures after each attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterEachAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterEachAttempt { get; set; }
+
+        /// <summary>
+        /// Specifies the boolean to raise per object alert for failures after last attempt.
+        /// </summary>
+        /// <value>Specifies the boolean to raise per object alert for failures after last attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterLastAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterLastAttempt { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -111,6 +129,16 @@ namespace Cohesity.Model
                     this.RaiseObjectLevelFailureAlert == input.RaiseObjectLevelFailureAlert ||
                     (this.RaiseObjectLevelFailureAlert != null &&
                     this.RaiseObjectLevelFailureAlert.Equals(input.RaiseObjectLevelFailureAlert))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt == input.RaiseObjectLevelFailureAlertAfterEachAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterEachAttempt))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt == input.RaiseObjectLevelFailureAlertAfterLastAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterLastAttempt))
                 );
         }
 
@@ -129,6 +157,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EmailDeliveryTargets.GetHashCode();
                 if (this.RaiseObjectLevelFailureAlert != null)
                     hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlert.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterEachAttempt.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterLastAttempt.GetHashCode();
                 return hashCode;
             }
         }

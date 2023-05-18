@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,19 +23,38 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreO365TeamsParamsTargetChannel" /> class.
         /// </summary>
+        /// <param name="channelOwnerVec">Owners for the private channel. This is needed only if we are creating private channel..</param>
+        /// <param name="channelType">channelType.</param>
         /// <param name="createNewChannel">Whether to create a new channel. Name must be provided for this case..</param>
         /// <param name="id">Id of the target channel..</param>
         /// <param name="name">Name of the target channel..</param>
-        public RestoreO365TeamsParamsTargetChannel(bool? createNewChannel = default(bool?), string id = default(string), string name = default(string))
+        public RestoreO365TeamsParamsTargetChannel(List<EntityProto> channelOwnerVec = default(List<EntityProto>), int? channelType = default(int?), bool? createNewChannel = default(bool?), string id = default(string), string name = default(string))
         {
+            this.ChannelOwnerVec = channelOwnerVec;
+            this.ChannelType = channelType;
             this.CreateNewChannel = createNewChannel;
             this.Id = id;
             this.Name = name;
+            this.ChannelOwnerVec = channelOwnerVec;
+            this.ChannelType = channelType;
             this.CreateNewChannel = createNewChannel;
             this.Id = id;
             this.Name = name;
         }
         
+        /// <summary>
+        /// Owners for the private channel. This is needed only if we are creating private channel.
+        /// </summary>
+        /// <value>Owners for the private channel. This is needed only if we are creating private channel.</value>
+        [DataMember(Name="channelOwnerVec", EmitDefaultValue=true)]
+        public List<EntityProto> ChannelOwnerVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ChannelType
+        /// </summary>
+        [DataMember(Name="channelType", EmitDefaultValue=true)]
+        public int? ChannelType { get; set; }
+
         /// <summary>
         /// Whether to create a new channel. Name must be provided for this case.
         /// </summary>
@@ -96,6 +113,17 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ChannelOwnerVec == input.ChannelOwnerVec ||
+                    this.ChannelOwnerVec != null &&
+                    input.ChannelOwnerVec != null &&
+                    this.ChannelOwnerVec.SequenceEqual(input.ChannelOwnerVec)
+                ) && 
+                (
+                    this.ChannelType == input.ChannelType ||
+                    (this.ChannelType != null &&
+                    this.ChannelType.Equals(input.ChannelType))
+                ) && 
+                (
                     this.CreateNewChannel == input.CreateNewChannel ||
                     (this.CreateNewChannel != null &&
                     this.CreateNewChannel.Equals(input.CreateNewChannel))
@@ -121,6 +149,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ChannelOwnerVec != null)
+                    hashCode = hashCode * 59 + this.ChannelOwnerVec.GetHashCode();
+                if (this.ChannelType != null)
+                    hashCode = hashCode * 59 + this.ChannelType.GetHashCode();
                 if (this.CreateNewChannel != null)
                     hashCode = hashCode * 59 + this.CreateNewChannel.GetHashCode();
                 if (this.Id != null)

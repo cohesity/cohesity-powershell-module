@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,16 +24,22 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AuroraClusterInfo" /> class.
         /// </summary>
         /// <param name="awsRegion">Aws region of the Aurora DB cluster and S3 bucket..</param>
+        /// <param name="databasePort">Contains the database port of the Aurora cluster..</param>
+        /// <param name="dbAccessIamRoleArn">Contains the postgres db user IAM role Arn..</param>
         /// <param name="dbUserName">Database user for managing the databases on the Aurora cluster. This user will have exclusive access on all the databases created for the protection group and recovery for a particular tenant..</param>
         /// <param name="hostName">Contains the host name of the Aurora cluster. This is the writer end point of the Aurora cluster..</param>
         /// <param name="kmsKeyArn">Contains the kms encryption key used for encryption of data on the Aurora cluster..</param>
-        public AuroraClusterInfo(string awsRegion = default(string), string dbUserName = default(string), string hostName = default(string), string kmsKeyArn = default(string))
+        public AuroraClusterInfo(string awsRegion = default(string), string databasePort = default(string), string dbAccessIamRoleArn = default(string), string dbUserName = default(string), string hostName = default(string), string kmsKeyArn = default(string))
         {
             this.AwsRegion = awsRegion;
+            this.DatabasePort = databasePort;
+            this.DbAccessIamRoleArn = dbAccessIamRoleArn;
             this.DbUserName = dbUserName;
             this.HostName = hostName;
             this.KmsKeyArn = kmsKeyArn;
             this.AwsRegion = awsRegion;
+            this.DatabasePort = databasePort;
+            this.DbAccessIamRoleArn = dbAccessIamRoleArn;
             this.DbUserName = dbUserName;
             this.HostName = hostName;
             this.KmsKeyArn = kmsKeyArn;
@@ -47,6 +51,20 @@ namespace Cohesity.Model
         /// <value>Aws region of the Aurora DB cluster and S3 bucket.</value>
         [DataMember(Name="awsRegion", EmitDefaultValue=true)]
         public string AwsRegion { get; set; }
+
+        /// <summary>
+        /// Contains the database port of the Aurora cluster.
+        /// </summary>
+        /// <value>Contains the database port of the Aurora cluster.</value>
+        [DataMember(Name="databasePort", EmitDefaultValue=true)]
+        public string DatabasePort { get; set; }
+
+        /// <summary>
+        /// Contains the postgres db user IAM role Arn.
+        /// </summary>
+        /// <value>Contains the postgres db user IAM role Arn.</value>
+        [DataMember(Name="dbAccessIamRoleArn", EmitDefaultValue=true)]
+        public string DbAccessIamRoleArn { get; set; }
 
         /// <summary>
         /// Database user for managing the databases on the Aurora cluster. This user will have exclusive access on all the databases created for the protection group and recovery for a particular tenant.
@@ -111,6 +129,16 @@ namespace Cohesity.Model
                     this.AwsRegion.Equals(input.AwsRegion))
                 ) && 
                 (
+                    this.DatabasePort == input.DatabasePort ||
+                    (this.DatabasePort != null &&
+                    this.DatabasePort.Equals(input.DatabasePort))
+                ) && 
+                (
+                    this.DbAccessIamRoleArn == input.DbAccessIamRoleArn ||
+                    (this.DbAccessIamRoleArn != null &&
+                    this.DbAccessIamRoleArn.Equals(input.DbAccessIamRoleArn))
+                ) && 
+                (
                     this.DbUserName == input.DbUserName ||
                     (this.DbUserName != null &&
                     this.DbUserName.Equals(input.DbUserName))
@@ -138,6 +166,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AwsRegion != null)
                     hashCode = hashCode * 59 + this.AwsRegion.GetHashCode();
+                if (this.DatabasePort != null)
+                    hashCode = hashCode * 59 + this.DatabasePort.GetHashCode();
+                if (this.DbAccessIamRoleArn != null)
+                    hashCode = hashCode * 59 + this.DbAccessIamRoleArn.GetHashCode();
                 if (this.DbUserName != null)
                     hashCode = hashCode * 59 + this.DbUserName.GetHashCode();
                 if (this.HostName != null)
