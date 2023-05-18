@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,51 +12,60 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies the parameters of an Org VDC network.
+    /// OrgVDCNetwork
     /// </summary>
     [DataContract]
-    public partial class OrgVdcNetwork :  IEquatable<OrgVdcNetwork>
+    public partial class OrgVDCNetwork :  IEquatable<OrgVDCNetwork>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrgVdcNetwork" /> class.
+        /// Initializes a new instance of the <see cref="OrgVDCNetwork" /> class.
         /// </summary>
-        /// <param name="name">Specifies the name of the Org VDC Network..</param>
-        /// <param name="vcdUuid">Specifies the UUID as identified by the VCD..</param>
-        /// <param name="vcenterUuid">Specifies the UUID of the corresponding network on the vCenter..</param>
-        public OrgVdcNetwork(string name = default(string), string vcdUuid = default(string), string vcenterUuid = default(string))
+        /// <param name="name">This is the name of the  Org VDC network..</param>
+        /// <param name="networkType">This is the type of the corresponding network on VCenter..</param>
+        /// <param name="vcdUuid">This is the uuid of Org VDC network as identified by VCD..</param>
+        /// <param name="vcenterMorefUuid">This is the moref of the corresponding network on VCenter..</param>
+        public OrgVDCNetwork(string name = default(string), string networkType = default(string), string vcdUuid = default(string), string vcenterMorefUuid = default(string))
         {
             this.Name = name;
+            this.NetworkType = networkType;
             this.VcdUuid = vcdUuid;
-            this.VcenterUuid = vcenterUuid;
+            this.VcenterMorefUuid = vcenterMorefUuid;
             this.Name = name;
+            this.NetworkType = networkType;
             this.VcdUuid = vcdUuid;
-            this.VcenterUuid = vcenterUuid;
+            this.VcenterMorefUuid = vcenterMorefUuid;
         }
         
         /// <summary>
-        /// Specifies the name of the Org VDC Network.
+        /// This is the name of the  Org VDC network.
         /// </summary>
-        /// <value>Specifies the name of the Org VDC Network.</value>
+        /// <value>This is the name of the  Org VDC network.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies the UUID as identified by the VCD.
+        /// This is the type of the corresponding network on VCenter.
         /// </summary>
-        /// <value>Specifies the UUID as identified by the VCD.</value>
+        /// <value>This is the type of the corresponding network on VCenter.</value>
+        [DataMember(Name="networkType", EmitDefaultValue=true)]
+        public string NetworkType { get; set; }
+
+        /// <summary>
+        /// This is the uuid of Org VDC network as identified by VCD.
+        /// </summary>
+        /// <value>This is the uuid of Org VDC network as identified by VCD.</value>
         [DataMember(Name="vcdUuid", EmitDefaultValue=true)]
         public string VcdUuid { get; set; }
 
         /// <summary>
-        /// Specifies the UUID of the corresponding network on the vCenter.
+        /// This is the moref of the corresponding network on VCenter.
         /// </summary>
-        /// <value>Specifies the UUID of the corresponding network on the vCenter.</value>
-        [DataMember(Name="vcenterUuid", EmitDefaultValue=true)]
-        public string VcenterUuid { get; set; }
+        /// <value>This is the moref of the corresponding network on VCenter.</value>
+        [DataMember(Name="vcenterMorefUuid", EmitDefaultValue=true)]
+        public string VcenterMorefUuid { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,15 +89,15 @@ namespace Cohesity.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as OrgVdcNetwork);
+            return this.Equals(input as OrgVDCNetwork);
         }
 
         /// <summary>
-        /// Returns true if OrgVdcNetwork instances are equal
+        /// Returns true if OrgVDCNetwork instances are equal
         /// </summary>
-        /// <param name="input">Instance of OrgVdcNetwork to be compared</param>
+        /// <param name="input">Instance of OrgVDCNetwork to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(OrgVdcNetwork input)
+        public bool Equals(OrgVDCNetwork input)
         {
             if (input == null)
                 return false;
@@ -101,14 +109,19 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.NetworkType == input.NetworkType ||
+                    (this.NetworkType != null &&
+                    this.NetworkType.Equals(input.NetworkType))
+                ) && 
+                (
                     this.VcdUuid == input.VcdUuid ||
                     (this.VcdUuid != null &&
                     this.VcdUuid.Equals(input.VcdUuid))
                 ) && 
                 (
-                    this.VcenterUuid == input.VcenterUuid ||
-                    (this.VcenterUuid != null &&
-                    this.VcenterUuid.Equals(input.VcenterUuid))
+                    this.VcenterMorefUuid == input.VcenterMorefUuid ||
+                    (this.VcenterMorefUuid != null &&
+                    this.VcenterMorefUuid.Equals(input.VcenterMorefUuid))
                 );
         }
 
@@ -123,10 +136,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NetworkType != null)
+                    hashCode = hashCode * 59 + this.NetworkType.GetHashCode();
                 if (this.VcdUuid != null)
                     hashCode = hashCode * 59 + this.VcdUuid.GetHashCode();
-                if (this.VcenterUuid != null)
-                    hashCode = hashCode * 59 + this.VcenterUuid.GetHashCode();
+                if (this.VcenterMorefUuid != null)
+                    hashCode = hashCode * 59 + this.VcenterMorefUuid.GetHashCode();
                 return hashCode;
             }
         }

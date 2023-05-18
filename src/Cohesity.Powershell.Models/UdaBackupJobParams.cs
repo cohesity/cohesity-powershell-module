@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="backupJobArgumentsMap">Map to store custom arguments which will be provided to the backup job scripts..</param>
         /// <param name="concurrency">Max concurrency for the backup job..</param>
         /// <param name="entitySupport">Indicates if backup job was created after source acquired entity support capability..</param>
+        /// <param name="etLogBackup">Indicates if backup job was created after source acquired externally triggered log backup capability..</param>
         /// <param name="fullBackupArgs">Custom arguments for full backup scripts..</param>
         /// <param name="incrementalBackupArgs">Custom arguments for incremental backup scripts..</param>
         /// <param name="logBackupArgs">Custom arguments for log backup scripts..</param>
@@ -35,11 +34,12 @@ namespace Cohesity.Model
         /// <param name="sourceId">Id of the source to which the objects being protected belong to. This can be removed once entity hierarchy support is added to UDA and protected objects can be specified by their Ids instead of their names..</param>
         /// <param name="udaObjects">List of objects to be backed up..</param>
         /// <param name="udaS3ViewBackupProperties">udaS3ViewBackupProperties.</param>
-        public UdaBackupJobParams(List<UdaBackupJobParamsBackupJobArgumentsMapEntry> backupJobArgumentsMap = default(List<UdaBackupJobParamsBackupJobArgumentsMapEntry>), int? concurrency = default(int?), bool? entitySupport = default(bool?), string fullBackupArgs = default(string), string incrementalBackupArgs = default(string), string logBackupArgs = default(string), int? mounts = default(int?), long? sourceId = default(long?), List<UdaObjects> udaObjects = default(List<UdaObjects>), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties))
+        public UdaBackupJobParams(List<UdaBackupJobParamsBackupJobArgumentsMapEntry> backupJobArgumentsMap = default(List<UdaBackupJobParamsBackupJobArgumentsMapEntry>), int? concurrency = default(int?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), string fullBackupArgs = default(string), string incrementalBackupArgs = default(string), string logBackupArgs = default(string), int? mounts = default(int?), long? sourceId = default(long?), List<UdaObjects> udaObjects = default(List<UdaObjects>), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties))
         {
             this.BackupJobArgumentsMap = backupJobArgumentsMap;
             this.Concurrency = concurrency;
             this.EntitySupport = entitySupport;
+            this.EtLogBackup = etLogBackup;
             this.FullBackupArgs = fullBackupArgs;
             this.IncrementalBackupArgs = incrementalBackupArgs;
             this.LogBackupArgs = logBackupArgs;
@@ -49,6 +49,7 @@ namespace Cohesity.Model
             this.BackupJobArgumentsMap = backupJobArgumentsMap;
             this.Concurrency = concurrency;
             this.EntitySupport = entitySupport;
+            this.EtLogBackup = etLogBackup;
             this.FullBackupArgs = fullBackupArgs;
             this.IncrementalBackupArgs = incrementalBackupArgs;
             this.LogBackupArgs = logBackupArgs;
@@ -78,6 +79,13 @@ namespace Cohesity.Model
         /// <value>Indicates if backup job was created after source acquired entity support capability.</value>
         [DataMember(Name="entitySupport", EmitDefaultValue=true)]
         public bool? EntitySupport { get; set; }
+
+        /// <summary>
+        /// Indicates if backup job was created after source acquired externally triggered log backup capability.
+        /// </summary>
+        /// <value>Indicates if backup job was created after source acquired externally triggered log backup capability.</value>
+        [DataMember(Name="etLogBackup", EmitDefaultValue=true)]
+        public bool? EtLogBackup { get; set; }
 
         /// <summary>
         /// Custom arguments for full backup scripts.
@@ -180,6 +188,11 @@ namespace Cohesity.Model
                     this.EntitySupport.Equals(input.EntitySupport))
                 ) && 
                 (
+                    this.EtLogBackup == input.EtLogBackup ||
+                    (this.EtLogBackup != null &&
+                    this.EtLogBackup.Equals(input.EtLogBackup))
+                ) && 
+                (
                     this.FullBackupArgs == input.FullBackupArgs ||
                     (this.FullBackupArgs != null &&
                     this.FullBackupArgs.Equals(input.FullBackupArgs))
@@ -232,6 +245,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Concurrency.GetHashCode();
                 if (this.EntitySupport != null)
                     hashCode = hashCode * 59 + this.EntitySupport.GetHashCode();
+                if (this.EtLogBackup != null)
+                    hashCode = hashCode * 59 + this.EtLogBackup.GetHashCode();
                 if (this.FullBackupArgs != null)
                     hashCode = hashCode * 59 + this.FullBackupArgs.GetHashCode();
                 if (this.IncrementalBackupArgs != null)

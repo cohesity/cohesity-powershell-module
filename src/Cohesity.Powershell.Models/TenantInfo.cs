@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,14 +24,17 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="TenantInfo" /> class.
         /// </summary>
         /// <param name="bifrostEnabled">Specifies if this tenant is bifrost enabled or not..</param>
+        /// <param name="isManagedOnHelios">Specifies whether this tenant is manged on helios.</param>
         /// <param name="name">Specifies name of the tenant..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantInfo(bool? bifrostEnabled = default(bool?), string name = default(string), string tenantId = default(string))
+        public TenantInfo(bool? bifrostEnabled = default(bool?), bool? isManagedOnHelios = default(bool?), string name = default(string), string tenantId = default(string))
         {
             this.BifrostEnabled = bifrostEnabled;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.Name = name;
             this.TenantId = tenantId;
             this.BifrostEnabled = bifrostEnabled;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.Name = name;
             this.TenantId = tenantId;
         }
@@ -44,6 +45,13 @@ namespace Cohesity.Model
         /// <value>Specifies if this tenant is bifrost enabled or not.</value>
         [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
         public bool? BifrostEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether this tenant is manged on helios
+        /// </summary>
+        /// <value>Specifies whether this tenant is manged on helios</value>
+        [DataMember(Name="isManagedOnHelios", EmitDefaultValue=true)]
+        public bool? IsManagedOnHelios { get; set; }
 
         /// <summary>
         /// Specifies name of the tenant.
@@ -101,6 +109,11 @@ namespace Cohesity.Model
                     this.BifrostEnabled.Equals(input.BifrostEnabled))
                 ) && 
                 (
+                    this.IsManagedOnHelios == input.IsManagedOnHelios ||
+                    (this.IsManagedOnHelios != null &&
+                    this.IsManagedOnHelios.Equals(input.IsManagedOnHelios))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -123,6 +136,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BifrostEnabled != null)
                     hashCode = hashCode * 59 + this.BifrostEnabled.GetHashCode();
+                if (this.IsManagedOnHelios != null)
+                    hashCode = hashCode * 59 + this.IsManagedOnHelios.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TenantId != null)

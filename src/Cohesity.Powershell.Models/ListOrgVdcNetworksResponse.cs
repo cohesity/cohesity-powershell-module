@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ListOrgVdcNetworksResponse" /> class.
         /// </summary>
         /// <param name="orgVdcNetworks">Specifies a list of Org VDC Networks..</param>
-        public ListOrgVdcNetworksResponse(List<OrgVdcNetwork> orgVdcNetworks = default(List<OrgVdcNetwork>))
+        public ListOrgVdcNetworksResponse(List<OrgVdcNetworkParams> orgVdcNetworks = default(List<OrgVdcNetworkParams>))
         {
             this.OrgVdcNetworks = orgVdcNetworks;
             this.OrgVdcNetworks = orgVdcNetworks;
@@ -37,7 +35,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies a list of Org VDC Networks.</value>
         [DataMember(Name="orgVdcNetworks", EmitDefaultValue=true)]
-        public List<OrgVdcNetwork> OrgVdcNetworks { get; set; }
+        public List<OrgVdcNetworkParams> OrgVdcNetworks { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

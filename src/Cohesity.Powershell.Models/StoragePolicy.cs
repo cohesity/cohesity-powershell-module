@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -91,6 +89,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="StoragePolicy" /> class.
         /// </summary>
+        /// <param name="aesEncryptionMode">If EncryptionLevel is &#39;KEncryptionStrong&#39; EncryptionMode tells whether encryption algorithm used is AES_CBC or AES_GCM..</param>
         /// <param name="appMarkerDetection">Specifies Whether to support app marker detection. When this is set to true, app markers (like commvault markers) will be removed from data and put in separate chunks. This way deduplication is improved as it is done on data that has no app markers..</param>
         /// <param name="cloudSpillVaultId">Specifies the vault id assigned for an external Storage Target to facilitate cloud spill..</param>
         /// <param name="compressionPolicy">Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip..</param>
@@ -102,8 +101,9 @@ namespace Cohesity.Model
         /// <param name="inlineDeduplicate">Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled..</param>
         /// <param name="numFailuresTolerated">Number of disk failures to tolerate. This is an optional field. Default value is 1 for cluster having 3 or more nodes. If erasure coding is not enabled, then this specifies the replication factor for the Storage Domain (View Box). For RF&#x3D;2, number of failures to tolerate should be specified as 1. If erasure coding is enabled, then this value will be same as number of coded stripes..</param>
         /// <param name="numNodeFailuresTolerated">Number of node failures to tolerate. If NumNodeFailuresTolerated is set to 2, then we would tolerate up to two node failures. If the following is not set, then the number of node failures tolerated would be same as replication factor - 1 for replicated chunk files or number of coded stripes for erasure coding chunk files..</param>
-        public StoragePolicy(bool? appMarkerDetection = default(bool?), long? cloudSpillVaultId = default(long?), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), int? deduplicateCompressDelaySecs = default(int?), bool? deduplicationEnabled = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ErasureCodingInfo erasureCodingInfo = default(ErasureCodingInfo), bool? inlineCompress = default(bool?), bool? inlineDeduplicate = default(bool?), int? numFailuresTolerated = default(int?), int? numNodeFailuresTolerated = default(int?))
+        public StoragePolicy(string aesEncryptionMode = default(string), bool? appMarkerDetection = default(bool?), long? cloudSpillVaultId = default(long?), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), int? deduplicateCompressDelaySecs = default(int?), bool? deduplicationEnabled = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ErasureCodingInfo erasureCodingInfo = default(ErasureCodingInfo), bool? inlineCompress = default(bool?), bool? inlineDeduplicate = default(bool?), int? numFailuresTolerated = default(int?), int? numNodeFailuresTolerated = default(int?))
         {
+            this.AesEncryptionMode = aesEncryptionMode;
             this.AppMarkerDetection = appMarkerDetection;
             this.CloudSpillVaultId = cloudSpillVaultId;
             this.CompressionPolicy = compressionPolicy;
@@ -114,6 +114,7 @@ namespace Cohesity.Model
             this.InlineDeduplicate = inlineDeduplicate;
             this.NumFailuresTolerated = numFailuresTolerated;
             this.NumNodeFailuresTolerated = numNodeFailuresTolerated;
+            this.AesEncryptionMode = aesEncryptionMode;
             this.AppMarkerDetection = appMarkerDetection;
             this.CloudSpillVaultId = cloudSpillVaultId;
             this.CompressionPolicy = compressionPolicy;
@@ -127,6 +128,13 @@ namespace Cohesity.Model
             this.NumNodeFailuresTolerated = numNodeFailuresTolerated;
         }
         
+        /// <summary>
+        /// If EncryptionLevel is &#39;KEncryptionStrong&#39; EncryptionMode tells whether encryption algorithm used is AES_CBC or AES_GCM.
+        /// </summary>
+        /// <value>If EncryptionLevel is &#39;KEncryptionStrong&#39; EncryptionMode tells whether encryption algorithm used is AES_CBC or AES_GCM.</value>
+        [DataMember(Name="aesEncryptionMode", EmitDefaultValue=true)]
+        public string AesEncryptionMode { get; set; }
+
         /// <summary>
         /// Specifies Whether to support app marker detection. When this is set to true, app markers (like commvault markers) will be removed from data and put in separate chunks. This way deduplication is improved as it is done on data that has no app markers.
         /// </summary>
@@ -226,6 +234,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AesEncryptionMode == input.AesEncryptionMode ||
+                    (this.AesEncryptionMode != null &&
+                    this.AesEncryptionMode.Equals(input.AesEncryptionMode))
+                ) && 
+                (
                     this.AppMarkerDetection == input.AppMarkerDetection ||
                     (this.AppMarkerDetection != null &&
                     this.AppMarkerDetection.Equals(input.AppMarkerDetection))
@@ -289,6 +302,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AesEncryptionMode != null)
+                    hashCode = hashCode * 59 + this.AesEncryptionMode.GetHashCode();
                 if (this.AppMarkerDetection != null)
                     hashCode = hashCode * 59 + this.AppMarkerDetection.GetHashCode();
                 if (this.CloudSpillVaultId != null)

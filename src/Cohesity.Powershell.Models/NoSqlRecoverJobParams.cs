@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,9 +30,10 @@ namespace Cohesity.Model
         /// <param name="hbaseRecoverJobParams">hbaseRecoverJobParams.</param>
         /// <param name="hdfsRecoverJobParams">hdfsRecoverJobParams.</param>
         /// <param name="hiveRecoverJobParams">hiveRecoverJobParams.</param>
+        /// <param name="mirrorJobParams">mirrorJobParams.</param>
         /// <param name="mongodbRecoverJobParams">mongodbRecoverJobParams.</param>
         /// <param name="overwrite">Whether to overwrite or keep the object if the object being recovered already exists in the destination..</param>
-        public NoSqlRecoverJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraRecoverJobParams cassandraRecoverJobParams = default(CassandraRecoverJobParams), int? concurrency = default(int?), CouchbaseRecoverJobParams couchbaseRecoverJobParams = default(CouchbaseRecoverJobParams), HBaseRecoverJobParams hbaseRecoverJobParams = default(HBaseRecoverJobParams), HdfsRecoverJobParams hdfsRecoverJobParams = default(HdfsRecoverJobParams), HiveRecoverJobParams hiveRecoverJobParams = default(HiveRecoverJobParams), MongoDBRecoverJobParams mongodbRecoverJobParams = default(MongoDBRecoverJobParams), bool? overwrite = default(bool?))
+        public NoSqlRecoverJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraRecoverJobParams cassandraRecoverJobParams = default(CassandraRecoverJobParams), int? concurrency = default(int?), CouchbaseRecoverJobParams couchbaseRecoverJobParams = default(CouchbaseRecoverJobParams), HBaseRecoverJobParams hbaseRecoverJobParams = default(HBaseRecoverJobParams), HdfsRecoverJobParams hdfsRecoverJobParams = default(HdfsRecoverJobParams), HiveRecoverJobParams hiveRecoverJobParams = default(HiveRecoverJobParams), NoSqlMirrorRecoveryJobParams mirrorJobParams = default(NoSqlMirrorRecoveryJobParams), MongoDBRecoverJobParams mongodbRecoverJobParams = default(MongoDBRecoverJobParams), bool? overwrite = default(bool?))
         {
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.Concurrency = concurrency;
@@ -46,6 +45,7 @@ namespace Cohesity.Model
             this.HbaseRecoverJobParams = hbaseRecoverJobParams;
             this.HdfsRecoverJobParams = hdfsRecoverJobParams;
             this.HiveRecoverJobParams = hiveRecoverJobParams;
+            this.MirrorJobParams = mirrorJobParams;
             this.MongodbRecoverJobParams = mongodbRecoverJobParams;
             this.Overwrite = overwrite;
         }
@@ -93,6 +93,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="hiveRecoverJobParams", EmitDefaultValue=false)]
         public HiveRecoverJobParams HiveRecoverJobParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MirrorJobParams
+        /// </summary>
+        [DataMember(Name="mirrorJobParams", EmitDefaultValue=false)]
+        public NoSqlMirrorRecoveryJobParams MirrorJobParams { get; set; }
 
         /// <summary>
         /// Gets or Sets MongodbRecoverJobParams
@@ -179,6 +185,11 @@ namespace Cohesity.Model
                     this.HiveRecoverJobParams.Equals(input.HiveRecoverJobParams))
                 ) && 
                 (
+                    this.MirrorJobParams == input.MirrorJobParams ||
+                    (this.MirrorJobParams != null &&
+                    this.MirrorJobParams.Equals(input.MirrorJobParams))
+                ) && 
+                (
                     this.MongodbRecoverJobParams == input.MongodbRecoverJobParams ||
                     (this.MongodbRecoverJobParams != null &&
                     this.MongodbRecoverJobParams.Equals(input.MongodbRecoverJobParams))
@@ -213,6 +224,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HdfsRecoverJobParams.GetHashCode();
                 if (this.HiveRecoverJobParams != null)
                     hashCode = hashCode * 59 + this.HiveRecoverJobParams.GetHashCode();
+                if (this.MirrorJobParams != null)
+                    hashCode = hashCode * 59 + this.MirrorJobParams.GetHashCode();
                 if (this.MongodbRecoverJobParams != null)
                     hashCode = hashCode * 59 + this.MongodbRecoverJobParams.GetHashCode();
                 if (this.Overwrite != null)

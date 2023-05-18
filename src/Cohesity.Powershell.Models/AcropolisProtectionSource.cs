@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -22,6 +20,69 @@ namespace Cohesity.Model
     [DataContract]
     public partial class AcropolisProtectionSource :  IEquatable<AcropolisProtectionSource>
     {
+        /// <summary>
+        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.
+        /// </summary>
+        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum KPrismCentral for value: kPrismCentral
+            /// </summary>
+            [EnumMember(Value = "kPrismCentral")]
+            KPrismCentral = 1,
+
+            /// <summary>
+            /// Enum KStandaloneCluster for value: kStandaloneCluster
+            /// </summary>
+            [EnumMember(Value = "kStandaloneCluster")]
+            KStandaloneCluster = 2,
+
+            /// <summary>
+            /// Enum KOtherHypervisorCluster for value: kOtherHypervisorCluster
+            /// </summary>
+            [EnumMember(Value = "kOtherHypervisorCluster")]
+            KOtherHypervisorCluster = 3,
+
+            /// <summary>
+            /// Enum KCluster for value: kCluster
+            /// </summary>
+            [EnumMember(Value = "kCluster")]
+            KCluster = 4,
+
+            /// <summary>
+            /// Enum KHost for value: kHost
+            /// </summary>
+            [EnumMember(Value = "kHost")]
+            KHost = 5,
+
+            /// <summary>
+            /// Enum KVirtualMachine for value: kVirtualMachine
+            /// </summary>
+            [EnumMember(Value = "kVirtualMachine")]
+            KVirtualMachine = 6,
+
+            /// <summary>
+            /// Enum KNetwork for value: kNetwork
+            /// </summary>
+            [EnumMember(Value = "kNetwork")]
+            KNetwork = 7,
+
+            /// <summary>
+            /// Enum KStorageContainer for value: kStorageContainer
+            /// </summary>
+            [EnumMember(Value = "kStorageContainer")]
+            KStorageContainer = 8
+
+        }
+
+        /// <summary>
+        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.
+        /// </summary>
+        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AcropolisProtectionSource" /> class.
         /// </summary>
@@ -38,7 +99,7 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment..</param>
         /// <param name="version">Specifies the version of an Acropolis cluster or standalone cluster..</param>
         /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
-        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), int? type = default(int?), string uuid = default(string), string version = default(string), List<VirtualDiskConfig> virtualDisks = default(List<VirtualDiskConfig>))
+        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string), List<VirtualDiskConfig> virtualDisks = default(List<VirtualDiskConfig>))
         {
             this.ClusterUuid = clusterUuid;
             this.Description = description;
@@ -130,13 +191,6 @@ namespace Cohesity.Model
         /// <value>Specifies version of NGT installed on the VM. This is applicable to acropolis entity of type kVirtualMachine.</value>
         [DataMember(Name="ngtVersion", EmitDefaultValue=true)]
         public string NgtVersion { get; set; }
-
-        /// <summary>
-        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.
-        /// </summary>
-        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
-        public int? Type { get; set; }
 
         /// <summary>
         /// Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.
@@ -243,8 +297,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -291,8 +344,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NgtReachable.GetHashCode();
                 if (this.NgtVersion != null)
                     hashCode = hashCode * 59 + this.NgtVersion.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.Version != null)

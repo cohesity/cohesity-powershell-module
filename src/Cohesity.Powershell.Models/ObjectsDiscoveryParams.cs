@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,11 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ObjectsDiscoveryParams" /> class.
         /// </summary>
         /// <param name="discoverableObjectTypeList">Specifies the list of object types that will be discovered as part of source registration or refresh..</param>
+        /// <param name="sitesDiscoveryParams">sitesDiscoveryParams.</param>
         /// <param name="usersDiscoveryParams">usersDiscoveryParams.</param>
-        public ObjectsDiscoveryParams(List<string> discoverableObjectTypeList = default(List<string>), UsersDiscoveryParams usersDiscoveryParams = default(UsersDiscoveryParams))
+        public ObjectsDiscoveryParams(List<string> discoverableObjectTypeList = default(List<string>), SitesDiscoveryParams sitesDiscoveryParams = default(SitesDiscoveryParams), UsersDiscoveryParams usersDiscoveryParams = default(UsersDiscoveryParams))
         {
             this.DiscoverableObjectTypeList = discoverableObjectTypeList;
             this.DiscoverableObjectTypeList = discoverableObjectTypeList;
+            this.SitesDiscoveryParams = sitesDiscoveryParams;
             this.UsersDiscoveryParams = usersDiscoveryParams;
         }
         
@@ -40,6 +40,12 @@ namespace Cohesity.Model
         /// <value>Specifies the list of object types that will be discovered as part of source registration or refresh.</value>
         [DataMember(Name="discoverableObjectTypeList", EmitDefaultValue=true)]
         public List<string> DiscoverableObjectTypeList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SitesDiscoveryParams
+        /// </summary>
+        [DataMember(Name="sitesDiscoveryParams", EmitDefaultValue=false)]
+        public SitesDiscoveryParams SitesDiscoveryParams { get; set; }
 
         /// <summary>
         /// Gets or Sets UsersDiscoveryParams
@@ -90,6 +96,11 @@ namespace Cohesity.Model
                     this.DiscoverableObjectTypeList.SequenceEqual(input.DiscoverableObjectTypeList)
                 ) && 
                 (
+                    this.SitesDiscoveryParams == input.SitesDiscoveryParams ||
+                    (this.SitesDiscoveryParams != null &&
+                    this.SitesDiscoveryParams.Equals(input.SitesDiscoveryParams))
+                ) && 
+                (
                     this.UsersDiscoveryParams == input.UsersDiscoveryParams ||
                     (this.UsersDiscoveryParams != null &&
                     this.UsersDiscoveryParams.Equals(input.UsersDiscoveryParams))
@@ -107,6 +118,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DiscoverableObjectTypeList != null)
                     hashCode = hashCode * 59 + this.DiscoverableObjectTypeList.GetHashCode();
+                if (this.SitesDiscoveryParams != null)
+                    hashCode = hashCode * 59 + this.SitesDiscoveryParams.GetHashCode();
                 if (this.UsersDiscoveryParams != null)
                     hashCode = hashCode * 59 + this.UsersDiscoveryParams.GetHashCode();
                 return hashCode;

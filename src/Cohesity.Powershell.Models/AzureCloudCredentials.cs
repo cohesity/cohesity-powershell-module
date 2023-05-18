@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -22,6 +20,45 @@ namespace Cohesity.Model
     [DataContract]
     public partial class AzureCloudCredentials :  IEquatable<AzureCloudCredentials>
     {
+        /// <summary>
+        /// Specifies the auth method used for the request &#39;kAzureAuthNone&#39; indicates no authentication. &#39;kAzureClientSecret&#39; indicates a client authentication. &#39;kAzureManagedIdentity&#39; indicates a Azure based authentication. &#39;kUseHelios&#39; indicates a Helios authentication.
+        /// </summary>
+        /// <value>Specifies the auth method used for the request &#39;kAzureAuthNone&#39; indicates no authentication. &#39;kAzureClientSecret&#39; indicates a client authentication. &#39;kAzureManagedIdentity&#39; indicates a Azure based authentication. &#39;kUseHelios&#39; indicates a Helios authentication.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AuthMethodEnum
+        {
+            /// <summary>
+            /// Enum KAzureAuthNone for value: kAzureAuthNone
+            /// </summary>
+            [EnumMember(Value = "kAzureAuthNone")]
+            KAzureAuthNone = 1,
+
+            /// <summary>
+            /// Enum KAzureClientSecret for value: kAzureClientSecret
+            /// </summary>
+            [EnumMember(Value = "kAzureClientSecret")]
+            KAzureClientSecret = 2,
+
+            /// <summary>
+            /// Enum KAzureManagedIdentity for value: kAzureManagedIdentity
+            /// </summary>
+            [EnumMember(Value = "kAzureManagedIdentity")]
+            KAzureManagedIdentity = 3,
+
+            /// <summary>
+            /// Enum KUseHelios for value: kUseHelios
+            /// </summary>
+            [EnumMember(Value = "kUseHelios")]
+            KUseHelios = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the auth method used for the request &#39;kAzureAuthNone&#39; indicates no authentication. &#39;kAzureClientSecret&#39; indicates a client authentication. &#39;kAzureManagedIdentity&#39; indicates a Azure based authentication. &#39;kUseHelios&#39; indicates a Helios authentication.
+        /// </summary>
+        /// <value>Specifies the auth method used for the request &#39;kAzureAuthNone&#39; indicates no authentication. &#39;kAzureClientSecret&#39; indicates a client authentication. &#39;kAzureManagedIdentity&#39; indicates a Azure based authentication. &#39;kUseHelios&#39; indicates a Helios authentication.</value>
+        [DataMember(Name="authMethod", EmitDefaultValue=true)]
+        public AuthMethodEnum? AuthMethod { get; set; }
         /// <summary>
         /// Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days.
         /// </summary>
@@ -58,19 +95,28 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureCloudCredentials" /> class.
         /// </summary>
+        /// <param name="authMethod">Specifies the auth method used for the request &#39;kAzureAuthNone&#39; indicates no authentication. &#39;kAzureClientSecret&#39; indicates a client authentication. &#39;kAzureManagedIdentity&#39; indicates a Azure based authentication. &#39;kUseHelios&#39; indicates a Helios authentication..</param>
+        /// <param name="clientId">Specifies the client id of the managed identity assigned to the cluster. This is used only for clusters running as Azure VMs where authentication is done using AD..</param>
         /// <param name="isWormEnabled">Specifies if write once read many (WORM) protection is enabled for the Azure container or not..</param>
+        /// <param name="region">Specifies the region for Azure account. This is only populated for FortKnox vaults..</param>
         /// <param name="storageAccessKey">Specifies the access key to use when accessing a storage tier in a Azure cloud service..</param>
         /// <param name="storageAccountName">Specifies the account name to use when accessing a storage tier in a Azure cloud service..</param>
         /// <param name="tierType">Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days..</param>
         /// <param name="tiers">Specifies the list of all tiers for Amazon account..</param>
-        public AzureCloudCredentials(bool? isWormEnabled = default(bool?), string storageAccessKey = default(string), string storageAccountName = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
+        public AzureCloudCredentials(AuthMethodEnum? authMethod = default(AuthMethodEnum?), string clientId = default(string), bool? isWormEnabled = default(bool?), string region = default(string), string storageAccessKey = default(string), string storageAccountName = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
+            this.AuthMethod = authMethod;
+            this.ClientId = clientId;
             this.IsWormEnabled = isWormEnabled;
+            this.Region = region;
             this.StorageAccessKey = storageAccessKey;
             this.StorageAccountName = storageAccountName;
             this.TierType = tierType;
             this.Tiers = tiers;
+            this.AuthMethod = authMethod;
+            this.ClientId = clientId;
             this.IsWormEnabled = isWormEnabled;
+            this.Region = region;
             this.StorageAccessKey = storageAccessKey;
             this.StorageAccountName = storageAccountName;
             this.TierType = tierType;
@@ -78,11 +124,25 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Specifies the client id of the managed identity assigned to the cluster. This is used only for clusters running as Azure VMs where authentication is done using AD.
+        /// </summary>
+        /// <value>Specifies the client id of the managed identity assigned to the cluster. This is used only for clusters running as Azure VMs where authentication is done using AD.</value>
+        [DataMember(Name="clientId", EmitDefaultValue=true)]
+        public string ClientId { get; set; }
+
+        /// <summary>
         /// Specifies if write once read many (WORM) protection is enabled for the Azure container or not.
         /// </summary>
         /// <value>Specifies if write once read many (WORM) protection is enabled for the Azure container or not.</value>
         [DataMember(Name="isWormEnabled", EmitDefaultValue=true)]
         public bool? IsWormEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies the region for Azure account. This is only populated for FortKnox vaults.
+        /// </summary>
+        /// <value>Specifies the region for Azure account. This is only populated for FortKnox vaults.</value>
+        [DataMember(Name="region", EmitDefaultValue=true)]
+        public string Region { get; set; }
 
         /// <summary>
         /// Specifies the access key to use when accessing a storage tier in a Azure cloud service.
@@ -142,9 +202,23 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AuthMethod == input.AuthMethod ||
+                    this.AuthMethod.Equals(input.AuthMethod)
+                ) && 
+                (
+                    this.ClientId == input.ClientId ||
+                    (this.ClientId != null &&
+                    this.ClientId.Equals(input.ClientId))
+                ) && 
+                (
                     this.IsWormEnabled == input.IsWormEnabled ||
                     (this.IsWormEnabled != null &&
                     this.IsWormEnabled.Equals(input.IsWormEnabled))
+                ) && 
+                (
+                    this.Region == input.Region ||
+                    (this.Region != null &&
+                    this.Region.Equals(input.Region))
                 ) && 
                 (
                     this.StorageAccessKey == input.StorageAccessKey ||
@@ -177,8 +251,13 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                if (this.ClientId != null)
+                    hashCode = hashCode * 59 + this.ClientId.GetHashCode();
                 if (this.IsWormEnabled != null)
                     hashCode = hashCode * 59 + this.IsWormEnabled.GetHashCode();
+                if (this.Region != null)
+                    hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.StorageAccessKey != null)
                     hashCode = hashCode * 59 + this.StorageAccessKey.GetHashCode();
                 if (this.StorageAccountName != null)

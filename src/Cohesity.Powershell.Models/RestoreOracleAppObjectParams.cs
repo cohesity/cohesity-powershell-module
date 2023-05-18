@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -42,8 +40,9 @@ namespace Cohesity.Model
         /// <param name="rollForwardTimeMsecs">Time till which we have to roll-forward the database. This overrides user mentioned point in time(if any)..</param>
         /// <param name="shellEnvironmentVec">shellEnvironmentVec.</param>
         /// <param name="skipCloneNid">Whether or not to skip the nid step in Oracle Clone workflow. Applicable to both smart and old clone workflow..</param>
+        /// <param name="stopActivePassive">Specifies whether allowed to automatically stop active passive database..</param>
         /// <param name="useScnForRestore">Whether database recovery should be performed using the SCN value or time value. Currently this is applicable only during overwrite restore and clone workflow. In case of alternate restore we cannot use it since we cannot set until scn clause if we don&#39;t catalog the backup view..</param>
-        public RestoreOracleAppObjectParams(RestoreOracleAppObjectParamsAlternateLocationParams alternateLocationParams = default(RestoreOracleAppObjectParamsAlternateLocationParams), bool? attemptCompleteRecovery = default(bool?), GranularRestoreInfo granularRestoreInfo = default(GranularRestoreInfo), bool? isMultiStageRestore = default(bool?), bool? noOpenMode = default(bool?), OracleArchiveLogInfo oracleArchiveLogRestoreInfo = default(OracleArchiveLogInfo), List<CloneAppViewParams> oracleCloneAppViewParamsVec = default(List<CloneAppViewParams>), OracleRecoveryValidationInfo oracleRecoveryValidationInfo = default(OracleRecoveryValidationInfo), OracleSourceParams oracleTargetParams = default(OracleSourceParams), OracleUpdateRestoreTaskOptions oracleUpdateRestoreOptions = default(OracleUpdateRestoreTaskOptions), bool? parallelOpEnabled = default(bool?), RestoreSpfileOrPfileInfo restoreSpfileOrPfileInfo = default(RestoreSpfileOrPfileInfo), long? restoreTimeSecs = default(long?), List<string> rollForwardLogPathVec = default(List<string>), long? rollForwardTimeMsecs = default(long?), List<RestoreOracleAppObjectParamsKeyValuePair> shellEnvironmentVec = default(List<RestoreOracleAppObjectParamsKeyValuePair>), bool? skipCloneNid = default(bool?), bool? useScnForRestore = default(bool?))
+        public RestoreOracleAppObjectParams(RestoreOracleAppObjectParamsAlternateLocationParams alternateLocationParams = default(RestoreOracleAppObjectParamsAlternateLocationParams), bool? attemptCompleteRecovery = default(bool?), GranularRestoreInfo granularRestoreInfo = default(GranularRestoreInfo), bool? isMultiStageRestore = default(bool?), bool? noOpenMode = default(bool?), OracleArchiveLogInfo oracleArchiveLogRestoreInfo = default(OracleArchiveLogInfo), List<CloneAppViewParams> oracleCloneAppViewParamsVec = default(List<CloneAppViewParams>), OracleRecoveryValidationInfo oracleRecoveryValidationInfo = default(OracleRecoveryValidationInfo), OracleSourceParams oracleTargetParams = default(OracleSourceParams), OracleUpdateRestoreTaskOptions oracleUpdateRestoreOptions = default(OracleUpdateRestoreTaskOptions), bool? parallelOpEnabled = default(bool?), RestoreSpfileOrPfileInfo restoreSpfileOrPfileInfo = default(RestoreSpfileOrPfileInfo), long? restoreTimeSecs = default(long?), List<string> rollForwardLogPathVec = default(List<string>), long? rollForwardTimeMsecs = default(long?), List<RestoreOracleAppObjectParamsKeyValuePair> shellEnvironmentVec = default(List<RestoreOracleAppObjectParamsKeyValuePair>), bool? skipCloneNid = default(bool?), bool? stopActivePassive = default(bool?), bool? useScnForRestore = default(bool?))
         {
             this.AttemptCompleteRecovery = attemptCompleteRecovery;
             this.IsMultiStageRestore = isMultiStageRestore;
@@ -55,6 +54,7 @@ namespace Cohesity.Model
             this.RollForwardTimeMsecs = rollForwardTimeMsecs;
             this.ShellEnvironmentVec = shellEnvironmentVec;
             this.SkipCloneNid = skipCloneNid;
+            this.StopActivePassive = stopActivePassive;
             this.UseScnForRestore = useScnForRestore;
             this.AlternateLocationParams = alternateLocationParams;
             this.AttemptCompleteRecovery = attemptCompleteRecovery;
@@ -73,6 +73,7 @@ namespace Cohesity.Model
             this.RollForwardTimeMsecs = rollForwardTimeMsecs;
             this.ShellEnvironmentVec = shellEnvironmentVec;
             this.SkipCloneNid = skipCloneNid;
+            this.StopActivePassive = stopActivePassive;
             this.UseScnForRestore = useScnForRestore;
         }
         
@@ -186,6 +187,13 @@ namespace Cohesity.Model
         /// <value>Whether or not to skip the nid step in Oracle Clone workflow. Applicable to both smart and old clone workflow.</value>
         [DataMember(Name="skipCloneNid", EmitDefaultValue=true)]
         public bool? SkipCloneNid { get; set; }
+
+        /// <summary>
+        /// Specifies whether allowed to automatically stop active passive database.
+        /// </summary>
+        /// <value>Specifies whether allowed to automatically stop active passive database.</value>
+        [DataMember(Name="stopActivePassive", EmitDefaultValue=true)]
+        public bool? StopActivePassive { get; set; }
 
         /// <summary>
         /// Whether database recovery should be performed using the SCN value or time value. Currently this is applicable only during overwrite restore and clone workflow. In case of alternate restore we cannot use it since we cannot set until scn clause if we don&#39;t catalog the backup view.
@@ -319,6 +327,11 @@ namespace Cohesity.Model
                     this.SkipCloneNid.Equals(input.SkipCloneNid))
                 ) && 
                 (
+                    this.StopActivePassive == input.StopActivePassive ||
+                    (this.StopActivePassive != null &&
+                    this.StopActivePassive.Equals(input.StopActivePassive))
+                ) && 
+                (
                     this.UseScnForRestore == input.UseScnForRestore ||
                     (this.UseScnForRestore != null &&
                     this.UseScnForRestore.Equals(input.UseScnForRestore))
@@ -368,6 +381,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ShellEnvironmentVec.GetHashCode();
                 if (this.SkipCloneNid != null)
                     hashCode = hashCode * 59 + this.SkipCloneNid.GetHashCode();
+                if (this.StopActivePassive != null)
+                    hashCode = hashCode * 59 + this.StopActivePassive.GetHashCode();
                 if (this.UseScnForRestore != null)
                     hashCode = hashCode * 59 + this.UseScnForRestore.GetHashCode();
                 return hashCode;

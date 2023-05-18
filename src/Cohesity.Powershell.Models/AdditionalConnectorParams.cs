@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,18 +26,21 @@ namespace Cohesity.Model
         /// <param name="maxVmwareHttpSessions">Max http sessions per context for VMWare vAPI calls..</param>
         /// <param name="o365EmulatorEntityInfo">A token used only in O365 Emulator identifying the information of number of Users, Sites, Groups, Teams &amp; Public Folders and their ids..</param>
         /// <param name="o365Region">o365Region.</param>
+        /// <param name="outlookSkipCreatingAutodiscoverProxy">Whether we should skip creating autodiscove proxy. This is needed only during fetching eh and in public folder backups setup..</param>
         /// <param name="registeredEntitySfdcParams">registeredEntitySfdcParams.</param>
         /// <param name="useGetSearchableMailboxesApi">Wheather to use GetSearchableMailboxes EWS API while descovering User Mailboxes or not..</param>
         /// <param name="useOutlookEwsOauth">Whether OAuth should be used for authentication with EWS API (outlook backup), applicable only for Exchange Online..</param>
-        public AdditionalConnectorParams(int? maxVmwareHttpSessions = default(int?), string o365EmulatorEntityInfo = default(string), O365RegionProto o365Region = default(O365RegionProto), RegisteredEntitySfdcParams registeredEntitySfdcParams = default(RegisteredEntitySfdcParams), bool? useGetSearchableMailboxesApi = default(bool?), bool? useOutlookEwsOauth = default(bool?))
+        public AdditionalConnectorParams(int? maxVmwareHttpSessions = default(int?), string o365EmulatorEntityInfo = default(string), O365RegionProto o365Region = default(O365RegionProto), bool? outlookSkipCreatingAutodiscoverProxy = default(bool?), RegisteredEntitySfdcParams registeredEntitySfdcParams = default(RegisteredEntitySfdcParams), bool? useGetSearchableMailboxesApi = default(bool?), bool? useOutlookEwsOauth = default(bool?))
         {
             this.MaxVmwareHttpSessions = maxVmwareHttpSessions;
             this.O365EmulatorEntityInfo = o365EmulatorEntityInfo;
+            this.OutlookSkipCreatingAutodiscoverProxy = outlookSkipCreatingAutodiscoverProxy;
             this.UseGetSearchableMailboxesApi = useGetSearchableMailboxesApi;
             this.UseOutlookEwsOauth = useOutlookEwsOauth;
             this.MaxVmwareHttpSessions = maxVmwareHttpSessions;
             this.O365EmulatorEntityInfo = o365EmulatorEntityInfo;
             this.O365Region = o365Region;
+            this.OutlookSkipCreatingAutodiscoverProxy = outlookSkipCreatingAutodiscoverProxy;
             this.RegisteredEntitySfdcParams = registeredEntitySfdcParams;
             this.UseGetSearchableMailboxesApi = useGetSearchableMailboxesApi;
             this.UseOutlookEwsOauth = useOutlookEwsOauth;
@@ -64,6 +65,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="o365Region", EmitDefaultValue=false)]
         public O365RegionProto O365Region { get; set; }
+
+        /// <summary>
+        /// Whether we should skip creating autodiscove proxy. This is needed only during fetching eh and in public folder backups setup.
+        /// </summary>
+        /// <value>Whether we should skip creating autodiscove proxy. This is needed only during fetching eh and in public folder backups setup.</value>
+        [DataMember(Name="outlookSkipCreatingAutodiscoverProxy", EmitDefaultValue=true)]
+        public bool? OutlookSkipCreatingAutodiscoverProxy { get; set; }
 
         /// <summary>
         /// Gets or Sets RegisteredEntitySfdcParams
@@ -137,6 +145,11 @@ namespace Cohesity.Model
                     this.O365Region.Equals(input.O365Region))
                 ) && 
                 (
+                    this.OutlookSkipCreatingAutodiscoverProxy == input.OutlookSkipCreatingAutodiscoverProxy ||
+                    (this.OutlookSkipCreatingAutodiscoverProxy != null &&
+                    this.OutlookSkipCreatingAutodiscoverProxy.Equals(input.OutlookSkipCreatingAutodiscoverProxy))
+                ) && 
+                (
                     this.RegisteredEntitySfdcParams == input.RegisteredEntitySfdcParams ||
                     (this.RegisteredEntitySfdcParams != null &&
                     this.RegisteredEntitySfdcParams.Equals(input.RegisteredEntitySfdcParams))
@@ -168,6 +181,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.O365EmulatorEntityInfo.GetHashCode();
                 if (this.O365Region != null)
                     hashCode = hashCode * 59 + this.O365Region.GetHashCode();
+                if (this.OutlookSkipCreatingAutodiscoverProxy != null)
+                    hashCode = hashCode * 59 + this.OutlookSkipCreatingAutodiscoverProxy.GetHashCode();
                 if (this.RegisteredEntitySfdcParams != null)
                     hashCode = hashCode * 59 + this.RegisteredEntitySfdcParams.GetHashCode();
                 if (this.UseGetSearchableMailboxesApi != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,11 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Many different node types are supported such as &#39;kComputeResource&#39; and &#39;kResourcePool&#39;.
+    /// ProtectionSourceNode
     /// </summary>
     [DataContract]
     public partial class ProtectionSourceNode :  IEquatable<ProtectionSourceNode>

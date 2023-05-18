@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,10 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UptieringRunOnceParams" /> class.
         /// </summary>
         /// <param name="uptierPath">Ignore the uptiering policy and uptier the directory pointed by the &#39;uptier_path&#39;. If path is &#39;/&#39;, then uptier everything..</param>
-        public UptieringRunOnceParams(string uptierPath = default(string))
+        /// <param name="useEntityIdForUptierRange">Flag to determine whether entity id is used for uptier range. This is applicable only for uptier jobs. TODO: Exists to support upgrade scenario. Can be deprecated once all customers have upgraded beyond 7.0.1..</param>
+        public UptieringRunOnceParams(string uptierPath = default(string), bool? useEntityIdForUptierRange = default(bool?))
         {
             this.UptierPath = uptierPath;
+            this.UseEntityIdForUptierRange = useEntityIdForUptierRange;
             this.UptierPath = uptierPath;
+            this.UseEntityIdForUptierRange = useEntityIdForUptierRange;
         }
         
         /// <summary>
@@ -38,6 +39,13 @@ namespace Cohesity.Model
         /// <value>Ignore the uptiering policy and uptier the directory pointed by the &#39;uptier_path&#39;. If path is &#39;/&#39;, then uptier everything.</value>
         [DataMember(Name="uptierPath", EmitDefaultValue=true)]
         public string UptierPath { get; set; }
+
+        /// <summary>
+        /// Flag to determine whether entity id is used for uptier range. This is applicable only for uptier jobs. TODO: Exists to support upgrade scenario. Can be deprecated once all customers have upgraded beyond 7.0.1.
+        /// </summary>
+        /// <value>Flag to determine whether entity id is used for uptier range. This is applicable only for uptier jobs. TODO: Exists to support upgrade scenario. Can be deprecated once all customers have upgraded beyond 7.0.1.</value>
+        [DataMember(Name="useEntityIdForUptierRange", EmitDefaultValue=true)]
+        public bool? UseEntityIdForUptierRange { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -79,6 +87,11 @@ namespace Cohesity.Model
                     this.UptierPath == input.UptierPath ||
                     (this.UptierPath != null &&
                     this.UptierPath.Equals(input.UptierPath))
+                ) && 
+                (
+                    this.UseEntityIdForUptierRange == input.UseEntityIdForUptierRange ||
+                    (this.UseEntityIdForUptierRange != null &&
+                    this.UseEntityIdForUptierRange.Equals(input.UseEntityIdForUptierRange))
                 );
         }
 
@@ -93,6 +106,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.UptierPath != null)
                     hashCode = hashCode * 59 + this.UptierPath.GetHashCode();
+                if (this.UseEntityIdForUptierRange != null)
+                    hashCode = hashCode * 59 + this.UseEntityIdForUptierRange.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,48 +21,48 @@ namespace Cohesity.Model
     public partial class CapacityByTier :  IEquatable<CapacityByTier>
     {
         /// <summary>
-        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
+        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;PCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;SATA-SSD&#39; indicates storage tier type of SATA Solid State Drive. &#39;SATA-HDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;CLOUD&#39; indicates storage tier type of Cloud.
         /// </summary>
-        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
+        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;PCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;SATA-SSD&#39; indicates storage tier type of SATA Solid State Drive. &#39;SATA-HDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;CLOUD&#39; indicates storage tier type of Cloud.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StorageTierEnum
         {
             /// <summary>
-            /// Enum KPCIeSSD for value: kPCIeSSD
+            /// Enum PCIeSSD for value: PCIeSSD
             /// </summary>
-            [EnumMember(Value = "kPCIeSSD")]
-            KPCIeSSD = 1,
+            [EnumMember(Value = "PCIeSSD")]
+            PCIeSSD = 1,
 
             /// <summary>
-            /// Enum KSATASSD for value: kSATASSD
+            /// Enum SATASSD for value: SATA-SSD
             /// </summary>
-            [EnumMember(Value = "kSATASSD")]
-            KSATASSD = 2,
+            [EnumMember(Value = "SATA-SSD")]
+            SATASSD = 2,
 
             /// <summary>
-            /// Enum KSATAHDD for value: kSATAHDD
+            /// Enum SATAHDD for value: SATA-HDD
             /// </summary>
-            [EnumMember(Value = "kSATAHDD")]
-            KSATAHDD = 3,
+            [EnumMember(Value = "SATA-HDD")]
+            SATAHDD = 3,
 
             /// <summary>
-            /// Enum KCLOUD for value: kCLOUD
+            /// Enum CLOUD for value: CLOUD
             /// </summary>
-            [EnumMember(Value = "kCLOUD")]
-            KCLOUD = 4
+            [EnumMember(Value = "CLOUD")]
+            CLOUD = 4
 
         }
 
         /// <summary>
-        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
+        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;PCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;SATA-SSD&#39; indicates storage tier type of SATA Solid State Drive. &#39;SATA-HDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;CLOUD&#39; indicates storage tier type of Cloud.
         /// </summary>
-        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
+        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;PCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;SATA-SSD&#39; indicates storage tier type of SATA Solid State Drive. &#39;SATA-HDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;CLOUD&#39; indicates storage tier type of Cloud.</value>
         [DataMember(Name="storageTier", EmitDefaultValue=true)]
         public StorageTierEnum? StorageTier { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CapacityByTier" /> class.
         /// </summary>
-        /// <param name="storageTier">StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud..</param>
+        /// <param name="storageTier">StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;PCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;SATA-SSD&#39; indicates storage tier type of SATA Solid State Drive. &#39;SATA-HDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;CLOUD&#39; indicates storage tier type of Cloud..</param>
         /// <param name="tierMaxPhysicalCapacityBytes">TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier..</param>
         public CapacityByTier(StorageTierEnum? storageTier = default(StorageTierEnum?), long? tierMaxPhysicalCapacityBytes = default(long?))
         {

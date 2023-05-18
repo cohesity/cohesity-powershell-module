@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NasBackupParams" /> class.
         /// </summary>
-        /// <param name="backupExistingSnapshot">This bool parameter will be set only for DP volumes when customer doesn&#39;t select the full_backup_snapshot_label and incremental_backup_snapshot_label. When set to true, backend will be using existing oldest snapshot for the first backup. Each incremental will be selected in ascending of snapshot create time on the source..</param>
+        /// <param name="backupAllExistingSnapshot">This bool parameter will be set only for DP volumes when customer doesn&#39;t select the full_backup_snapshot_label and incremental_backup_snapshot_label. When set to true, backend will be using existing oldest snapshot for the first backup. Each incremental will be selected in ascending of snapshot create time on the source..</param>
         /// <param name="blacklistedIpAddrs">Job level list of IP addresses that should not be used..</param>
         /// <param name="continueOnError">Whether the backup job should continue on errors for snapshot based backups. For non-snapshot-based generic NAS backup jobs, Magneto always continues on errors..</param>
         /// <param name="encryptionEnabled">Whether this backup job should use encryption..</param>
@@ -42,9 +40,9 @@ namespace Cohesity.Model
         /// <param name="snapshotChangeEnabled">Whether this backup job should utilize changelist like API when available for faster incremental backups..</param>
         /// <param name="throttlingParams">throttlingParams.</param>
         /// <param name="whitelistedIpAddrs">Job level list of IP addresses that should be used exclusively..</param>
-        public NasBackupParams(bool? backupExistingSnapshot = default(bool?), List<string> blacklistedIpAddrs = default(List<string>), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), ViewIdMappingProtoFileLevelDataLockConfig fldConfig = default(ViewIdMappingProtoFileLevelDataLockConfig), string fullBackupSnapshotLabel = default(string), string incrementalBackupSnapshotLabel = default(string), bool? isSourceInitiatedBackup = default(bool?), int? mixedModePreference = default(int?), bool? modifySourcePermissions = default(bool?), int? nfsVersionPreference = default(int?), S3ViewBackupProperties s3Viewbackupproperties = default(S3ViewBackupProperties), string sharedViewName = default(string), bool? snapshotChangeEnabled = default(bool?), NasThrottlingParams throttlingParams = default(NasThrottlingParams), List<string> whitelistedIpAddrs = default(List<string>))
+        public NasBackupParams(bool? backupAllExistingSnapshot = default(bool?), List<string> blacklistedIpAddrs = default(List<string>), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), ViewIdMappingProtoFileLevelDataLockConfig fldConfig = default(ViewIdMappingProtoFileLevelDataLockConfig), string fullBackupSnapshotLabel = default(string), string incrementalBackupSnapshotLabel = default(string), bool? isSourceInitiatedBackup = default(bool?), int? mixedModePreference = default(int?), bool? modifySourcePermissions = default(bool?), int? nfsVersionPreference = default(int?), S3ViewBackupProperties s3Viewbackupproperties = default(S3ViewBackupProperties), string sharedViewName = default(string), bool? snapshotChangeEnabled = default(bool?), NasThrottlingParams throttlingParams = default(NasThrottlingParams), List<string> whitelistedIpAddrs = default(List<string>))
         {
-            this.BackupExistingSnapshot = backupExistingSnapshot;
+            this.BackupAllExistingSnapshot = backupAllExistingSnapshot;
             this.BlacklistedIpAddrs = blacklistedIpAddrs;
             this.ContinueOnError = continueOnError;
             this.EncryptionEnabled = encryptionEnabled;
@@ -57,7 +55,7 @@ namespace Cohesity.Model
             this.SharedViewName = sharedViewName;
             this.SnapshotChangeEnabled = snapshotChangeEnabled;
             this.WhitelistedIpAddrs = whitelistedIpAddrs;
-            this.BackupExistingSnapshot = backupExistingSnapshot;
+            this.BackupAllExistingSnapshot = backupAllExistingSnapshot;
             this.BlacklistedIpAddrs = blacklistedIpAddrs;
             this.ContinueOnError = continueOnError;
             this.EncryptionEnabled = encryptionEnabled;
@@ -80,8 +78,8 @@ namespace Cohesity.Model
         /// This bool parameter will be set only for DP volumes when customer doesn&#39;t select the full_backup_snapshot_label and incremental_backup_snapshot_label. When set to true, backend will be using existing oldest snapshot for the first backup. Each incremental will be selected in ascending of snapshot create time on the source.
         /// </summary>
         /// <value>This bool parameter will be set only for DP volumes when customer doesn&#39;t select the full_backup_snapshot_label and incremental_backup_snapshot_label. When set to true, backend will be using existing oldest snapshot for the first backup. Each incremental will be selected in ascending of snapshot create time on the source.</value>
-        [DataMember(Name="backupExistingSnapshot", EmitDefaultValue=true)]
-        public bool? BackupExistingSnapshot { get; set; }
+        [DataMember(Name="backupAllExistingSnapshot", EmitDefaultValue=true)]
+        public bool? BackupAllExistingSnapshot { get; set; }
 
         /// <summary>
         /// Job level list of IP addresses that should not be used.
@@ -228,9 +226,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.BackupExistingSnapshot == input.BackupExistingSnapshot ||
-                    (this.BackupExistingSnapshot != null &&
-                    this.BackupExistingSnapshot.Equals(input.BackupExistingSnapshot))
+                    this.BackupAllExistingSnapshot == input.BackupAllExistingSnapshot ||
+                    (this.BackupAllExistingSnapshot != null &&
+                    this.BackupAllExistingSnapshot.Equals(input.BackupAllExistingSnapshot))
                 ) && 
                 (
                     this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
@@ -325,8 +323,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.BackupExistingSnapshot != null)
-                    hashCode = hashCode * 59 + this.BackupExistingSnapshot.GetHashCode();
+                if (this.BackupAllExistingSnapshot != null)
+                    hashCode = hashCode * 59 + this.BackupAllExistingSnapshot.GetHashCode();
                 if (this.BlacklistedIpAddrs != null)
                     hashCode = hashCode * 59 + this.BlacklistedIpAddrs.GetHashCode();
                 if (this.ContinueOnError != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -85,6 +83,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionPolicy" /> class.
         /// </summary>
+        /// <param name="backupRunTimeouts">Backup Run timeouts after which a run will get cancelled..</param>
         /// <param name="blackoutPeriods">Array of QuietTime Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the QuietTime period starts, the behavior depends on the policy field AbortInBlackoutPeriod..</param>
         /// <param name="cdpSchedulingPolicy">cdpSchedulingPolicy.</param>
         /// <param name="cloudDeployPolicies">Array of Cloud Deploy Policies.  Specifies settings for copying Snapshots to Cloud. CloudDeploy target where backup snapshots may be converted and stored. It also defines the retention of copied Snapshots on the Cloud..</param>
@@ -99,9 +98,10 @@ namespace Cohesity.Model
         /// <param name="fullSchedulingPolicy">Specifies the Full (no CBT) backup schedule of a Protection Job and how long Snapshots captured by this schedule are retained on the Cohesity Cluster..</param>
         /// <param name="id">Specifies a unique Policy id assigned by the Cohesity Cluster..</param>
         /// <param name="incrementalSchedulingPolicy">Specifies the CBT-based backup schedule of a Protection Job and how long Snapshots captured by this schedule are retained on the Cohesity Cluster..</param>
+        /// <param name="isCascadedReplicationPolicy">Specifies if the policy is associated with cascaded replication..</param>
         /// <param name="isReplicated">Specifies the policy is replicated policy..</param>
         /// <param name="isUsable">Specifies if the policy can be used to create a job..</param>
-        /// <param name="lastModifiedTimeMsecs">Specifies the epoch time (in milliseconds) when the Protection Policy was last modified..</param>
+        /// <param name="lastModificationTimeUsecs">Specifies the last time this Policy was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the policy was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error..</param>
         /// <param name="logSchedulingPolicy">logSchedulingPolicy.</param>
         /// <param name="name">Specifies the name of the Protection Policy..</param>
         /// <param name="numLinkedPolicies">Species the number of policies linked to a global policy..</param>
@@ -118,8 +118,9 @@ namespace Cohesity.Model
         /// <param name="tenantIds">Specifies which organizations have been assigned this policy. This value is only populated for the cluster admin for now..</param>
         /// <param name="type">Specifies the type of the protection policy. &#39;kRegular&#39; means a regular Protection Policy. &#39;kRPO&#39; means an RPO Protection Policy..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshots. When a WORM retention type is specified, the snapshots of the Protection Jobs using this policy will be kept until the maximum of the snapshot retention time. During that time, the snapshots cannot be deleted. This field is deprecated. Use DataLockConfig for incremental runs, DataLockConfigLog for log runs, DataLockConfigSystem for BMR runs, and DataLockConfig in extended retention and for copy targets config. deprecated: true &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
-        public ProtectionPolicy(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), bool? isReplicated = default(bool?), bool? isUsable = default(bool?), long? lastModifiedTimeMsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? numSecsToKeep = default(int?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
+        public ProtectionPolicy(List<CancellationTimeoutParams> backupRunTimeouts = default(List<CancellationTimeoutParams>), List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), bool? isCascadedReplicationPolicy = default(bool?), bool? isReplicated = default(bool?), bool? isUsable = default(bool?), long? lastModificationTimeUsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? numSecsToKeep = default(int?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
+            this.BackupRunTimeouts = backupRunTimeouts;
             this.BlackoutPeriods = blackoutPeriods;
             this.CloudDeployPolicies = cloudDeployPolicies;
             this.DaysToKeep = daysToKeep;
@@ -130,9 +131,10 @@ namespace Cohesity.Model
             this.FullSchedulingPolicy = fullSchedulingPolicy;
             this.Id = id;
             this.IncrementalSchedulingPolicy = incrementalSchedulingPolicy;
+            this.IsCascadedReplicationPolicy = isCascadedReplicationPolicy;
             this.IsReplicated = isReplicated;
             this.IsUsable = isUsable;
-            this.LastModifiedTimeMsecs = lastModifiedTimeMsecs;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.Name = name;
             this.NumLinkedPolicies = numLinkedPolicies;
             this.NumSecsToKeep = numSecsToKeep;
@@ -145,6 +147,7 @@ namespace Cohesity.Model
             this.TenantIds = tenantIds;
             this.Type = type;
             this.WormRetentionType = wormRetentionType;
+            this.BackupRunTimeouts = backupRunTimeouts;
             this.BlackoutPeriods = blackoutPeriods;
             this.CdpSchedulingPolicy = cdpSchedulingPolicy;
             this.CloudDeployPolicies = cloudDeployPolicies;
@@ -159,9 +162,10 @@ namespace Cohesity.Model
             this.FullSchedulingPolicy = fullSchedulingPolicy;
             this.Id = id;
             this.IncrementalSchedulingPolicy = incrementalSchedulingPolicy;
+            this.IsCascadedReplicationPolicy = isCascadedReplicationPolicy;
             this.IsReplicated = isReplicated;
             this.IsUsable = isUsable;
-            this.LastModifiedTimeMsecs = lastModifiedTimeMsecs;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LogSchedulingPolicy = logSchedulingPolicy;
             this.Name = name;
             this.NumLinkedPolicies = numLinkedPolicies;
@@ -180,6 +184,13 @@ namespace Cohesity.Model
             this.WormRetentionType = wormRetentionType;
         }
         
+        /// <summary>
+        /// Backup Run timeouts after which a run will get cancelled.
+        /// </summary>
+        /// <value>Backup Run timeouts after which a run will get cancelled.</value>
+        [DataMember(Name="backupRunTimeouts", EmitDefaultValue=true)]
+        public List<CancellationTimeoutParams> BackupRunTimeouts { get; set; }
+
         /// <summary>
         /// Array of QuietTime Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the QuietTime period starts, the behavior depends on the policy field AbortInBlackoutPeriod.
         /// </summary>
@@ -275,6 +286,13 @@ namespace Cohesity.Model
         public SchedulingPolicy IncrementalSchedulingPolicy { get; set; }
 
         /// <summary>
+        /// Specifies if the policy is associated with cascaded replication.
+        /// </summary>
+        /// <value>Specifies if the policy is associated with cascaded replication.</value>
+        [DataMember(Name="isCascadedReplicationPolicy", EmitDefaultValue=true)]
+        public bool? IsCascadedReplicationPolicy { get; set; }
+
+        /// <summary>
         /// Specifies the policy is replicated policy.
         /// </summary>
         /// <value>Specifies the policy is replicated policy.</value>
@@ -289,11 +307,11 @@ namespace Cohesity.Model
         public bool? IsUsable { get; set; }
 
         /// <summary>
-        /// Specifies the epoch time (in milliseconds) when the Protection Policy was last modified.
+        /// Specifies the last time this Policy was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the policy was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.
         /// </summary>
-        /// <value>Specifies the epoch time (in milliseconds) when the Protection Policy was last modified.</value>
-        [DataMember(Name="lastModifiedTimeMsecs", EmitDefaultValue=true)]
-        public long? LastModifiedTimeMsecs { get; set; }
+        /// <value>Specifies the last time this Policy was updated.  If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the policy was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.</value>
+        [DataMember(Name="lastModificationTimeUsecs", EmitDefaultValue=true)]
+        public long? LastModificationTimeUsecs { get; set; }
 
         /// <summary>
         /// Gets or Sets LogSchedulingPolicy
@@ -426,6 +444,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BackupRunTimeouts == input.BackupRunTimeouts ||
+                    this.BackupRunTimeouts != null &&
+                    input.BackupRunTimeouts != null &&
+                    this.BackupRunTimeouts.SequenceEqual(input.BackupRunTimeouts)
+                ) && 
+                (
                     this.BlackoutPeriods == input.BlackoutPeriods ||
                     this.BlackoutPeriods != null &&
                     input.BlackoutPeriods != null &&
@@ -499,6 +523,11 @@ namespace Cohesity.Model
                     this.IncrementalSchedulingPolicy.Equals(input.IncrementalSchedulingPolicy))
                 ) && 
                 (
+                    this.IsCascadedReplicationPolicy == input.IsCascadedReplicationPolicy ||
+                    (this.IsCascadedReplicationPolicy != null &&
+                    this.IsCascadedReplicationPolicy.Equals(input.IsCascadedReplicationPolicy))
+                ) && 
+                (
                     this.IsReplicated == input.IsReplicated ||
                     (this.IsReplicated != null &&
                     this.IsReplicated.Equals(input.IsReplicated))
@@ -509,9 +538,9 @@ namespace Cohesity.Model
                     this.IsUsable.Equals(input.IsUsable))
                 ) && 
                 (
-                    this.LastModifiedTimeMsecs == input.LastModifiedTimeMsecs ||
-                    (this.LastModifiedTimeMsecs != null &&
-                    this.LastModifiedTimeMsecs.Equals(input.LastModifiedTimeMsecs))
+                    this.LastModificationTimeUsecs == input.LastModificationTimeUsecs ||
+                    (this.LastModificationTimeUsecs != null &&
+                    this.LastModificationTimeUsecs.Equals(input.LastModificationTimeUsecs))
                 ) && 
                 (
                     this.LogSchedulingPolicy == input.LogSchedulingPolicy ||
@@ -605,6 +634,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BackupRunTimeouts != null)
+                    hashCode = hashCode * 59 + this.BackupRunTimeouts.GetHashCode();
                 if (this.BlackoutPeriods != null)
                     hashCode = hashCode * 59 + this.BlackoutPeriods.GetHashCode();
                 if (this.CdpSchedulingPolicy != null)
@@ -633,12 +664,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IncrementalSchedulingPolicy != null)
                     hashCode = hashCode * 59 + this.IncrementalSchedulingPolicy.GetHashCode();
+                if (this.IsCascadedReplicationPolicy != null)
+                    hashCode = hashCode * 59 + this.IsCascadedReplicationPolicy.GetHashCode();
                 if (this.IsReplicated != null)
                     hashCode = hashCode * 59 + this.IsReplicated.GetHashCode();
                 if (this.IsUsable != null)
                     hashCode = hashCode * 59 + this.IsUsable.GetHashCode();
-                if (this.LastModifiedTimeMsecs != null)
-                    hashCode = hashCode * 59 + this.LastModifiedTimeMsecs.GetHashCode();
+                if (this.LastModificationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastModificationTimeUsecs.GetHashCode();
                 if (this.LogSchedulingPolicy != null)
                     hashCode = hashCode * 59 + this.LogSchedulingPolicy.GetHashCode();
                 if (this.Name != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,22 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CryptsoftKmsConfigResponse" /> class.
         /// </summary>
+        /// <param name="additionalServerAddress">AdditonalServerAddress for the KMS server..</param>
         /// <param name="clientCertificateExpiryDate">Specifies expiry date of client certificate..</param>
         /// <param name="kmipProtocolVersion">Specifies protocol version used to communicate with the KMS..</param>
         /// <param name="serverIp">Specifies the KMS IP address..</param>
         /// <param name="serverPort">Specifies port on which the server is listening. Default port is 5696..</param>
-        public CryptsoftKmsConfigResponse(long? clientCertificateExpiryDate = default(long?), string kmipProtocolVersion = default(string), string serverIp = default(string), int? serverPort = default(int?))
+        public CryptsoftKmsConfigResponse(List<string> additionalServerAddress = default(List<string>), long? clientCertificateExpiryDate = default(long?), string kmipProtocolVersion = default(string), string serverIp = default(string), int? serverPort = default(int?))
         {
+            this.AdditionalServerAddress = additionalServerAddress;
             this.ClientCertificateExpiryDate = clientCertificateExpiryDate;
             this.KmipProtocolVersion = kmipProtocolVersion;
             this.ServerIp = serverIp;
             this.ServerPort = serverPort;
+            this.AdditionalServerAddress = additionalServerAddress;
             this.ClientCertificateExpiryDate = clientCertificateExpiryDate;
             this.KmipProtocolVersion = kmipProtocolVersion;
             this.ServerIp = serverIp;
             this.ServerPort = serverPort;
         }
         
+        /// <summary>
+        /// AdditonalServerAddress for the KMS server.
+        /// </summary>
+        /// <value>AdditonalServerAddress for the KMS server.</value>
+        [DataMember(Name="additionalServerAddress", EmitDefaultValue=true)]
+        public List<string> AdditionalServerAddress { get; set; }
+
         /// <summary>
         /// Specifies expiry date of client certificate.
         /// </summary>
@@ -106,6 +114,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalServerAddress == input.AdditionalServerAddress ||
+                    this.AdditionalServerAddress != null &&
+                    input.AdditionalServerAddress != null &&
+                    this.AdditionalServerAddress.SequenceEqual(input.AdditionalServerAddress)
+                ) && 
+                (
                     this.ClientCertificateExpiryDate == input.ClientCertificateExpiryDate ||
                     (this.ClientCertificateExpiryDate != null &&
                     this.ClientCertificateExpiryDate.Equals(input.ClientCertificateExpiryDate))
@@ -136,6 +150,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalServerAddress != null)
+                    hashCode = hashCode * 59 + this.AdditionalServerAddress.GetHashCode();
                 if (this.ClientCertificateExpiryDate != null)
                     hashCode = hashCode * 59 + this.ClientCertificateExpiryDate.GetHashCode();
                 if (this.KmipProtocolVersion != null)

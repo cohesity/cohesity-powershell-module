@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -320,15 +318,17 @@ namespace Cohesity.Model
         /// <param name="encryptionKey">If set, user has encrypted the credential with &#39;user_ecryption_key&#39;. It is assumed that credentials are first encrypted using internal magento key and then encrypted using user encryption key..</param>
         /// <param name="hasPersistentAgent">Set this to true if a persistent agent is running on the host. If this is specified, then credentials would not be used to log into the host environment. This mechanism may be used in environments such as VMware to get around UAC permission issues by running the agent as a service with the right credentials. If this field is not specified, credentials must be specified..</param>
         /// <param name="isInternalEncrypted">Set to true if credentials are encrypted by internal magneto key..</param>
+        /// <param name="lastModificationTimeUsecs">Specifies the last time this Application Servers in a Protection Source was updated. If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the Protection Source was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="protectionSourceId">Specifies the Id of the Protection Source that contains one or more Application Servers running on it..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public UpdateApplicationServerParameters(List<ApplicationsEnum> applications = default(List<ApplicationsEnum>), string encryptionKey = default(string), bool? hasPersistentAgent = default(bool?), bool? isInternalEncrypted = default(bool?), string password = default(string), long? protectionSourceId = default(long?), string username = default(string))
+        public UpdateApplicationServerParameters(List<ApplicationsEnum> applications = default(List<ApplicationsEnum>), string encryptionKey = default(string), bool? hasPersistentAgent = default(bool?), bool? isInternalEncrypted = default(bool?), long? lastModificationTimeUsecs = default(long?), string password = default(string), long? protectionSourceId = default(long?), string username = default(string))
         {
             this.Applications = applications;
             this.EncryptionKey = encryptionKey;
             this.HasPersistentAgent = hasPersistentAgent;
             this.IsInternalEncrypted = isInternalEncrypted;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.Password = password;
             this.ProtectionSourceId = protectionSourceId;
             this.Username = username;
@@ -336,6 +336,7 @@ namespace Cohesity.Model
             this.EncryptionKey = encryptionKey;
             this.HasPersistentAgent = hasPersistentAgent;
             this.IsInternalEncrypted = isInternalEncrypted;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.Password = password;
             this.ProtectionSourceId = protectionSourceId;
             this.Username = username;
@@ -361,6 +362,13 @@ namespace Cohesity.Model
         /// <value>Set to true if credentials are encrypted by internal magneto key.</value>
         [DataMember(Name="isInternalEncrypted", EmitDefaultValue=true)]
         public bool? IsInternalEncrypted { get; set; }
+
+        /// <summary>
+        /// Specifies the last time this Application Servers in a Protection Source was updated. If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the Protection Source was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.
+        /// </summary>
+        /// <value>Specifies the last time this Application Servers in a Protection Source was updated. If this is passed into a PUT request, then the backend will validate that the timestamp passed in matches the time that the Protection Source was actually last modified. If the two timestamps do not match, then the request will be rejected with a stale error.</value>
+        [DataMember(Name="lastModificationTimeUsecs", EmitDefaultValue=true)]
+        public long? LastModificationTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
@@ -439,6 +447,11 @@ namespace Cohesity.Model
                     this.IsInternalEncrypted.Equals(input.IsInternalEncrypted))
                 ) && 
                 (
+                    this.LastModificationTimeUsecs == input.LastModificationTimeUsecs ||
+                    (this.LastModificationTimeUsecs != null &&
+                    this.LastModificationTimeUsecs.Equals(input.LastModificationTimeUsecs))
+                ) && 
+                (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
@@ -471,6 +484,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HasPersistentAgent.GetHashCode();
                 if (this.IsInternalEncrypted != null)
                     hashCode = hashCode * 59 + this.IsInternalEncrypted.GetHashCode();
+                if (this.LastModificationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastModificationTimeUsecs.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.ProtectionSourceId != null)

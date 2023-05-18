@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,17 +27,20 @@ namespace Cohesity.Model
         /// <param name="backupJobName">Backup job that needs to be used for recovering the namespace..</param>
         /// <param name="clusterEntity">clusterEntity.</param>
         /// <param name="clusterSoftwareVersion">Cluster software version..</param>
+        /// <param name="datamoverServiceType">Indicates the kubernetes service type to use..</param>
         /// <param name="initContainerImage">Container image used to mounting PVCs in temp pods..</param>
         /// <param name="isProtectionUsingDatamoverEnabled">This indicates if magneto_kubernetes_enable_protection_using_datamover is true and the flag is enabled in the feature enabler..</param>
         /// <param name="managementNamespace">Namespace in which restore job will be created in K8s cluster..</param>
         /// <param name="podMetadataVec">Information about pods in the namespace which was backed up..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="s3AccountId">S3 account ID that was used to register the source..</param>
-        public RestoreKubernetesNamespacesParams(long? backupClusterId = default(long?), string backupJobName = default(string), EntityProto clusterEntity = default(EntityProto), string clusterSoftwareVersion = default(string), string initContainerImage = default(string), bool? isProtectionUsingDatamoverEnabled = default(bool?), string managementNamespace = default(string), List<PodMetadata> podMetadataVec = default(List<PodMetadata>), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), string s3AccountId = default(string))
+        /// <param name="vlanParams">vlanParams.</param>
+        public RestoreKubernetesNamespacesParams(long? backupClusterId = default(long?), string backupJobName = default(string), EntityProto clusterEntity = default(EntityProto), string clusterSoftwareVersion = default(string), int? datamoverServiceType = default(int?), string initContainerImage = default(string), bool? isProtectionUsingDatamoverEnabled = default(bool?), string managementNamespace = default(string), List<PodMetadata> podMetadataVec = default(List<PodMetadata>), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), string s3AccountId = default(string), VlanParams vlanParams = default(VlanParams))
         {
             this.BackupClusterId = backupClusterId;
             this.BackupJobName = backupJobName;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.DatamoverServiceType = datamoverServiceType;
             this.InitContainerImage = initContainerImage;
             this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
             this.ManagementNamespace = managementNamespace;
@@ -49,12 +50,14 @@ namespace Cohesity.Model
             this.BackupJobName = backupJobName;
             this.ClusterEntity = clusterEntity;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.DatamoverServiceType = datamoverServiceType;
             this.InitContainerImage = initContainerImage;
             this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
             this.ManagementNamespace = managementNamespace;
             this.PodMetadataVec = podMetadataVec;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.S3AccountId = s3AccountId;
+            this.VlanParams = vlanParams;
         }
         
         /// <summary>
@@ -83,6 +86,13 @@ namespace Cohesity.Model
         /// <value>Cluster software version.</value>
         [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=true)]
         public string ClusterSoftwareVersion { get; set; }
+
+        /// <summary>
+        /// Indicates the kubernetes service type to use.
+        /// </summary>
+        /// <value>Indicates the kubernetes service type to use.</value>
+        [DataMember(Name="datamoverServiceType", EmitDefaultValue=true)]
+        public int? DatamoverServiceType { get; set; }
 
         /// <summary>
         /// Container image used to mounting PVCs in temp pods.
@@ -124,6 +134,12 @@ namespace Cohesity.Model
         /// <value>S3 account ID that was used to register the source.</value>
         [DataMember(Name="s3AccountId", EmitDefaultValue=true)]
         public string S3AccountId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VlanParams
+        /// </summary>
+        [DataMember(Name="vlanParams", EmitDefaultValue=false)]
+        public VlanParams VlanParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -182,6 +198,11 @@ namespace Cohesity.Model
                     this.ClusterSoftwareVersion.Equals(input.ClusterSoftwareVersion))
                 ) && 
                 (
+                    this.DatamoverServiceType == input.DatamoverServiceType ||
+                    (this.DatamoverServiceType != null &&
+                    this.DatamoverServiceType.Equals(input.DatamoverServiceType))
+                ) && 
+                (
                     this.InitContainerImage == input.InitContainerImage ||
                     (this.InitContainerImage != null &&
                     this.InitContainerImage.Equals(input.InitContainerImage))
@@ -211,6 +232,11 @@ namespace Cohesity.Model
                     this.S3AccountId == input.S3AccountId ||
                     (this.S3AccountId != null &&
                     this.S3AccountId.Equals(input.S3AccountId))
+                ) && 
+                (
+                    this.VlanParams == input.VlanParams ||
+                    (this.VlanParams != null &&
+                    this.VlanParams.Equals(input.VlanParams))
                 );
         }
 
@@ -231,6 +257,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterEntity.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
+                if (this.DatamoverServiceType != null)
+                    hashCode = hashCode * 59 + this.DatamoverServiceType.GetHashCode();
                 if (this.InitContainerImage != null)
                     hashCode = hashCode * 59 + this.InitContainerImage.GetHashCode();
                 if (this.IsProtectionUsingDatamoverEnabled != null)
@@ -243,6 +271,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RenameRestoredObjectParam.GetHashCode();
                 if (this.S3AccountId != null)
                     hashCode = hashCode * 59 + this.S3AccountId.GetHashCode();
+                if (this.VlanParams != null)
+                    hashCode = hashCode * 59 + this.VlanParams.GetHashCode();
                 return hashCode;
             }
         }

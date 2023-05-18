@@ -136,7 +136,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public DateTime ScheduleStartTime { get; set; } = DateTime.Now;
+        public System.DateTime ScheduleStartTime { get; set; } = System.DateTime.Now;
 
         /// <summary>
         /// <para type="description">
@@ -384,7 +384,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                     var EmailDeliveryTarget = new Model.EmailDeliveryTarget
                     {
                         EmailAddress = EmailAdd,
-                        RecipientType = "kTo"
+                        RecipientType = Model.EmailDeliveryTarget.RecipientTypeEnum.KTo
                     };
                     newProtectionJob.AlertingConfig.EmailDeliveryTargets.Add(EmailDeliveryTarget);
                 }

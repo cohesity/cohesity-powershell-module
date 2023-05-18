@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,46 +23,61 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStubbingParams" /> class.
         /// </summary>
+        /// <param name="accessTimeBuckets">File access time buckets..</param>
         /// <param name="coldFileWindow">Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window msecs or are older than cold_window_msecs are migrated..</param>
         /// <param name="deleteOrphanData">Delete migrated data if no symlink at source is pointing to it..</param>
+        /// <param name="deniedFileTypeBuckets">Denied file type buckets. This is list is mutually exclusive of allowed buckets. This is used only when allowed buckets contain &#39;Other-*&#39; bucket in which case we will have to deny all the extensions which are not present allowed buckets. This field is only used for communication between master and slave. Iris only uses the &#39;file_type_buckets&#39; field..</param>
         /// <param name="enableAuditLogging">Audit log the file tiering activity..</param>
         /// <param name="enableChecksumVerification">Enable checksum verification for downtier job..</param>
-        /// <param name="fileSelectPolicy">File migrate policy based on file access/modify time and age..</param>
+        /// <param name="fileSelectPolicy">File migrate policy based on file access/modify time and age. Depcrecated..</param>
         /// <param name="fileSize">Gives the size criteria to be used for selecting the files to be migrated. The cold files that are equal and greater than file_size or smaller than file_size are migrated..</param>
-        /// <param name="fileSizePolicy">File size policy for selecting files to migrate..</param>
+        /// <param name="fileSizeBuckets">File size buckets..</param>
+        /// <param name="fileSizePolicy">File size policy for selecting files to migrate. Depcrecated..</param>
+        /// <param name="fileTypeBuckets">Allowed file type buckets..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
         /// <param name="migrateWithoutStub">Migrate data without stub..</param>
+        /// <param name="modTimeBuckets">File modification time buckets..</param>
         /// <param name="nfsMountPath">Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data..</param>
         /// <param name="nfsMountPathPrefix">nfs_mount_path_prefix contains the parent directory path where respective view name will be suffixed to form a complete mount path where Cohesity target view will be mounted on NFS clients for accessing the migrated data..</param>
         /// <param name="targetViewMap">The object&#39;s entity id to TargetViewData map where the data will be migrated..</param>
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
         /// <param name="targetViewPrefix">target_view_prefix is used to support multiple objects in a single tiering job. It helps in generating view name which are reasonably close to the original share name..</param>
         /// <param name="tieringGoal">Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering..</param>
-        public FileStubbingParams(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), List<FileStubbingParamsTargetViewMapEntry> targetViewMap = default(List<FileStubbingParamsTargetViewMapEntry>), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
+        public FileStubbingParams(List<NasAnalysisJobParamsAccessTimeBucket> accessTimeBuckets = default(List<NasAnalysisJobParamsAccessTimeBucket>), long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), List<NasAnalysisJobParamsFileTypeBucket> deniedFileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), List<NasAnalysisJobParamsFileSizeBucket> fileSizeBuckets = default(List<NasAnalysisJobParamsFileSizeBucket>), int? fileSizePolicy = default(int?), List<NasAnalysisJobParamsFileTypeBucket> fileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), List<NasAnalysisJobParamsModTimeBucket> modTimeBuckets = default(List<NasAnalysisJobParamsModTimeBucket>), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), List<FileStubbingParamsTargetViewMapEntry> targetViewMap = default(List<FileStubbingParamsTargetViewMapEntry>), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
         {
+            this.AccessTimeBuckets = accessTimeBuckets;
             this.ColdFileWindow = coldFileWindow;
             this.DeleteOrphanData = deleteOrphanData;
+            this.DeniedFileTypeBuckets = deniedFileTypeBuckets;
             this.EnableAuditLogging = enableAuditLogging;
             this.EnableChecksumVerification = enableChecksumVerification;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
+            this.FileSizeBuckets = fileSizeBuckets;
             this.FileSizePolicy = fileSizePolicy;
+            this.FileTypeBuckets = fileTypeBuckets;
             this.MigrateWithoutStub = migrateWithoutStub;
+            this.ModTimeBuckets = modTimeBuckets;
             this.NfsMountPath = nfsMountPath;
             this.NfsMountPathPrefix = nfsMountPathPrefix;
             this.TargetViewMap = targetViewMap;
             this.TargetViewName = targetViewName;
             this.TargetViewPrefix = targetViewPrefix;
             this.TieringGoal = tieringGoal;
+            this.AccessTimeBuckets = accessTimeBuckets;
             this.ColdFileWindow = coldFileWindow;
             this.DeleteOrphanData = deleteOrphanData;
+            this.DeniedFileTypeBuckets = deniedFileTypeBuckets;
             this.EnableAuditLogging = enableAuditLogging;
             this.EnableChecksumVerification = enableChecksumVerification;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
+            this.FileSizeBuckets = fileSizeBuckets;
             this.FileSizePolicy = fileSizePolicy;
+            this.FileTypeBuckets = fileTypeBuckets;
             this.FilteringPolicy = filteringPolicy;
             this.MigrateWithoutStub = migrateWithoutStub;
+            this.ModTimeBuckets = modTimeBuckets;
             this.NfsMountPath = nfsMountPath;
             this.NfsMountPathPrefix = nfsMountPathPrefix;
             this.TargetViewMap = targetViewMap;
@@ -73,6 +86,13 @@ namespace Cohesity.Model
             this.TieringGoal = tieringGoal;
         }
         
+        /// <summary>
+        /// File access time buckets.
+        /// </summary>
+        /// <value>File access time buckets.</value>
+        [DataMember(Name="accessTimeBuckets", EmitDefaultValue=true)]
+        public List<NasAnalysisJobParamsAccessTimeBucket> AccessTimeBuckets { get; set; }
+
         /// <summary>
         /// Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window msecs or are older than cold_window_msecs are migrated.
         /// </summary>
@@ -86,6 +106,13 @@ namespace Cohesity.Model
         /// <value>Delete migrated data if no symlink at source is pointing to it.</value>
         [DataMember(Name="deleteOrphanData", EmitDefaultValue=true)]
         public bool? DeleteOrphanData { get; set; }
+
+        /// <summary>
+        /// Denied file type buckets. This is list is mutually exclusive of allowed buckets. This is used only when allowed buckets contain &#39;Other-*&#39; bucket in which case we will have to deny all the extensions which are not present allowed buckets. This field is only used for communication between master and slave. Iris only uses the &#39;file_type_buckets&#39; field.
+        /// </summary>
+        /// <value>Denied file type buckets. This is list is mutually exclusive of allowed buckets. This is used only when allowed buckets contain &#39;Other-*&#39; bucket in which case we will have to deny all the extensions which are not present allowed buckets. This field is only used for communication between master and slave. Iris only uses the &#39;file_type_buckets&#39; field.</value>
+        [DataMember(Name="deniedFileTypeBuckets", EmitDefaultValue=true)]
+        public List<NasAnalysisJobParamsFileTypeBucket> DeniedFileTypeBuckets { get; set; }
 
         /// <summary>
         /// Audit log the file tiering activity.
@@ -102,9 +129,9 @@ namespace Cohesity.Model
         public bool? EnableChecksumVerification { get; set; }
 
         /// <summary>
-        /// File migrate policy based on file access/modify time and age.
+        /// File migrate policy based on file access/modify time and age. Depcrecated.
         /// </summary>
-        /// <value>File migrate policy based on file access/modify time and age.</value>
+        /// <value>File migrate policy based on file access/modify time and age. Depcrecated.</value>
         [DataMember(Name="fileSelectPolicy", EmitDefaultValue=true)]
         public int? FileSelectPolicy { get; set; }
 
@@ -116,11 +143,25 @@ namespace Cohesity.Model
         public long? FileSize { get; set; }
 
         /// <summary>
-        /// File size policy for selecting files to migrate.
+        /// File size buckets.
         /// </summary>
-        /// <value>File size policy for selecting files to migrate.</value>
+        /// <value>File size buckets.</value>
+        [DataMember(Name="fileSizeBuckets", EmitDefaultValue=true)]
+        public List<NasAnalysisJobParamsFileSizeBucket> FileSizeBuckets { get; set; }
+
+        /// <summary>
+        /// File size policy for selecting files to migrate. Depcrecated.
+        /// </summary>
+        /// <value>File size policy for selecting files to migrate. Depcrecated.</value>
         [DataMember(Name="fileSizePolicy", EmitDefaultValue=true)]
         public int? FileSizePolicy { get; set; }
+
+        /// <summary>
+        /// Allowed file type buckets.
+        /// </summary>
+        /// <value>Allowed file type buckets.</value>
+        [DataMember(Name="fileTypeBuckets", EmitDefaultValue=true)]
+        public List<NasAnalysisJobParamsFileTypeBucket> FileTypeBuckets { get; set; }
 
         /// <summary>
         /// Gets or Sets FilteringPolicy
@@ -134,6 +175,13 @@ namespace Cohesity.Model
         /// <value>Migrate data without stub.</value>
         [DataMember(Name="migrateWithoutStub", EmitDefaultValue=true)]
         public bool? MigrateWithoutStub { get; set; }
+
+        /// <summary>
+        /// File modification time buckets.
+        /// </summary>
+        /// <value>File modification time buckets.</value>
+        [DataMember(Name="modTimeBuckets", EmitDefaultValue=true)]
+        public List<NasAnalysisJobParamsModTimeBucket> ModTimeBuckets { get; set; }
 
         /// <summary>
         /// Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data.
@@ -214,6 +262,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AccessTimeBuckets == input.AccessTimeBuckets ||
+                    this.AccessTimeBuckets != null &&
+                    input.AccessTimeBuckets != null &&
+                    this.AccessTimeBuckets.SequenceEqual(input.AccessTimeBuckets)
+                ) && 
+                (
                     this.ColdFileWindow == input.ColdFileWindow ||
                     (this.ColdFileWindow != null &&
                     this.ColdFileWindow.Equals(input.ColdFileWindow))
@@ -222,6 +276,12 @@ namespace Cohesity.Model
                     this.DeleteOrphanData == input.DeleteOrphanData ||
                     (this.DeleteOrphanData != null &&
                     this.DeleteOrphanData.Equals(input.DeleteOrphanData))
+                ) && 
+                (
+                    this.DeniedFileTypeBuckets == input.DeniedFileTypeBuckets ||
+                    this.DeniedFileTypeBuckets != null &&
+                    input.DeniedFileTypeBuckets != null &&
+                    this.DeniedFileTypeBuckets.SequenceEqual(input.DeniedFileTypeBuckets)
                 ) && 
                 (
                     this.EnableAuditLogging == input.EnableAuditLogging ||
@@ -244,9 +304,21 @@ namespace Cohesity.Model
                     this.FileSize.Equals(input.FileSize))
                 ) && 
                 (
+                    this.FileSizeBuckets == input.FileSizeBuckets ||
+                    this.FileSizeBuckets != null &&
+                    input.FileSizeBuckets != null &&
+                    this.FileSizeBuckets.SequenceEqual(input.FileSizeBuckets)
+                ) && 
+                (
                     this.FileSizePolicy == input.FileSizePolicy ||
                     (this.FileSizePolicy != null &&
                     this.FileSizePolicy.Equals(input.FileSizePolicy))
+                ) && 
+                (
+                    this.FileTypeBuckets == input.FileTypeBuckets ||
+                    this.FileTypeBuckets != null &&
+                    input.FileTypeBuckets != null &&
+                    this.FileTypeBuckets.SequenceEqual(input.FileTypeBuckets)
                 ) && 
                 (
                     this.FilteringPolicy == input.FilteringPolicy ||
@@ -257,6 +329,12 @@ namespace Cohesity.Model
                     this.MigrateWithoutStub == input.MigrateWithoutStub ||
                     (this.MigrateWithoutStub != null &&
                     this.MigrateWithoutStub.Equals(input.MigrateWithoutStub))
+                ) && 
+                (
+                    this.ModTimeBuckets == input.ModTimeBuckets ||
+                    this.ModTimeBuckets != null &&
+                    input.ModTimeBuckets != null &&
+                    this.ModTimeBuckets.SequenceEqual(input.ModTimeBuckets)
                 ) && 
                 (
                     this.NfsMountPath == input.NfsMountPath ||
@@ -300,10 +378,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AccessTimeBuckets != null)
+                    hashCode = hashCode * 59 + this.AccessTimeBuckets.GetHashCode();
                 if (this.ColdFileWindow != null)
                     hashCode = hashCode * 59 + this.ColdFileWindow.GetHashCode();
                 if (this.DeleteOrphanData != null)
                     hashCode = hashCode * 59 + this.DeleteOrphanData.GetHashCode();
+                if (this.DeniedFileTypeBuckets != null)
+                    hashCode = hashCode * 59 + this.DeniedFileTypeBuckets.GetHashCode();
                 if (this.EnableAuditLogging != null)
                     hashCode = hashCode * 59 + this.EnableAuditLogging.GetHashCode();
                 if (this.EnableChecksumVerification != null)
@@ -312,12 +394,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FileSelectPolicy.GetHashCode();
                 if (this.FileSize != null)
                     hashCode = hashCode * 59 + this.FileSize.GetHashCode();
+                if (this.FileSizeBuckets != null)
+                    hashCode = hashCode * 59 + this.FileSizeBuckets.GetHashCode();
                 if (this.FileSizePolicy != null)
                     hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
+                if (this.FileTypeBuckets != null)
+                    hashCode = hashCode * 59 + this.FileTypeBuckets.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
                 if (this.MigrateWithoutStub != null)
                     hashCode = hashCode * 59 + this.MigrateWithoutStub.GetHashCode();
+                if (this.ModTimeBuckets != null)
+                    hashCode = hashCode * 59 + this.ModTimeBuckets.GetHashCode();
                 if (this.NfsMountPath != null)
                     hashCode = hashCode * 59 + this.NfsMountPath.GetHashCode();
                 if (this.NfsMountPathPrefix != null)

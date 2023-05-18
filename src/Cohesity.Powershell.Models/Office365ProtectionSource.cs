@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -137,6 +135,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Office365ProtectionSource" /> class.
         /// </summary>
         /// <param name="description">Specifies the description of the Office 365 entity..</param>
+        /// <param name="groupInfo">groupInfo.</param>
         /// <param name="name">Specifies the name of the office 365 entity..</param>
         /// <param name="primarySMTPAddress">Specifies the SMTP address for the Outlook source..</param>
         /// <param name="proxyHostSourceIdList">Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to an office365 domain. This will be used for Exchange Online PST download as well..</param>
@@ -146,7 +145,7 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="uuid">Specifies the UUID of the Office 365 entity..</param>
         /// <param name="webUrl">URL that displays the site in the browser. This is applicable for Sharepoint entity..</param>
-        public Office365ProtectionSource(string description = default(string), string name = default(string), string primarySMTPAddress = default(string), List<long> proxyHostSourceIdList = default(List<long>), Office365SiteInfo siteInfo = default(Office365SiteInfo), Office365TeamInfo teamInfo = default(Office365TeamInfo), TypeEnum? type = default(TypeEnum?), Office365UserInfo userInfo = default(Office365UserInfo), string uuid = default(string), string webUrl = default(string))
+        public Office365ProtectionSource(string description = default(string), Office365GroupInfo groupInfo = default(Office365GroupInfo), string name = default(string), string primarySMTPAddress = default(string), List<long> proxyHostSourceIdList = default(List<long>), Office365SiteInfo siteInfo = default(Office365SiteInfo), Office365TeamInfo teamInfo = default(Office365TeamInfo), TypeEnum? type = default(TypeEnum?), Office365UserInfo userInfo = default(Office365UserInfo), string uuid = default(string), string webUrl = default(string))
         {
             this.Description = description;
             this.Name = name;
@@ -156,6 +155,7 @@ namespace Cohesity.Model
             this.Uuid = uuid;
             this.WebUrl = webUrl;
             this.Description = description;
+            this.GroupInfo = groupInfo;
             this.Name = name;
             this.PrimarySMTPAddress = primarySMTPAddress;
             this.ProxyHostSourceIdList = proxyHostSourceIdList;
@@ -173,6 +173,12 @@ namespace Cohesity.Model
         /// <value>Specifies the description of the Office 365 entity.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GroupInfo
+        /// </summary>
+        [DataMember(Name="groupInfo", EmitDefaultValue=false)]
+        public Office365GroupInfo GroupInfo { get; set; }
 
         /// <summary>
         /// Specifies the name of the office 365 entity.
@@ -269,6 +275,11 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.GroupInfo == input.GroupInfo ||
+                    (this.GroupInfo != null &&
+                    this.GroupInfo.Equals(input.GroupInfo))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -326,6 +337,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.GroupInfo != null)
+                    hashCode = hashCode * 59 + this.GroupInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.PrimarySMTPAddress != null)

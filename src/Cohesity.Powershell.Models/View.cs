@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -214,8 +212,9 @@ namespace Cohesity.Model
         /// <param name="viewBoxName">Specifies the name of the Storage Domain (View Box) where the View is stored..</param>
         /// <param name="viewId">Specifies an id of the View assigned by the Cohesity Cluster..</param>
         /// <param name="viewLockEnabled">Specifies whether view lock is enabled. If enabled the view cannot be modified or deleted until unlock. By default it is disabled..</param>
+        /// <param name="viewPinningConfig">viewPinningConfig.</param>
         /// <param name="viewProtection">viewProtection.</param>
-        public View(List<string> accessSids = default(List<string>), List<ViewAlias> aliases = default(List<ViewAlias>), List<string> allSmbMountPaths = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), string basicMountPath = default(string), bool? caseInsensitiveNamesEnabled = default(bool?), long? createTimeMsecs = default(long?), long? dataLockExpiryUsecs = default(long?), string description = default(string), bool? enableFastDurableHandle = default(bool?), bool? enableFilerAuditLogging = default(bool?), bool? enableLiveIndexing = default(bool?), bool? enableMetadataAccelerator = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbOplock = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), ViewIntent intent = default(ViewIntent), bool? isExternallyTriggeredBackupTarget = default(bool?), bool? isReadOnly = default(bool?), bool? isTargetForMigratedData = default(bool?), QuotaPolicy logicalQuota = default(QuotaPolicy), long? logicalUsageBytes = default(long?), string name = default(string), List<NisNetgroup> netgroupWhitelist = default(List<NisNetgroup>), NfsSquash nfsAllSquash = default(NfsSquash), string nfsMountPath = default(string), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalNetgroupWhitelist = default(bool?), bool? overrideGlobalWhitelist = default(bool?), string ownerSid = default(string), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), string s3AccessPath = default(string), bool? s3FolderSupportEnabled = default(bool?), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), ViewStats stats = default(ViewStats), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string swiftProjectDomain = default(string), string swiftProjectName = default(string), string swiftUserDomain = default(string), string swiftUsername = default(string), string tenantId = default(string), long? viewBoxId = default(long?), string viewBoxName = default(string), long? viewId = default(long?), bool? viewLockEnabled = default(bool?), ViewProtection viewProtection = default(ViewProtection))
+        public View(List<string> accessSids = default(List<string>), List<ViewAlias> aliases = default(List<ViewAlias>), List<string> allSmbMountPaths = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), string basicMountPath = default(string), bool? caseInsensitiveNamesEnabled = default(bool?), long? createTimeMsecs = default(long?), long? dataLockExpiryUsecs = default(long?), string description = default(string), bool? enableFastDurableHandle = default(bool?), bool? enableFilerAuditLogging = default(bool?), bool? enableLiveIndexing = default(bool?), bool? enableMetadataAccelerator = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbOplock = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), ViewIntent intent = default(ViewIntent), bool? isExternallyTriggeredBackupTarget = default(bool?), bool? isReadOnly = default(bool?), bool? isTargetForMigratedData = default(bool?), QuotaPolicy logicalQuota = default(QuotaPolicy), long? logicalUsageBytes = default(long?), string name = default(string), List<NisNetgroup> netgroupWhitelist = default(List<NisNetgroup>), NfsSquash nfsAllSquash = default(NfsSquash), string nfsMountPath = default(string), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalNetgroupWhitelist = default(bool?), bool? overrideGlobalWhitelist = default(bool?), string ownerSid = default(string), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), string s3AccessPath = default(string), bool? s3FolderSupportEnabled = default(bool?), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), ViewStats stats = default(ViewStats), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string swiftProjectDomain = default(string), string swiftProjectName = default(string), string swiftUserDomain = default(string), string swiftUsername = default(string), string tenantId = default(string), long? viewBoxId = default(long?), string viewBoxName = default(string), long? viewId = default(long?), bool? viewLockEnabled = default(bool?), ViewPinningConfig viewPinningConfig = default(ViewPinningConfig), ViewProtection viewProtection = default(ViewProtection))
         {
             this.AccessSids = accessSids;
             this.Aliases = aliases;
@@ -326,6 +325,7 @@ namespace Cohesity.Model
             this.ViewBoxName = viewBoxName;
             this.ViewId = viewId;
             this.ViewLockEnabled = viewLockEnabled;
+            this.ViewPinningConfig = viewPinningConfig;
             this.ViewProtection = viewProtection;
         }
         
@@ -718,6 +718,12 @@ namespace Cohesity.Model
         public bool? ViewLockEnabled { get; set; }
 
         /// <summary>
+        /// Gets or Sets ViewPinningConfig
+        /// </summary>
+        [DataMember(Name="viewPinningConfig", EmitDefaultValue=false)]
+        public ViewPinningConfig ViewPinningConfig { get; set; }
+
+        /// <summary>
         /// Gets or Sets ViewProtection
         /// </summary>
         [DataMember(Name="viewProtection", EmitDefaultValue=false)]
@@ -1064,6 +1070,11 @@ namespace Cohesity.Model
                     this.ViewLockEnabled.Equals(input.ViewLockEnabled))
                 ) && 
                 (
+                    this.ViewPinningConfig == input.ViewPinningConfig ||
+                    (this.ViewPinningConfig != null &&
+                    this.ViewPinningConfig.Equals(input.ViewPinningConfig))
+                ) && 
+                (
                     this.ViewProtection == input.ViewProtection ||
                     (this.ViewProtection != null &&
                     this.ViewProtection.Equals(input.ViewProtection))
@@ -1196,6 +1207,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ViewId.GetHashCode();
                 if (this.ViewLockEnabled != null)
                     hashCode = hashCode * 59 + this.ViewLockEnabled.GetHashCode();
+                if (this.ViewPinningConfig != null)
+                    hashCode = hashCode * 59 + this.ViewPinningConfig.GetHashCode();
                 if (this.ViewProtection != null)
                     hashCode = hashCode * 59 + this.ViewProtection.GetHashCode();
                 return hashCode;

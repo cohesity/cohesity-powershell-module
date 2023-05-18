@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -57,13 +55,7 @@ namespace Cohesity.Model
             /// Enum KMonths for value: kMonths
             /// </summary>
             [EnumMember(Value = "kMonths")]
-            KMonths = 5,
-
-            /// <summary>
-            /// Enum KDay for value: kDay
-            /// </summary>
-            [EnumMember(Value = "kDay")]
-            KDay = 6
+            KMonths = 5
 
         }
 

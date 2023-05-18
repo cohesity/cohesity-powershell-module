@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,38 +23,48 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SfdcRestoreObjectParams" /> class.
         /// </summary>
-        /// <param name="filterQuery">Restore subset of records. Query to filter the records. populated if restore_type is kRestoreFilter..</param>
-        /// <param name="includeDeletedRecords">Include deleted records..</param>
+        /// <param name="filterQuery">This field contains the user provided query to select only subset of records in an object for recovery. This field is set only if restore_type is &#39;kRestoreFilter;..</param>
+        /// <param name="includeDeletedRecords">This field specifies whether to include the records in user selected object, that were marked as deleted in the user selected snapshot. This is applicable for restore types &#39;kRestoreObject&#39; and &#39;kRestoreOrg&#39;..</param>
+        /// <param name="mutationType">The type of records to be returned. This is only applicable for restore type &#39;kRestoreFilter&#39;..</param>
         /// <param name="newObjectName">The new name of the object, if it is going to be renamed..</param>
-        /// <param name="recordIdVec">Restore selected records populated if restore_type is kRestoreRecords.</param>
-        /// <param name="restoreType">restoreType.</param>
-        public SfdcRestoreObjectParams(string filterQuery = default(string), bool? includeDeletedRecords = default(bool?), string newObjectName = default(string), List<string> recordIdVec = default(List<string>), int? restoreType = default(int?))
+        /// <param name="recordIdVec">Restore selected records from user selected object. This field is set only if restore_type is &#39;kRestoreRecords&#39;..</param>
+        /// <param name="sfdcRestoreType">Please note that this restore_type is applicable only for the restore of Sfdc adapter. It is different from the Magneto infra field &#39;restore_type&#39; that is applicable for all the Recovery tasks..</param>
+        public SfdcRestoreObjectParams(string filterQuery = default(string), bool? includeDeletedRecords = default(bool?), int? mutationType = default(int?), string newObjectName = default(string), List<string> recordIdVec = default(List<string>), int? sfdcRestoreType = default(int?))
         {
             this.FilterQuery = filterQuery;
             this.IncludeDeletedRecords = includeDeletedRecords;
+            this.MutationType = mutationType;
             this.NewObjectName = newObjectName;
             this.RecordIdVec = recordIdVec;
-            this.RestoreType = restoreType;
+            this.SfdcRestoreType = sfdcRestoreType;
             this.FilterQuery = filterQuery;
             this.IncludeDeletedRecords = includeDeletedRecords;
+            this.MutationType = mutationType;
             this.NewObjectName = newObjectName;
             this.RecordIdVec = recordIdVec;
-            this.RestoreType = restoreType;
+            this.SfdcRestoreType = sfdcRestoreType;
         }
         
         /// <summary>
-        /// Restore subset of records. Query to filter the records. populated if restore_type is kRestoreFilter.
+        /// This field contains the user provided query to select only subset of records in an object for recovery. This field is set only if restore_type is &#39;kRestoreFilter;.
         /// </summary>
-        /// <value>Restore subset of records. Query to filter the records. populated if restore_type is kRestoreFilter.</value>
+        /// <value>This field contains the user provided query to select only subset of records in an object for recovery. This field is set only if restore_type is &#39;kRestoreFilter;.</value>
         [DataMember(Name="filterQuery", EmitDefaultValue=true)]
         public string FilterQuery { get; set; }
 
         /// <summary>
-        /// Include deleted records.
+        /// This field specifies whether to include the records in user selected object, that were marked as deleted in the user selected snapshot. This is applicable for restore types &#39;kRestoreObject&#39; and &#39;kRestoreOrg&#39;.
         /// </summary>
-        /// <value>Include deleted records.</value>
+        /// <value>This field specifies whether to include the records in user selected object, that were marked as deleted in the user selected snapshot. This is applicable for restore types &#39;kRestoreObject&#39; and &#39;kRestoreOrg&#39;.</value>
         [DataMember(Name="includeDeletedRecords", EmitDefaultValue=true)]
         public bool? IncludeDeletedRecords { get; set; }
+
+        /// <summary>
+        /// The type of records to be returned. This is only applicable for restore type &#39;kRestoreFilter&#39;.
+        /// </summary>
+        /// <value>The type of records to be returned. This is only applicable for restore type &#39;kRestoreFilter&#39;.</value>
+        [DataMember(Name="mutationType", EmitDefaultValue=true)]
+        public int? MutationType { get; set; }
 
         /// <summary>
         /// The new name of the object, if it is going to be renamed.
@@ -66,17 +74,18 @@ namespace Cohesity.Model
         public string NewObjectName { get; set; }
 
         /// <summary>
-        /// Restore selected records populated if restore_type is kRestoreRecords
+        /// Restore selected records from user selected object. This field is set only if restore_type is &#39;kRestoreRecords&#39;.
         /// </summary>
-        /// <value>Restore selected records populated if restore_type is kRestoreRecords</value>
+        /// <value>Restore selected records from user selected object. This field is set only if restore_type is &#39;kRestoreRecords&#39;.</value>
         [DataMember(Name="recordIdVec", EmitDefaultValue=true)]
         public List<string> RecordIdVec { get; set; }
 
         /// <summary>
-        /// Gets or Sets RestoreType
+        /// Please note that this restore_type is applicable only for the restore of Sfdc adapter. It is different from the Magneto infra field &#39;restore_type&#39; that is applicable for all the Recovery tasks.
         /// </summary>
-        [DataMember(Name="restoreType", EmitDefaultValue=true)]
-        public int? RestoreType { get; set; }
+        /// <value>Please note that this restore_type is applicable only for the restore of Sfdc adapter. It is different from the Magneto infra field &#39;restore_type&#39; that is applicable for all the Recovery tasks.</value>
+        [DataMember(Name="sfdcRestoreType", EmitDefaultValue=true)]
+        public int? SfdcRestoreType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -125,6 +134,11 @@ namespace Cohesity.Model
                     this.IncludeDeletedRecords.Equals(input.IncludeDeletedRecords))
                 ) && 
                 (
+                    this.MutationType == input.MutationType ||
+                    (this.MutationType != null &&
+                    this.MutationType.Equals(input.MutationType))
+                ) && 
+                (
                     this.NewObjectName == input.NewObjectName ||
                     (this.NewObjectName != null &&
                     this.NewObjectName.Equals(input.NewObjectName))
@@ -136,9 +150,9 @@ namespace Cohesity.Model
                     this.RecordIdVec.SequenceEqual(input.RecordIdVec)
                 ) && 
                 (
-                    this.RestoreType == input.RestoreType ||
-                    (this.RestoreType != null &&
-                    this.RestoreType.Equals(input.RestoreType))
+                    this.SfdcRestoreType == input.SfdcRestoreType ||
+                    (this.SfdcRestoreType != null &&
+                    this.SfdcRestoreType.Equals(input.SfdcRestoreType))
                 );
         }
 
@@ -155,12 +169,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FilterQuery.GetHashCode();
                 if (this.IncludeDeletedRecords != null)
                     hashCode = hashCode * 59 + this.IncludeDeletedRecords.GetHashCode();
+                if (this.MutationType != null)
+                    hashCode = hashCode * 59 + this.MutationType.GetHashCode();
                 if (this.NewObjectName != null)
                     hashCode = hashCode * 59 + this.NewObjectName.GetHashCode();
                 if (this.RecordIdVec != null)
                     hashCode = hashCode * 59 + this.RecordIdVec.GetHashCode();
-                if (this.RestoreType != null)
-                    hashCode = hashCode * 59 + this.RestoreType.GetHashCode();
+                if (this.SfdcRestoreType != null)
+                    hashCode = hashCode * 59 + this.SfdcRestoreType.GetHashCode();
                 return hashCode;
             }
         }

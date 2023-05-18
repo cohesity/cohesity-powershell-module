@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -27,12 +25,21 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="discoverUsersWithMailbox">Specifies if office 365 users with valid mailboxes should be discovered or not..</param>
         /// <param name="discoverUsersWithOnedrive">Specifies if office 365 users with valid Onedrives should be discovered or not..</param>
-        public UsersDiscoveryParams(bool? discoverUsersWithMailbox = default(bool?), bool? discoverUsersWithOnedrive = default(bool?))
+        /// <param name="fetchMailboxInfo">Specifies whether users&#39; mailbox info including the provisioning status, mailbox type &amp; in-place archival support will be fetched and processed..</param>
+        /// <param name="fetchOneDriveInfo">Specifies whether users&#39; onedrive info including the provisioning status &amp; storage quota will be fetched and processed..</param>
+        /// <param name="skipUsersWithoutMySite">Specifies whether to skip processing user who have uninitialized OneDrive or are without MySite..</param>
+        public UsersDiscoveryParams(bool? discoverUsersWithMailbox = default(bool?), bool? discoverUsersWithOnedrive = default(bool?), bool? fetchMailboxInfo = default(bool?), bool? fetchOneDriveInfo = default(bool?), bool? skipUsersWithoutMySite = default(bool?))
         {
             this.DiscoverUsersWithMailbox = discoverUsersWithMailbox;
             this.DiscoverUsersWithOnedrive = discoverUsersWithOnedrive;
+            this.FetchMailboxInfo = fetchMailboxInfo;
+            this.FetchOneDriveInfo = fetchOneDriveInfo;
+            this.SkipUsersWithoutMySite = skipUsersWithoutMySite;
             this.DiscoverUsersWithMailbox = discoverUsersWithMailbox;
             this.DiscoverUsersWithOnedrive = discoverUsersWithOnedrive;
+            this.FetchMailboxInfo = fetchMailboxInfo;
+            this.FetchOneDriveInfo = fetchOneDriveInfo;
+            this.SkipUsersWithoutMySite = skipUsersWithoutMySite;
         }
         
         /// <summary>
@@ -48,6 +55,27 @@ namespace Cohesity.Model
         /// <value>Specifies if office 365 users with valid Onedrives should be discovered or not.</value>
         [DataMember(Name="discoverUsersWithOnedrive", EmitDefaultValue=true)]
         public bool? DiscoverUsersWithOnedrive { get; set; }
+
+        /// <summary>
+        /// Specifies whether users&#39; mailbox info including the provisioning status, mailbox type &amp; in-place archival support will be fetched and processed.
+        /// </summary>
+        /// <value>Specifies whether users&#39; mailbox info including the provisioning status, mailbox type &amp; in-place archival support will be fetched and processed.</value>
+        [DataMember(Name="fetchMailboxInfo", EmitDefaultValue=true)]
+        public bool? FetchMailboxInfo { get; set; }
+
+        /// <summary>
+        /// Specifies whether users&#39; onedrive info including the provisioning status &amp; storage quota will be fetched and processed.
+        /// </summary>
+        /// <value>Specifies whether users&#39; onedrive info including the provisioning status &amp; storage quota will be fetched and processed.</value>
+        [DataMember(Name="fetchOneDriveInfo", EmitDefaultValue=true)]
+        public bool? FetchOneDriveInfo { get; set; }
+
+        /// <summary>
+        /// Specifies whether to skip processing user who have uninitialized OneDrive or are without MySite.
+        /// </summary>
+        /// <value>Specifies whether to skip processing user who have uninitialized OneDrive or are without MySite.</value>
+        [DataMember(Name="skipUsersWithoutMySite", EmitDefaultValue=true)]
+        public bool? SkipUsersWithoutMySite { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -94,6 +122,21 @@ namespace Cohesity.Model
                     this.DiscoverUsersWithOnedrive == input.DiscoverUsersWithOnedrive ||
                     (this.DiscoverUsersWithOnedrive != null &&
                     this.DiscoverUsersWithOnedrive.Equals(input.DiscoverUsersWithOnedrive))
+                ) && 
+                (
+                    this.FetchMailboxInfo == input.FetchMailboxInfo ||
+                    (this.FetchMailboxInfo != null &&
+                    this.FetchMailboxInfo.Equals(input.FetchMailboxInfo))
+                ) && 
+                (
+                    this.FetchOneDriveInfo == input.FetchOneDriveInfo ||
+                    (this.FetchOneDriveInfo != null &&
+                    this.FetchOneDriveInfo.Equals(input.FetchOneDriveInfo))
+                ) && 
+                (
+                    this.SkipUsersWithoutMySite == input.SkipUsersWithoutMySite ||
+                    (this.SkipUsersWithoutMySite != null &&
+                    this.SkipUsersWithoutMySite.Equals(input.SkipUsersWithoutMySite))
                 );
         }
 
@@ -110,6 +153,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DiscoverUsersWithMailbox.GetHashCode();
                 if (this.DiscoverUsersWithOnedrive != null)
                     hashCode = hashCode * 59 + this.DiscoverUsersWithOnedrive.GetHashCode();
+                if (this.FetchMailboxInfo != null)
+                    hashCode = hashCode * 59 + this.FetchMailboxInfo.GetHashCode();
+                if (this.FetchOneDriveInfo != null)
+                    hashCode = hashCode * 59 + this.FetchOneDriveInfo.GetHashCode();
+                if (this.SkipUsersWithoutMySite != null)
+                    hashCode = hashCode * 59 + this.SkipUsersWithoutMySite.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -102,7 +100,13 @@ namespace Cohesity.Model
             /// Enum KAmazonS3GlacierDeepArchive for value: kAmazonS3GlacierDeepArchive
             /// </summary>
             [EnumMember(Value = "kAmazonS3GlacierDeepArchive")]
-            KAmazonS3GlacierDeepArchive = 7
+            KAmazonS3GlacierDeepArchive = 7,
+
+            /// <summary>
+            /// Enum KAmazonS3GlacierIR for value: kAmazonS3GlacierIR
+            /// </summary>
+            [EnumMember(Value = "kAmazonS3GlacierIR")]
+            KAmazonS3GlacierIR = 8
 
         }
 

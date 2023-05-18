@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,10 +24,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SfdcOrg" /> class.
         /// </summary>
         /// <param name="orgId">String id of the organization to which Sfdc user belongs..</param>
-        public SfdcOrg(string orgId = default(string))
+        /// <param name="totalSfLicenses">Contains the total number of salesforce user licenses in the organization..</param>
+        /// <param name="usedSfLicenses">Contains the number of user salesforce user licenses in the organization..</param>
+        public SfdcOrg(string orgId = default(string), int? totalSfLicenses = default(int?), int? usedSfLicenses = default(int?))
         {
             this.OrgId = orgId;
+            this.TotalSfLicenses = totalSfLicenses;
+            this.UsedSfLicenses = usedSfLicenses;
             this.OrgId = orgId;
+            this.TotalSfLicenses = totalSfLicenses;
+            this.UsedSfLicenses = usedSfLicenses;
         }
         
         /// <summary>
@@ -38,6 +42,20 @@ namespace Cohesity.Model
         /// <value>String id of the organization to which Sfdc user belongs.</value>
         [DataMember(Name="orgId", EmitDefaultValue=true)]
         public string OrgId { get; set; }
+
+        /// <summary>
+        /// Contains the total number of salesforce user licenses in the organization.
+        /// </summary>
+        /// <value>Contains the total number of salesforce user licenses in the organization.</value>
+        [DataMember(Name="totalSfLicenses", EmitDefaultValue=true)]
+        public int? TotalSfLicenses { get; set; }
+
+        /// <summary>
+        /// Contains the number of user salesforce user licenses in the organization.
+        /// </summary>
+        /// <value>Contains the number of user salesforce user licenses in the organization.</value>
+        [DataMember(Name="usedSfLicenses", EmitDefaultValue=true)]
+        public int? UsedSfLicenses { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -79,6 +97,16 @@ namespace Cohesity.Model
                     this.OrgId == input.OrgId ||
                     (this.OrgId != null &&
                     this.OrgId.Equals(input.OrgId))
+                ) && 
+                (
+                    this.TotalSfLicenses == input.TotalSfLicenses ||
+                    (this.TotalSfLicenses != null &&
+                    this.TotalSfLicenses.Equals(input.TotalSfLicenses))
+                ) && 
+                (
+                    this.UsedSfLicenses == input.UsedSfLicenses ||
+                    (this.UsedSfLicenses != null &&
+                    this.UsedSfLicenses.Equals(input.UsedSfLicenses))
                 );
         }
 
@@ -93,6 +121,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.OrgId != null)
                     hashCode = hashCode * 59 + this.OrgId.GetHashCode();
+                if (this.TotalSfLicenses != null)
+                    hashCode = hashCode * 59 + this.TotalSfLicenses.GetHashCode();
+                if (this.UsedSfLicenses != null)
+                    hashCode = hashCode * 59 + this.UsedSfLicenses.GetHashCode();
                 return hashCode;
             }
         }

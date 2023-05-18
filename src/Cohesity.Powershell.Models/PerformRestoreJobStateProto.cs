@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,9 +26,12 @@ namespace Cohesity.Model
         /// <param name="admittedTimeUsecs">The time at which the restore job was admitted to run on a Magneto master. This field will be set only after the status changes to &#39;kAdmitted&#39;. Using this field, amount of time spent in the waiting/queued state and the amount of time taken taken to actually run the job can be determined. wait time &#x3D; admitted_time_usecs - start_time_usecs run time &#x3D; end_time_usecs - admitted_time_usecs.</param>
         /// <param name="cancellationRequested">Whether this restore job has a pending cancellation request..</param>
         /// <param name="continueRestoreOnError">Whether to continue with the restore operation if restore of any object fails..</param>
+        /// <param name="dataTransferInfo">dataTransferInfo.</param>
         /// <param name="deployVmsToCloudTaskState">deployVmsToCloudTaskState.</param>
+        /// <param name="encryptionParams">encryptionParams.</param>
         /// <param name="endTimeUsecs">If the restore job has finished, this field contains the end time for the job..</param>
         /// <param name="error">error.</param>
+        /// <param name="leverageSanTransport">This is set to true by the user in order to restore the objects via SAN transport, as opposed to NBDSSL transport. NOTE: Not all adapters support this method. Currently only VMware..</param>
         /// <param name="name">The name of the restore job..</param>
         /// <param name="nosqlConnectParams">nosqlConnectParams.</param>
         /// <param name="nosqlRecoverJobParams">nosqlRecoverJobParams.</param>
@@ -50,6 +51,7 @@ namespace Cohesity.Model
         /// <param name="restoreKvmVmsParams">restoreKvmVmsParams.</param>
         /// <param name="restoreParentSource">restoreParentSource.</param>
         /// <param name="restorePublicFoldersParams">restorePublicFoldersParams.</param>
+        /// <param name="restoreS3Params">restoreS3Params.</param>
         /// <param name="restoreSiteParams">restoreSiteParams.</param>
         /// <param name="restoreTaskStateProtoTmpl">restoreTaskStateProtoTmpl.</param>
         /// <param name="restoreTaskVec">Even if the user wanted to restore an entire job from the latest snapshot, this will have info of all the individual objects..</param>
@@ -69,12 +71,13 @@ namespace Cohesity.Model
         /// <param name="viewBoxId">The view box id to which the restore job belongs to..</param>
         /// <param name="viewParams">viewParams.</param>
         /// <param name="warnings">Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task..</param>
-        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), NoSqlConnectParams nosqlConnectParams = default(NoSqlConnectParams), NoSqlRecoverJobParams nosqlRecoverJobParams = default(NoSqlRecoverJobParams), List<RestoreObject> objects = default(List<RestoreObject>), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), bool? physicalFlrParallelRestore = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreO365GroupsParams restoreGroupsParams = default(RestoreO365GroupsParams), long? restoreJobId = default(long?), UniversalIdProto restoreJobUid = default(UniversalIdProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), RestoreO365PublicFoldersParams restorePublicFoldersParams = default(RestoreO365PublicFoldersParams), RestoreSiteParams restoreSiteParams = default(RestoreSiteParams), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreO365TeamsParams restoreTeamsParams = default(RestoreO365TeamsParams), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), bool? skipImageDeploy = default(bool?), bool? skipRigelForRestore = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), string targetViewName = default(string), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), ViewParams viewParams = default(ViewParams), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), EncryptionParams encryptionParams = default(EncryptionParams), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? leverageSanTransport = default(bool?), string name = default(string), NoSqlConnectParams nosqlConnectParams = default(NoSqlConnectParams), NoSqlRecoverJobParams nosqlRecoverJobParams = default(NoSqlRecoverJobParams), List<RestoreObject> objects = default(List<RestoreObject>), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), bool? physicalFlrParallelRestore = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreO365GroupsParams restoreGroupsParams = default(RestoreO365GroupsParams), long? restoreJobId = default(long?), UniversalIdProto restoreJobUid = default(UniversalIdProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), RestoreO365PublicFoldersParams restorePublicFoldersParams = default(RestoreO365PublicFoldersParams), RestoreS3Params restoreS3Params = default(RestoreS3Params), RestoreSiteParams restoreSiteParams = default(RestoreSiteParams), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreO365TeamsParams restoreTeamsParams = default(RestoreO365TeamsParams), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), bool? skipImageDeploy = default(bool?), bool? skipRigelForRestore = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), string targetViewName = default(string), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), ViewParams viewParams = default(ViewParams), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
             this.EndTimeUsecs = endTimeUsecs;
+            this.LeverageSanTransport = leverageSanTransport;
             this.Name = name;
             this.Objects = objects;
             this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
@@ -95,9 +98,12 @@ namespace Cohesity.Model
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
+            this.DataTransferInfo = dataTransferInfo;
             this.DeployVmsToCloudTaskState = deployVmsToCloudTaskState;
+            this.EncryptionParams = encryptionParams;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
+            this.LeverageSanTransport = leverageSanTransport;
             this.Name = name;
             this.NosqlConnectParams = nosqlConnectParams;
             this.NosqlRecoverJobParams = nosqlRecoverJobParams;
@@ -117,6 +123,7 @@ namespace Cohesity.Model
             this.RestoreKvmVmsParams = restoreKvmVmsParams;
             this.RestoreParentSource = restoreParentSource;
             this.RestorePublicFoldersParams = restorePublicFoldersParams;
+            this.RestoreS3Params = restoreS3Params;
             this.RestoreSiteParams = restoreSiteParams;
             this.RestoreTaskStateProtoTmpl = restoreTaskStateProtoTmpl;
             this.RestoreTaskVec = restoreTaskVec;
@@ -160,10 +167,22 @@ namespace Cohesity.Model
         public bool? ContinueRestoreOnError { get; set; }
 
         /// <summary>
+        /// Gets or Sets DataTransferInfo
+        /// </summary>
+        [DataMember(Name="dataTransferInfo", EmitDefaultValue=false)]
+        public DataTransferInfo DataTransferInfo { get; set; }
+
+        /// <summary>
         /// Gets or Sets DeployVmsToCloudTaskState
         /// </summary>
         [DataMember(Name="deployVmsToCloudTaskState", EmitDefaultValue=false)]
         public DeployVMsToCloudTaskStateProto DeployVmsToCloudTaskState { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EncryptionParams
+        /// </summary>
+        [DataMember(Name="encryptionParams", EmitDefaultValue=false)]
+        public EncryptionParams EncryptionParams { get; set; }
 
         /// <summary>
         /// If the restore job has finished, this field contains the end time for the job.
@@ -177,6 +196,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
+
+        /// <summary>
+        /// This is set to true by the user in order to restore the objects via SAN transport, as opposed to NBDSSL transport. NOTE: Not all adapters support this method. Currently only VMware.
+        /// </summary>
+        /// <value>This is set to true by the user in order to restore the objects via SAN transport, as opposed to NBDSSL transport. NOTE: Not all adapters support this method. Currently only VMware.</value>
+        [DataMember(Name="leverageSanTransport", EmitDefaultValue=true)]
+        public bool? LeverageSanTransport { get; set; }
 
         /// <summary>
         /// The name of the restore job.
@@ -297,6 +323,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="restorePublicFoldersParams", EmitDefaultValue=false)]
         public RestoreO365PublicFoldersParams RestorePublicFoldersParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreS3Params
+        /// </summary>
+        [DataMember(Name="restoreS3Params", EmitDefaultValue=false)]
+        public RestoreS3Params RestoreS3Params { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreSiteParams
@@ -475,9 +507,19 @@ namespace Cohesity.Model
                     this.ContinueRestoreOnError.Equals(input.ContinueRestoreOnError))
                 ) && 
                 (
+                    this.DataTransferInfo == input.DataTransferInfo ||
+                    (this.DataTransferInfo != null &&
+                    this.DataTransferInfo.Equals(input.DataTransferInfo))
+                ) && 
+                (
                     this.DeployVmsToCloudTaskState == input.DeployVmsToCloudTaskState ||
                     (this.DeployVmsToCloudTaskState != null &&
                     this.DeployVmsToCloudTaskState.Equals(input.DeployVmsToCloudTaskState))
+                ) && 
+                (
+                    this.EncryptionParams == input.EncryptionParams ||
+                    (this.EncryptionParams != null &&
+                    this.EncryptionParams.Equals(input.EncryptionParams))
                 ) && 
                 (
                     this.EndTimeUsecs == input.EndTimeUsecs ||
@@ -488,6 +530,11 @@ namespace Cohesity.Model
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
+                ) && 
+                (
+                    this.LeverageSanTransport == input.LeverageSanTransport ||
+                    (this.LeverageSanTransport != null &&
+                    this.LeverageSanTransport.Equals(input.LeverageSanTransport))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -584,6 +631,11 @@ namespace Cohesity.Model
                     this.RestorePublicFoldersParams == input.RestorePublicFoldersParams ||
                     (this.RestorePublicFoldersParams != null &&
                     this.RestorePublicFoldersParams.Equals(input.RestorePublicFoldersParams))
+                ) && 
+                (
+                    this.RestoreS3Params == input.RestoreS3Params ||
+                    (this.RestoreS3Params != null &&
+                    this.RestoreS3Params.Equals(input.RestoreS3Params))
                 ) && 
                 (
                     this.RestoreSiteParams == input.RestoreSiteParams ||
@@ -699,12 +751,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CancellationRequested.GetHashCode();
                 if (this.ContinueRestoreOnError != null)
                     hashCode = hashCode * 59 + this.ContinueRestoreOnError.GetHashCode();
+                if (this.DataTransferInfo != null)
+                    hashCode = hashCode * 59 + this.DataTransferInfo.GetHashCode();
                 if (this.DeployVmsToCloudTaskState != null)
                     hashCode = hashCode * 59 + this.DeployVmsToCloudTaskState.GetHashCode();
+                if (this.EncryptionParams != null)
+                    hashCode = hashCode * 59 + this.EncryptionParams.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.LeverageSanTransport != null)
+                    hashCode = hashCode * 59 + this.LeverageSanTransport.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NosqlConnectParams != null)
@@ -743,6 +801,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreParentSource.GetHashCode();
                 if (this.RestorePublicFoldersParams != null)
                     hashCode = hashCode * 59 + this.RestorePublicFoldersParams.GetHashCode();
+                if (this.RestoreS3Params != null)
+                    hashCode = hashCode * 59 + this.RestoreS3Params.GetHashCode();
                 if (this.RestoreSiteParams != null)
                     hashCode = hashCode * 59 + this.RestoreSiteParams.GetHashCode();
                 if (this.RestoreTaskStateProtoTmpl != null)

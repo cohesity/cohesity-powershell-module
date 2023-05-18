@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -25,12 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HyperVBackupSourceParams" /> class.
         /// </summary>
+        /// <param name="hypervDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams..</param>
+        /// <param name="hypervDiskInclusionInfo">List of Virtual Disk(s) to be included in the backup job for the source. All other disks except these would be excluded. Overrides the inclusion/exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams..</param>
         /// <param name="sourceAppParams">sourceAppParams.</param>
-        public HyperVBackupSourceParams(SourceAppParams sourceAppParams = default(SourceAppParams))
+        public HyperVBackupSourceParams(List<HyperVDiskFilterProto> hypervDiskExclusionInfo = default(List<HyperVDiskFilterProto>), List<HyperVDiskFilterProto> hypervDiskInclusionInfo = default(List<HyperVDiskFilterProto>), SourceAppParams sourceAppParams = default(SourceAppParams))
         {
+            this.HypervDiskExclusionInfo = hypervDiskExclusionInfo;
+            this.HypervDiskInclusionInfo = hypervDiskInclusionInfo;
+            this.HypervDiskExclusionInfo = hypervDiskExclusionInfo;
+            this.HypervDiskInclusionInfo = hypervDiskInclusionInfo;
             this.SourceAppParams = sourceAppParams;
         }
         
+        /// <summary>
+        /// List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams.
+        /// </summary>
+        /// <value>List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams.</value>
+        [DataMember(Name="hypervDiskExclusionInfo", EmitDefaultValue=true)]
+        public List<HyperVDiskFilterProto> HypervDiskExclusionInfo { get; set; }
+
+        /// <summary>
+        /// List of Virtual Disk(s) to be included in the backup job for the source. All other disks except these would be excluded. Overrides the inclusion/exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams.
+        /// </summary>
+        /// <value>List of Virtual Disk(s) to be included in the backup job for the source. All other disks except these would be excluded. Overrides the inclusion/exclusion list requested (if any) through EnvBackupParams.HyperVBackupEnvParams.</value>
+        [DataMember(Name="hypervDiskInclusionInfo", EmitDefaultValue=true)]
+        public List<HyperVDiskFilterProto> HypervDiskInclusionInfo { get; set; }
+
         /// <summary>
         /// Gets or Sets SourceAppParams
         /// </summary>
@@ -74,6 +92,18 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.HypervDiskExclusionInfo == input.HypervDiskExclusionInfo ||
+                    this.HypervDiskExclusionInfo != null &&
+                    input.HypervDiskExclusionInfo != null &&
+                    this.HypervDiskExclusionInfo.SequenceEqual(input.HypervDiskExclusionInfo)
+                ) && 
+                (
+                    this.HypervDiskInclusionInfo == input.HypervDiskInclusionInfo ||
+                    this.HypervDiskInclusionInfo != null &&
+                    input.HypervDiskInclusionInfo != null &&
+                    this.HypervDiskInclusionInfo.SequenceEqual(input.HypervDiskInclusionInfo)
+                ) && 
+                (
                     this.SourceAppParams == input.SourceAppParams ||
                     (this.SourceAppParams != null &&
                     this.SourceAppParams.Equals(input.SourceAppParams))
@@ -89,6 +119,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.HypervDiskExclusionInfo != null)
+                    hashCode = hashCode * 59 + this.HypervDiskExclusionInfo.GetHashCode();
+                if (this.HypervDiskInclusionInfo != null)
+                    hashCode = hashCode * 59 + this.HypervDiskInclusionInfo.GetHashCode();
                 if (this.SourceAppParams != null)
                     hashCode = hashCode * 59 + this.SourceAppParams.GetHashCode();
                 return hashCode;

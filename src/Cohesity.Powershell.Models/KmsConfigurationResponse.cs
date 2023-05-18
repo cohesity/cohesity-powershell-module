@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -92,6 +90,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="KmsConfigurationResponse" /> class.
         /// </summary>
         /// <param name="awsKms">awsKms.</param>
+        /// <param name="azureKms">azureKms.</param>
         /// <param name="connectionStatus">Specifies if connection to this KMS exists..</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
@@ -103,7 +102,7 @@ namespace Cohesity.Model
         /// <param name="usageType">Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only..</param>
         /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
         /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
-        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string keyName = default(string), string ownershipContext = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), int? usageType = default(int?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
+        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), AzureKmsConfiguration azureKms = default(AzureKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string keyName = default(string), string ownershipContext = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), int? usageType = default(int?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
             this.ConnectionStatus = connectionStatus;
             this.Id = id;
@@ -116,6 +115,7 @@ namespace Cohesity.Model
             this.VaultIdList = vaultIdList;
             this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
+            this.AzureKms = azureKms;
             this.ConnectionStatus = connectionStatus;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
@@ -134,6 +134,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="awsKms", EmitDefaultValue=false)]
         public AwsKmsConfiguration AwsKms { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AzureKms
+        /// </summary>
+        [DataMember(Name="azureKms", EmitDefaultValue=false)]
+        public AzureKmsConfiguration AzureKms { get; set; }
 
         /// <summary>
         /// Specifies if connection to this KMS exists.
@@ -239,6 +245,11 @@ namespace Cohesity.Model
                     this.AwsKms.Equals(input.AwsKms))
                 ) && 
                 (
+                    this.AzureKms == input.AzureKms ||
+                    (this.AzureKms != null &&
+                    this.AzureKms.Equals(input.AzureKms))
+                ) && 
+                (
                     this.ConnectionStatus == input.ConnectionStatus ||
                     (this.ConnectionStatus != null &&
                     this.ConnectionStatus.Equals(input.ConnectionStatus))
@@ -306,6 +317,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AwsKms != null)
                     hashCode = hashCode * 59 + this.AwsKms.GetHashCode();
+                if (this.AzureKms != null)
+                    hashCode = hashCode * 59 + this.AzureKms.GetHashCode();
                 if (this.ConnectionStatus != null)
                     hashCode = hashCode * 59 + this.ConnectionStatus.GetHashCode();
                 if (this.CryptsoftKms != null)

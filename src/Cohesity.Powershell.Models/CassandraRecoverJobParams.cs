@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,10 +33,12 @@ namespace Cohesity.Model
         /// <param name="restartCommand">Option command for restarting Cassandra services.</param>
         /// <param name="restartImmediately">Option to restart Cassandra services immediately after the recovery..</param>
         /// <param name="restartTime">Option to restart Cassandra services at the specified time.</param>
+        /// <param name="restoreRolesAndPermissions">Whether to restore/skip roles and permissions in the job run..</param>
+        /// <param name="rolesGflagEnabled">Whether the gflag to restore cassandra roles is enabled..</param>
         /// <param name="selectedDataCenterVec">The data centers selected for recovery..</param>
         /// <param name="stagingDirectoryVec">Cassandra staging directory.</param>
         /// <param name="suffix">A suffix that is to be applied to all recovered entities TODO (faizan.khan) : Remove this..</param>
-        public CassandraRecoverJobParams(CassandraAdditionalParams cassandraAdditionalInfo = default(CassandraAdditionalParams), long? finaliseRestoreTaskId = default(long?), bool? graphHandlingEnabled = default(bool?), bool? isFinalisePhase = default(bool?), CassandraLogRecoverJobParams logRecoverParams = default(CassandraLogRecoverJobParams), string logRestoreDirectory = default(string), bool? restartAllowed = default(bool?), string restartCommand = default(string), bool? restartImmediately = default(bool?), long? restartTime = default(long?), List<string> selectedDataCenterVec = default(List<string>), List<string> stagingDirectoryVec = default(List<string>), string suffix = default(string))
+        public CassandraRecoverJobParams(CassandraAdditionalParams cassandraAdditionalInfo = default(CassandraAdditionalParams), long? finaliseRestoreTaskId = default(long?), bool? graphHandlingEnabled = default(bool?), bool? isFinalisePhase = default(bool?), CassandraLogRecoverJobParams logRecoverParams = default(CassandraLogRecoverJobParams), string logRestoreDirectory = default(string), bool? restartAllowed = default(bool?), string restartCommand = default(string), bool? restartImmediately = default(bool?), long? restartTime = default(long?), bool? restoreRolesAndPermissions = default(bool?), bool? rolesGflagEnabled = default(bool?), List<string> selectedDataCenterVec = default(List<string>), List<string> stagingDirectoryVec = default(List<string>), string suffix = default(string))
         {
             this.FinaliseRestoreTaskId = finaliseRestoreTaskId;
             this.GraphHandlingEnabled = graphHandlingEnabled;
@@ -48,6 +48,8 @@ namespace Cohesity.Model
             this.RestartCommand = restartCommand;
             this.RestartImmediately = restartImmediately;
             this.RestartTime = restartTime;
+            this.RestoreRolesAndPermissions = restoreRolesAndPermissions;
+            this.RolesGflagEnabled = rolesGflagEnabled;
             this.SelectedDataCenterVec = selectedDataCenterVec;
             this.StagingDirectoryVec = stagingDirectoryVec;
             this.Suffix = suffix;
@@ -61,6 +63,8 @@ namespace Cohesity.Model
             this.RestartCommand = restartCommand;
             this.RestartImmediately = restartImmediately;
             this.RestartTime = restartTime;
+            this.RestoreRolesAndPermissions = restoreRolesAndPermissions;
+            this.RolesGflagEnabled = rolesGflagEnabled;
             this.SelectedDataCenterVec = selectedDataCenterVec;
             this.StagingDirectoryVec = stagingDirectoryVec;
             this.Suffix = suffix;
@@ -133,6 +137,20 @@ namespace Cohesity.Model
         /// <value>Option to restart Cassandra services at the specified time</value>
         [DataMember(Name="restartTime", EmitDefaultValue=true)]
         public long? RestartTime { get; set; }
+
+        /// <summary>
+        /// Whether to restore/skip roles and permissions in the job run.
+        /// </summary>
+        /// <value>Whether to restore/skip roles and permissions in the job run.</value>
+        [DataMember(Name="restoreRolesAndPermissions", EmitDefaultValue=true)]
+        public bool? RestoreRolesAndPermissions { get; set; }
+
+        /// <summary>
+        /// Whether the gflag to restore cassandra roles is enabled.
+        /// </summary>
+        /// <value>Whether the gflag to restore cassandra roles is enabled.</value>
+        [DataMember(Name="rolesGflagEnabled", EmitDefaultValue=true)]
+        public bool? RolesGflagEnabled { get; set; }
 
         /// <summary>
         /// The data centers selected for recovery.
@@ -242,6 +260,16 @@ namespace Cohesity.Model
                     this.RestartTime.Equals(input.RestartTime))
                 ) && 
                 (
+                    this.RestoreRolesAndPermissions == input.RestoreRolesAndPermissions ||
+                    (this.RestoreRolesAndPermissions != null &&
+                    this.RestoreRolesAndPermissions.Equals(input.RestoreRolesAndPermissions))
+                ) && 
+                (
+                    this.RolesGflagEnabled == input.RolesGflagEnabled ||
+                    (this.RolesGflagEnabled != null &&
+                    this.RolesGflagEnabled.Equals(input.RolesGflagEnabled))
+                ) && 
+                (
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
                     input.SelectedDataCenterVec != null &&
@@ -289,6 +317,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestartImmediately.GetHashCode();
                 if (this.RestartTime != null)
                     hashCode = hashCode * 59 + this.RestartTime.GetHashCode();
+                if (this.RestoreRolesAndPermissions != null)
+                    hashCode = hashCode * 59 + this.RestoreRolesAndPermissions.GetHashCode();
+                if (this.RolesGflagEnabled != null)
+                    hashCode = hashCode * 59 + this.RolesGflagEnabled.GetHashCode();
                 if (this.SelectedDataCenterVec != null)
                     hashCode = hashCode * 59 + this.SelectedDataCenterVec.GetHashCode();
                 if (this.StagingDirectoryVec != null)

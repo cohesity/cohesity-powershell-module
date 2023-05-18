@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,77 +12,68 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies various resources when deploying a VM to Fleet instances.
+    /// AWSFleetParams
     /// </summary>
     [DataContract]
-    public partial class AwsFleetParams :  IEquatable<AwsFleetParams>
+    public partial class AWSFleetParams :  IEquatable<AWSFleetParams>
     {
         /// <summary>
-        /// Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.
+        /// Initializes a new instance of the <see cref="AWSFleetParams" /> class.
         /// </summary>
-        /// <value>Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum FleetSubnetTypeEnum
-        {
-            /// <summary>
-            /// Enum KCluster for value: kCluster
-            /// </summary>
-            [EnumMember(Value = "kCluster")]
-            KCluster = 1,
-
-            /// <summary>
-            /// Enum KSourceVM for value: kSourceVM
-            /// </summary>
-            [EnumMember(Value = "kSourceVM")]
-            KSourceVM = 2,
-
-            /// <summary>
-            /// Enum KCustom for value: kCustom
-            /// </summary>
-            [EnumMember(Value = "kCustom")]
-            KCustom = 3
-
-        }
-
-        /// <summary>
-        /// Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.
-        /// </summary>
-        /// <value>Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.</value>
-        [DataMember(Name="fleetSubnetType", EmitDefaultValue=true)]
-        public FleetSubnetTypeEnum? FleetSubnetType { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AwsFleetParams" /> class.
-        /// </summary>
-        /// <param name="fleetSubnetType">Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet..</param>
-        /// <param name="fleetTags">Specifies the tag information for the fleet..</param>
-        /// <param name="networkParamsList">Specifies the list of network params for the fleet..</param>
-        public AwsFleetParams(FleetSubnetTypeEnum? fleetSubnetType = default(FleetSubnetTypeEnum?), List<FleetTag> fleetTags = default(List<FleetTag>), List<FleetNetworkParams> networkParamsList = default(List<FleetNetworkParams>))
+        /// <param name="fleetSubnetType">Fleet&#39;s subnet type. This field should always be set when specifying fleet params..</param>
+        /// <param name="fleetTagVec">Optional list of tags to be associated with the fleets..</param>
+        /// <param name="networkParams">networkParams.</param>
+        /// <param name="networkParamsMap">Map for a region to network params, as network params can be defined per region. Only set when kCustom fleet subnet type is being used..</param>
+        /// <param name="networkParamsVec">Network information for the fleet. This will be only set when fleet_subnet_type is kCustom..</param>
+        public AWSFleetParams(int? fleetSubnetType = default(int?), List<AWSFleetParamsTag> fleetTagVec = default(List<AWSFleetParamsTag>), AWSFleetParamsNetworkParams networkParams = default(AWSFleetParamsNetworkParams), List<AWSFleetParamsNetworkParamsMapEntry> networkParamsMap = default(List<AWSFleetParamsNetworkParamsMapEntry>), List<AWSFleetParamsNetworkParams> networkParamsVec = default(List<AWSFleetParamsNetworkParams>))
         {
             this.FleetSubnetType = fleetSubnetType;
-            this.FleetTags = fleetTags;
-            this.NetworkParamsList = networkParamsList;
+            this.FleetTagVec = fleetTagVec;
+            this.NetworkParamsMap = networkParamsMap;
+            this.NetworkParamsVec = networkParamsVec;
             this.FleetSubnetType = fleetSubnetType;
-            this.FleetTags = fleetTags;
-            this.NetworkParamsList = networkParamsList;
+            this.FleetTagVec = fleetTagVec;
+            this.NetworkParams = networkParams;
+            this.NetworkParamsMap = networkParamsMap;
+            this.NetworkParamsVec = networkParamsVec;
         }
         
         /// <summary>
-        /// Specifies the tag information for the fleet.
+        /// Fleet&#39;s subnet type. This field should always be set when specifying fleet params.
         /// </summary>
-        /// <value>Specifies the tag information for the fleet.</value>
-        [DataMember(Name="fleetTags", EmitDefaultValue=true)]
-        public List<FleetTag> FleetTags { get; set; }
+        /// <value>Fleet&#39;s subnet type. This field should always be set when specifying fleet params.</value>
+        [DataMember(Name="fleetSubnetType", EmitDefaultValue=true)]
+        public int? FleetSubnetType { get; set; }
 
         /// <summary>
-        /// Specifies the list of network params for the fleet.
+        /// Optional list of tags to be associated with the fleets.
         /// </summary>
-        /// <value>Specifies the list of network params for the fleet.</value>
-        [DataMember(Name="networkParamsList", EmitDefaultValue=true)]
-        public List<FleetNetworkParams> NetworkParamsList { get; set; }
+        /// <value>Optional list of tags to be associated with the fleets.</value>
+        [DataMember(Name="fleetTagVec", EmitDefaultValue=true)]
+        public List<AWSFleetParamsTag> FleetTagVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NetworkParams
+        /// </summary>
+        [DataMember(Name="networkParams", EmitDefaultValue=false)]
+        public AWSFleetParamsNetworkParams NetworkParams { get; set; }
+
+        /// <summary>
+        /// Map for a region to network params, as network params can be defined per region. Only set when kCustom fleet subnet type is being used.
+        /// </summary>
+        /// <value>Map for a region to network params, as network params can be defined per region. Only set when kCustom fleet subnet type is being used.</value>
+        [DataMember(Name="networkParamsMap", EmitDefaultValue=true)]
+        public List<AWSFleetParamsNetworkParamsMapEntry> NetworkParamsMap { get; set; }
+
+        /// <summary>
+        /// Network information for the fleet. This will be only set when fleet_subnet_type is kCustom.
+        /// </summary>
+        /// <value>Network information for the fleet. This will be only set when fleet_subnet_type is kCustom.</value>
+        [DataMember(Name="networkParamsVec", EmitDefaultValue=true)]
+        public List<AWSFleetParamsNetworkParams> NetworkParamsVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,15 +97,15 @@ namespace Cohesity.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AwsFleetParams);
+            return this.Equals(input as AWSFleetParams);
         }
 
         /// <summary>
-        /// Returns true if AwsFleetParams instances are equal
+        /// Returns true if AWSFleetParams instances are equal
         /// </summary>
-        /// <param name="input">Instance of AwsFleetParams to be compared</param>
+        /// <param name="input">Instance of AWSFleetParams to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AwsFleetParams input)
+        public bool Equals(AWSFleetParams input)
         {
             if (input == null)
                 return false;
@@ -123,19 +113,31 @@ namespace Cohesity.Model
             return 
                 (
                     this.FleetSubnetType == input.FleetSubnetType ||
-                    this.FleetSubnetType.Equals(input.FleetSubnetType)
+                    (this.FleetSubnetType != null &&
+                    this.FleetSubnetType.Equals(input.FleetSubnetType))
                 ) && 
                 (
-                    this.FleetTags == input.FleetTags ||
-                    this.FleetTags != null &&
-                    input.FleetTags != null &&
-                    this.FleetTags.SequenceEqual(input.FleetTags)
+                    this.FleetTagVec == input.FleetTagVec ||
+                    this.FleetTagVec != null &&
+                    input.FleetTagVec != null &&
+                    this.FleetTagVec.SequenceEqual(input.FleetTagVec)
                 ) && 
                 (
-                    this.NetworkParamsList == input.NetworkParamsList ||
-                    this.NetworkParamsList != null &&
-                    input.NetworkParamsList != null &&
-                    this.NetworkParamsList.SequenceEqual(input.NetworkParamsList)
+                    this.NetworkParams == input.NetworkParams ||
+                    (this.NetworkParams != null &&
+                    this.NetworkParams.Equals(input.NetworkParams))
+                ) && 
+                (
+                    this.NetworkParamsMap == input.NetworkParamsMap ||
+                    this.NetworkParamsMap != null &&
+                    input.NetworkParamsMap != null &&
+                    this.NetworkParamsMap.SequenceEqual(input.NetworkParamsMap)
+                ) && 
+                (
+                    this.NetworkParamsVec == input.NetworkParamsVec ||
+                    this.NetworkParamsVec != null &&
+                    input.NetworkParamsVec != null &&
+                    this.NetworkParamsVec.SequenceEqual(input.NetworkParamsVec)
                 );
         }
 
@@ -148,11 +150,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
-                if (this.FleetTags != null)
-                    hashCode = hashCode * 59 + this.FleetTags.GetHashCode();
-                if (this.NetworkParamsList != null)
-                    hashCode = hashCode * 59 + this.NetworkParamsList.GetHashCode();
+                if (this.FleetSubnetType != null)
+                    hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
+                if (this.FleetTagVec != null)
+                    hashCode = hashCode * 59 + this.FleetTagVec.GetHashCode();
+                if (this.NetworkParams != null)
+                    hashCode = hashCode * 59 + this.NetworkParams.GetHashCode();
+                if (this.NetworkParamsMap != null)
+                    hashCode = hashCode * 59 + this.NetworkParamsMap.GetHashCode();
+                if (this.NetworkParamsVec != null)
+                    hashCode = hashCode * 59 + this.NetworkParamsVec.GetHashCode();
                 return hashCode;
             }
         }
