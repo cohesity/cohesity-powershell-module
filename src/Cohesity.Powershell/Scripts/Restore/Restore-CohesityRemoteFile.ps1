@@ -96,154 +96,153 @@ function Restore-CohesityRemoteFile {
                 $StartTime = $run.backupRun.stats.startTimeUsecs
             }
 
-            if ($job.IsActive -eq $false) {
+            $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
+            $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL
+            if ($null -eq $sourceVMSearchResult) {
+                $errorMsg = "Could not search VM with the Source id $SourceId"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
+                return
+            }
+            $sourceVMDetails = $sourceVMSearchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
+            if ($null -eq $sourceVMDetails) {
+                $errorMsg = "Could not find details for VM id = $SourceId"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
+                return
+            }
+            $targetSourceDetail = Get-CohesityProtectionSourceObject -Id $TargetSourceId
+            if (-not $targetSourceDetail) {
+                $errorMsg = "Details for target source '$TargetSourceId' not found."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
+                return
+            }
 
-                $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
-                $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL
-                if ($null -eq $sourceVMSearchResult) {
-                    $errorMsg = "Could not search VM with the Source id $SourceId"
-                    Write-Output $errorMsg
-                    CSLog -Message $errorMsg -Severity 2
-                    return
-                }
-                $sourceVMDetails = $sourceVMSearchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
-                if ($null -eq $sourceVMDetails) {
-                    $errorMsg = "Could not find details for VM id = $SourceId"
-                    Write-Output $errorMsg
-                    CSLog -Message $errorMsg -Severity 2
-                    return
-                }
-                $targetSourceDetail = Get-CohesityProtectionSourceObject -Id $TargetSourceId
-                if (-not $targetSourceDetail) {
-                    $errorMsg = "Details for target source '$TargetSourceId' not found."
-                    Write-Output $errorMsg
-                    CSLog -Message $errorMsg -Severity 2
-                    return
-                }
-
-                $restoreToOriginalPaths = $true
-                if ($NewBaseDirectory) {
-                    $restoreToOriginalPaths = $false
-                }
-                $TARGET_ENTITY_TYPE = 1
-                $TARGET_ENTITY_PARENT_SOURCE_TYPE = 1
-                $TARGET_HOST_TYPE = 1
-                $targetEntity = $null
-                $targetUserName = ""
-                $targetPassword = ""
-                $sourceObjectEntity = $null
-                $parentSource = $null
-                $targetEntityParentSource = $null
-                if ($job.environment -eq "kVMware") {
-                    $TARGET_ENTITY_VMWARE_TYPE = 8
-                    $targetUserName = $TargetHostCredential.GetNetworkCredential().UserName
-                    $targetPassword = $TargetHostCredential.GetNetworkCredential().Password
-                    $targetEntity = @{
-                        id           = $targetSourceDetail.id
-                        parentId     = $targetSourceDetail.parentId
-                        type         = $TARGET_ENTITY_TYPE
-                        displayName  = $targetSourceDetail.name
-                        vmwareEntity = @{
-                            type = $TARGET_ENTITY_VMWARE_TYPE
-                            name = $targetSourceDetail.name
-                        }
-                    }
-                    $sourceObjectEntity = @{
-                        type         = $sourceVMDetails.vmDocument.objectId.entity.type
-                        vmwareEntity = @{
-                            type = $sourceVMDetails.vmDocument.objectId.entity.vmwareEntity.type
-                        }
-                        id           = $sourceVMDetails.vmDocument.objectId.entity.id
-                        parentId     = $sourceVMDetails.vmDocument.objectId.entity.parentId
-                        displayName  = $sourceVMDetails.vmDocument.objectId.entity.displayName
-                    }
-                    $parentSource = @{
-                        id = $sourceVMDetails.registeredSource.id
-                    }
-                    $targetEntityParentSource = @{
-                        type = $TARGET_ENTITY_PARENT_SOURCE_TYPE
-                        id   = $targetSourceDetail.parentId
+            $restoreToOriginalPaths = $true
+            if ($NewBaseDirectory) {
+                $restoreToOriginalPaths = $false
+            }
+            $TARGET_ENTITY_TYPE = 1
+            $TARGET_ENTITY_PARENT_SOURCE_TYPE = 1
+            $TARGET_HOST_TYPE = 1
+            $targetEntity = $null
+            $targetUserName = ""
+            $targetPassword = ""
+            $sourceObjectEntity = $null
+            $parentSource = $null
+            $targetEntityParentSource = $null
+            if ($job.environment -eq "kVMware") {
+                $TARGET_ENTITY_VMWARE_TYPE = 8
+                $targetUserName = $TargetHostCredential.GetNetworkCredential().UserName
+                $targetPassword = $TargetHostCredential.GetNetworkCredential().Password
+                $targetEntity = @{
+                    id           = $targetSourceDetail.id
+                    parentId     = $targetSourceDetail.parentId
+                    type         = $TARGET_ENTITY_TYPE
+                    displayName  = $targetSourceDetail.name
+                    vmwareEntity = @{
+                        type = $TARGET_ENTITY_VMWARE_TYPE
+                        name = $targetSourceDetail.name
                     }
                 }
-                else {
-                    # for files from physical server
-                    $TARGET_ENTITY_TYPE = 6
-                    $TARGET_ENTITY_PHYSICAL_TYPE = 1
-                    $TARGET_HOST_TYPE = $null
-                    $targetEntity = @{
-                        id             = $targetSourceDetail.id
-                        type           = $TARGET_ENTITY_TYPE
-                        displayName    = $targetSourceDetail.name
-                        physicalEntity = @{
-                            type     = $TARGET_ENTITY_PHYSICAL_TYPE
-                            name     = $targetSourceDetail.name
-                            hostType = $targetSourceDetail.physicalProtectionSource.hostType
-                        }
+                $sourceObjectEntity = @{
+                    type         = $sourceVMDetails.vmDocument.objectId.entity.type
+                    vmwareEntity = @{
+                        type = $sourceVMDetails.vmDocument.objectId.entity.vmwareEntity.type
                     }
-                    $sourceObjectEntity = @{
-                        type           = $sourceVMDetails.vmDocument.objectId.entity.type
-                        physicalEntity = @{
-                            type     = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.type
-                            hostType = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.hostType
-                        }
-                        id             = $sourceVMDetails.vmDocument.objectId.entity.id
-                        displayName    = $sourceVMDetails.vmDocument.objectId.entity.displayName
-                    }
+                    id           = $sourceVMDetails.vmDocument.objectId.entity.id
+                    parentId     = $sourceVMDetails.vmDocument.objectId.entity.parentId
+                    displayName  = $sourceVMDetails.vmDocument.objectId.entity.displayName
                 }
-
-                $payload = @{
-                    filenames        = @($FileNames)
-                    name             = $TaskName
-                    params           = @{
-                        targetEntity             = $targetEntity
-                        targetEntityParentSource = $targetEntityParentSource
-                        targetEntityCredentials  = @{
-                            username = $targetUserName
-                            password = $targetPassword
-                        }
-                        restoreFilesPreferences  = @{
-                            restoreToOriginalPaths        = $restoreToOriginalPaths
-                            overrideOriginals             = -not ($DoNotOverwrite.IsPresent)
-                            preserveTimestamps            = $true
-                            preserveAcls                  = $true
-                            preserveAttributes            = -not ($DoNotPreserveAttributes.IsPresent)
-                            continueOnError               = $ContinueOnError.IsPresent
-                            alternateRestoreBaseDirectory = $NewBaseDirectory
-                        }
-                        targetHostType           = $TARGET_HOST_TYPE
-                        useExistingAgent         = $false
-                    }
-                    sourceObjectInfo = @{
-                        jobId          = $sourceVMDetails.vmDocument.objectId.jobId
-                        jobInstanceId  = $JobRunId
-                        startTimeUsecs = $StartTime
-                        parentSource   = $parentSource
-                        entity         = $sourceObjectEntity
-                        jobUid         = $sourceVMDetails.vmDocument.objectId.jobUid
-                    }
+                $parentSource = @{
+                    id = $sourceVMDetails.registeredSource.id
                 }
-                $url = '/irisservices/api/v1/restoreFiles'
-                $payloadJson = $payload | ConvertTo-Json -Depth 100
-
-                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
-                if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
-                    $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
-                    if ($taskId) {
-                        $resp = Get-CohesityRestoreTask -Ids $taskId
-                        $resp
-                    }
-                    else {
-                        $resp
-                    }
-                }
-                else {
-                    $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
-                    Write-Output $errorMsg
-                    CSLog -Message $errorMsg
+                $targetEntityParentSource = @{
+                    type = $TARGET_ENTITY_PARENT_SOURCE_TYPE
+                    id   = $targetSourceDetail.parentId
                 }
             }
             else {
-                Write-Output "Please use Restore-CohesityFile for local restore."
+                # for files from physical server
+                $TARGET_ENTITY_TYPE = 6
+                $TARGET_ENTITY_PHYSICAL_TYPE = 1
+                $TARGET_HOST_TYPE = $null
+                $targetEntity = @{
+                    id             = $targetSourceDetail.id
+                    type           = $TARGET_ENTITY_TYPE
+                    displayName    = $targetSourceDetail.name
+                    physicalEntity = @{
+                        type     = $TARGET_ENTITY_PHYSICAL_TYPE
+                        name     = $targetSourceDetail.name
+                        hostType = $targetSourceDetail.physicalProtectionSource.hostType
+                    }
+                }
+                $sourceObjectEntity = @{
+                    type           = $sourceVMDetails.vmDocument.objectId.entity.type
+                    physicalEntity = @{
+                        type     = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.type
+                        hostType = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.hostType
+                    }
+                    id             = $sourceVMDetails.vmDocument.objectId.entity.id
+                    displayName    = $sourceVMDetails.vmDocument.objectId.entity.displayName
+                }
+            }
+
+            $payload = @{
+                filenames        = @($FileNames)
+                name             = $TaskName
+                params           = @{
+                    targetEntity             = $targetEntity
+                    targetEntityParentSource = $targetEntityParentSource
+                    targetEntityCredentials  = @{
+                        username = $targetUserName
+                        password = $targetPassword
+                    }
+                    restoreFilesPreferences  = @{
+                        restoreToOriginalPaths        = $restoreToOriginalPaths
+                        overrideOriginals             = -not ($DoNotOverwrite.IsPresent)
+                        preserveTimestamps            = $true
+                        preserveAcls                  = $true
+                        preserveAttributes            = -not ($DoNotPreserveAttributes.IsPresent)
+                        continueOnError               = $ContinueOnError.IsPresent
+                        alternateRestoreBaseDirectory = $NewBaseDirectory
+                    }
+                    targetHostType           = $TARGET_HOST_TYPE
+                    useExistingAgent         = $false
+                }
+                sourceObjectInfo = @{
+                    jobId          = $sourceVMDetails.vmDocument.objectId.jobId
+                    jobInstanceId  = $JobRunId
+                    startTimeUsecs = $StartTime
+                    parentSource   = $parentSource
+                    entity         = $sourceObjectEntity
+                    jobUid         = $sourceVMDetails.vmDocument.objectId.jobUid
+                }
+            }
+
+            $version = $sourceVMDetails.vmDocument.versions | Where-Object {$_.instanceId.jobInstanceId -eq $JobRunId}
+            if(($version.replicaInfo.replicaVec | Sort-Object -Property {$_.target.type})[0].target.type -eq 3){
+                $payload.sourceObjectInfo['archivalTarget'] = $version.replicaInfo.replicaVec[0].target.archivalTarget
+            }
+            $url = '/irisservices/api/v1/restoreFiles'
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+
+            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
+            if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
+                $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
+                if ($taskId) {
+                    $resp = Get-CohesityRestoreTask -Ids $taskId
+                    $resp
+                }
+                else {
+                    $resp
+                }
+            }
+            else {
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
             }
         }
     }
