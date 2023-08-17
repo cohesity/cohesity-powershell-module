@@ -23,7 +23,7 @@ function Find-CohesityFileSnapshot {
         [long]$ClusterIncarnationId,
         [Parameter(Mandatory = $true)]
         # Specifies the name of the file or folder to find in the snapshots. This field is required.
-        [string]$FileName,
+        [string[]]$FileName,
         [Parameter(Mandatory = $true)]
         # Specifies the name of the Restore Task.Specifies the id of the Job that captured the snapshots. These snapshots are searched for the specified files or folders. This field is required.
         [long]$JobId,
