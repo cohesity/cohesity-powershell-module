@@ -19,48 +19,7 @@ Find-CohesityFileSnapshot -FileName "abc.txt" -SourceId 123 -JobId 11
 
 Returns snapshot information of specified file/folder in metioned source.
 
-
-### EXAMPLE 3
-```
-Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PaginationCookie rrrgcrsgre -PageSize 200
-```
-
-Returns next set of entries that match the search pattern "txt" based on provided Pagiantion cookie.
-
 ## PARAMETERS
-
-### -ClusterId
-Specifies the Cohesity Cluster id where the Job was created.
-
-```yaml
-Type: Int64
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ClusterIncarnationId 
-Specifies the incarnation id of the Cohesity Cluster where the Job
-was created.
-An incarnation id is generated when a Cohesity Cluster is initially
-created.
-
-```yaml
-Type: Int64
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -FileName
 Specifies the name of the file or folder to find in the snapshots.

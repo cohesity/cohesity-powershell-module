@@ -9,21 +9,14 @@ function Find-CohesityFileSnapshot {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Find-CohesityFileSnapshot -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
+        Find-CohesityFileSnapshot -FileName "abc.txt" -SourceId 123 -JobId 11
     #>
 
     [OutputType('System.Array')]
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $false)]
-        # Specifies the Cohesity Cluster id where the Job was created. This field is required.
-        [long]$ClusterId,
-        [Parameter(Mandatory = $false)]
-        # Specifies the incarnation id of the Cohesity Cluster where the Job was created. An incarnation id is generated when a Cohesity Cluster is initially created. This field is required.
-        [long]$ClusterIncarnationId,
-        [Parameter(Mandatory = $true)]
         # Specifies the name of the file or folder to find in the snapshots. This field is required.
-        [string[]]$FileName,
+        [string]$FileName,
         [Parameter(Mandatory = $true)]
         # Specifies the name of the Restore Task.Specifies the id of the Job that captured the snapshots. These snapshots are searched for the specified files or folders. This field is required.
         [long]$JobId,
@@ -35,7 +28,7 @@ function Find-CohesityFileSnapshot {
     }
 
     Process {
-        $url = '/irisservices/api/v1/public/restore/files/snapshotsInformation'
+        $snapshotURL = '/irisservices/api/v1/public/restore/files/snapshotsInformation'
 
         $filter = ""
         if ($ClusterId) {
@@ -70,11 +63,11 @@ function Find-CohesityFileSnapshot {
         }
 
         if ($filter -ne "") {
-            $url += "?" + $filter
+            $snapshotURL += "?" + $filter
         }
 
-        $resp = Invoke-RestApi -Method Get -Uri $url
-        if ($resp) {
+        $snapshotResp = Invoke-RestApi -Method Get -Uri $snapshotURL
+        if ($snapshotResp) {
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#FileSnapshotInformation' -PassThru)
         }
