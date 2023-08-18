@@ -236,7 +236,6 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var url = $"/public/restore/files{queryString}";
-            WriteObject(url);
             var result = Session.ApiClient.Get<FileSearchResults>(url);
             WriteObject(result.Files, true);
             if (Paginate != null && Paginate.HasValue)

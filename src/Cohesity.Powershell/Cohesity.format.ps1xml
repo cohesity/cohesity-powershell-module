@@ -275,8 +275,110 @@
       </TableControl>
     </View>
 
+    <!-- File Snapshot -->
+    <View>
+      <Name>FileSnapshotInformation.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+              <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Run Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Attempt Number</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>From</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Local Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Remote Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Archival Copy</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>FileSnapshotInformation.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+                <Label>Run Id</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <Label>Start Time</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+                <Label>Attempt Number</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+                <Label>From</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+                <Label>Local Copy</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+                <Label>Remote Copy</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+                <Label>Archival Copy</Label>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
     <!-- ProtectionPolicy -->
-        <View>
+    <View>
       <Name>ProtectionPolicy.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Model.ProtectionPolicy</TypeName>
@@ -449,7 +551,7 @@
     </View>
 
     <!-- ProtectionJobRun -->
-        <View>
+    <View>
       <Name>ProtectionJobRun.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Model.ProtectionRunInstance</TypeName>
@@ -1573,6 +1675,65 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <!-- System.Object.FileSnapshotInformation Script based cmdlet -->
+    <View>
+      <Name>System.Object.FileSnapshotInformation.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Run Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Attempt Number</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>From</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Local Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Remote Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Archival Copy</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
     </View>
     <!-- System.Object.ProtectionPolicy Script based cmdlet -->
     <View>
