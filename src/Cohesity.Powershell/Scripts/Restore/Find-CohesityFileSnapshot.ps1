@@ -69,7 +69,7 @@ function Find-CohesityFileSnapshot {
         $snapshotResp = Invoke-RestApi -Method Get -Uri $snapshotURL
         if ($snapshotResp) {
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-            @($resp | Add-Member -TypeName 'System.Object#FileSnapshotInformation' -PassThru)
+            @($snapshotResp | Add-Member -TypeName 'System.Object#FileSnapshotInformation' -PassThru)
         }
     }
 

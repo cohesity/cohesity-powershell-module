@@ -79,7 +79,7 @@ function Restore-CohesityRemoteFile {
             # Check whether specified job is valid or not
             $job = Get-CohesityProtectionJob -Ids $JobId
             if (-not $job) {
-                $errorMsg = "Cannot proceed, the job id '$JobId' is invalid"
+                $errorMsg = "Cannot proceed, the job with id '$JobId' is not found."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg -Severity 2
                 return
@@ -128,13 +128,18 @@ function Restore-CohesityRemoteFile {
             }
             $TARGET_ENTITY_TYPE = 1
             $TARGET_ENTITY_PARENT_SOURCE_TYPE = 1
-            $TARGET_HOST_TYPE = 1
             $targetEntity = $null
             $targetUserName = ""
             $targetPassword = ""
             $sourceObjectEntity = $null
             $parentSource = $null
             $targetEntityParentSource = $null
+
+            # Determine target host type
+            $targetHostType = $targetSourceDetail.vmWareProtectionSource.hostType
+            if ($targetHostType -eq 'kLinux') { $TARGET_HOST_TYPE = 0 }
+            elseif ($targetHostType -eq 'kWindows') { $TARGET_HOST_TYPE = 1 }
+            else { $TARGET_HOST_TYPE = 2 }
 
             # Source with environment type VMware
             if ($job.environment -eq "kVMware") {
