@@ -232,6 +232,9 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             var networkCredential = Credential.GetNetworkCredential();
             var domain = string.IsNullOrWhiteSpace(networkCredential.Domain) ? LocalDomain : networkCredential.Domain;
 
+            // Use TLS1.1 or TLS1.2
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             if (UseMFA.IsPresent)
             {
                 if (OtpType == Model.AccessTokenCredential.OtpTypeEnum.Email)
