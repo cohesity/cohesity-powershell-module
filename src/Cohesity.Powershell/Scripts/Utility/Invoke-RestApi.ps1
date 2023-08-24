@@ -79,7 +79,7 @@ function Invoke-RestApi {
         }
 
         If ($PSVersionTable.PSVersion.Major -ge 6) {
-            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
+            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName -SslProtocol Tls12
         }
         else {
             Enable-SelfSignedCertificates
