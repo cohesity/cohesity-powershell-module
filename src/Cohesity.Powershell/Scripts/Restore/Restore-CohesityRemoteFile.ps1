@@ -1,25 +1,19 @@
 function Restore-CohesityRemoteFile {
     <#
         .SYNOPSIS
-        Restores the specified files or folders from a previous backup from a remote cluster.
+        Restores the specified files or folders from a remote cluster.
         .DESCRIPTION
-        Restores the specified files or folders from a previous backup from a remote cluster.
+        Restores the specified files or folders from a remote cluster.
         .NOTES
-        Published by Cohesity
+        Published by Cohesity.
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
-        Restores the specified file to the target windows VM with the source id 843 from the latest backup.
-        Get the job id from $jobs = Get-CohesityProtectionJob -Environments KVMware
-        Get the source id from $jobs[0].sourceIds
-        Get the target details $targets = Get-CohesityProtectionSourceObject -Environments KVMware
-        Get the target source id $targets[2].id
-        Get the target parent source id $targets[2].parentId
-
+        Restores the specified file to the target windows VM with specified source id from the latest backup.
         .EXAMPLE
-        Restore-CohesityRemoteFile  -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
-        Restores the specified file to the target physical server with the source id 3517 from the latest backup.
+        Restore-CohesityRemoteFile -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
+        Restores the specified file to the target physical server with specified source id from the latest backup.
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -82,20 +76,26 @@ function Restore-CohesityRemoteFile {
 
     Process {
         if ($PSCmdlet.ShouldProcess($SourceId)) {
+            # Check whether specified job is valid or not
             $job = Get-CohesityProtectionJob -Ids $JobId
             if (-not $job) {
-                $errorMsg = "Cannot proceed, the job id '$JobId' is invalid"
+                $errorMsg = "Cannot proceed, the job with id '$JobId' is not found."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg -Severity 2
                 return
             }
+            <#
+            Check if job run details are provided.
+            If not, collect the latest recoverable job run information.
+            #>
             if ($JobRunId -le 0) {
-                $runs = Get-CohesityProtectionJobRun -JobId $JobId -ExcludeErrorRuns:$true -NumRuns 2
-                $run = $runs[0]
-                $JobRunId = $run.backupRun.jobRunId
-                $StartTime = $run.backupRun.stats.startTimeUsecs
+                $snapshotInfo = Find-CohesityFileSnapshot -FileName $FileNames[0] -JobId $JobId -SourceId $SourceId
+                $snapshot = $snapshotInfo[0].snapshot
+                $JobRunId = $snapshot.jobRunId
+                $StartTime = $snapshot.startedTimeUsecs
             }
-
+            
+            # Validate Source VM
             $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
             $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL
             if ($null -eq $sourceVMSearchResult) {
@@ -111,27 +111,37 @@ function Restore-CohesityRemoteFile {
                 CSLog -Message $errorMsg -Severity 2
                 return
             }
+
+            # Collect target source details
             $targetSourceDetail = Get-CohesityProtectionSourceObject -Id $TargetSourceId
             if (-not $targetSourceDetail) {
-                $errorMsg = "Details for target source '$TargetSourceId' not found."
+                $errorMsg = "Details of target  with id '$TargetSourceId' not found."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg -Severity 2
                 return
             }
 
+            # Construct payload for restore
             $restoreToOriginalPaths = $true
             if ($NewBaseDirectory) {
                 $restoreToOriginalPaths = $false
             }
             $TARGET_ENTITY_TYPE = 1
             $TARGET_ENTITY_PARENT_SOURCE_TYPE = 1
-            $TARGET_HOST_TYPE = 1
             $targetEntity = $null
             $targetUserName = ""
             $targetPassword = ""
             $sourceObjectEntity = $null
             $parentSource = $null
             $targetEntityParentSource = $null
+
+            # Determine target host type
+            $targetHostType = $targetSourceDetail.vmWareProtectionSource.hostType
+            if ($targetHostType -eq 'kLinux') { $TARGET_HOST_TYPE = 0 }
+            elseif ($targetHostType -eq 'kWindows') { $TARGET_HOST_TYPE = 1 }
+            else { $TARGET_HOST_TYPE = 2 }
+
+            # Source with environment type VMware
             if ($job.environment -eq "kVMware") {
                 $TARGET_ENTITY_VMWARE_TYPE = 8
                 $targetUserName = $TargetHostCredential.GetNetworkCredential().UserName
@@ -163,8 +173,8 @@ function Restore-CohesityRemoteFile {
                     id   = $targetSourceDetail.parentId
                 }
             }
+            # Source with environment type Physical Server
             else {
-                # for files from physical server
                 $TARGET_ENTITY_TYPE = 6
                 $TARGET_ENTITY_PHYSICAL_TYPE = 1
                 $TARGET_HOST_TYPE = $null
@@ -225,10 +235,11 @@ function Restore-CohesityRemoteFile {
             if(($version.replicaInfo.replicaVec | Sort-Object -Property {$_.target.type})[0].target.type -eq 3){
                 $payload.sourceObjectInfo['archivalTarget'] = $version.replicaInfo.replicaVec[0].target.archivalTarget
             }
-            $url = '/irisservices/api/v1/restoreFiles'
+
+            $restoreURL = '/irisservices/api/v1/restoreFiles'
             $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
+            $resp = Invoke-RestApi -Method 'Post' -Uri $restoreURL -Body $payloadJson
             if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                 $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
                 if ($taskId) {

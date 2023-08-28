@@ -15,11 +15,11 @@ function Restore-CohesityFileV2 {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd"  -restorePath "C:\" -wait
+        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd" -restorePath "C:\" -wait
         .EXAMPLE
-        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VMD2" -fileNames "C:\Users\"  -restorePath "C:\temp\" -wait
+        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VMD2" -fileNames "C:\Users\" -restorePath "C:\temp\" -wait
         .EXAMPLE
-        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd"  -restorePath "C:\" -taskName "Test_task" -wait
+        Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd" -restorePath "C:\" -taskName "Test_task" -wait
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]

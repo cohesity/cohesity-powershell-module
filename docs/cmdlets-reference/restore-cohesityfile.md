@@ -1,7 +1,7 @@
 # Restore-CohesityFile
 
 ## SYNOPSIS
-Restores the specified files or folders from a previous backup.
+Restores the specified files or folders.
 
 ## SYNTAX
 
@@ -14,7 +14,7 @@ Restore-CohesityFile -TaskName <String> -FileNames <String[]> -JobId <Int64> -So
 ```
 
 ## DESCRIPTION
-Restores the specified files or folders from a previous backup.
+Request to create a Restore Task for recovering files or folders.
 
 ## EXAMPLES
 
@@ -23,14 +23,21 @@ Restores the specified files or folders from a previous backup.
 Restore-CohesityFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
 ```
 
-Restores the specified file to the target windows VM with the source id 856 from the latest backup.
+Restores the file from the specified source to the target windows VM from the latest backup.
 
 ### EXAMPLE 2
+```
+Restore-CohesityFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -JobRunId 3005 -StartTime 1690646467987573 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+```
+
+Restores the file from the specified source to the target windows VM from the specified snapshot.
+
+### EXAMPLE 3
 ```
 Restore-CohesityFile -TaskName "restore-file-physical" -FileNames /C/data/file.txt -JobId 1234 -SourceId 820 -TargetSourceId 858
 ```
 
-Restores the specified file to the target physical server with the source id 858 from the latest backup.
+Restores the file from the specified source to the target physical server using the latest backup.
 
 ## PARAMETERS
 
