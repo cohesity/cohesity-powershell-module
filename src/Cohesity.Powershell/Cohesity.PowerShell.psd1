@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.dll'
 
 # Version number of this module.
-ModuleVersion = '1.9.4'
+ModuleVersion = '1.9.5'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -76,6 +76,7 @@ FunctionsToExport = @(
                     'Copy-CohesityView',
                     'Copy-CohesityVMwareVM',
                     'Find-CohesityFileSnapshot',
+                    'Find-CohesityRemoteFileSnapshot',
                     'Get-CohesityActiveDirectory',
                     'Get-CohesityCmdletConfig',
                     'Get-CohesityExternalClient',

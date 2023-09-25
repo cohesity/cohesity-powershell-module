@@ -142,6 +142,7 @@
 - **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
 - [Find-CohesityFileSnapshot](cmdlets-reference/find-cohesityfilesnapshot.md)
+- [Find-CohesityRemoteFileSnapshot](cmdlets-reference/find-cohesityremotefilesnapshot.md)
 - [Find-CohesityObjectsForRestore](cmdlets-reference/find-cohesityobjectsforrestore.md)
 - [Restore-CohesityMSSQLObject](cmdlets-reference/restore-cohesitymssqlobject.md)
 - [Restore-CohesityRemoteMSSQLObject](cmdlets-reference/restore-cohesityremotemssqlobject.md)

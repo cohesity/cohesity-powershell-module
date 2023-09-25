@@ -1,260 +1,336 @@
 function Restore-CohesityRemoteFile {
     <#
         .SYNOPSIS
-        Restores the specified files or folders from a remote cluster.
+        Restores the specified files or folders from a remote backup.
         .DESCRIPTION
-        Restores the specified files or folders from a remote cluster.
+        Restores the specified files or folders from a remote backup. This commandlet supports only source with environment type VMware/Physical/Isilon.
         .NOTES
         Published by Cohesity.
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
-        Restores the specified file to the target windows VM with specified source id from the latest backup.
+        Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileName /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -RestoreMethod AutoDeploy -TargetVMCredential (Get-Credential)
+        Restores the specified file/folder to the target VM with specified source id from the latest external target backup.
         .EXAMPLE
-        Restore-CohesityRemoteFile -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
-        Restores the specified file to the target physical server with specified source id from the latest backup.
+        Restore-CohesityRemoteFile -FileName "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517
+        Restores the specified file/folder in the same server from the latest external target backup.
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
+        # Specifies if the Restore Task should continue even if the restore of some files and folders fails.
+        # If specified, the Restore Task ignores errors and restores as many files and folders as possible.
+        # By default, the Restore Task stops restoring if any operation fails.
         [Parameter(Mandatory = $false)]
-        # Specifies the name of the Restore Task.
-        [string]$TaskName = "Recover-File-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString(),
-        [Parameter(Mandatory = $true)]
+        [switch]$ContinueOnError,
+        # Specifies whether encryption should be enabled during recovery.
+        [Parameter(Mandatory = $false)]
+        [switch]$EncryptionEnabled,
         # Specifies the full names of the files or folders to be restored.
-        [string[]]$FileNames,
         [Parameter(Mandatory = $true)]
-        [ValidateRange(1, [long]::MaxValue)]
+        [string]$FileName,
         # Specifies the job id that backed up the files and will be used for this restore.
-        [long]$JobId,
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the id of the original protection source (that was backed up) containing the files and folders.
-        [long]$SourceId,
+        [long]$JobId,
         [Parameter(Mandatory = $false)]
         # Specifies an optional base directory where the specified files and folders will be restored.
         # By default, files and folders are restored to their original path.
         [string]$NewBaseDirectory,
-        [Parameter(Mandatory = $false)]
-        [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the Job Run id that captured the snapshot.
-        # If not specified, the latest backup run is used.
-        [long]$JobRunId,
-        [Parameter(Mandatory = $false)]
-        [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the time when the Job Run started capturing a snapshot.
-        # Specified as a Unix epoch Timestamp (in microseconds).
-        # This must be specified if the job run id is specified.
-        [long]$StartTime,
-        [Parameter(Mandatory = $false)]
         # Specifies that any existing files and folders should not be overwritten during the restore.
-        # By default, any existing files and folders are overwritten by restored files and folders.
-        [switch]$DoNotOverwrite,
+        # By default, value is false.
         [Parameter(Mandatory = $false)]
-        # Specifies if the Restore Task should continue even if the restore of some files and folders fails.
-        # If specified, the Restore Task ignores errors and restores as many files and folders as possible.
-        # By default, the Restore Task stops restoring if any operation fails.
-        [switch]$ContinueOnError,
-        [Parameter(Mandatory = $false)]
+        [switch]$OverwriteExisting,
         # Specifies that the Restore Task should not preserve the original attributes of the files and folders.
-        # By default, the original attributes are preserved.
-        [switch]$DoNotPreserveAttributes,
+        # By default, value is false.
+        [Parameter(Mandatory = $false)]
+        [switch]$PreserveAttributes,
+        # Specifies the method to recover files and folders. Method shoulb be any one of - ExistingAgent, AutoDeploy, VMTools.
+        [Parameter(Mandatory = $False)][ValidateSet('ExistingAgent', 'AutoDeploy', 'VMTools')]
+        [string]$RecoverMethod = 'ExistingAgent',
+        # Specifies whether to save success files or not. Default value is false.
+        [Parameter(Mandatory = $false)]
+        [switch]$SaveSuccessFiles,
+        # Specifies the snapshot id.
+        # If not specified, the latest remote backup will be used.
+        [Parameter(Mandatory = $false)]
+        [string]$SnapshotId,
+        # Specifies the id of the original protection source (that was backed up) containing the files and folders.
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the id of the target source (such as a VM or Physical server) where the files and folders are to be restored.
-        [long]$TargetSourceId,
+        [long]$SourceId,
+        # Specifies the id of the target source where the files and folders are to be restored.
         [Parameter(Mandatory = $false)]
-        # User credentials for accessing the target host for restore.
-        # This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
+        [ValidateRange(1, [long]::MaxValue)]
+        [long]$TargetSourceId,
+        # Specifies the credentials for the target VM. This is mandatory if the recoverMethod is AutoDeploy or VMTools.
+        [Parameter(Mandatory = $false)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
-        $TargetHostCredential
+        $TargetVMCredential,
+        # Specifies the name of the Restore Task.
+        [Parameter(Mandatory = $false)]
+        [string]$TaskName = "Recover_File_" + (Get-Date -UFormat "%b_%d_%Y_%I_%M_%p")
     )
     Begin {
     }
 
     Process {
-        if ($PSCmdlet.ShouldProcess($SourceId)) {
-            # Check whether specified job is valid or not
-            $job = Get-CohesityProtectionJob -Ids $JobId
-            if (-not $job) {
-                $errorMsg = "Cannot proceed, the job with id '$JobId' is not found."
-                Write-Output $errorMsg
-                CSLog -Message $errorMsg -Severity 2
-                return
+        $recoverMethodObj = @{
+            'ExistingAgent' = 'UseExistingAgent';
+            'AutoDeploy'    = 'AutoDeploy';
+            'VMTools'       = 'UseHypervisorApis'
+        }
+
+        $clusterURL = '/v2/clusters'
+        $clusterResult = Invoke-RestApi -Method Get -Uri $clusterURL
+        $clusterId = $clusterResult.id
+        $clusterIncarnationId = $clusterResult.incarnationId
+        $protectionGroupId = "${clusterId}:${clusterIncarnationId}:${jobId}"
+
+        # Check whether specified job is valid or not
+        $protectionGroupUrl = "/v2/data-protect/protection-groups?ids=${protectionGroupId}"
+        $protectionGroupObj = Invoke-RestApi -Method Get -Uri $protectionGroupUrl
+        if (-not $protectionGroupObj.protectionGroups) {
+            $errorMsg = "Cannot proceed, the job with id '$JobId' is not found."
+            Write-Output $errorMsg
+            CSLog -Message $errorMsg -Severity 2
+            return
+        }
+        $protectionGroup = $protectionGroupObj.protectionGroups[0]
+
+        # Validate provided file/folder
+        $searchParams = @{
+            fileParams         = @{
+                searchString       = $FileName;
+                sourceEnvironments = @(
+                    $protectionGroup.environment
+                );
+                objectIds          = @(
+                    $SourceId
+                )
             }
-            <#
-            Check if job run details are provided.
+            objectType         = "Files"
+            protectionGroupIds = @(
+                $protectionGroupId
+            )
+        }
+
+        $file = $FileName
+        $searchUrl = "/v2/data-protect/search/indexed-objects"
+        $searchPayload = $searchParams | ConvertTo-Json -Depth 100
+        $searchResult = Invoke-RestApi -Method Post -Uri $searchUrl -Body $searchPayload
+
+        $fileObj = $searchResult.files | Where-Object { ("{0}{1}" -f $_.path, $_.name) -eq $file -or ("{0}/{1}" -f $_.path, $_.name) -eq $file -or ("{0}/{1}/" -f $_.path, $_.name) -eq $file }
+        if (!$fileObj) {
+            $errorMsg = "file $file not found"
+            Write-Output $errorMsg
+            CSLog -Message $errorMsg
+            return
+        }
+
+        <#
+            Check if snapshot detail is provided.
             If not, collect the latest recoverable job run information.
-            #>
-            if ($JobRunId -le 0) {
-                $snapshotInfo = Find-CohesityFileSnapshot -FileName $FileNames[0] -JobId $JobId -SourceId $SourceId
-                $snapshot = $snapshotInfo[0].snapshot
-                $JobRunId = $snapshot.jobRunId
-                $StartTime = $snapshot.startedTimeUsecs
-            }
-            
-            # Validate Source VM
-            $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
-            $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL
-            if ($null -eq $sourceVMSearchResult) {
-                $errorMsg = "Could not search VM with the Source id $SourceId"
-                Write-Output $errorMsg
-                CSLog -Message $errorMsg -Severity 2
-                return
-            }
-            $sourceVMDetails = $sourceVMSearchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
-            if ($null -eq $sourceVMDetails) {
-                $errorMsg = "Could not find details for VM id = $SourceId"
-                Write-Output $errorMsg
-                CSLog -Message $errorMsg -Severity 2
-                return
-            }
+        #>
+        if ($SnapshotId -ne $null) {
+            $snapshotInfo = Find-CohesityRemoteFileSnapshot -FileName $FileName -JobId $JobId -SourceId $SourceId
+            if ($snapshotInfo -and $snapshotInfo.Length -ne 0) {
+                # $snapshotObj = $snapshotInfo | Where-Object { $null -ne $_.externalTargetInfo }
 
-            # Collect target source details
-            $targetSourceDetail = Get-CohesityProtectionSourceObject -Id $TargetSourceId
-            if (-not $targetSourceDetail) {
-                $errorMsg = "Details of target  with id '$TargetSourceId' not found."
-                Write-Output $errorMsg
-                CSLog -Message $errorMsg -Severity 2
-                return
-            }
-
-            # Construct payload for restore
-            $restoreToOriginalPaths = $true
-            if ($NewBaseDirectory) {
-                $restoreToOriginalPaths = $false
-            }
-            $TARGET_ENTITY_TYPE = 1
-            $TARGET_ENTITY_PARENT_SOURCE_TYPE = 1
-            $targetEntity = $null
-            $targetUserName = ""
-            $targetPassword = ""
-            $sourceObjectEntity = $null
-            $parentSource = $null
-            $targetEntityParentSource = $null
-
-            # Determine target host type
-            $targetHostType = $targetSourceDetail.vmWareProtectionSource.hostType
-            if ($targetHostType -eq 'kLinux') { $TARGET_HOST_TYPE = 0 }
-            elseif ($targetHostType -eq 'kWindows') { $TARGET_HOST_TYPE = 1 }
-            else { $TARGET_HOST_TYPE = 2 }
-
-            # Source with environment type VMware
-            if ($job.environment -eq "kVMware") {
-                $TARGET_ENTITY_VMWARE_TYPE = 8
-                $targetUserName = $TargetHostCredential.GetNetworkCredential().UserName
-                $targetPassword = $TargetHostCredential.GetNetworkCredential().Password
-                $targetEntity = @{
-                    id           = $targetSourceDetail.id
-                    parentId     = $targetSourceDetail.parentId
-                    type         = $TARGET_ENTITY_TYPE
-                    displayName  = $targetSourceDetail.name
-                    vmwareEntity = @{
-                        type = $TARGET_ENTITY_VMWARE_TYPE
-                        name = $targetSourceDetail.name
-                    }
-                }
-                $sourceObjectEntity = @{
-                    type         = $sourceVMDetails.vmDocument.objectId.entity.type
-                    vmwareEntity = @{
-                        type = $sourceVMDetails.vmDocument.objectId.entity.vmwareEntity.type
-                    }
-                    id           = $sourceVMDetails.vmDocument.objectId.entity.id
-                    parentId     = $sourceVMDetails.vmDocument.objectId.entity.parentId
-                    displayName  = $sourceVMDetails.vmDocument.objectId.entity.displayName
-                }
-                $parentSource = @{
-                    id = $sourceVMDetails.registeredSource.id
-                }
-                $targetEntityParentSource = @{
-                    type = $TARGET_ENTITY_PARENT_SOURCE_TYPE
-                    id   = $targetSourceDetail.parentId
-                }
-            }
-            # Source with environment type Physical Server
-            else {
-                $TARGET_ENTITY_TYPE = 6
-                $TARGET_ENTITY_PHYSICAL_TYPE = 1
-                $TARGET_HOST_TYPE = $null
-                $targetEntity = @{
-                    id             = $targetSourceDetail.id
-                    type           = $TARGET_ENTITY_TYPE
-                    displayName    = $targetSourceDetail.name
-                    physicalEntity = @{
-                        type     = $TARGET_ENTITY_PHYSICAL_TYPE
-                        name     = $targetSourceDetail.name
-                        hostType = $targetSourceDetail.physicalProtectionSource.hostType
-                    }
-                }
-                $sourceObjectEntity = @{
-                    type           = $sourceVMDetails.vmDocument.objectId.entity.type
-                    physicalEntity = @{
-                        type     = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.type
-                        hostType = $sourceVMDetails.vmDocument.objectId.entity.physicalEntity.hostType
-                    }
-                    id             = $sourceVMDetails.vmDocument.objectId.entity.id
-                    displayName    = $sourceVMDetails.vmDocument.objectId.entity.displayName
-                }
-            }
-
-            $payload = @{
-                filenames        = @($FileNames)
-                name             = $TaskName
-                params           = @{
-                    targetEntity             = $targetEntity
-                    targetEntityParentSource = $targetEntityParentSource
-                    targetEntityCredentials  = @{
-                        username = $targetUserName
-                        password = $targetPassword
-                    }
-                    restoreFilesPreferences  = @{
-                        restoreToOriginalPaths        = $restoreToOriginalPaths
-                        overrideOriginals             = -not ($DoNotOverwrite.IsPresent)
-                        preserveTimestamps            = $true
-                        preserveAcls                  = $true
-                        preserveAttributes            = -not ($DoNotPreserveAttributes.IsPresent)
-                        continueOnError               = $ContinueOnError.IsPresent
-                        alternateRestoreBaseDirectory = $NewBaseDirectory
-                    }
-                    targetHostType           = $TARGET_HOST_TYPE
-                    useExistingAgent         = $false
-                }
-                sourceObjectInfo = @{
-                    jobId          = $sourceVMDetails.vmDocument.objectId.jobId
-                    jobInstanceId  = $JobRunId
-                    startTimeUsecs = $StartTime
-                    parentSource   = $parentSource
-                    entity         = $sourceObjectEntity
-                    jobUid         = $sourceVMDetails.vmDocument.objectId.jobUid
-                }
-            }
-
-            $version = $sourceVMDetails.vmDocument.versions | Where-Object {$_.instanceId.jobInstanceId -eq $JobRunId}
-            if(($version.replicaInfo.replicaVec | Sort-Object -Property {$_.target.type})[0].target.type -eq 3){
-                $payload.sourceObjectInfo['archivalTarget'] = $version.replicaInfo.replicaVec[0].target.archivalTarget
-            }
-
-            $restoreURL = '/irisservices/api/v1/restoreFiles'
-            $payloadJson = $payload | ConvertTo-Json -Depth 100
-
-            $resp = Invoke-RestApi -Method 'Post' -Uri $restoreURL -Body $payloadJson
-            if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
-                $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
-                if ($taskId) {
-                    $resp = Get-CohesityRestoreTask -Ids $taskId
-                    $resp
+                if ($snapshotObj) {
+                    $SnapshotId = $snapshotInfo[0].objectSnapshotid
                 }
                 else {
-                    $resp
+                    $errorMsg = "Could not fetch remote snapshot information for the file $FileName"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
+                    return
                 }
             }
             else {
-                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
+                $errorMsg = "Could not fetch snapshot information for the file $FileName"
                 Write-Output $errorMsg
-                CSLog -Message $errorMsg
+                CSLog -Message $errorMsg -Severity 2
+                return
             }
+        }
+            
+        # Construct payload for restore
+        $absolutePath = $(if ($fileObj[0].path -eq '/') { "/{0}" -f $fileObj[0].name } else { "{0}/{1}" -f $fileObj[0].path, $fileObj[0].name })
+        $isDirectory = $(if ($fileObj[0].type -eq 'Directory') { $true } else { $false })
+
+        $recoverToOriginalPath = $true
+        if ($NewBaseDirectory) {
+            $recoverToOriginalPath = $false
+        }
+
+        $restoreToNewSource = $false
+        if ($TargetSourceId -and $TargetSourceId -ne $SourceId) {
+            $restoreToNewSource = $true
+            if (!$NewBaseDirectory ) {
+                $NewBaseDirectory = "/tmp/recover_files_/" + (Get-Date -UFormat "%b_%d_%Y_%I_%M_%p")
+            }
+        }
+
+        $payload = @{
+            name                = $TaskName
+            snapshotEnvironment = $protectionGroup.environment
+        }
+
+        # Source with environment type VMware
+        switch ($protectionGroup.environment) {
+            'kVMware' {
+                $payload['vmwareParams'] = @{}
+                $payload['vmwareParams']['objects'] = @(
+                    @{
+                        snapshotId = $SnapshotId
+                    }
+                )
+                $payload['vmwareParams']['recoveryAction'] = 'RecoverFiles'
+                $payload['vmwareParams']['recoverFileAndFolderParams'] = @{
+                    filesAndFolders    = @(
+                        @{
+                            absolutePath = $absolutePath;
+                            isDirectory  = $isDirectory
+                        }
+                    );
+                    targetEnvironment  = 'kVMware';
+                    vmwareTargetParams = @{
+                        recoverToOriginalTarget = !$restoreToNewSource;
+                        overwriteExisting       = $OverwriteExisting.IsPresent;
+                        preserveAttributes      = $PreserveAttributes.IsPresent;
+                        continueOnError         = $ContinueOnError.IsPresent                            
+                    };
+                }
+
+                if ($recoverMethod -ne 'ExistingAgent') {
+                    if (!$TargetVMCredential) {
+                        $warningMsg = "VM credentials required for 'AutoDeploy' and 'VMTools' restore methods."
+                        Write-Warning $warningMsg
+                        $username = Read-Host -Prompt "Enter username of VM"
+                        $password = Read-Host -Prompt "Enter password for VM user ($username)" -AsSecureString
+                        $TargetVMCredential = New-Object System.Management.Automation.PSCredential ($userName, $password)
+                    }
+                }
+
+                if ($restoreToNewSource) {
+                    $payload.vmwareParams.recoverFileAndFolderParams.vmwareTargetParams['newTargetConfig'] = @{
+                        absolutePath  = $NewBaseDirectory;
+                        recoverMethod = $recoverMethodObj[$recoverMethod];
+                        targetVm      = @{
+                            id = $TargetSourceId
+                        }
+                    }
+                    if ($recoverMethod -ne 'ExistingAgent') {
+                        $payload.vmwareParams.recoverFileAndFolderParams.vmwareTargetParams.newTargetConfig["targetVmCredentials"] = @{
+                            username = $TargetVMCredential.UserName;
+                            password = $TargetVMCredential.GetNetworkCredential().Password
+                        }
+                    }
+                }
+                else {
+                    $payload.vmwareParams.recoverFileAndFolderParams.vmwareTargetParams['originalTargetConfig'] = @{
+                        recoverMethod         = $recoverMethodObj[$recoverMethod];
+                        recoverToOriginalPath = $recoverToOriginalPath;
+                        alternatePath         = $(if (!$recoverToOriginalPath) { $NewBaseDirectory } else { $null });
+                    }
+                    if ($recoverMethod -ne 'ExistingAgent') {
+                        $payload.vmwareParams.recoverFileAndFolderParams.vmwareTargetParams.originalTargetConfig["targetVmCredentials"] = @{
+                            username = $TargetVMCredential.UserName;
+                            password = $TargetVMCredential.GetNetworkCredential().Password
+                        }
+                    }
+                }
+            }
+            'kPhysical' {
+                $payload['physicalParams'] = @{}
+                $payload['physicalParams']['objects'] = @(
+                    @{
+                        snapshotId = $SnapshotId
+                    }
+                )
+                $payload['physicalParams']['recoveryAction'] = 'RecoverFiles'
+                $payload['physicalParams']['recoverFileAndFolderParams'] = @{
+                    filesAndFolders      = @(
+                        @{
+                            absolutePath = $absolutePath;
+                            isDirectory  = $isDirectory
+                        }
+                    );
+                    targetEnvironment    = 'kPhysical';
+                    physicalTargetParams = @{
+                        recoverTarget             = @{
+                            id = $(if ($TargetSourceId) { $TargetSourceId } else { $SourceId });
+                        };
+                        restoreToOriginalPaths    = $recoverToOriginalPath;
+                        overwriteExisting         = $OverwriteExisting.IsPresent;
+                        preserveAttributes        = $PreserveAttributes.IsPresent;
+                        continueOnError           = $ContinueOnError.IsPresent;
+                        saveSuccessFiles          = $SaveSuccessFiles.IsPresent;
+                        alternateRestoreDirectory = $(if (!$recoverToOriginalPath) { $NewBaseDirectory } else { $null });
+                    };
+                }
+            }
+            'kIsilon' {
+                $payload['isilonParams'] = @{}
+                $payload['isilonParams']['objects'] = @(
+                    @{
+                        snapshotId = $SnapshotId
+                    }
+                )
+                $payload['isilonParams']['recoveryAction'] = 'RecoverFiles'
+                $payload['isilonParams']['recoverFileAndFolderParams'] = @{
+                    filesAndFolders    = @(
+                        @{
+                            absolutePath = $absolutePath;
+                            isDirectory  = $isDirectory
+                        }
+                    );
+                    targetEnvironment  = 'kIsilon';
+                    isilonTargetParams = @{
+                        recoverToNewSource = $restoreToNewSource
+                    };
+                }
+
+                if ($restoreToNewSource) {
+                    $payload.isilonParams.recoverFileAndFolderParams.isilonTargetParams['newSourceConfig'] = @{
+                        overwriteExistingFile  = $OverwriteExisting.IsPresent;
+                        preserveFileAttributes = $PreserveAttributes.IsPresent;
+                        continueOnError        = $ContinueOnError.IsPresent;
+                        encryptionEnabled      = $EncryptionEnabled.IsPresent;
+                        volume                 = @{
+                            id = $TargetSourceId
+                        }
+                        alternatePath          = $NewBaseDirectory
+                    }
+                }
+                else {
+                    $payload.isilonParams.recoverFileAndFolderParams.isilonTargetParams['originalSourceConfig'] = @{
+                        alternatePath          = $(if (!$recoverToOriginalPath) { $NewBaseDirectory } else { $null });
+                        overwriteExistingFile  = $OverwriteExisting.IsPresent;
+                        preserveFileAttributes = $PreserveAttributes.IsPresent;
+                        continueOnError        = $ContinueOnError.IsPresent;
+                        encryptionEnabled      = $encryptionEnabled.IsPresent;
+                        recoverToOriginalPath  = $recoverToOriginalPath;
+                    }
+                }
+            }
+        }
+
+        $restoreURL = '/v2/data-protect/recoveries'
+        $payloadJson = $payload | ConvertTo-Json -Depth 100
+
+        Write-Host $payloadJson
+
+        $resp = Invoke-RestApi -Method 'Post' -Uri $restoreURL -Body $payloadJson
+        if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
+            $resp
+        }
+        else {
+            $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
+            Write-Output $errorMsg
+            CSLog -Message $errorMsg
         }
     }
     End {

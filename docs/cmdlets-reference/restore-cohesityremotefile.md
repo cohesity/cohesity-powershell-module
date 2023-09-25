@@ -1,70 +1,76 @@
 # Restore-CohesityRemoteFile
 
 ## SYNOPSIS
-Restores the specified files or folders from a remote cluster.
+Restores the specified files or folders from a previous remote backup based on Cohesity V2 Rest APIs.
 
 ## SYNTAX
 
 ```
-Restore-CohesityRemoteFile [[-TaskName] <String>] [-FileNames] <String[]> [-JobId] <Int64> [-SourceId] <Int64>
- [[-NewBaseDirectory] <String>] [[-JobRunId] <Int64>] [[-StartTime] <Int64>] [-DoNotOverwrite]
- [-ContinueOnError] [-DoNotPreserveAttributes] [-TargetSourceId] <Int64>
- [[-TargetHostCredential] <PSCredential>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-CohesityFileV2 [-TaskName <String>] [-FileName <String>] [-JobId <Int64>] [-SourceId <Int64>]
+    [-TargetSourceId <Int64>] [-NewBaseDirectory <String>] [-SnapshotId <String>] [-OverwriteExisting] 
+    [-ContinueOnError] [-EncryptionEnabled] [-PreserveAttributes] [-SaveSuccessFiles] [-RecoverMethod <String>]
+    [-TargetVMCredential <PSCredential>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Request to create a Restore Task for recovering files or folders from a remote target.
+Request to create a task for recovering the specified files or folders from a previous remote backup based on Cohesity V2 Rest APIs.
+This commandlet supports only source with environment type VMware/Physical/Isilon.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
+Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileName /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -RestoreMethod AutoDeploy -TargetVMCredential (Get-Credential)
+        
 ```
-
-Restores the file from the specified source to the target windows VM using the latest backup from remote target.
 
 ### EXAMPLE 2
 ```
-Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -JobRunId 3005 -StartTime 1690646467987573 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+Restore-CohesityRemoteFile -FileName "C:\myFolder\abc.txt" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517
 ```
-
-Restores the file from the specified source to the target windows VM using the specified snapshot from remote target.
-
-### EXAMPLE 3
-```
-Restore-CohesityRemoteFile  -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
-```
-
-Restores the file from the specified source to the target physical server using the latest backup from remote target.
 
 ## PARAMETERS
 
-### -TaskName
-Specifies the name of the Restore Task.
+### -ContinueOnError
+Specifies whether to continue recovering other files if one of files or folders failed to recover.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EncryptionEnabled
+Specifies whether encryption should be enabled during recovery.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FileName
+Specifies the full name of the files or folders to be restored.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 1
-Default value: "Recover-File-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -FileNames
-Specifies the full names of the files or folders to be restored.
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -79,22 +85,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SourceId
-Specifies the id of the original protection source (that was backed up) containing the files and folders.
-
-```yaml
-Type: Int64
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 4
+Position: Named
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -110,90 +101,99 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
-Default value: None
+Position: Named
+Default value: "/tmp/recover_files_/" + (Get-Date -UFormat "%b_%d_%Y_%I_%M_%p")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -JobRunId
-Specifies the Job Run id that captured the snapshot.
-If not specified, the latest backup run is used.
+### -OverwriteExisting
+Specifies whether to overwrite the existing files.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PreserveAttributes
+Specifies whether to preserve original attributes.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RecoverMethod
+Specifies the method to recover files and folders.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: ExistingAgent, AutoDeploy, VMTools
+
+Required: False
+Position: Named
+Default value: ExistingAgent
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SaveSuccessFiles
+Specifies whether to save success files or not. Default value is false.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SnapshotId
+Specifies the remote snapshot id.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SourceId
+Specifies the id of the original protection source (that was backed up) containing the files and folders.
 
 ```yaml
 Type: Int64
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 6
+Required: True
+Position: Named
 Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -StartTime
-Specifies the time when the Job Run started capturing a snapshot.
-Specified as a Unix epoch Timestamp (in microseconds).
-This must be specified if the job run id is specified.
-
-```yaml
-Type: Int64
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 7
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DoNotOverwrite
-Specifies that any existing files and folders should not be overwritten during the restore.
-By default, any existing files and folders are overwritten by restored files and folders.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ContinueOnError
-Specifies if the Restore Task should continue even if the restore of some files and folders fails.
-If specified, the Restore Task ignores errors and restores as many files and folders as possible.
-By default, the Restore Task stops restoring if any operation fails.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DoNotPreserveAttributes
-Specifies that the Restore Task should not preserve the original attributes of the files and folders.
-By default, the original attributes are preserved.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -207,15 +207,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 8
-Default value: 0
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TargetHostCredential
-User credentials for accessing the target host for restore.
-This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
+### -TargetVMCredential
+Specifies the credentials for the target VM. This is mandatory if the recoverMethod is AutoDeploy or VMTools.
 
 ```yaml
 Type: PSCredential
@@ -223,39 +222,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -TaskName
+Specifies the name of the Restore Task.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: None
+Default value: "Recover_File_" + (Get-Date -UFormat "%b_%d_%Y_%I_%M_%p")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -268,9 +251,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Published by Cohesity
 
 ## RELATED LINKS
-
-[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
-
