@@ -31,18 +31,6 @@ function Find-CohesityFileSnapshot {
         $snapshotURL = '/irisservices/api/v1/public/restore/files/snapshotsInformation'
 
         $filter = ""
-        if ($ClusterId) {
-            if ($filter -ne "") {
-                $filter += "&"
-            }
-            $filter += "clusterId=$ClusterId"
-        }
-        if ($ClusterIncarnationId ) {
-            if ($filter -ne "") {
-                $filter += "&"
-            }
-            $filter += "clusterIncarnationId =$ClusterIncarnationId "
-        }
         if ($FileName) {
             if ($filter -ne "") {
                 $filter += "&"
