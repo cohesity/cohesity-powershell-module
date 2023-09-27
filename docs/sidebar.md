@@ -142,6 +142,7 @@
 - **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
 - [Find-CohesityFileSnapshot](cmdlets-reference/find-cohesityfilesnapshot.md)
+- [Find-CohesityRemoteFileSnapshot](cmdlets-reference/find-cohesityremotefilesnapshot.md)
 - [Find-CohesityObjectsForRestore](cmdlets-reference/find-cohesityobjectsforrestore.md)
 - [Restore-CohesityMSSQLObject](cmdlets-reference/restore-cohesitymssqlobject.md)
 - [Restore-CohesityRemoteMSSQLObject](cmdlets-reference/restore-cohesityremotemssqlobject.md)
@@ -150,6 +151,7 @@
 - [Restore-CohesityAcropolisVM](cmdlets-reference/restore-cohesityacropolisvm.md)
 - [Restore-CohesityFile](cmdlets-reference/restore-cohesityfile.md)
 - [Restore-CohesityRemoteFile](cmdlets-reference/restore-cohesityremotefile.md)
+- [Restore-CohesityRemoteFileV2](cmdlets-reference/restore-cohesityremotefilev2.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
 - [Save-CohesityFile](cmdlets-reference/save-cohesityfile.md)

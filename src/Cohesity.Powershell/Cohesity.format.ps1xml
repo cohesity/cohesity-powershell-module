@@ -1735,6 +1735,65 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- System.Object.IndexedObjectSnapshot Script based cmdlet -->
+    <View>
+      <Name>System.Object.IndexedObjectSnapshot.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#IndexedObjectSnapshot</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshotTimestampUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.LastModifiedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.TargetName</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.TargetType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.UsageType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.SizeBytes</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ObjectSnapshotid</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Snapshot Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Modified</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Target Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Target Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Usage Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Size(Bytes)</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Object Snapshot Id</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
     <!-- System.Object.ProtectionPolicy Script based cmdlet -->
     <View>
       <Name>System.Object.ProtectionPolicy.TableView</Name>

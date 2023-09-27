@@ -268,9 +268,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Published by Cohesity
+This commandlet will be deprecated in future. Please refer and use the commandlet [Restore-CohesityRemoteFileV2](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/restore-cohesityremotefilev2) instead.
 
 ## RELATED LINKS
-
-[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+[Read More](https://cohesity.github.io/cohesity-powershell-module/#/README)
 
