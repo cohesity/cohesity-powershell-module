@@ -148,7 +148,7 @@ function Get-CohesityProtectionJobStatus {
             )
             $protectionJobStatusList += $status
         }
-        if ($ReturnObject -eq $True) {
+        if ($ReturnObject -eq $true) {
             return $protectionJobStatusList
         }
         else {
