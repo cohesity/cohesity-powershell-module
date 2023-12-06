@@ -158,37 +158,49 @@ namespace Cohesity.Model
         /// <param name="appId">Specifies unique id allocated by the AppStore..</param>
         /// <param name="clusters">Specifies the list of clusters on which the app is installed for a particular account Id..</param>
         /// <param name="downloadProgressPct">Specifies app download progress percentage..</param>
+        /// <param name="externalIpRequired">Specifies if an external ip is required for the app..</param>
+        /// <param name="externalNetworks">List of external network information available for the app..</param>
         /// <param name="installState">Specifies app installation status. Specifies status of the app installation. kNotInstalled - App yet to be installed. kInstallInProgress - App installation is in progress. kInstalled - App is installed successfully and can be launched. kInstallFailed - App installation failed. kUninstallInProgress - App uninstallation is in progress. kUninstallFailed - App uninstallation failed. kDownloadNotStarted - App download has not started. kDownloadInProgress - App download in progress. kDownloadComplete - App download completed. kDownloadFailed - App download failed..</param>
         /// <param name="installTime">Specifies timestamp when the app was installed..</param>
+        /// <param name="instanceSizes">List of applicable instance size specifications (e.g. small/medium/large) for the app. Used to determine container resources..</param>
         /// <param name="isLatest">Specifies whether the app currently installed on all clusters is the latest version or not..</param>
         /// <param name="latestVersion">Specifies application version assigned by the AppStore for the latest version of an app..</param>
         /// <param name="metadata">metadata.</param>
         /// <param name="requiredPrivileges">Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API. kAutoMountAccess - Whether to allow auto-mounting all the views. kUnrestrictedAppUIAccess - Whether app requires unrestricted UI access (i.e. without passing app access token in URL). kAuditLogViewReadAccess - Whether app requires read access to the internal audit log view. kProtectedObjectAccess - Whether app requires read access to protected objects..</param>
         /// <param name="uninstallTime">Specifies timestamp when the app was uninstalled..</param>
         /// <param name="version">Specifies application version assigned by the AppStore..</param>
-        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), bool? isLatest = default(bool?), long? latestVersion = default(long?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), long? uninstallTime = default(long?), long? version = default(long?))
+        /// <param name="vmNameInfoList">List of vm name info objects..</param>
+        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), bool? externalIpRequired = default(bool?), List<ExternalNetworkInfo> externalNetworks = default(List<ExternalNetworkInfo>), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), List<string> instanceSizes = default(List<string>), bool? isLatest = default(bool?), long? latestVersion = default(long?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), long? uninstallTime = default(long?), long? version = default(long?), List<VmNameInfo> vmNameInfoList = default(List<VmNameInfo>))
         {
             this.AppId = appId;
             this.Clusters = clusters;
             this.DownloadProgressPct = downloadProgressPct;
+            this.ExternalIpRequired = externalIpRequired;
+            this.ExternalNetworks = externalNetworks;
             this.InstallState = installState;
             this.InstallTime = installTime;
+            this.InstanceSizes = instanceSizes;
             this.IsLatest = isLatest;
             this.LatestVersion = latestVersion;
             this.RequiredPrivileges = requiredPrivileges;
             this.UninstallTime = uninstallTime;
             this.Version = version;
+            this.VmNameInfoList = vmNameInfoList;
             this.AppId = appId;
             this.Clusters = clusters;
             this.DownloadProgressPct = downloadProgressPct;
+            this.ExternalIpRequired = externalIpRequired;
+            this.ExternalNetworks = externalNetworks;
             this.InstallState = installState;
             this.InstallTime = installTime;
+            this.InstanceSizes = instanceSizes;
             this.IsLatest = isLatest;
             this.LatestVersion = latestVersion;
             this.Metadata = metadata;
             this.RequiredPrivileges = requiredPrivileges;
             this.UninstallTime = uninstallTime;
             this.Version = version;
+            this.VmNameInfoList = vmNameInfoList;
         }
         
         /// <summary>
@@ -213,11 +225,32 @@ namespace Cohesity.Model
         public double? DownloadProgressPct { get; set; }
 
         /// <summary>
+        /// Specifies if an external ip is required for the app.
+        /// </summary>
+        /// <value>Specifies if an external ip is required for the app.</value>
+        [DataMember(Name="externalIpRequired", EmitDefaultValue=true)]
+        public bool? ExternalIpRequired { get; set; }
+
+        /// <summary>
+        /// List of external network information available for the app.
+        /// </summary>
+        /// <value>List of external network information available for the app.</value>
+        [DataMember(Name="externalNetworks", EmitDefaultValue=true)]
+        public List<ExternalNetworkInfo> ExternalNetworks { get; set; }
+
+        /// <summary>
         /// Specifies timestamp when the app was installed.
         /// </summary>
         /// <value>Specifies timestamp when the app was installed.</value>
         [DataMember(Name="installTime", EmitDefaultValue=true)]
         public long? InstallTime { get; set; }
+
+        /// <summary>
+        /// List of applicable instance size specifications (e.g. small/medium/large) for the app. Used to determine container resources.
+        /// </summary>
+        /// <value>List of applicable instance size specifications (e.g. small/medium/large) for the app. Used to determine container resources.</value>
+        [DataMember(Name="instanceSizes", EmitDefaultValue=true)]
+        public List<string> InstanceSizes { get; set; }
 
         /// <summary>
         /// Specifies whether the app currently installed on all clusters is the latest version or not.
@@ -252,6 +285,13 @@ namespace Cohesity.Model
         /// <value>Specifies application version assigned by the AppStore.</value>
         [DataMember(Name="version", EmitDefaultValue=true)]
         public long? Version { get; set; }
+
+        /// <summary>
+        /// List of vm name info objects.
+        /// </summary>
+        /// <value>List of vm name info objects.</value>
+        [DataMember(Name="vmNameInfoList", EmitDefaultValue=true)]
+        public List<VmNameInfo> VmNameInfoList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -306,6 +346,17 @@ namespace Cohesity.Model
                     this.DownloadProgressPct.Equals(input.DownloadProgressPct))
                 ) && 
                 (
+                    this.ExternalIpRequired == input.ExternalIpRequired ||
+                    (this.ExternalIpRequired != null &&
+                    this.ExternalIpRequired.Equals(input.ExternalIpRequired))
+                ) && 
+                (
+                    this.ExternalNetworks == input.ExternalNetworks ||
+                    this.ExternalNetworks != null &&
+                    input.ExternalNetworks != null &&
+                    this.ExternalNetworks.SequenceEqual(input.ExternalNetworks)
+                ) && 
+                (
                     this.InstallState == input.InstallState ||
                     this.InstallState.Equals(input.InstallState)
                 ) && 
@@ -313,6 +364,12 @@ namespace Cohesity.Model
                     this.InstallTime == input.InstallTime ||
                     (this.InstallTime != null &&
                     this.InstallTime.Equals(input.InstallTime))
+                ) && 
+                (
+                    this.InstanceSizes == input.InstanceSizes ||
+                    this.InstanceSizes != null &&
+                    input.InstanceSizes != null &&
+                    this.InstanceSizes.SequenceEqual(input.InstanceSizes)
                 ) && 
                 (
                     this.IsLatest == input.IsLatest ||
@@ -342,6 +399,12 @@ namespace Cohesity.Model
                     this.Version == input.Version ||
                     (this.Version != null &&
                     this.Version.Equals(input.Version))
+                ) && 
+                (
+                    this.VmNameInfoList == input.VmNameInfoList ||
+                    this.VmNameInfoList != null &&
+                    input.VmNameInfoList != null &&
+                    this.VmNameInfoList.SequenceEqual(input.VmNameInfoList)
                 );
         }
 
@@ -360,9 +423,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Clusters.GetHashCode();
                 if (this.DownloadProgressPct != null)
                     hashCode = hashCode * 59 + this.DownloadProgressPct.GetHashCode();
+                if (this.ExternalIpRequired != null)
+                    hashCode = hashCode * 59 + this.ExternalIpRequired.GetHashCode();
+                if (this.ExternalNetworks != null)
+                    hashCode = hashCode * 59 + this.ExternalNetworks.GetHashCode();
                 hashCode = hashCode * 59 + this.InstallState.GetHashCode();
                 if (this.InstallTime != null)
                     hashCode = hashCode * 59 + this.InstallTime.GetHashCode();
+                if (this.InstanceSizes != null)
+                    hashCode = hashCode * 59 + this.InstanceSizes.GetHashCode();
                 if (this.IsLatest != null)
                     hashCode = hashCode * 59 + this.IsLatest.GetHashCode();
                 if (this.LatestVersion != null)
@@ -374,6 +443,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UninstallTime.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
+                if (this.VmNameInfoList != null)
+                    hashCode = hashCode * 59 + this.VmNameInfoList.GetHashCode();
                 return hashCode;
             }
         }

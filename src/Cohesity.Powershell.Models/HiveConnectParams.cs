@@ -23,16 +23,44 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HiveConnectParams" /> class.
         /// </summary>
+        /// <param name="hdfsEntityId">Specifies the entity id of the HDFS source for this Hive.</param>
+        /// <param name="hiveDiscoveryParams">hiveDiscoveryParams.</param>
+        /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="metastore">Specifies the Hive metastore host..</param>
         /// <param name="thriftPort">Specifies the Hive metastore thrift Port.</param>
-        public HiveConnectParams(string metastore = default(string), int? thriftPort = default(int?))
+        public HiveConnectParams(long? hdfsEntityId = default(long?), HadoopDiscoveryParams hiveDiscoveryParams = default(HadoopDiscoveryParams), string kerberosPrincipal = default(string), string metastore = default(string), int? thriftPort = default(int?))
         {
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.Metastore = metastore;
             this.ThriftPort = thriftPort;
+            this.HdfsEntityId = hdfsEntityId;
+            this.HiveDiscoveryParams = hiveDiscoveryParams;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.Metastore = metastore;
             this.ThriftPort = thriftPort;
         }
         
+        /// <summary>
+        /// Specifies the entity id of the HDFS source for this Hive
+        /// </summary>
+        /// <value>Specifies the entity id of the HDFS source for this Hive</value>
+        [DataMember(Name="hdfsEntityId", EmitDefaultValue=true)]
+        public long? HdfsEntityId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets HiveDiscoveryParams
+        /// </summary>
+        [DataMember(Name="hiveDiscoveryParams", EmitDefaultValue=false)]
+        public HadoopDiscoveryParams HiveDiscoveryParams { get; set; }
+
+        /// <summary>
+        /// Specifies the kerberos principal.
+        /// </summary>
+        /// <value>Specifies the kerberos principal.</value>
+        [DataMember(Name="kerberosPrincipal", EmitDefaultValue=true)]
+        public string KerberosPrincipal { get; set; }
+
         /// <summary>
         /// Specifies the Hive metastore host.
         /// </summary>
@@ -84,6 +112,21 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.HdfsEntityId == input.HdfsEntityId ||
+                    (this.HdfsEntityId != null &&
+                    this.HdfsEntityId.Equals(input.HdfsEntityId))
+                ) && 
+                (
+                    this.HiveDiscoveryParams == input.HiveDiscoveryParams ||
+                    (this.HiveDiscoveryParams != null &&
+                    this.HiveDiscoveryParams.Equals(input.HiveDiscoveryParams))
+                ) && 
+                (
+                    this.KerberosPrincipal == input.KerberosPrincipal ||
+                    (this.KerberosPrincipal != null &&
+                    this.KerberosPrincipal.Equals(input.KerberosPrincipal))
+                ) && 
+                (
                     this.Metastore == input.Metastore ||
                     (this.Metastore != null &&
                     this.Metastore.Equals(input.Metastore))
@@ -104,6 +147,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.HdfsEntityId != null)
+                    hashCode = hashCode * 59 + this.HdfsEntityId.GetHashCode();
+                if (this.HiveDiscoveryParams != null)
+                    hashCode = hashCode * 59 + this.HiveDiscoveryParams.GetHashCode();
+                if (this.KerberosPrincipal != null)
+                    hashCode = hashCode * 59 + this.KerberosPrincipal.GetHashCode();
                 if (this.Metastore != null)
                     hashCode = hashCode * 59 + this.Metastore.GetHashCode();
                 if (this.ThriftPort != null)

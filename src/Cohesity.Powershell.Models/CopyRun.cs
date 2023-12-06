@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class CopyRun :  IEquatable<CopyRun>
     {
         /// <summary>
-        /// Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.
+        /// Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.</value>
+        /// <value>Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -61,31 +61,56 @@ namespace Cohesity.Model
             /// Enum KFailure for value: kFailure
             /// </summary>
             [EnumMember(Value = "kFailure")]
-            KFailure = 6
+            KFailure = 6,
+
+            /// <summary>
+            /// Enum KWarning for value: kWarning
+            /// </summary>
+            [EnumMember(Value = "kWarning")]
+            KWarning = 7,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 8,
+
+            /// <summary>
+            /// Enum KMissed for value: kMissed
+            /// </summary>
+            [EnumMember(Value = "kMissed")]
+            KMissed = 9,
+
+            /// <summary>
+            /// Enum KFinalizing for value: kFinalizing
+            /// </summary>
+            [EnumMember(Value = "kFinalizing")]
+            KFinalizing = 10
 
         }
 
         /// <summary>
-        /// Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.
+        /// Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.</value>
+        /// <value>Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CopyRun" /> class.
         /// </summary>
         /// <param name="copySnapshotTasks">Specifies the status information of each task that copies the snapshot taken for a Protection Source..</param>
+        /// <param name="dataLockConstraints">dataLockConstraints.</param>
         /// <param name="error">Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;..</param>
         /// <param name="expiryTimeUsecs">Specifies expiry time of the copies of the snapshots in this Protection Run..</param>
         /// <param name="holdForLegalPurpose">Specifies whether legal hold is enabled on this run. It is true if the run is put on legal hold. Independent of this flag, some of the entities may be on legal hold..</param>
         /// <param name="legalHoldings">Specifies the list of Protection Source Ids and the legal hold status..</param>
         /// <param name="runStartTimeUsecs">Specifies start time of the copy run..</param>
         /// <param name="stats">stats.</param>
-        /// <param name="status">Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed..</param>
+        /// <param name="status">Specifies the aggregated status of copy tasks such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing..</param>
         /// <param name="target">target.</param>
         /// <param name="taskUid">Specifies a globally unique id of the copy task..</param>
         /// <param name="userActionMessage">Specifies a message to the user if any manual intervention is needed to make forward progress for the archival task. This message is mainly relevant for tape based archival tasks where a backup admin might be asked to load a new media when the tape library does not have any more media to use..</param>
-        public CopyRun(List<CopySnapshotTaskStatus> copySnapshotTasks = default(List<CopySnapshotTaskStatus>), string error = default(string), long? expiryTimeUsecs = default(long?), bool? holdForLegalPurpose = default(bool?), List<LegalHoldings> legalHoldings = default(List<LegalHoldings>), long? runStartTimeUsecs = default(long?), CopyRunStats stats = default(CopyRunStats), StatusEnum? status = default(StatusEnum?), SnapshotTargetSettings target = default(SnapshotTargetSettings), UniversalId taskUid = default(UniversalId), string userActionMessage = default(string))
+        public CopyRun(List<CopySnapshotTaskStatus> copySnapshotTasks = default(List<CopySnapshotTaskStatus>), DataLockConstraints dataLockConstraints = default(DataLockConstraints), string error = default(string), long? expiryTimeUsecs = default(long?), bool? holdForLegalPurpose = default(bool?), List<LegalHoldings> legalHoldings = default(List<LegalHoldings>), long? runStartTimeUsecs = default(long?), CopyRunStats stats = default(CopyRunStats), StatusEnum? status = default(StatusEnum?), SnapshotTargetSettings target = default(SnapshotTargetSettings), UniversalId taskUid = default(UniversalId), string userActionMessage = default(string))
         {
             this.CopySnapshotTasks = copySnapshotTasks;
             this.Error = error;
@@ -97,6 +122,7 @@ namespace Cohesity.Model
             this.TaskUid = taskUid;
             this.UserActionMessage = userActionMessage;
             this.CopySnapshotTasks = copySnapshotTasks;
+            this.DataLockConstraints = dataLockConstraints;
             this.Error = error;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.HoldForLegalPurpose = holdForLegalPurpose;
@@ -115,6 +141,12 @@ namespace Cohesity.Model
         /// <value>Specifies the status information of each task that copies the snapshot taken for a Protection Source.</value>
         [DataMember(Name="copySnapshotTasks", EmitDefaultValue=true)]
         public List<CopySnapshotTaskStatus> CopySnapshotTasks { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataLockConstraints
+        /// </summary>
+        [DataMember(Name="dataLockConstraints", EmitDefaultValue=false)]
+        public DataLockConstraints DataLockConstraints { get; set; }
 
         /// <summary>
         /// Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;.
@@ -220,6 +252,11 @@ namespace Cohesity.Model
                     this.CopySnapshotTasks.SequenceEqual(input.CopySnapshotTasks)
                 ) && 
                 (
+                    this.DataLockConstraints == input.DataLockConstraints ||
+                    (this.DataLockConstraints != null &&
+                    this.DataLockConstraints.Equals(input.DataLockConstraints))
+                ) && 
+                (
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
@@ -282,6 +319,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CopySnapshotTasks != null)
                     hashCode = hashCode * 59 + this.CopySnapshotTasks.GetHashCode();
+                if (this.DataLockConstraints != null)
+                    hashCode = hashCode * 59 + this.DataLockConstraints.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
                 if (this.ExpiryTimeUsecs != null)

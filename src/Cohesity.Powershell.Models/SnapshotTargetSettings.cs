@@ -49,7 +49,13 @@ namespace Cohesity.Model
             /// Enum KCloudDeploy for value: kCloudDeploy
             /// </summary>
             [EnumMember(Value = "kCloudDeploy")]
-            KCloudDeploy = 4
+            KCloudDeploy = 4,
+
+            /// <summary>
+            /// Enum KCloudReplication for value: kCloudReplication
+            /// </summary>
+            [EnumMember(Value = "kCloudReplication")]
+            KCloudReplication = 5
 
         }
 

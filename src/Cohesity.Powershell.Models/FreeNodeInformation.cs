@@ -25,22 +25,26 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="chassisSerial">Specifies the serial number of the Chassis the Node is installed in..</param>
         /// <param name="connectedTo">Specifies whether or not this is the Node that is sending the response..</param>
+        /// <param name="hostname">Free node hostname..</param>
         /// <param name="id">Specifies the ID of the node..</param>
-        /// <param name="ip">Specifies the IP address of the Node..</param>
+        /// <param name="ip">Deprecated. Specifies the IP address of the Node. Use Ips instead..</param>
         /// <param name="ipmiIp">Specifies the IPMI IP of the Node..</param>
+        /// <param name="ips">List of discovered ipv4/ipv6 addresses of the node. Ip field returns ips as comma separated single string which is incorrect..</param>
         /// <param name="nodeSerial">Specifies the serial number of the Node..</param>
         /// <param name="nodeUiSlot">Specifies the postition for the UI to display the Node in the Cluster creation page..</param>
         /// <param name="numSlotsInChassis">Specifies the number of Node slots present in the Chassis where this Node is installed..</param>
         /// <param name="productModel">Specifies the product model of the node..</param>
         /// <param name="slotNumber">Specifies the number of the slot the Node is installed in..</param>
         /// <param name="softwareVersion">Specifies the version of the software installed on the Node..</param>
-        public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
+        public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), string hostname = default(string), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), List<string> ips = default(List<string>), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
         {
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
+            this.Hostname = hostname;
             this.Id = id;
             this.Ip = ip;
             this.IpmiIp = ipmiIp;
+            this.Ips = ips;
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
@@ -49,9 +53,11 @@ namespace Cohesity.Model
             this.SoftwareVersion = softwareVersion;
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
+            this.Hostname = hostname;
             this.Id = id;
             this.Ip = ip;
             this.IpmiIp = ipmiIp;
+            this.Ips = ips;
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
@@ -75,6 +81,13 @@ namespace Cohesity.Model
         public bool? ConnectedTo { get; set; }
 
         /// <summary>
+        /// Free node hostname.
+        /// </summary>
+        /// <value>Free node hostname.</value>
+        [DataMember(Name="hostname", EmitDefaultValue=true)]
+        public string Hostname { get; set; }
+
+        /// <summary>
         /// Specifies the ID of the node.
         /// </summary>
         /// <value>Specifies the ID of the node.</value>
@@ -82,9 +95,9 @@ namespace Cohesity.Model
         public long? Id { get; set; }
 
         /// <summary>
-        /// Specifies the IP address of the Node.
+        /// Deprecated. Specifies the IP address of the Node. Use Ips instead.
         /// </summary>
-        /// <value>Specifies the IP address of the Node.</value>
+        /// <value>Deprecated. Specifies the IP address of the Node. Use Ips instead.</value>
         [DataMember(Name="ip", EmitDefaultValue=true)]
         public string Ip { get; set; }
 
@@ -94,6 +107,13 @@ namespace Cohesity.Model
         /// <value>Specifies the IPMI IP of the Node.</value>
         [DataMember(Name="ipmiIp", EmitDefaultValue=true)]
         public string IpmiIp { get; set; }
+
+        /// <summary>
+        /// List of discovered ipv4/ipv6 addresses of the node. Ip field returns ips as comma separated single string which is incorrect.
+        /// </summary>
+        /// <value>List of discovered ipv4/ipv6 addresses of the node. Ip field returns ips as comma separated single string which is incorrect.</value>
+        [DataMember(Name="ips", EmitDefaultValue=true)]
+        public List<string> Ips { get; set; }
 
         /// <summary>
         /// Specifies the serial number of the Node.
@@ -184,6 +204,11 @@ namespace Cohesity.Model
                     this.ConnectedTo.Equals(input.ConnectedTo))
                 ) && 
                 (
+                    this.Hostname == input.Hostname ||
+                    (this.Hostname != null &&
+                    this.Hostname.Equals(input.Hostname))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -197,6 +222,12 @@ namespace Cohesity.Model
                     this.IpmiIp == input.IpmiIp ||
                     (this.IpmiIp != null &&
                     this.IpmiIp.Equals(input.IpmiIp))
+                ) && 
+                (
+                    this.Ips == input.Ips ||
+                    this.Ips != null &&
+                    input.Ips != null &&
+                    this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
                     this.NodeSerial == input.NodeSerial ||
@@ -243,12 +274,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ChassisSerial.GetHashCode();
                 if (this.ConnectedTo != null)
                     hashCode = hashCode * 59 + this.ConnectedTo.GetHashCode();
+                if (this.Hostname != null)
+                    hashCode = hashCode * 59 + this.Hostname.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Ip != null)
                     hashCode = hashCode * 59 + this.Ip.GetHashCode();
                 if (this.IpmiIp != null)
                     hashCode = hashCode * 59 + this.IpmiIp.GetHashCode();
+                if (this.Ips != null)
+                    hashCode = hashCode * 59 + this.Ips.GetHashCode();
                 if (this.NodeSerial != null)
                     hashCode = hashCode * 59 + this.NodeSerial.GetHashCode();
                 if (this.NodeUiSlot != null)

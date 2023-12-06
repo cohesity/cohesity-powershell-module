@@ -96,6 +96,10 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey,this.APIKey);
             }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId,this.SessionId);
+            }
             CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
@@ -119,6 +123,10 @@ namespace Cohesity.Powershell.Common
             if (APIKey != null)
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey, this.APIKey);
+            }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId, this.SessionId);
             }
 
             CohesityLog.Instance.WriteCohesityLog(request);
@@ -145,6 +153,10 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey, this.APIKey);
             }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId, this.SessionId);
+            }
 
             CohesityLog.Instance.WriteCohesityLog(request);
             return request;
@@ -169,6 +181,10 @@ namespace Cohesity.Powershell.Common
             if (APIKey != null)
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey, this.APIKey);
+            }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId, this.SessionId);
             }
 
             CohesityLog.Instance.WriteCohesityLog(request);
@@ -195,6 +211,10 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey, this.APIKey);
             }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId, this.SessionId);
+            }
 
             CohesityLog.Instance.WriteCohesityLog(request);
             return request;
@@ -219,6 +239,10 @@ namespace Cohesity.Powershell.Common
             if (APIKey != null)
             {
                 request.Headers.Add(CohesityConstants.HttpHeaderAPIKey, this.APIKey);
+            }
+            if (SessionId != null)
+            {
+                request.Headers.Add(CohesityConstants.HttpHeaderSessionId, this.SessionId);
             }
 
             CohesityLog.Instance.WriteCohesityLog(request);
@@ -248,6 +272,17 @@ namespace Cohesity.Powershell.Common
                 return userProfile.APIKey;
             }
         }
+        public string SessionId
+        {
+            get
+            {
+                var userProfile = userProfileProvider.GetUserProfile();
+                if (userProfile == null)
+                    return null;
+
+                return userProfile.SessionId;
+            }
+        }
 
         public bool IsAuthenticated
         {
@@ -258,7 +293,7 @@ namespace Cohesity.Powershell.Common
                 if (userProfile == null)
                     return false;
 
-                return (userProfile.AccessToken != null || userProfile.APIKey != null);
+                return (userProfile.AccessToken != null || userProfile.APIKey != null || userProfile.SessionId != null);
             }
         }
         public bool ShallRefreshToken()

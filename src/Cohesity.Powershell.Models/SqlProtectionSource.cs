@@ -121,7 +121,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>The state of the database as returned by SQL Server. Indicates the state of the database. The values correspond to the &#39;state&#39; field in the system table sys.databases. See https://goo.gl/P66XqM. &#39;kOnline&#39; indicates that database is in online state. &#39;kRestoring&#39; indicates that database is in restore state. &#39;kRecovering&#39; indicates that database is in recovery state. &#39;kRecoveryPending&#39; indicates that database recovery is in pending state. &#39;kSuspect&#39; indicates that primary filegroup is suspect and may be damaged. &#39;kEmergency&#39; indicates that manually forced emergency state. &#39;kOffline&#39; indicates that database is in offline state. &#39;kCopying&#39; indicates that database is in copying state. &#39;kOfflineSecondary&#39; indicates that secondary database is in offline state.</value>
         [DataMember(Name="sqlServerDbState", EmitDefaultValue=true)]
-        public string SqlServerDbState { get; set; }
+        public SqlServerDbStateEnum? SqlServerDbState { get; set; }
         /// <summary>
         /// Specifies the type of the managed Object in a SQL Protection Source. Examples of SQL Objects include &#39;kInstance&#39; and &#39;kDatabase&#39;. &#39;kInstance&#39; indicates that SQL server instance is being protected. &#39;kDatabase&#39; indicates that SQL server database is being protected. &#39;kAAG&#39; indicates that SQL AAG (AlwaysOn Availability Group) is being protected. &#39;kAAGRootContainer&#39; indicates that SQL AAG&#39;s root container is being protected. &#39;kRootContainer&#39; indicates root container for SQL sources.
         /// </summary>
@@ -179,14 +179,17 @@ namespace Cohesity.Model
         /// <param name="dbFileGroups">Specifies the information about the set of file groups for this db on the host. This is only set if the type is kDatabase..</param>
         /// <param name="dbFiles">Specifies the last known information about the set of database files on the host. This field is set only for type &#39;kDatabase&#39;..</param>
         /// <param name="dbOwnerUsername">Specifies the name of the database owner..</param>
+        /// <param name="defaultDatabaseLocation">Specifies the default path for data files for DBs in an instance.</param>
+        /// <param name="defaultLogLocation">Specifies the default path for log files for DBs in an instance.</param>
         /// <param name="id">id.</param>
+        /// <param name="isEncrypted">Specifies whether the database is TDE enabled..</param>
         /// <param name="name">Specifies the instance name of the SQL Protection Source.</param>
         /// <param name="ownerId">Specifies the id of the container VM for the SQL Protection Source..</param>
         /// <param name="recoveryModel">Specifies the Recovery Model for the database in SQL environment. Only meaningful for the &#39;kDatabase&#39; SQL Protection Source. Specifies the Recovery Model set for the Microsoft SQL Server. &#39;kSimpleRecoveryModel&#39; indicates the Simple SQL Recovery Model which does not utilize log backups. &#39;kFullRecoveryModel&#39; indicates the Full SQL Recovery Model which requires log backups and allows recovery to a single point in time. &#39;kBulkLoggedRecoveryModel&#39; indicates the Bulk Logged SQL Recovery Model which requires log backups and allows high-performance bulk copy operations..</param>
         /// <param name="sqlServerDbState">The state of the database as returned by SQL Server. Indicates the state of the database. The values correspond to the &#39;state&#39; field in the system table sys.databases. See https://goo.gl/P66XqM. &#39;kOnline&#39; indicates that database is in online state. &#39;kRestoring&#39; indicates that database is in restore state. &#39;kRecovering&#39; indicates that database is in recovery state. &#39;kRecoveryPending&#39; indicates that database recovery is in pending state. &#39;kSuspect&#39; indicates that primary filegroup is suspect and may be damaged. &#39;kEmergency&#39; indicates that manually forced emergency state. &#39;kOffline&#39; indicates that database is in offline state. &#39;kCopying&#39; indicates that database is in copying state. &#39;kOfflineSecondary&#39; indicates that secondary database is in offline state..</param>
         /// <param name="sqlServerInstanceVersion">sqlServerInstanceVersion.</param>
         /// <param name="type">Specifies the type of the managed Object in a SQL Protection Source. Examples of SQL Objects include &#39;kInstance&#39; and &#39;kDatabase&#39;. &#39;kInstance&#39; indicates that SQL server instance is being protected. &#39;kDatabase&#39; indicates that SQL server database is being protected. &#39;kAAG&#39; indicates that SQL AAG (AlwaysOn Availability Group) is being protected. &#39;kAAGRootContainer&#39; indicates that SQL AAG&#39;s root container is being protected. &#39;kRootContainer&#39; indicates root container for SQL sources..</param>
-        public SqlProtectionSource(bool? isAvailableForVssBackup = default(bool?), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), long? dbCompatibilityLevel = default(long?), List<string> dbFileGroups = default(List<string>), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), string dbOwnerUsername = default(string), SqlSourceId id = default(SqlSourceId), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), string sqlServerDbState = default(string), SQLServerInstanceVersion sqlServerInstanceVersion = default(SQLServerInstanceVersion), TypeEnum? type = default(TypeEnum?))
+        public SqlProtectionSource(bool? isAvailableForVssBackup = default(bool?), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), long? dbCompatibilityLevel = default(long?), List<string> dbFileGroups = default(List<string>), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), string dbOwnerUsername = default(string), string defaultDatabaseLocation = default(string), string defaultLogLocation = default(string), SqlSourceId id = default(SqlSourceId), bool? isEncrypted = default(bool?), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), SqlServerDbStateEnum? sqlServerDbState = default(SqlServerDbStateEnum?), SQLServerInstanceVersion sqlServerInstanceVersion = default(SQLServerInstanceVersion), TypeEnum? type = default(TypeEnum?))
         {
             this.IsAvailableForVssBackup = isAvailableForVssBackup;
             this.CreatedTimestamp = createdTimestamp;
@@ -197,6 +200,9 @@ namespace Cohesity.Model
             this.DbFileGroups = dbFileGroups;
             this.DbFiles = dbFiles;
             this.DbOwnerUsername = dbOwnerUsername;
+            this.DefaultDatabaseLocation = defaultDatabaseLocation;
+            this.DefaultLogLocation = defaultLogLocation;
+            this.IsEncrypted = isEncrypted;
             this.Name = name;
             this.OwnerId = ownerId;
             this.RecoveryModel = recoveryModel;
@@ -211,7 +217,10 @@ namespace Cohesity.Model
             this.DbFileGroups = dbFileGroups;
             this.DbFiles = dbFiles;
             this.DbOwnerUsername = dbOwnerUsername;
+            this.DefaultDatabaseLocation = defaultDatabaseLocation;
+            this.DefaultLogLocation = defaultLogLocation;
             this.Id = id;
+            this.IsEncrypted = isEncrypted;
             this.Name = name;
             this.OwnerId = ownerId;
             this.RecoveryModel = recoveryModel;
@@ -284,10 +293,31 @@ namespace Cohesity.Model
         public string DbOwnerUsername { get; set; }
 
         /// <summary>
+        /// Specifies the default path for data files for DBs in an instance
+        /// </summary>
+        /// <value>Specifies the default path for data files for DBs in an instance</value>
+        [DataMember(Name="defaultDatabaseLocation", EmitDefaultValue=true)]
+        public string DefaultDatabaseLocation { get; set; }
+
+        /// <summary>
+        /// Specifies the default path for log files for DBs in an instance
+        /// </summary>
+        /// <value>Specifies the default path for log files for DBs in an instance</value>
+        [DataMember(Name="defaultLogLocation", EmitDefaultValue=true)]
+        public string DefaultLogLocation { get; set; }
+
+        /// <summary>
         /// Gets or Sets Id
         /// </summary>
         [DataMember(Name="id", EmitDefaultValue=false)]
         public SqlSourceId Id { get; set; }
+
+        /// <summary>
+        /// Specifies whether the database is TDE enabled.
+        /// </summary>
+        /// <value>Specifies whether the database is TDE enabled.</value>
+        [DataMember(Name="isEncrypted", EmitDefaultValue=true)]
+        public bool? IsEncrypted { get; set; }
 
         /// <summary>
         /// Specifies the instance name of the SQL Protection Source
@@ -393,9 +423,24 @@ namespace Cohesity.Model
                     this.DbOwnerUsername.Equals(input.DbOwnerUsername))
                 ) && 
                 (
+                    this.DefaultDatabaseLocation == input.DefaultDatabaseLocation ||
+                    (this.DefaultDatabaseLocation != null &&
+                    this.DefaultDatabaseLocation.Equals(input.DefaultDatabaseLocation))
+                ) && 
+                (
+                    this.DefaultLogLocation == input.DefaultLogLocation ||
+                    (this.DefaultLogLocation != null &&
+                    this.DefaultLogLocation.Equals(input.DefaultLogLocation))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
+                ) && 
+                (
+                    this.IsEncrypted == input.IsEncrypted ||
+                    (this.IsEncrypted != null &&
+                    this.IsEncrypted.Equals(input.IsEncrypted))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -453,8 +498,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DbFiles.GetHashCode();
                 if (this.DbOwnerUsername != null)
                     hashCode = hashCode * 59 + this.DbOwnerUsername.GetHashCode();
+                if (this.DefaultDatabaseLocation != null)
+                    hashCode = hashCode * 59 + this.DefaultDatabaseLocation.GetHashCode();
+                if (this.DefaultLogLocation != null)
+                    hashCode = hashCode * 59 + this.DefaultLogLocation.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IsEncrypted != null)
+                    hashCode = hashCode * 59 + this.IsEncrypted.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OwnerId != null)

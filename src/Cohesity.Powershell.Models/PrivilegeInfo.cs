@@ -403,17 +403,19 @@ namespace Cohesity.Model
         /// <param name="description">Specifies a description defining what the privilege provides..</param>
         /// <param name="isAvailableOnHelios">Specifies that this privilege is available for Helios operations..</param>
         /// <param name="isCustomRoleDefault">Specifies if this privilege is automatically assigned to custom roles..</param>
+        /// <param name="isSaaSOnly">Specifies that this privilege is available for SaaS operations..</param>
         /// <param name="isSpecial">Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;..</param>
         /// <param name="isViewOnly">Specifies if privilege is view-only privilege that cannot make changes..</param>
         /// <param name="label">Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;..</param>
         /// <param name="name">Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW..</param>
-        public PrivilegeInfo(PrivilegeIdEnum? privilegeId = default(PrivilegeIdEnum?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
+        public PrivilegeInfo(PrivilegeIdEnum? privilegeId = default(PrivilegeIdEnum?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSaaSOnly = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
         {
             this.PrivilegeId = privilegeId;
             this.Category = category;
             this.Description = description;
             this.IsAvailableOnHelios = isAvailableOnHelios;
             this.IsCustomRoleDefault = isCustomRoleDefault;
+            this.IsSaaSOnly = isSaaSOnly;
             this.IsSpecial = isSpecial;
             this.IsViewOnly = isViewOnly;
             this.Label = label;
@@ -423,6 +425,7 @@ namespace Cohesity.Model
             this.Description = description;
             this.IsAvailableOnHelios = isAvailableOnHelios;
             this.IsCustomRoleDefault = isCustomRoleDefault;
+            this.IsSaaSOnly = isSaaSOnly;
             this.IsSpecial = isSpecial;
             this.IsViewOnly = isViewOnly;
             this.Label = label;
@@ -456,6 +459,13 @@ namespace Cohesity.Model
         /// <value>Specifies if this privilege is automatically assigned to custom roles.</value>
         [DataMember(Name="isCustomRoleDefault", EmitDefaultValue=true)]
         public bool? IsCustomRoleDefault { get; set; }
+
+        /// <summary>
+        /// Specifies that this privilege is available for SaaS operations.
+        /// </summary>
+        /// <value>Specifies that this privilege is available for SaaS operations.</value>
+        [DataMember(Name="isSaaSOnly", EmitDefaultValue=true)]
+        public bool? IsSaaSOnly { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;.
@@ -546,6 +556,11 @@ namespace Cohesity.Model
                     this.IsCustomRoleDefault.Equals(input.IsCustomRoleDefault))
                 ) && 
                 (
+                    this.IsSaaSOnly == input.IsSaaSOnly ||
+                    (this.IsSaaSOnly != null &&
+                    this.IsSaaSOnly.Equals(input.IsSaaSOnly))
+                ) && 
+                (
                     this.IsSpecial == input.IsSpecial ||
                     (this.IsSpecial != null &&
                     this.IsSpecial.Equals(input.IsSpecial))
@@ -585,6 +600,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsAvailableOnHelios.GetHashCode();
                 if (this.IsCustomRoleDefault != null)
                     hashCode = hashCode * 59 + this.IsCustomRoleDefault.GetHashCode();
+                if (this.IsSaaSOnly != null)
+                    hashCode = hashCode * 59 + this.IsSaaSOnly.GetHashCode();
                 if (this.IsSpecial != null)
                     hashCode = hashCode * 59 + this.IsSpecial.GetHashCode();
                 if (this.IsViewOnly != null)

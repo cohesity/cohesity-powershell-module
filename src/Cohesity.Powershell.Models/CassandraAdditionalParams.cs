@@ -24,32 +24,29 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CassandraAdditionalParams" /> class.
         /// </summary>
         /// <param name="cassandraClasspathSuffix">Cassandra classpath suffix..</param>
-        /// <param name="cassandraEndpointSnitch">Endpoint snitch used for this cluster..</param>
         /// <param name="cassandraPartitioner">Required in compaction..</param>
         /// <param name="cassandraVersion">Cassandra and DSE Versions. Discovery code will attempt to discover the versions..</param>
+        /// <param name="commitLogBackupLocation">Commit Log Backup location used for PITR feature.</param>
         /// <param name="dataCenterVec">Data center information is required for backup and recovery..</param>
         /// <param name="dseSolrInfo">dseSolrInfo.</param>
         /// <param name="dseVersion">dseVersion.</param>
-        /// <param name="storageMbeanName">Storage mbean name..</param>
         /// <param name="tieredStorageDirsMap">Map of nodes to tiered storage directories.</param>
-        public CassandraAdditionalParams(string cassandraClasspathSuffix = default(string), string cassandraEndpointSnitch = default(string), string cassandraPartitioner = default(string), string cassandraVersion = default(string), List<string> dataCenterVec = default(List<string>), DSESolrInfo dseSolrInfo = default(DSESolrInfo), string dseVersion = default(string), string storageMbeanName = default(string), List<NodeToTieredStorageDirectoriesMap> tieredStorageDirsMap = default(List<NodeToTieredStorageDirectoriesMap>))
+        public CassandraAdditionalParams(string cassandraClasspathSuffix = default(string), string cassandraPartitioner = default(string), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), List<string> dataCenterVec = default(List<string>), DSESolrInfo dseSolrInfo = default(DSESolrInfo), string dseVersion = default(string), List<NodeToTieredStorageDirectoriesMap> tieredStorageDirsMap = default(List<NodeToTieredStorageDirectoriesMap>))
         {
             this.CassandraClasspathSuffix = cassandraClasspathSuffix;
-            this.CassandraEndpointSnitch = cassandraEndpointSnitch;
             this.CassandraPartitioner = cassandraPartitioner;
             this.CassandraVersion = cassandraVersion;
+            this.CommitLogBackupLocation = commitLogBackupLocation;
             this.DataCenterVec = dataCenterVec;
             this.DseVersion = dseVersion;
-            this.StorageMbeanName = storageMbeanName;
             this.TieredStorageDirsMap = tieredStorageDirsMap;
             this.CassandraClasspathSuffix = cassandraClasspathSuffix;
-            this.CassandraEndpointSnitch = cassandraEndpointSnitch;
             this.CassandraPartitioner = cassandraPartitioner;
             this.CassandraVersion = cassandraVersion;
+            this.CommitLogBackupLocation = commitLogBackupLocation;
             this.DataCenterVec = dataCenterVec;
             this.DseSolrInfo = dseSolrInfo;
             this.DseVersion = dseVersion;
-            this.StorageMbeanName = storageMbeanName;
             this.TieredStorageDirsMap = tieredStorageDirsMap;
         }
         
@@ -59,13 +56,6 @@ namespace Cohesity.Model
         /// <value>Cassandra classpath suffix.</value>
         [DataMember(Name="cassandraClasspathSuffix", EmitDefaultValue=true)]
         public string CassandraClasspathSuffix { get; set; }
-
-        /// <summary>
-        /// Endpoint snitch used for this cluster.
-        /// </summary>
-        /// <value>Endpoint snitch used for this cluster.</value>
-        [DataMember(Name="cassandraEndpointSnitch", EmitDefaultValue=true)]
-        public string CassandraEndpointSnitch { get; set; }
 
         /// <summary>
         /// Required in compaction.
@@ -80,6 +70,13 @@ namespace Cohesity.Model
         /// <value>Cassandra and DSE Versions. Discovery code will attempt to discover the versions.</value>
         [DataMember(Name="cassandraVersion", EmitDefaultValue=true)]
         public string CassandraVersion { get; set; }
+
+        /// <summary>
+        /// Commit Log Backup location used for PITR feature
+        /// </summary>
+        /// <value>Commit Log Backup location used for PITR feature</value>
+        [DataMember(Name="commitLogBackupLocation", EmitDefaultValue=true)]
+        public string CommitLogBackupLocation { get; set; }
 
         /// <summary>
         /// Data center information is required for backup and recovery.
@@ -99,13 +96,6 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="dseVersion", EmitDefaultValue=true)]
         public string DseVersion { get; set; }
-
-        /// <summary>
-        /// Storage mbean name.
-        /// </summary>
-        /// <value>Storage mbean name.</value>
-        [DataMember(Name="storageMbeanName", EmitDefaultValue=true)]
-        public string StorageMbeanName { get; set; }
 
         /// <summary>
         /// Map of nodes to tiered storage directories
@@ -156,11 +146,6 @@ namespace Cohesity.Model
                     this.CassandraClasspathSuffix.Equals(input.CassandraClasspathSuffix))
                 ) && 
                 (
-                    this.CassandraEndpointSnitch == input.CassandraEndpointSnitch ||
-                    (this.CassandraEndpointSnitch != null &&
-                    this.CassandraEndpointSnitch.Equals(input.CassandraEndpointSnitch))
-                ) && 
-                (
                     this.CassandraPartitioner == input.CassandraPartitioner ||
                     (this.CassandraPartitioner != null &&
                     this.CassandraPartitioner.Equals(input.CassandraPartitioner))
@@ -169,6 +154,11 @@ namespace Cohesity.Model
                     this.CassandraVersion == input.CassandraVersion ||
                     (this.CassandraVersion != null &&
                     this.CassandraVersion.Equals(input.CassandraVersion))
+                ) && 
+                (
+                    this.CommitLogBackupLocation == input.CommitLogBackupLocation ||
+                    (this.CommitLogBackupLocation != null &&
+                    this.CommitLogBackupLocation.Equals(input.CommitLogBackupLocation))
                 ) && 
                 (
                     this.DataCenterVec == input.DataCenterVec ||
@@ -185,11 +175,6 @@ namespace Cohesity.Model
                     this.DseVersion == input.DseVersion ||
                     (this.DseVersion != null &&
                     this.DseVersion.Equals(input.DseVersion))
-                ) && 
-                (
-                    this.StorageMbeanName == input.StorageMbeanName ||
-                    (this.StorageMbeanName != null &&
-                    this.StorageMbeanName.Equals(input.StorageMbeanName))
                 ) && 
                 (
                     this.TieredStorageDirsMap == input.TieredStorageDirsMap ||
@@ -210,20 +195,18 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CassandraClasspathSuffix != null)
                     hashCode = hashCode * 59 + this.CassandraClasspathSuffix.GetHashCode();
-                if (this.CassandraEndpointSnitch != null)
-                    hashCode = hashCode * 59 + this.CassandraEndpointSnitch.GetHashCode();
                 if (this.CassandraPartitioner != null)
                     hashCode = hashCode * 59 + this.CassandraPartitioner.GetHashCode();
                 if (this.CassandraVersion != null)
                     hashCode = hashCode * 59 + this.CassandraVersion.GetHashCode();
+                if (this.CommitLogBackupLocation != null)
+                    hashCode = hashCode * 59 + this.CommitLogBackupLocation.GetHashCode();
                 if (this.DataCenterVec != null)
                     hashCode = hashCode * 59 + this.DataCenterVec.GetHashCode();
                 if (this.DseSolrInfo != null)
                     hashCode = hashCode * 59 + this.DseSolrInfo.GetHashCode();
                 if (this.DseVersion != null)
                     hashCode = hashCode * 59 + this.DseVersion.GetHashCode();
-                if (this.StorageMbeanName != null)
-                    hashCode = hashCode * 59 + this.StorageMbeanName.GetHashCode();
                 if (this.TieredStorageDirsMap != null)
                     hashCode = hashCode * 59 + this.TieredStorageDirsMap.GetHashCode();
                 return hashCode;

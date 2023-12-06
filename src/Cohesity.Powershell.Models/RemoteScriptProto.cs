@@ -26,11 +26,13 @@ namespace Cohesity.Model
         /// <param name="remoteHostParams">remoteHostParams.</param>
         /// <param name="script">script.</param>
         /// <param name="status">status.</param>
-        public RemoteScriptProto(RemoteHostConnectorParams remoteHostParams = default(RemoteHostConnectorParams), ScriptPathAndParams script = default(ScriptPathAndParams), ScriptExecutionStatus status = default(ScriptExecutionStatus))
+        /// <param name="windowsScript">windowsScript.</param>
+        public RemoteScriptProto(RemoteHostConnectorParams remoteHostParams = default(RemoteHostConnectorParams), ScriptPathAndParams script = default(ScriptPathAndParams), ScriptExecutionStatus status = default(ScriptExecutionStatus), ScriptPathAndParams windowsScript = default(ScriptPathAndParams))
         {
             this.RemoteHostParams = remoteHostParams;
             this.Script = script;
             this.Status = status;
+            this.WindowsScript = windowsScript;
         }
         
         /// <summary>
@@ -50,6 +52,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="status", EmitDefaultValue=false)]
         public ScriptExecutionStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or Sets WindowsScript
+        /// </summary>
+        [DataMember(Name="windowsScript", EmitDefaultValue=false)]
+        public ScriptPathAndParams WindowsScript { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -101,6 +109,11 @@ namespace Cohesity.Model
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
+                ) && 
+                (
+                    this.WindowsScript == input.WindowsScript ||
+                    (this.WindowsScript != null &&
+                    this.WindowsScript.Equals(input.WindowsScript))
                 );
         }
 
@@ -119,6 +132,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Script.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.WindowsScript != null)
+                    hashCode = hashCode * 59 + this.WindowsScript.GetHashCode();
                 return hashCode;
             }
         }

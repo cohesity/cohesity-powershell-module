@@ -21,6 +21,33 @@ namespace Cohesity.Model
     public partial class SqlRestoreParameters :  IEquatable<SqlRestoreParameters>
     {
         /// <summary>
+        /// Overwrite Policy specifies a policy to be used while recovering existing databases. Specifies the policy to be used while recovering existing databases. &#39;kFailIfExists&#39; refers to a policy to fail if DB exists already. &#39;kOverwrite&#39; refres to the policy to overwrite existing DB.
+        /// </summary>
+        /// <value>Overwrite Policy specifies a policy to be used while recovering existing databases. Specifies the policy to be used while recovering existing databases. &#39;kFailIfExists&#39; refers to a policy to fail if DB exists already. &#39;kOverwrite&#39; refres to the policy to overwrite existing DB.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum OverwritePolicyEnum
+        {
+            /// <summary>
+            /// Enum KFailIfExists for value: kFailIfExists
+            /// </summary>
+            [EnumMember(Value = "kFailIfExists")]
+            KFailIfExists = 1,
+
+            /// <summary>
+            /// Enum KOverwrite for value: kOverwrite
+            /// </summary>
+            [EnumMember(Value = "kOverwrite")]
+            KOverwrite = 2
+
+        }
+
+        /// <summary>
+        /// Overwrite Policy specifies a policy to be used while recovering existing databases. Specifies the policy to be used while recovering existing databases. &#39;kFailIfExists&#39; refers to a policy to fail if DB exists already. &#39;kOverwrite&#39; refres to the policy to overwrite existing DB.
+        /// </summary>
+        /// <value>Overwrite Policy specifies a policy to be used while recovering existing databases. Specifies the policy to be used while recovering existing databases. &#39;kFailIfExists&#39; refers to a policy to fail if DB exists already. &#39;kOverwrite&#39; refres to the policy to overwrite existing DB.</value>
+        [DataMember(Name="overwritePolicy", EmitDefaultValue=true)]
+        public OverwritePolicyEnum? OverwritePolicy { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="SqlRestoreParameters" /> class.
         /// </summary>
         /// <param name="captureTailLogs">Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed..</param>
@@ -29,12 +56,13 @@ namespace Cohesity.Model
         /// <param name="keepOffline">Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location..</param>
         /// <param name="newDatabaseName">Specifies optionally a new name for the restored database..</param>
         /// <param name="newInstanceName">Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field..</param>
+        /// <param name="overwritePolicy">Overwrite Policy specifies a policy to be used while recovering existing databases. Specifies the policy to be used while recovering existing databases. &#39;kFailIfExists&#39; refers to a policy to fail if DB exists already. &#39;kOverwrite&#39; refres to the policy to overwrite existing DB..</param>
         /// <param name="restoreTimeSecs">Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot..</param>
         /// <param name="targetDataFilesDirectory">Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetLogFilesDirectory">Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetSecondaryDataFilesDirectoryList">Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">WithClause allows you to specify clauses to be used in native sql restore task..</param>
-        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? isAutoSyncEnabled = default(bool?), bool? keepCdc = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>), string withClause = default(string))
+        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? isAutoSyncEnabled = default(bool?), bool? keepCdc = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), OverwritePolicyEnum? overwritePolicy = default(OverwritePolicyEnum?), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>), string withClause = default(string))
         {
             this.CaptureTailLogs = captureTailLogs;
             this.IsAutoSyncEnabled = isAutoSyncEnabled;
@@ -42,6 +70,7 @@ namespace Cohesity.Model
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
             this.NewInstanceName = newInstanceName;
+            this.OverwritePolicy = overwritePolicy;
             this.RestoreTimeSecs = restoreTimeSecs;
             this.TargetDataFilesDirectory = targetDataFilesDirectory;
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
@@ -53,6 +82,7 @@ namespace Cohesity.Model
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
             this.NewInstanceName = newInstanceName;
+            this.OverwritePolicy = overwritePolicy;
             this.RestoreTimeSecs = restoreTimeSecs;
             this.TargetDataFilesDirectory = targetDataFilesDirectory;
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
@@ -204,6 +234,10 @@ namespace Cohesity.Model
                     this.NewInstanceName.Equals(input.NewInstanceName))
                 ) && 
                 (
+                    this.OverwritePolicy == input.OverwritePolicy ||
+                    this.OverwritePolicy.Equals(input.OverwritePolicy)
+                ) && 
+                (
                     this.RestoreTimeSecs == input.RestoreTimeSecs ||
                     (this.RestoreTimeSecs != null &&
                     this.RestoreTimeSecs.Equals(input.RestoreTimeSecs))
@@ -252,6 +286,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
                 if (this.NewInstanceName != null)
                     hashCode = hashCode * 59 + this.NewInstanceName.GetHashCode();
+                hashCode = hashCode * 59 + this.OverwritePolicy.GetHashCode();
                 if (this.RestoreTimeSecs != null)
                     hashCode = hashCode * 59 + this.RestoreTimeSecs.GetHashCode();
                 if (this.TargetDataFilesDirectory != null)

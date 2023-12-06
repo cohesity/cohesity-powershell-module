@@ -37,9 +37,14 @@ function Set-CohesityProtectionJob {
 
     Process {
         $protectionJobName = $ProtectionJob.Name
-        if ($PSCmdlet.ShouldProcess($protectionJobName)) {
 
-            if ($ProtectionJob.Environment -eq "kPhysicalFiles" -and -not $ProtectionJob.SourceSpecialParameters) {
+        # Check if the sourceId field is an array or not, if not convert it into array
+        if ($ProtectionJob.sourceIds -is "int" -eq $True ) {
+            $ProtectionJob.sourceIds = [int[]](($ProtectionJob.sourceIds -split ',') -ne '')
+        }
+
+        if ($PSCmdlet.ShouldProcess($protectionJobName)) {
+            if ($ProtectionJob.Environment -eq "kPhysicalFiles") {
                 $job = Get-CohesityProtectionJob -Ids $ProtectionJob.Id
                 if ($job) {
                     if ($job.SourceSpecialParameters) {

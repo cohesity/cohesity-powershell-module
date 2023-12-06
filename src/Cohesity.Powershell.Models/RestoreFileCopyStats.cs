@@ -26,15 +26,17 @@ namespace Cohesity.Model
         /// <param name="estimationSkipped">This will be set to true if the estimation step was skipped. NOTE: If estimation is skipped, then progress info will not be available..</param>
         /// <param name="numBytesCopied">Number of bytes copied so far..</param>
         /// <param name="numDirectoriesCopied">Number of directories copied so far. NOTE: This just means the creation of directory (not the contents of the directory)..</param>
+        /// <param name="numErrors">Number of errors encountered so far..</param>
         /// <param name="numFilesCopied">Number of files copied so far..</param>
         /// <param name="totalBytesToCopy">Total number of bytes to copy..</param>
         /// <param name="totalDirectoriesToCopy">Total number of directories to copy. NOTE: This just means the creation of directory (not the contents of the directory)..</param>
         /// <param name="totalFilesToCopy">Total number of files to copy..</param>
-        public RestoreFileCopyStats(bool? estimationSkipped = default(bool?), long? numBytesCopied = default(long?), int? numDirectoriesCopied = default(int?), int? numFilesCopied = default(int?), long? totalBytesToCopy = default(long?), int? totalDirectoriesToCopy = default(int?), int? totalFilesToCopy = default(int?))
+        public RestoreFileCopyStats(bool? estimationSkipped = default(bool?), long? numBytesCopied = default(long?), int? numDirectoriesCopied = default(int?), long? numErrors = default(long?), int? numFilesCopied = default(int?), long? totalBytesToCopy = default(long?), int? totalDirectoriesToCopy = default(int?), int? totalFilesToCopy = default(int?))
         {
             this.EstimationSkipped = estimationSkipped;
             this.NumBytesCopied = numBytesCopied;
             this.NumDirectoriesCopied = numDirectoriesCopied;
+            this.NumErrors = numErrors;
             this.NumFilesCopied = numFilesCopied;
             this.TotalBytesToCopy = totalBytesToCopy;
             this.TotalDirectoriesToCopy = totalDirectoriesToCopy;
@@ -42,6 +44,7 @@ namespace Cohesity.Model
             this.EstimationSkipped = estimationSkipped;
             this.NumBytesCopied = numBytesCopied;
             this.NumDirectoriesCopied = numDirectoriesCopied;
+            this.NumErrors = numErrors;
             this.NumFilesCopied = numFilesCopied;
             this.TotalBytesToCopy = totalBytesToCopy;
             this.TotalDirectoriesToCopy = totalDirectoriesToCopy;
@@ -68,6 +71,13 @@ namespace Cohesity.Model
         /// <value>Number of directories copied so far. NOTE: This just means the creation of directory (not the contents of the directory).</value>
         [DataMember(Name="numDirectoriesCopied", EmitDefaultValue=true)]
         public int? NumDirectoriesCopied { get; set; }
+
+        /// <summary>
+        /// Number of errors encountered so far.
+        /// </summary>
+        /// <value>Number of errors encountered so far.</value>
+        [DataMember(Name="numErrors", EmitDefaultValue=true)]
+        public long? NumErrors { get; set; }
 
         /// <summary>
         /// Number of files copied so far.
@@ -149,6 +159,11 @@ namespace Cohesity.Model
                     this.NumDirectoriesCopied.Equals(input.NumDirectoriesCopied))
                 ) && 
                 (
+                    this.NumErrors == input.NumErrors ||
+                    (this.NumErrors != null &&
+                    this.NumErrors.Equals(input.NumErrors))
+                ) && 
+                (
                     this.NumFilesCopied == input.NumFilesCopied ||
                     (this.NumFilesCopied != null &&
                     this.NumFilesCopied.Equals(input.NumFilesCopied))
@@ -185,6 +200,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumBytesCopied.GetHashCode();
                 if (this.NumDirectoriesCopied != null)
                     hashCode = hashCode * 59 + this.NumDirectoriesCopied.GetHashCode();
+                if (this.NumErrors != null)
+                    hashCode = hashCode * 59 + this.NumErrors.GetHashCode();
                 if (this.NumFilesCopied != null)
                     hashCode = hashCode * 59 + this.NumFilesCopied.GetHashCode();
                 if (this.TotalBytesToCopy != null)

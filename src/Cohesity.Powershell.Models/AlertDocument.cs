@@ -27,16 +27,19 @@ namespace Cohesity.Model
         /// <param name="alertDescription">Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert..</param>
         /// <param name="alertHelpText">Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification..</param>
         /// <param name="alertName">Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc..</param>
-        public AlertDocument(string alertCause = default(string), string alertDescription = default(string), string alertHelpText = default(string), string alertName = default(string))
+        /// <param name="alert255CharDesc">Short description for the alert. If present, this will be used for SNMP instead of the alert_description..</param>
+        public AlertDocument(string alertCause = default(string), string alertDescription = default(string), string alertHelpText = default(string), string alertName = default(string), string alert255CharDesc = default(string))
         {
             this.AlertCause = alertCause;
             this.AlertDescription = alertDescription;
             this.AlertHelpText = alertHelpText;
             this.AlertName = alertName;
+            this.Alert255CharDesc = alert255CharDesc;
             this.AlertCause = alertCause;
             this.AlertDescription = alertDescription;
             this.AlertHelpText = alertHelpText;
             this.AlertName = alertName;
+            this.Alert255CharDesc = alert255CharDesc;
         }
         
         /// <summary>
@@ -66,6 +69,13 @@ namespace Cohesity.Model
         /// <value>Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.</value>
         [DataMember(Name="alertName", EmitDefaultValue=true)]
         public string AlertName { get; set; }
+
+        /// <summary>
+        /// Short description for the alert. If present, this will be used for SNMP instead of the alert_description.
+        /// </summary>
+        /// <value>Short description for the alert. If present, this will be used for SNMP instead of the alert_description.</value>
+        [DataMember(Name="alert_255CharDesc", EmitDefaultValue=true)]
+        public string Alert255CharDesc { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -122,6 +132,11 @@ namespace Cohesity.Model
                     this.AlertName == input.AlertName ||
                     (this.AlertName != null &&
                     this.AlertName.Equals(input.AlertName))
+                ) && 
+                (
+                    this.Alert255CharDesc == input.Alert255CharDesc ||
+                    (this.Alert255CharDesc != null &&
+                    this.Alert255CharDesc.Equals(input.Alert255CharDesc))
                 );
         }
 
@@ -142,6 +157,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AlertHelpText.GetHashCode();
                 if (this.AlertName != null)
                     hashCode = hashCode * 59 + this.AlertName.GetHashCode();
+                if (this.Alert255CharDesc != null)
+                    hashCode = hashCode * 59 + this.Alert255CharDesc.GetHashCode();
                 return hashCode;
             }
         }

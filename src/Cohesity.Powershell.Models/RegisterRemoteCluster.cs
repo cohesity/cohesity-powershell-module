@@ -40,10 +40,11 @@ namespace Cohesity.Model
         /// <param name="remoteAccessCredentials">remoteAccessCredentials.</param>
         /// <param name="remoteIps">Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
         /// <param name="remoteIrisPorts">Array of Ports.  Specifies the ports to use when connecting to the Nodes of the remote Cluster..</param>
+        /// <param name="reverseRegisted">Specifies whether the Rx regiseter the Tx..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="validateOnly">Whether to only validate the credentials without saving the information..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        public RegisterRemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), string name = default(string), string networkInterface = default(string), string password = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), List<long> remoteIrisPorts = default(List<long>), string userName = default(string), bool? validateOnly = default(bool?), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
+        public RegisterRemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), string name = default(string), string networkInterface = default(string), string password = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), List<long> remoteIrisPorts = default(List<long>), bool? reverseRegisted = default(bool?), string userName = default(string), bool? validateOnly = default(bool?), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
@@ -60,6 +61,7 @@ namespace Cohesity.Model
             this.PurposeReplication = purposeReplication;
             this.RemoteIps = remoteIps;
             this.RemoteIrisPorts = remoteIrisPorts;
+            this.ReverseRegisted = reverseRegisted;
             this.UserName = userName;
             this.ValidateOnly = validateOnly;
             this.ViewBoxPairInfo = viewBoxPairInfo;
@@ -80,6 +82,7 @@ namespace Cohesity.Model
             this.RemoteAccessCredentials = remoteAccessCredentials;
             this.RemoteIps = remoteIps;
             this.RemoteIrisPorts = remoteIrisPorts;
+            this.ReverseRegisted = reverseRegisted;
             this.UserName = userName;
             this.ValidateOnly = validateOnly;
             this.ViewBoxPairInfo = viewBoxPairInfo;
@@ -201,6 +204,13 @@ namespace Cohesity.Model
         /// <value>Array of Ports.  Specifies the ports to use when connecting to the Nodes of the remote Cluster.</value>
         [DataMember(Name="remoteIrisPorts", EmitDefaultValue=true)]
         public List<long> RemoteIrisPorts { get; set; }
+
+        /// <summary>
+        /// Specifies whether the Rx regiseter the Tx.
+        /// </summary>
+        /// <value>Specifies whether the Rx regiseter the Tx.</value>
+        [DataMember(Name="reverseRegisted", EmitDefaultValue=true)]
+        public bool? ReverseRegisted { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user name used to connect to the remote Cluster.
@@ -347,6 +357,11 @@ namespace Cohesity.Model
                     this.RemoteIrisPorts.SequenceEqual(input.RemoteIrisPorts)
                 ) && 
                 (
+                    this.ReverseRegisted == input.ReverseRegisted ||
+                    (this.ReverseRegisted != null &&
+                    this.ReverseRegisted.Equals(input.ReverseRegisted))
+                ) && 
+                (
                     this.UserName == input.UserName ||
                     (this.UserName != null &&
                     this.UserName.Equals(input.UserName))
@@ -407,6 +422,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteIps.GetHashCode();
                 if (this.RemoteIrisPorts != null)
                     hashCode = hashCode * 59 + this.RemoteIrisPorts.GetHashCode();
+                if (this.ReverseRegisted != null)
+                    hashCode = hashCode * 59 + this.ReverseRegisted.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 if (this.ValidateOnly != null)

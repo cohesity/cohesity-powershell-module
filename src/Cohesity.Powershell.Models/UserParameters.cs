@@ -408,10 +408,12 @@ namespace Cohesity.Model
         /// <param name="password">Specifies the password of this user..</param>
         /// <param name="primaryGroupName">Specifies the name of the primary group of this User..</param>
         /// <param name="privilegeIds">Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity..</param>
+        /// <param name="profiles">Specifies the user profiles. NOTE: Currently used for Helios..</param>
         /// <param name="restricted">Whether the user is a restricted user. A restricted user can only view the objects he has permissions to..</param>
         /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user..</param>
+        /// <param name="tenantAccesses">Specifies the tenant access available to current user. NOTE: Currently used for Helios..</param>
         /// <param name="username">Specifies the login name of the user..</param>
-        public UserParameters(List<string> additionalGroupNames = default(List<string>), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), string password = default(string), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string username = default(string))
+        public UserParameters(List<string> additionalGroupNames = default(List<string>), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), string password = default(string), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), List<TenantAccess> tenantAccesses = default(List<TenantAccess>), string username = default(string))
         {
             this.AdditionalGroupNames = additionalGroupNames;
             this.ClusterIdentifiers = clusterIdentifiers;
@@ -423,8 +425,10 @@ namespace Cohesity.Model
             this.Password = password;
             this.PrimaryGroupName = primaryGroupName;
             this.PrivilegeIds = privilegeIds;
+            this.Profiles = profiles;
             this.Restricted = restricted;
             this.Roles = roles;
+            this.TenantAccesses = tenantAccesses;
             this.Username = username;
             this.AdditionalGroupNames = additionalGroupNames;
             this.ClusterIdentifiers = clusterIdentifiers;
@@ -436,8 +440,10 @@ namespace Cohesity.Model
             this.Password = password;
             this.PrimaryGroupName = primaryGroupName;
             this.PrivilegeIds = privilegeIds;
+            this.Profiles = profiles;
             this.Restricted = restricted;
             this.Roles = roles;
+            this.TenantAccesses = tenantAccesses;
             this.Username = username;
         }
         
@@ -505,6 +511,13 @@ namespace Cohesity.Model
         public string PrimaryGroupName { get; set; }
 
         /// <summary>
+        /// Specifies the user profiles. NOTE: Currently used for Helios.
+        /// </summary>
+        /// <value>Specifies the user profiles. NOTE: Currently used for Helios.</value>
+        [DataMember(Name="profiles", EmitDefaultValue=true)]
+        public List<McmUserProfile> Profiles { get; set; }
+
+        /// <summary>
         /// Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.
         /// </summary>
         /// <value>Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.</value>
@@ -517,6 +530,13 @@ namespace Cohesity.Model
         /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user.</value>
         [DataMember(Name="roles", EmitDefaultValue=true)]
         public List<string> Roles { get; set; }
+
+        /// <summary>
+        /// Specifies the tenant access available to current user. NOTE: Currently used for Helios.
+        /// </summary>
+        /// <value>Specifies the tenant access available to current user. NOTE: Currently used for Helios.</value>
+        [DataMember(Name="tenantAccesses", EmitDefaultValue=true)]
+        public List<TenantAccess> TenantAccesses { get; set; }
 
         /// <summary>
         /// Specifies the login name of the user.
@@ -613,6 +633,12 @@ namespace Cohesity.Model
                     this.PrivilegeIds.SequenceEqual(input.PrivilegeIds)
                 ) && 
                 (
+                    this.Profiles == input.Profiles ||
+                    this.Profiles != null &&
+                    input.Profiles != null &&
+                    this.Profiles.SequenceEqual(input.Profiles)
+                ) && 
+                (
                     this.Restricted == input.Restricted ||
                     (this.Restricted != null &&
                     this.Restricted.Equals(input.Restricted))
@@ -622,6 +648,12 @@ namespace Cohesity.Model
                     this.Roles != null &&
                     input.Roles != null &&
                     this.Roles.SequenceEqual(input.Roles)
+                ) && 
+                (
+                    this.TenantAccesses == input.TenantAccesses ||
+                    this.TenantAccesses != null &&
+                    input.TenantAccesses != null &&
+                    this.TenantAccesses.SequenceEqual(input.TenantAccesses)
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -658,10 +690,14 @@ namespace Cohesity.Model
                 if (this.PrimaryGroupName != null)
                     hashCode = hashCode * 59 + this.PrimaryGroupName.GetHashCode();
                 hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                if (this.Profiles != null)
+                    hashCode = hashCode * 59 + this.Profiles.GetHashCode();
                 if (this.Restricted != null)
                     hashCode = hashCode * 59 + this.Restricted.GetHashCode();
                 if (this.Roles != null)
                     hashCode = hashCode * 59 + this.Roles.GetHashCode();
+                if (this.TenantAccesses != null)
+                    hashCode = hashCode * 59 + this.TenantAccesses.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

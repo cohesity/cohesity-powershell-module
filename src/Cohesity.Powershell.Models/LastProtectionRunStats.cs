@@ -23,21 +23,31 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="LastProtectionRunStats" /> class.
         /// </summary>
+        /// <param name="numObjectsFailed">Specifies the number of objects that were failed in the last Run across all Protection Jobs..</param>
         /// <param name="numRunsFailed">Specifies the number of Protection Jobs for which specified Protection Run failed..</param>
         /// <param name="numRunsFailedSla">Specifies the number of Protection Jobs for which specified Protection Run failed SLA..</param>
         /// <param name="numRunsMetSla">Specifies the number of Protection Jobs for which specified Protection Run met SLA..</param>
         /// <param name="statsByEnv">Specifies the last Protection Run stats by environment..</param>
-        public LastProtectionRunStats(long? numRunsFailed = default(long?), long? numRunsFailedSla = default(long?), long? numRunsMetSla = default(long?), List<LastProtectionRunStatsByEnv> statsByEnv = default(List<LastProtectionRunStatsByEnv>))
+        public LastProtectionRunStats(long? numObjectsFailed = default(long?), long? numRunsFailed = default(long?), long? numRunsFailedSla = default(long?), long? numRunsMetSla = default(long?), List<LastProtectionRunStatsByEnv> statsByEnv = default(List<LastProtectionRunStatsByEnv>))
         {
+            this.NumObjectsFailed = numObjectsFailed;
             this.NumRunsFailed = numRunsFailed;
             this.NumRunsFailedSla = numRunsFailedSla;
             this.NumRunsMetSla = numRunsMetSla;
+            this.NumObjectsFailed = numObjectsFailed;
             this.NumRunsFailed = numRunsFailed;
             this.NumRunsFailedSla = numRunsFailedSla;
             this.NumRunsMetSla = numRunsMetSla;
             this.StatsByEnv = statsByEnv;
         }
         
+        /// <summary>
+        /// Specifies the number of objects that were failed in the last Run across all Protection Jobs.
+        /// </summary>
+        /// <value>Specifies the number of objects that were failed in the last Run across all Protection Jobs.</value>
+        [DataMember(Name="numObjectsFailed", EmitDefaultValue=true)]
+        public long? NumObjectsFailed { get; set; }
+
         /// <summary>
         /// Specifies the number of Protection Jobs for which specified Protection Run failed.
         /// </summary>
@@ -103,6 +113,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.NumObjectsFailed == input.NumObjectsFailed ||
+                    (this.NumObjectsFailed != null &&
+                    this.NumObjectsFailed.Equals(input.NumObjectsFailed))
+                ) && 
+                (
                     this.NumRunsFailed == input.NumRunsFailed ||
                     (this.NumRunsFailed != null &&
                     this.NumRunsFailed.Equals(input.NumRunsFailed))
@@ -134,6 +149,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.NumObjectsFailed != null)
+                    hashCode = hashCode * 59 + this.NumObjectsFailed.GetHashCode();
                 if (this.NumRunsFailed != null)
                     hashCode = hashCode * 59 + this.NumRunsFailed.GetHashCode();
                 if (this.NumRunsFailedSla != null)

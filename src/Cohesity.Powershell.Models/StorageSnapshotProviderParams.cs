@@ -25,10 +25,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="connectorParams">connectorParams.</param>
         /// <param name="entity">entity.</param>
-        public StorageSnapshotProviderParams(ConnectorParams connectorParams = default(ConnectorParams), EntityProto entity = default(EntityProto))
+        /// <param name="rootEntity">rootEntity.</param>
+        public StorageSnapshotProviderParams(ConnectorParams connectorParams = default(ConnectorParams), EntityProto entity = default(EntityProto), EntityProto rootEntity = default(EntityProto))
         {
             this.ConnectorParams = connectorParams;
             this.Entity = entity;
+            this.RootEntity = rootEntity;
         }
         
         /// <summary>
@@ -42,6 +44,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="entity", EmitDefaultValue=false)]
         public EntityProto Entity { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RootEntity
+        /// </summary>
+        [DataMember(Name="rootEntity", EmitDefaultValue=false)]
+        public EntityProto RootEntity { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -88,6 +96,11 @@ namespace Cohesity.Model
                     this.Entity == input.Entity ||
                     (this.Entity != null &&
                     this.Entity.Equals(input.Entity))
+                ) && 
+                (
+                    this.RootEntity == input.RootEntity ||
+                    (this.RootEntity != null &&
+                    this.RootEntity.Equals(input.RootEntity))
                 );
         }
 
@@ -104,6 +117,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConnectorParams.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
+                if (this.RootEntity != null)
+                    hashCode = hashCode * 59 + this.RootEntity.GetHashCode();
                 return hashCode;
             }
         }

@@ -28,26 +28,26 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateLinuxPasswordReqParams" /> class.
         /// </summary>
-        /// <param name="clusterId">If cluster ID is specified, then the password is updated for all the nodes in the cluster. Optional Field..</param>
+        /// <param name="linuxCurrentPassword">Specifies the current password..</param>
         /// <param name="linuxPassword">Specifies the new linux password. (required).</param>
         /// <param name="linuxUsername">Specifies the linux username for which the password will be updated. (required).</param>
-        /// <param name="nodeIps">Specifies the node IP address on which the linux password will be updated. Optional Field..</param>
-        public UpdateLinuxPasswordReqParams(long? clusterId = default(long?), string linuxPassword = default(string), string linuxUsername = default(string), List<string> nodeIps = default(List<string>))
+        /// <param name="verifyPassword">True if request is only to verify if current password matches with set password..</param>
+        public UpdateLinuxPasswordReqParams(string linuxCurrentPassword = default(string), string linuxPassword = default(string), string linuxUsername = default(string), bool? verifyPassword = default(bool?))
         {
-            this.ClusterId = clusterId;
+            this.LinuxCurrentPassword = linuxCurrentPassword;
             this.LinuxPassword = linuxPassword;
             this.LinuxUsername = linuxUsername;
-            this.NodeIps = nodeIps;
-            this.ClusterId = clusterId;
-            this.NodeIps = nodeIps;
+            this.VerifyPassword = verifyPassword;
+            this.LinuxCurrentPassword = linuxCurrentPassword;
+            this.VerifyPassword = verifyPassword;
         }
         
         /// <summary>
-        /// If cluster ID is specified, then the password is updated for all the nodes in the cluster. Optional Field.
+        /// Specifies the current password.
         /// </summary>
-        /// <value>If cluster ID is specified, then the password is updated for all the nodes in the cluster. Optional Field.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
-        public long? ClusterId { get; set; }
+        /// <value>Specifies the current password.</value>
+        [DataMember(Name="linuxCurrentPassword", EmitDefaultValue=true)]
+        public string LinuxCurrentPassword { get; set; }
 
         /// <summary>
         /// Specifies the new linux password.
@@ -64,11 +64,11 @@ namespace Cohesity.Model
         public string LinuxUsername { get; set; }
 
         /// <summary>
-        /// Specifies the node IP address on which the linux password will be updated. Optional Field.
+        /// True if request is only to verify if current password matches with set password.
         /// </summary>
-        /// <value>Specifies the node IP address on which the linux password will be updated. Optional Field.</value>
-        [DataMember(Name="nodeIps", EmitDefaultValue=true)]
-        public List<string> NodeIps { get; set; }
+        /// <value>True if request is only to verify if current password matches with set password.</value>
+        [DataMember(Name="verifyPassword", EmitDefaultValue=true)]
+        public bool? VerifyPassword { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,9 +107,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.ClusterId == input.ClusterId ||
-                    (this.ClusterId != null &&
-                    this.ClusterId.Equals(input.ClusterId))
+                    this.LinuxCurrentPassword == input.LinuxCurrentPassword ||
+                    (this.LinuxCurrentPassword != null &&
+                    this.LinuxCurrentPassword.Equals(input.LinuxCurrentPassword))
                 ) && 
                 (
                     this.LinuxPassword == input.LinuxPassword ||
@@ -122,10 +122,9 @@ namespace Cohesity.Model
                     this.LinuxUsername.Equals(input.LinuxUsername))
                 ) && 
                 (
-                    this.NodeIps == input.NodeIps ||
-                    this.NodeIps != null &&
-                    input.NodeIps != null &&
-                    this.NodeIps.SequenceEqual(input.NodeIps)
+                    this.VerifyPassword == input.VerifyPassword ||
+                    (this.VerifyPassword != null &&
+                    this.VerifyPassword.Equals(input.VerifyPassword))
                 );
         }
 
@@ -138,14 +137,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.ClusterId != null)
-                    hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
+                if (this.LinuxCurrentPassword != null)
+                    hashCode = hashCode * 59 + this.LinuxCurrentPassword.GetHashCode();
                 if (this.LinuxPassword != null)
                     hashCode = hashCode * 59 + this.LinuxPassword.GetHashCode();
                 if (this.LinuxUsername != null)
                     hashCode = hashCode * 59 + this.LinuxUsername.GetHashCode();
-                if (this.NodeIps != null)
-                    hashCode = hashCode * 59 + this.NodeIps.GetHashCode();
+                if (this.VerifyPassword != null)
+                    hashCode = hashCode * 59 + this.VerifyPassword.GetHashCode();
                 return hashCode;
             }
         }

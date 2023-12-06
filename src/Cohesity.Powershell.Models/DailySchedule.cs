@@ -81,12 +81,22 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DailySchedule" /> class.
         /// </summary>
         /// <param name="days">Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
-        public DailySchedule(List<DaysEnum> days = default(List<DaysEnum>))
+        /// <param name="frequency">Specifies a factor to multiply the unit by, to determine the copy schedule. For example if set to 2 and the unit is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied. Only applies to Minutes, Hours and Days.</param>
+        public DailySchedule(List<DaysEnum> days = default(List<DaysEnum>), long? frequency = default(long?))
         {
             this.Days = days;
+            this.Frequency = frequency;
             this.Days = days;
+            this.Frequency = frequency;
         }
         
+        /// <summary>
+        /// Specifies a factor to multiply the unit by, to determine the copy schedule. For example if set to 2 and the unit is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied. Only applies to Minutes, Hours and Days
+        /// </summary>
+        /// <value>Specifies a factor to multiply the unit by, to determine the copy schedule. For example if set to 2 and the unit is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied. Only applies to Minutes, Hours and Days</value>
+        [DataMember(Name="frequency", EmitDefaultValue=true)]
+        public long? Frequency { get; set; }
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -126,6 +136,11 @@ namespace Cohesity.Model
                 (
                     this.Days == input.Days ||
                     this.Days.SequenceEqual(input.Days)
+                ) && 
+                (
+                    this.Frequency == input.Frequency ||
+                    (this.Frequency != null &&
+                    this.Frequency.Equals(input.Frequency))
                 );
         }
 
@@ -139,6 +154,8 @@ namespace Cohesity.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.Days.GetHashCode();
+                if (this.Frequency != null)
+                    hashCode = hashCode * 59 + this.Frequency.GetHashCode();
                 return hashCode;
             }
         }

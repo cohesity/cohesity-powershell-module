@@ -21,36 +21,60 @@ namespace Cohesity.Model
     public partial class NasMountCredentialParams :  IEquatable<NasMountCredentialParams>
     {
         /// <summary>
-        /// Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.
+        /// Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNoProtocol&#39; indicates no protocol set. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kNfs4_1&#39; indicates NFS v4.1 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol. &#39;kCifs2&#39; indicates CIFS v2.0 protocol. &#39;kCifs3&#39; indicates CIFS v3.0 protocol.
         /// </summary>
-        /// <value>Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.</value>
+        /// <value>Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNoProtocol&#39; indicates no protocol set. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kNfs4_1&#39; indicates NFS v4.1 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol. &#39;kCifs2&#39; indicates CIFS v2.0 protocol. &#39;kCifs3&#39; indicates CIFS v3.0 protocol.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum NasProtocolEnum
         {
             /// <summary>
+            /// Enum KNoProtocol for value: kNoProtocol
+            /// </summary>
+            [EnumMember(Value = "kNoProtocol")]
+            KNoProtocol = 1,
+
+            /// <summary>
             /// Enum KNfs3 for value: kNfs3
             /// </summary>
             [EnumMember(Value = "kNfs3")]
-            KNfs3 = 1,
+            KNfs3 = 2,
+
+            /// <summary>
+            /// Enum KNfs41 for value: kNfs4_1
+            /// </summary>
+            [EnumMember(Value = "kNfs4_1")]
+            KNfs41 = 3,
 
             /// <summary>
             /// Enum KCifs1 for value: kCifs1
             /// </summary>
             [EnumMember(Value = "kCifs1")]
-            KCifs1 = 2
+            KCifs1 = 4,
+
+            /// <summary>
+            /// Enum KCifs2 for value: kCifs2
+            /// </summary>
+            [EnumMember(Value = "kCifs2")]
+            KCifs2 = 5,
+
+            /// <summary>
+            /// Enum KCifs3 for value: kCifs3
+            /// </summary>
+            [EnumMember(Value = "kCifs3")]
+            KCifs3 = 6
 
         }
 
         /// <summary>
-        /// Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.
+        /// Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNoProtocol&#39; indicates no protocol set. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kNfs4_1&#39; indicates NFS v4.1 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol. &#39;kCifs2&#39; indicates CIFS v2.0 protocol. &#39;kCifs3&#39; indicates CIFS v3.0 protocol.
         /// </summary>
-        /// <value>Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.</value>
+        /// <value>Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNoProtocol&#39; indicates no protocol set. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kNfs4_1&#39; indicates NFS v4.1 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol. &#39;kCifs2&#39; indicates CIFS v2.0 protocol. &#39;kCifs3&#39; indicates CIFS v3.0 protocol.</value>
         [DataMember(Name="nasProtocol", EmitDefaultValue=true)]
         public NasProtocolEnum? NasProtocol { get; set; }
         /// <summary>
-        /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.
+        /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted.
         /// </summary>
-        /// <value>Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.</value>
+        /// <value>Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum NasTypeEnum
         {
@@ -64,34 +88,22 @@ namespace Cohesity.Model
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
-            KHost = 2,
-
-            /// <summary>
-            /// Enum KDfsGroup for value: kDfsGroup
-            /// </summary>
-            [EnumMember(Value = "kDfsGroup")]
-            KDfsGroup = 3,
-
-            /// <summary>
-            /// Enum KDfsTopDir for value: kDfsTopDir
-            /// </summary>
-            [EnumMember(Value = "kDfsTopDir")]
-            KDfsTopDir = 4
+            KHost = 2
 
         }
 
         /// <summary>
-        /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.
+        /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted.
         /// </summary>
-        /// <value>Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.</value>
+        /// <value>Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted.</value>
         [DataMember(Name="nasType", EmitDefaultValue=true)]
         public NasTypeEnum? NasType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NasMountCredentialParams" /> class.
         /// </summary>
         /// <param name="domain">Specifies the domain in which this credential is valid..</param>
-        /// <param name="nasProtocol">Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol..</param>
-        /// <param name="nasType">Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group..</param>
+        /// <param name="nasProtocol">Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNoProtocol&#39; indicates no protocol set. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kNfs4_1&#39; indicates NFS v4.1 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol. &#39;kCifs2&#39; indicates CIFS v2.0 protocol. &#39;kCifs3&#39; indicates CIFS v3.0 protocol..</param>
+        /// <param name="nasType">Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted..</param>
         /// <param name="password">Specifies the password for the username to use for mounting the NAS..</param>
         /// <param name="skipValidation">Specifies the flag to disable mount point validation during registration process..</param>
         /// <param name="username">Specifies a username to use for mounting the NAS..</param>

@@ -21,6 +21,27 @@ namespace Cohesity.Model
     public partial class NetappProtectionSource :  IEquatable<NetappProtectionSource>
     {
         /// <summary>
+        /// Defines LicenseTypes
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum LicenseTypesEnum
+        {
+            /// <summary>
+            /// Enum KSnapmirrorCloud for value: kSnapmirrorCloud
+            /// </summary>
+            [EnumMember(Value = "kSnapmirrorCloud")]
+            KSnapmirrorCloud = 1
+
+        }
+
+
+        /// <summary>
+        /// Specifies the type of license available on Netapp Cluster &#39;kSnapmirrorCloud&#39; indicates a SnapMirror license on Netapp.
+        /// </summary>
+        /// <value>Specifies the type of license available on Netapp Cluster &#39;kSnapmirrorCloud&#39; indicates a SnapMirror license on Netapp.</value>
+        [DataMember(Name="licenseTypes", EmitDefaultValue=true)]
+        public List<LicenseTypesEnum> LicenseTypes { get; set; }
+        /// <summary>
         /// Specifies the type of managed NetApp Object in a NetApp Protection Source such as &#39;kCluster&#39;, &#39;kVserver&#39; or &#39;kVolume&#39;. &#39;kCluster&#39; indicates a Netapp cluster as a protection source. &#39;kVserver&#39; indicates a Netapp vserver in a cluster as a protection source. &#39;kVolume&#39; indicates  a volume in Netapp vserver as a protection source.
         /// </summary>
         /// <value>Specifies the type of managed NetApp Object in a NetApp Protection Source such as &#39;kCluster&#39;, &#39;kVserver&#39; or &#39;kVolume&#39;. &#39;kCluster&#39; indicates a Netapp cluster as a protection source. &#39;kVserver&#39; indicates a Netapp vserver in a cluster as a protection source. &#39;kVolume&#39; indicates  a volume in Netapp vserver as a protection source.</value>
@@ -58,22 +79,27 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterInfo">clusterInfo.</param>
         /// <param name="isTopLevel">Specifies if this Object is a top level Object. Because a top level Object can either be a NetApp cluster or a Vserver, this cannot be determined only by type..</param>
+        /// <param name="licenseTypes">Specifies the type of license available on Netapp Cluster &#39;kSnapmirrorCloud&#39; indicates a SnapMirror license on Netapp..</param>
         /// <param name="name">Specifies the name of the NetApp Object..</param>
         /// <param name="type">Specifies the type of managed NetApp Object in a NetApp Protection Source such as &#39;kCluster&#39;, &#39;kVserver&#39; or &#39;kVolume&#39;. &#39;kCluster&#39; indicates a Netapp cluster as a protection source. &#39;kVserver&#39; indicates a Netapp vserver in a cluster as a protection source. &#39;kVolume&#39; indicates  a volume in Netapp vserver as a protection source..</param>
         /// <param name="uuid">Specifies the globally unique ID of this Object assigned by the NetApp server..</param>
+        /// <param name="versionTuple">versionTuple.</param>
         /// <param name="volumeInfo">volumeInfo.</param>
         /// <param name="vserverInfo">vserverInfo.</param>
-        public NetappProtectionSource(NetappClusterInfo clusterInfo = default(NetappClusterInfo), bool? isTopLevel = default(bool?), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), NetappVolumeInfo volumeInfo = default(NetappVolumeInfo), NetappVserverInfo vserverInfo = default(NetappVserverInfo))
+        public NetappProtectionSource(NetappClusterInfo clusterInfo = default(NetappClusterInfo), bool? isTopLevel = default(bool?), List<LicenseTypesEnum> licenseTypes = default(List<LicenseTypesEnum>), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), NetappVersionTuple versionTuple = default(NetappVersionTuple), NetappVolumeInfo volumeInfo = default(NetappVolumeInfo), NetappVserverInfo vserverInfo = default(NetappVserverInfo))
         {
             this.IsTopLevel = isTopLevel;
+            this.LicenseTypes = licenseTypes;
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.IsTopLevel = isTopLevel;
+            this.LicenseTypes = licenseTypes;
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
+            this.VersionTuple = versionTuple;
             this.VolumeInfo = volumeInfo;
             this.VserverInfo = vserverInfo;
         }
@@ -104,6 +130,12 @@ namespace Cohesity.Model
         /// <value>Specifies the globally unique ID of this Object assigned by the NetApp server.</value>
         [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VersionTuple
+        /// </summary>
+        [DataMember(Name="versionTuple", EmitDefaultValue=false)]
+        public NetappVersionTuple VersionTuple { get; set; }
 
         /// <summary>
         /// Gets or Sets VolumeInfo
@@ -164,6 +196,10 @@ namespace Cohesity.Model
                     this.IsTopLevel.Equals(input.IsTopLevel))
                 ) && 
                 (
+                    this.LicenseTypes == input.LicenseTypes ||
+                    this.LicenseTypes.SequenceEqual(input.LicenseTypes)
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -176,6 +212,11 @@ namespace Cohesity.Model
                     this.Uuid == input.Uuid ||
                     (this.Uuid != null &&
                     this.Uuid.Equals(input.Uuid))
+                ) && 
+                (
+                    this.VersionTuple == input.VersionTuple ||
+                    (this.VersionTuple != null &&
+                    this.VersionTuple.Equals(input.VersionTuple))
                 ) && 
                 (
                     this.VolumeInfo == input.VolumeInfo ||
@@ -202,11 +243,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterInfo.GetHashCode();
                 if (this.IsTopLevel != null)
                     hashCode = hashCode * 59 + this.IsTopLevel.GetHashCode();
+                hashCode = hashCode * 59 + this.LicenseTypes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
+                if (this.VersionTuple != null)
+                    hashCode = hashCode * 59 + this.VersionTuple.GetHashCode();
                 if (this.VolumeInfo != null)
                     hashCode = hashCode * 59 + this.VolumeInfo.GetHashCode();
                 if (this.VserverInfo != null)

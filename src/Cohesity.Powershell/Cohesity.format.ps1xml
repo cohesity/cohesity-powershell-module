@@ -275,8 +275,110 @@
       </TableControl>
     </View>
 
+    <!-- File Snapshot -->
+    <View>
+      <Name>FileSnapshotInformation.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+              <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Run Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Attempt Number</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>From</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Local Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Remote Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Archival Copy</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>FileSnapshotInformation.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+                <Label>Run Id</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <Label>Start Time</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+                <Label>Attempt Number</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+                <Label>From</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+                <Label>Local Copy</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+                <Label>Remote Copy</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+                <Label>Archival Copy</Label>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
     <!-- ProtectionPolicy -->
-        <View>
+    <View>
       <Name>ProtectionPolicy.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Model.ProtectionPolicy</TypeName>
@@ -449,7 +551,7 @@
     </View>
 
     <!-- ProtectionJobRun -->
-        <View>
+    <View>
       <Name>ProtectionJobRun.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Model.ProtectionRunInstance</TypeName>
@@ -629,6 +731,80 @@
               </ListItem>
               <ListItem>
                 <PropertyName>ProtectionSource</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RegistrationInfo</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
+    <!-- RootNode -->
+    <View>
+      <Name>RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.RootNode</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RefreshedTime</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>RootNode.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.RootNode</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>Id</Label>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Name</Label>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Environment</Label>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RootNode</PropertyName>
               </ListItem>
               <ListItem>
                 <PropertyName>RegistrationInfo</PropertyName>
@@ -1500,6 +1676,124 @@
         </ListEntries>
       </ListControl>
     </View>
+    <!-- System.Object.FileSnapshotInformation Script based cmdlet -->
+    <View>
+      <Name>System.Object.FileSnapshotInformation.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#FileSnapshotInformation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.StartedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Snapshot.AttemptNumber</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.replicaInfoList[0].snapshotTargetSettings.type.Substring(1)</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasLocalCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasRemoteCopy</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.HasArchivalCopy</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Run Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Attempt Number</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>From</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Local Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Remote Copy</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Archival Copy</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- System.Object.IndexedObjectSnapshot Script based cmdlet -->
+    <View>
+      <Name>System.Object.IndexedObjectSnapshot.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#IndexedObjectSnapshot</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshotTimestampUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.LastModifiedTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.TargetName</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.TargetType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ExternalTargetInfo.UsageType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.SizeBytes</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ObjectSnapshotid</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Snapshot Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Modified</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Target Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Target Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Usage Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Size(Bytes)</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Object Snapshot Id</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
     <!-- System.Object.ProtectionPolicy Script based cmdlet -->
     <View>
       <Name>System.Object.ProtectionPolicy.TableView</Name>
@@ -1578,6 +1872,82 @@
       <Name>System.Object.ProtectionSource.TableView</Name>
       <ViewSelectedBy>
         <TypeName>System.Object#ProtectionSource</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Environment</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.ParentId){$_.ParentId}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+             </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!--System.Object.RootNode Script based cmdlet -->
+    <View>
+      <Name>System.Object.RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#RootNode</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.RegistrationInfo.RefreshTimeUsecs){$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime} else {"-"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RefreshedTime</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- System.Object.RootNode Script based cmdlet -->
+    <View>
+      <Name>System.Object.RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#RootNode</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>

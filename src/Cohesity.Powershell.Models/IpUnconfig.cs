@@ -23,32 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="IpUnconfig" /> class.
         /// </summary>
-        /// <param name="ipFamily">IpFamily of this config..</param>
         /// <param name="interfaceName">The interface name..</param>
+        /// <param name="ipFamily">IpFamily of this config..</param>
         /// <param name="nodeIds">Node ids..</param>
-        public IpUnconfig(int? ipFamily = default(int?), string interfaceName = default(string), List<long> nodeIds = default(List<long>))
+        public IpUnconfig(string interfaceName = default(string), int? ipFamily = default(int?), List<long> nodeIds = default(List<long>))
         {
-            this.IpFamily = ipFamily;
             this.InterfaceName = interfaceName;
+            this.IpFamily = ipFamily;
             this.NodeIds = nodeIds;
-            this.IpFamily = ipFamily;
             this.InterfaceName = interfaceName;
+            this.IpFamily = ipFamily;
             this.NodeIds = nodeIds;
         }
         
-        /// <summary>
-        /// IpFamily of this config.
-        /// </summary>
-        /// <value>IpFamily of this config.</value>
-        [DataMember(Name="IpFamily", EmitDefaultValue=true)]
-        public int? IpFamily { get; set; }
-
         /// <summary>
         /// The interface name.
         /// </summary>
         /// <value>The interface name.</value>
         [DataMember(Name="interfaceName", EmitDefaultValue=true)]
         public string InterfaceName { get; set; }
+
+        /// <summary>
+        /// IpFamily of this config.
+        /// </summary>
+        /// <value>IpFamily of this config.</value>
+        [DataMember(Name="ipFamily", EmitDefaultValue=true)]
+        public int? IpFamily { get; set; }
 
         /// <summary>
         /// Node ids.
@@ -94,14 +94,14 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.IpFamily == input.IpFamily ||
-                    (this.IpFamily != null &&
-                    this.IpFamily.Equals(input.IpFamily))
-                ) && 
-                (
                     this.InterfaceName == input.InterfaceName ||
                     (this.InterfaceName != null &&
                     this.InterfaceName.Equals(input.InterfaceName))
+                ) && 
+                (
+                    this.IpFamily == input.IpFamily ||
+                    (this.IpFamily != null &&
+                    this.IpFamily.Equals(input.IpFamily))
                 ) && 
                 (
                     this.NodeIds == input.NodeIds ||
@@ -120,10 +120,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.IpFamily != null)
-                    hashCode = hashCode * 59 + this.IpFamily.GetHashCode();
                 if (this.InterfaceName != null)
                     hashCode = hashCode * 59 + this.InterfaceName.GetHashCode();
+                if (this.IpFamily != null)
+                    hashCode = hashCode * 59 + this.IpFamily.GetHashCode();
                 if (this.NodeIds != null)
                     hashCode = hashCode * 59 + this.NodeIds.GetHashCode();
                 return hashCode;

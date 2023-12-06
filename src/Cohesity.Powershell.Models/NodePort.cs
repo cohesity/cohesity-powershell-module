@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// VmInfo specifies information of a NodePort per service and port combination within an application instance.
+    /// NodePort specifies information of a NodePort per service and port combination within an application instance.
     /// </summary>
     [DataContract]
     public partial class NodePort :  IEquatable<NodePort>
@@ -64,14 +64,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="isUiPort">isUiPort.</param>
         /// <param name="port">port.</param>
+        /// <param name="serviceName">serviceName.</param>
         /// <param name="tag">Specifies use of the nodeport kDefault - No specific service. kHttp - HTTP server. kHttps -  Secure HTTP server. kSsh - Secure shell server..</param>
-        public NodePort(bool? isUiPort = default(bool?), int? port = default(int?), TagEnum? tag = default(TagEnum?))
+        public NodePort(bool? isUiPort = default(bool?), int? port = default(int?), string serviceName = default(string), TagEnum? tag = default(TagEnum?))
         {
             this.IsUiPort = isUiPort;
             this.Port = port;
+            this.ServiceName = serviceName;
             this.Tag = tag;
             this.IsUiPort = isUiPort;
             this.Port = port;
+            this.ServiceName = serviceName;
             this.Tag = tag;
         }
         
@@ -86,6 +89,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="port", EmitDefaultValue=true)]
         public int? Port { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ServiceName
+        /// </summary>
+        [DataMember(Name="serviceName", EmitDefaultValue=true)]
+        public string ServiceName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -134,6 +143,11 @@ namespace Cohesity.Model
                     this.Port.Equals(input.Port))
                 ) && 
                 (
+                    this.ServiceName == input.ServiceName ||
+                    (this.ServiceName != null &&
+                    this.ServiceName.Equals(input.ServiceName))
+                ) && 
+                (
                     this.Tag == input.Tag ||
                     this.Tag.Equals(input.Tag)
                 );
@@ -152,6 +166,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsUiPort.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
+                if (this.ServiceName != null)
+                    hashCode = hashCode * 59 + this.ServiceName.GetHashCode();
                 hashCode = hashCode * 59 + this.Tag.GetHashCode();
                 return hashCode;
             }

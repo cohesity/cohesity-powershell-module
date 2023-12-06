@@ -24,15 +24,18 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AdObjectsRestoreStatus" /> class.
         /// </summary>
         /// <param name="adObjectsRestoreInfo">Specifies the status of all the AD Objects which were requested to be restored..</param>
-        /// <param name="numObjectsFailed">Specifies the number of AD Objects whose restore is in progress..</param>
+        /// <param name="numObjectsFailed">Specifies the number of AD Objects whose restore has failed..</param>
+        /// <param name="numObjectsRunning">Specifies the number of AD Objects whose restore is in progress..</param>
         /// <param name="numObjectsSucceeded">Specifies the number of AD Objects whose restore is successfull..</param>
-        public AdObjectsRestoreStatus(List<AdObjectRestoreInformation> adObjectsRestoreInfo = default(List<AdObjectRestoreInformation>), int? numObjectsFailed = default(int?), int? numObjectsSucceeded = default(int?))
+        public AdObjectsRestoreStatus(List<AdObjectRestoreInformation> adObjectsRestoreInfo = default(List<AdObjectRestoreInformation>), int? numObjectsFailed = default(int?), int? numObjectsRunning = default(int?), int? numObjectsSucceeded = default(int?))
         {
             this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
             this.NumObjectsFailed = numObjectsFailed;
+            this.NumObjectsRunning = numObjectsRunning;
             this.NumObjectsSucceeded = numObjectsSucceeded;
             this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
             this.NumObjectsFailed = numObjectsFailed;
+            this.NumObjectsRunning = numObjectsRunning;
             this.NumObjectsSucceeded = numObjectsSucceeded;
         }
         
@@ -44,11 +47,18 @@ namespace Cohesity.Model
         public List<AdObjectRestoreInformation> AdObjectsRestoreInfo { get; set; }
 
         /// <summary>
+        /// Specifies the number of AD Objects whose restore has failed.
+        /// </summary>
+        /// <value>Specifies the number of AD Objects whose restore has failed.</value>
+        [DataMember(Name="numObjectsFailed", EmitDefaultValue=true)]
+        public int? NumObjectsFailed { get; set; }
+
+        /// <summary>
         /// Specifies the number of AD Objects whose restore is in progress.
         /// </summary>
         /// <value>Specifies the number of AD Objects whose restore is in progress.</value>
-        [DataMember(Name="numObjectsFailed", EmitDefaultValue=true)]
-        public int? NumObjectsFailed { get; set; }
+        [DataMember(Name="numObjectsRunning", EmitDefaultValue=true)]
+        public int? NumObjectsRunning { get; set; }
 
         /// <summary>
         /// Specifies the number of AD Objects whose restore is successfull.
@@ -105,6 +115,11 @@ namespace Cohesity.Model
                     this.NumObjectsFailed.Equals(input.NumObjectsFailed))
                 ) && 
                 (
+                    this.NumObjectsRunning == input.NumObjectsRunning ||
+                    (this.NumObjectsRunning != null &&
+                    this.NumObjectsRunning.Equals(input.NumObjectsRunning))
+                ) && 
+                (
                     this.NumObjectsSucceeded == input.NumObjectsSucceeded ||
                     (this.NumObjectsSucceeded != null &&
                     this.NumObjectsSucceeded.Equals(input.NumObjectsSucceeded))
@@ -124,6 +139,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AdObjectsRestoreInfo.GetHashCode();
                 if (this.NumObjectsFailed != null)
                     hashCode = hashCode * 59 + this.NumObjectsFailed.GetHashCode();
+                if (this.NumObjectsRunning != null)
+                    hashCode = hashCode * 59 + this.NumObjectsRunning.GetHashCode();
                 if (this.NumObjectsSucceeded != null)
                     hashCode = hashCode * 59 + this.NumObjectsSucceeded.GetHashCode();
                 return hashCode;

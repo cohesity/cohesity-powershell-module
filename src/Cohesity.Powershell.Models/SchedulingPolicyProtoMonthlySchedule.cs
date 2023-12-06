@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="count">Count of the day on which to perform the backup (look above for a more detailed description)..</param>
         /// <param name="day">The day of the month the backup is to be performed..</param>
-        public SchedulingPolicyProtoMonthlySchedule(int? count = default(int?), int? day = default(int?))
+        /// <param name="dayOfMonth">Specific date of the month on which to perform the backup..</param>
+        public SchedulingPolicyProtoMonthlySchedule(int? count = default(int?), int? day = default(int?), int? dayOfMonth = default(int?))
         {
             this.Count = count;
             this.Day = day;
+            this.DayOfMonth = dayOfMonth;
             this.Count = count;
             this.Day = day;
+            this.DayOfMonth = dayOfMonth;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>The day of the month the backup is to be performed.</value>
         [DataMember(Name="day", EmitDefaultValue=true)]
         public int? Day { get; set; }
+
+        /// <summary>
+        /// Specific date of the month on which to perform the backup.
+        /// </summary>
+        /// <value>Specific date of the month on which to perform the backup.</value>
+        [DataMember(Name="dayOfMonth", EmitDefaultValue=true)]
+        public int? DayOfMonth { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.Day == input.Day ||
                     (this.Day != null &&
                     this.Day.Equals(input.Day))
+                ) && 
+                (
+                    this.DayOfMonth == input.DayOfMonth ||
+                    (this.DayOfMonth != null &&
+                    this.DayOfMonth.Equals(input.DayOfMonth))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Count.GetHashCode();
                 if (this.Day != null)
                     hashCode = hashCode * 59 + this.Day.GetHashCode();
+                if (this.DayOfMonth != null)
+                    hashCode = hashCode * 59 + this.DayOfMonth.GetHashCode();
                 return hashCode;
             }
         }

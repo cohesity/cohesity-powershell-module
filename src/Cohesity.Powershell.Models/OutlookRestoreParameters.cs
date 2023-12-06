@@ -24,13 +24,15 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OutlookRestoreParameters" /> class.
         /// </summary>
         /// <param name="outlookMailboxList">Specifies the list of mailboxes to be restored..</param>
+        /// <param name="pstParams">pstParams.</param>
         /// <param name="targetFolderPath">Specifies the target folder path to restore the mailboxes. This will always be specified whether the target mailbox is the original or an alternate one..</param>
         /// <param name="targetMailbox">targetMailbox.</param>
-        public OutlookRestoreParameters(List<OutlookMailbox> outlookMailboxList = default(List<OutlookMailbox>), string targetFolderPath = default(string), ProtectionSource targetMailbox = default(ProtectionSource))
+        public OutlookRestoreParameters(List<OutlookMailbox> outlookMailboxList = default(List<OutlookMailbox>), PstParameters pstParams = default(PstParameters), string targetFolderPath = default(string), ProtectionSource targetMailbox = default(ProtectionSource))
         {
             this.OutlookMailboxList = outlookMailboxList;
             this.TargetFolderPath = targetFolderPath;
             this.OutlookMailboxList = outlookMailboxList;
+            this.PstParams = pstParams;
             this.TargetFolderPath = targetFolderPath;
             this.TargetMailbox = targetMailbox;
         }
@@ -41,6 +43,12 @@ namespace Cohesity.Model
         /// <value>Specifies the list of mailboxes to be restored.</value>
         [DataMember(Name="outlookMailboxList", EmitDefaultValue=true)]
         public List<OutlookMailbox> OutlookMailboxList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PstParams
+        /// </summary>
+        [DataMember(Name="pstParams", EmitDefaultValue=false)]
+        public PstParameters PstParams { get; set; }
 
         /// <summary>
         /// Specifies the target folder path to restore the mailboxes. This will always be specified whether the target mailbox is the original or an alternate one.
@@ -98,6 +106,11 @@ namespace Cohesity.Model
                     this.OutlookMailboxList.SequenceEqual(input.OutlookMailboxList)
                 ) && 
                 (
+                    this.PstParams == input.PstParams ||
+                    (this.PstParams != null &&
+                    this.PstParams.Equals(input.PstParams))
+                ) && 
+                (
                     this.TargetFolderPath == input.TargetFolderPath ||
                     (this.TargetFolderPath != null &&
                     this.TargetFolderPath.Equals(input.TargetFolderPath))
@@ -120,6 +133,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.OutlookMailboxList != null)
                     hashCode = hashCode * 59 + this.OutlookMailboxList.GetHashCode();
+                if (this.PstParams != null)
+                    hashCode = hashCode * 59 + this.PstParams.GetHashCode();
                 if (this.TargetFolderPath != null)
                     hashCode = hashCode * 59 + this.TargetFolderPath.GetHashCode();
                 if (this.TargetMailbox != null)

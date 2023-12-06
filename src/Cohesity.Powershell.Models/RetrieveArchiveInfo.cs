@@ -31,12 +31,13 @@ namespace Cohesity.Model
         /// <param name="logicalSizeBytes">Total logical size of the retrieval task..</param>
         /// <param name="progressMonitorTaskPath">The root path of the progress monitor for this task..</param>
         /// <param name="retrievedEntityVec">Contains info about all retrieved entities..</param>
+        /// <param name="skipCloningView">If true, we will use the view directly without cloning it and delete it when the restore is complete..</param>
         /// <param name="startTimeUsecs">Time when this retrieval task was started by Icebox. If not set, then retrieval has not been started yet..</param>
         /// <param name="stubViewName">The stub view that Icebox created. Stub view can be used for selectively restoring or accessing files from an archive location..</param>
         /// <param name="stubViewRelativeDirName">Relative directory inside the stub view that corresponds with the archive..</param>
         /// <param name="targetViewName">The name of the target view where Icebox has retrieved and staged the requested entities..</param>
         /// <param name="userActionRequiredMsg">Message to display in the UI if any manual intervention is needed to make forward progress for the retrieve from archive task. This message is mainly relevant for tape based retrieve from archive tasks where a backup admin might be asked to load new media when the tape library does not have the relevant media to retrieve the archive from..</param>
-        public RetrieveArchiveInfo(long? avgLogicalTransferRateBps = default(long?), long? bytesTransferred = default(long?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), List<RetrieveArchiveInfoRetrievedEntity> retrievedEntityVec = default(List<RetrieveArchiveInfoRetrievedEntity>), long? startTimeUsecs = default(long?), string stubViewName = default(string), string stubViewRelativeDirName = default(string), string targetViewName = default(string), string userActionRequiredMsg = default(string))
+        public RetrieveArchiveInfo(long? avgLogicalTransferRateBps = default(long?), long? bytesTransferred = default(long?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), List<RetrieveArchiveInfoRetrievedEntity> retrievedEntityVec = default(List<RetrieveArchiveInfoRetrievedEntity>), bool? skipCloningView = default(bool?), long? startTimeUsecs = default(long?), string stubViewName = default(string), string stubViewRelativeDirName = default(string), string targetViewName = default(string), string userActionRequiredMsg = default(string))
         {
             this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
             this.BytesTransferred = bytesTransferred;
@@ -45,6 +46,7 @@ namespace Cohesity.Model
             this.LogicalSizeBytes = logicalSizeBytes;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RetrievedEntityVec = retrievedEntityVec;
+            this.SkipCloningView = skipCloningView;
             this.StartTimeUsecs = startTimeUsecs;
             this.StubViewName = stubViewName;
             this.StubViewRelativeDirName = stubViewRelativeDirName;
@@ -58,6 +60,7 @@ namespace Cohesity.Model
             this.LogicalSizeBytes = logicalSizeBytes;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RetrievedEntityVec = retrievedEntityVec;
+            this.SkipCloningView = skipCloningView;
             this.StartTimeUsecs = startTimeUsecs;
             this.StubViewName = stubViewName;
             this.StubViewRelativeDirName = stubViewRelativeDirName;
@@ -119,6 +122,13 @@ namespace Cohesity.Model
         /// <value>Contains info about all retrieved entities.</value>
         [DataMember(Name="retrievedEntityVec", EmitDefaultValue=true)]
         public List<RetrieveArchiveInfoRetrievedEntity> RetrievedEntityVec { get; set; }
+
+        /// <summary>
+        /// If true, we will use the view directly without cloning it and delete it when the restore is complete.
+        /// </summary>
+        /// <value>If true, we will use the view directly without cloning it and delete it when the restore is complete.</value>
+        [DataMember(Name="skipCloningView", EmitDefaultValue=true)]
+        public bool? SkipCloningView { get; set; }
 
         /// <summary>
         /// Time when this retrieval task was started by Icebox. If not set, then retrieval has not been started yet.
@@ -233,6 +243,11 @@ namespace Cohesity.Model
                     this.RetrievedEntityVec.SequenceEqual(input.RetrievedEntityVec)
                 ) && 
                 (
+                    this.SkipCloningView == input.SkipCloningView ||
+                    (this.SkipCloningView != null &&
+                    this.SkipCloningView.Equals(input.SkipCloningView))
+                ) && 
+                (
                     this.StartTimeUsecs == input.StartTimeUsecs ||
                     (this.StartTimeUsecs != null &&
                     this.StartTimeUsecs.Equals(input.StartTimeUsecs))
@@ -284,6 +299,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.RetrievedEntityVec != null)
                     hashCode = hashCode * 59 + this.RetrievedEntityVec.GetHashCode();
+                if (this.SkipCloningView != null)
+                    hashCode = hashCode * 59 + this.SkipCloningView.GetHashCode();
                 if (this.StartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.StartTimeUsecs.GetHashCode();
                 if (this.StubViewName != null)

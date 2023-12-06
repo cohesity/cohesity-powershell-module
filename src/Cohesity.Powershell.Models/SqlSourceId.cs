@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="createdDateMsecs">Specifies a unique identifier generated from the date the database is created or renamed. Cohesity uses this identifier in combination with the databaseId to uniquely identify a database..</param>
         /// <param name="databaseId">Specifies a unique id of the database but only for the life of the database. SQL Server may reuse database ids. Cohesity uses the createDateMsecs in combination with this databaseId to uniquely identify a database..</param>
-        /// <param name="instanceId">Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance..</param>
+        /// <param name="instanceId">The SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance..</param>
         public SqlSourceId(long? createdDateMsecs = default(long?), long? databaseId = default(long?), string instanceId = default(string))
         {
             this.CreatedDateMsecs = createdDateMsecs;
@@ -51,9 +51,9 @@ namespace Cohesity.Model
         public long? DatabaseId { get; set; }
 
         /// <summary>
-        /// Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.
+        /// The SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.
         /// </summary>
-        /// <value>Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.</value>
+        /// <value>The SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.</value>
         [DataMember(Name="instanceId", EmitDefaultValue=true)]
         public string InstanceId { get; set; }
 
@@ -105,9 +105,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.InstanceId == input.InstanceId ||
-                    this.InstanceId != null &&
-                    input.InstanceId != null &&
-                    this.InstanceId.SequenceEqual(input.InstanceId)
+                    (this.InstanceId != null &&
+                    this.InstanceId.Equals(input.InstanceId))
                 );
         }
 

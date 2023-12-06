@@ -34,7 +34,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mydomain.com\admin", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
     ///   </code>
     ///   <para>
-    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending fully qualified domain name(mydomain.com) to the user.
     ///   </para>
     /// </example>
     /// <example>
@@ -53,6 +53,24 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   </code>
     ///   <para>
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
+    ///   </para>
+    /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sessionId"
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the Session Id.
+    ///   </para>
+    /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -UseMFA -OtpType Email
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using Multi-Factor Authentication(MFA). By default, OtpType will be considered as Totp if not provided. On trying to connect to the cluster using MFA, user will be prompted to provide OTP code.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommunications.Connect, "CohesityCluster", DefaultParameterSetName = "UsingCreds")]
@@ -115,7 +133,35 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         [Parameter(Mandatory = false, ParameterSetName = "UsingAPIKey")]
         public String APIKey { get; set; } = null;
 
+        /// <summary>
+        /// <para type="description">
+        /// Cohesity Session Id key
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false, ParameterSetName = "UsingSessionId")]
+        public String SessionId { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
+        /// Do MFA required ?
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        // public bool UsingMFA { get; set; } = false;
+        public SwitchParameter UseMFA { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies OTP type for MFA verification.
+        /// 'Totp' implies the code is TOTP.
+        /// 'Email' implies the code is email OTP. 
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.AccessTokenCredential.OtpTypeEnum? OtpType { get; set; }
+
         private Uri clusterUri;
+        private String otpCode;
 
         /// <summary>
         /// Begin processing.
@@ -162,15 +208,88 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 WriteObject("Failed to connect to the Cohesity Cluster.");
                 return;
             }
+            if (this.SessionId != null)
+            {
+                // allow the user profile for validating the api key
+                var userProfile = new UserProfile
+                {
+                    ClusterUri = clusterUri,
+                    AccessToken = null,
+                    AllowInvalidServerCertificates = true,
+                    SessionId = this.SessionId
+                };
+                userProfileProvider.SetUserProfile(userProfile);
+                if (SessionIdAdapter.ValidateSessionId(this.Server, this.SessionId))
+                {
+                    WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
+                    return;
+                }
+                userProfileProvider.DeleteUserProfile();
+                WriteObject("Failed to connect to the Cohesity Cluster.");
+                return;
+            }
 
             var networkCredential = Credential.GetNetworkCredential();
             var domain = string.IsNullOrWhiteSpace(networkCredential.Domain) ? LocalDomain : networkCredential.Domain;
+
+            // Use TLS1.1 or TLS1.2
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            if (UseMFA.IsPresent)
+            {
+                if (OtpType == Model.AccessTokenCredential.OtpTypeEnum.Email)
+                {
+                    var emailMfaBody = new AccessTokenCredential
+                    {
+                        Domain = domain,
+                        Username = networkCredential.UserName,
+                        Password = networkCredential.Password
+                    };
+
+                    // Send security code to the registered mail address for the logged in user
+                    var emailMfaUrl = $"/v2/email-otp";
+                    var emailMFARequest = new HttpRequestMessage(HttpMethod.Post, emailMfaUrl)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(emailMfaBody), Encoding.UTF8, "application/json")
+                    };
+
+                    try
+                    {
+                        var httpClient = Session.ApiClient.BuildClient(clusterUri, true);
+                        var sendSecurityCode = httpClient.SendAsync(emailMFARequest).Result;
+                        var sendSecurityCodeResponse = sendSecurityCode.Content.ReadAsStringAsync().Result;
+
+                        if (sendSecurityCode.StatusCode != HttpStatusCode.Created)
+                        {
+                            var accessCodeError = JsonConvert.DeserializeObject<ErrorProto>(sendSecurityCodeResponse);
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine("Failed to send access code to the registered email address");
+                            sb.AppendLine(accessCodeError.ErrorMsg);
+                            throw new Exception(sb.ToString());
+                        }
+
+                        Console.WriteLine("Access code is sent to the registered email address");
+                    }
+                    catch (Exception ex)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine("Failed to send access code to the registered email address");
+                        sb.AppendLine(ex.Message);
+                        throw new Exception(sb.ToString());
+                    }
+                }
+
+                Console.WriteLine("Enter MFA code");
+                otpCode = Console.ReadLine();
+            }
 
             var credentials = new AccessTokenCredential
             {
                 Domain = domain,
                 Username = networkCredential.UserName,
-                Password = networkCredential.Password
+                Password = networkCredential.Password,
+                OtpCode = otpCode,
+                OtpType = OtpType == null ? Model.AccessTokenCredential.OtpTypeEnum.Totp : OtpType
             };
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, "public/accessTokens")

@@ -32,10 +32,11 @@ namespace Cohesity.Model
         /// <param name="fraDest">FRA path..</param>
         /// <param name="fraSizeMb">FRA Size in MBs..</param>
         /// <param name="numTempfiles">How many tempfiles to use for the recovered database..</param>
+        /// <param name="pfileParameterMap">Map of pfile parameters to its values..</param>
         /// <param name="redoLogConf">redoLogConf.</param>
         /// <param name="sgaTargetSize">SGA_TARGET_SIZE size [ Default value same as Source DB ]..</param>
         /// <param name="sharedPoolSize">Shared pool size [ Default value same as Source DB ]..</param>
-        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string))
+        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), List<OracleDBConfigPfileParameterMapEntry> pfileParameterMap = default(List<OracleDBConfigPfileParameterMapEntry>), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string))
         {
             this.AuditLogDest = auditLogDest;
             this.BctFilePath = bctFilePath;
@@ -46,6 +47,7 @@ namespace Cohesity.Model
             this.FraDest = fraDest;
             this.FraSizeMb = fraSizeMb;
             this.NumTempfiles = numTempfiles;
+            this.PfileParameterMap = pfileParameterMap;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
             this.AuditLogDest = auditLogDest;
@@ -57,6 +59,7 @@ namespace Cohesity.Model
             this.FraDest = fraDest;
             this.FraSizeMb = fraSizeMb;
             this.NumTempfiles = numTempfiles;
+            this.PfileParameterMap = pfileParameterMap;
             this.RedoLogConf = redoLogConf;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
@@ -124,6 +127,13 @@ namespace Cohesity.Model
         /// <value>How many tempfiles to use for the recovered database.</value>
         [DataMember(Name="numTempfiles", EmitDefaultValue=true)]
         public int? NumTempfiles { get; set; }
+
+        /// <summary>
+        /// Map of pfile parameters to its values.
+        /// </summary>
+        /// <value>Map of pfile parameters to its values.</value>
+        [DataMember(Name="pfileParameterMap", EmitDefaultValue=true)]
+        public List<OracleDBConfigPfileParameterMapEntry> PfileParameterMap { get; set; }
 
         /// <summary>
         /// Gets or Sets RedoLogConf
@@ -228,6 +238,12 @@ namespace Cohesity.Model
                     this.NumTempfiles.Equals(input.NumTempfiles))
                 ) && 
                 (
+                    this.PfileParameterMap == input.PfileParameterMap ||
+                    this.PfileParameterMap != null &&
+                    input.PfileParameterMap != null &&
+                    this.PfileParameterMap.SequenceEqual(input.PfileParameterMap)
+                ) && 
+                (
                     this.RedoLogConf == input.RedoLogConf ||
                     (this.RedoLogConf != null &&
                     this.RedoLogConf.Equals(input.RedoLogConf))
@@ -271,6 +287,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FraSizeMb.GetHashCode();
                 if (this.NumTempfiles != null)
                     hashCode = hashCode * 59 + this.NumTempfiles.GetHashCode();
+                if (this.PfileParameterMap != null)
+                    hashCode = hashCode * 59 + this.PfileParameterMap.GetHashCode();
                 if (this.RedoLogConf != null)
                     hashCode = hashCode * 59 + this.RedoLogConf.GetHashCode();
                 if (this.SgaTargetSize != null)

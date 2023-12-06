@@ -24,6 +24,24 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Returns only the files and folders that match the search pattern "txt".
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PageSize 120
+    ///   </code>
+    ///   <para>
+    ///   Returns 120(pageSize) entries that match the search pattern "txt". Pagination Cookie in the response can be used to fetch next list of entries.
+    ///   </para>
+    /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Find-CohesityFilesForRestore -Search "*txt" -Paginate $true -PaginationCookie rrrgcrsgre -PageSize 200
+    ///   </code>
+    ///   <para>
+    ///   Returns next set of entries that match the search pattern "txt" based on provided Pagiantion cookie.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Find, "CohesityFilesForRestore")]
     [OutputType(typeof(FileSearchResult))]
     public class FindCohesityFilesForRestore : PSCmdlet
@@ -119,6 +137,30 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// Specifies bool to control pagination of search results. Only valid for librarian queries. If this is set to true and a pagination cookie is provided, search will be resumed.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public bool? Paginate { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies pagesize for pagination. Only valid for librarian queries. Effective only when Paginate is set to true.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? PageSize { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies cookie for resuming search if pagination is being used. Only valid for librarian queries. Effective only when Paginate is set to true.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public string PaginationCookie { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Filter by a list of storage domain (view box) ids. Only items stored in the listed domains (view boxes) are returned.
         /// </para> 
         /// </summary>
@@ -180,6 +222,15 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (StorageDomainIds != null && StorageDomainIds.Any())
                 queries.Add("viewBoxIds", string.Join(",", StorageDomainIds));
 
+            if (Paginate != null && Paginate.HasValue)
+                queries.Add("paginate", Paginate.ToString());
+
+            if (PaginationCookie != null)
+                queries.Add("paginationCookie", PaginationCookie);
+
+            if (PageSize != null && PageSize.HasValue)
+                queries.Add("pageSize", PageSize.ToString());
+
             var queryString = string.Empty;
             if (queries.Any())
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
@@ -187,6 +238,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             var url = $"/public/restore/files{queryString}";
             var result = Session.ApiClient.Get<FileSearchResults>(url);
             WriteObject(result.Files, true);
+            if (Paginate != null && Paginate.HasValue)
+                WriteObject("PaginationCookie:" + " " + result.PaginationCookie);
         }
 
         private bool IsValidTime(long? time)

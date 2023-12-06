@@ -21,16 +21,46 @@ namespace Cohesity.Model
     public partial class EmailDeliveryTarget :  IEquatable<EmailDeliveryTarget>
     {
         /// <summary>
+        /// Specifies the recipient type on how the emails are to received. The email recipient type. &#39;kTo&#39; indicates the primary receiver type &#39;kCc&#39; indicates the carbon copy receiver type
+        /// </summary>
+        /// <value>Specifies the recipient type on how the emails are to received. The email recipient type. &#39;kTo&#39; indicates the primary receiver type &#39;kCc&#39; indicates the carbon copy receiver type</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum RecipientTypeEnum
+        {
+            /// <summary>
+            /// Enum KTo for value: kTo
+            /// </summary>
+            [EnumMember(Value = "kTo")]
+            KTo = 1,
+
+            /// <summary>
+            /// Enum KCc for value: kCc
+            /// </summary>
+            [EnumMember(Value = "kCc")]
+            KCc = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the recipient type on how the emails are to received. The email recipient type. &#39;kTo&#39; indicates the primary receiver type &#39;kCc&#39; indicates the carbon copy receiver type
+        /// </summary>
+        /// <value>Specifies the recipient type on how the emails are to received. The email recipient type. &#39;kTo&#39; indicates the primary receiver type &#39;kCc&#39; indicates the carbon copy receiver type</value>
+        [DataMember(Name="recipientType", EmitDefaultValue=true)]
+        public RecipientTypeEnum? RecipientType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="EmailDeliveryTarget" /> class.
         /// </summary>
         /// <param name="emailAddress">emailAddress.</param>
         /// <param name="locale">Specifies the language in which the emails sent to the above defined mail address should be in..</param>
-        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string))
+        /// <param name="recipientType">Specifies the recipient type on how the emails are to received. The email recipient type. &#39;kTo&#39; indicates the primary receiver type &#39;kCc&#39; indicates the carbon copy receiver type.</param>
+        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), RecipientTypeEnum? recipientType = default(RecipientTypeEnum?))
         {
             this.EmailAddress = emailAddress;
             this.Locale = locale;
+            this.RecipientType = recipientType;
             this.EmailAddress = emailAddress;
             this.Locale = locale;
+            this.RecipientType = recipientType;
         }
         
         /// <summary>
@@ -91,6 +121,10 @@ namespace Cohesity.Model
                     this.Locale == input.Locale ||
                     (this.Locale != null &&
                     this.Locale.Equals(input.Locale))
+                ) && 
+                (
+                    this.RecipientType == input.RecipientType ||
+                    this.RecipientType.Equals(input.RecipientType)
                 );
         }
 
@@ -107,6 +141,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EmailAddress.GetHashCode();
                 if (this.Locale != null)
                     hashCode = hashCode * 59 + this.Locale.GetHashCode();
+                hashCode = hashCode * 59 + this.RecipientType.GetHashCode();
                 return hashCode;
             }
         }

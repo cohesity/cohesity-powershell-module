@@ -51,25 +51,39 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="LdapProviderResponse" /> class.
         /// </summary>
         /// <param name="adDomainName">Specifies the domain name of an Active Directory which is mapped to this LDAP provider.</param>
+        /// <param name="attributeCommonName">Name of the LDAP attribute used for common name of an object..</param>
+        /// <param name="attributeGid">Name of the attribute used to lookup unix GID of an LDAP user..</param>
+        /// <param name="attributeMemberOf">Name of the LDAP attribute used to lookup members of a group..</param>
+        /// <param name="attributeUid">Name of the attribute used to lookup unix UID of an LDAP user..</param>
+        /// <param name="attributeUserName">Name of the LDAP attribute used to lookup a user by user ID..</param>
         /// <param name="authType">Specifies the authentication type used while connecting to LDAP servers. Authentication level. &#39;kAnonymous&#39; indicates LDAP authentication type &#39;Anonymous&#39; &#39;kSimple&#39; indicates LDAP authentication type &#39;Simple&#39;.</param>
         /// <param name="baseDistinguishedName">Specifies the base distinguished name used as the base for LDAP search requests..</param>
         /// <param name="domainName">Specifies the name of the domain name to be used for querying LDAP servers from DNS. If PreferredLdapServerList is set, then DomainName field is ignored..</param>
         /// <param name="id">Specifies the ID of the LDAP provider..</param>
         /// <param name="name">Specifies the name of the LDAP provider..</param>
+        /// <param name="objectClassGroup">Name of the LDAP group object class for user accounts..</param>
+        /// <param name="objectClassUser">Name of the LDAP user object class for user accounts..</param>
         /// <param name="port">Specifies LDAP server port..</param>
         /// <param name="preferredLdapServerList">Specifies the preferred LDAP servers. Server names should be either in fully qualified domain name (FQDN) format or IP addresses..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="useSsl">Specifies whether to use SSL for LDAP connections..</param>
         /// <param name="userDistinguishedName">Specifies the user distinguished name that is used for LDAP authentication. It should be provided if the AuthType is set to either kSimple or kSasl..</param>
         /// <param name="userPassword">Specifies the user password that is used for LDAP authentication..</param>
-        public LdapProviderResponse(string adDomainName = default(string), AuthTypeEnum? authType = default(AuthTypeEnum?), string baseDistinguishedName = default(string), string domainName = default(string), long? id = default(long?), string name = default(string), int? port = default(int?), List<string> preferredLdapServerList = default(List<string>), string tenantId = default(string), bool? useSsl = default(bool?), string userDistinguishedName = default(string), string userPassword = default(string))
+        public LdapProviderResponse(string adDomainName = default(string), string attributeCommonName = default(string), string attributeGid = default(string), string attributeMemberOf = default(string), string attributeUid = default(string), string attributeUserName = default(string), AuthTypeEnum? authType = default(AuthTypeEnum?), string baseDistinguishedName = default(string), string domainName = default(string), long? id = default(long?), string name = default(string), string objectClassGroup = default(string), string objectClassUser = default(string), int? port = default(int?), List<string> preferredLdapServerList = default(List<string>), string tenantId = default(string), bool? useSsl = default(bool?), string userDistinguishedName = default(string), string userPassword = default(string))
         {
             this.AdDomainName = adDomainName;
+            this.AttributeCommonName = attributeCommonName;
+            this.AttributeGid = attributeGid;
+            this.AttributeMemberOf = attributeMemberOf;
+            this.AttributeUid = attributeUid;
+            this.AttributeUserName = attributeUserName;
             this.AuthType = authType;
             this.BaseDistinguishedName = baseDistinguishedName;
             this.DomainName = domainName;
             this.Id = id;
             this.Name = name;
+            this.ObjectClassGroup = objectClassGroup;
+            this.ObjectClassUser = objectClassUser;
             this.Port = port;
             this.PreferredLdapServerList = preferredLdapServerList;
             this.TenantId = tenantId;
@@ -77,11 +91,18 @@ namespace Cohesity.Model
             this.UserDistinguishedName = userDistinguishedName;
             this.UserPassword = userPassword;
             this.AdDomainName = adDomainName;
+            this.AttributeCommonName = attributeCommonName;
+            this.AttributeGid = attributeGid;
+            this.AttributeMemberOf = attributeMemberOf;
+            this.AttributeUid = attributeUid;
+            this.AttributeUserName = attributeUserName;
             this.AuthType = authType;
             this.BaseDistinguishedName = baseDistinguishedName;
             this.DomainName = domainName;
             this.Id = id;
             this.Name = name;
+            this.ObjectClassGroup = objectClassGroup;
+            this.ObjectClassUser = objectClassUser;
             this.Port = port;
             this.PreferredLdapServerList = preferredLdapServerList;
             this.TenantId = tenantId;
@@ -96,6 +117,41 @@ namespace Cohesity.Model
         /// <value>Specifies the domain name of an Active Directory which is mapped to this LDAP provider</value>
         [DataMember(Name="adDomainName", EmitDefaultValue=true)]
         public string AdDomainName { get; set; }
+
+        /// <summary>
+        /// Name of the LDAP attribute used for common name of an object.
+        /// </summary>
+        /// <value>Name of the LDAP attribute used for common name of an object.</value>
+        [DataMember(Name="attributeCommonName", EmitDefaultValue=true)]
+        public string AttributeCommonName { get; set; }
+
+        /// <summary>
+        /// Name of the attribute used to lookup unix GID of an LDAP user.
+        /// </summary>
+        /// <value>Name of the attribute used to lookup unix GID of an LDAP user.</value>
+        [DataMember(Name="attributeGid", EmitDefaultValue=true)]
+        public string AttributeGid { get; set; }
+
+        /// <summary>
+        /// Name of the LDAP attribute used to lookup members of a group.
+        /// </summary>
+        /// <value>Name of the LDAP attribute used to lookup members of a group.</value>
+        [DataMember(Name="attributeMemberOf", EmitDefaultValue=true)]
+        public string AttributeMemberOf { get; set; }
+
+        /// <summary>
+        /// Name of the attribute used to lookup unix UID of an LDAP user.
+        /// </summary>
+        /// <value>Name of the attribute used to lookup unix UID of an LDAP user.</value>
+        [DataMember(Name="attributeUid", EmitDefaultValue=true)]
+        public string AttributeUid { get; set; }
+
+        /// <summary>
+        /// Name of the LDAP attribute used to lookup a user by user ID.
+        /// </summary>
+        /// <value>Name of the LDAP attribute used to lookup a user by user ID.</value>
+        [DataMember(Name="attributeUserName", EmitDefaultValue=true)]
+        public string AttributeUserName { get; set; }
 
         /// <summary>
         /// Specifies the base distinguished name used as the base for LDAP search requests.
@@ -124,6 +180,20 @@ namespace Cohesity.Model
         /// <value>Specifies the name of the LDAP provider.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Name of the LDAP group object class for user accounts.
+        /// </summary>
+        /// <value>Name of the LDAP group object class for user accounts.</value>
+        [DataMember(Name="objectClassGroup", EmitDefaultValue=true)]
+        public string ObjectClassGroup { get; set; }
+
+        /// <summary>
+        /// Name of the LDAP user object class for user accounts.
+        /// </summary>
+        /// <value>Name of the LDAP user object class for user accounts.</value>
+        [DataMember(Name="objectClassUser", EmitDefaultValue=true)]
+        public string ObjectClassUser { get; set; }
 
         /// <summary>
         /// Specifies LDAP server port.
@@ -209,6 +279,31 @@ namespace Cohesity.Model
                     this.AdDomainName.Equals(input.AdDomainName))
                 ) && 
                 (
+                    this.AttributeCommonName == input.AttributeCommonName ||
+                    (this.AttributeCommonName != null &&
+                    this.AttributeCommonName.Equals(input.AttributeCommonName))
+                ) && 
+                (
+                    this.AttributeGid == input.AttributeGid ||
+                    (this.AttributeGid != null &&
+                    this.AttributeGid.Equals(input.AttributeGid))
+                ) && 
+                (
+                    this.AttributeMemberOf == input.AttributeMemberOf ||
+                    (this.AttributeMemberOf != null &&
+                    this.AttributeMemberOf.Equals(input.AttributeMemberOf))
+                ) && 
+                (
+                    this.AttributeUid == input.AttributeUid ||
+                    (this.AttributeUid != null &&
+                    this.AttributeUid.Equals(input.AttributeUid))
+                ) && 
+                (
+                    this.AttributeUserName == input.AttributeUserName ||
+                    (this.AttributeUserName != null &&
+                    this.AttributeUserName.Equals(input.AttributeUserName))
+                ) && 
+                (
                     this.AuthType == input.AuthType ||
                     this.AuthType.Equals(input.AuthType)
                 ) && 
@@ -231,6 +326,16 @@ namespace Cohesity.Model
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.ObjectClassGroup == input.ObjectClassGroup ||
+                    (this.ObjectClassGroup != null &&
+                    this.ObjectClassGroup.Equals(input.ObjectClassGroup))
+                ) && 
+                (
+                    this.ObjectClassUser == input.ObjectClassUser ||
+                    (this.ObjectClassUser != null &&
+                    this.ObjectClassUser.Equals(input.ObjectClassUser))
                 ) && 
                 (
                     this.Port == input.Port ||
@@ -276,6 +381,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdDomainName != null)
                     hashCode = hashCode * 59 + this.AdDomainName.GetHashCode();
+                if (this.AttributeCommonName != null)
+                    hashCode = hashCode * 59 + this.AttributeCommonName.GetHashCode();
+                if (this.AttributeGid != null)
+                    hashCode = hashCode * 59 + this.AttributeGid.GetHashCode();
+                if (this.AttributeMemberOf != null)
+                    hashCode = hashCode * 59 + this.AttributeMemberOf.GetHashCode();
+                if (this.AttributeUid != null)
+                    hashCode = hashCode * 59 + this.AttributeUid.GetHashCode();
+                if (this.AttributeUserName != null)
+                    hashCode = hashCode * 59 + this.AttributeUserName.GetHashCode();
                 hashCode = hashCode * 59 + this.AuthType.GetHashCode();
                 if (this.BaseDistinguishedName != null)
                     hashCode = hashCode * 59 + this.BaseDistinguishedName.GetHashCode();
@@ -285,6 +400,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.ObjectClassGroup != null)
+                    hashCode = hashCode * 59 + this.ObjectClassGroup.GetHashCode();
+                if (this.ObjectClassUser != null)
+                    hashCode = hashCode * 59 + this.ObjectClassUser.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
                 if (this.PreferredLdapServerList != null)

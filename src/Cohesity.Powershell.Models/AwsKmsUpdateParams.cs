@@ -25,16 +25,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="accessKeyId">Access key id needed to access the cloud account. When update cluster config, should encrypte accessKeyId with cluster ID..</param>
         /// <param name="caCertificatePath">Specify the ca certificate path..</param>
+        /// <param name="iamRoleArn">Specifies the IAM role which will be used to access the security credentials required for API calls..</param>
         /// <param name="secretAccessKey">Secret access key needed to access the cloud account. This is encrypted with the cluster id..</param>
         /// <param name="verifySSL">Specify whether to verify SSL when connect with AWS KMS. Default is true..</param>
-        public AwsKmsUpdateParams(string accessKeyId = default(string), string caCertificatePath = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
+        public AwsKmsUpdateParams(string accessKeyId = default(string), string caCertificatePath = default(string), string iamRoleArn = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
         {
             this.AccessKeyId = accessKeyId;
             this.CaCertificatePath = caCertificatePath;
+            this.IamRoleArn = iamRoleArn;
             this.SecretAccessKey = secretAccessKey;
             this.VerifySSL = verifySSL;
             this.AccessKeyId = accessKeyId;
             this.CaCertificatePath = caCertificatePath;
+            this.IamRoleArn = iamRoleArn;
             this.SecretAccessKey = secretAccessKey;
             this.VerifySSL = verifySSL;
         }
@@ -52,6 +55,13 @@ namespace Cohesity.Model
         /// <value>Specify the ca certificate path.</value>
         [DataMember(Name="caCertificatePath", EmitDefaultValue=true)]
         public string CaCertificatePath { get; set; }
+
+        /// <summary>
+        /// Specifies the IAM role which will be used to access the security credentials required for API calls.
+        /// </summary>
+        /// <value>Specifies the IAM role which will be used to access the security credentials required for API calls.</value>
+        [DataMember(Name="iamRoleArn", EmitDefaultValue=true)]
+        public string IamRoleArn { get; set; }
 
         /// <summary>
         /// Secret access key needed to access the cloud account. This is encrypted with the cluster id.
@@ -114,6 +124,11 @@ namespace Cohesity.Model
                     this.CaCertificatePath.Equals(input.CaCertificatePath))
                 ) && 
                 (
+                    this.IamRoleArn == input.IamRoleArn ||
+                    (this.IamRoleArn != null &&
+                    this.IamRoleArn.Equals(input.IamRoleArn))
+                ) && 
+                (
                     this.SecretAccessKey == input.SecretAccessKey ||
                     (this.SecretAccessKey != null &&
                     this.SecretAccessKey.Equals(input.SecretAccessKey))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AccessKeyId.GetHashCode();
                 if (this.CaCertificatePath != null)
                     hashCode = hashCode * 59 + this.CaCertificatePath.GetHashCode();
+                if (this.IamRoleArn != null)
+                    hashCode = hashCode * 59 + this.IamRoleArn.GetHashCode();
                 if (this.SecretAccessKey != null)
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
                 if (this.VerifySSL != null)

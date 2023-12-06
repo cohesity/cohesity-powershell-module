@@ -24,16 +24,19 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="PhysicalFileBackupParams" /> class.
         /// </summary>
         /// <param name="backupPathInfoVec">Specifies the paths to backup on the Physical source..</param>
+        /// <param name="metadataFilePath">Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source. If this field is set, backup_path_info_vec will be ignored..</param>
         /// <param name="skipNestedVolumesVec">Mount types of nested volumes to be skipped..</param>
         /// <param name="symlinkFollowNasTarget">Specifies whether to follow nas target pointed by symlink. Set to true only for windows physical file based job..</param>
         /// <param name="usesSkipNestedVolumesVec">Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs..</param>
-        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), List<string> skipNestedVolumesVec = default(List<string>), bool? symlinkFollowNasTarget = default(bool?), bool? usesSkipNestedVolumesVec = default(bool?))
+        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), string metadataFilePath = default(string), List<string> skipNestedVolumesVec = default(List<string>), bool? symlinkFollowNasTarget = default(bool?), bool? usesSkipNestedVolumesVec = default(bool?))
         {
             this.BackupPathInfoVec = backupPathInfoVec;
+            this.MetadataFilePath = metadataFilePath;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
             this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.BackupPathInfoVec = backupPathInfoVec;
+            this.MetadataFilePath = metadataFilePath;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
             this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
@@ -45,6 +48,13 @@ namespace Cohesity.Model
         /// <value>Specifies the paths to backup on the Physical source.</value>
         [DataMember(Name="backupPathInfoVec", EmitDefaultValue=true)]
         public List<PhysicalFileBackupParamsBackupPathInfo> BackupPathInfoVec { get; set; }
+
+        /// <summary>
+        /// Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source. If this field is set, backup_path_info_vec will be ignored.
+        /// </summary>
+        /// <value>Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source. If this field is set, backup_path_info_vec will be ignored.</value>
+        [DataMember(Name="metadataFilePath", EmitDefaultValue=true)]
+        public string MetadataFilePath { get; set; }
 
         /// <summary>
         /// Mount types of nested volumes to be skipped.
@@ -110,6 +120,11 @@ namespace Cohesity.Model
                     this.BackupPathInfoVec.SequenceEqual(input.BackupPathInfoVec)
                 ) && 
                 (
+                    this.MetadataFilePath == input.MetadataFilePath ||
+                    (this.MetadataFilePath != null &&
+                    this.MetadataFilePath.Equals(input.MetadataFilePath))
+                ) && 
+                (
                     this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
                     this.SkipNestedVolumesVec != null &&
                     input.SkipNestedVolumesVec != null &&
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BackupPathInfoVec != null)
                     hashCode = hashCode * 59 + this.BackupPathInfoVec.GetHashCode();
+                if (this.MetadataFilePath != null)
+                    hashCode = hashCode * 59 + this.MetadataFilePath.GetHashCode();
                 if (this.SkipNestedVolumesVec != null)
                     hashCode = hashCode * 59 + this.SkipNestedVolumesVec.GetHashCode();
                 if (this.SymlinkFollowNasTarget != null)

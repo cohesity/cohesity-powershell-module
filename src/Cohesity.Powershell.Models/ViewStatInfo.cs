@@ -71,10 +71,11 @@ namespace Cohesity.Model
         /// <param name="peakWriteThroughput">Specifies the peak data written in bytes per second in the last day..</param>
         /// <param name="physicalUsedBytes">Specifies the physical size used in bytes..</param>
         /// <param name="protocols">Specifies the protocols of this view..</param>
+        /// <param name="stats">Specifies the list of View stats..</param>
         /// <param name="storageReductionRatio">Specifies the storage reduction ratio..</param>
         /// <param name="viewId">Specifies the view Id..</param>
         /// <param name="viewName">Specifies the view name..</param>
-        public ViewStatInfo(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), long? dataReadBytes = default(long?), long? dataWrittenBytes = default(long?), long? logicalUsedBytes = default(long?), long? peakReadThroughput = default(long?), long? peakWriteThroughput = default(long?), long? physicalUsedBytes = default(long?), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), float? storageReductionRatio = default(float?), long? viewId = default(long?), string viewName = default(string))
+        public ViewStatInfo(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), long? dataReadBytes = default(long?), long? dataWrittenBytes = default(long?), long? logicalUsedBytes = default(long?), long? peakReadThroughput = default(long?), long? peakWriteThroughput = default(long?), long? physicalUsedBytes = default(long?), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), List<ViewStatsInfo> stats = default(List<ViewStatsInfo>), float? storageReductionRatio = default(float?), long? viewId = default(long?), string viewName = default(string))
         {
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
@@ -84,6 +85,7 @@ namespace Cohesity.Model
             this.PeakReadThroughput = peakReadThroughput;
             this.PeakWriteThroughput = peakWriteThroughput;
             this.PhysicalUsedBytes = physicalUsedBytes;
+            this.Stats = stats;
             this.StorageReductionRatio = storageReductionRatio;
             this.ViewId = viewId;
             this.ViewName = viewName;
@@ -96,6 +98,7 @@ namespace Cohesity.Model
             this.PeakWriteThroughput = peakWriteThroughput;
             this.PhysicalUsedBytes = physicalUsedBytes;
             this.Protocols = protocols;
+            this.Stats = stats;
             this.StorageReductionRatio = storageReductionRatio;
             this.ViewId = viewId;
             this.ViewName = viewName;
@@ -156,6 +159,13 @@ namespace Cohesity.Model
         /// <value>Specifies the physical size used in bytes.</value>
         [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
         public long? PhysicalUsedBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the list of View stats.
+        /// </summary>
+        /// <value>Specifies the list of View stats.</value>
+        [DataMember(Name="stats", EmitDefaultValue=true)]
+        public List<ViewStatsInfo> Stats { get; set; }
 
         /// <summary>
         /// Specifies the storage reduction ratio.
@@ -259,6 +269,12 @@ namespace Cohesity.Model
                     this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (
+                    this.Stats == input.Stats ||
+                    this.Stats != null &&
+                    input.Stats != null &&
+                    this.Stats.SequenceEqual(input.Stats)
+                ) && 
+                (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
                     (this.StorageReductionRatio != null &&
                     this.StorageReductionRatio.Equals(input.StorageReductionRatio))
@@ -301,6 +317,8 @@ namespace Cohesity.Model
                 if (this.PhysicalUsedBytes != null)
                     hashCode = hashCode * 59 + this.PhysicalUsedBytes.GetHashCode();
                 hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Stats != null)
+                    hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StorageReductionRatio != null)
                     hashCode = hashCode * 59 + this.StorageReductionRatio.GetHashCode();
                 if (this.ViewId != null)

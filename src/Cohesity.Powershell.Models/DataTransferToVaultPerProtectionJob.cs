@@ -26,14 +26,17 @@ namespace Cohesity.Model
         /// <param name="numLogicalBytesTransferred">Specifies the total number of logical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job. The logical size is when the data is fully hydrated or expanded..</param>
         /// <param name="numPhysicalBytesTransferred">Specifies the total number of physical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job..</param>
         /// <param name="protectionJobName">Specifies the name of the Protection Job..</param>
-        public DataTransferToVaultPerProtectionJob(long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), string protectionJobName = default(string))
+        /// <param name="storageConsumed">Specifies the total number of storage bytes consumed that are transferred from this Cohesity Cluster to this vault for this Protection Job..</param>
+        public DataTransferToVaultPerProtectionJob(long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), string protectionJobName = default(string), long? storageConsumed = default(long?))
         {
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.ProtectionJobName = protectionJobName;
+            this.StorageConsumed = storageConsumed;
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.ProtectionJobName = protectionJobName;
+            this.StorageConsumed = storageConsumed;
         }
         
         /// <summary>
@@ -56,6 +59,13 @@ namespace Cohesity.Model
         /// <value>Specifies the name of the Protection Job.</value>
         [DataMember(Name="protectionJobName", EmitDefaultValue=true)]
         public string ProtectionJobName { get; set; }
+
+        /// <summary>
+        /// Specifies the total number of storage bytes consumed that are transferred from this Cohesity Cluster to this vault for this Protection Job.
+        /// </summary>
+        /// <value>Specifies the total number of storage bytes consumed that are transferred from this Cohesity Cluster to this vault for this Protection Job.</value>
+        [DataMember(Name="storageConsumed", EmitDefaultValue=true)]
+        public long? StorageConsumed { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +117,11 @@ namespace Cohesity.Model
                     this.ProtectionJobName == input.ProtectionJobName ||
                     (this.ProtectionJobName != null &&
                     this.ProtectionJobName.Equals(input.ProtectionJobName))
+                ) && 
+                (
+                    this.StorageConsumed == input.StorageConsumed ||
+                    (this.StorageConsumed != null &&
+                    this.StorageConsumed.Equals(input.StorageConsumed))
                 );
         }
 
@@ -125,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumPhysicalBytesTransferred.GetHashCode();
                 if (this.ProtectionJobName != null)
                     hashCode = hashCode * 59 + this.ProtectionJobName.GetHashCode();
+                if (this.StorageConsumed != null)
+                    hashCode = hashCode * 59 + this.StorageConsumed.GetHashCode();
                 return hashCode;
             }
         }

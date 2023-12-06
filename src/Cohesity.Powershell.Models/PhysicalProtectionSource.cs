@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class PhysicalProtectionSource :  IEquatable<PhysicalProtectionSource>
     {
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -58,17 +58,89 @@ namespace Cohesity.Model
             KSapHana = 5,
 
             /// <summary>
+            /// Enum KSapOracle for value: kSapOracle
+            /// </summary>
+            [EnumMember(Value = "kSapOracle")]
+            KSapOracle = 6,
+
+            /// <summary>
+            /// Enum KCockroachDB for value: kCockroachDB
+            /// </summary>
+            [EnumMember(Value = "kCockroachDB")]
+            KCockroachDB = 7,
+
+            /// <summary>
+            /// Enum KMySQL for value: kMySQL
+            /// </summary>
+            [EnumMember(Value = "kMySQL")]
+            KMySQL = 8,
+
+            /// <summary>
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 6
+            KOther = 9,
+
+            /// <summary>
+            /// Enum KSapSybase for value: kSapSybase
+            /// </summary>
+            [EnumMember(Value = "kSapSybase")]
+            KSapSybase = 10,
+
+            /// <summary>
+            /// Enum KSapMaxDB for value: kSapMaxDB
+            /// </summary>
+            [EnumMember(Value = "kSapMaxDB")]
+            KSapMaxDB = 11,
+
+            /// <summary>
+            /// Enum KSapSybaseIQ for value: kSapSybaseIQ
+            /// </summary>
+            [EnumMember(Value = "kSapSybaseIQ")]
+            KSapSybaseIQ = 12,
+
+            /// <summary>
+            /// Enum KDB2 for value: kDB2
+            /// </summary>
+            [EnumMember(Value = "kDB2")]
+            KDB2 = 13,
+
+            /// <summary>
+            /// Enum KSapASE for value: kSapASE
+            /// </summary>
+            [EnumMember(Value = "kSapASE")]
+            KSapASE = 14,
+
+            /// <summary>
+            /// Enum KMariaDB for value: kMariaDB
+            /// </summary>
+            [EnumMember(Value = "kMariaDB")]
+            KMariaDB = 15,
+
+            /// <summary>
+            /// Enum KPostgreSQL for value: kPostgreSQL
+            /// </summary>
+            [EnumMember(Value = "kPostgreSQL")]
+            KPostgreSQL = 16,
+
+            /// <summary>
+            /// Enum KVOS for value: kVOS
+            /// </summary>
+            [EnumMember(Value = "kVOS")]
+            KVOS = 17,
+
+            /// <summary>
+            /// Enum KHPUX for value: kHPUX
+            /// </summary>
+            [EnumMember(Value = "kHPUX")]
+            KHPUX = 18
 
         }
 
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
@@ -106,13 +178,7 @@ namespace Cohesity.Model
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 5,
-
-            /// <summary>
-            /// Enum KOracleCluster for value: kOracleCluster
-            /// </summary>
-            [EnumMember(Value = "kOracleCluster")]
-            KOracleCluster = 6
+            KOracleAPCluster = 5
 
         }
 
@@ -126,10 +192,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="PhysicalProtectionSource" /> class.
         /// </summary>
         /// <param name="agents">Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information..</param>
+        /// <param name="clusterSourceType">Specifies the type of cluster resource this source represents..</param>
         /// <param name="hostName">Specifies the hostname..</param>
-        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
-        /// <param name="memorySizeBytes">Specifies the total memory ont the host in bytes..</param>
+        /// <param name="isProxyHost">Specifies if the physical host is a proxy host..</param>
+        /// <param name="memorySizeBytes">Specifies the total memory on the host in bytes..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
         /// <param name="networkingInfo">networkingInfo.</param>
         /// <param name="numProcessors">Specifies the number of processors on the host..</param>
@@ -137,12 +205,15 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster..</param>
         /// <param name="vcsVersion">Specifies cluster version for VCS host..</param>
         /// <param name="volumes">Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
-        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
+        /// <param name="vsswriters">Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows.</param>
+        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string clusterSourceType = default(string), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), bool? isProxyHost = default(bool?), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>), List<VssWriter> vsswriters = default(List<VssWriter>))
         {
             this.Agents = agents;
+            this.ClusterSourceType = clusterSourceType;
             this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
+            this.IsProxyHost = isProxyHost;
             this.MemorySizeBytes = memorySizeBytes;
             this.Name = name;
             this.NumProcessors = numProcessors;
@@ -150,10 +221,13 @@ namespace Cohesity.Model
             this.Type = type;
             this.VcsVersion = vcsVersion;
             this.Volumes = volumes;
+            this.Vsswriters = vsswriters;
             this.Agents = agents;
+            this.ClusterSourceType = clusterSourceType;
             this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
+            this.IsProxyHost = isProxyHost;
             this.MemorySizeBytes = memorySizeBytes;
             this.Name = name;
             this.NetworkingInfo = networkingInfo;
@@ -162,6 +236,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.VcsVersion = vcsVersion;
             this.Volumes = volumes;
+            this.Vsswriters = vsswriters;
         }
         
         /// <summary>
@@ -170,6 +245,13 @@ namespace Cohesity.Model
         /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.</value>
         [DataMember(Name="agents", EmitDefaultValue=true)]
         public List<AgentInformation> Agents { get; set; }
+
+        /// <summary>
+        /// Specifies the type of cluster resource this source represents.
+        /// </summary>
+        /// <value>Specifies the type of cluster resource this source represents.</value>
+        [DataMember(Name="clusterSourceType", EmitDefaultValue=true)]
+        public string ClusterSourceType { get; set; }
 
         /// <summary>
         /// Specifies the hostname.
@@ -186,9 +268,16 @@ namespace Cohesity.Model
         public UniversalId Id { get; set; }
 
         /// <summary>
-        /// Specifies the total memory ont the host in bytes.
+        /// Specifies if the physical host is a proxy host.
         /// </summary>
-        /// <value>Specifies the total memory ont the host in bytes.</value>
+        /// <value>Specifies if the physical host is a proxy host.</value>
+        [DataMember(Name="isProxyHost", EmitDefaultValue=true)]
+        public bool? IsProxyHost { get; set; }
+
+        /// <summary>
+        /// Specifies the total memory on the host in bytes.
+        /// </summary>
+        /// <value>Specifies the total memory on the host in bytes.</value>
         [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
         public long? MemorySizeBytes { get; set; }
 
@@ -234,6 +323,13 @@ namespace Cohesity.Model
         public List<PhysicalVolume> Volumes { get; set; }
 
         /// <summary>
+        /// Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows
+        /// </summary>
+        /// <value>Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows</value>
+        [DataMember(Name="vsswriters", EmitDefaultValue=true)]
+        public List<VssWriter> Vsswriters { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -276,6 +372,11 @@ namespace Cohesity.Model
                     this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
+                    this.ClusterSourceType == input.ClusterSourceType ||
+                    (this.ClusterSourceType != null &&
+                    this.ClusterSourceType.Equals(input.ClusterSourceType))
+                ) && 
+                (
                     this.HostName == input.HostName ||
                     (this.HostName != null &&
                     this.HostName.Equals(input.HostName))
@@ -288,6 +389,11 @@ namespace Cohesity.Model
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
+                ) && 
+                (
+                    this.IsProxyHost == input.IsProxyHost ||
+                    (this.IsProxyHost != null &&
+                    this.IsProxyHost.Equals(input.IsProxyHost))
                 ) && 
                 (
                     this.MemorySizeBytes == input.MemorySizeBytes ||
@@ -328,6 +434,12 @@ namespace Cohesity.Model
                     this.Volumes != null &&
                     input.Volumes != null &&
                     this.Volumes.SequenceEqual(input.Volumes)
+                ) && 
+                (
+                    this.Vsswriters == input.Vsswriters ||
+                    this.Vsswriters != null &&
+                    input.Vsswriters != null &&
+                    this.Vsswriters.SequenceEqual(input.Vsswriters)
                 );
         }
 
@@ -342,11 +454,15 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
+                if (this.ClusterSourceType != null)
+                    hashCode = hashCode * 59 + this.ClusterSourceType.GetHashCode();
                 if (this.HostName != null)
                     hashCode = hashCode * 59 + this.HostName.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IsProxyHost != null)
+                    hashCode = hashCode * 59 + this.IsProxyHost.GetHashCode();
                 if (this.MemorySizeBytes != null)
                     hashCode = hashCode * 59 + this.MemorySizeBytes.GetHashCode();
                 if (this.Name != null)
@@ -362,6 +478,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VcsVersion.GetHashCode();
                 if (this.Volumes != null)
                     hashCode = hashCode * 59 + this.Volumes.GetHashCode();
+                if (this.Vsswriters != null)
+                    hashCode = hashCode * 59 + this.Vsswriters.GetHashCode();
                 return hashCode;
             }
         }

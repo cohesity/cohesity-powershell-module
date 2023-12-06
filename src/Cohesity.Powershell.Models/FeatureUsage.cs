@@ -23,15 +23,15 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FeatureUsage" /> class.
         /// </summary>
-        /// <param name="currentUsage">Feature usage by the cluster..</param>
+        /// <param name="currentUsageGiB">Feature usage by the cluster..</param>
         /// <param name="featureName">Name of feature..</param>
         /// <param name="numVm">Number of VM spinned..</param>
-        public FeatureUsage(long? currentUsage = default(long?), string featureName = default(string), long? numVm = default(long?))
+        public FeatureUsage(long? currentUsageGiB = default(long?), string featureName = default(string), long? numVm = default(long?))
         {
-            this.CurrentUsage = currentUsage;
+            this.CurrentUsageGiB = currentUsageGiB;
             this.FeatureName = featureName;
             this.NumVm = numVm;
-            this.CurrentUsage = currentUsage;
+            this.CurrentUsageGiB = currentUsageGiB;
             this.FeatureName = featureName;
             this.NumVm = numVm;
         }
@@ -40,8 +40,8 @@ namespace Cohesity.Model
         /// Feature usage by the cluster.
         /// </summary>
         /// <value>Feature usage by the cluster.</value>
-        [DataMember(Name="currentUsage", EmitDefaultValue=true)]
-        public long? CurrentUsage { get; set; }
+        [DataMember(Name="currentUsageGiB", EmitDefaultValue=true)]
+        public long? CurrentUsageGiB { get; set; }
 
         /// <summary>
         /// Name of feature.
@@ -94,9 +94,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.CurrentUsage == input.CurrentUsage ||
-                    (this.CurrentUsage != null &&
-                    this.CurrentUsage.Equals(input.CurrentUsage))
+                    this.CurrentUsageGiB == input.CurrentUsageGiB ||
+                    (this.CurrentUsageGiB != null &&
+                    this.CurrentUsageGiB.Equals(input.CurrentUsageGiB))
                 ) && 
                 (
                     this.FeatureName == input.FeatureName ||
@@ -119,8 +119,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.CurrentUsage != null)
-                    hashCode = hashCode * 59 + this.CurrentUsage.GetHashCode();
+                if (this.CurrentUsageGiB != null)
+                    hashCode = hashCode * 59 + this.CurrentUsageGiB.GetHashCode();
                 if (this.FeatureName != null)
                     hashCode = hashCode * 59 + this.FeatureName.GetHashCode();
                 if (this.NumVm != null)

@@ -103,8 +103,10 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="authenticationType">Specifies the authentication scheme for the cluster. &#39;kPasswordOnly&#39; indicates the normal cohesity authentication type. &#39;kCertificateOnly&#39; indicates that certificate based authentication has been enabled and the password based authentication has been turned off. &#39;kPasswordAndCertificate&#39; indicates that both the authenticatio schemes are required..</param>
         /// <param name="bannerEnabled">Specifies if banner is enabled on the cluster..</param>
-        /// <param name="clusterSoftwareVersion">Specifies the current release of the Cohesity software running on this Cohesity Cluster..</param>
+        /// <param name="clusterDomains">Specifies a list of domains joined to the Cohesity Cluster with their trust relationships..</param>
+        /// <param name="clusterSoftwareVersion">This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true.</param>
         /// <param name="clusterType">Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
+        /// <param name="dodinModeEnabled">Specifies if dodin mode is enabled on the cluster..</param>
         /// <param name="domains">Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users..</param>
         /// <param name="idpConfigured">Specifies Idp is configured for the Cluster..</param>
         /// <param name="idpTenantExists">Specifies Idp is configured for a Tenant..</param>
@@ -113,12 +115,14 @@ namespace Cohesity.Model
         /// <param name="mcmOnPremMode">Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true..</param>
         /// <param name="multiTenancyEnabled">Specifies if multi-tenancy is enabled on the cluster..</param>
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
-        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
+        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), List<Domain> clusterDomains = default(List<Domain>), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), bool? dodinModeEnabled = default(bool?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
         {
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
+            this.ClusterDomains = clusterDomains;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
+            this.DodinModeEnabled = dodinModeEnabled;
             this.Domains = domains;
             this.IdpConfigured = idpConfigured;
             this.IdpTenantExists = idpTenantExists;
@@ -129,8 +133,10 @@ namespace Cohesity.Model
             this.Name = name;
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
+            this.ClusterDomains = clusterDomains;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
+            this.DodinModeEnabled = dodinModeEnabled;
             this.Domains = domains;
             this.IdpConfigured = idpConfigured;
             this.IdpTenantExists = idpTenantExists;
@@ -149,11 +155,25 @@ namespace Cohesity.Model
         public bool? BannerEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the current release of the Cohesity software running on this Cohesity Cluster.
+        /// Specifies a list of domains joined to the Cohesity Cluster with their trust relationships.
         /// </summary>
-        /// <value>Specifies the current release of the Cohesity software running on this Cohesity Cluster.</value>
+        /// <value>Specifies a list of domains joined to the Cohesity Cluster with their trust relationships.</value>
+        [DataMember(Name="clusterDomains", EmitDefaultValue=true)]
+        public List<Domain> ClusterDomains { get; set; }
+
+        /// <summary>
+        /// This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true
+        /// </summary>
+        /// <value>This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true</value>
         [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=true)]
         public string ClusterSoftwareVersion { get; set; }
+
+        /// <summary>
+        /// Specifies if dodin mode is enabled on the cluster.
+        /// </summary>
+        /// <value>Specifies if dodin mode is enabled on the cluster.</value>
+        [DataMember(Name="dodinModeEnabled", EmitDefaultValue=true)]
+        public bool? DodinModeEnabled { get; set; }
 
         /// <summary>
         /// Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users.
@@ -161,6 +181,13 @@ namespace Cohesity.Model
         /// <value>Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users.</value>
         [DataMember(Name="domains", EmitDefaultValue=true)]
         public List<string> Domains { get; set; }
+
+        /// <summary>
+        /// Specifies the HeliosControlPlaneEnv.
+        /// </summary>
+        /// <value>Specifies the HeliosControlPlaneEnv.</value>
+        [DataMember(Name="heliosControlPlaneEnv", EmitDefaultValue=true)]
+        public string HeliosControlPlaneEnv { get; private set; }
 
         /// <summary>
         /// Specifies Idp is configured for the Cluster.
@@ -257,6 +284,12 @@ namespace Cohesity.Model
                     this.BannerEnabled.Equals(input.BannerEnabled))
                 ) && 
                 (
+                    this.ClusterDomains == input.ClusterDomains ||
+                    this.ClusterDomains != null &&
+                    input.ClusterDomains != null &&
+                    this.ClusterDomains.SequenceEqual(input.ClusterDomains)
+                ) && 
+                (
                     this.ClusterSoftwareVersion == input.ClusterSoftwareVersion ||
                     (this.ClusterSoftwareVersion != null &&
                     this.ClusterSoftwareVersion.Equals(input.ClusterSoftwareVersion))
@@ -266,10 +299,20 @@ namespace Cohesity.Model
                     this.ClusterType.Equals(input.ClusterType)
                 ) && 
                 (
+                    this.DodinModeEnabled == input.DodinModeEnabled ||
+                    (this.DodinModeEnabled != null &&
+                    this.DodinModeEnabled.Equals(input.DodinModeEnabled))
+                ) && 
+                (
                     this.Domains == input.Domains ||
                     this.Domains != null &&
                     input.Domains != null &&
                     this.Domains.SequenceEqual(input.Domains)
+                ) && 
+                (
+                    this.HeliosControlPlaneEnv == input.HeliosControlPlaneEnv ||
+                    (this.HeliosControlPlaneEnv != null &&
+                    this.HeliosControlPlaneEnv.Equals(input.HeliosControlPlaneEnv))
                 ) && 
                 (
                     this.IdpConfigured == input.IdpConfigured ||
@@ -320,11 +363,17 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
                 if (this.BannerEnabled != null)
                     hashCode = hashCode * 59 + this.BannerEnabled.GetHashCode();
+                if (this.ClusterDomains != null)
+                    hashCode = hashCode * 59 + this.ClusterDomains.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
                 hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
+                if (this.DodinModeEnabled != null)
+                    hashCode = hashCode * 59 + this.DodinModeEnabled.GetHashCode();
                 if (this.Domains != null)
                     hashCode = hashCode * 59 + this.Domains.GetHashCode();
+                if (this.HeliosControlPlaneEnv != null)
+                    hashCode = hashCode * 59 + this.HeliosControlPlaneEnv.GetHashCode();
                 if (this.IdpConfigured != null)
                     hashCode = hashCode * 59 + this.IdpConfigured.GetHashCode();
                 if (this.IdpTenantExists != null)

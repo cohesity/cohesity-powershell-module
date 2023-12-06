@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class SnapshotCloudCopyPolicy :  IEquatable<SnapshotCloudCopyPolicy>
     {
         /// <summary>
+        /// The backup run type to which this copy policy applies to. If set, this will ensure that the first run in scheduled period of given type will be copied. If this isn&#39;t set, copy tasks will be generated as per other filters in the protection policy. Currently, it can only be set to Full. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.
+        /// </summary>
+        /// <value>The backup run type to which this copy policy applies to. If set, this will ensure that the first run in scheduled period of given type will be copied. If this isn&#39;t set, copy tasks will be generated as per other filters in the protection policy. Currently, it can only be set to Full. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum BackupRunTypeEnum
+        {
+            /// <summary>
+            /// Enum KRegular for value: kRegular
+            /// </summary>
+            [EnumMember(Value = "kRegular")]
+            KRegular = 1,
+
+            /// <summary>
+            /// Enum KFull for value: kFull
+            /// </summary>
+            [EnumMember(Value = "kFull")]
+            KFull = 2,
+
+            /// <summary>
+            /// Enum KLog for value: kLog
+            /// </summary>
+            [EnumMember(Value = "kLog")]
+            KLog = 3,
+
+            /// <summary>
+            /// Enum KSystem for value: kSystem
+            /// </summary>
+            [EnumMember(Value = "kSystem")]
+            KSystem = 4
+
+        }
+
+        /// <summary>
+        /// The backup run type to which this copy policy applies to. If set, this will ensure that the first run in scheduled period of given type will be copied. If this isn&#39;t set, copy tasks will be generated as per other filters in the protection policy. Currently, it can only be set to Full. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.
+        /// </summary>
+        /// <value>The backup run type to which this copy policy applies to. If set, this will ensure that the first run in scheduled period of given type will be copied. If this isn&#39;t set, copy tasks will be generated as per other filters in the protection policy. Currently, it can only be set to Full. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.</value>
+        [DataMember(Name="backupRunType", EmitDefaultValue=true)]
+        public BackupRunTypeEnum? BackupRunType { get; set; }
+        /// <summary>
         /// Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier.
         /// </summary>
         /// <value>Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier.</value>
@@ -75,23 +114,31 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SnapshotCloudCopyPolicy" /> class.
         /// </summary>
         /// <param name="id">Specified the Id for a snapshot copy policy. This is generated when the policy is created..</param>
+        /// <param name="backupRunType">The backup run type to which this copy policy applies to. If set, this will ensure that the first run in scheduled period of given type will be copied. If this isn&#39;t set, copy tasks will be generated as per other filters in the protection policy. Currently, it can only be set to Full. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time..</param>
         /// <param name="copyPartial">Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured..</param>
+        /// <param name="datalockConfig">datalockConfig.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
         /// <param name="multiplier">Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied..</param>
         /// <param name="periodicity">Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier..</param>
+        /// <param name="runTimeouts">Run timeouts after which a run will get cancelled..</param>
         /// <param name="target">target.</param>
-        public SnapshotCloudCopyPolicy(string id = default(string), bool? copyPartial = default(bool?), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
+        public SnapshotCloudCopyPolicy(string id = default(string), BackupRunTypeEnum? backupRunType = default(BackupRunTypeEnum?), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), List<CancellationTimeoutParams> runTimeouts = default(List<CancellationTimeoutParams>), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
         {
             this.Id = id;
+            this.BackupRunType = backupRunType;
             this.CopyPartial = copyPartial;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
+            this.RunTimeouts = runTimeouts;
             this.Id = id;
+            this.BackupRunType = backupRunType;
             this.CopyPartial = copyPartial;
+            this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
+            this.RunTimeouts = runTimeouts;
             this.Target = target;
         }
         
@@ -110,6 +157,12 @@ namespace Cohesity.Model
         public bool? CopyPartial { get; set; }
 
         /// <summary>
+        /// Gets or Sets DatalockConfig
+        /// </summary>
+        [DataMember(Name="datalockConfig", EmitDefaultValue=false)]
+        public DataLockConfig DatalockConfig { get; set; }
+
+        /// <summary>
         /// Specifies the number of days to retain copied Snapshots on the target.
         /// </summary>
         /// <value>Specifies the number of days to retain copied Snapshots on the target.</value>
@@ -122,6 +175,13 @@ namespace Cohesity.Model
         /// <value>Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied.</value>
         [DataMember(Name="multiplier", EmitDefaultValue=true)]
         public int? Multiplier { get; set; }
+
+        /// <summary>
+        /// Run timeouts after which a run will get cancelled.
+        /// </summary>
+        /// <value>Run timeouts after which a run will get cancelled.</value>
+        [DataMember(Name="runTimeouts", EmitDefaultValue=true)]
+        public List<CancellationTimeoutParams> RunTimeouts { get; set; }
 
         /// <summary>
         /// Gets or Sets Target
@@ -171,9 +231,18 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.BackupRunType == input.BackupRunType ||
+                    this.BackupRunType.Equals(input.BackupRunType)
+                ) && 
+                (
                     this.CopyPartial == input.CopyPartial ||
                     (this.CopyPartial != null &&
                     this.CopyPartial.Equals(input.CopyPartial))
+                ) && 
+                (
+                    this.DatalockConfig == input.DatalockConfig ||
+                    (this.DatalockConfig != null &&
+                    this.DatalockConfig.Equals(input.DatalockConfig))
                 ) && 
                 (
                     this.DaysToKeep == input.DaysToKeep ||
@@ -188,6 +257,12 @@ namespace Cohesity.Model
                 (
                     this.Periodicity == input.Periodicity ||
                     this.Periodicity.Equals(input.Periodicity)
+                ) && 
+                (
+                    this.RunTimeouts == input.RunTimeouts ||
+                    this.RunTimeouts != null &&
+                    input.RunTimeouts != null &&
+                    this.RunTimeouts.SequenceEqual(input.RunTimeouts)
                 ) && 
                 (
                     this.Target == input.Target ||
@@ -207,13 +282,18 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                hashCode = hashCode * 59 + this.BackupRunType.GetHashCode();
                 if (this.CopyPartial != null)
                     hashCode = hashCode * 59 + this.CopyPartial.GetHashCode();
+                if (this.DatalockConfig != null)
+                    hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
                 hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                if (this.RunTimeouts != null)
+                    hashCode = hashCode * 59 + this.RunTimeouts.GetHashCode();
                 if (this.Target != null)
                     hashCode = hashCode * 59 + this.Target.GetHashCode();
                 return hashCode;

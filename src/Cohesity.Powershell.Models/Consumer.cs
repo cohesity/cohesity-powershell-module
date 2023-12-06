@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class Consumer :  IEquatable<Consumer>
     {
         /// <summary>
-        /// Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain).
+        /// Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain). &#39;kViewProtectionRuns&#39;, indicates the stats info of View Protection Runs used per organization (tenant) per view box (storage domain).
         /// </summary>
-        /// <value>Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain).</value>
+        /// <value>Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain). &#39;kViewProtectionRuns&#39;, indicates the stats info of View Protection Runs used per organization (tenant) per view box (storage domain).</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -43,14 +43,20 @@ namespace Cohesity.Model
             /// Enum KReplicationRuns for value: kReplicationRuns
             /// </summary>
             [EnumMember(Value = "kReplicationRuns")]
-            KReplicationRuns = 3
+            KReplicationRuns = 3,
+
+            /// <summary>
+            /// Enum KViewProtectionRuns for value: kViewProtectionRuns
+            /// </summary>
+            [EnumMember(Value = "kViewProtectionRuns")]
+            KViewProtectionRuns = 4
 
         }
 
         /// <summary>
-        /// Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain).
+        /// Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain). &#39;kViewProtectionRuns&#39;, indicates the stats info of View Protection Runs used per organization (tenant) per view box (storage domain).
         /// </summary>
-        /// <value>Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain).</value>
+        /// <value>Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain). &#39;kViewProtectionRuns&#39;, indicates the stats info of View Protection Runs used per organization (tenant) per view box (storage domain).</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -58,7 +64,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="id">Specifies the id of the consumer..</param>
         /// <param name="name">Specifies the name of the consumer..</param>
-        /// <param name="type">Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain)..</param>
+        /// <param name="type">Specifies the type of the consumer. Type of the consumer can be one of the following three,  &#39;kViews&#39;, indicates the stats info of Views used per organization (tenant) per view box (storage domain). &#39;kProtectionRuns&#39;, indicates the stats info of Protection Runs used per organization (tenant) per view box (storage domain). &#39;kReplicationRuns&#39;, indicates the stats info of Replication In used per organization (tenant) per view box (storage domain). &#39;kViewProtectionRuns&#39;, indicates the stats info of View Protection Runs used per organization (tenant) per view box (storage domain)..</param>
         public Consumer(long? id = default(long?), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.Id = id;

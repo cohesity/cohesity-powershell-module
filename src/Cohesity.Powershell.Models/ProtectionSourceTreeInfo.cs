@@ -30,7 +30,9 @@ namespace Cohesity.Model
         /// <param name="rootNode">Specifies the Protection Source for the root node of the Protection Source tree..</param>
         /// <param name="stats">Specifies the stats of protection for a Protection Source Tree..</param>
         /// <param name="statsByEnv">Specifies the breakdown of the stats of protection by environment. overrideDescription: true.</param>
-        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>))
+        /// <param name="totalDowntieredSizeInBytes">Specifies the total bytes downtiered from the source so far..</param>
+        /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
+        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?))
         {
             this.Applications = applications;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -38,6 +40,8 @@ namespace Cohesity.Model
             this.RootNode = rootNode;
             this.Stats = stats;
             this.StatsByEnv = statsByEnv;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
             this.Applications = applications;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -45,6 +49,8 @@ namespace Cohesity.Model
             this.RootNode = rootNode;
             this.Stats = stats;
             this.StatsByEnv = statsByEnv;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
         }
         
         /// <summary>
@@ -94,6 +100,20 @@ namespace Cohesity.Model
         /// <value>Specifies the breakdown of the stats of protection by environment. overrideDescription: true</value>
         [DataMember(Name="statsByEnv", EmitDefaultValue=true)]
         public List<ProtectionSummaryByEnv> StatsByEnv { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes downtiered from the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes downtiered from the source so far.</value>
+        [DataMember(Name="totalDowntieredSizeInBytes", EmitDefaultValue=true)]
+        public long? TotalDowntieredSizeInBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes uptiered to the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes uptiered to the source so far.</value>
+        [DataMember(Name="totalUptieredSizeInBytes", EmitDefaultValue=true)]
+        public long? TotalUptieredSizeInBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -167,6 +187,16 @@ namespace Cohesity.Model
                     this.StatsByEnv != null &&
                     input.StatsByEnv != null &&
                     this.StatsByEnv.SequenceEqual(input.StatsByEnv)
+                ) && 
+                (
+                    this.TotalDowntieredSizeInBytes == input.TotalDowntieredSizeInBytes ||
+                    (this.TotalDowntieredSizeInBytes != null &&
+                    this.TotalDowntieredSizeInBytes.Equals(input.TotalDowntieredSizeInBytes))
+                ) && 
+                (
+                    this.TotalUptieredSizeInBytes == input.TotalUptieredSizeInBytes ||
+                    (this.TotalUptieredSizeInBytes != null &&
+                    this.TotalUptieredSizeInBytes.Equals(input.TotalUptieredSizeInBytes))
                 );
         }
 
@@ -193,6 +223,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StatsByEnv != null)
                     hashCode = hashCode * 59 + this.StatsByEnv.GetHashCode();
+                if (this.TotalDowntieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalDowntieredSizeInBytes.GetHashCode();
+                if (this.TotalUptieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalUptieredSizeInBytes.GetHashCode();
                 return hashCode;
             }
         }

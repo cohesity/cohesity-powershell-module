@@ -56,12 +56,12 @@ namespace Cohesity.Model
             /// </summary>
             [EnumMember(Value = "kMonths")]
             KMonths = 5,
-
             /// <summary>
-            /// Enum KDay for value: kDay
+            /// Enum KDay for value: kMonths
             /// </summary>
             [EnumMember(Value = "kDay")]
             KDay = 6
+
         }
 
         /// <summary>

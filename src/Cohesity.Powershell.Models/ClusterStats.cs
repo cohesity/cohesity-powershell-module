@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ClusterStats" /> class.
         /// </summary>
         /// <param name="cloudUsagePerfStats">Provides usage and performance statistics for the remote data stored on a Cloud Tier by the Cohesity Cluster..</param>
-        /// <param name="dataReductionRatio">Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication)..</param>
+        /// <param name="dataReductionRatio">Provides the ratio of Cluster Logical Data (totalLogicalUsageBytes) Managed to Cluster Storage Used (totalPhysicalUsageBytes).</param>
         /// <param name="dataUsageStats">dataUsageStats.</param>
         /// <param name="id">Specifies the id of the Cohesity Cluster..</param>
         /// <param name="localUsagePerfStats">Provides usage and performance statistics for local data stored directly on the Cohesity Cluster..</param>
@@ -55,9 +55,9 @@ namespace Cohesity.Model
         public UsageAndPerformanceStats CloudUsagePerfStats { get; set; }
 
         /// <summary>
-        /// Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication).
+        /// Provides the ratio of Cluster Logical Data (totalLogicalUsageBytes) Managed to Cluster Storage Used (totalPhysicalUsageBytes)
         /// </summary>
-        /// <value>Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication).</value>
+        /// <value>Provides the ratio of Cluster Logical Data (totalLogicalUsageBytes) Managed to Cluster Storage Used (totalPhysicalUsageBytes)</value>
         [DataMember(Name="dataReductionRatio", EmitDefaultValue=true)]
         public double? DataReductionRatio { get; set; }
 

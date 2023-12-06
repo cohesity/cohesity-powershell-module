@@ -10,7 +10,6 @@
       $(BuildDependsOn);
       CopyCmdletDoc;
 	  CopyNLog;
-	  CopyTimeZoneConverter;
     </BuildDependsOn>
 
     <Authors>Cohesity</Authors>
@@ -37,13 +36,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Debug\net451\</net451Target>
+    <net451Target>$(BuildDir)bin\Debug\net451</net451Target>
     <netcoreapp20Target>$(BuildDir)bin\Debug\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Debug\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Release\net451\</net451Target>
+    <net451Target>$(BuildDir)bin\Release\net451</net451Target>
     <netcoreapp20Target>$(BuildDir)bin\Release\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Release\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
@@ -80,10 +79,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="NLog" Version="4.7.9" />
-	<PackageReference Include="TimeZoneConverter" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
@@ -126,8 +124,5 @@
   </Target>
   <Target Name="CopyNLog" AfterTargets="Build">
     <Copy SourceFiles="$(net451Target)\NLog.dll" DestinationFiles="$(netcoreapp20Target)\NLog.dll" ContinueOnError="false" />
-  </Target>
-  <Target Name="CopyTimeZoneConverter" AfterTargets="Build">
-    <Copy SourceFiles="$(net451Target)\TimeZoneConverter.dll" DestinationFiles="$(netcoreapp20Target)\TimeZoneConverter.dll" ContinueOnError="false" />
   </Target>
 </Project>

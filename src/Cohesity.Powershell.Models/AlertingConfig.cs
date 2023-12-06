@@ -23,51 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertingConfig" /> class.
         /// </summary>
+        /// <param name="emailAddresses">Exists to maintain backwards compatibility with versions before eff8198..</param>
         /// <param name="emailDeliveryTargets">Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent..</param>
         /// <param name="raiseObjectLevelFailureAlert">Specifies the boolean to raise per object alert for failures..</param>
-        public AlertingConfig(List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), bool? raiseObjectLevelFailureAlert = default(bool?))
+        /// <param name="raiseObjectLevelFailureAlertAfterEachAttempt">Specifies the boolean to raise per object alert for failures after each attempt..</param>
+        /// <param name="raiseObjectLevelFailureAlertAfterLastAttempt">Specifies the boolean to raise per object alert for failures after last attempt..</param>
+        public AlertingConfig(List<string> emailAddresses = default(List<string>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), bool? raiseObjectLevelFailureAlert = default(bool?), bool? raiseObjectLevelFailureAlertAfterEachAttempt = default(bool?), bool? raiseObjectLevelFailureAlertAfterLastAttempt = default(bool?))
         {
+            this.EmailAddresses = emailAddresses;
             this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
+            this.EmailAddresses = emailAddresses;
             this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
+            this.RaiseObjectLevelFailureAlertAfterEachAttempt = raiseObjectLevelFailureAlertAfterEachAttempt;
+            this.RaiseObjectLevelFailureAlertAfterLastAttempt = raiseObjectLevelFailureAlertAfterLastAttempt;
         }
-
-        // Bug fix : Support for email configuration for older versions 6.1.1 and 6.3.1
+        
         /// <summary>
-        /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
+        /// Exists to maintain backwards compatibility with versions before eff8198.
         /// </summary>
-        /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
-        private List<string> __emailAddresses;
-        [DataMember(Name = "emailAddresses", EmitDefaultValue = true)]
-        public List<string> EmailAddresses
-        {
-            get
-            {
-                return this.__emailAddresses;
-            }
+        /// <value>Exists to maintain backwards compatibility with versions before eff8198.</value>
+        [DataMember(Name="emailAddresses", EmitDefaultValue=true)]
+        public List<string> EmailAddresses { get; set; }
 
-            set
-            {
-                this.__emailAddresses = value;
-                SetEmailDeliveryTargets(this.__emailAddresses);
-            }
-        }
-        private void SetEmailDeliveryTargets(List<string> emailAddresses)
-        {
-            if (null != emailAddresses)
-            {
-                if (null == this.EmailDeliveryTargets)
-                {
-                    this.EmailDeliveryTargets = new List<EmailDeliveryTarget>();
-                }
-                this.EmailDeliveryTargets.Clear();
-                foreach (string item in this.__emailAddresses)
-                {
-                    this.EmailDeliveryTargets.Add(new EmailDeliveryTarget(item));
-                }
-            }
-        }
         /// <summary>
         /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
         /// </summary>
@@ -81,6 +62,20 @@ namespace Cohesity.Model
         /// <value>Specifies the boolean to raise per object alert for failures.</value>
         [DataMember(Name="raiseObjectLevelFailureAlert", EmitDefaultValue=true)]
         public bool? RaiseObjectLevelFailureAlert { get; set; }
+
+        /// <summary>
+        /// Specifies the boolean to raise per object alert for failures after each attempt.
+        /// </summary>
+        /// <value>Specifies the boolean to raise per object alert for failures after each attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterEachAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterEachAttempt { get; set; }
+
+        /// <summary>
+        /// Specifies the boolean to raise per object alert for failures after last attempt.
+        /// </summary>
+        /// <value>Specifies the boolean to raise per object alert for failures after last attempt.</value>
+        [DataMember(Name="raiseObjectLevelFailureAlertAfterLastAttempt", EmitDefaultValue=true)]
+        public bool? RaiseObjectLevelFailureAlertAfterLastAttempt { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -119,6 +114,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.EmailAddresses == input.EmailAddresses ||
+                    this.EmailAddresses != null &&
+                    input.EmailAddresses != null &&
+                    this.EmailAddresses.SequenceEqual(input.EmailAddresses)
+                ) && 
+                (
                     this.EmailDeliveryTargets == input.EmailDeliveryTargets ||
                     this.EmailDeliveryTargets != null &&
                     input.EmailDeliveryTargets != null &&
@@ -128,6 +129,16 @@ namespace Cohesity.Model
                     this.RaiseObjectLevelFailureAlert == input.RaiseObjectLevelFailureAlert ||
                     (this.RaiseObjectLevelFailureAlert != null &&
                     this.RaiseObjectLevelFailureAlert.Equals(input.RaiseObjectLevelFailureAlert))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt == input.RaiseObjectLevelFailureAlertAfterEachAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterEachAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterEachAttempt))
+                ) && 
+                (
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt == input.RaiseObjectLevelFailureAlertAfterLastAttempt ||
+                    (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null &&
+                    this.RaiseObjectLevelFailureAlertAfterLastAttempt.Equals(input.RaiseObjectLevelFailureAlertAfterLastAttempt))
                 );
         }
 
@@ -140,10 +151,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EmailAddresses != null)
+                    hashCode = hashCode * 59 + this.EmailAddresses.GetHashCode();
                 if (this.EmailDeliveryTargets != null)
                     hashCode = hashCode * 59 + this.EmailDeliveryTargets.GetHashCode();
                 if (this.RaiseObjectLevelFailureAlert != null)
                     hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlert.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterEachAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterEachAttempt.GetHashCode();
+                if (this.RaiseObjectLevelFailureAlertAfterLastAttempt != null)
+                    hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlertAfterLastAttempt.GetHashCode();
                 return hashCode;
             }
         }

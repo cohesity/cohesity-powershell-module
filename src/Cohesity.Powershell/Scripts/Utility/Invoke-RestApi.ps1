@@ -48,7 +48,10 @@ function Invoke-RestApi {
     # get the user profile and construct the url and headers
     $cohesitySession = CohesityUserProfile
     $PSBoundParameters.Uri = $cohesitySession.ClusterUri + $PSBoundParameters.Uri
-    if($cohesitySession.APIKey) {
+    if($cohesitySession.SessionId) {
+        $PSBoundParameters.Headers = @{"session-id" = $cohesitySession.SessionId}
+    }
+    elseif($cohesitySession.APIKey) {
         $PSBoundParameters.Headers = @{"apiKey" = $cohesitySession.APIKey}
     } else {
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
@@ -76,7 +79,7 @@ function Invoke-RestApi {
         }
 
         If ($PSVersionTable.PSVersion.Major -ge 6) {
-            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
+            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName -SslProtocol Tls12
         }
         else {
             Enable-SelfSignedCertificates

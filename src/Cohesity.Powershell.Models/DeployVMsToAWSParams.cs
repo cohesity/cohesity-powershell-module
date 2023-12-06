@@ -23,6 +23,9 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployVMsToAWSParams" /> class.
         /// </summary>
+        /// <param name="auroraParams">auroraParams.</param>
+        /// <param name="customTagVec">Custom Tags to be applied to permanent and temporary resources during AWS Cloudspin / Convert and Deploy..</param>
+        /// <param name="encryptionParams">encryptionParams.</param>
         /// <param name="instanceType">instanceType.</param>
         /// <param name="keyPairName">keyPairName.</param>
         /// <param name="networkSecurityGroups">Names of the network security groups within the above VPC. At least one entry should be present..</param>
@@ -32,9 +35,13 @@ namespace Cohesity.Model
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpc">vpc.</param>
-        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
+        public DeployVMsToAWSParams(DeployDBInstancesToRDSParams auroraParams = default(DeployDBInstancesToRDSParams), List<CustomTag> customTagVec = default(List<CustomTag>), EncryptionParams encryptionParams = default(EncryptionParams), EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
+            this.CustomTagVec = customTagVec;
             this.NetworkSecurityGroups = networkSecurityGroups;
+            this.AuroraParams = auroraParams;
+            this.CustomTagVec = customTagVec;
+            this.EncryptionParams = encryptionParams;
             this.InstanceType = instanceType;
             this.KeyPairName = keyPairName;
             this.NetworkSecurityGroups = networkSecurityGroups;
@@ -46,6 +53,25 @@ namespace Cohesity.Model
             this.Vpc = vpc;
         }
         
+        /// <summary>
+        /// Gets or Sets AuroraParams
+        /// </summary>
+        [DataMember(Name="auroraParams", EmitDefaultValue=false)]
+        public DeployDBInstancesToRDSParams AuroraParams { get; set; }
+
+        /// <summary>
+        /// Custom Tags to be applied to permanent and temporary resources during AWS Cloudspin / Convert and Deploy.
+        /// </summary>
+        /// <value>Custom Tags to be applied to permanent and temporary resources during AWS Cloudspin / Convert and Deploy.</value>
+        [DataMember(Name="customTagVec", EmitDefaultValue=true)]
+        public List<CustomTag> CustomTagVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EncryptionParams
+        /// </summary>
+        [DataMember(Name="encryptionParams", EmitDefaultValue=false)]
+        public EncryptionParams EncryptionParams { get; set; }
+
         /// <summary>
         /// Gets or Sets InstanceType
         /// </summary>
@@ -138,6 +164,22 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AuroraParams == input.AuroraParams ||
+                    (this.AuroraParams != null &&
+                    this.AuroraParams.Equals(input.AuroraParams))
+                ) && 
+                (
+                    this.CustomTagVec == input.CustomTagVec ||
+                    this.CustomTagVec != null &&
+                    input.CustomTagVec != null &&
+                    this.CustomTagVec.SequenceEqual(input.CustomTagVec)
+                ) && 
+                (
+                    this.EncryptionParams == input.EncryptionParams ||
+                    (this.EncryptionParams != null &&
+                    this.EncryptionParams.Equals(input.EncryptionParams))
+                ) && 
+                (
                     this.InstanceType == input.InstanceType ||
                     (this.InstanceType != null &&
                     this.InstanceType.Equals(input.InstanceType))
@@ -194,6 +236,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AuroraParams != null)
+                    hashCode = hashCode * 59 + this.AuroraParams.GetHashCode();
+                if (this.CustomTagVec != null)
+                    hashCode = hashCode * 59 + this.CustomTagVec.GetHashCode();
+                if (this.EncryptionParams != null)
+                    hashCode = hashCode * 59 + this.EncryptionParams.GetHashCode();
                 if (this.InstanceType != null)
                     hashCode = hashCode * 59 + this.InstanceType.GetHashCode();
                 if (this.KeyPairName != null)

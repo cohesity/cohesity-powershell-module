@@ -25,9 +25,11 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="domainName">Specifies the fully qualified domain name (FQDN) of an Active Directory..</param>
         /// <param name="fallbackUserIdMappingInfo">fallbackUserIdMappingInfo.</param>
+        /// <param name="forceRemove">Specifies if Active Directory entry should be force removed from cluster..</param>
         /// <param name="ignoredTrustedDomains">Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery..</param>
         /// <param name="ldapProviderId">Specifies the LDAP provider id which is map to this Active Directory.</param>
         /// <param name="machineAccounts">Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain..</param>
+        /// <param name="onlyUseWhitelistedDomains">Specifies whether to use &#39;whitelistedDomains&#39; only for authentication..</param>
         /// <param name="ouName">Specifies an optional Organizational Unit name..</param>
         /// <param name="password">Specifies the password for the specified userName..</param>
         /// <param name="preferredDomainControllers">Specifies Map of Active Directory domain names to its preferred domain controllers..</param>
@@ -37,13 +39,16 @@ namespace Cohesity.Model
         /// <param name="unixRootSid">Specifies the SID of the Active Directory domain user to be mapped to Unix root user..</param>
         /// <param name="userIdMappingInfo">userIdMappingInfo.</param>
         /// <param name="userName">Specifies a userName that has administrative privileges in the domain..</param>
+        /// <param name="whitelistedDomains">Specifies the Whitelisted Domains of the Active Directory domain..</param>
         /// <param name="workgroup">Specifies an optional Workgroup name..</param>
-        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), List<string> ignoredTrustedDomains = default(List<string>), long? ldapProviderId = default(long?), List<string> machineAccounts = default(List<string>), string ouName = default(string), string password = default(string), List<PreferredDomainController> preferredDomainControllers = default(List<PreferredDomainController>), string taskPath = default(string), string tenantId = default(string), bool? trustedDomainsEnabled = default(bool?), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), string workgroup = default(string))
+        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), bool? forceRemove = default(bool?), List<string> ignoredTrustedDomains = default(List<string>), long? ldapProviderId = default(long?), List<string> machineAccounts = default(List<string>), bool? onlyUseWhitelistedDomains = default(bool?), string ouName = default(string), string password = default(string), List<PreferredDomainController> preferredDomainControllers = default(List<PreferredDomainController>), string taskPath = default(string), string tenantId = default(string), bool? trustedDomainsEnabled = default(bool?), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), List<string> whitelistedDomains = default(List<string>), string workgroup = default(string))
         {
             this.DomainName = domainName;
+            this.ForceRemove = forceRemove;
             this.IgnoredTrustedDomains = ignoredTrustedDomains;
             this.LdapProviderId = ldapProviderId;
             this.MachineAccounts = machineAccounts;
+            this.OnlyUseWhitelistedDomains = onlyUseWhitelistedDomains;
             this.OuName = ouName;
             this.Password = password;
             this.PreferredDomainControllers = preferredDomainControllers;
@@ -52,12 +57,15 @@ namespace Cohesity.Model
             this.TrustedDomainsEnabled = trustedDomainsEnabled;
             this.UnixRootSid = unixRootSid;
             this.UserName = userName;
+            this.WhitelistedDomains = whitelistedDomains;
             this.Workgroup = workgroup;
             this.DomainName = domainName;
             this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
+            this.ForceRemove = forceRemove;
             this.IgnoredTrustedDomains = ignoredTrustedDomains;
             this.LdapProviderId = ldapProviderId;
             this.MachineAccounts = machineAccounts;
+            this.OnlyUseWhitelistedDomains = onlyUseWhitelistedDomains;
             this.OuName = ouName;
             this.Password = password;
             this.PreferredDomainControllers = preferredDomainControllers;
@@ -67,6 +75,7 @@ namespace Cohesity.Model
             this.UnixRootSid = unixRootSid;
             this.UserIdMappingInfo = userIdMappingInfo;
             this.UserName = userName;
+            this.WhitelistedDomains = whitelistedDomains;
             this.Workgroup = workgroup;
         }
         
@@ -82,6 +91,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="fallbackUserIdMappingInfo", EmitDefaultValue=false)]
         public UserIdMapping FallbackUserIdMappingInfo { get; set; }
+
+        /// <summary>
+        /// Specifies if Active Directory entry should be force removed from cluster.
+        /// </summary>
+        /// <value>Specifies if Active Directory entry should be force removed from cluster.</value>
+        [DataMember(Name="forceRemove", EmitDefaultValue=true)]
+        public bool? ForceRemove { get; set; }
 
         /// <summary>
         /// Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.
@@ -103,6 +119,13 @@ namespace Cohesity.Model
         /// <value>Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
         [DataMember(Name="machineAccounts", EmitDefaultValue=true)]
         public List<string> MachineAccounts { get; set; }
+
+        /// <summary>
+        /// Specifies whether to use &#39;whitelistedDomains&#39; only for authentication.
+        /// </summary>
+        /// <value>Specifies whether to use &#39;whitelistedDomains&#39; only for authentication.</value>
+        [DataMember(Name="onlyUseWhitelistedDomains", EmitDefaultValue=true)]
+        public bool? OnlyUseWhitelistedDomains { get; set; }
 
         /// <summary>
         /// Specifies an optional Organizational Unit name.
@@ -174,6 +197,13 @@ namespace Cohesity.Model
         public string UserName { get; set; }
 
         /// <summary>
+        /// Specifies the Whitelisted Domains of the Active Directory domain.
+        /// </summary>
+        /// <value>Specifies the Whitelisted Domains of the Active Directory domain.</value>
+        [DataMember(Name="whitelistedDomains", EmitDefaultValue=true)]
+        public List<string> WhitelistedDomains { get; set; }
+
+        /// <summary>
         /// Specifies an optional Workgroup name.
         /// </summary>
         /// <value>Specifies an optional Workgroup name.</value>
@@ -227,6 +257,11 @@ namespace Cohesity.Model
                     this.FallbackUserIdMappingInfo.Equals(input.FallbackUserIdMappingInfo))
                 ) && 
                 (
+                    this.ForceRemove == input.ForceRemove ||
+                    (this.ForceRemove != null &&
+                    this.ForceRemove.Equals(input.ForceRemove))
+                ) && 
+                (
                     this.IgnoredTrustedDomains == input.IgnoredTrustedDomains ||
                     this.IgnoredTrustedDomains != null &&
                     input.IgnoredTrustedDomains != null &&
@@ -242,6 +277,11 @@ namespace Cohesity.Model
                     this.MachineAccounts != null &&
                     input.MachineAccounts != null &&
                     this.MachineAccounts.SequenceEqual(input.MachineAccounts)
+                ) && 
+                (
+                    this.OnlyUseWhitelistedDomains == input.OnlyUseWhitelistedDomains ||
+                    (this.OnlyUseWhitelistedDomains != null &&
+                    this.OnlyUseWhitelistedDomains.Equals(input.OnlyUseWhitelistedDomains))
                 ) && 
                 (
                     this.OuName == input.OuName ||
@@ -296,6 +336,12 @@ namespace Cohesity.Model
                     this.UserName.Equals(input.UserName))
                 ) && 
                 (
+                    this.WhitelistedDomains == input.WhitelistedDomains ||
+                    this.WhitelistedDomains != null &&
+                    input.WhitelistedDomains != null &&
+                    this.WhitelistedDomains.SequenceEqual(input.WhitelistedDomains)
+                ) && 
+                (
                     this.Workgroup == input.Workgroup ||
                     (this.Workgroup != null &&
                     this.Workgroup.Equals(input.Workgroup))
@@ -315,12 +361,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 if (this.FallbackUserIdMappingInfo != null)
                     hashCode = hashCode * 59 + this.FallbackUserIdMappingInfo.GetHashCode();
+                if (this.ForceRemove != null)
+                    hashCode = hashCode * 59 + this.ForceRemove.GetHashCode();
                 if (this.IgnoredTrustedDomains != null)
                     hashCode = hashCode * 59 + this.IgnoredTrustedDomains.GetHashCode();
                 if (this.LdapProviderId != null)
                     hashCode = hashCode * 59 + this.LdapProviderId.GetHashCode();
                 if (this.MachineAccounts != null)
                     hashCode = hashCode * 59 + this.MachineAccounts.GetHashCode();
+                if (this.OnlyUseWhitelistedDomains != null)
+                    hashCode = hashCode * 59 + this.OnlyUseWhitelistedDomains.GetHashCode();
                 if (this.OuName != null)
                     hashCode = hashCode * 59 + this.OuName.GetHashCode();
                 if (this.Password != null)
@@ -341,6 +391,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UserIdMappingInfo.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
+                if (this.WhitelistedDomains != null)
+                    hashCode = hashCode * 59 + this.WhitelistedDomains.GetHashCode();
                 if (this.Workgroup != null)
                     hashCode = hashCode * 59 + this.Workgroup.GetHashCode();
                 return hashCode;

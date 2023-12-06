@@ -23,21 +23,34 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InterfaceGroup" /> class.
         /// </summary>
+        /// <param name="groupType">Specifies node group type..</param>
         /// <param name="id">Interface group Id.  Specifies the id of the interface group..</param>
         /// <param name="modelInterfaceLists">Specifies the product model and interface lists..</param>
         /// <param name="name">Specifies the name of the interface group..</param>
         /// <param name="networkParams">networkParams.</param>
-        public InterfaceGroup(int? id = default(int?), List<ProductModelInterfaceTuple> modelInterfaceLists = default(List<ProductModelInterfaceTuple>), string name = default(string), NetworkParams networkParams = default(NetworkParams))
+        /// <param name="nodeInterfacePairs">Specifies the node IDs and interface lists..</param>
+        public InterfaceGroup(int? groupType = default(int?), int? id = default(int?), List<ProductModelInterfaceTuple> modelInterfaceLists = default(List<ProductModelInterfaceTuple>), string name = default(string), NetworkParams networkParams = default(NetworkParams), List<NodeInterfacePair> nodeInterfacePairs = default(List<NodeInterfacePair>))
         {
+            this.GroupType = groupType;
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
             this.Name = name;
+            this.NodeInterfacePairs = nodeInterfacePairs;
+            this.GroupType = groupType;
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
             this.Name = name;
             this.NetworkParams = networkParams;
+            this.NodeInterfacePairs = nodeInterfacePairs;
         }
         
+        /// <summary>
+        /// Specifies node group type.
+        /// </summary>
+        /// <value>Specifies node group type.</value>
+        [DataMember(Name="groupType", EmitDefaultValue=true)]
+        public int? GroupType { get; set; }
+
         /// <summary>
         /// Interface group Id.  Specifies the id of the interface group.
         /// </summary>
@@ -64,6 +77,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="networkParams", EmitDefaultValue=false)]
         public NetworkParams NetworkParams { get; set; }
+
+        /// <summary>
+        /// Specifies the node IDs and interface lists.
+        /// </summary>
+        /// <value>Specifies the node IDs and interface lists.</value>
+        [DataMember(Name="nodeInterfacePairs", EmitDefaultValue=true)]
+        public List<NodeInterfacePair> NodeInterfacePairs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -102,6 +122,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.GroupType == input.GroupType ||
+                    (this.GroupType != null &&
+                    this.GroupType.Equals(input.GroupType))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -121,6 +146,12 @@ namespace Cohesity.Model
                     this.NetworkParams == input.NetworkParams ||
                     (this.NetworkParams != null &&
                     this.NetworkParams.Equals(input.NetworkParams))
+                ) && 
+                (
+                    this.NodeInterfacePairs == input.NodeInterfacePairs ||
+                    this.NodeInterfacePairs != null &&
+                    input.NodeInterfacePairs != null &&
+                    this.NodeInterfacePairs.SequenceEqual(input.NodeInterfacePairs)
                 );
         }
 
@@ -133,6 +164,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.GroupType != null)
+                    hashCode = hashCode * 59 + this.GroupType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.ModelInterfaceLists != null)
@@ -141,6 +174,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NetworkParams != null)
                     hashCode = hashCode * 59 + this.NetworkParams.GetHashCode();
+                if (this.NodeInterfacePairs != null)
+                    hashCode = hashCode * 59 + this.NodeInterfacePairs.GetHashCode();
                 return hashCode;
             }
         }

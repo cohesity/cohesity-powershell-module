@@ -21,56 +21,133 @@ namespace Cohesity.Model
     public partial class KmsCreateRequestParameters :  IEquatable<KmsCreateRequestParameters>
     {
         /// <summary>
-        /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
+        /// Specifies the consumption model for the KMS Key. &#39;Local&#39; indicates an internal KMS object. &#39;FortKnox&#39; indicates an FortKnox KMS object.
         /// </summary>
-        /// <value>Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.</value>
+        /// <value>Specifies the consumption model for the KMS Key. &#39;Local&#39; indicates an internal KMS object. &#39;FortKnox&#39; indicates an FortKnox KMS object.</value>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum ServerTypeEnum
+        public enum OwnershipContextEnum
         {
             /// <summary>
-            /// Enum KInternalKms for value: kInternalKms
+            /// Enum Local for value: Local
             /// </summary>
-            [EnumMember(Value = "kInternalKms")]
-            KInternalKms = 1,
+            [EnumMember(Value = "Local")]
+            Local = 1,
 
             /// <summary>
-            /// Enum KAwsKms for value: kAwsKms
+            /// Enum FortKnox for value: FortKnox
             /// </summary>
-            [EnumMember(Value = "kAwsKms")]
-            KAwsKms = 2,
-
-            /// <summary>
-            /// Enum KCryptsoftKms for value: kCryptsoftKms
-            /// </summary>
-            [EnumMember(Value = "kCryptsoftKms")]
-            KCryptsoftKms = 3
+            [EnumMember(Value = "FortKnox")]
+            FortKnox = 2
 
         }
 
         /// <summary>
-        /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
+        /// Specifies the consumption model for the KMS Key. &#39;Local&#39; indicates an internal KMS object. &#39;FortKnox&#39; indicates an FortKnox KMS object.
         /// </summary>
-        /// <value>Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.</value>
+        /// <value>Specifies the consumption model for the KMS Key. &#39;Local&#39; indicates an internal KMS object. &#39;FortKnox&#39; indicates an FortKnox KMS object.</value>
+        [DataMember(Name="ownershipContext", EmitDefaultValue=true)]
+        public OwnershipContextEnum? OwnershipContext { get; set; }
+        /// <summary>
+        /// Specifies the type of key mangement system. &#39;kInternalKMS&#39; indicates an internal KMS object. &#39;kAwsKMS&#39; indicates an Aws KMS object. &#39;kCryptsoftKMS&#39; indicates a Cryptsoft KMS object. &#39;kAzureKMS&#39; indicates a Azure KMS object.
+        /// </summary>
+        /// <value>Specifies the type of key mangement system. &#39;kInternalKMS&#39; indicates an internal KMS object. &#39;kAwsKMS&#39; indicates an Aws KMS object. &#39;kCryptsoftKMS&#39; indicates a Cryptsoft KMS object. &#39;kAzureKMS&#39; indicates a Azure KMS object.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ServerTypeEnum
+        {
+            /// <summary>
+            /// Enum KInternalKMS for value: kInternalKMS
+            /// </summary>
+            [EnumMember(Value = "kInternalKMS")]
+            KInternalKMS = 1,
+
+            /// <summary>
+            /// Enum KAwsKMS for value: kAwsKMS
+            /// </summary>
+            [EnumMember(Value = "kAwsKMS")]
+            KAwsKMS = 2,
+
+            /// <summary>
+            /// Enum KCryptsoftKMS for value: kCryptsoftKMS
+            /// </summary>
+            [EnumMember(Value = "kCryptsoftKMS")]
+            KCryptsoftKMS = 3,
+
+            /// <summary>
+            /// Enum KAzureKMS for value: kAzureKMS
+            /// </summary>
+            [EnumMember(Value = "kAzureKMS")]
+            KAzureKMS = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the type of key mangement system. &#39;kInternalKMS&#39; indicates an internal KMS object. &#39;kAwsKMS&#39; indicates an Aws KMS object. &#39;kCryptsoftKMS&#39; indicates a Cryptsoft KMS object. &#39;kAzureKMS&#39; indicates a Azure KMS object.
+        /// </summary>
+        /// <value>Specifies the type of key mangement system. &#39;kInternalKMS&#39; indicates an internal KMS object. &#39;kAwsKMS&#39; indicates an Aws KMS object. &#39;kCryptsoftKMS&#39; indicates a Cryptsoft KMS object. &#39;kAzureKMS&#39; indicates a Azure KMS object.</value>
         [DataMember(Name="serverType", EmitDefaultValue=true)]
         public ServerTypeEnum? ServerType { get; set; }
+        /// <summary>
+        /// Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only. &#39;kArchival&#39; indicates an internal KMS object. &#39;kRpaasArchival&#39; indicates an Aws KMS object.
+        /// </summary>
+        /// <value>Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only. &#39;kArchival&#39; indicates an internal KMS object. &#39;kRpaasArchival&#39; indicates an Aws KMS object.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum UsageTypeEnum
+        {
+            /// <summary>
+            /// Enum KArchival for value: kArchival
+            /// </summary>
+            [EnumMember(Value = "kArchival")]
+            KArchival = 1,
+
+            /// <summary>
+            /// Enum KRpaasArchival for value: kRpaasArchival
+            /// </summary>
+            [EnumMember(Value = "kRpaasArchival")]
+            KRpaasArchival = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only. &#39;kArchival&#39; indicates an internal KMS object. &#39;kRpaasArchival&#39; indicates an Aws KMS object.
+        /// </summary>
+        /// <value>Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only. &#39;kArchival&#39; indicates an internal KMS object. &#39;kRpaasArchival&#39; indicates an Aws KMS object.</value>
+        [DataMember(Name="usageType", EmitDefaultValue=true)]
+        public UsageTypeEnum? UsageType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KmsCreateRequestParameters" /> class.
         /// </summary>
         /// <param name="awsKms">awsKms.</param>
+        /// <param name="azureKms">azureKms.</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
+        /// <param name="keyName">Specifies name of the key..</param>
+        /// <param name="ownershipContext">Specifies the consumption model for the KMS Key. &#39;Local&#39; indicates an internal KMS object. &#39;FortKnox&#39; indicates an FortKnox KMS object..</param>
         /// <param name="serverName">Specifies the name given to the KMS Server..</param>
-        /// <param name="serverType">Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object..</param>
-        public KmsCreateRequestParameters(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), CryptsoftKmsConfiguration cryptsoftKms = default(CryptsoftKmsConfiguration), long? id = default(long?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?))
+        /// <param name="serverType">Specifies the type of key mangement system. &#39;kInternalKMS&#39; indicates an internal KMS object. &#39;kAwsKMS&#39; indicates an Aws KMS object. &#39;kCryptsoftKMS&#39; indicates a Cryptsoft KMS object. &#39;kAzureKMS&#39; indicates a Azure KMS object..</param>
+        /// <param name="usageType">Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only. &#39;kArchival&#39; indicates an internal KMS object. &#39;kRpaasArchival&#39; indicates an Aws KMS object..</param>
+        /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
+        /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
+        public KmsCreateRequestParameters(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), AzureKmsConfiguration azureKms = default(AzureKmsConfiguration), CryptsoftKmsConfiguration cryptsoftKms = default(CryptsoftKmsConfiguration), long? id = default(long?), string keyName = default(string), OwnershipContextEnum? ownershipContext = default(OwnershipContextEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
             this.Id = id;
+            this.KeyName = keyName;
+            this.OwnershipContext = ownershipContext;
             this.ServerName = serverName;
             this.ServerType = serverType;
+            this.UsageType = usageType;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
+            this.AzureKms = azureKms;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
+            this.KeyName = keyName;
+            this.OwnershipContext = ownershipContext;
             this.ServerName = serverName;
             this.ServerType = serverType;
+            this.UsageType = usageType;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
         }
         
         /// <summary>
@@ -78,6 +155,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="awsKms", EmitDefaultValue=false)]
         public AwsKmsConfiguration AwsKms { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AzureKms
+        /// </summary>
+        [DataMember(Name="azureKms", EmitDefaultValue=false)]
+        public AzureKmsConfiguration AzureKms { get; set; }
 
         /// <summary>
         /// Gets or Sets CryptsoftKms
@@ -93,11 +176,32 @@ namespace Cohesity.Model
         public long? Id { get; set; }
 
         /// <summary>
+        /// Specifies name of the key.
+        /// </summary>
+        /// <value>Specifies name of the key.</value>
+        [DataMember(Name="keyName", EmitDefaultValue=true)]
+        public string KeyName { get; set; }
+
+        /// <summary>
         /// Specifies the name given to the KMS Server.
         /// </summary>
         /// <value>Specifies the name given to the KMS Server.</value>
         [DataMember(Name="serverName", EmitDefaultValue=true)]
         public string ServerName { get; set; }
+
+        /// <summary>
+        /// Specifies the list of Vault Ids.
+        /// </summary>
+        /// <value>Specifies the list of Vault Ids.</value>
+        [DataMember(Name="vaultIdList", EmitDefaultValue=true)]
+        public List<long> VaultIdList { get; set; }
+
+        /// <summary>
+        /// Specifies the list of View Box Ids.
+        /// </summary>
+        /// <value>Specifies the list of View Box Ids.</value>
+        [DataMember(Name="viewBoxIdList", EmitDefaultValue=true)]
+        public List<long> ViewBoxIdList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -141,6 +245,11 @@ namespace Cohesity.Model
                     this.AwsKms.Equals(input.AwsKms))
                 ) && 
                 (
+                    this.AzureKms == input.AzureKms ||
+                    (this.AzureKms != null &&
+                    this.AzureKms.Equals(input.AzureKms))
+                ) && 
+                (
                     this.CryptsoftKms == input.CryptsoftKms ||
                     (this.CryptsoftKms != null &&
                     this.CryptsoftKms.Equals(input.CryptsoftKms))
@@ -151,6 +260,15 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.KeyName == input.KeyName ||
+                    (this.KeyName != null &&
+                    this.KeyName.Equals(input.KeyName))
+                ) && 
+                (
+                    this.OwnershipContext == input.OwnershipContext ||
+                    this.OwnershipContext.Equals(input.OwnershipContext)
+                ) && 
+                (
                     this.ServerName == input.ServerName ||
                     (this.ServerName != null &&
                     this.ServerName.Equals(input.ServerName))
@@ -158,6 +276,22 @@ namespace Cohesity.Model
                 (
                     this.ServerType == input.ServerType ||
                     this.ServerType.Equals(input.ServerType)
+                ) && 
+                (
+                    this.UsageType == input.UsageType ||
+                    this.UsageType.Equals(input.UsageType)
+                ) && 
+                (
+                    this.VaultIdList == input.VaultIdList ||
+                    this.VaultIdList != null &&
+                    input.VaultIdList != null &&
+                    this.VaultIdList.SequenceEqual(input.VaultIdList)
+                ) && 
+                (
+                    this.ViewBoxIdList == input.ViewBoxIdList ||
+                    this.ViewBoxIdList != null &&
+                    input.ViewBoxIdList != null &&
+                    this.ViewBoxIdList.SequenceEqual(input.ViewBoxIdList)
                 );
         }
 
@@ -172,13 +306,23 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AwsKms != null)
                     hashCode = hashCode * 59 + this.AwsKms.GetHashCode();
+                if (this.AzureKms != null)
+                    hashCode = hashCode * 59 + this.AzureKms.GetHashCode();
                 if (this.CryptsoftKms != null)
                     hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.KeyName != null)
+                    hashCode = hashCode * 59 + this.KeyName.GetHashCode();
+                hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
                 if (this.ServerName != null)
                     hashCode = hashCode * 59 + this.ServerName.GetHashCode();
                 hashCode = hashCode * 59 + this.ServerType.GetHashCode();
+                hashCode = hashCode * 59 + this.UsageType.GetHashCode();
+                if (this.VaultIdList != null)
+                    hashCode = hashCode * 59 + this.VaultIdList.GetHashCode();
+                if (this.ViewBoxIdList != null)
+                    hashCode = hashCode * 59 + this.ViewBoxIdList.GetHashCode();
                 return hashCode;
             }
         }

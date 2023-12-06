@@ -23,19 +23,29 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStatInfo" /> class.
         /// </summary>
+        /// <param name="backupSourceInodeId">Source inode id metadata for certain adapters e.g. Netapp..</param>
         /// <param name="mtimeUsecs">If this is a file, the mtime as returned by stat..</param>
         /// <param name="size">If this is a file, the size of the file as returned by stat..</param>
         /// <param name="type">The type of this entity. This field will not be populated for ReadDir results, since the DirEntry already contains the type information..</param>
-        public FileStatInfo(long? mtimeUsecs = default(long?), long? size = default(long?), int? type = default(int?))
+        public FileStatInfo(long? backupSourceInodeId = default(long?), long? mtimeUsecs = default(long?), long? size = default(long?), int? type = default(int?))
         {
+            this.BackupSourceInodeId = backupSourceInodeId;
             this.MtimeUsecs = mtimeUsecs;
             this.Size = size;
             this.Type = type;
+            this.BackupSourceInodeId = backupSourceInodeId;
             this.MtimeUsecs = mtimeUsecs;
             this.Size = size;
             this.Type = type;
         }
         
+        /// <summary>
+        /// Source inode id metadata for certain adapters e.g. Netapp.
+        /// </summary>
+        /// <value>Source inode id metadata for certain adapters e.g. Netapp.</value>
+        [DataMember(Name="backupSourceInodeId", EmitDefaultValue=true)]
+        public long? BackupSourceInodeId { get; set; }
+
         /// <summary>
         /// If this is a file, the mtime as returned by stat.
         /// </summary>
@@ -94,6 +104,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BackupSourceInodeId == input.BackupSourceInodeId ||
+                    (this.BackupSourceInodeId != null &&
+                    this.BackupSourceInodeId.Equals(input.BackupSourceInodeId))
+                ) && 
+                (
                     this.MtimeUsecs == input.MtimeUsecs ||
                     (this.MtimeUsecs != null &&
                     this.MtimeUsecs.Equals(input.MtimeUsecs))
@@ -119,6 +134,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BackupSourceInodeId != null)
+                    hashCode = hashCode * 59 + this.BackupSourceInodeId.GetHashCode();
                 if (this.MtimeUsecs != null)
                     hashCode = hashCode * 59 + this.MtimeUsecs.GetHashCode();
                 if (this.Size != null)

@@ -25,32 +25,41 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="alternateRestoreBaseDirectory">This must be set to a directory path if restore_to_original_paths is false. All the files and directories restored will be restored under this location..</param>
         /// <param name="continueOnError">Whether to continue with the copy in case of encountering an error..</param>
+        /// <param name="encryptionEnabled">Whether to enable encryption for NFS and SMB restores..</param>
         /// <param name="generateSshKeys">In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance..</param>
         /// <param name="overrideOriginals">This is relevant only if restore_to_original_paths is true. If this is true, then already existing files will be overridden, otherwise new files will be skipped..</param>
         /// <param name="preserveAcls">Whether to preserve the ACLs of the original file..</param>
         /// <param name="preserveAttributes">Whether to preserve the original attributes..</param>
         /// <param name="preserveTimestamps">Whether to preserve the original time stamps..</param>
+        /// <param name="restoreEntities">Option to select whether to restore everything or ACLs only..</param>
         /// <param name="restoreToOriginalPaths">If this is true, then files will be restored to original paths..</param>
+        /// <param name="saveSuccessFiles">Whether to save success files for FLR..</param>
         /// <param name="skipEstimation">Whether to skip the estimation step..</param>
-        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), bool? restoreToOriginalPaths = default(bool?), bool? skipEstimation = default(bool?))
+        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), int? restoreEntities = default(int?), bool? restoreToOriginalPaths = default(bool?), bool? saveSuccessFiles = default(bool?), bool? skipEstimation = default(bool?))
         {
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
             this.GenerateSshKeys = generateSshKeys;
             this.OverrideOriginals = overrideOriginals;
             this.PreserveAcls = preserveAcls;
             this.PreserveAttributes = preserveAttributes;
             this.PreserveTimestamps = preserveTimestamps;
+            this.RestoreEntities = restoreEntities;
             this.RestoreToOriginalPaths = restoreToOriginalPaths;
+            this.SaveSuccessFiles = saveSuccessFiles;
             this.SkipEstimation = skipEstimation;
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
             this.GenerateSshKeys = generateSshKeys;
             this.OverrideOriginals = overrideOriginals;
             this.PreserveAcls = preserveAcls;
             this.PreserveAttributes = preserveAttributes;
             this.PreserveTimestamps = preserveTimestamps;
+            this.RestoreEntities = restoreEntities;
             this.RestoreToOriginalPaths = restoreToOriginalPaths;
+            this.SaveSuccessFiles = saveSuccessFiles;
             this.SkipEstimation = skipEstimation;
         }
         
@@ -67,6 +76,13 @@ namespace Cohesity.Model
         /// <value>Whether to continue with the copy in case of encountering an error.</value>
         [DataMember(Name="continueOnError", EmitDefaultValue=true)]
         public bool? ContinueOnError { get; set; }
+
+        /// <summary>
+        /// Whether to enable encryption for NFS and SMB restores.
+        /// </summary>
+        /// <value>Whether to enable encryption for NFS and SMB restores.</value>
+        [DataMember(Name="encryptionEnabled", EmitDefaultValue=true)]
+        public bool? EncryptionEnabled { get; set; }
 
         /// <summary>
         /// In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance.
@@ -104,11 +120,25 @@ namespace Cohesity.Model
         public bool? PreserveTimestamps { get; set; }
 
         /// <summary>
+        /// Option to select whether to restore everything or ACLs only.
+        /// </summary>
+        /// <value>Option to select whether to restore everything or ACLs only.</value>
+        [DataMember(Name="restoreEntities", EmitDefaultValue=true)]
+        public int? RestoreEntities { get; set; }
+
+        /// <summary>
         /// If this is true, then files will be restored to original paths.
         /// </summary>
         /// <value>If this is true, then files will be restored to original paths.</value>
         [DataMember(Name="restoreToOriginalPaths", EmitDefaultValue=true)]
         public bool? RestoreToOriginalPaths { get; set; }
+
+        /// <summary>
+        /// Whether to save success files for FLR.
+        /// </summary>
+        /// <value>Whether to save success files for FLR.</value>
+        [DataMember(Name="saveSuccessFiles", EmitDefaultValue=true)]
+        public bool? SaveSuccessFiles { get; set; }
 
         /// <summary>
         /// Whether to skip the estimation step.
@@ -164,6 +194,11 @@ namespace Cohesity.Model
                     this.ContinueOnError.Equals(input.ContinueOnError))
                 ) && 
                 (
+                    this.EncryptionEnabled == input.EncryptionEnabled ||
+                    (this.EncryptionEnabled != null &&
+                    this.EncryptionEnabled.Equals(input.EncryptionEnabled))
+                ) && 
+                (
                     this.GenerateSshKeys == input.GenerateSshKeys ||
                     (this.GenerateSshKeys != null &&
                     this.GenerateSshKeys.Equals(input.GenerateSshKeys))
@@ -189,9 +224,19 @@ namespace Cohesity.Model
                     this.PreserveTimestamps.Equals(input.PreserveTimestamps))
                 ) && 
                 (
+                    this.RestoreEntities == input.RestoreEntities ||
+                    (this.RestoreEntities != null &&
+                    this.RestoreEntities.Equals(input.RestoreEntities))
+                ) && 
+                (
                     this.RestoreToOriginalPaths == input.RestoreToOriginalPaths ||
                     (this.RestoreToOriginalPaths != null &&
                     this.RestoreToOriginalPaths.Equals(input.RestoreToOriginalPaths))
+                ) && 
+                (
+                    this.SaveSuccessFiles == input.SaveSuccessFiles ||
+                    (this.SaveSuccessFiles != null &&
+                    this.SaveSuccessFiles.Equals(input.SaveSuccessFiles))
                 ) && 
                 (
                     this.SkipEstimation == input.SkipEstimation ||
@@ -213,6 +258,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AlternateRestoreBaseDirectory.GetHashCode();
                 if (this.ContinueOnError != null)
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
+                if (this.EncryptionEnabled != null)
+                    hashCode = hashCode * 59 + this.EncryptionEnabled.GetHashCode();
                 if (this.GenerateSshKeys != null)
                     hashCode = hashCode * 59 + this.GenerateSshKeys.GetHashCode();
                 if (this.OverrideOriginals != null)
@@ -223,8 +270,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreserveAttributes.GetHashCode();
                 if (this.PreserveTimestamps != null)
                     hashCode = hashCode * 59 + this.PreserveTimestamps.GetHashCode();
+                if (this.RestoreEntities != null)
+                    hashCode = hashCode * 59 + this.RestoreEntities.GetHashCode();
                 if (this.RestoreToOriginalPaths != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginalPaths.GetHashCode();
+                if (this.SaveSuccessFiles != null)
+                    hashCode = hashCode * 59 + this.SaveSuccessFiles.GetHashCode();
                 if (this.SkipEstimation != null)
                     hashCode = hashCode * 59 + this.SkipEstimation.GetHashCode();
                 return hashCode;

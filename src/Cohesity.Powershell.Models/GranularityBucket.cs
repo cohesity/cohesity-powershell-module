@@ -23,20 +23,28 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GranularityBucket" /> class.
         /// </summary>
-        /// <param name="granularity">The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e., lower than the frequency of the backup job runs)..</param>
+        /// <param name="exactDates">exactDates.</param>
+        /// <param name="granularity">The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below but for the case of kExactDates) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e.,lower than the frequency of the backup job runs)..</param>
         /// <param name="multiplier">A factor to multiply the granularity by. For example, if this is 2 and the granularity is kHour, then snapshots from the first eligible run from every 2 hour period will be copied..</param>
-        public GranularityBucket(int? granularity = default(int?), int? multiplier = default(int?))
+        public GranularityBucket(GranularityBucketExactDatesInfo exactDates = default(GranularityBucketExactDatesInfo), int? granularity = default(int?), int? multiplier = default(int?))
         {
             this.Granularity = granularity;
             this.Multiplier = multiplier;
+            this.ExactDates = exactDates;
             this.Granularity = granularity;
             this.Multiplier = multiplier;
         }
         
         /// <summary>
-        /// The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e., lower than the frequency of the backup job runs).
+        /// Gets or Sets ExactDates
         /// </summary>
-        /// <value>The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e., lower than the frequency of the backup job runs).</value>
+        [DataMember(Name="exactDates", EmitDefaultValue=false)]
+        public GranularityBucketExactDatesInfo ExactDates { get; set; }
+
+        /// <summary>
+        /// The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below but for the case of kExactDates) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e.,lower than the frequency of the backup job runs).
+        /// </summary>
+        /// <value>The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below but for the case of kExactDates) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e.,lower than the frequency of the backup job runs).</value>
         [DataMember(Name="granularity", EmitDefaultValue=true)]
         public int? Granularity { get; set; }
 
@@ -84,6 +92,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ExactDates == input.ExactDates ||
+                    (this.ExactDates != null &&
+                    this.ExactDates.Equals(input.ExactDates))
+                ) && 
+                (
                     this.Granularity == input.Granularity ||
                     (this.Granularity != null &&
                     this.Granularity.Equals(input.Granularity))
@@ -104,6 +117,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ExactDates != null)
+                    hashCode = hashCode * 59 + this.ExactDates.GetHashCode();
                 if (this.Granularity != null)
                     hashCode = hashCode * 59 + this.Granularity.GetHashCode();
                 if (this.Multiplier != null)

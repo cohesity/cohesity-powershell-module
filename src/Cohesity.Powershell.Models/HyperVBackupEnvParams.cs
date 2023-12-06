@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="allowCrashConsistentSnapshot">Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails..</param>
         /// <param name="backupJobType">The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also..</param>
-        public HyperVBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), int? backupJobType = default(int?))
+        /// <param name="hypervDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.HyperVBackupSourceParams..</param>
+        public HyperVBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), int? backupJobType = default(int?), List<VMwareDiskExclusionProto> hypervDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
         {
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.BackupJobType = backupJobType;
+            this.HypervDiskExclusionInfo = hypervDiskExclusionInfo;
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.BackupJobType = backupJobType;
+            this.HypervDiskExclusionInfo = hypervDiskExclusionInfo;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also.</value>
         [DataMember(Name="backupJobType", EmitDefaultValue=true)]
         public int? BackupJobType { get; set; }
+
+        /// <summary>
+        /// List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.HyperVBackupSourceParams.
+        /// </summary>
+        /// <value>List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.HyperVBackupSourceParams.</value>
+        [DataMember(Name="hypervDiskExclusionInfo", EmitDefaultValue=true)]
+        public List<VMwareDiskExclusionProto> HypervDiskExclusionInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,12 @@ namespace Cohesity.Model
                     this.BackupJobType == input.BackupJobType ||
                     (this.BackupJobType != null &&
                     this.BackupJobType.Equals(input.BackupJobType))
+                ) && 
+                (
+                    this.HypervDiskExclusionInfo == input.HypervDiskExclusionInfo ||
+                    this.HypervDiskExclusionInfo != null &&
+                    input.HypervDiskExclusionInfo != null &&
+                    this.HypervDiskExclusionInfo.SequenceEqual(input.HypervDiskExclusionInfo)
                 );
         }
 
@@ -108,6 +124,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AllowCrashConsistentSnapshot.GetHashCode();
                 if (this.BackupJobType != null)
                     hashCode = hashCode * 59 + this.BackupJobType.GetHashCode();
+                if (this.HypervDiskExclusionInfo != null)
+                    hashCode = hashCode * 59 + this.HypervDiskExclusionInfo.GetHashCode();
                 return hashCode;
             }
         }

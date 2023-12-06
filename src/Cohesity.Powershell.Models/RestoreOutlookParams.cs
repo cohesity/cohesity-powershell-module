@@ -24,13 +24,21 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreOutlookParams" /> class.
         /// </summary>
         /// <param name="mailboxVec">In a RestoreJob , user will provide the list of mailboxes to be restored. Provision is there for restoring full AND partial mailbox recovery..</param>
-        /// <param name="targetFolderPath">targetFolderPath.</param>
+        /// <param name="pstParams">pstParams.</param>
+        /// <param name="skipMbxPermitForPst">Indicates whether PST conversion should skip mailbox entity permit..</param>
+        /// <param name="skipRecoverArchiveMailbox">Whether to skip recovery of the archive mailbox (or its items)..</param>
+        /// <param name="targetFolderPath">User will type the target folder path. This will always be specified (whether target_mailbox is original mailbox or alternate). If multiple folders are selected, they will all be restored to this folder. The appropriate hierarchy along with the folder names will be preserved..</param>
         /// <param name="targetMailbox">targetMailbox.</param>
-        public RestoreOutlookParams(List<RestoreOutlookParamsMailbox> mailboxVec = default(List<RestoreOutlookParamsMailbox>), string targetFolderPath = default(string), EntityProto targetMailbox = default(EntityProto))
+        public RestoreOutlookParams(List<RestoreOutlookParamsMailbox> mailboxVec = default(List<RestoreOutlookParamsMailbox>), EwsToPstConversionParams pstParams = default(EwsToPstConversionParams), bool? skipMbxPermitForPst = default(bool?), bool? skipRecoverArchiveMailbox = default(bool?), string targetFolderPath = default(string), EntityProto targetMailbox = default(EntityProto))
         {
             this.MailboxVec = mailboxVec;
+            this.SkipMbxPermitForPst = skipMbxPermitForPst;
+            this.SkipRecoverArchiveMailbox = skipRecoverArchiveMailbox;
             this.TargetFolderPath = targetFolderPath;
             this.MailboxVec = mailboxVec;
+            this.PstParams = pstParams;
+            this.SkipMbxPermitForPst = skipMbxPermitForPst;
+            this.SkipRecoverArchiveMailbox = skipRecoverArchiveMailbox;
             this.TargetFolderPath = targetFolderPath;
             this.TargetMailbox = targetMailbox;
         }
@@ -43,8 +51,29 @@ namespace Cohesity.Model
         public List<RestoreOutlookParamsMailbox> MailboxVec { get; set; }
 
         /// <summary>
-        /// Gets or Sets TargetFolderPath
+        /// Gets or Sets PstParams
         /// </summary>
+        [DataMember(Name="pstParams", EmitDefaultValue=false)]
+        public EwsToPstConversionParams PstParams { get; set; }
+
+        /// <summary>
+        /// Indicates whether PST conversion should skip mailbox entity permit.
+        /// </summary>
+        /// <value>Indicates whether PST conversion should skip mailbox entity permit.</value>
+        [DataMember(Name="skipMbxPermitForPst", EmitDefaultValue=true)]
+        public bool? SkipMbxPermitForPst { get; set; }
+
+        /// <summary>
+        /// Whether to skip recovery of the archive mailbox (or its items).
+        /// </summary>
+        /// <value>Whether to skip recovery of the archive mailbox (or its items).</value>
+        [DataMember(Name="skipRecoverArchiveMailbox", EmitDefaultValue=true)]
+        public bool? SkipRecoverArchiveMailbox { get; set; }
+
+        /// <summary>
+        /// User will type the target folder path. This will always be specified (whether target_mailbox is original mailbox or alternate). If multiple folders are selected, they will all be restored to this folder. The appropriate hierarchy along with the folder names will be preserved.
+        /// </summary>
+        /// <value>User will type the target folder path. This will always be specified (whether target_mailbox is original mailbox or alternate). If multiple folders are selected, they will all be restored to this folder. The appropriate hierarchy along with the folder names will be preserved.</value>
         [DataMember(Name="targetFolderPath", EmitDefaultValue=true)]
         public string TargetFolderPath { get; set; }
 
@@ -97,6 +126,21 @@ namespace Cohesity.Model
                     this.MailboxVec.SequenceEqual(input.MailboxVec)
                 ) && 
                 (
+                    this.PstParams == input.PstParams ||
+                    (this.PstParams != null &&
+                    this.PstParams.Equals(input.PstParams))
+                ) && 
+                (
+                    this.SkipMbxPermitForPst == input.SkipMbxPermitForPst ||
+                    (this.SkipMbxPermitForPst != null &&
+                    this.SkipMbxPermitForPst.Equals(input.SkipMbxPermitForPst))
+                ) && 
+                (
+                    this.SkipRecoverArchiveMailbox == input.SkipRecoverArchiveMailbox ||
+                    (this.SkipRecoverArchiveMailbox != null &&
+                    this.SkipRecoverArchiveMailbox.Equals(input.SkipRecoverArchiveMailbox))
+                ) && 
+                (
                     this.TargetFolderPath == input.TargetFolderPath ||
                     (this.TargetFolderPath != null &&
                     this.TargetFolderPath.Equals(input.TargetFolderPath))
@@ -119,6 +163,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.MailboxVec != null)
                     hashCode = hashCode * 59 + this.MailboxVec.GetHashCode();
+                if (this.PstParams != null)
+                    hashCode = hashCode * 59 + this.PstParams.GetHashCode();
+                if (this.SkipMbxPermitForPst != null)
+                    hashCode = hashCode * 59 + this.SkipMbxPermitForPst.GetHashCode();
+                if (this.SkipRecoverArchiveMailbox != null)
+                    hashCode = hashCode * 59 + this.SkipRecoverArchiveMailbox.GetHashCode();
                 if (this.TargetFolderPath != null)
                     hashCode = hashCode * 59 + this.TargetFolderPath.GetHashCode();
                 if (this.TargetMailbox != null)

@@ -26,7 +26,8 @@ namespace Cohesity.Model
         /// <param name="channelCount">Specifies the number of channels user wants for the backup/recovery of this node..</param>
         /// <param name="node">Specifies the ip of the database node..</param>
         /// <param name="port">Specifies the port on which user wants to run the backup/recovery..</param>
-        public OracleDatabaseNode(int? channelCount = default(int?), string node = default(string), long? port = default(long?))
+        /// <param name="sbtHostParams">sbtHostParams.</param>
+        public OracleDatabaseNode(int? channelCount = default(int?), string node = default(string), long? port = default(long?), OracleSbtHostParams sbtHostParams = default(OracleSbtHostParams))
         {
             this.ChannelCount = channelCount;
             this.Node = node;
@@ -34,6 +35,7 @@ namespace Cohesity.Model
             this.ChannelCount = channelCount;
             this.Node = node;
             this.Port = port;
+            this.SbtHostParams = sbtHostParams;
         }
         
         /// <summary>
@@ -56,6 +58,12 @@ namespace Cohesity.Model
         /// <value>Specifies the port on which user wants to run the backup/recovery.</value>
         [DataMember(Name="port", EmitDefaultValue=true)]
         public long? Port { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SbtHostParams
+        /// </summary>
+        [DataMember(Name="sbtHostParams", EmitDefaultValue=false)]
+        public OracleSbtHostParams SbtHostParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +115,11 @@ namespace Cohesity.Model
                     this.Port == input.Port ||
                     (this.Port != null &&
                     this.Port.Equals(input.Port))
+                ) && 
+                (
+                    this.SbtHostParams == input.SbtHostParams ||
+                    (this.SbtHostParams != null &&
+                    this.SbtHostParams.Equals(input.SbtHostParams))
                 );
         }
 
@@ -125,6 +138,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Node.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
+                if (this.SbtHostParams != null)
+                    hashCode = hashCode * 59 + this.SbtHostParams.GetHashCode();
                 return hashCode;
             }
         }

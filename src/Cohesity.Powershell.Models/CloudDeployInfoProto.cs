@@ -29,19 +29,22 @@ namespace Cohesity.Model
         /// <param name="targetType">Specifies the target type for the task. The field is only valid if the task has got a permit..</param>
         /// <param name="totalBytesTransferredToSource">Total bytes transferred to source..</param>
         /// <param name="type">The type of environment this cloud deploy info pertains to..</param>
-        public CloudDeployInfoProto(List<CloudDeployInfoProtoCloudDeployEntity> cloudDeployEntityVec = default(List<CloudDeployInfoProtoCloudDeployEntity>), bool? isIncremental = default(bool?), RestoreInfoProto restoreInfo = default(RestoreInfoProto), int? targetType = default(int?), long? totalBytesTransferredToSource = default(long?), int? type = default(int?))
+        /// <param name="warnings">Warnings if any. These warnings will be propogated to the UI by master..</param>
+        public CloudDeployInfoProto(List<CloudDeployInfoProtoCloudDeployEntity> cloudDeployEntityVec = default(List<CloudDeployInfoProtoCloudDeployEntity>), bool? isIncremental = default(bool?), RestoreInfoProto restoreInfo = default(RestoreInfoProto), int? targetType = default(int?), long? totalBytesTransferredToSource = default(long?), int? type = default(int?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.CloudDeployEntityVec = cloudDeployEntityVec;
             this.IsIncremental = isIncremental;
             this.TargetType = targetType;
             this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
             this.Type = type;
+            this.Warnings = warnings;
             this.CloudDeployEntityVec = cloudDeployEntityVec;
             this.IsIncremental = isIncremental;
             this.RestoreInfo = restoreInfo;
             this.TargetType = targetType;
             this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
             this.Type = type;
+            this.Warnings = warnings;
         }
         
         /// <summary>
@@ -84,6 +87,13 @@ namespace Cohesity.Model
         /// <value>The type of environment this cloud deploy info pertains to.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
+
+        /// <summary>
+        /// Warnings if any. These warnings will be propogated to the UI by master.
+        /// </summary>
+        /// <value>Warnings if any. These warnings will be propogated to the UI by master.</value>
+        [DataMember(Name="warnings", EmitDefaultValue=true)]
+        public List<ErrorProto> Warnings { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -151,6 +161,12 @@ namespace Cohesity.Model
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Warnings == input.Warnings ||
+                    this.Warnings != null &&
+                    input.Warnings != null &&
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 
@@ -175,6 +191,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TotalBytesTransferredToSource.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Warnings != null)
+                    hashCode = hashCode * 59 + this.Warnings.GetHashCode();
                 return hashCode;
             }
         }

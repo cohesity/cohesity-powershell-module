@@ -115,11 +115,12 @@ namespace Cohesity.Model
         /// <param name="sgaTargetSize">Specifies System Global Area size for the current DB entity. A system global area (SGA) is a group of shared memory structures that contain data and control information for one Oracle database..</param>
         /// <param name="sharedPoolSize">Specifies Shared Pool Size for the current DB entity..</param>
         /// <param name="size">Specifies database size..</param>
+        /// <param name="tdeEncryptedTsCount">Specifies the number of TDE encrypted tablespaces found in the database..</param>
         /// <param name="tempFilesCount">Specifies number of temporary files for the current DB entity..</param>
         /// <param name="type">Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table..</param>
         /// <param name="uuid">Specifies the UUID for the Oracle entity..</param>
         /// <param name="version">Specifies the Oracle database instance version..</param>
-        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), OracleContainerDatabaseInfo containerDatabaseInfo = default(OracleContainerDatabaseInfo), OracleDataGuardInfo dataGuardInfo = default(OracleDataGuardInfo), string databaseUniqueName = default(string), DbTypeEnum? dbType = default(DbTypeEnum?), string domain = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
+        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), OracleContainerDatabaseInfo containerDatabaseInfo = default(OracleContainerDatabaseInfo), OracleDataGuardInfo dataGuardInfo = default(OracleDataGuardInfo), string databaseUniqueName = default(string), DbTypeEnum? dbType = default(DbTypeEnum?), string domain = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tdeEncryptedTsCount = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
@@ -133,6 +134,7 @@ namespace Cohesity.Model
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
             this.Size = size;
+            this.TdeEncryptedTsCount = tdeEncryptedTsCount;
             this.TempFilesCount = tempFilesCount;
             this.Type = type;
             this.Uuid = uuid;
@@ -151,6 +153,7 @@ namespace Cohesity.Model
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
             this.Size = size;
+            this.TdeEncryptedTsCount = tdeEncryptedTsCount;
             this.TempFilesCount = tempFilesCount;
             this.Type = type;
             this.Uuid = uuid;
@@ -245,6 +248,13 @@ namespace Cohesity.Model
         /// <value>Specifies database size.</value>
         [DataMember(Name="size", EmitDefaultValue=true)]
         public long? Size { get; set; }
+
+        /// <summary>
+        /// Specifies the number of TDE encrypted tablespaces found in the database.
+        /// </summary>
+        /// <value>Specifies the number of TDE encrypted tablespaces found in the database.</value>
+        [DataMember(Name="tdeEncryptedTsCount", EmitDefaultValue=true)]
+        public long? TdeEncryptedTsCount { get; set; }
 
         /// <summary>
         /// Specifies number of temporary files for the current DB entity.
@@ -374,6 +384,11 @@ namespace Cohesity.Model
                     this.Size.Equals(input.Size))
                 ) && 
                 (
+                    this.TdeEncryptedTsCount == input.TdeEncryptedTsCount ||
+                    (this.TdeEncryptedTsCount != null &&
+                    this.TdeEncryptedTsCount.Equals(input.TdeEncryptedTsCount))
+                ) && 
+                (
                     this.TempFilesCount == input.TempFilesCount ||
                     (this.TempFilesCount != null &&
                     this.TempFilesCount.Equals(input.TempFilesCount))
@@ -430,6 +445,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SharedPoolSize.GetHashCode();
                 if (this.Size != null)
                     hashCode = hashCode * 59 + this.Size.GetHashCode();
+                if (this.TdeEncryptedTsCount != null)
+                    hashCode = hashCode * 59 + this.TdeEncryptedTsCount.GetHashCode();
                 if (this.TempFilesCount != null)
                     hashCode = hashCode * 59 + this.TempFilesCount.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();

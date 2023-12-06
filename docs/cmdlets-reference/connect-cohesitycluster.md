@@ -7,12 +7,20 @@ Connects to a Cohesity Cluster and acquires an authentication token.
 
 ### UsingCreds (Default)
 ```
-Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredential> [<CommonParameters>]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredential> [-UseMFA]
+ [-OtpType <OtpTypeEnum>] [<CommonParameters>]
 ```
 
 ### UsingAPIKey
 ```
-Connect-CohesityCluster -Server <String> [-Port <Int64>] [-APIKey <String>] [<CommonParameters>]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-APIKey <String>] [-UseMFA] [-OtpType <OtpTypeEnum>]
+ [<CommonParameters>]
+```
+
+### UsingSessionId
+```
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-SessionId <String>] [-UseMFA]
+ [-OtpType <OtpTypeEnum>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,7 +42,7 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided
 Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mydomain.com\admin", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
 ```
 
-Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
+Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending fully qualified domain name(mydomain.com) to the user.
 
 ### EXAMPLE 3
 ```
@@ -49,6 +57,22 @@ Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-0
 ```
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
+
+### EXAMPLE 5
+```
+Connect-CohesityCluster -Server 192.168.1.100 -sessionId "sessionId"
+```
+
+Connects to a Cohesity Cluster at the address "192.168.1.100" using the Session Id.
+
+### EXAMPLE 6
+```
+Connect-CohesityCluster -Server 192.168.1.100 -UseMFA -OtpType Email
+```
+
+Connects to a Cohesity Cluster at the address "192.168.1.100" using Multi-Factor Authentication(MFA).
+By default, OtpType will be considered as Totp if not provided.
+On trying to connect to the cluster using MFA, user will be prompted to provide OTP code.
 
 ## PARAMETERS
 
@@ -105,6 +129,56 @@ Cohesity API key
 Type: String
 Parameter Sets: UsingAPIKey
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SessionId
+Cohesity Session Id key
+
+```yaml
+Type: String
+Parameter Sets: UsingSessionId
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseMFA
+Do MFA required ?
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OtpType
+Specifies OTP type for MFA verification.
+'Totp' implies the code is TOTP.
+'Email' implies the code is email OTP.
+
+Possible values: Totp, Email
+
+```yaml
+Type: OtpTypeEnum
+Parameter Sets: (All)
+Aliases:
+Accepted values: Totp, Email
 
 Required: False
 Position: Named

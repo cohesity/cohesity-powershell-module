@@ -25,15 +25,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="author">Specifies author of the app..</param>
         /// <param name="createdDate">Specifies date when the first version of the app was created..</param>
+        /// <param name="deploymentParameters">Deployment parameters required for the app launch..</param>
         /// <param name="description">Specifies description about what app does..</param>
         /// <param name="devVersion">Specifies version of the app provided by the developer..</param>
         /// <param name="iconImage">Specifies application icon..</param>
         /// <param name="lastModifiedDate">Specifies date when the app was last modified..</param>
         /// <param name="name">Specifies name of the app..</param>
-        public AppMetadata(string author = default(string), string createdDate = default(string), string description = default(string), string devVersion = default(string), string iconImage = default(string), string lastModifiedDate = default(string), string name = default(string))
+        public AppMetadata(string author = default(string), string createdDate = default(string), string deploymentParameters = default(string), string description = default(string), string devVersion = default(string), string iconImage = default(string), string lastModifiedDate = default(string), string name = default(string))
         {
             this.Author = author;
             this.CreatedDate = createdDate;
+            this.DeploymentParameters = deploymentParameters;
             this.Description = description;
             this.DevVersion = devVersion;
             this.IconImage = iconImage;
@@ -41,6 +43,7 @@ namespace Cohesity.Model
             this.Name = name;
             this.Author = author;
             this.CreatedDate = createdDate;
+            this.DeploymentParameters = deploymentParameters;
             this.Description = description;
             this.DevVersion = devVersion;
             this.IconImage = iconImage;
@@ -61,6 +64,13 @@ namespace Cohesity.Model
         /// <value>Specifies date when the first version of the app was created.</value>
         [DataMember(Name="createdDate", EmitDefaultValue=true)]
         public string CreatedDate { get; set; }
+
+        /// <summary>
+        /// Deployment parameters required for the app launch.
+        /// </summary>
+        /// <value>Deployment parameters required for the app launch.</value>
+        [DataMember(Name="deploymentParameters", EmitDefaultValue=true)]
+        public string DeploymentParameters { get; set; }
 
         /// <summary>
         /// Specifies description about what app does.
@@ -144,6 +154,11 @@ namespace Cohesity.Model
                     this.CreatedDate.Equals(input.CreatedDate))
                 ) && 
                 (
+                    this.DeploymentParameters == input.DeploymentParameters ||
+                    (this.DeploymentParameters != null &&
+                    this.DeploymentParameters.Equals(input.DeploymentParameters))
+                ) && 
+                (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
@@ -183,6 +198,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Author.GetHashCode();
                 if (this.CreatedDate != null)
                     hashCode = hashCode * 59 + this.CreatedDate.GetHashCode();
+                if (this.DeploymentParameters != null)
+                    hashCode = hashCode * 59 + this.DeploymentParameters.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.DevVersion != null)

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class SchedulingPolicy :  IEquatable<SchedulingPolicy>
     {
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.</value>
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PeriodicityEnum
         {
@@ -60,18 +60,18 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.</value>
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
         [DataMember(Name="periodicity", EmitDefaultValue=true)]
         public PeriodicityEnum? Periodicity { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulingPolicy" /> class.
         /// </summary>
-        /// <param name="continuousSchedule">Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous..</param>
+        /// <param name="continuousSchedule">Specifies the time interval between two Job Runs of a continuous backup schedule and any QuietTime periods when new Job Runs should NOT be started. Set if periodicity is kContinuous..</param>
         /// <param name="dailySchedule">Specifies a daily or weekly backup schedule. Set if periodicity is kDaily..</param>
         /// <param name="monthlySchedule">Specifies a monthly backup schedule. Set if periodicity is kMonthly..</param>
-        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule..</param>
+        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy..</param>
         /// <param name="rpoSchedule">Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO..</param>
         public SchedulingPolicy(ContinuousSchedule continuousSchedule = default(ContinuousSchedule), DailySchedule dailySchedule = default(DailySchedule), MonthlySchedule monthlySchedule = default(MonthlySchedule), PeriodicityEnum? periodicity = default(PeriodicityEnum?), RpoSchedule rpoSchedule = default(RpoSchedule))
         {
@@ -88,9 +88,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.
+        /// Specifies the time interval between two Job Runs of a continuous backup schedule and any QuietTime periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.
         /// </summary>
-        /// <value>Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.</value>
+        /// <value>Specifies the time interval between two Job Runs of a continuous backup schedule and any QuietTime periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.</value>
         [DataMember(Name="continuousSchedule", EmitDefaultValue=true)]
         public ContinuousSchedule ContinuousSchedule { get; set; }
 

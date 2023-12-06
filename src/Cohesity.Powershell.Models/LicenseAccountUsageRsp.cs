@@ -26,15 +26,23 @@ namespace Cohesity.Model
         /// <param name="featureOverusage">Holds information about consumption usage of overused features.</param>
         /// <param name="freeSetupMode">Free Setup Mode.</param>
         /// <param name="isTrial">Check if trial license..</param>
+        /// <param name="last12MonthsAvgEntitlement">Holds monthly avg usage values of feature.</param>
+        /// <param name="last12MonthsAvgUsage">Holds monthly avg usage values of feature.</param>
+        /// <param name="last30DaysEntitlement">Holds daily entitled capacity values of feature.</param>
+        /// <param name="last30DaysUsage">Holds daily usage values of feature.</param>
         /// <param name="lastUpdateTime">Last time, this report was updated..</param>
         /// <param name="licensedUsage">LicenseFeatureUsages holds information about each feature from license orders..</param>
         /// <param name="trialExpiration">Trial expiration period..</param>
         /// <param name="usage">Creating a map of cluster id and feature usage to make it consistent display usage UI for the helios server license page UI..</param>
-        public LicenseAccountUsageRsp(List<Overusage> featureOverusage = default(List<Overusage>), bool? freeSetupMode = default(bool?), bool? isTrial = default(bool?), long? lastUpdateTime = default(long?), List<LicensedUsage> licensedUsage = default(List<LicensedUsage>), long? trialExpiration = default(long?), Dictionary<string, List<FeatureUsage>> usage = default(Dictionary<string, List<FeatureUsage>>))
+        public LicenseAccountUsageRsp(List<Overusage> featureOverusage = default(List<Overusage>), bool? freeSetupMode = default(bool?), bool? isTrial = default(bool?), Dictionary<string, List<MonthlyEntitlement>> last12MonthsAvgEntitlement = default(Dictionary<string, List<MonthlyEntitlement>>), Dictionary<string, List<MonthlyUsage>> last12MonthsAvgUsage = default(Dictionary<string, List<MonthlyUsage>>), Dictionary<string, List<DailyEntitlement>> last30DaysEntitlement = default(Dictionary<string, List<DailyEntitlement>>), Dictionary<string, List<DailyUsage>> last30DaysUsage = default(Dictionary<string, List<DailyUsage>>), long? lastUpdateTime = default(long?), List<LicensedUsage> licensedUsage = default(List<LicensedUsage>), long? trialExpiration = default(long?), Dictionary<string, List<FeatureUsage>> usage = default(Dictionary<string, List<FeatureUsage>>))
         {
             this.FeatureOverusage = featureOverusage;
             this.FreeSetupMode = freeSetupMode;
             this.IsTrial = isTrial;
+            this.Last12MonthsAvgEntitlement = last12MonthsAvgEntitlement;
+            this.Last12MonthsAvgUsage = last12MonthsAvgUsage;
+            this.Last30DaysEntitlement = last30DaysEntitlement;
+            this.Last30DaysUsage = last30DaysUsage;
             this.LastUpdateTime = lastUpdateTime;
             this.LicensedUsage = licensedUsage;
             this.TrialExpiration = trialExpiration;
@@ -42,6 +50,10 @@ namespace Cohesity.Model
             this.FeatureOverusage = featureOverusage;
             this.FreeSetupMode = freeSetupMode;
             this.IsTrial = isTrial;
+            this.Last12MonthsAvgEntitlement = last12MonthsAvgEntitlement;
+            this.Last12MonthsAvgUsage = last12MonthsAvgUsage;
+            this.Last30DaysEntitlement = last30DaysEntitlement;
+            this.Last30DaysUsage = last30DaysUsage;
             this.LastUpdateTime = lastUpdateTime;
             this.LicensedUsage = licensedUsage;
             this.TrialExpiration = trialExpiration;
@@ -68,6 +80,34 @@ namespace Cohesity.Model
         /// <value>Check if trial license.</value>
         [DataMember(Name="isTrial", EmitDefaultValue=true)]
         public bool? IsTrial { get; set; }
+
+        /// <summary>
+        /// Holds monthly avg usage values of feature
+        /// </summary>
+        /// <value>Holds monthly avg usage values of feature</value>
+        [DataMember(Name="last12MonthsAvgEntitlement", EmitDefaultValue=true)]
+        public Dictionary<string, List<MonthlyEntitlement>> Last12MonthsAvgEntitlement { get; set; }
+
+        /// <summary>
+        /// Holds monthly avg usage values of feature
+        /// </summary>
+        /// <value>Holds monthly avg usage values of feature</value>
+        [DataMember(Name="last12MonthsAvgUsage", EmitDefaultValue=true)]
+        public Dictionary<string, List<MonthlyUsage>> Last12MonthsAvgUsage { get; set; }
+
+        /// <summary>
+        /// Holds daily entitled capacity values of feature
+        /// </summary>
+        /// <value>Holds daily entitled capacity values of feature</value>
+        [DataMember(Name="last30DaysEntitlement", EmitDefaultValue=true)]
+        public Dictionary<string, List<DailyEntitlement>> Last30DaysEntitlement { get; set; }
+
+        /// <summary>
+        /// Holds daily usage values of feature
+        /// </summary>
+        /// <value>Holds daily usage values of feature</value>
+        [DataMember(Name="last30DaysUsage", EmitDefaultValue=true)]
+        public Dictionary<string, List<DailyUsage>> Last30DaysUsage { get; set; }
 
         /// <summary>
         /// Last time, this report was updated.
@@ -150,6 +190,30 @@ namespace Cohesity.Model
                     this.IsTrial.Equals(input.IsTrial))
                 ) && 
                 (
+                    this.Last12MonthsAvgEntitlement == input.Last12MonthsAvgEntitlement ||
+                    this.Last12MonthsAvgEntitlement != null &&
+                    input.Last12MonthsAvgEntitlement != null &&
+                    this.Last12MonthsAvgEntitlement.SequenceEqual(input.Last12MonthsAvgEntitlement)
+                ) && 
+                (
+                    this.Last12MonthsAvgUsage == input.Last12MonthsAvgUsage ||
+                    this.Last12MonthsAvgUsage != null &&
+                    input.Last12MonthsAvgUsage != null &&
+                    this.Last12MonthsAvgUsage.SequenceEqual(input.Last12MonthsAvgUsage)
+                ) && 
+                (
+                    this.Last30DaysEntitlement == input.Last30DaysEntitlement ||
+                    this.Last30DaysEntitlement != null &&
+                    input.Last30DaysEntitlement != null &&
+                    this.Last30DaysEntitlement.SequenceEqual(input.Last30DaysEntitlement)
+                ) && 
+                (
+                    this.Last30DaysUsage == input.Last30DaysUsage ||
+                    this.Last30DaysUsage != null &&
+                    input.Last30DaysUsage != null &&
+                    this.Last30DaysUsage.SequenceEqual(input.Last30DaysUsage)
+                ) && 
+                (
                     this.LastUpdateTime == input.LastUpdateTime ||
                     (this.LastUpdateTime != null &&
                     this.LastUpdateTime.Equals(input.LastUpdateTime))
@@ -188,6 +252,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FreeSetupMode.GetHashCode();
                 if (this.IsTrial != null)
                     hashCode = hashCode * 59 + this.IsTrial.GetHashCode();
+                if (this.Last12MonthsAvgEntitlement != null)
+                    hashCode = hashCode * 59 + this.Last12MonthsAvgEntitlement.GetHashCode();
+                if (this.Last12MonthsAvgUsage != null)
+                    hashCode = hashCode * 59 + this.Last12MonthsAvgUsage.GetHashCode();
+                if (this.Last30DaysEntitlement != null)
+                    hashCode = hashCode * 59 + this.Last30DaysEntitlement.GetHashCode();
+                if (this.Last30DaysUsage != null)
+                    hashCode = hashCode * 59 + this.Last30DaysUsage.GetHashCode();
                 if (this.LastUpdateTime != null)
                     hashCode = hashCode * 59 + this.LastUpdateTime.GetHashCode();
                 if (this.LicensedUsage != null)

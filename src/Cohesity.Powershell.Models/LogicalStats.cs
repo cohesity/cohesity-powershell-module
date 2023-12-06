@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="LogicalStats" /> class.
         /// </summary>
-        /// <param name="totalLogicalUsageBytes">Provides the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication..</param>
+        /// <param name="totalLogicalUsageBytes">Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression..</param>
         public LogicalStats(long? totalLogicalUsageBytes = default(long?))
         {
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
@@ -31,9 +31,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Provides the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.
+        /// Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression.
         /// </summary>
-        /// <value>Provides the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.</value>
+        /// <value>Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression.</value>
         [DataMember(Name="totalLogicalUsageBytes", EmitDefaultValue=true)]
         public long? TotalLogicalUsageBytes { get; set; }
 

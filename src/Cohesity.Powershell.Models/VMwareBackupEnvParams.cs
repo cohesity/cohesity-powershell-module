@@ -24,15 +24,24 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="VMwareBackupEnvParams" /> class.
         /// </summary>
         /// <param name="allowCrashConsistentSnapshot">Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails..</param>
+        /// <param name="allowNbdsslTransportFallback">Whether to fallback to use NBDSSL transport for backup in case using SAN transport backup fails..</param>
         /// <param name="allowVmsWithPhysicalRdmDisks">Physical RDM disks cannot be backed up using VADP. By default the backups of such VMs will fail. If this is set to true, then such VMs in this backup job will be backed up by excluding the physical RDM disks..</param>
+        /// <param name="enableCbtAllowed">Whether the backup job should allow enabling CBT for VM when the backup runs. Currently, by default, the backup run enables CBT for a VM during the backup if it&#39;s not already enabled. However, there may be a case, where customer doesn&#39;t want to enable CBT during the backup. This param will be used to determine that..</param>
+        /// <param name="vappsToVmsList">List of all vApps and their corresponding child VMs being backed up in a backup run. This is only populated when vApp is being autoprotected..</param>
         /// <param name="vmwareDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.VMwareBackupSourceParams..</param>
-        public VMwareBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), bool? allowVmsWithPhysicalRdmDisks = default(bool?), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
+        public VMwareBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), bool? allowNbdsslTransportFallback = default(bool?), bool? allowVmsWithPhysicalRdmDisks = default(bool?), bool? enableCbtAllowed = default(bool?), List<VMwareBackupEnvParamsVAppChildVMsList> vappsToVmsList = default(List<VMwareBackupEnvParamsVAppChildVMsList>), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
         {
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
+            this.EnableCbtAllowed = enableCbtAllowed;
+            this.VappsToVmsList = vappsToVmsList;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
+            this.EnableCbtAllowed = enableCbtAllowed;
+            this.VappsToVmsList = vappsToVmsList;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
         }
         
@@ -44,11 +53,32 @@ namespace Cohesity.Model
         public bool? AllowCrashConsistentSnapshot { get; set; }
 
         /// <summary>
+        /// Whether to fallback to use NBDSSL transport for backup in case using SAN transport backup fails.
+        /// </summary>
+        /// <value>Whether to fallback to use NBDSSL transport for backup in case using SAN transport backup fails.</value>
+        [DataMember(Name="allowNbdsslTransportFallback", EmitDefaultValue=true)]
+        public bool? AllowNbdsslTransportFallback { get; set; }
+
+        /// <summary>
         /// Physical RDM disks cannot be backed up using VADP. By default the backups of such VMs will fail. If this is set to true, then such VMs in this backup job will be backed up by excluding the physical RDM disks.
         /// </summary>
         /// <value>Physical RDM disks cannot be backed up using VADP. By default the backups of such VMs will fail. If this is set to true, then such VMs in this backup job will be backed up by excluding the physical RDM disks.</value>
         [DataMember(Name="allowVmsWithPhysicalRdmDisks", EmitDefaultValue=true)]
         public bool? AllowVmsWithPhysicalRdmDisks { get; set; }
+
+        /// <summary>
+        /// Whether the backup job should allow enabling CBT for VM when the backup runs. Currently, by default, the backup run enables CBT for a VM during the backup if it&#39;s not already enabled. However, there may be a case, where customer doesn&#39;t want to enable CBT during the backup. This param will be used to determine that.
+        /// </summary>
+        /// <value>Whether the backup job should allow enabling CBT for VM when the backup runs. Currently, by default, the backup run enables CBT for a VM during the backup if it&#39;s not already enabled. However, there may be a case, where customer doesn&#39;t want to enable CBT during the backup. This param will be used to determine that.</value>
+        [DataMember(Name="enableCbtAllowed", EmitDefaultValue=true)]
+        public bool? EnableCbtAllowed { get; set; }
+
+        /// <summary>
+        /// List of all vApps and their corresponding child VMs being backed up in a backup run. This is only populated when vApp is being autoprotected.
+        /// </summary>
+        /// <value>List of all vApps and their corresponding child VMs being backed up in a backup run. This is only populated when vApp is being autoprotected.</value>
+        [DataMember(Name="vappsToVmsList", EmitDefaultValue=true)]
+        public List<VMwareBackupEnvParamsVAppChildVMsList> VappsToVmsList { get; set; }
 
         /// <summary>
         /// List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.VMwareBackupSourceParams.
@@ -99,9 +129,25 @@ namespace Cohesity.Model
                     this.AllowCrashConsistentSnapshot.Equals(input.AllowCrashConsistentSnapshot))
                 ) && 
                 (
+                    this.AllowNbdsslTransportFallback == input.AllowNbdsslTransportFallback ||
+                    (this.AllowNbdsslTransportFallback != null &&
+                    this.AllowNbdsslTransportFallback.Equals(input.AllowNbdsslTransportFallback))
+                ) && 
+                (
                     this.AllowVmsWithPhysicalRdmDisks == input.AllowVmsWithPhysicalRdmDisks ||
                     (this.AllowVmsWithPhysicalRdmDisks != null &&
                     this.AllowVmsWithPhysicalRdmDisks.Equals(input.AllowVmsWithPhysicalRdmDisks))
+                ) && 
+                (
+                    this.EnableCbtAllowed == input.EnableCbtAllowed ||
+                    (this.EnableCbtAllowed != null &&
+                    this.EnableCbtAllowed.Equals(input.EnableCbtAllowed))
+                ) && 
+                (
+                    this.VappsToVmsList == input.VappsToVmsList ||
+                    this.VappsToVmsList != null &&
+                    input.VappsToVmsList != null &&
+                    this.VappsToVmsList.SequenceEqual(input.VappsToVmsList)
                 ) && 
                 (
                     this.VmwareDiskExclusionInfo == input.VmwareDiskExclusionInfo ||
@@ -122,8 +168,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllowCrashConsistentSnapshot != null)
                     hashCode = hashCode * 59 + this.AllowCrashConsistentSnapshot.GetHashCode();
+                if (this.AllowNbdsslTransportFallback != null)
+                    hashCode = hashCode * 59 + this.AllowNbdsslTransportFallback.GetHashCode();
                 if (this.AllowVmsWithPhysicalRdmDisks != null)
                     hashCode = hashCode * 59 + this.AllowVmsWithPhysicalRdmDisks.GetHashCode();
+                if (this.EnableCbtAllowed != null)
+                    hashCode = hashCode * 59 + this.EnableCbtAllowed.GetHashCode();
+                if (this.VappsToVmsList != null)
+                    hashCode = hashCode * 59 + this.VappsToVmsList.GetHashCode();
                 if (this.VmwareDiskExclusionInfo != null)
                     hashCode = hashCode * 59 + this.VmwareDiskExclusionInfo.GetHashCode();
                 return hashCode;

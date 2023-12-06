@@ -30,12 +30,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
+        /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeConfigs">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>))
+        /// <param name="trustDomain">Specifies Trust Domain used for Service Identity..</param>
+        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>), string trustDomain = default(string))
         {
             this.ClusterName = clusterName;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
             // to ensure "networkConfig" is required (not null)
             if (networkConfig == null)
@@ -48,8 +51,11 @@ namespace Cohesity.Model
             }
 
             this.NodeConfigs = nodeConfigs;
+            this.TrustDomain = trustDomain;
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
+            this.TrustDomain = trustDomain;
         }
         
         /// <summary>
@@ -64,6 +70,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="encryptionConfig", EmitDefaultValue=false)]
         public EncryptionConfiguration EncryptionConfig { get; set; }
+
+        /// <summary>
+        /// Specifies IP preference.
+        /// </summary>
+        /// <value>Specifies IP preference.</value>
+        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        public int? IpPreference { get; set; }
 
         /// <summary>
         /// Specifies the metadata fault tolerance.
@@ -84,6 +97,13 @@ namespace Cohesity.Model
         /// <value>Specifies the configuration for the nodes in the new cluster.</value>
         [DataMember(Name="nodeConfigs", EmitDefaultValue=true)]
         public List<VirtualNodeConfiguration> NodeConfigs { get; set; }
+
+        /// <summary>
+        /// Specifies Trust Domain used for Service Identity.
+        /// </summary>
+        /// <value>Specifies Trust Domain used for Service Identity.</value>
+        [DataMember(Name="trustDomain", EmitDefaultValue=true)]
+        public string TrustDomain { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -132,6 +152,11 @@ namespace Cohesity.Model
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
                 ) && 
                 (
+                    this.IpPreference == input.IpPreference ||
+                    (this.IpPreference != null &&
+                    this.IpPreference.Equals(input.IpPreference))
+                ) && 
+                (
                     this.MetadataFaultTolerance == input.MetadataFaultTolerance ||
                     (this.MetadataFaultTolerance != null &&
                     this.MetadataFaultTolerance.Equals(input.MetadataFaultTolerance))
@@ -146,6 +171,11 @@ namespace Cohesity.Model
                     this.NodeConfigs != null &&
                     input.NodeConfigs != null &&
                     this.NodeConfigs.SequenceEqual(input.NodeConfigs)
+                ) && 
+                (
+                    this.TrustDomain == input.TrustDomain ||
+                    (this.TrustDomain != null &&
+                    this.TrustDomain.Equals(input.TrustDomain))
                 );
         }
 
@@ -162,12 +192,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
+                if (this.IpPreference != null)
+                    hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.MetadataFaultTolerance != null)
                     hashCode = hashCode * 59 + this.MetadataFaultTolerance.GetHashCode();
                 if (this.NetworkConfig != null)
                     hashCode = hashCode * 59 + this.NetworkConfig.GetHashCode();
                 if (this.NodeConfigs != null)
                     hashCode = hashCode * 59 + this.NodeConfigs.GetHashCode();
+                if (this.TrustDomain != null)
+                    hashCode = hashCode * 59 + this.TrustDomain.GetHashCode();
                 return hashCode;
             }
         }

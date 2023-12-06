@@ -24,10 +24,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OracleEnvJobParameters" /> class.
         /// </summary>
         /// <param name="persistMountpoints">Specifies whether the mountpoints created while backing up Oracle DBs should be persisted. Note: This parameter is for the entire Job. For overriding persistence of mountpoints for a subset of Oracle hosts within the job, refer OracleSourceParams..</param>
-        public OracleEnvJobParameters(bool? persistMountpoints = default(bool?))
+        /// <param name="vlanParams">vlanParams.</param>
+        public OracleEnvJobParameters(bool? persistMountpoints = default(bool?), VlanParams vlanParams = default(VlanParams))
         {
             this.PersistMountpoints = persistMountpoints;
             this.PersistMountpoints = persistMountpoints;
+            this.VlanParams = vlanParams;
         }
         
         /// <summary>
@@ -36,6 +38,12 @@ namespace Cohesity.Model
         /// <value>Specifies whether the mountpoints created while backing up Oracle DBs should be persisted. Note: This parameter is for the entire Job. For overriding persistence of mountpoints for a subset of Oracle hosts within the job, refer OracleSourceParams.</value>
         [DataMember(Name="persistMountpoints", EmitDefaultValue=true)]
         public bool? PersistMountpoints { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VlanParams
+        /// </summary>
+        [DataMember(Name="vlanParams", EmitDefaultValue=false)]
+        public VlanParams VlanParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,6 +85,11 @@ namespace Cohesity.Model
                     this.PersistMountpoints == input.PersistMountpoints ||
                     (this.PersistMountpoints != null &&
                     this.PersistMountpoints.Equals(input.PersistMountpoints))
+                ) && 
+                (
+                    this.VlanParams == input.VlanParams ||
+                    (this.VlanParams != null &&
+                    this.VlanParams.Equals(input.VlanParams))
                 );
         }
 
@@ -91,6 +104,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.PersistMountpoints != null)
                     hashCode = hashCode * 59 + this.PersistMountpoints.GetHashCode();
+                if (this.VlanParams != null)
+                    hashCode = hashCode * 59 + this.VlanParams.GetHashCode();
                 return hashCode;
             }
         }

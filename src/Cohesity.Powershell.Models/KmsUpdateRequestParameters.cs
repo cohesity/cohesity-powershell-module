@@ -26,15 +26,24 @@ namespace Cohesity.Model
         /// <param name="awsKms">awsKms.</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
+        /// <param name="keyName">Specifies name of the key..</param>
         /// <param name="serverName">Specifies the name given to the KMS Server..</param>
-        public KmsUpdateRequestParameters(AwsKmsUpdateParams awsKms = default(AwsKmsUpdateParams), CryptsoftKmsUpdateParams cryptsoftKms = default(CryptsoftKmsUpdateParams), long? id = default(long?), string serverName = default(string))
+        /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
+        /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
+        public KmsUpdateRequestParameters(AwsKmsUpdateParams awsKms = default(AwsKmsUpdateParams), CryptsoftKmsUpdateParams cryptsoftKms = default(CryptsoftKmsUpdateParams), long? id = default(long?), string keyName = default(string), string serverName = default(string), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
             this.Id = id;
+            this.KeyName = keyName;
             this.ServerName = serverName;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
+            this.KeyName = keyName;
             this.ServerName = serverName;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
         }
         
         /// <summary>
@@ -57,11 +66,32 @@ namespace Cohesity.Model
         public long? Id { get; set; }
 
         /// <summary>
+        /// Specifies name of the key.
+        /// </summary>
+        /// <value>Specifies name of the key.</value>
+        [DataMember(Name="keyName", EmitDefaultValue=true)]
+        public string KeyName { get; set; }
+
+        /// <summary>
         /// Specifies the name given to the KMS Server.
         /// </summary>
         /// <value>Specifies the name given to the KMS Server.</value>
         [DataMember(Name="serverName", EmitDefaultValue=true)]
         public string ServerName { get; set; }
+
+        /// <summary>
+        /// Specifies the list of Vault Ids.
+        /// </summary>
+        /// <value>Specifies the list of Vault Ids.</value>
+        [DataMember(Name="vaultIdList", EmitDefaultValue=true)]
+        public List<long> VaultIdList { get; set; }
+
+        /// <summary>
+        /// Specifies the list of View Box Ids.
+        /// </summary>
+        /// <value>Specifies the list of View Box Ids.</value>
+        [DataMember(Name="viewBoxIdList", EmitDefaultValue=true)]
+        public List<long> ViewBoxIdList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -115,9 +145,26 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.KeyName == input.KeyName ||
+                    (this.KeyName != null &&
+                    this.KeyName.Equals(input.KeyName))
+                ) && 
+                (
                     this.ServerName == input.ServerName ||
                     (this.ServerName != null &&
                     this.ServerName.Equals(input.ServerName))
+                ) && 
+                (
+                    this.VaultIdList == input.VaultIdList ||
+                    this.VaultIdList != null &&
+                    input.VaultIdList != null &&
+                    this.VaultIdList.SequenceEqual(input.VaultIdList)
+                ) && 
+                (
+                    this.ViewBoxIdList == input.ViewBoxIdList ||
+                    this.ViewBoxIdList != null &&
+                    input.ViewBoxIdList != null &&
+                    this.ViewBoxIdList.SequenceEqual(input.ViewBoxIdList)
                 );
         }
 
@@ -136,8 +183,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.KeyName != null)
+                    hashCode = hashCode * 59 + this.KeyName.GetHashCode();
                 if (this.ServerName != null)
                     hashCode = hashCode * 59 + this.ServerName.GetHashCode();
+                if (this.VaultIdList != null)
+                    hashCode = hashCode * 59 + this.VaultIdList.GetHashCode();
+                if (this.ViewBoxIdList != null)
+                    hashCode = hashCode * 59 + this.ViewBoxIdList.GetHashCode();
                 return hashCode;
             }
         }

@@ -27,18 +27,21 @@ namespace Cohesity.Model
         /// <param name="interfaces">Specifies the list of network interfaces present on this Node..</param>
         /// <param name="message">Specifies an optional message describing the result of the request pertaining to this Node..</param>
         /// <param name="nodeId">Specifies the ID of the Node..</param>
+        /// <param name="nodeIp">Specifies the IP of the Node..</param>
         /// <param name="slot">Specifies the slot number the Node is located in..</param>
-        public NodeNetworkInterfaces(string chassisSerial = default(string), List<NetworkInterface> interfaces = default(List<NetworkInterface>), string message = default(string), long? nodeId = default(long?), long? slot = default(long?))
+        public NodeNetworkInterfaces(string chassisSerial = default(string), List<NetworkInterface> interfaces = default(List<NetworkInterface>), string message = default(string), long? nodeId = default(long?), string nodeIp = default(string), long? slot = default(long?))
         {
             this.ChassisSerial = chassisSerial;
             this.Interfaces = interfaces;
             this.Message = message;
             this.NodeId = nodeId;
+            this.NodeIp = nodeIp;
             this.Slot = slot;
             this.ChassisSerial = chassisSerial;
             this.Interfaces = interfaces;
             this.Message = message;
             this.NodeId = nodeId;
+            this.NodeIp = nodeIp;
             this.Slot = slot;
         }
         
@@ -69,6 +72,13 @@ namespace Cohesity.Model
         /// <value>Specifies the ID of the Node.</value>
         [DataMember(Name="nodeId", EmitDefaultValue=true)]
         public long? NodeId { get; set; }
+
+        /// <summary>
+        /// Specifies the IP of the Node.
+        /// </summary>
+        /// <value>Specifies the IP of the Node.</value>
+        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        public string NodeIp { get; set; }
 
         /// <summary>
         /// Specifies the slot number the Node is located in.
@@ -135,6 +145,11 @@ namespace Cohesity.Model
                     this.NodeId.Equals(input.NodeId))
                 ) && 
                 (
+                    this.NodeIp == input.NodeIp ||
+                    (this.NodeIp != null &&
+                    this.NodeIp.Equals(input.NodeIp))
+                ) && 
+                (
                     this.Slot == input.Slot ||
                     (this.Slot != null &&
                     this.Slot.Equals(input.Slot))
@@ -158,6 +173,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
                 if (this.NodeId != null)
                     hashCode = hashCode * 59 + this.NodeId.GetHashCode();
+                if (this.NodeIp != null)
+                    hashCode = hashCode * 59 + this.NodeIp.GetHashCode();
                 if (this.Slot != null)
                     hashCode = hashCode * 59 + this.Slot.GetHashCode();
                 return hashCode;

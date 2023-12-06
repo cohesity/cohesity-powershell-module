@@ -23,19 +23,22 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsParams" /> class.
         /// </summary>
+        /// <param name="customTagList">Specifies the list of Custom Tag Parameters to be applied to resources created in AWS Cloudspin..</param>
         /// <param name="instanceId">Specifies id of the AWS instance type in which to deploy the VM..</param>
         /// <param name="networkSecurityGroupIds">Specifies ids of the network security groups within above VPC..</param>
         /// <param name="rdsParams">rdsParams.</param>
         /// <param name="region">Specifies id of the AWS region in which to deploy the VM..</param>
         /// <param name="subnetId">Specifies id of the subnet within above VPC..</param>
         /// <param name="virtualPrivateCloudId">Specifies id of the Virtual Private Cloud to chose for the instance type..</param>
-        public AwsParams(long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
+        public AwsParams(List<CustomTagParams> customTagList = default(List<CustomTagParams>), long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
         {
+            this.CustomTagList = customTagList;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
             this.Region = region;
             this.SubnetId = subnetId;
             this.VirtualPrivateCloudId = virtualPrivateCloudId;
+            this.CustomTagList = customTagList;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
             this.RdsParams = rdsParams;
@@ -44,6 +47,13 @@ namespace Cohesity.Model
             this.VirtualPrivateCloudId = virtualPrivateCloudId;
         }
         
+        /// <summary>
+        /// Specifies the list of Custom Tag Parameters to be applied to resources created in AWS Cloudspin.
+        /// </summary>
+        /// <value>Specifies the list of Custom Tag Parameters to be applied to resources created in AWS Cloudspin.</value>
+        [DataMember(Name="customTagList", EmitDefaultValue=true)]
+        public List<CustomTagParams> CustomTagList { get; set; }
+
         /// <summary>
         /// Specifies id of the AWS instance type in which to deploy the VM.
         /// </summary>
@@ -122,6 +132,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CustomTagList == input.CustomTagList ||
+                    this.CustomTagList != null &&
+                    input.CustomTagList != null &&
+                    this.CustomTagList.SequenceEqual(input.CustomTagList)
+                ) && 
+                (
                     this.InstanceId == input.InstanceId ||
                     (this.InstanceId != null &&
                     this.InstanceId.Equals(input.InstanceId))
@@ -163,6 +179,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CustomTagList != null)
+                    hashCode = hashCode * 59 + this.CustomTagList.GetHashCode();
                 if (this.InstanceId != null)
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkSecurityGroupIds != null)

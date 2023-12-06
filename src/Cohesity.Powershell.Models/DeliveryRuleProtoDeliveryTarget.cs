@@ -24,15 +24,17 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DeliveryRuleProtoDeliveryTarget" /> class.
         /// </summary>
         /// <param name="emailAddress">List of email addresses to send notifications..</param>
+        /// <param name="emailRecipientType">emailRecipientType.</param>
         /// <param name="externalApiCurlOptions">Specifies the curl options used to invoke above rest external api..</param>
         /// <param name="externalApiUrl">Specifies the external api to be invoked when an alert matching this rule is raised..</param>
         /// <param name="locale">Locale for the delivery target..</param>
         /// <param name="snmpNotification">Need to send snmp notification for matched alerts..</param>
         /// <param name="syslogNotification">Need to write syslog for matched alerts..</param>
-        /// <param name="tenantId">Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilised by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object..</param>
-        public DeliveryRuleProtoDeliveryTarget(string emailAddress = default(string), string externalApiCurlOptions = default(string), string externalApiUrl = default(string), string locale = default(string), bool? snmpNotification = default(bool?), bool? syslogNotification = default(bool?), string tenantId = default(string))
+        /// <param name="tenantId">Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilized by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object..</param>
+        public DeliveryRuleProtoDeliveryTarget(string emailAddress = default(string), int? emailRecipientType = default(int?), string externalApiCurlOptions = default(string), string externalApiUrl = default(string), string locale = default(string), bool? snmpNotification = default(bool?), bool? syslogNotification = default(bool?), string tenantId = default(string))
         {
             this.EmailAddress = emailAddress;
+            this.EmailRecipientType = emailRecipientType;
             this.ExternalApiCurlOptions = externalApiCurlOptions;
             this.ExternalApiUrl = externalApiUrl;
             this.Locale = locale;
@@ -40,6 +42,7 @@ namespace Cohesity.Model
             this.SyslogNotification = syslogNotification;
             this.TenantId = tenantId;
             this.EmailAddress = emailAddress;
+            this.EmailRecipientType = emailRecipientType;
             this.ExternalApiCurlOptions = externalApiCurlOptions;
             this.ExternalApiUrl = externalApiUrl;
             this.Locale = locale;
@@ -54,6 +57,12 @@ namespace Cohesity.Model
         /// <value>List of email addresses to send notifications.</value>
         [DataMember(Name="emailAddress", EmitDefaultValue=true)]
         public string EmailAddress { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EmailRecipientType
+        /// </summary>
+        [DataMember(Name="emailRecipientType", EmitDefaultValue=true)]
+        public int? EmailRecipientType { get; set; }
 
         /// <summary>
         /// Specifies the curl options used to invoke above rest external api.
@@ -91,9 +100,9 @@ namespace Cohesity.Model
         public bool? SyslogNotification { get; set; }
 
         /// <summary>
-        /// Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilised by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object.
+        /// Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilized by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object.
         /// </summary>
-        /// <value>Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilised by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object.</value>
+        /// <value>Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilized by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object.</value>
         [DataMember(Name="tenantId", EmitDefaultValue=true)]
         public string TenantId { get; set; }
 
@@ -139,6 +148,11 @@ namespace Cohesity.Model
                     this.EmailAddress.Equals(input.EmailAddress))
                 ) && 
                 (
+                    this.EmailRecipientType == input.EmailRecipientType ||
+                    (this.EmailRecipientType != null &&
+                    this.EmailRecipientType.Equals(input.EmailRecipientType))
+                ) && 
+                (
                     this.ExternalApiCurlOptions == input.ExternalApiCurlOptions ||
                     (this.ExternalApiCurlOptions != null &&
                     this.ExternalApiCurlOptions.Equals(input.ExternalApiCurlOptions))
@@ -181,6 +195,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.EmailAddress != null)
                     hashCode = hashCode * 59 + this.EmailAddress.GetHashCode();
+                if (this.EmailRecipientType != null)
+                    hashCode = hashCode * 59 + this.EmailRecipientType.GetHashCode();
                 if (this.ExternalApiCurlOptions != null)
                     hashCode = hashCode * 59 + this.ExternalApiCurlOptions.GetHashCode();
                 if (this.ExternalApiUrl != null)

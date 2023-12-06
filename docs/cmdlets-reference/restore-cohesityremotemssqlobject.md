@@ -10,8 +10,8 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
  [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
  [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
- [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-TargetHostId <Int64>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Jobrun
@@ -20,7 +20,7 @@ Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSo
  [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>]
  [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
  [-TargetLogFilesDirectory <String>] [-TargetSecondaryDataFilesDirectoryList <Object[]>]
- [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,13 +30,14 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 
 ### EXAMPLE 1
 ```
-Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
+Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
 ```
 
 Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
 $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
 Get the source id, $mssqlObjects\[0\].SnapshottedSource.Id
 Get the source instance id, $mssqlObjects\[0\].SnapshottedSource.SqlProtectionSource.OwnerId
+Use the DbRestoreOverwritePolicy:$true for overriding the existing database
 
 ### EXAMPLE 2
 ```
@@ -285,6 +286,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DbRestoreOverwritePolicy
+This field will overwrite the existing db contents if it sets to true
+By default the db overwrite policy is false
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

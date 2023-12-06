@@ -249,6 +249,18 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 }
             };
 
+            // Collect the recoverable snapshot information of specified file/folder
+            var queryString = new QuerystringBuilder();
+            foreach(var filename in FileNames)
+            {
+                queryString.Add("filename", filename);
+            }
+            queryString.Add("sourceId", SourceId);
+            queryString.Add("jobId", JobId);
+           
+            var snapshotUrl = $"/public/restore/files/snapshotsInformation{ queryString.Build()}";
+            var snapshotInfo = Session.ApiClient.Get<Model.FileSnapshotInformation[]>(snapshotUrl);
+
             // If job run id is not specified, get the job run id of the last run
             if (JobRunId.HasValue)
             {
@@ -256,7 +268,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             }
             else
             {
-                restoreObject.JobRunId = job.LastRun.BackupRun.JobRunId;
+                restoreObject.JobRunId = snapshotInfo[0].Snapshot.JobRunId;
             }
 
             // If start time is not specified, get the start time of the last run
@@ -266,7 +278,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             }
             else
             {
-                restoreObject.StartedTimeUsecs = job.LastRun.BackupRun.Stats.StartTimeUsecs;
+                restoreObject.StartedTimeUsecs = snapshotInfo[0].Snapshot.StartedTimeUsecs;
             }
 
             restoreRequest.SourceObjectInfo = restoreObject;

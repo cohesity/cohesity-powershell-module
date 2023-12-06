@@ -23,22 +23,38 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CryptsoftKmsUpdateParams" /> class.
         /// </summary>
+        /// <param name="additionalServerAddress">AdditonalServerAddress for the KMS server..</param>
         /// <param name="caCertificate">Specifies the CA certificate in PEM format..</param>
         /// <param name="clientCertificate">Specifies the client certificate. It is in PEM format..</param>
         /// <param name="clientKey">Specifies the client private key..</param>
         /// <param name="kmipProtocolVersion">Specifies protocol version used to communicate with the KMS..</param>
-        public CryptsoftKmsUpdateParams(string caCertificate = default(string), string clientCertificate = default(string), string clientKey = default(string), string kmipProtocolVersion = default(string))
+        /// <param name="serverIp">Specifies the KMS IP address..</param>
+        /// <param name="serverPort">Specifies port on which the server is listening. Default port is 5696..</param>
+        public CryptsoftKmsUpdateParams(List<string> additionalServerAddress = default(List<string>), string caCertificate = default(string), string clientCertificate = default(string), string clientKey = default(string), string kmipProtocolVersion = default(string), string serverIp = default(string), int? serverPort = default(int?))
         {
+            this.AdditionalServerAddress = additionalServerAddress;
             this.CaCertificate = caCertificate;
             this.ClientCertificate = clientCertificate;
             this.ClientKey = clientKey;
             this.KmipProtocolVersion = kmipProtocolVersion;
+            this.ServerIp = serverIp;
+            this.ServerPort = serverPort;
+            this.AdditionalServerAddress = additionalServerAddress;
             this.CaCertificate = caCertificate;
             this.ClientCertificate = clientCertificate;
             this.ClientKey = clientKey;
             this.KmipProtocolVersion = kmipProtocolVersion;
+            this.ServerIp = serverIp;
+            this.ServerPort = serverPort;
         }
         
+        /// <summary>
+        /// AdditonalServerAddress for the KMS server.
+        /// </summary>
+        /// <value>AdditonalServerAddress for the KMS server.</value>
+        [DataMember(Name="additionalServerAddress", EmitDefaultValue=true)]
+        public List<string> AdditionalServerAddress { get; set; }
+
         /// <summary>
         /// Specifies the CA certificate in PEM format.
         /// </summary>
@@ -66,6 +82,20 @@ namespace Cohesity.Model
         /// <value>Specifies protocol version used to communicate with the KMS.</value>
         [DataMember(Name="kmipProtocolVersion", EmitDefaultValue=true)]
         public string KmipProtocolVersion { get; set; }
+
+        /// <summary>
+        /// Specifies the KMS IP address.
+        /// </summary>
+        /// <value>Specifies the KMS IP address.</value>
+        [DataMember(Name="serverIp", EmitDefaultValue=true)]
+        public string ServerIp { get; set; }
+
+        /// <summary>
+        /// Specifies port on which the server is listening. Default port is 5696.
+        /// </summary>
+        /// <value>Specifies port on which the server is listening. Default port is 5696.</value>
+        [DataMember(Name="serverPort", EmitDefaultValue=true)]
+        public int? ServerPort { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -104,6 +134,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalServerAddress == input.AdditionalServerAddress ||
+                    this.AdditionalServerAddress != null &&
+                    input.AdditionalServerAddress != null &&
+                    this.AdditionalServerAddress.SequenceEqual(input.AdditionalServerAddress)
+                ) && 
+                (
                     this.CaCertificate == input.CaCertificate ||
                     (this.CaCertificate != null &&
                     this.CaCertificate.Equals(input.CaCertificate))
@@ -122,6 +158,16 @@ namespace Cohesity.Model
                     this.KmipProtocolVersion == input.KmipProtocolVersion ||
                     (this.KmipProtocolVersion != null &&
                     this.KmipProtocolVersion.Equals(input.KmipProtocolVersion))
+                ) && 
+                (
+                    this.ServerIp == input.ServerIp ||
+                    (this.ServerIp != null &&
+                    this.ServerIp.Equals(input.ServerIp))
+                ) && 
+                (
+                    this.ServerPort == input.ServerPort ||
+                    (this.ServerPort != null &&
+                    this.ServerPort.Equals(input.ServerPort))
                 );
         }
 
@@ -134,6 +180,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalServerAddress != null)
+                    hashCode = hashCode * 59 + this.AdditionalServerAddress.GetHashCode();
                 if (this.CaCertificate != null)
                     hashCode = hashCode * 59 + this.CaCertificate.GetHashCode();
                 if (this.ClientCertificate != null)
@@ -142,6 +190,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientKey.GetHashCode();
                 if (this.KmipProtocolVersion != null)
                     hashCode = hashCode * 59 + this.KmipProtocolVersion.GetHashCode();
+                if (this.ServerIp != null)
+                    hashCode = hashCode * 59 + this.ServerIp.GetHashCode();
+                if (this.ServerPort != null)
+                    hashCode = hashCode * 59 + this.ServerPort.GetHashCode();
                 return hashCode;
             }
         }

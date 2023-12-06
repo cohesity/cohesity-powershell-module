@@ -25,13 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="_object">_object.</param>
         /// <param name="objectProgressMonitorTaskPath">The relative task path of the progress monitor for the restore of the above &#39;object&#39;. Please note that this field will be set only after progress monitor is created for this restore job..</param>
+        /// <param name="preprocessingError">preprocessingError.</param>
         /// <param name="taskId">Id of the task tracking the restore of the above &#39;object&#39;..</param>
-        public PerformRestoreJobStateProtoRestoreTask(RestoreObject _object = default(RestoreObject), string objectProgressMonitorTaskPath = default(string), long? taskId = default(long?))
+        public PerformRestoreJobStateProtoRestoreTask(RestoreObject _object = default(RestoreObject), string objectProgressMonitorTaskPath = default(string), ErrorProto preprocessingError = default(ErrorProto), long? taskId = default(long?))
         {
             this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
             this.TaskId = taskId;
             this.Object = _object;
             this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
+            this.PreprocessingError = preprocessingError;
             this.TaskId = taskId;
         }
         
@@ -47,6 +49,12 @@ namespace Cohesity.Model
         /// <value>The relative task path of the progress monitor for the restore of the above &#39;object&#39;. Please note that this field will be set only after progress monitor is created for this restore job.</value>
         [DataMember(Name="objectProgressMonitorTaskPath", EmitDefaultValue=true)]
         public string ObjectProgressMonitorTaskPath { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PreprocessingError
+        /// </summary>
+        [DataMember(Name="preprocessingError", EmitDefaultValue=false)]
+        public ErrorProto PreprocessingError { get; set; }
 
         /// <summary>
         /// Id of the task tracking the restore of the above &#39;object&#39;.
@@ -102,6 +110,11 @@ namespace Cohesity.Model
                     this.ObjectProgressMonitorTaskPath.Equals(input.ObjectProgressMonitorTaskPath))
                 ) && 
                 (
+                    this.PreprocessingError == input.PreprocessingError ||
+                    (this.PreprocessingError != null &&
+                    this.PreprocessingError.Equals(input.PreprocessingError))
+                ) && 
+                (
                     this.TaskId == input.TaskId ||
                     (this.TaskId != null &&
                     this.TaskId.Equals(input.TaskId))
@@ -121,6 +134,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Object.GetHashCode();
                 if (this.ObjectProgressMonitorTaskPath != null)
                     hashCode = hashCode * 59 + this.ObjectProgressMonitorTaskPath.GetHashCode();
+                if (this.PreprocessingError != null)
+                    hashCode = hashCode * 59 + this.PreprocessingError.GetHashCode();
                 if (this.TaskId != null)
                     hashCode = hashCode * 59 + this.TaskId.GetHashCode();
                 return hashCode;

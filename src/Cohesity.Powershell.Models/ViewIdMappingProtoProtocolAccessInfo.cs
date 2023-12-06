@@ -24,18 +24,21 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ViewIdMappingProtoProtocolAccessInfo" /> class.
         /// </summary>
         /// <param name="iscsiAccess">Access control for iSCSI protocol for this view..</param>
+        /// <param name="nfs4Access">Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations..</param>
         /// <param name="nfsAccess">Access control for NFS protocol for this view..</param>
         /// <param name="s3Access">Access control for S3 protocol for this view..</param>
         /// <param name="smbAccess">Access control for SMB protocol for this view..</param>
         /// <param name="swiftAccess">Access control for Swift protocol for this view..</param>
-        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
+        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfs4Access = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
         {
             this.IscsiAccess = iscsiAccess;
+            this.Nfs4Access = nfs4Access;
             this.NfsAccess = nfsAccess;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
             this.SwiftAccess = swiftAccess;
             this.IscsiAccess = iscsiAccess;
+            this.Nfs4Access = nfs4Access;
             this.NfsAccess = nfsAccess;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
@@ -48,6 +51,13 @@ namespace Cohesity.Model
         /// <value>Access control for iSCSI protocol for this view.</value>
         [DataMember(Name="iscsiAccess", EmitDefaultValue=true)]
         public int? IscsiAccess { get; set; }
+
+        /// <summary>
+        /// Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations.
+        /// </summary>
+        /// <value>Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations.</value>
+        [DataMember(Name="nfs4Access", EmitDefaultValue=true)]
+        public int? Nfs4Access { get; set; }
 
         /// <summary>
         /// Access control for NFS protocol for this view.
@@ -119,6 +129,11 @@ namespace Cohesity.Model
                     this.IscsiAccess.Equals(input.IscsiAccess))
                 ) && 
                 (
+                    this.Nfs4Access == input.Nfs4Access ||
+                    (this.Nfs4Access != null &&
+                    this.Nfs4Access.Equals(input.Nfs4Access))
+                ) && 
+                (
                     this.NfsAccess == input.NfsAccess ||
                     (this.NfsAccess != null &&
                     this.NfsAccess.Equals(input.NfsAccess))
@@ -151,6 +166,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.IscsiAccess != null)
                     hashCode = hashCode * 59 + this.IscsiAccess.GetHashCode();
+                if (this.Nfs4Access != null)
+                    hashCode = hashCode * 59 + this.Nfs4Access.GetHashCode();
                 if (this.NfsAccess != null)
                     hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
                 if (this.S3Access != null)

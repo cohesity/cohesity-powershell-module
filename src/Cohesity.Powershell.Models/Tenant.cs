@@ -34,6 +34,7 @@ namespace Cohesity.Model
         /// <param name="deletionInfoVec">Specifies the current deletion state of object categories..</param>
         /// <param name="description">Specifies the description of this tenant..</param>
         /// <param name="entityIds">Specifies the EntityIds this tenant is associated to..</param>
+        /// <param name="isManagedOnHelios">Specifies whether this tenant is manged on helios.</param>
         /// <param name="lastUpdatedTimeMsecs">Specifies the epoch time in milliseconds when the tenant account was last modified on the Cohesity Cluster..</param>
         /// <param name="ldapProviders">Specifies the ldap providers this tenant is associated to..</param>
         /// <param name="name">Specifies the name of the tenant..</param>
@@ -47,7 +48,7 @@ namespace Cohesity.Model
         /// <param name="viewBoxIds">Specifies the ViewBoxIds this tenant is associated to..</param>
         /// <param name="views">Specifies the Views this tenant is associated to..</param>
         /// <param name="vlanIfaceNames">Specifies the VlanIfaceNames this tenant is associated to, in the format of bond1.200..</param>
-        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long> entityIds = default(List<long>), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), SwiftParams swiftConfig = default(SwiftParams), string tenantId = default(string), List<long> viewBoxIds = default(List<long>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
+        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long> entityIds = default(List<long>), bool? isManagedOnHelios = default(bool?), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), SwiftParams swiftConfig = default(SwiftParams), string tenantId = default(string), List<long> viewBoxIds = default(List<long>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
         {
             this.ActiveDirectories = activeDirectories;
             this.BifrostEnabled = bifrostEnabled;
@@ -60,6 +61,7 @@ namespace Cohesity.Model
             this.DeletionInfoVec = deletionInfoVec;
             this.Description = description;
             this.EntityIds = entityIds;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
             this.LdapProviders = ldapProviders;
             this.Name = name;
@@ -83,6 +85,7 @@ namespace Cohesity.Model
             this.DeletionInfoVec = deletionInfoVec;
             this.Description = description;
             this.EntityIds = entityIds;
+            this.IsManagedOnHelios = isManagedOnHelios;
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
             this.LdapProviders = ldapProviders;
             this.Name = name;
@@ -174,6 +177,13 @@ namespace Cohesity.Model
         /// <value>Specifies the EntityIds this tenant is associated to.</value>
         [DataMember(Name="entityIds", EmitDefaultValue=true)]
         public List<long> EntityIds { get; set; }
+
+        /// <summary>
+        /// Specifies whether this tenant is manged on helios
+        /// </summary>
+        /// <value>Specifies whether this tenant is manged on helios</value>
+        [DataMember(Name="isManagedOnHelios", EmitDefaultValue=true)]
+        public bool? IsManagedOnHelios { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the tenant account was last modified on the Cohesity Cluster.
@@ -361,6 +371,11 @@ namespace Cohesity.Model
                     this.EntityIds.SequenceEqual(input.EntityIds)
                 ) && 
                 (
+                    this.IsManagedOnHelios == input.IsManagedOnHelios ||
+                    (this.IsManagedOnHelios != null &&
+                    this.IsManagedOnHelios.Equals(input.IsManagedOnHelios))
+                ) && 
+                (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
                     (this.LastUpdatedTimeMsecs != null &&
                     this.LastUpdatedTimeMsecs.Equals(input.LastUpdatedTimeMsecs))
@@ -464,6 +479,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.EntityIds != null)
                     hashCode = hashCode * 59 + this.EntityIds.GetHashCode();
+                if (this.IsManagedOnHelios != null)
+                    hashCode = hashCode * 59 + this.IsManagedOnHelios.GetHashCode();
                 if (this.LastUpdatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.LastUpdatedTimeMsecs.GetHashCode();
                 if (this.LdapProviders != null)

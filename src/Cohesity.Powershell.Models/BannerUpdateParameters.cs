@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BannerUpdateParameters" /> class.
         /// </summary>
         /// <param name="content">Specifies the content of the banner..</param>
-        /// <param name="description">Specifies the description of this banner..</param>
+        /// <param name="description">description field is deprecated. Specifies the description of this banner..</param>
         public BannerUpdateParameters(string content = default(string), string description = default(string))
         {
             this.Content = content;
@@ -41,9 +41,9 @@ namespace Cohesity.Model
         public string Content { get; set; }
 
         /// <summary>
-        /// Specifies the description of this banner.
+        /// description field is deprecated. Specifies the description of this banner.
         /// </summary>
-        /// <value>Specifies the description of this banner.</value>
+        /// <value>description field is deprecated. Specifies the description of this banner.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 

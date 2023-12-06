@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of VMware server.
 Must be set to KStandaloneHost or KVcenter.
 
-Possible values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KvCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
+Possible values: KVCenter, KStandaloneHost, KvCloudDirector
 
 ```yaml
 Type: VmwareTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KvCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
+Accepted values: KVCenter, KStandaloneHost, KvCloudDirector
 
 Required: True
 Position: Named

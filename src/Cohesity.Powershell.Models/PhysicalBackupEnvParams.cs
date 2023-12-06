@@ -23,15 +23,25 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalBackupEnvParams" /> class.
         /// </summary>
+        /// <param name="cobmrBackup">Whether CoBMR backup is enabled. If true, Cristie executables will be run in agent so that bare metal restore can be performed..</param>
         /// <param name="enableIncrementalBackupAfterRestart">If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done. NOTE: This is applicable to windows host environments..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
-        public PhysicalBackupEnvParams(bool? enableIncrementalBackupAfterRestart = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
+        public PhysicalBackupEnvParams(bool? cobmrBackup = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
         {
+            this.CobmrBackup = cobmrBackup;
             this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
+            this.CobmrBackup = cobmrBackup;
             this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
             this.FilteringPolicy = filteringPolicy;
         }
         
+        /// <summary>
+        /// Whether CoBMR backup is enabled. If true, Cristie executables will be run in agent so that bare metal restore can be performed.
+        /// </summary>
+        /// <value>Whether CoBMR backup is enabled. If true, Cristie executables will be run in agent so that bare metal restore can be performed.</value>
+        [DataMember(Name="cobmrBackup", EmitDefaultValue=true)]
+        public bool? CobmrBackup { get; set; }
+
         /// <summary>
         /// If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done. NOTE: This is applicable to windows host environments.
         /// </summary>
@@ -82,6 +92,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CobmrBackup == input.CobmrBackup ||
+                    (this.CobmrBackup != null &&
+                    this.CobmrBackup.Equals(input.CobmrBackup))
+                ) && 
+                (
                     this.EnableIncrementalBackupAfterRestart == input.EnableIncrementalBackupAfterRestart ||
                     (this.EnableIncrementalBackupAfterRestart != null &&
                     this.EnableIncrementalBackupAfterRestart.Equals(input.EnableIncrementalBackupAfterRestart))
@@ -102,6 +117,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CobmrBackup != null)
+                    hashCode = hashCode * 59 + this.CobmrBackup.GetHashCode();
                 if (this.EnableIncrementalBackupAfterRestart != null)
                     hashCode = hashCode * 59 + this.EnableIncrementalBackupAfterRestart.GetHashCode();
                 if (this.FilteringPolicy != null)

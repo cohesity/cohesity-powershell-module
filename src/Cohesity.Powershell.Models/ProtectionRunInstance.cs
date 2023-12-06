@@ -28,8 +28,9 @@ namespace Cohesity.Model
         /// <param name="jobId">Specifies the id of the Protection Job that was run..</param>
         /// <param name="jobName">Specifies the name of the Protection Job name that was run..</param>
         /// <param name="jobUid">Specifies the globally unique id of the Protection Job that was run..</param>
+        /// <param name="protectionShellInfo">protectionShellInfo.</param>
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box)..</param>
-        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), long? viewBoxId = default(long?))
+        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), ProtectionShellInfo protectionShellInfo = default(ProtectionShellInfo), long? viewBoxId = default(long?))
         {
             this.CopyRun = copyRun;
             this.JobId = jobId;
@@ -41,6 +42,7 @@ namespace Cohesity.Model
             this.JobId = jobId;
             this.JobName = jobName;
             this.JobUid = jobUid;
+            this.ProtectionShellInfo = protectionShellInfo;
             this.ViewBoxId = viewBoxId;
         }
         
@@ -77,6 +79,12 @@ namespace Cohesity.Model
         /// <value>Specifies the globally unique id of the Protection Job that was run.</value>
         [DataMember(Name="jobUid", EmitDefaultValue=true)]
         public UniversalId JobUid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProtectionShellInfo
+        /// </summary>
+        [DataMember(Name="protectionShellInfo", EmitDefaultValue=false)]
+        public ProtectionShellInfo ProtectionShellInfo { get; set; }
 
         /// <summary>
         /// Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box).
@@ -148,6 +156,11 @@ namespace Cohesity.Model
                     this.JobUid.Equals(input.JobUid))
                 ) && 
                 (
+                    this.ProtectionShellInfo == input.ProtectionShellInfo ||
+                    (this.ProtectionShellInfo != null &&
+                    this.ProtectionShellInfo.Equals(input.ProtectionShellInfo))
+                ) && 
+                (
                     this.ViewBoxId == input.ViewBoxId ||
                     (this.ViewBoxId != null &&
                     this.ViewBoxId.Equals(input.ViewBoxId))
@@ -173,6 +186,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobName.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.ProtectionShellInfo != null)
+                    hashCode = hashCode * 59 + this.ProtectionShellInfo.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 return hashCode;

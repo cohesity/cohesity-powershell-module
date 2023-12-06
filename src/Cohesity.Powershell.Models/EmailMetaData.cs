@@ -26,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="allUnderHierarchy">AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned..</param>
         /// <param name="bccRecipientAddresses">Specifies the email addresses of the bcc recipients..</param>
         /// <param name="ccRecipientAddresses">Specifies the email addresses of the cc recipients..</param>
+        /// <param name="directoryPath">Specifies the directory path to the item..</param>
         /// <param name="domainIds">Specifies the domain Ids in which mailboxes are registered..</param>
         /// <param name="emailSubject">Specifies the subject of the email..</param>
         /// <param name="folderKey">Specifes the Parent Folder key..</param>
@@ -42,11 +43,12 @@ namespace Cohesity.Model
         /// <param name="sentTimeSeconds">Specifies the unix time when the email was sent..</param>
         /// <param name="showOnlyEmailFolders">Specifies whether the query result should include only Email folders..</param>
         /// <param name="tenantId">TenantId specifies the tenant whose action resulted in the audit log..</param>
-        public EmailMetaData(bool? allUnderHierarchy = default(bool?), List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), List<long> domainIds = default(List<long>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long> mailboxIds = default(List<long>), List<long> protectionJobIds = default(List<long>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?), string tenantId = default(string))
+        public EmailMetaData(bool? allUnderHierarchy = default(bool?), List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), string directoryPath = default(string), List<long> domainIds = default(List<long>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long> mailboxIds = default(List<long>), List<long> protectionJobIds = default(List<long>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?), string tenantId = default(string))
         {
             this.AllUnderHierarchy = allUnderHierarchy;
             this.BccRecipientAddresses = bccRecipientAddresses;
             this.CcRecipientAddresses = ccRecipientAddresses;
+            this.DirectoryPath = directoryPath;
             this.DomainIds = domainIds;
             this.EmailSubject = emailSubject;
             this.FolderKey = folderKey;
@@ -66,6 +68,7 @@ namespace Cohesity.Model
             this.AllUnderHierarchy = allUnderHierarchy;
             this.BccRecipientAddresses = bccRecipientAddresses;
             this.CcRecipientAddresses = ccRecipientAddresses;
+            this.DirectoryPath = directoryPath;
             this.DomainIds = domainIds;
             this.EmailSubject = emailSubject;
             this.FolderKey = folderKey;
@@ -104,6 +107,13 @@ namespace Cohesity.Model
         /// <value>Specifies the email addresses of the cc recipients.</value>
         [DataMember(Name="ccRecipientAddresses", EmitDefaultValue=true)]
         public List<string> CcRecipientAddresses { get; set; }
+
+        /// <summary>
+        /// Specifies the directory path to the item.
+        /// </summary>
+        /// <value>Specifies the directory path to the item.</value>
+        [DataMember(Name="directoryPath", EmitDefaultValue=true)]
+        public string DirectoryPath { get; set; }
 
         /// <summary>
         /// Specifies the domain Ids in which mailboxes are registered.
@@ -271,6 +281,11 @@ namespace Cohesity.Model
                     this.CcRecipientAddresses.SequenceEqual(input.CcRecipientAddresses)
                 ) && 
                 (
+                    this.DirectoryPath == input.DirectoryPath ||
+                    (this.DirectoryPath != null &&
+                    this.DirectoryPath.Equals(input.DirectoryPath))
+                ) && 
+                (
                     this.DomainIds == input.DomainIds ||
                     this.DomainIds != null &&
                     input.DomainIds != null &&
@@ -371,6 +386,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BccRecipientAddresses.GetHashCode();
                 if (this.CcRecipientAddresses != null)
                     hashCode = hashCode * 59 + this.CcRecipientAddresses.GetHashCode();
+                if (this.DirectoryPath != null)
+                    hashCode = hashCode * 59 + this.DirectoryPath.GetHashCode();
                 if (this.DomainIds != null)
                     hashCode = hashCode * 59 + this.DomainIds.GetHashCode();
                 if (this.EmailSubject != null)

@@ -36,11 +36,12 @@ namespace Cohesity.Model
         /// <param name="multiStageRestoreOptions">multiStageRestoreOptions.</param>
         /// <param name="newDatabaseName">The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner..</param>
         /// <param name="restoreTimeSecs">The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo)..</param>
+        /// <param name="resumeRestore">Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option..</param>
         /// <param name="secondaryDataFileDestination">Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing..</param>
         /// <param name="secondaryDataFileDestinationVec">Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag..</param>
         /// <param name="withNoRecovery">Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore..</param>
-        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
+        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), bool? resumeRestore = default(bool?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
         {
             this.CaptureTailLogs = captureTailLogs;
             this.ContinueAfterError = continueAfterError;
@@ -54,6 +55,7 @@ namespace Cohesity.Model
             this.LogFileDestination = logFileDestination;
             this.NewDatabaseName = newDatabaseName;
             this.RestoreTimeSecs = restoreTimeSecs;
+            this.ResumeRestore = resumeRestore;
             this.SecondaryDataFileDestination = secondaryDataFileDestination;
             this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
             this.WithClause = withClause;
@@ -71,6 +73,7 @@ namespace Cohesity.Model
             this.MultiStageRestoreOptions = multiStageRestoreOptions;
             this.NewDatabaseName = newDatabaseName;
             this.RestoreTimeSecs = restoreTimeSecs;
+            this.ResumeRestore = resumeRestore;
             this.SecondaryDataFileDestination = secondaryDataFileDestination;
             this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
             this.WithClause = withClause;
@@ -166,6 +169,13 @@ namespace Cohesity.Model
         /// <value>The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).</value>
         [DataMember(Name="restoreTimeSecs", EmitDefaultValue=true)]
         public long? RestoreTimeSecs { get; set; }
+
+        /// <summary>
+        /// Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option.
+        /// </summary>
+        /// <value>Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option.</value>
+        [DataMember(Name="resumeRestore", EmitDefaultValue=true)]
+        public bool? ResumeRestore { get; set; }
 
         /// <summary>
         /// Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing.
@@ -297,6 +307,11 @@ namespace Cohesity.Model
                     this.RestoreTimeSecs.Equals(input.RestoreTimeSecs))
                 ) && 
                 (
+                    this.ResumeRestore == input.ResumeRestore ||
+                    (this.ResumeRestore != null &&
+                    this.ResumeRestore.Equals(input.ResumeRestore))
+                ) && 
+                (
                     this.SecondaryDataFileDestination == input.SecondaryDataFileDestination ||
                     (this.SecondaryDataFileDestination != null &&
                     this.SecondaryDataFileDestination.Equals(input.SecondaryDataFileDestination))
@@ -354,6 +369,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
                 if (this.RestoreTimeSecs != null)
                     hashCode = hashCode * 59 + this.RestoreTimeSecs.GetHashCode();
+                if (this.ResumeRestore != null)
+                    hashCode = hashCode * 59 + this.ResumeRestore.GetHashCode();
                 if (this.SecondaryDataFileDestination != null)
                     hashCode = hashCode * 59 + this.SecondaryDataFileDestination.GetHashCode();
                 if (this.SecondaryDataFileDestinationVec != null)

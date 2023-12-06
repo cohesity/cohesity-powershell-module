@@ -25,14 +25,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="domain">Specifies domain name of the user..</param>
         /// <param name="sid">Specifies unique Security ID (SID) of the user..</param>
+        /// <param name="tenantId">Specifies the tenant to which the user belongs to..</param>
         /// <param name="userName">Specifies user name of the user..</param>
-        public UserInfo(string domain = default(string), string sid = default(string), string userName = default(string))
+        public UserInfo(string domain = default(string), string sid = default(string), string tenantId = default(string), string userName = default(string))
         {
             this.Domain = domain;
             this.Sid = sid;
+            this.TenantId = tenantId;
             this.UserName = userName;
             this.Domain = domain;
             this.Sid = sid;
+            this.TenantId = tenantId;
             this.UserName = userName;
         }
         
@@ -49,6 +52,13 @@ namespace Cohesity.Model
         /// <value>Specifies unique Security ID (SID) of the user.</value>
         [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
+
+        /// <summary>
+        /// Specifies the tenant to which the user belongs to.
+        /// </summary>
+        /// <value>Specifies the tenant to which the user belongs to.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies user name of the user.
@@ -104,6 +114,11 @@ namespace Cohesity.Model
                     this.Sid.Equals(input.Sid))
                 ) && 
                 (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
                     this.UserName == input.UserName ||
                     (this.UserName != null &&
                     this.UserName.Equals(input.UserName))
@@ -123,6 +138,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.Sid != null)
                     hashCode = hashCode * 59 + this.Sid.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 return hashCode;

@@ -1,7 +1,7 @@
 # Restore-CohesityRemoteFile
 
 ## SYNOPSIS
-Restores the specified files or folders from a previous backup from a remote cluster.
+Restores the specified files or folders from a remote cluster.
 
 ## SYNTAX
 
@@ -13,7 +13,7 @@ Restore-CohesityRemoteFile [[-TaskName] <String>] [-FileNames] <String[]> [-JobI
 ```
 
 ## DESCRIPTION
-Restores the specified files or folders from a previous backup from a remote cluster.
+Request to create a Restore Task for recovering files or folders from a remote target.
 
 ## EXAMPLES
 
@@ -22,19 +22,21 @@ Restores the specified files or folders from a previous backup from a remote clu
 Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
 ```
 
-Restores the specified file to the target windows VM with the source id 843 from the latest backup.
-Get the job id from $jobs = Get-CohesityProtectionJob -Environments KVMware
-Get the source id from $jobs\[0\].sourceIds
-Get the target details $targets = Get-CohesityProtectionSourceObject -Environments KVMware
-Get the target source id $targets\[2\].id
-Get the target parent source id $targets\[2\].parentId
+Restores the file from the specified source to the target windows VM using the latest backup from remote target.
 
 ### EXAMPLE 2
+```
+Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -JobRunId 3005 -StartTime 1690646467987573 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+```
+
+Restores the file from the specified source to the target windows VM using the specified snapshot from remote target.
+
+### EXAMPLE 3
 ```
 Restore-CohesityRemoteFile  -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
 ```
 
-Restores the specified file to the target physical server with the source id 3517 from the latest backup.
+Restores the file from the specified source to the target physical server using the latest backup from remote target.
 
 ## PARAMETERS
 
@@ -266,9 +268,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Published by Cohesity
+This commandlet will be deprecated in future. Please refer and use the commandlet [Restore-CohesityRemoteFileV2](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/restore-cohesityremotefilev2) instead.
 
 ## RELATED LINKS
-
-[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+[Read More](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

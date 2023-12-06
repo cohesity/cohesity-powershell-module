@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class CreateCloudClusterParameters :  IEquatable<CreateCloudClusterParameters>
     {
         /// <summary>
+        /// Specifies the size of the cluster. It is set as Large by default if the parameter is not specified.
+        /// </summary>
+        /// <value>Specifies the size of the cluster. It is set as Large by default if the parameter is not specified.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ClusterSizeEnum
+        {
+            /// <summary>
+            /// Enum Small for value: Small
+            /// </summary>
+            [EnumMember(Value = "Small")]
+            Small = 1,
+
+            /// <summary>
+            /// Enum Medium for value: Medium
+            /// </summary>
+            [EnumMember(Value = "Medium")]
+            Medium = 2,
+
+            /// <summary>
+            /// Enum Large for value: Large
+            /// </summary>
+            [EnumMember(Value = "Large")]
+            Large = 3,
+
+            /// <summary>
+            /// Enum XLarge for value: XLarge
+            /// </summary>
+            [EnumMember(Value = "XLarge")]
+            XLarge = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the size of the cluster. It is set as Large by default if the parameter is not specified.
+        /// </summary>
+        /// <value>Specifies the size of the cluster. It is set as Large by default if the parameter is not specified.</value>
+        [DataMember(Name="clusterSize", EmitDefaultValue=true)]
+        public ClusterSizeEnum? ClusterSize { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="CreateCloudClusterParameters" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -29,14 +68,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CreateCloudClusterParameters" /> class.
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
+        /// <param name="clusterSize">Specifies the size of the cluster. It is set as Large by default if the parameter is not specified..</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
         /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeIps">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreateCloudClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
+        public CreateCloudClusterParameters(string clusterName = default(string), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
         {
             this.ClusterName = clusterName;
+            this.ClusterSize = clusterSize;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
             // to ensure "networkConfig" is required (not null)
@@ -50,6 +91,7 @@ namespace Cohesity.Model
             }
 
             this.NodeIps = nodeIps;
+            this.ClusterSize = clusterSize;
             this.EncryptionConfig = encryptionConfig;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
@@ -137,6 +179,10 @@ namespace Cohesity.Model
                     this.ClusterName.Equals(input.ClusterName))
                 ) && 
                 (
+                    this.ClusterSize == input.ClusterSize ||
+                    this.ClusterSize.Equals(input.ClusterSize)
+                ) && 
+                (
                     this.EncryptionConfig == input.EncryptionConfig ||
                     (this.EncryptionConfig != null &&
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
@@ -175,6 +221,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
                 if (this.IpPreference != null)

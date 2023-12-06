@@ -159,11 +159,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SmbActiveOpen" /> class.
         /// </summary>
         /// <param name="accessInfoList">Specifies the access information. &#39;kFileReadData&#39; indicates the right to read data from the file or named pipe. &#39;kFileWriteData&#39; indicates the right to write data into the file or named pipe beyond the end of the file. &#39;kFileAppendData&#39; indicates the right to append data into the file or named pipe. &#39;kFileReadEa&#39; indicates the right to read the extended attributes of the file or named pipe. &#39;kFileWriteEa&#39; indicates the right to write or change the extended attributes to the file or named pipe. &#39;kFileExecute&#39; indicates the right to delete entries within a directory. &#39;kFileDeleteChild&#39; indicates the right to execute the file. &#39;kFileReadAttributes&#39; indicates the right to read the attributes of the file. &#39;kFileWriteAttributes&#39; indicates the right to change the attributes of the file. &#39;kDelete&#39; indicates the right to delete the file. &#39;kReadControl&#39; indicates the right to read the security descriptor for the file or named pipe. &#39;kWriteDac&#39; indicates the right to change the discretionary access control list (DACL) in the security descriptor for the file or named pipe. For the DACL data structure, see ACL in [MS-DTYP]. &#39;kWriteOwner&#39; indicates the right to change the owner in the security descriptor for the file or named pipe. &#39;kSynchronize&#39; is used only by SMB2 clients. &#39;kAccessSystemSecurity&#39; indicates the right to read or change the system access control list (SACL) in the security descriptor for the file or named pipe. For the SACL data structure, see ACL in [MS-DTYP].&lt;42&gt; &#39;kMaximumAllowed&#39; indicates that the client is requesting an open to the file with the highest level of access the client has on this file. If no access is granted for the client on this file, the server MUST fail the open with STATUS_ACCESS_DENIED. &#39;kGenericAll&#39; indicates a request for all the access flags that are previously listed except kMaximumAllowed and kAccessSystemSecurity. &#39;kGenericExecute&#39; indicates a request for the following combination of access flags listed above: kFileReadAttributes| kFileExecute| kSynchronize| kReadControl. &#39;kGenericWrite&#39; indicates a request for the following combination of access flags listed above: kFileWriteData| kFileAppendData| kFileWriteAttributes| kFileWriteEa| kSynchronize| kReadControl. &#39;kGenericRead&#39; indicates a request for the following combination of access flags listed above: kFileReadData| kFileReadAttributes| kFileReadEa| kSynchronize| kReadControl..</param>
+        /// <param name="leaseInfo">leaseInfo.</param>
         /// <param name="openId">Specifies the id of the active open..</param>
         /// <param name="othersCanDelete">Specifies whether others are allowed to delete..</param>
         /// <param name="othersCanRead">Specifies whether others are allowed to read..</param>
         /// <param name="othersCanWrite">Specifies whether others are allowed to write..</param>
-        public SmbActiveOpen(List<AccessInfoListEnum> accessInfoList = default(List<AccessInfoListEnum>), long? openId = default(long?), bool? othersCanDelete = default(bool?), bool? othersCanRead = default(bool?), bool? othersCanWrite = default(bool?))
+        public SmbActiveOpen(List<AccessInfoListEnum> accessInfoList = default(List<AccessInfoListEnum>), SmbLeaseInfo leaseInfo = default(SmbLeaseInfo), long? openId = default(long?), bool? othersCanDelete = default(bool?), bool? othersCanRead = default(bool?), bool? othersCanWrite = default(bool?))
         {
             this.AccessInfoList = accessInfoList;
             this.OpenId = openId;
@@ -171,12 +172,19 @@ namespace Cohesity.Model
             this.OthersCanRead = othersCanRead;
             this.OthersCanWrite = othersCanWrite;
             this.AccessInfoList = accessInfoList;
+            this.LeaseInfo = leaseInfo;
             this.OpenId = openId;
             this.OthersCanDelete = othersCanDelete;
             this.OthersCanRead = othersCanRead;
             this.OthersCanWrite = othersCanWrite;
         }
         
+        /// <summary>
+        /// Gets or Sets LeaseInfo
+        /// </summary>
+        [DataMember(Name="leaseInfo", EmitDefaultValue=false)]
+        public SmbLeaseInfo LeaseInfo { get; set; }
+
         /// <summary>
         /// Specifies the id of the active open.
         /// </summary>
@@ -246,6 +254,11 @@ namespace Cohesity.Model
                     this.AccessInfoList.SequenceEqual(input.AccessInfoList)
                 ) && 
                 (
+                    this.LeaseInfo == input.LeaseInfo ||
+                    (this.LeaseInfo != null &&
+                    this.LeaseInfo.Equals(input.LeaseInfo))
+                ) && 
+                (
                     this.OpenId == input.OpenId ||
                     (this.OpenId != null &&
                     this.OpenId.Equals(input.OpenId))
@@ -277,6 +290,8 @@ namespace Cohesity.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.AccessInfoList.GetHashCode();
+                if (this.LeaseInfo != null)
+                    hashCode = hashCode * 59 + this.LeaseInfo.GetHashCode();
                 if (this.OpenId != null)
                     hashCode = hashCode * 59 + this.OpenId.GetHashCode();
                 if (this.OthersCanDelete != null)

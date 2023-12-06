@@ -11,5 +11,6 @@ namespace Cohesity.Powershell.Common
         public const string HttpHeaderUserAgent     = "User-Agent";
         public const string HttpHeaderAuthorization = "Authorization";
         public const string HttpHeaderAPIKey = "apiKey";
+        public const string HttpHeaderSessionId = "session-id";
     }
 }

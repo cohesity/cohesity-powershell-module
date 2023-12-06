@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.Core.dll'
 
 # Version number of this module.
-ModuleVersion = '1.7.6'
+ModuleVersion = '1.9.5'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -50,7 +50,7 @@ Description = 'Cohesity PowerShell Module provides cmdlets to manage and create 
 # RequiredModules = @('Newtonsoft.Json.dll')
 
 # Assemblies that must be loaded prior to importing this module
- RequiredAssemblies = @('TimeZoneConverter.dll')
+# RequiredAssemblies = @('TimeZoneConverter.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -75,6 +75,8 @@ FunctionsToExport = @(
                     'Copy-CohesityMSSQLObject',
                     'Copy-CohesityView',
                     'Copy-CohesityVMwareVM',
+                    'Find-CohesityFileSnapshot',
+                    'Find-CohesityRemoteRestFileSnapshot',
                     'Get-CohesityActiveDirectory',
                     'Get-CohesityCmdletConfig',
                     'Get-CohesityExternalClient',
@@ -130,7 +132,10 @@ FunctionsToExport = @(
                     'Remove-CohesityVirtualIP',
                     'Remove-CohesityVlan',
                     'Restore-CohesityBackupToView',
+                    'Restore-CohesityFileV2'                    
                     'Restore-CohesityRemoteFile',
+                    'Restore-CohesityRemoteFileV2',
+                    'Restore-CohesityOracleDatabase',
                     'Restore-CohesityRemoteMSSQLObject',
                     'Restore-CohesityRemoteMSSQLObject-Wrapper',
                     'Restore-CohesityVMwareVM',
@@ -140,7 +145,7 @@ FunctionsToExport = @(
                     'Set-CohesityCmdletConfig',
                     'Set-CohesityProtectionJob',
                     'Set-CohesityProtectionPolicy',
-                    'Set-CohesityProtectionSource'
+                    'Set-CohesityProtectionSource',
                     'Set-CohesitySnapshotRetention',
                     'Set-CohesityStorageDomain',
                     'Set-CohesityUser',
@@ -163,6 +168,7 @@ CmdletsToExport = @('Add-CohesityViewShare',
                     'Enable-CohesityProtectionJob',
                     'Find-CohesityFilesForRestore',
                     'Find-CohesityObjectsForRestore',
+                    'Get-CohesityAgentStatus',
                     'Get-CohesityAlert',
                     'Get-CohesityAlertResolution',
                     'Get-CohesityAuditLog',

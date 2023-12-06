@@ -26,16 +26,19 @@ namespace Cohesity.Model
         /// <param name="copyRunTargets">Specifies the retention for archival, replication or extended local retention..</param>
         /// <param name="jobUid">Specifies a unique universal id for the Job..</param>
         /// <param name="runStartTimeUsecs">Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required..</param>
+        /// <param name="runType">Specifies the run type of the selected job..</param>
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
-        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
+        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), string runType = default(string), List<long> sourceIds = default(List<long>))
         {
             this.CopyRunTargets = copyRunTargets;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
+            this.RunType = runType;
             this.SourceIds = sourceIds;
             this.CopyRunTargets = copyRunTargets;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
+            this.RunType = runType;
             this.SourceIds = sourceIds;
         }
         
@@ -59,6 +62,13 @@ namespace Cohesity.Model
         /// <value>Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required.</value>
         [DataMember(Name="runStartTimeUsecs", EmitDefaultValue=true)]
         public long? RunStartTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Specifies the run type of the selected job.
+        /// </summary>
+        /// <value>Specifies the run type of the selected job.</value>
+        [DataMember(Name="runType", EmitDefaultValue=true)]
+        public string RunType { get; set; }
 
         /// <summary>
         /// Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.
@@ -120,6 +130,11 @@ namespace Cohesity.Model
                     this.RunStartTimeUsecs.Equals(input.RunStartTimeUsecs))
                 ) && 
                 (
+                    this.RunType == input.RunType ||
+                    (this.RunType != null &&
+                    this.RunType.Equals(input.RunType))
+                ) && 
+                (
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
@@ -142,6 +157,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
                 if (this.RunStartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.RunStartTimeUsecs.GetHashCode();
+                if (this.RunType != null)
+                    hashCode = hashCode * 59 + this.RunType.GetHashCode();
                 if (this.SourceIds != null)
                     hashCode = hashCode * 59 + this.SourceIds.GetHashCode();
                 return hashCode;

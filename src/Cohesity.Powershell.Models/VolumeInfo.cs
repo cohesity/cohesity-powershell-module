@@ -32,9 +32,12 @@ namespace Cohesity.Model
         /// <param name="isDedup">Is this a dedup volume? Currently, set to true only for ntfs dedup volume..</param>
         /// <param name="isSupported">Is this a supported Volume (filesystem)?.</param>
         /// <param name="lvInfo">lvInfo.</param>
+        /// <param name="subvolInfo">subvolInfo.</param>
         /// <param name="volumeGuid">The guid of the volume represented by this virtual disk. This information will be originally populated by magneto for physical environments..</param>
+        /// <param name="volumeIdentifier">We assign a unique number to every volume within a VM which we see for the first time. The identifier will be monotonically increasing number startin from 1..</param>
+        /// <param name="volumeSourceType">The source type of the volume. This field is typically stamped before processing volume and used to customize process behavior like rpc timeout, max retries, mount options, etc..</param>
         /// <param name="volumeType">Whether this volume is simple, lvm or ldm..</param>
-        public VolumeInfo(List<VolumeInfoDiskInfo> diskVec = default(List<VolumeInfoDiskInfo>), string displayName = default(string), string filesystemType = default(string), string fsLabel = default(string), string fsUuid = default(string), bool? isBootable = default(bool?), bool? isDedup = default(bool?), bool? isSupported = default(bool?), VolumeInfoLogicalVolumeInfo lvInfo = default(VolumeInfoLogicalVolumeInfo), string volumeGuid = default(string), int? volumeType = default(int?))
+        public VolumeInfo(List<VolumeInfoDiskInfo> diskVec = default(List<VolumeInfoDiskInfo>), string displayName = default(string), string filesystemType = default(string), string fsLabel = default(string), string fsUuid = default(string), bool? isBootable = default(bool?), bool? isDedup = default(bool?), bool? isSupported = default(bool?), VolumeInfoLogicalVolumeInfo lvInfo = default(VolumeInfoLogicalVolumeInfo), VolumeInfoSubVolumeInfo subvolInfo = default(VolumeInfoSubVolumeInfo), string volumeGuid = default(string), int? volumeIdentifier = default(int?), int? volumeSourceType = default(int?), int? volumeType = default(int?))
         {
             this.DiskVec = diskVec;
             this.DisplayName = displayName;
@@ -45,6 +48,8 @@ namespace Cohesity.Model
             this.IsDedup = isDedup;
             this.IsSupported = isSupported;
             this.VolumeGuid = volumeGuid;
+            this.VolumeIdentifier = volumeIdentifier;
+            this.VolumeSourceType = volumeSourceType;
             this.VolumeType = volumeType;
             this.DiskVec = diskVec;
             this.DisplayName = displayName;
@@ -55,7 +60,10 @@ namespace Cohesity.Model
             this.IsDedup = isDedup;
             this.IsSupported = isSupported;
             this.LvInfo = lvInfo;
+            this.SubvolInfo = subvolInfo;
             this.VolumeGuid = volumeGuid;
+            this.VolumeIdentifier = volumeIdentifier;
+            this.VolumeSourceType = volumeSourceType;
             this.VolumeType = volumeType;
         }
         
@@ -122,11 +130,31 @@ namespace Cohesity.Model
         public VolumeInfoLogicalVolumeInfo LvInfo { get; set; }
 
         /// <summary>
+        /// Gets or Sets SubvolInfo
+        /// </summary>
+        [DataMember(Name="subvolInfo", EmitDefaultValue=false)]
+        public VolumeInfoSubVolumeInfo SubvolInfo { get; set; }
+
+        /// <summary>
         /// The guid of the volume represented by this virtual disk. This information will be originally populated by magneto for physical environments.
         /// </summary>
         /// <value>The guid of the volume represented by this virtual disk. This information will be originally populated by magneto for physical environments.</value>
         [DataMember(Name="volumeGuid", EmitDefaultValue=true)]
         public string VolumeGuid { get; set; }
+
+        /// <summary>
+        /// We assign a unique number to every volume within a VM which we see for the first time. The identifier will be monotonically increasing number startin from 1.
+        /// </summary>
+        /// <value>We assign a unique number to every volume within a VM which we see for the first time. The identifier will be monotonically increasing number startin from 1.</value>
+        [DataMember(Name="volumeIdentifier", EmitDefaultValue=true)]
+        public int? VolumeIdentifier { get; set; }
+
+        /// <summary>
+        /// The source type of the volume. This field is typically stamped before processing volume and used to customize process behavior like rpc timeout, max retries, mount options, etc.
+        /// </summary>
+        /// <value>The source type of the volume. This field is typically stamped before processing volume and used to customize process behavior like rpc timeout, max retries, mount options, etc.</value>
+        [DataMember(Name="volumeSourceType", EmitDefaultValue=true)]
+        public int? VolumeSourceType { get; set; }
 
         /// <summary>
         /// Whether this volume is simple, lvm or ldm.
@@ -218,9 +246,24 @@ namespace Cohesity.Model
                     this.LvInfo.Equals(input.LvInfo))
                 ) && 
                 (
+                    this.SubvolInfo == input.SubvolInfo ||
+                    (this.SubvolInfo != null &&
+                    this.SubvolInfo.Equals(input.SubvolInfo))
+                ) && 
+                (
                     this.VolumeGuid == input.VolumeGuid ||
                     (this.VolumeGuid != null &&
                     this.VolumeGuid.Equals(input.VolumeGuid))
+                ) && 
+                (
+                    this.VolumeIdentifier == input.VolumeIdentifier ||
+                    (this.VolumeIdentifier != null &&
+                    this.VolumeIdentifier.Equals(input.VolumeIdentifier))
+                ) && 
+                (
+                    this.VolumeSourceType == input.VolumeSourceType ||
+                    (this.VolumeSourceType != null &&
+                    this.VolumeSourceType.Equals(input.VolumeSourceType))
                 ) && 
                 (
                     this.VolumeType == input.VolumeType ||
@@ -256,8 +299,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsSupported.GetHashCode();
                 if (this.LvInfo != null)
                     hashCode = hashCode * 59 + this.LvInfo.GetHashCode();
+                if (this.SubvolInfo != null)
+                    hashCode = hashCode * 59 + this.SubvolInfo.GetHashCode();
                 if (this.VolumeGuid != null)
                     hashCode = hashCode * 59 + this.VolumeGuid.GetHashCode();
+                if (this.VolumeIdentifier != null)
+                    hashCode = hashCode * 59 + this.VolumeIdentifier.GetHashCode();
+                if (this.VolumeSourceType != null)
+                    hashCode = hashCode * 59 + this.VolumeSourceType.GetHashCode();
                 if (this.VolumeType != null)
                     hashCode = hashCode * 59 + this.VolumeType.GetHashCode();
                 return hashCode;

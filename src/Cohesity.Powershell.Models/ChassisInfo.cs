@@ -24,17 +24,20 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ChassisInfo" /> class.
         /// </summary>
         /// <param name="chassisId">ChassisId is a unique id assigned to the chassis..</param>
-        /// <param name="chassisName">ChassisName is the name of the chassis. This could be the chassis serial number..</param>
+        /// <param name="chassisName">ChassisName is the name of the chassis. This could be the chassis serial number by default..</param>
+        /// <param name="chassisSerial">Chassis serial..</param>
         /// <param name="location">Location is the location of the chassis within the rack..</param>
         /// <param name="rackId">Rack is the rack within which this chassis lives..</param>
-        public ChassisInfo(long? chassisId = default(long?), string chassisName = default(string), string location = default(string), long? rackId = default(long?))
+        public ChassisInfo(long? chassisId = default(long?), string chassisName = default(string), string chassisSerial = default(string), string location = default(string), long? rackId = default(long?))
         {
             this.ChassisId = chassisId;
             this.ChassisName = chassisName;
+            this.ChassisSerial = chassisSerial;
             this.Location = location;
             this.RackId = rackId;
             this.ChassisId = chassisId;
             this.ChassisName = chassisName;
+            this.ChassisSerial = chassisSerial;
             this.Location = location;
             this.RackId = rackId;
         }
@@ -47,11 +50,18 @@ namespace Cohesity.Model
         public long? ChassisId { get; set; }
 
         /// <summary>
-        /// ChassisName is the name of the chassis. This could be the chassis serial number.
+        /// ChassisName is the name of the chassis. This could be the chassis serial number by default.
         /// </summary>
-        /// <value>ChassisName is the name of the chassis. This could be the chassis serial number.</value>
+        /// <value>ChassisName is the name of the chassis. This could be the chassis serial number by default.</value>
         [DataMember(Name="chassisName", EmitDefaultValue=true)]
         public string ChassisName { get; set; }
+
+        /// <summary>
+        /// Chassis serial.
+        /// </summary>
+        /// <value>Chassis serial.</value>
+        [DataMember(Name="chassisSerial", EmitDefaultValue=true)]
+        public string ChassisSerial { get; set; }
 
         /// <summary>
         /// Location is the location of the chassis within the rack.
@@ -114,6 +124,11 @@ namespace Cohesity.Model
                     this.ChassisName.Equals(input.ChassisName))
                 ) && 
                 (
+                    this.ChassisSerial == input.ChassisSerial ||
+                    (this.ChassisSerial != null &&
+                    this.ChassisSerial.Equals(input.ChassisSerial))
+                ) && 
+                (
                     this.Location == input.Location ||
                     (this.Location != null &&
                     this.Location.Equals(input.Location))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ChassisId.GetHashCode();
                 if (this.ChassisName != null)
                     hashCode = hashCode * 59 + this.ChassisName.GetHashCode();
+                if (this.ChassisSerial != null)
+                    hashCode = hashCode * 59 + this.ChassisSerial.GetHashCode();
                 if (this.Location != null)
                     hashCode = hashCode * 59 + this.Location.GetHashCode();
                 if (this.RackId != null)
