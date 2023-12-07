@@ -33,11 +33,11 @@ function Restore-CohesityRemoteMSSQLObject {
         [Parameter(Mandatory = $false)]
         # Specifies the name of the restore task.
         [string]$TaskName = "Restore-MSSQL-Object-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString(),
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the source id of the MS SQL database to restore. This can be obtained using Find-CohesityObjectsForRestore -Environments KSQL.
         [long]$SourceId,
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the id of MSSQL database instance.
         [long]$HostSourceId,
@@ -99,7 +99,16 @@ function Restore-CohesityRemoteMSSQLObject {
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the target host if the application is to be restored to a different host.
         # If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
-        [long]$TargetHostId
+        [long]$TargetHostId,
+        [Parameter(Mandatory = $false)]
+        # Specifies the SQL Host information
+        [string]$SqlHost,
+        [Parameter(Mandatory = $false)]
+        # Specifies the SQL Object Name
+        [string]$SqlObjectName,
+        [Parameter(Mandatory = $false)]
+        # Specifies the target host to restore
+        [string]$TargetHost
     )
     Begin {
     }
@@ -113,11 +122,26 @@ function Restore-CohesityRemoteMSSQLObject {
             }
 
             if ($job.IsActive -eq $false) {
+                if ($TargetHost) {
+                    # Find the Id of specified target host
+                    $protectionSources = Get-CohesityProtectionSource -Environments KSQL
+                    foreach ($record in $protectionSources) {
+                        if ($record.protectionSource.Name -eq $TargetHost) {
+                            $TargetHostId = $record.protectionSource.id
+                            break;
+                        }
+                    }
 
-                $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
-                if ($protectionSourceObject.id -ne $TargetHostId) {
-                    Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
-                    return
+                    if (!$TargetHostId){
+                        Write-Output "Unable to find the id of target host '$TargetHost'."
+                        return
+                    }
+                } elseif ($TargetHostId){
+                    $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
+                    if ($protectionSourceObject.id -ne $TargetHostId) {
+                        Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
+                        return
+                    }
                 }
 
                 $searchedVMDetails = $null
@@ -134,6 +158,22 @@ function Restore-CohesityRemoteMSSQLObject {
                         return
                     }
 
+                    if ($SqlHost) {
+                        $vmList = $searchVMResult.vms
+                        foreach ($vm in $vmList) {
+                            if ($vm.vmDocument.objectAliases[0] -eq $SqlHost) {
+                                $SourceId = $record.SnapshottedSource.Id
+                                $HostSourceId = $record.SnapshottedSource.ParentId
+                                break
+                            }
+                        }
+                    }
+
+                    if (!$SourceId) {
+                        Write-Output "Please provide source information."
+                        return
+                    }
+
                     $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId) }
 
                     if ($searchTotalCount -eq 0) {
@@ -142,8 +182,8 @@ function Restore-CohesityRemoteMSSQLObject {
                     }
 
                     if ($searchedVMDetails) {
-                        $errorMsg = "Found database with search index " + $searchIndex + ", and total item count " + $searchTotalCount
-                        CSLog -Message $errorMsg
+                        $infoMsg = "Found database with search index " + $searchIndex + ", and total item count " + $searchTotalCount
+                        CSLog -Message $infoMsg
                         $continuePagination = $false
                     }
 
@@ -164,11 +204,23 @@ function Restore-CohesityRemoteMSSQLObject {
                 }
 
                 if (-not $JobRunId) {
+                    # Identifying the JobRunId and StartTime based on the last known unexpired snapshot
+                    # here the curent system time should be less than the recent successful snapshot expiry time
                     $runs = Get-CohesityProtectionJobRun -JobId $JobId -ExcludeErrorRuns:$true
-                    $run = $runs[0]
-                    $JobRunId = $run.backupRun.jobRunId
-                    $StartTime = $run.backupRun.stats.startTimeUsecs
+                    foreach ($record in $runs) {
+
+                        $expiryEpocTime = $record.copyRun[0].expiryTimeUsecs
+                        $currentTime = Get-Date
+                        $currentEpocTime = Get-Date $currentTime -UFormat %s
+                        if ($currentEpocTime -le $expiryEpocTime) {
+
+                            $JobRunId = $record[0].backupRun.jobRunId
+                            $StartTime = $record.copyRun[0].runStartTimeUsecs
+                            break
+                        }
+                    }
                 }
+
                 if (-not $NewDatabaseName) {
                     $NewDatabaseName = $searchedVMDetails.vmDocument.objectId.entity.sqlEntity.databaseName
                 }
@@ -268,7 +320,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     alternateLocationParams         = @{}
                 }
 
-                if ($DbRestoreOverwritePolicy -eq $true)  {
+                if ($DbRestoreOverwritePolicy -eq $true) {
 
                     $sqlRestoreParams | Add-Member -NotePropertyName dbRestoreOverwritePolicy -NotePropertyValue "kOverwrite"
                 }

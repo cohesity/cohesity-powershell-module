@@ -136,7 +136,6 @@ FunctionsToExport = @(
                     'Restore-CohesityRemoteFile',
                     'Restore-CohesityRemoteFileV2',
                     'Restore-CohesityRemoteMSSQLObject',
-                    'Restore-CohesityRemoteMSSQLObject-Wrapper',
                     'Restore-CohesityOracleDatabase',
                     'Restore-CohesityVMwareVM',
                     'Save-CohesityFile',
