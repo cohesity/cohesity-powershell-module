@@ -16,6 +16,9 @@ function Restore-CohesityRemoteMSSQLObject {
         Get the source instance id, $mssqlObjects[0].SnapshottedSource.SqlProtectionSource.OwnerId
         Use the DbRestoreOverwritePolicy:$true for overriding the existing database
         .EXAMPLE
+        Restore-CohesityRemoteMSSQLObject -SqlHost x.x.x.x -JobId 31520 -SqlObjectName instance/databse_1 -TargetHost y.y.y.y -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
+        Restore MSSQL database from remote cluster with database name database_1 from the sql host x.x.x.x, and job id as 31520 to the target host y.y.y.y
+        .EXAMPLE
         Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
         Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
         .EXAMPLE
@@ -159,12 +162,19 @@ function Restore-CohesityRemoteMSSQLObject {
                     }
 
                     if ($SqlHost) {
+                        # Get the list of SQL objects that can be restored and fetch the id of the specified SQL host
+                        $sqlRecords = Find-CohesityObjectsForRestore -Environments KSQL -JobIds $JobId |  Where-Object { $_.ObjectName -eq $SqlObjectName }
+
                         $vmList = $searchVMResult.vms
                         foreach ($vm in $vmList) {
                             if ($vm.vmDocument.objectAliases[0] -eq $SqlHost) {
-                                $SourceId = $record.SnapshottedSource.Id
-                                $HostSourceId = $record.SnapshottedSource.ParentId
-                                break
+                                foreach ($record in $sqlRecords) {
+                                    if ($vm.vmDocument.objectId.entity.sqlEntity.ownerId -eq $record.SnapshottedSource.ParentId) {
+                                        $SourceId = $record.SnapshottedSource.Id
+                                        $HostSourceId = $record.SnapshottedSource.ParentId
+                                        break
+                                    }
+                                }
                             }
                         }
                     }
@@ -278,7 +288,7 @@ function Restore-CohesityRemoteMSSQLObject {
                 $MSSQL_OBJECT_RESTORE_TYPE = 3
                 $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
                 $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE = 1
-                $targetHost = [PSCustomObject]@{
+                $targetHostObject = [PSCustomObject]@{
                     id = $TargetHostId
                 }
                 $targetHostParentSource = $null
@@ -288,8 +298,8 @@ function Restore-CohesityRemoteMSSQLObject {
                         type = $MSSQL_TARGET_VMWARE_ENTITY_TYPE
                         name = $protectionSourceObject.vmWareProtectionSource.name
                     }
-                    $targetHost | Add-Member -NotePropertyName parentId -NotePropertyValue $protectionSourceObject.parentId
-                    $targetHost | Add-Member -NotePropertyName vmwareEntity -NotePropertyValue $vmwareEntity
+                    $targetHostObject | Add-Member -NotePropertyName parentId -NotePropertyValue $protectionSourceObject.parentId
+                    $targetHostObject | Add-Member -NotePropertyName vmwareEntity -NotePropertyValue $vmwareEntity
                     $targetHostParentSource = @{
                         id = $protectionSourceObject.parentId
                     }
@@ -304,9 +314,9 @@ function Restore-CohesityRemoteMSSQLObject {
                         hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
                         osName   = $protectionSourceObject.physicalProtectionSource.osName
                     }
-                    $targetHost | Add-Member -NotePropertyName physicalEntity -NotePropertyValue $physicalEntity
+                    $targetHostObject | Add-Member -NotePropertyName physicalEntity -NotePropertyValue $physicalEntity
                 }
-                $targetHost | Add-Member -NotePropertyName type -NotePropertyValue $MSSQL_TARGET_HOST_TYPE
+                $targetHostObject | Add-Member -NotePropertyName type -NotePropertyValue $MSSQL_TARGET_HOST_TYPE
 
                 $sqlRestoreParams = [PSCustomObject]@{
                     captureTailLogs                 = $CaptureTailLogs.IsPresent
@@ -333,7 +343,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     appEntity     = $searchedVMDetails.vmDocument.objectId.entity
                     restoreParams = @{
                         sqlRestoreParams       = $sqlRestoreParams
-                        targetHost             = $targetHost
+                        targetHost             = $targetHostObject
                         targetHostParentSource = $targetHostParentSource
                     }
                 }
