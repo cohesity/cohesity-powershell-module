@@ -1,5 +1,5 @@
 function Register-CohesityProtectionSourceHyperV {
-    <#
+  <#
         .SYNOPSIS
         Registers a new HyperV protection source with the Cohesity Cluster. The HyperV type can be a SCVMM server or HyperV Host.
         .DESCRIPTION
@@ -29,7 +29,10 @@ function Register-CohesityProtectionSourceHyperV {
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
     # User credentials for the SCVMM server.
-    [System.Management.Automation.PSCredential]$Credentials
+    [System.Management.Automation.PSCredential]$Credentials,
+    # Set to true, if result need to returned in object format
+    [Parameter(Position = 1, HelpMessage = "Return Output as Object", Mandatory = $false)]
+    [Switch]$ReturnObject
   )
 
   Begin {
@@ -37,7 +40,7 @@ function Register-CohesityProtectionSourceHyperV {
 
   Process {
 
-    $uri =  '/irisservices/api/v1/public/protectionSources/register'
+    $uri = '/irisservices/api/v1/public/protectionSources/register'
 
     if ($HyperVType -eq 'KSCVMMServer') {
       $reqParameters = @{
@@ -58,10 +61,16 @@ function Register-CohesityProtectionSourceHyperV {
 
     $columnWidth = 20
     $request = $reqParameters | ConvertTo-Json
-    Invoke-RestApi -Method Post -Uri $uri -Body $request |
-    Format-Table @{ Label = 'ID'; Expression = { $_.id }; },
-    @{ Label = 'Name'; Expression = { $_.name }; Width = $columnWidth; },
-    @{ Label = 'Environment'; Expression = { $_.environment }; Width = $columnWidth },
-    @{ Label = 'Type'; Expression = { $_.hypervProtectionSource.type }; Width = $columnWidth }
+    $result = Invoke-RestApi -Method Post -Uri $uri -Body $request
+
+    if ($ReturnObject -eq $true) {
+      return $result
+    }
+    else {
+      $result  | Format-Table @{ Label = 'ID'; Expression = { $_.id }; },
+      @{ Label = 'Name'; Expression = { $_.name }; Width = $columnWidth; },
+      @{ Label = 'Environment'; Expression = { $_.environment }; Width = $columnWidth },
+      @{ Label = 'Type'; Expression = { $_.hypervProtectionSource.type }; Width = $columnWidth }
+    }
   } # End of process
 } # End of function

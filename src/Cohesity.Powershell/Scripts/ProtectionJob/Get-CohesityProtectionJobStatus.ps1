@@ -54,6 +54,10 @@ function Get-CohesityProtectionJobStatus {
     #>
     [CmdletBinding()]
     Param(
+        [Parameter(
+            Position = 1,
+            HelpMessage = "Return Output as Object")]
+        [Switch]$ReturnObject
     )
 
     Begin {
@@ -146,13 +150,18 @@ function Get-CohesityProtectionJobStatus {
         }
 
         $columnWidth = 20
-        $protectionJobStatusList | Sort-Object  -Property startTime  -Descending |
-        Format-Table @{ Label = 'ID'; Expression = { $_.jobId }; },
-        @{ Label = 'NAME'; Expression = { $_.jobName }; Width = $columnWidth; },
-        @{ Label = 'REMOTE COPY'; Expression = { $_.remoteCopy }; Width = $columnWidth },
-        @{ Label = 'STARTED AT'; Expression = { $_.GetStartTime() }; Width = $columnWidth },
-        @{ Label = 'ESTIMATED TIME'; Expression = { $_.GetEstimatedTime() }; Width = $columnWidth },
-        @{ Label = 'COMPLETED(%)'; Expression = { $_.percentCompleted }; Width = $columnWidth }
+        if ($ReturnObject -eq $true) {
+            return $protectionJobStatusList
+        }
+        else {
+            $protectionJobStatusList | Sort-Object  -Property startTime  -Descending |
+            Format-Table @{ Label = 'ID'; Expression = { $_.jobId }; },
+            @{ Label = 'NAME'; Expression = { $_.jobName }; Width = $columnWidth; },
+            @{ Label = 'REMOTE COPY'; Expression = { $_.remoteCopy }; Width = $columnWidth },
+            @{ Label = 'STARTED AT'; Expression = { $_.GetStartTime() }; Width = $columnWidth },
+            @{ Label = 'ESTIMATED TIME'; Expression = { $_.GetEstimatedTime() }; Width = $columnWidth },
+            @{ Label = 'COMPLETED(%)'; Expression = { $_.percentCompleted }; Width = $columnWidth }
+        }
     }
 
     End {

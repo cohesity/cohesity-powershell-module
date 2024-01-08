@@ -23,6 +23,15 @@ Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSo
  [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+### SQL Host
+```
+Restore-CohesityRemoteMSSQLObject [-TaskName <String>] [-SqlHost <String>] [-SqlObjectName <String>] [-JobId <Int64>]
+ [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
+ [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
+ [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-DbRestoreOverwritePolicy] [-TargetHost <String>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 From remote cluster restores the specified MS SQL object from a previous backup.
 
@@ -33,7 +42,7 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
 ```
 
-Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
+Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520 with the latest recoverable snapshot information.
 $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
 Get the source id, $mssqlObjects\[0\].SnapshottedSource.Id
 Get the source instance id, $mssqlObjects\[0\].SnapshottedSource.SqlProtectionSource.OwnerId
@@ -57,6 +66,13 @@ $pattern1 = @{filePattern = "*.mdf"; targetDirectory = "c:\test"}
 $pattern2 = @{filePattern = "*.ldf"; targetDirectory = "c:\test1"}
 $patternList += $pattern1
 $patternList += $pattern2
+
+### EXAMPLE 4
+```
+Restore-CohesityRemoteMSSQLObject -SqlHost x.x.x.x -JobId 31520 -SqlObjectName instance/databse_1 -TargetHost y.y.y.y -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true        
+```
+
+Restore MSSQL database from remote cluster with database name database_1 from the sql host x.x.x.x, and job id as 31520 to the target host y.y.y.y with latest recoverable snapshot information.
 
 ## PARAMETERS
 
@@ -84,7 +100,7 @@ Type: Int64
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: 0
 Accept pipeline input: False
@@ -99,7 +115,7 @@ Type: Int64
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: 0
 Accept pipeline input: False
@@ -213,6 +229,51 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SqlHost
+Specifies the SQL host from which database need to be restored.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SqlObjectName
+Specifies the name of the SQL Object to be restored.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TargetHost
+Specifies the target host if the application is to be restored to a different host.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
