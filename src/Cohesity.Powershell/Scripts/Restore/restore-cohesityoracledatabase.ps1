@@ -31,6 +31,9 @@ function Restore-CohesityOracleDatabase {
         # Specifies the Oracle base directory path.
         [string]$OracleBase,
         [Parameter(Mandatory = $true)]
+        # Location to put the database files(datafiles, logfiles etc.).
+        [string]$DatabaseFileDestination,
+        [Parameter(Mandatory = $true)]
         # Specifies the id of Oracle source id to restore the database.
         [long]$TargetSourceId,
         [Parameter(Mandatory = $true)]
@@ -48,20 +51,35 @@ function Restore-CohesityOracleDatabase {
         [string]$CaptureTailLogs,
         [Parameter(Mandatory = $false)]
         # Specifies a new name for the restored database.
-        [string]$NewDatabaseName
+        [string]$NewDatabaseName,
+        [Parameter(Mandatory = $false)]
+        [ValidateRange(2, [long]::MaxValue)]
+        # Number of redo log groups.
+        [long]$NumRedoLogGroup,
+        [Parameter(Mandatory = $false)]
+        # List of members of this redo log group.
+        [string[]]$RedoLogMemberPath,
+        [Parameter(Mandatory = $false)]
+        # Log member name prefix.
+        [string]$RedoLogMemberPrefix,
+        [Parameter(Mandatory = $false)]
+        [ValidateRange(1, [long]::MaxValue)]
+        # Size of the member in MB.
+        [long]$RedoLogSizeInMb,
+        [Parameter(Mandatory = $false)]
+        [ValidateRange(1, [long]::MaxValue)]
+        # Specifies no. of tempfiles to be used for the recovered database.
+        [long]$NumTempFiles
     )
     Begin {
     }
 
     Process {
         $resp = Get-CohesityProtectionSource -Name $SourceName
-        if ($resp -eq $null) {
+        if ($null -eq $resp) {
             write-output ("Source " + $SourceName + " is not available")
             return
         }
-    
-        write-output $resp | convertto-json -depth 100
-        write-output $resp.rootNode.id
 
         $SourceId = $resp.rootNode.id
         if ($PSCmdlet.ShouldProcess($SourceId)) {
@@ -90,7 +108,7 @@ function Restore-CohesityOracleDatabase {
             }
             $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectAliases -contains $SourceName) }
             write-output $searchResult.vms[0].vmDocument.objectAliases
-            if ($searchedVMDetails -eq $null) {
+            if ($null -eq $searchedVMDetails) {
                 write-output "Failed to fetch VM details of source"
             }
 
@@ -107,9 +125,11 @@ function Restore-CohesityOracleDatabase {
             $OracleDbConfig = @{
                 controlFilePathVec   = @()
                 enableArchiveLogMode = $True
+                numTempfiles         = $NumTempFiles
                 redoLogConf          = @{
-                    groupMemberVec = @()
-                    memberPrefix   = "redo"
+                    groupMemberVec = @($RedoLogMemberPath)
+                    memberPrefix   = $RedoLogMemberPrefix
+                    numGroups      = $NumRedoLogGroup
                     sizeMb         = 20
                 }
                 fraSizeMb            = $fraSizeMb
@@ -132,7 +152,7 @@ function Restore-CohesityOracleDatabase {
                 $alternateLocationParams | add-member -type noteproperty -name homeDir -value $OracleHome
                 $alternateLocationParams | add-member -type noteproperty -name baseDir -value $OracleBase
                 $alternateLocationParams | add-member -type noteproperty -name oracleDbConfig -value $OracleDbConfig
-                $alternateLocationParams | add-member -type noteproperty -name databaseFileDestination -value $OracleHome
+                $alternateLocationParams | add-member -type noteproperty -name databaseFileDestination -value $DatabaseFileDestination
 
                 #$oracleRestoreParams | Add-Member  -Name alternateLocationParams -value $alternateLocationParams -memberType NoteProperty
 
