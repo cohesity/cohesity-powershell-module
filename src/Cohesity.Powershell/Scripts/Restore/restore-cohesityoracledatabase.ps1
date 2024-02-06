@@ -30,7 +30,7 @@ function Restore-CohesityOracleDatabase {
         [Parameter(Mandatory = $true)]
         # Specifies the Oracle base directory path.
         [string]$OracleBase,
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         # Location to put the database files(datafiles, logfiles etc.).
         [string]$DatabaseFileDestination,
         [Parameter(Mandatory = $true)]
@@ -99,7 +99,6 @@ function Restore-CohesityOracleDatabase {
             $searchedVMDetails = $null
                 
             $searchURL = '/irisservices/api/v1/searchvms?entityTypes=kOracle&jobIds=' + $JobId + '&vmName=' + $SourceDatabaseName
-            Write-Output $searchURL
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
 
             if ($Global:CohesityAPIStatus.StatusCode -ne 200) {
@@ -107,7 +106,7 @@ function Restore-CohesityOracleDatabase {
                 return
             }
             $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectAliases -contains $SourceName) }
-            write-output $searchResult.vms[0].vmDocument.objectAliases
+
             if ($null -eq $searchedVMDetails) {
                 write-output "Failed to fetch VM details of source"
             }
@@ -122,6 +121,7 @@ function Restore-CohesityOracleDatabase {
                     }
                 }
             }
+
             $OracleDbConfig = @{
                 controlFilePathVec   = @()
                 enableArchiveLogMode = $True
@@ -139,7 +139,6 @@ function Restore-CohesityOracleDatabase {
                 $NewDatabaseName = $SourceDatabaseName
             }
             $jobUid = $searchedVMDetails.vmDocument.objectId.jobUid
-            write-output $searchedVMDetails
 
             $oracleRestoreParams = [PSCustomObject]@{
                 captureTailLogs = $true
@@ -147,6 +146,8 @@ function Restore-CohesityOracleDatabase {
             $restoreParams = [PSCustomObject]@{}
             $alternateLocationParams = $null
             if (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName)) {
+                $dbfileDest = if ($DatabaseFileDestination) { $DatabaseFileDestination } else { $OracleHome }
+
                 $alternateLocationParams = [PSCustomObject]@{}
                 $alternateLocationParams | add-member -type noteproperty -name newDatabaseName  -value $NewDatabaseName
                 $alternateLocationParams | add-member -type noteproperty -name homeDir -value $OracleHome
@@ -167,20 +168,18 @@ function Restore-CohesityOracleDatabase {
 
             $oracleRestoreParams | Add-Member  -Name alternateLocationParams -value $alternateLocationParams -memberType NoteProperty
             $restoreParams | add-member -type noteproperty -name oracleRestoreParams -value $oracleRestoreParams 
-            write-output $oracleRestoreParams | ConvertTo-Json -Depth 100
 
-            write-output $oracleRestoreParams | ConvertTo-Json -Depth 100
-            write-output $restoreParams | ConvertTo-Json -Depth 100
-            write-output  (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName))
-
+            # write-output $oracleRestoreParams | ConvertTo-Json -Depth 100
+            # write-output $restoreParams | ConvertTo-Json -Depth 100
+            # write-output  (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName))
 
             $restoreAppObject = [PSCustomObject]@{
                 appEntity     = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.entity
                 restoreParams = [PSCustomObject] $restoreParams
             
             }
-            write-output $restoreAppObject | ConvertTo-Json -Depth 100
-            write-output $restoreParams | ConvertTo-Json -Depth 100
+            # write-output $restoreAppObject | ConvertTo-Json -Depth 100
+            # write-output $restoreParams | ConvertTo-Json -Depth 100
 
             $payload = [PSCustomObject]@{
                 action           = "kRecoverApp"
