@@ -10,10 +10,16 @@ function Restore-CohesityOracleDatabase {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Restore-CohesityOracleDatabase -SourceName "x.x.x.x" -TargetSourceId 123 -JobId 456 -SourceDatabaseName "database_1" -OracleHome "/u01/app/oracle/product/19c/db_1" -OracleBase "/u01/app/oracle" -DatabaseFileDestination "/u01/app/oracle/product" -NewDatabaseName "database_new"
-        Restore Oracle database "database_1" with latest snapshot in specified database file destination in the target oracle source with an id 123
+        Restore oracle database "database_1" with latest snapshot in specified database file destination in the target oracle source with an id 123
         .EXAMPLE
         Restore-CohesityOracleDatabase -SourceName "x.x.x.x" -TargetSourceId 123 -JobId 456 -SourceDatabaseName "database_1" -OracleHome "/u01/app/oracle/product/19c/db_1" -OracleBase "/u01/app/oracle" -NewDatabaseName "database_new" -JobRunId 789
-        Restore Oracle database "database_1" with mentioned job run id, in the target oracle source with an id 123
+        Restore oracle database "database_1" with mentioned job run id, in the target oracle source with an id 123
+        .EXAMPLE
+        Restore-CohesityOracleDatabase -SourceName "x.x.x.x" -TargetSourceId 1 -JobId 456 -SourceDatabaseName "database_1" -OracleHome "/u01/app/oracle/product/19c/db_1" -OracleBase "/u01/app/oracle"
+        Restore oracle database "database_1" to an original location
+        .EXAMPLE
+        Restore-CohesityOracleDatabase -SourceName "x.x.x.x" -TargetSourceId 123 -JobId 456 -SourceDatabaseName "database_1" -OracleHome "/u01/app/oracle/product/19c/db_1" -OracleBase "/u01/app/oracle" -NewDatabaseName "database_new" -JobRunId 789 -NumRedoLogGroup 2 -RedoLogSizeInMb 21 -RedoLogMemberPath /u01,/u01/app -RedoLogMemberPrefix "test" -NumTempFiles 5
+        Restore oracle database "database_1" with mentioned job run id, in the target oracle source with an id 123 with specified redo log group settings
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -120,13 +126,6 @@ function Restore-CohesityOracleDatabase {
 
             # If snapshot details(JobRunId & StartTime) not provided, then fetch the latest snapshot details of provided job id
             if (-not $JobRunId -or -not $StartTime) {
-                # $runs = Get-CohesityProtectionJobRun -JobId $JobId -ExcludeErrorRuns:$true
-                # foreach ($run in $runs) {
-                #     if ($run.backupRun.status -eq "kSuccess") {
-                #         $JobRunId = $run.backupRun.jobRunId
-                #         $StartTime = $run.backupRun.stats.startTimeUsecs
-                #     }
-                # }
                 $snapshotURL = '/irisservices/api/v1/public/restore/objects?search=' + $SourceDatabaseName + '&jobIds=' + $JobId
                 $snapshotResult = Invoke-RestApi -Method Get -Uri $snapshotURL
 
@@ -169,7 +168,7 @@ function Restore-CohesityOracleDatabase {
                     groupMemberVec = @($RedoLogMemberPath)
                     memberPrefix   = $RedoLogMemberPrefix
                     numGroups      = $NumRedoLogGroup
-                    sizeMb         = 20
+                    sizeMb         = if ($RedoLogSizeInMb) { $RedoLogSizeInMb } else { 20 }
                 }
                 fraSizeMb            = $fraSizeMb
             }
@@ -182,9 +181,13 @@ function Restore-CohesityOracleDatabase {
             $oracleRestoreParams = [PSCustomObject]@{
                 captureTailLogs = $true
             }
+
+            # Required restore parameters for restoring database to alternate location
             $restoreParams = [PSCustomObject]@{}
             $alternateLocationParams = $null
+ 
             if (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName)) {
+                Write-Output "Restoring database '$SourceDatabaseName' to an alternate location."
                 $dbfileDest = if ($DatabaseFileDestination) { $DatabaseFileDestination } else { $OracleHome }
 
                 $alternateLocationParams = [PSCustomObject]@{}
@@ -194,31 +197,21 @@ function Restore-CohesityOracleDatabase {
                 $alternateLocationParams | add-member -type noteproperty -name oracleDbConfig -value $OracleDbConfig
                 $alternateLocationParams | add-member -type noteproperty -name databaseFileDestination -value $dbfileDest
 
-                #$oracleRestoreParams | Add-Member  -Name alternateLocationParams -value $alternateLocationParams -memberType NoteProperty
-
-                #$restoreParams | Add-Member -name targetHost  -Type NoteProperty -Value @{
-                #    id = $TargetSourceId
-                #
-                $restoreParams | Add-Member -name targetHost  -Type NoteProperty -Value @{
+                $restoreParams | Add-Member -name targetHost -Type NoteProperty -Value @{
                     id = $TargetSourceId
                 }           
+            } else {
+                Write-Output "Restoring database '$SourceDatabaseName' to an original location."
             }
-           
 
             $oracleRestoreParams | Add-Member  -Name alternateLocationParams -value $alternateLocationParams -memberType NoteProperty
-            $restoreParams | add-member -type noteproperty -name oracleRestoreParams -value $oracleRestoreParams 
-
-            # write-output $oracleRestoreParams | ConvertTo-Json -Depth 100
-            # write-output $restoreParams | ConvertTo-Json -Depth 100
-            # write-output  (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName))
+            $restoreParams | Add-member -type noteproperty -name oracleRestoreParams -value $oracleRestoreParams
 
             $restoreAppObject = [PSCustomObject]@{
                 appEntity     = [PSCustomObject]$searchDatabaseDetails.vmDocument.objectId.entity
-                restoreParams = [PSCustomObject] $restoreParams
+                restoreParams = [PSCustomObject]$restoreParams
             
             }
-            # write-output $restoreAppObject | ConvertTo-Json -Depth 100
-            # write-output $restoreParams | ConvertTo-Json -Depth 100
 
             # Initialize variable required for restore
             $ORACLE_OBJECT_RESTORE_TYPE = 19
