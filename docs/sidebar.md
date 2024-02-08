@@ -145,6 +145,7 @@
 - [Find-CohesityRemoteFileSnapshot](cmdlets-reference/find-cohesityremotefilesnapshot.md)
 - [Find-CohesityObjectsForRestore](cmdlets-reference/find-cohesityobjectsforrestore.md)
 - [Restore-CohesityMSSQLObject](cmdlets-reference/restore-cohesitymssqlobject.md)
+- [Restore-CohesityOracleDatabase](cmdlets-reference/restore-cohesityoracledatabase.md)
 - [Restore-CohesityRemoteMSSQLObject](cmdlets-reference/restore-cohesityremotemssqlobject.md)
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 - [Restore-CohesityHyperVVM](cmdlets-reference/restore-cohesityhypervvm.md)
