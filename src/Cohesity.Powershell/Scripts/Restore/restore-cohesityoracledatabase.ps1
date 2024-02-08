@@ -136,7 +136,8 @@ function Restore-CohesityOracleDatabase {
 
                 if ($snapshotResult -and $snapshotResult.totalCount -ne 0) {
                     $snapshotDetail = $null
-                    $snapshotDetail = $snapshotResult.objectSnapshotInfo | Where-Object {$_.SnapshottedSource.ParentId -eq $SourceId -and $_.SnapshottedSource.name -eq $SourceDatabaseName}
+                    $snapshotDetail = $snapshotResult.objectSnapshotInfo | Where-Object {$_.SnapshottedSource.ParentId -eq 
+                        $SourceId -and $_.SnapshottedSource.name -eq $SourceDatabaseName}
 
                     if ($null -ne $snapshotDetail){
                         if (-not $JobRunId){
