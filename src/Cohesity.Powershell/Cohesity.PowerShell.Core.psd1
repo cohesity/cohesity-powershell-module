@@ -76,6 +76,7 @@ FunctionsToExport = @(
                     'Copy-CohesityView',
                     'Copy-CohesityVMwareVM',
                     'Find-CohesityFileSnapshot',
+                    'Find-CohesityObjectSnapshot',
                     'Find-CohesityRemoteFileSnapshot',
                     'Get-CohesityActiveDirectory',
                     'Get-CohesityCmdletConfig',
