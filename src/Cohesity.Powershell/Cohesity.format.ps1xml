@@ -1794,6 +1794,71 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- System.Object.ObjectSnapshot Script based cmdlet -->
+    <View>
+      <Name>System.Object.ObjectSnapshot.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ObjectSnapshot</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshotTimestampUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ObjectName</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ObjectId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshotTargetType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RunType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ProtectionGroupName</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Id</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Snapshot Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Object Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Object Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Target Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Run Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Protection Group</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Object Snapshot Id</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
     <!-- System.Object.ProtectionPolicy Script based cmdlet -->
     <View>
       <Name>System.Object.ProtectionPolicy.TableView</Name>
