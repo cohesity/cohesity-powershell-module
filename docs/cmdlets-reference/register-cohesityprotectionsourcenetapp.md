@@ -6,7 +6,7 @@ Registers a new NetApp protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceNetApp -Server <String> -Credential <PSCredential> -Type <NetappTypeEnum>
+Register-CohesityProtectionSourceNetApp -Credential <PSCredential> -Server <string> -Type <NetappTypeEnum>
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Registers a new NetApp cluster with hostname "netapp-cluster.example.com" with t
 Hostname or IP Address for the NetApp cluster or Vserver.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

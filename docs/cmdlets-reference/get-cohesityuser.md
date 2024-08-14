@@ -6,7 +6,7 @@ Gets the users defined on the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityUser [-Names <String[]>] [-EmailAddresses <String[]>] [-Domain <String>] [<CommonParameters>]
+Get-CohesityUser [-Domain <string>] [-EmailAddresses <string[]>] [-Names <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Gets the details of all the users on the Cohesity Cluster.
 Specifies a list of user names to filter the results.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -56,7 +56,7 @@ Accept wildcard characters: False
 Specifies a list of email addresses to filter the results.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 Specifies the domain name to filter the results.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

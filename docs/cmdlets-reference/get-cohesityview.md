@@ -6,9 +6,9 @@ Gets a list of views filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityView [-IncludeInactive] [-MatchAliasNames] [-ViewNames <String[]>] [-ViewBoxIds <Int64[]>]
- [-ViewBoxNames <String[]>] [-MatchPartialNames] [-MaxCount <Int64>] [-MaxViewId <Int64>] [-JobIds <Int64[]>]
- [-SortByLogicalUsage] [-IncludeStats] [<CommonParameters>]
+Get-CohesityView [-IncludeInactive] [-IncludeStats] [-JobIds <long[]>] [-MatchAliasNames] [-MatchPartialNames]
+ [-MaxCount <long>] [-MaxViewId <long>] [-SortByLogicalUsage] [-ViewBoxIds <long[]>] [-ViewBoxNames <string[]>]
+ [-ViewNames <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 Filter by a list of View names.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -80,7 +80,7 @@ Accept wildcard characters: False
 Filter by a list of Storage Domains (View Boxes) specified by id.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 Filter by a list of View Box names.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -125,7 +125,7 @@ Accept wildcard characters: False
 Specifies a limit on the number of Views returned.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -140,7 +140,7 @@ Accept wildcard characters: False
 If the number of Views to return exceeds the MaxCount specified, specify the id of the last View from the viewList in the previous response to get the next set of Views.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -156,7 +156,7 @@ Filter by Protection Job ids.
 Return Views that are being protected by listed Jobs, which are specified by ids.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

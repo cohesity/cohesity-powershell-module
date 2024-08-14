@@ -6,7 +6,7 @@ Cancels a restore task.
 ## SYNTAX
 
 ```
-Stop-CohesityRestoreTask -Id <Int64> [<CommonParameters>]
+Stop-CohesityRestoreTask -Id <long> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Cancels a running restore task with Id 78.
 Specifies a unique id of the restore task.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 

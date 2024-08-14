@@ -6,7 +6,7 @@ Registers a new Nutanix Acropolis protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceAcropolis -Server <String> -Credential <PSCredential>
+Register-CohesityProtectionSourceAcropolis -Credential <PSCredential> -Server <string>
  [-EntityType <AcropolisTypeEnum>] [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Registers a new Nutanix Acropolis cluster with hostname "nutanix-ahv.example.com
 Hostname or IP Address for the Acropolis cluster.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

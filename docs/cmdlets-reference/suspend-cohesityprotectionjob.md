@@ -5,14 +5,14 @@ Pauses the future runs of the specified protection job.
 
 ## SYNTAX
 
-### ByName (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-Suspend-CohesityProtectionJob -Name <String> [<CommonParameters>]
+Suspend-CohesityProtectionJob -Id <long> [<CommonParameters>]
 ```
 
-### ById
+### UNNAMED_PARAMETER_SET_2
 ```
-Suspend-CohesityProtectionJob -Id <Int64> [<CommonParameters>]
+Suspend-CohesityProtectionJob -Name <string> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,8 +35,8 @@ Pauses a protection job with the Id of 1234.
 Specifies the unique id of the protection job.
 
 ```yaml
-Type: Int64
-Parameter Sets: ById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -50,8 +50,8 @@ Accept wildcard characters: False
 Specifies the name of the protection job.
 
 ```yaml
-Type: String
-Parameter Sets: ByName
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True

@@ -6,7 +6,7 @@ Converts the unix timestamp in microseconds to DateTime format.
 ## SYNTAX
 
 ```
-Convert-CohesityUsecsToDateTime -Usecs <Int64> [<CommonParameters>]
+Convert-CohesityUsecsToDateTime -Usecs <long> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Converts the unix timestamp in microseconds to its corresponding DateTime value 
 Timestamp in microseconds.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 

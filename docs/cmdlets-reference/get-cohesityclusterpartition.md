@@ -6,7 +6,7 @@ Gets a list of partitions in the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityClusterPartition [-Ids <Int64[]>] [-Names <String[]>] [<CommonParameters>]
+Get-CohesityClusterPartition [-Ids <long[]>] [-Names <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Gets a list of partitions in the Cohesity Cluster.
 Filter by a list of cluster partition ids.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -42,7 +42,7 @@ Accept wildcard characters: False
 Filter by a list of cluster partition names.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 

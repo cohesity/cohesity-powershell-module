@@ -5,26 +5,26 @@ Creates a new protection job.
 
 ## SYNTAX
 
-### CreateByName (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyName <String> [-ParentSourceId <Int64>]
- [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
- [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainName <String> [-ViewName <String>]
- [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [-EnableIndexing] [-PauseFutureRuns]
- [-EndTimeUsecs <Int64>] [-QosType <QosTypeEnum>] [-Priority <PriorityEnum>] [-AlertOn <AlertingPolicyEnum[]>]
- [-EmailAddress <String[]>] [<CommonParameters>]
+New-CohesityProtectionJob -Name <string> -PolicyId <string> -StorageDomainId <long>
+ [-AlertOn <AlertingPolicyEnum[]>] [-Description <string>] [-EmailAddress <string[]>] [-EnableIndexing]
+ [-EndTimeUsecs <long>] [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>]
+ [-ExcludeVmTagIds <long[]>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
+ [-ParentSourceId <long>] [-PauseFutureRuns] [-Priority <PriorityEnum>] [-QosType <QosTypeEnum>]
+ [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
+ [-Timezone <string>] [-ViewName <string>] [-VmTagIds <long[]>] [<CommonParameters>]
 ```
 
-### CreateById
+### UNNAMED_PARAMETER_SET_2
 ```
-New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyId <String> [-ParentSourceId <Int64>]
- [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
- [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainId <Int64> [-ViewName <String>]
- [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [-EnableIndexing] [-PauseFutureRuns]
- [-EndTimeUsecs <Int64>] [-QosType <QosTypeEnum>] [-Priority <PriorityEnum>] [-AlertOn <AlertingPolicyEnum[]>]
- [-EmailAddress <String[]>] [<CommonParameters>]
+New-CohesityProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string>
+ [-AlertOn <AlertingPolicyEnum[]>] [-Description <string>] [-EmailAddress <string[]>] [-EnableIndexing]
+ [-EndTimeUsecs <long>] [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>]
+ [-ExcludeVmTagIds <long[]>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
+ [-ParentSourceId <long>] [-PauseFutureRuns] [-Priority <PriorityEnum>] [-QosType <QosTypeEnum>]
+ [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
+ [-Timezone <string>] [-ViewName <string>] [-VmTagIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,7 +45,7 @@ Creates a protection job for protecting a Cohesity View.
 Specifies the name of the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 Specifies the description of the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -75,8 +75,8 @@ Accept wildcard characters: False
 Specifies the unique id of the protection policy associated with the protection job.
 
 ```yaml
-Type: String
-Parameter Sets: CreateById
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -90,8 +90,8 @@ Accept wildcard characters: False
 Specifies the name of the protection policy associated with the protection job.
 
 ```yaml
-Type: String
-Parameter Sets: CreateByName
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -105,7 +105,7 @@ Accept wildcard characters: False
 Specifies the unique id of the parent protection source (such as a vCenter server) protected by this protection job.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -120,7 +120,7 @@ Accept wildcard characters: False
 Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -137,7 +137,7 @@ Both leaf and non-leaf Objects may be specified in this list.
 An Object in this list must have its ancestor in the SourceIds list.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -152,7 +152,7 @@ Accept wildcard characters: False
 Specifies a list of VM tag ids to protect VMs with the corresponding tags.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -167,7 +167,7 @@ Accept wildcard characters: False
 Specifies a list of VM tag ids to exclude VMs with the corresponding tags.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -183,7 +183,7 @@ Specifies the timezone for this protection job.
 Must be a string in Olson time zone format such as "America/Los_Angeles".
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -204,7 +204,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 4/19/2023 12:34:48 AM
+Default value: 8/14/2024 3:29:08 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -213,8 +213,8 @@ Accept wildcard characters: False
 Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
-Type: Int64
-Parameter Sets: CreateById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -228,8 +228,8 @@ Accept wildcard characters: False
 Specifies the name of the storage domain associated with the protection job.
 
 ```yaml
-Type: String
-Parameter Sets: CreateByName
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -243,7 +243,7 @@ Accept wildcard characters: False
 Specifies the name of the View associated with the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -259,7 +259,7 @@ Specifies the number of minutes that a Job Run of a Full (no CBT) backup schedul
 A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -275,7 +275,7 @@ Specifies the number of minutes that a Job Run of a CBT-based backup schedule is
 A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -356,7 +356,7 @@ Accept wildcard characters: False
 Specifies the epoch time (in microseconds) after which the Protection Job becomes dormant.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -440,7 +440,7 @@ Accept wildcard characters: False
 Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 

@@ -6,7 +6,7 @@ Registers a new SMB file share as protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceSMB -MountPath <String> -Credential <PSCredential> [-SkipValidation <Boolean>]
+Register-CohesityProtectionSourceSMB -Credential <PSCredential> -MountPath <string> [-SkipValidation <bool>]
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Registers a new SMB file share with mount path "\\\\smb-server.example.com\share
 NFS Mount path.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -58,7 +58,7 @@ Accept wildcard characters: False
 Skip SMB validation registration
 
 ```yaml
-Type: Boolean
+Type: bool
 Parameter Sets: (All)
 Aliases:
 

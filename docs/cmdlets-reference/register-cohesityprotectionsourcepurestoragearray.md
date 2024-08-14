@@ -6,7 +6,7 @@ Registers a new Pure Storage array as a protection source.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourcePureStorageArray -Server <String> -Credential <PSCredential>
+Register-CohesityProtectionSourcePureStorageArray -Credential <PSCredential> -Server <string>
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Registers a new Pure Storage array with hostname "pure.example.com" with the Coh
 Hostname or IP Address for the Pure Storage array.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

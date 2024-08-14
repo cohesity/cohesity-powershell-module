@@ -6,10 +6,10 @@ Creates a new Cohesity View.
 ## SYNTAX
 
 ```
-New-CohesityView -Name <String> [-Description <String>] [-AccessProtocol <ProtocolAccessEnum>]
- [-QosPolicy <String>] -StorageDomainName <String> [-LogicalQuotaInBytes <Int64>] [-AlertQuotaInBytes <Int64>]
- [-CaseInsensitiveNames] [-BrowsableShares] [-SmbAccessBasedEnumeration] [-DisableInlineDedupAndCompression]
- [<CommonParameters>]
+New-CohesityView -Name <string> -StorageDomainName <string> [-AccessProtocol <ProtocolAccessEnum>]
+ [-AlertQuotaInBytes <long>] [-BrowsableShares] [-CaseInsensitiveNames] [-Description <string>]
+ [-DisableInlineDedupAndCompression] [-LogicalQuotaInBytes <long>] [-QosPolicy <string>]
+ [-SmbAccessBasedEnumeration] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ Creates a new Cohesity View only accessible via S3 protocol using Storage Domain
 Specifies the name of the View to be created.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 Specifies the description for this View.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -80,7 +80,7 @@ Specifies the Quality of Service (QoS) Policy for this View.
 If not specified, the default is 'Backup Target Low'
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 Specifies the Storage Domain name for this View.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -112,7 +112,7 @@ This limit is specified in bytes.
 If no value is specified, there is no limit.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -129,7 +129,7 @@ This limit is optional and is specified in bytes.
 If no value is specified, there is no limit.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 

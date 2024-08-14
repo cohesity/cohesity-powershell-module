@@ -6,9 +6,9 @@ Gets a list of audit logs generated on the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityAuditLog [-UserNames <String[]>] [-Domains <String[]>] [-EntityTypes <String[]>]
- [-Actions <String[]>] [-StartTime <Int64>] [-EndTime <Int64>] [-Search <String>] [-StartIndex <Int64>]
- [-PageCount <Int64>] [<CommonParameters>]
+Get-CohesityAuditLog [-Actions <string[]>] [-Domains <string[]>] [-EndTime <long>] [-EntityTypes <string[]>]
+ [-PageCount <long>] [-Search <string>] [-StartIndex <long>] [-StartTime <long>] [-UserNames <string[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +29,7 @@ All audit logs related to the username admin are displayed.
 Filter by user names who caused the actions that generate Cluster Audit Logs.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -44,7 +44,7 @@ Accept wildcard characters: False
 Filter by domains of users who caused the actions that trigger Cluster audit logs.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -59,7 +59,7 @@ Accept wildcard characters: False
 Filter by entity types involved in the actions that generate the Cluster audit logs, such as User, Protection Job, View, etc.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -74,7 +74,7 @@ Accept wildcard characters: False
 Filter by the actions that generate Cluster audit logs such as Activate, Cancel, Clone, Create, etc.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 Filter by start date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -104,7 +104,7 @@ Accept wildcard characters: False
 Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -119,7 +119,7 @@ Accept wildcard characters: False
 Filter by matching a substring in entity name or details of the Cluster audit logs.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -134,7 +134,7 @@ Accept wildcard characters: False
 Specifies an index number that can be used to return subsets of items in multiple requests.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -150,7 +150,7 @@ Limit the number of items to return in the response for pagination purposes.
 Default value is 1000.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 

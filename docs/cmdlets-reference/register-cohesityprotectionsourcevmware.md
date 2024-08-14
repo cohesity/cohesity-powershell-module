@@ -6,7 +6,7 @@ Registers a new VMware protection source.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceVMware -Server <String> -Type <VmwareTypeEnum> -Credential <PSCredential>
+Register-CohesityProtectionSourceVMware -Credential <PSCredential> -Server <string> -Type <VmwareTypeEnum>
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Registers a new vCenter server with hostname "vcenter.example.com" with the Cohe
 Hostname or IP Address for the vCenter server or ESXi server.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

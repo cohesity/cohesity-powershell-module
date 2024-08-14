@@ -5,25 +5,15 @@ Clones the specified VMware virtual machine.
 
 ## SYNTAX
 
-### Default (Default)
 ```
-Copy-CohesityVMwareVM [-TaskName <String>] -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
- [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork] [-PoweredOn] [-DatastoreFolderId <Int64>]
- [-NetworkId <Int64>] -ResourcePoolId <Int64> [-VmFolderId <Int64>] -NewParentId <Int64> [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
-### Jobrun
-```
-Copy-CohesityVMwareVM [-TaskName <String>] -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
- [-JobRunId <Int64>] [-StartTime <Int64>] [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork]
- [-PoweredOn] [-DatastoreFolderId <Int64>] [-NetworkId <Int64>] -ResourcePoolId <Int64> [-VmFolderId <Int64>]
- -NewParentId <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
+Copy-CohesityVMwareVM -JobId <long> -ResourcePoolId <long> -SourceId <long> -TargetViewName <string>
+ -TaskName <string> [-DatastoreFolderId <long>] [-DisableNetwork] [-JobRunId <long>] [-NetworkId <long>]
+ [-NewParentId <long>] [-PoweredOn] [-StartTime <long>] [-VmFolderId <long>] [-VmNamePrefix <string>]
+ [-VmNameSuffix <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Clones the specified VMware virtual machine.
-The cmdlet can copy VM from remote cluster as well.
 
 ## EXAMPLES
 
@@ -40,13 +30,13 @@ Clones the VMware virtual machine with the given source id using the latest run 
 Specifies the name of the clone task.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: "Copy-VMware-VM-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -55,7 +45,7 @@ Accept wildcard characters: False
 Specifies the name of the View where the cloned VM is stored.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -70,7 +60,7 @@ Accept wildcard characters: False
 Specifies the source id of the VM to be cloned.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -85,7 +75,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this VM and will be used for cloning.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -101,13 +91,13 @@ Specifies the job run id that captured the snapshot for this VM.
 If not specified the latest run is used.
 
 ```yaml
-Type: Int64
-Parameter Sets: Jobrun
+Type: long
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -118,13 +108,13 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: Int64
-Parameter Sets: Jobrun
+Type: long
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -133,7 +123,7 @@ Accept wildcard characters: False
 Specifies the prefix to add to the name of the cloned VM.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -148,7 +138,7 @@ Accept wildcard characters: False
 Specifies the suffix to add to the name of the cloned VM.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -194,13 +184,13 @@ Accept wildcard characters: False
 Specifies the folder where the datastore should be created when the VM is being cloned.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -211,13 +201,13 @@ By default, original network configuration is preserved if the VM is cloned unde
 Original network configuration is detached if the VM is cloned under a different vCenter or a different resource pool.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -226,13 +216,13 @@ Accept wildcard characters: False
 Specifies the resource pool where the VM should be cloned.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -242,13 +232,13 @@ Specifies the folder where the VM should be cloned.
 This is applicable only when the VM is being cloned to an alternate location.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -258,40 +248,9 @@ Specifies a new parent source such as vCenter to clone the VM.
 If not specified, the VM is cloned to its original parent source.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
 
 Required: False
 Position: Named
@@ -308,9 +267,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Published by Cohesity
 
 ## RELATED LINKS
-
-[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
-

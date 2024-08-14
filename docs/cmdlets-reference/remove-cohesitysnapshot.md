@@ -5,16 +5,14 @@ Removes the Cohesity snapshots associated with a Protection Job.
 
 ## SYNTAX
 
-### JobName (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-Remove-CohesitySnapshot -JobName <String> -JobRunId <Int64> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
-### ObjectModel
+### UNNAMED_PARAMETER_SET_2
 ```
-Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-CohesitySnapshot -JobName <string> -JobRunId <long> [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,7 +41,7 @@ The piped job object.
 
 ```yaml
 Type: ProtectionRunInstance
-Parameter Sets: ObjectModel
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -57,8 +55,8 @@ Accept wildcard characters: False
 The name of the Protection Job.
 
 ```yaml
-Type: String
-Parameter Sets: JobName
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -72,8 +70,8 @@ Accept wildcard characters: False
 The unique id of the Protection Job Run.
 
 ```yaml
-Type: Int64
-Parameter Sets: JobName
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -87,40 +85,9 @@ Accept wildcard characters: False
 Specifies the source ids to only expire snapshots belonging to those source ids.
 
 ```yaml
-Type: Int64[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
 
 Required: False
 Position: Named

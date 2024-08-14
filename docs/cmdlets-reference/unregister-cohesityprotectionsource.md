@@ -5,12 +5,12 @@ Unregisters the specified protection source from the Cohesity Cluster.
 
 ## SYNTAX
 
-### ById
+### UNNAMED_PARAMETER_SET_1
 ```
-Unregister-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
+Unregister-CohesityProtectionSource -Id <long> [<CommonParameters>]
 ```
 
-### ByObject
+### UNNAMED_PARAMETER_SET_2
 ```
 Unregister-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
@@ -33,8 +33,8 @@ Unregisters the given protection source.
 Specifies a unique id of the protection source.
 
 ```yaml
-Type: Int64
-Parameter Sets: ById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -49,7 +49,7 @@ Specifies a protection source object.
 
 ```yaml
 Type: ProtectionSourceNode
-Parameter Sets: ByObject
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True

@@ -6,7 +6,7 @@ Removes or tears down Cohesity instant mount volumes.
 ## SYNTAX
 
 ```
-Dismount-CohesityVolume -TaskId <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
+Dismount-CohesityVolume -TaskId <long> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Tears down the Cohesity instant mount volumes created by task id 1234.
 Specifies the task id that created the instant mount volumes to be removed.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -35,37 +35,6 @@ Required: True
 Position: Named
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

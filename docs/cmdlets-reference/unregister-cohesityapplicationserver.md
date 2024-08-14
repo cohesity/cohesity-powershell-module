@@ -5,12 +5,12 @@ Unregisters the application server (such as SQL) running on the specified protec
 
 ## SYNTAX
 
-### ById (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-Unregister-CohesityApplicationServer -Id <Int64> [<CommonParameters>]
+Unregister-CohesityApplicationServer -Id <long> [<CommonParameters>]
 ```
 
-### ByObject
+### UNNAMED_PARAMETER_SET_2
 ```
 Unregister-CohesityApplicationServer -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
@@ -33,8 +33,8 @@ Unregisters the application server running on the protection source with Id 12 f
 Specifies a unique id of the protection source.
 
 ```yaml
-Type: Int64
-Parameter Sets: ById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -49,7 +49,7 @@ Specifies a protection source object.
 
 ```yaml
 Type: ProtectionSourceNode
-Parameter Sets: ByObject
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True

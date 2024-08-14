@@ -6,9 +6,9 @@ Mounts the specified volumes instantly to a target host from a previous backup.
 ## SYNTAX
 
 ```
-Mount-CohesityVolume -TaskName <String> -SourceId <Int64> -JobId <Int64> [-JobRunId <Int64>]
- [-StartTime <Int64>] [-BringDisksOnline] [-NewParentId <Int64>] [-TargetHostId <Int64>]
- [-TargetHostCredential <PSCredential>] [-VolumeNames <String[]>] [<CommonParameters>]
+Mount-CohesityVolume -JobId <long> -SourceId <long> -TaskName <string> [-BringDisksOnline] [-JobRunId <long>]
+ [-NewParentId <long>] [-StartTime <long>] [-TargetHostCredential <PSCredential>] [-TargetHostId <long>]
+ [-VolumeNames <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +29,7 @@ Mounts the volumes corresponding to the given source id to the given target host
 Specifies the name of the instant volume mount task.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -44,7 +44,7 @@ Accept wildcard characters: False
 Specifies the source id that was backed up.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -59,7 +59,7 @@ Accept wildcard characters: False
 Specifies the job id to be used for this instant volume mount.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -75,7 +75,7 @@ Specifies the job run id to be used for this instant volume mount.
 If not specified the latest run is used.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -92,7 +92,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -127,7 +127,7 @@ Specifies a new registered parent Protection Source.
 If not specified, the original parent source will be used.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -143,7 +143,7 @@ Specifies the source id of the target host where the volumes will be mounted.
 NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -176,7 +176,7 @@ Note: Windows volumes should be specified in unix format.
 '/C' instead of 'C:'
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 

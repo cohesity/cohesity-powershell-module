@@ -5,12 +5,12 @@ Refreshes the object hierarchy of the specified protection source on the Cohesit
 
 ## SYNTAX
 
-### ById (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-Update-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
+Update-CohesityProtectionSource -Id <long> [<CommonParameters>]
 ```
 
-### ByObject
+### UNNAMED_PARAMETER_SET_2
 ```
 Update-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
@@ -35,8 +35,8 @@ Immediately refreshes the given protection source.
 Specifies a unique id of the protection source.
 
 ```yaml
-Type: Int64
-Parameter Sets: ById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -51,7 +51,7 @@ Specifies a protection source object.
 
 ```yaml
 Type: ProtectionSourceNode
-Parameter Sets: ByObject
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True

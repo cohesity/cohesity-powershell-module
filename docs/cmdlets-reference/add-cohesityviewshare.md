@@ -6,7 +6,7 @@ Adds a new share to a Cohesity View.
 ## SYNTAX
 
 ```
-Add-CohesityViewShare -ViewName <String> -ShareName <String> [-ViewPath <String>] [<CommonParameters>]
+Add-CohesityViewShare -ShareName <string> -ViewName <string> [-ViewPath <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Adds a new share called 'Test-Share' using a Cohesity View named 'Test-View' map
 Specifies the name of the View.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -42,7 +42,7 @@ Accept wildcard characters: False
 Specifies the name of the Share to be created.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -58,7 +58,7 @@ Specifies a directory path inside the View to be mounted using this Share.
 If not specified, '/' will be used as the default path.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 

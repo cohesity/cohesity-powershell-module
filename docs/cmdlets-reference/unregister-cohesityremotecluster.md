@@ -5,12 +5,12 @@ Unregisters the specified remote cluster from the Cohesity Cluster.
 
 ## SYNTAX
 
-### ById (Default)
+### UNNAMED_PARAMETER_SET_1
 ```
-Unregister-CohesityRemoteCluster -Id <Int64> [<CommonParameters>]
+Unregister-CohesityRemoteCluster -Id <long> [<CommonParameters>]
 ```
 
-### ByObject
+### UNNAMED_PARAMETER_SET_2
 ```
 Unregister-CohesityRemoteCluster -RemoteCluster <RemoteCluster> [<CommonParameters>]
 ```
@@ -33,8 +33,8 @@ Unregisters the given remote cluster.
 Specifies a unique id of the remote cluster.
 
 ```yaml
-Type: Int64
-Parameter Sets: ById
+Type: long
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -49,7 +49,7 @@ Specifies a remote cluster object.
 
 ```yaml
 Type: RemoteCluster
-Parameter Sets: ByObject
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True

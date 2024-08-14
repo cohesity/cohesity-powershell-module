@@ -6,8 +6,8 @@ Restores the specified Nutanix Acropolis virtual machine from a previous backup.
 ## SYNTAX
 
 ```
-Restore-CohesityAcropolisVM -TaskName <String> -SourceId <Int64> -JobId <Int64> [-JobRunId <Int64>]
- [-StartTime <Int64>] [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork] [-PoweredOn]
+Restore-CohesityAcropolisVM -JobId <long> -SourceId <long> -TaskName <string> [-DisableNetwork]
+ [-JobRunId <long>] [-PoweredOn] [-StartTime <long>] [-VmNamePrefix <string>] [-VmNameSuffix <string>]
  [<CommonParameters>]
 ```
 
@@ -29,7 +29,7 @@ Restores the Nutanix Acropolis virtual machine with the given source id using th
 Specifies the name of the restore task.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -44,7 +44,7 @@ Accept wildcard characters: False
 Specifies the source id of the VM to be restored.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -59,7 +59,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this VM and will be used for this restore.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -75,7 +75,7 @@ Specifies the job run id that captured the snapshot for this VM.
 If not specified the latest run is used.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -92,7 +92,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -107,7 +107,7 @@ Accept wildcard characters: False
 Specifies the prefix to add to the name of the restored VM.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 Specifies the suffix to add to the name of the restored VM.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
