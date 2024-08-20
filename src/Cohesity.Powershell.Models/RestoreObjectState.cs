@@ -84,7 +84,7 @@ namespace Cohesity.Model
             /// <summary>
             /// Enum KVMDeleted for value: kVMDeleted
             /// </summary>
-            [EnumMember(Value = "kVMDeletd")]
+            [EnumMember(Value = "kVMDeleted")]
             KVMDeleted = 10
 
         }
