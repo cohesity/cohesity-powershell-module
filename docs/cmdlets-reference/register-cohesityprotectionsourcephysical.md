@@ -6,8 +6,8 @@ Registers a new Physical protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourcePhysical -HostType <HostTypeEnum> -PhysicalType <PhysicalTypeEnum>
- -Server <string> [<CommonParameters>]
+Register-CohesityProtectionSourcePhysical -Server <String> -HostType <HostTypeEnum>
+ -PhysicalType <PhysicalTypeEnum> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +28,7 @@ Registers a physical linux server with hostname "server.example.com" with the Co
 Hostname or IP Address of the Physical server.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of host.
 Must be set to KLinux or KWindows.
 
-Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
+Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
 
 ```yaml
 Type: HostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
+Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
 
 Required: True
 Position: Named

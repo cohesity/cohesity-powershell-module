@@ -5,14 +5,14 @@ Deactivates the specified protection job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ByName (Default)
 ```
-Disable-CohesityProtectionJob -Id <long> [-PowerOffVms] [<CommonParameters>]
+Disable-CohesityProtectionJob -Name <String> [-PowerOffVms] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ById
 ```
-Disable-CohesityProtectionJob -Name <string> [-PowerOffVms] [<CommonParameters>]
+Disable-CohesityProtectionJob -Id <Int64> [-PowerOffVms] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,8 +41,8 @@ Deactivates the protection job with the name "vm-replication-job" and also power
 Specifies the unique id of the protection job.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ById
 Aliases:
 
 Required: True
@@ -56,8 +56,8 @@ Accept wildcard characters: False
 Specifies the name of the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: ByName
 Aliases:
 
 Required: True

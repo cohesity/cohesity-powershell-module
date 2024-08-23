@@ -6,12 +6,13 @@ Restores the specified MS SQL object from a previous backup.
 ## SYNTAX
 
 ```
-Restore-CohesityMSSQLObject -HostSourceId <long> -JobId <long> -SourceId <long> -TaskName <string>
- [-ArchivalId <long>] [-CaptureTailLogs] [-JobRunId <long>] [-KeepCDC] [-KeepOffline]
- [-NewDatabaseName <string>] [-NewInstanceName <string>] [-RestoreTimeSecs <long>] [-StartTime <long>]
- [-TargetDataFilesDirectory <string>] [-TargetHostCredential <PSCredential>] [-TargetHostId <long>]
- [-TargetHostParentId <long>] [-TargetLogFilesDirectory <string>]
- [-TargetSecondaryDataFilesDirectoryList <List`1>] [<CommonParameters>]
+Restore-CohesityMSSQLObject -TaskName <String> -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepOffline] [-KeepCDC]
+ [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
+ [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
+ [-TargetSecondaryDataFilesDirectoryList <System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]>]
+ [-TargetHostId <Int64>] [-TargetHostParentId <Int64>] [-TargetHostCredential <PSCredential>]
+ [-ArchivalId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +59,7 @@ Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter 
 Specifies the name of the restore task.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -74,7 +75,7 @@ Specifies the source id of the MS SQL database to restore.
 This can be obtained using Get-CohesityMSSQLObject.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -89,7 +90,7 @@ Accept wildcard characters: False
 Specifies the source id of the physical server or virtual machine that is hosting the MS SQL instance.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -104,7 +105,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this MS SQL instance and will be used for this restore.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -121,7 +122,7 @@ If not specified the latest run is used.
 This field must be set if restoring to a different target host.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -138,7 +139,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -201,7 +202,7 @@ Accept wildcard characters: False
 Specifies a new name for the restored database.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -216,7 +217,7 @@ Accept wildcard characters: False
 Specifies the instance name of the SQL Server that should be restored.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -233,7 +234,7 @@ This allows for granular recovery of SQL databases.
 If not specified, the SQL database will be restored from the full/incremental snapshot.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -250,7 +251,7 @@ Missing directory will be automatically created.
 This field must be set if restoring to a different target host.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -267,7 +268,7 @@ Missing directory will be automatically created.
 This field must be set if restoring to a different target host.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -286,7 +287,7 @@ If this option is specified and the destination folders do not exist they will b
 This field can be set only if restoring to a different target host.
 
 ```yaml
-Type: List`1
+Type: System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]
 Parameter Sets: (All)
 Aliases:
 
@@ -302,7 +303,7 @@ Specifies the target host if the application is to be restored to a different ho
 If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -317,7 +318,7 @@ Accept wildcard characters: False
 Specifies the id of the registered parent source (such as vCenter) of the target host.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -350,9 +351,40 @@ In this case vault/archival machine.
 Use the cmdlet Get-CohesityVault to get the vault/archival source.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named

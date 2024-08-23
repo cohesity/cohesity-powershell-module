@@ -6,7 +6,7 @@ Upgrades the Cohesity agent on a Physical server registered with Cohesity.
 ## SYNTAX
 
 ```
-Update-CohesityPhysicalAgent -Id <long> [<CommonParameters>]
+Update-CohesityPhysicalAgent -Id <Int64> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Upgrades the physical agent with the specified Id.
 Specifies a unique id of the physical agent.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

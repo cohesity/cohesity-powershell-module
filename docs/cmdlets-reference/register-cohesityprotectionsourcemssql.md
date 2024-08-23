@@ -5,14 +5,14 @@ Registers an existing source as running MS SQL application.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### UseCredential (Default)
 ```
-Register-CohesityProtectionSourceMSSQL [-HasPersistentAgent] -Id <long> [<CommonParameters>]
+Register-CohesityProtectionSourceMSSQL -Id <Int64> -Credential <PSCredential> [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### UseAgent
 ```
-Register-CohesityProtectionSourceMSSQL -Credential <PSCredential> -Id <long> [<CommonParameters>]
+Register-CohesityProtectionSourceMSSQL -Id <Int64> [-HasPersistentAgent] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,7 +40,7 @@ Registers the specified source as running MS SQL application and connects using 
 Specifies the Id of the Protection Source that has MS SQL Application Server running on it.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -58,7 +58,7 @@ This mechanism may be used in environments such as VMware to get around UAC perm
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: UseAgent
 Aliases:
 
 Required: True
@@ -73,7 +73,7 @@ User credentials used to connect to the host.
 
 ```yaml
 Type: PSCredential
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: UseCredential
 Aliases:
 
 Required: True

@@ -6,8 +6,9 @@ Creates a new Cohesity User.
 ## SYNTAX
 
 ```
-New-CohesityUser -Name <string> -Roles <string[]> [-Description <string>] [-Domain <string>]
- [-EffectiveTime <DateTime>] [-EmailAddress <string>] [-Password <string>] [-Restricted] [<CommonParameters>]
+New-CohesityUser -Name <String> [-Password <String>] -Roles <String[]> [-Domain <String>]
+ [-EmailAddress <String>] [-Description <String>] [-Restricted] [-EffectiveTime <DateTime>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +29,7 @@ Creates a new Cohesity User in default LOCAL domain called "test-user" with COHE
 Specifies the name of the User to be created.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -44,7 +45,7 @@ Specifies the password for the User to be created.
 This is mandatory in case of a LOCAL user.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -59,7 +60,7 @@ Accept wildcard characters: False
 Specifies one or more roles for the User to be created.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -76,7 +77,7 @@ A user is uniquely identified by combination of the username and the domain.
 If not specified, the default domain is used.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -91,7 +92,7 @@ Accept wildcard characters: False
 Specifies the email address for the User to be created.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -106,7 +107,7 @@ Accept wildcard characters: False
 Specifies the description for the User to be created.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -142,7 +143,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 8/14/2024 3:29:08 PM
+Default value: 4/19/2023 12:34:49 AM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

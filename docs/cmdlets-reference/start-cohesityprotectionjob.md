@@ -5,16 +5,16 @@ Immediately starts a protection job run.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ByName (Default)
 ```
-Start-CohesityProtectionJob -Id <long> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
- [-SourceIds <long[]>] [<CommonParameters>]
+Start-CohesityProtectionJob -Name <String> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
+ [-CopyRunTargets <RunJobSnapshotTarget[]>] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ById
 ```
-Start-CohesityProtectionJob -Name <string> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
- [-SourceIds <long[]>] [<CommonParameters>]
+Start-CohesityProtectionJob -Id <Int64> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
+ [-CopyRunTargets <RunJobSnapshotTarget[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,8 +39,8 @@ Immediately starts a job run for the given protection job.
 Specifies a unique id of the protection job.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ById
 Aliases:
 
 Required: True
@@ -54,8 +54,8 @@ Accept wildcard characters: False
 Specifies the name of the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: ByName
 Aliases:
 
 Required: True
@@ -88,7 +88,7 @@ Accept wildcard characters: False
 If you want to back up only a subset of sources that are protected by the job in this run.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 

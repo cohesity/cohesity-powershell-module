@@ -1,20 +1,20 @@
 # Restore-CohesityFile
 
 ## SYNOPSIS
-Restores the specified files or folders from a previous backup.
+Restores the specified files or folders.
 
 ## SYNTAX
 
 ```
-Restore-CohesityFile -FileNames <string[]> -JobId <long> -SourceId <long> -TargetSourceId <long>
- -TaskName <string> [-ContinueOnError] [-DoNotOverwrite] [-DoNotPreserveAttributes]
- [-FileRecoveryMethod <FileRecoveryMethodEnum>] [-JobRunId <long>] [-NewBaseDirectory <string>]
- [-StartTime <long>] [-TargetHostCredential <PSCredential>] [-TargetHostType <TargetHostTypeEnum>]
- [-TargetParentSourceId <long>] [<CommonParameters>]
+Restore-CohesityFile -TaskName <String> -FileNames <String[]> -JobId <Int64> -SourceId <Int64>
+ [-NewBaseDirectory <String>] [-JobRunId <Int64>] [-StartTime <Int64>] [-DoNotOverwrite] [-ContinueOnError]
+ [-DoNotPreserveAttributes] -TargetSourceId <Int64> [-TargetParentSourceId <Int64>]
+ [-TargetHostType <TargetHostTypeEnum>] [-TargetHostCredential <PSCredential>]
+ [-FileRecoveryMethod <FileRecoveryMethodEnum>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Restores the specified files or folders from a previous backup.
+Request to create a Restore Task for recovering files or folders.
 
 ## EXAMPLES
 
@@ -23,14 +23,21 @@ Restores the specified files or folders from a previous backup.
 Restore-CohesityFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
 ```
 
-Restores the specified file to the target windows VM with the source id 856 from the latest backup.
+Restores the file from the specified source to the target windows VM from the latest backup.
 
 ### EXAMPLE 2
+```
+Restore-CohesityFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -JobRunId 3005 -StartTime 1690646467987573 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+```
+
+Restores the file from the specified source to the target windows VM from the specified snapshot.
+
+### EXAMPLE 3
 ```
 Restore-CohesityFile -TaskName "restore-file-physical" -FileNames /C/data/file.txt -JobId 1234 -SourceId 820 -TargetSourceId 858
 ```
 
-Restores the specified file to the target physical server with the source id 858 from the latest backup.
+Restores the file from the specified source to the target physical server using the latest backup.
 
 ## PARAMETERS
 
@@ -38,7 +45,7 @@ Restores the specified file to the target physical server with the source id 858
 Specifies the name of the Restore Task.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -53,7 +60,7 @@ Accept wildcard characters: False
 Specifies the full names of the files or folders to be restored.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -68,7 +75,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up the files and will be used for this restore.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -83,7 +90,7 @@ Accept wildcard characters: False
 Specifies the id of the original protection source (that was backed up) containing the files and folders.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -99,7 +106,7 @@ Specifies an optional base directory where the specified files and folders will 
 By default, files and folders are restored to their original path.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -115,7 +122,7 @@ Specifies the Job Run id that captured the snapshot.
 If not specified, the latest backup run is used.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -132,7 +139,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if the job run id is specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -196,7 +203,7 @@ Accept wildcard characters: False
 Specifies the id of the target source (such as a VM or Physical server) where the files and folders are to be restored.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -212,7 +219,7 @@ Specifies the id of the registered parent source (such as a vCenter Server) that
 This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -227,13 +234,13 @@ Accept wildcard characters: False
 Specifies the operating system type of the target host.
 This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
 
-Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
+Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
 
 ```yaml
 Type: TargetHostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
+Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
 
 Required: False
 Position: Named

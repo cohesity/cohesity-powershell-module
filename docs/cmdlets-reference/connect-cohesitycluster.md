@@ -5,22 +5,22 @@ Connects to a Cohesity Cluster and acquires an authentication token.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### UsingCreds (Default)
 ```
-Connect-CohesityCluster -Credential <PSCredential> -Server <string> [-OtpType <OtpTypeEnum>] [-Port <long>]
- [-UseMFA] [<CommonParameters>]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredential> [-UseMFA]
+ [-OtpType <OtpTypeEnum>] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### UsingAPIKey
 ```
-Connect-CohesityCluster -Server <string> [-APIKey <string>] [-OtpType <OtpTypeEnum>] [-Port <long>] [-UseMFA]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-APIKey <String>] [-UseMFA] [-OtpType <OtpTypeEnum>]
  [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_3
+### UsingSessionId
 ```
-Connect-CohesityCluster -Server <string> [-OtpType <OtpTypeEnum>] [-Port <long>] [-SessionId <string>]
- [-UseMFA] [<CommonParameters>]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-SessionId <String>] [-UseMFA]
+ [-OtpType <OtpTypeEnum>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,7 +80,7 @@ On trying to connect to the cluster using MFA, user will be prompted to provide 
 The FQDN or IP address of any node in the Cohesity Cluster or Cluster VIP.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 The port to use to connect to Cohesity Cluster.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -112,7 +112,7 @@ To login as a tenant use the user name as LOCAL\user1@tenant1
 
 ```yaml
 Type: PSCredential
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: UsingCreds
 Aliases:
 
 Required: True
@@ -126,8 +126,8 @@ Accept wildcard characters: False
 Cohesity API key
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: UsingAPIKey
 Aliases:
 
 Required: False
@@ -141,8 +141,8 @@ Accept wildcard characters: False
 Cohesity Session Id key
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_3
+Type: String
+Parameter Sets: UsingSessionId
 Aliases:
 
 Required: False

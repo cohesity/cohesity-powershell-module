@@ -6,8 +6,8 @@ Gets a list of the VMware virtual machines known to the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityVMwareVM [-Names <string[]>] [-ParentSourceId <long>] [-Protected] [-Unprotected]
- [-Uuids <string[]>] [<CommonParameters>]
+Get-CohesityVMwareVM [-ParentSourceId <Int64>] [-Names <String[]>] [-Uuids <String[]>] [-Protected]
+ [-Unprotected] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +29,7 @@ Gets a list of the virtual machines belonging to the vCenter Server with the Par
 Limit the VMs returned to the set of VMs found in a specific parent source (such as vCenter Server).
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +46,7 @@ To match multiple VM names, specify multiple names separated by commas.
 The string must exactly match the passed in VM name and wild cards are not supported.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 Limit the returned VMs to those that exactly match the passed in Uuids.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
