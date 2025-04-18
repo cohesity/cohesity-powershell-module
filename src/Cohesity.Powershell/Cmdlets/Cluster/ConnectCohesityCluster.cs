@@ -219,14 +219,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                     SessionId = this.SessionId
                 };
                 userProfileProvider.SetUserProfile(userProfile);
+          
+
                 if (SessionIdAdapter.ValidateSessionId(this.Server, this.SessionId))
                 {
                     WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
                     return;
                 }
-                userProfileProvider.DeleteUserProfile();
-                WriteObject("Failed to connect to the Cohesity Cluster.");
-                return;
             }
 
             var networkCredential = Credential.GetNetworkCredential();
