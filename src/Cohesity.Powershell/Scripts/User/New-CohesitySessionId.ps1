@@ -77,7 +77,7 @@ function New-CohesitySessionId {
             Body    = $jsonBody
         } 
 	
-        $result = Invoke-WebRequest @PSBoundParameters -SkipCertificateCheck
+        $result = Invoke-WebRequest @PSBoundParameters
         
         if ($result.Content) {
             $parsedResponse = $result.Content | ConvertFrom-Json
@@ -111,15 +111,27 @@ function New-CohesitySessionId {
 
     }
     catch {
-        # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
-        # to make the ScriptAnalyzer happy
-        CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
-        # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
+
+        # Construct a serializable object with only string-based properties
+        $logError = @{
+            Message       = $Global:CohesityAPIError.Message
+            Source        = $Global:CohesityAPIError.Source
+            StackTrace    = $Global:CohesityAPIError.StackTrace
+            TargetSite    = "$($Global:CohesityAPIError.TargetSite)"
+            ParameterName = if ($Global:CohesityAPIError.PSObject.Properties["ParameterName"]) {
+                                $Global:CohesityAPIError.ParameterName
+                            } else {
+                                $null
+                            }
+        }
+    
+        # Safe logging
+        CSLog -Message ($logError | ConvertTo-Json -Compress -Depth 5) -Severity 3
+    
+        # Write out error to the user
         $errorMsg = $_
-        $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $errorMsg
         Write-Output $errorMsg
         CSLog -Message $errorMsg -Severity 3
-    }
-
+}
 }
