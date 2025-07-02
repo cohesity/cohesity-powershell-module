@@ -25,7 +25,7 @@ This project provides a PowerShell Module for interacting with the [Cohesity Dat
  - [How can you contribute](#contribute)
  - [Installation tips](#tips)
  - [Suggestions and Feedback](#suggest)
- 
+ - [Disclaimer](#disclaimer)
  
 
 ## <a name="get-started"></a> Let's get started :hammer_and_pick:
@@ -133,3 +133,8 @@ We would love to hear from you. Please send your suggestions and feedback to: [s
 ## License :shield:
 
 Apache 2.0
+
+## <a name ="disclaimer"></a> Disclaimer
+
+The scripts, recipes, and integrations provided here are community-contributed or best-effort solutions from Cohesity engineering and ecosystem partners. These resources are not officially supported by Cohesity Support or Field teams.
+For production-grade use or enterprise implementation support, please contact Cohesity Professional Services or your account team.
