@@ -120,6 +120,20 @@ function Invoke-RestApi {
     catch {
         # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
+        try  {
+            $Global:CohesityAPIError.Message | ConvertFrom-Json;
+        }
+        catch {
+
+            $cohesityFolder = $Global:CohesityCmdletConfig.ConfigFolder
+            $logFileName = $Global:CohesityCmdletConfig.LogFileName
+            $CSLogFilePath = "$HOME/" + $cohesityFolder + "/" + $logFileName
+            Write-Host "Invalid response from server. Please refer the logs at $CSLogFilePath"
+            Write-Host $Global:CohesityAPIError.Message
+            CSLog -Message $Global:CohesityAPIError.Message 
+            CSLog $_
+            return 
+        }
         # to make the ScriptAnalyzer happy
         CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
