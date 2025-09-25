@@ -259,7 +259,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                         var sendSecurityCode = httpClient.SendAsync(emailMFARequest).Result;
                         var sendSecurityCodeResponse = sendSecurityCode.Content.ReadAsStringAsync().Result;
 
-                        if (sendSecurityCode.StatusCode != HttpStatusCode.Created)
+                        if (sendSecurityCode.StatusCode != HttpStatusCode.NoContent)
                         {
                             var accessCodeError = JsonConvert.DeserializeObject<ErrorProto>(sendSecurityCodeResponse);
                             StringBuilder sb = new StringBuilder();
