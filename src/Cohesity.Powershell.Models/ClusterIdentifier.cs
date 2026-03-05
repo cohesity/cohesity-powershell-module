@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterId">Specifies the cluster id of the cluster..</param>
         /// <param name="clusterIncarnationId">Specifies the cluster incarnation id..</param>
-        public ClusterIdentifier(long? clusterId = default(long?), long? clusterIncarnationId = default(long?))
+        /// <param name="virtualDataplaneIdentifier">Specifies the virtual dataplane id of the cluster..</param>
+        public ClusterIdentifier(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), string virtualDataplaneIdentifier = default(string))
         {
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
+            this.VirtualDataplaneIdentifier = virtualDataplaneIdentifier;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
+            this.VirtualDataplaneIdentifier = virtualDataplaneIdentifier;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>Specifies the cluster incarnation id.</value>
         [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
         public long? ClusterIncarnationId { get; set; }
+
+        /// <summary>
+        /// Specifies the virtual dataplane id of the cluster.
+        /// </summary>
+        /// <value>Specifies the virtual dataplane id of the cluster.</value>
+        [DataMember(Name="virtualDataplaneIdentifier", EmitDefaultValue=true)]
+        public string VirtualDataplaneIdentifier { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.ClusterIncarnationId == input.ClusterIncarnationId ||
                     (this.ClusterIncarnationId != null &&
                     this.ClusterIncarnationId.Equals(input.ClusterIncarnationId))
+                ) && 
+                (
+                    this.VirtualDataplaneIdentifier == input.VirtualDataplaneIdentifier ||
+                    (this.VirtualDataplaneIdentifier != null &&
+                    this.VirtualDataplaneIdentifier.Equals(input.VirtualDataplaneIdentifier))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.ClusterIncarnationId != null)
                     hashCode = hashCode * 59 + this.ClusterIncarnationId.GetHashCode();
+                if (this.VirtualDataplaneIdentifier != null)
+                    hashCode = hashCode * 59 + this.VirtualDataplaneIdentifier.GetHashCode();
                 return hashCode;
             }
         }

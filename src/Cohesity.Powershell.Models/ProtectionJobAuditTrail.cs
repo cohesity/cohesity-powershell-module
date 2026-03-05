@@ -42,117 +42,15 @@ namespace Cohesity.Model
             /// Enum KProtectionJobSources for value: kProtectionJobSources
             /// </summary>
             [EnumMember(Value = "kProtectionJobSources")]
-            KProtectionJobSources = 3,
-
-            /// <summary>
-            /// Enum KProtectionJobSchedule for value: kProtectionJobSchedule
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobSchedule")]
-            KProtectionJobSchedule = 4,
-
-            /// <summary>
-            /// Enum KProtectionJobFullSchedule for value: kProtectionJobFullSchedule
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobFullSchedule")]
-            KProtectionJobFullSchedule = 5,
-
-            /// <summary>
-            /// Enum KProtectionJobRetrySettings for value: kProtectionJobRetrySettings
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobRetrySettings")]
-            KProtectionJobRetrySettings = 6,
-
-            /// <summary>
-            /// Enum KProtectionJobRetentionPolicy for value: kProtectionJobRetentionPolicy
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobRetentionPolicy")]
-            KProtectionJobRetentionPolicy = 7,
-
-            /// <summary>
-            /// Enum KProtectionJobIndexingPolicy for value: kProtectionJobIndexingPolicy
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobIndexingPolicy")]
-            KProtectionJobIndexingPolicy = 8,
-
-            /// <summary>
-            /// Enum KProtectionJobAlertingPolicy for value: kProtectionJobAlertingPolicy
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobAlertingPolicy")]
-            KProtectionJobAlertingPolicy = 9,
-
-            /// <summary>
-            /// Enum KProtectionJobPriority for value: kProtectionJobPriority
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobPriority")]
-            KProtectionJobPriority = 10,
-
-            /// <summary>
-            /// Enum KProtectionJobQuiesce for value: kProtectionJobQuiesce
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobQuiesce")]
-            KProtectionJobQuiesce = 11,
-
-            /// <summary>
-            /// Enum KProtectionJobSla for value: kProtectionJobSla
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobSla")]
-            KProtectionJobSla = 12,
-
-            /// <summary>
-            /// Enum KProtectionJobPolicyId for value: kProtectionJobPolicyId
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobPolicyId")]
-            KProtectionJobPolicyId = 13,
-
-            /// <summary>
-            /// Enum KProtectionJobTimezone for value: kProtectionJobTimezone
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobTimezone")]
-            KProtectionJobTimezone = 14,
-
-            /// <summary>
-            /// Enum KProtectionJobFutureRunsPaused for value: kProtectionJobFutureRunsPaused
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobFutureRunsPaused")]
-            KProtectionJobFutureRunsPaused = 15,
-
-            /// <summary>
-            /// Enum KProtectionJobFutureRunsResumed for value: kProtectionJobFutureRunsResumed
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobFutureRunsResumed")]
-            KProtectionJobFutureRunsResumed = 16,
-
-            /// <summary>
-            /// Enum KSnapshotTargetPolicy for value: kSnapshotTargetPolicy
-            /// </summary>
-            [EnumMember(Value = "kSnapshotTargetPolicy")]
-            KSnapshotTargetPolicy = 17,
-
-            /// <summary>
-            /// Enum KProtectionJobBlackoutWindow for value: kProtectionJobBlackoutWindow
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobBlackoutWindow")]
-            KProtectionJobBlackoutWindow = 18,
-
-            /// <summary>
-            /// Enum KProtectionJobQOS for value: kProtectionJobQOS
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobQOS")]
-            KProtectionJobQOS = 19,
-
-            /// <summary>
-            /// Enum KProtectionJobInvalidField for value: kProtectionJobInvalidField
-            /// </summary>
-            [EnumMember(Value = "kProtectionJobInvalidField")]
-            KProtectionJobInvalidField = 20
+            KProtectionJobSources = 3
 
         }
 
 
         /// <summary>
-        /// Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid.
+        /// Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid. kProtectionJobPausedNoteChange implies that protection job has change in the paused note settings. kProtectionJobSchedule, kProtectionJobFullSchedule, kProtectionJobRetrySettings, kProtectionJobRetentionPolicy, kProtectionJobIndexingPolicy, kProtectionJobAlertingPolicy, kProtectionJobPriority, kProtectionJobQuiesce, kProtectionJobSla, kProtectionJobPolicyId, kProtectionJobTimezone, kProtectionJobFutureRunsPaused, kProtectionJobFutureRunsResumed, kSnapshotTargetPolicy, kProtectionJobBlackoutWindow, kProtectionJobQOS, kProtectionJobInvalidField, kProtectionJobPausedNoteChange
         /// </summary>
-        /// <value>Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid.</value>
+        /// <value>Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid. kProtectionJobPausedNoteChange implies that protection job has change in the paused note settings. kProtectionJobSchedule, kProtectionJobFullSchedule, kProtectionJobRetrySettings, kProtectionJobRetentionPolicy, kProtectionJobIndexingPolicy, kProtectionJobAlertingPolicy, kProtectionJobPriority, kProtectionJobQuiesce, kProtectionJobSla, kProtectionJobPolicyId, kProtectionJobTimezone, kProtectionJobFutureRunsPaused, kProtectionJobFutureRunsResumed, kSnapshotTargetPolicy, kProtectionJobBlackoutWindow, kProtectionJobQOS, kProtectionJobInvalidField, kProtectionJobPausedNoteChange</value>
         [DataMember(Name="changes", EmitDefaultValue=true)]
         public List<ChangesEnum> Changes { get; set; }
         /// <summary>
@@ -160,7 +58,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="after">after.</param>
         /// <param name="before">before.</param>
-        /// <param name="changes">Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid..</param>
+        /// <param name="changes">Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid. kProtectionJobPausedNoteChange implies that protection job has change in the paused note settings. kProtectionJobSchedule, kProtectionJobFullSchedule, kProtectionJobRetrySettings, kProtectionJobRetentionPolicy, kProtectionJobIndexingPolicy, kProtectionJobAlertingPolicy, kProtectionJobPriority, kProtectionJobQuiesce, kProtectionJobSla, kProtectionJobPolicyId, kProtectionJobTimezone, kProtectionJobFutureRunsPaused, kProtectionJobFutureRunsResumed, kSnapshotTargetPolicy, kProtectionJobBlackoutWindow, kProtectionJobQOS, kProtectionJobInvalidField, kProtectionJobPausedNoteChange.</param>
         public ProtectionJobAuditTrail(ProtectionJob after = default(ProtectionJob), ProtectionJob before = default(ProtectionJob), List<ChangesEnum> changes = default(List<ChangesEnum>))
         {
             this.Changes = changes;

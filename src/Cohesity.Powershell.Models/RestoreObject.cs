@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreObject" /> class.
         /// </summary>
+        /// <param name="additionalRestoreTaskParams">Generic bytes for additional restore task params..</param>
         /// <param name="archivalTarget">archivalTarget.</param>
         /// <param name="attemptNum">The attempt number of the job run to restore from..</param>
         /// <param name="backupType">Backup type of corresponding backup run. Currently, this is only populated for restore tasks..</param>
@@ -30,17 +31,27 @@ namespace Cohesity.Model
         /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
         /// <param name="configVec">Common Configuration Parameters for recovery.</param>
         /// <param name="entity">entity.</param>
+        /// <param name="genericAdapterRecoverParams">genericAdapterRecoverParams.</param>
+        /// <param name="granularRestoreObjectInfo">Opaque bytes with list of granular objects to restore like UUID of AAD objects with any restore parameters applicable to the specific object..</param>
         /// <param name="hydrationTimeUsecs">The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent..</param>
         /// <param name="jobId">The job id from which to restore. This is used while communicating with yoda..</param>
         /// <param name="jobInstanceId">Id identifying a specific run to restore from. If this is not specified, and we need to restore from a run, the latest run is used. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs..</param>
         /// <param name="jobUid">jobUid.</param>
+        /// <param name="kubernetesNamespaceRecoverParams">kubernetesNamespaceRecoverParams.</param>
+        /// <param name="lastUpdateLogicalTimestamp">This is a sequencer which will incremented whenever the restore task reaches a new milestone. A milestone can be a change in state, progress percentage incrementals (e.g. 10%)..</param>
+        /// <param name="m365CsmRestoreAdditionalParams">m365CsmRestoreAdditionalParams.</param>
         /// <param name="nosqlRecoverParams">nosqlRecoverParams.</param>
+        /// <param name="oneDriveRestoreEntityParams">oneDriveRestoreEntityParams.</param>
+        /// <param name="outlookRestoreEntityParams">outlookRestoreEntityParams.</param>
         /// <param name="parentSource">parentSource.</param>
         /// <param name="pitPreferredArchivalTarget">pitPreferredArchivalTarget.</param>
         /// <param name="pointInTimeRestoreTimeUsecs">The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP..</param>
+        /// <param name="recoverFromLatest">This field specifies whether the object should be recovered from the latest snapshot. This will only be honored iff &#39;job_instance_id&#39; &amp; &#39;start_time_usecs&#39; are not set by the caller. Currently only M365 CSM based restores are capable of honoring this..</param>
         /// <param name="recoverFromStandby">This field indicates if the object should be recovered from standby if it is enabled..</param>
         /// <param name="restoreAcropolisVmParam">restoreAcropolisVmParam.</param>
+        /// <param name="restoreAzureSqlParams">restoreAzureSqlParams.</param>
         /// <param name="restoreExchangeParams">restoreExchangeParams.</param>
+        /// <param name="restoreRdsPostgresParams">restoreRdsPostgresParams.</param>
         /// <param name="restoreVappInfo">restoreVappInfo.</param>
         /// <param name="sanRecoverParams">sanRecoverParams.</param>
         /// <param name="sfdcRecoverParams">sfdcRecoverParams.</param>
@@ -49,20 +60,25 @@ namespace Cohesity.Model
         /// <param name="udaRecoverParams">udaRecoverParams.</param>
         /// <param name="viewName">The name of the view where the object&#39;s snapshot is located..</param>
         /// <param name="vmHadIndependentDisks">This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up..</param>
-        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), ArchivalTarget pitPreferredArchivalTarget = default(ArchivalTarget), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreExchangeParams restoreExchangeParams = default(RestoreExchangeParams), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SANRecoverParams sanRecoverParams = default(SANRecoverParams), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreObject(List<int> additionalRestoreTaskParams = default(List<int>), ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), int? backupType = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), EntityProto entity = default(EntityProto), GenericAdapterRecoverParams genericAdapterRecoverParams = default(GenericAdapterRecoverParams), List<List<int>> granularRestoreObjectInfo = default(List<List<int>>), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), KubernetesNamespaceRecoverParams kubernetesNamespaceRecoverParams = default(KubernetesNamespaceRecoverParams), long? lastUpdateLogicalTimestamp = default(long?), M365CSMRestoreAdditionalParams m365CsmRestoreAdditionalParams = default(M365CSMRestoreAdditionalParams), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), O365OneDriveRestoreEntityParams oneDriveRestoreEntityParams = default(O365OneDriveRestoreEntityParams), O365OutlookRestoreEntityParams outlookRestoreEntityParams = default(O365OutlookRestoreEntityParams), EntityProto parentSource = default(EntityProto), ArchivalTarget pitPreferredArchivalTarget = default(ArchivalTarget), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromLatest = default(bool?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), RestoreAzureSQLParams restoreAzureSqlParams = default(RestoreAzureSQLParams), RestoreExchangeParams restoreExchangeParams = default(RestoreExchangeParams), RestoreRDSPostgresParams restoreRdsPostgresParams = default(RestoreRDSPostgresParams), RestoreVappInfo restoreVappInfo = default(RestoreVappInfo), SANRecoverParams sanRecoverParams = default(SANRecoverParams), SfdcRecoverParams sfdcRecoverParams = default(SfdcRecoverParams), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
+            this.AdditionalRestoreTaskParams = additionalRestoreTaskParams;
             this.AttemptNum = attemptNum;
             this.BackupType = backupType;
             this.ConfigVec = configVec;
+            this.GranularRestoreObjectInfo = granularRestoreObjectInfo;
             this.HydrationTimeUsecs = hydrationTimeUsecs;
             this.JobId = jobId;
             this.JobInstanceId = jobInstanceId;
+            this.LastUpdateLogicalTimestamp = lastUpdateLogicalTimestamp;
             this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
+            this.RecoverFromLatest = recoverFromLatest;
             this.RecoverFromStandby = recoverFromStandby;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
             this.ViewName = viewName;
             this.VmHadIndependentDisks = vmHadIndependentDisks;
+            this.AdditionalRestoreTaskParams = additionalRestoreTaskParams;
             this.ArchivalTarget = archivalTarget;
             this.AttemptNum = attemptNum;
             this.BackupType = backupType;
@@ -70,17 +86,27 @@ namespace Cohesity.Model
             this.CloudReplicationTarget = cloudReplicationTarget;
             this.ConfigVec = configVec;
             this.Entity = entity;
+            this.GenericAdapterRecoverParams = genericAdapterRecoverParams;
+            this.GranularRestoreObjectInfo = granularRestoreObjectInfo;
             this.HydrationTimeUsecs = hydrationTimeUsecs;
             this.JobId = jobId;
             this.JobInstanceId = jobInstanceId;
             this.JobUid = jobUid;
+            this.KubernetesNamespaceRecoverParams = kubernetesNamespaceRecoverParams;
+            this.LastUpdateLogicalTimestamp = lastUpdateLogicalTimestamp;
+            this.M365CsmRestoreAdditionalParams = m365CsmRestoreAdditionalParams;
             this.NosqlRecoverParams = nosqlRecoverParams;
+            this.OneDriveRestoreEntityParams = oneDriveRestoreEntityParams;
+            this.OutlookRestoreEntityParams = outlookRestoreEntityParams;
             this.ParentSource = parentSource;
             this.PitPreferredArchivalTarget = pitPreferredArchivalTarget;
             this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
+            this.RecoverFromLatest = recoverFromLatest;
             this.RecoverFromStandby = recoverFromStandby;
             this.RestoreAcropolisVmParam = restoreAcropolisVmParam;
+            this.RestoreAzureSqlParams = restoreAzureSqlParams;
             this.RestoreExchangeParams = restoreExchangeParams;
+            this.RestoreRdsPostgresParams = restoreRdsPostgresParams;
             this.RestoreVappInfo = restoreVappInfo;
             this.SanRecoverParams = sanRecoverParams;
             this.SfdcRecoverParams = sfdcRecoverParams;
@@ -91,6 +117,13 @@ namespace Cohesity.Model
             this.VmHadIndependentDisks = vmHadIndependentDisks;
         }
         
+        /// <summary>
+        /// Generic bytes for additional restore task params.
+        /// </summary>
+        /// <value>Generic bytes for additional restore task params.</value>
+        [DataMember(Name="additionalRestoreTaskParams", EmitDefaultValue=true)]
+        public List<int> AdditionalRestoreTaskParams { get; set; }
+
         /// <summary>
         /// Gets or Sets ArchivalTarget
         /// </summary>
@@ -137,6 +170,19 @@ namespace Cohesity.Model
         public EntityProto Entity { get; set; }
 
         /// <summary>
+        /// Gets or Sets GenericAdapterRecoverParams
+        /// </summary>
+        [DataMember(Name="genericAdapterRecoverParams", EmitDefaultValue=false)]
+        public GenericAdapterRecoverParams GenericAdapterRecoverParams { get; set; }
+
+        /// <summary>
+        /// Opaque bytes with list of granular objects to restore like UUID of AAD objects with any restore parameters applicable to the specific object.
+        /// </summary>
+        /// <value>Opaque bytes with list of granular objects to restore like UUID of AAD objects with any restore parameters applicable to the specific object.</value>
+        [DataMember(Name="granularRestoreObjectInfo", EmitDefaultValue=true)]
+        public List<List<int>> GranularRestoreObjectInfo { get; set; }
+
+        /// <summary>
         /// The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent.
         /// </summary>
         /// <value>The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent.</value>
@@ -164,10 +210,41 @@ namespace Cohesity.Model
         public UniversalIdProto JobUid { get; set; }
 
         /// <summary>
+        /// Gets or Sets KubernetesNamespaceRecoverParams
+        /// </summary>
+        [DataMember(Name="kubernetesNamespaceRecoverParams", EmitDefaultValue=false)]
+        public KubernetesNamespaceRecoverParams KubernetesNamespaceRecoverParams { get; set; }
+
+        /// <summary>
+        /// This is a sequencer which will incremented whenever the restore task reaches a new milestone. A milestone can be a change in state, progress percentage incrementals (e.g. 10%).
+        /// </summary>
+        /// <value>This is a sequencer which will incremented whenever the restore task reaches a new milestone. A milestone can be a change in state, progress percentage incrementals (e.g. 10%).</value>
+        [DataMember(Name="lastUpdateLogicalTimestamp", EmitDefaultValue=true)]
+        public long? LastUpdateLogicalTimestamp { get; set; }
+
+        /// <summary>
+        /// Gets or Sets M365CsmRestoreAdditionalParams
+        /// </summary>
+        [DataMember(Name="m365CsmRestoreAdditionalParams", EmitDefaultValue=false)]
+        public M365CSMRestoreAdditionalParams M365CsmRestoreAdditionalParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets NosqlRecoverParams
         /// </summary>
         [DataMember(Name="nosqlRecoverParams", EmitDefaultValue=false)]
         public NoSqlRecoverParams NosqlRecoverParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OneDriveRestoreEntityParams
+        /// </summary>
+        [DataMember(Name="oneDriveRestoreEntityParams", EmitDefaultValue=false)]
+        public O365OneDriveRestoreEntityParams OneDriveRestoreEntityParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OutlookRestoreEntityParams
+        /// </summary>
+        [DataMember(Name="outlookRestoreEntityParams", EmitDefaultValue=false)]
+        public O365OutlookRestoreEntityParams OutlookRestoreEntityParams { get; set; }
 
         /// <summary>
         /// Gets or Sets ParentSource
@@ -189,6 +266,13 @@ namespace Cohesity.Model
         public long? PointInTimeRestoreTimeUsecs { get; set; }
 
         /// <summary>
+        /// This field specifies whether the object should be recovered from the latest snapshot. This will only be honored iff &#39;job_instance_id&#39; &amp; &#39;start_time_usecs&#39; are not set by the caller. Currently only M365 CSM based restores are capable of honoring this.
+        /// </summary>
+        /// <value>This field specifies whether the object should be recovered from the latest snapshot. This will only be honored iff &#39;job_instance_id&#39; &amp; &#39;start_time_usecs&#39; are not set by the caller. Currently only M365 CSM based restores are capable of honoring this.</value>
+        [DataMember(Name="recoverFromLatest", EmitDefaultValue=true)]
+        public bool? RecoverFromLatest { get; set; }
+
+        /// <summary>
         /// This field indicates if the object should be recovered from standby if it is enabled.
         /// </summary>
         /// <value>This field indicates if the object should be recovered from standby if it is enabled.</value>
@@ -202,10 +286,22 @@ namespace Cohesity.Model
         public RestoreAcropolisVMParam RestoreAcropolisVmParam { get; set; }
 
         /// <summary>
+        /// Gets or Sets RestoreAzureSqlParams
+        /// </summary>
+        [DataMember(Name="restoreAzureSqlParams", EmitDefaultValue=false)]
+        public RestoreAzureSQLParams RestoreAzureSqlParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreExchangeParams
         /// </summary>
         [DataMember(Name="restoreExchangeParams", EmitDefaultValue=false)]
         public RestoreExchangeParams RestoreExchangeParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreRdsPostgresParams
+        /// </summary>
+        [DataMember(Name="restoreRdsPostgresParams", EmitDefaultValue=false)]
+        public RestoreRDSPostgresParams RestoreRdsPostgresParams { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreVappInfo
@@ -296,6 +392,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalRestoreTaskParams == input.AdditionalRestoreTaskParams ||
+                    this.AdditionalRestoreTaskParams != null &&
+                    input.AdditionalRestoreTaskParams != null &&
+                    this.AdditionalRestoreTaskParams.SequenceEqual(input.AdditionalRestoreTaskParams)
+                ) && 
+                (
                     this.ArchivalTarget == input.ArchivalTarget ||
                     (this.ArchivalTarget != null &&
                     this.ArchivalTarget.Equals(input.ArchivalTarget))
@@ -332,6 +434,17 @@ namespace Cohesity.Model
                     this.Entity.Equals(input.Entity))
                 ) && 
                 (
+                    this.GenericAdapterRecoverParams == input.GenericAdapterRecoverParams ||
+                    (this.GenericAdapterRecoverParams != null &&
+                    this.GenericAdapterRecoverParams.Equals(input.GenericAdapterRecoverParams))
+                ) && 
+                (
+                    this.GranularRestoreObjectInfo == input.GranularRestoreObjectInfo ||
+                    this.GranularRestoreObjectInfo != null &&
+                    input.GranularRestoreObjectInfo != null &&
+                    this.GranularRestoreObjectInfo.SequenceEqual(input.GranularRestoreObjectInfo)
+                ) && 
+                (
                     this.HydrationTimeUsecs == input.HydrationTimeUsecs ||
                     (this.HydrationTimeUsecs != null &&
                     this.HydrationTimeUsecs.Equals(input.HydrationTimeUsecs))
@@ -352,9 +465,34 @@ namespace Cohesity.Model
                     this.JobUid.Equals(input.JobUid))
                 ) && 
                 (
+                    this.KubernetesNamespaceRecoverParams == input.KubernetesNamespaceRecoverParams ||
+                    (this.KubernetesNamespaceRecoverParams != null &&
+                    this.KubernetesNamespaceRecoverParams.Equals(input.KubernetesNamespaceRecoverParams))
+                ) && 
+                (
+                    this.LastUpdateLogicalTimestamp == input.LastUpdateLogicalTimestamp ||
+                    (this.LastUpdateLogicalTimestamp != null &&
+                    this.LastUpdateLogicalTimestamp.Equals(input.LastUpdateLogicalTimestamp))
+                ) && 
+                (
+                    this.M365CsmRestoreAdditionalParams == input.M365CsmRestoreAdditionalParams ||
+                    (this.M365CsmRestoreAdditionalParams != null &&
+                    this.M365CsmRestoreAdditionalParams.Equals(input.M365CsmRestoreAdditionalParams))
+                ) && 
+                (
                     this.NosqlRecoverParams == input.NosqlRecoverParams ||
                     (this.NosqlRecoverParams != null &&
                     this.NosqlRecoverParams.Equals(input.NosqlRecoverParams))
+                ) && 
+                (
+                    this.OneDriveRestoreEntityParams == input.OneDriveRestoreEntityParams ||
+                    (this.OneDriveRestoreEntityParams != null &&
+                    this.OneDriveRestoreEntityParams.Equals(input.OneDriveRestoreEntityParams))
+                ) && 
+                (
+                    this.OutlookRestoreEntityParams == input.OutlookRestoreEntityParams ||
+                    (this.OutlookRestoreEntityParams != null &&
+                    this.OutlookRestoreEntityParams.Equals(input.OutlookRestoreEntityParams))
                 ) && 
                 (
                     this.ParentSource == input.ParentSource ||
@@ -372,6 +510,11 @@ namespace Cohesity.Model
                     this.PointInTimeRestoreTimeUsecs.Equals(input.PointInTimeRestoreTimeUsecs))
                 ) && 
                 (
+                    this.RecoverFromLatest == input.RecoverFromLatest ||
+                    (this.RecoverFromLatest != null &&
+                    this.RecoverFromLatest.Equals(input.RecoverFromLatest))
+                ) && 
+                (
                     this.RecoverFromStandby == input.RecoverFromStandby ||
                     (this.RecoverFromStandby != null &&
                     this.RecoverFromStandby.Equals(input.RecoverFromStandby))
@@ -382,9 +525,19 @@ namespace Cohesity.Model
                     this.RestoreAcropolisVmParam.Equals(input.RestoreAcropolisVmParam))
                 ) && 
                 (
+                    this.RestoreAzureSqlParams == input.RestoreAzureSqlParams ||
+                    (this.RestoreAzureSqlParams != null &&
+                    this.RestoreAzureSqlParams.Equals(input.RestoreAzureSqlParams))
+                ) && 
+                (
                     this.RestoreExchangeParams == input.RestoreExchangeParams ||
                     (this.RestoreExchangeParams != null &&
                     this.RestoreExchangeParams.Equals(input.RestoreExchangeParams))
+                ) && 
+                (
+                    this.RestoreRdsPostgresParams == input.RestoreRdsPostgresParams ||
+                    (this.RestoreRdsPostgresParams != null &&
+                    this.RestoreRdsPostgresParams.Equals(input.RestoreRdsPostgresParams))
                 ) && 
                 (
                     this.RestoreVappInfo == input.RestoreVappInfo ||
@@ -437,6 +590,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalRestoreTaskParams != null)
+                    hashCode = hashCode * 59 + this.AdditionalRestoreTaskParams.GetHashCode();
                 if (this.ArchivalTarget != null)
                     hashCode = hashCode * 59 + this.ArchivalTarget.GetHashCode();
                 if (this.AttemptNum != null)
@@ -451,6 +606,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConfigVec.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
+                if (this.GenericAdapterRecoverParams != null)
+                    hashCode = hashCode * 59 + this.GenericAdapterRecoverParams.GetHashCode();
+                if (this.GranularRestoreObjectInfo != null)
+                    hashCode = hashCode * 59 + this.GranularRestoreObjectInfo.GetHashCode();
                 if (this.HydrationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.HydrationTimeUsecs.GetHashCode();
                 if (this.JobId != null)
@@ -459,20 +618,36 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobInstanceId.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.KubernetesNamespaceRecoverParams != null)
+                    hashCode = hashCode * 59 + this.KubernetesNamespaceRecoverParams.GetHashCode();
+                if (this.LastUpdateLogicalTimestamp != null)
+                    hashCode = hashCode * 59 + this.LastUpdateLogicalTimestamp.GetHashCode();
+                if (this.M365CsmRestoreAdditionalParams != null)
+                    hashCode = hashCode * 59 + this.M365CsmRestoreAdditionalParams.GetHashCode();
                 if (this.NosqlRecoverParams != null)
                     hashCode = hashCode * 59 + this.NosqlRecoverParams.GetHashCode();
+                if (this.OneDriveRestoreEntityParams != null)
+                    hashCode = hashCode * 59 + this.OneDriveRestoreEntityParams.GetHashCode();
+                if (this.OutlookRestoreEntityParams != null)
+                    hashCode = hashCode * 59 + this.OutlookRestoreEntityParams.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
                 if (this.PitPreferredArchivalTarget != null)
                     hashCode = hashCode * 59 + this.PitPreferredArchivalTarget.GetHashCode();
                 if (this.PointInTimeRestoreTimeUsecs != null)
                     hashCode = hashCode * 59 + this.PointInTimeRestoreTimeUsecs.GetHashCode();
+                if (this.RecoverFromLatest != null)
+                    hashCode = hashCode * 59 + this.RecoverFromLatest.GetHashCode();
                 if (this.RecoverFromStandby != null)
                     hashCode = hashCode * 59 + this.RecoverFromStandby.GetHashCode();
                 if (this.RestoreAcropolisVmParam != null)
                     hashCode = hashCode * 59 + this.RestoreAcropolisVmParam.GetHashCode();
+                if (this.RestoreAzureSqlParams != null)
+                    hashCode = hashCode * 59 + this.RestoreAzureSqlParams.GetHashCode();
                 if (this.RestoreExchangeParams != null)
                     hashCode = hashCode * 59 + this.RestoreExchangeParams.GetHashCode();
+                if (this.RestoreRdsPostgresParams != null)
+                    hashCode = hashCode * 59 + this.RestoreRdsPostgresParams.GetHashCode();
                 if (this.RestoreVappInfo != null)
                     hashCode = hashCode * 59 + this.RestoreVappInfo.GetHashCode();
                 if (this.SanRecoverParams != null)

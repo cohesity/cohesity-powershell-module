@@ -23,49 +23,17 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ValueData" /> class.
         /// </summary>
-        /// <param name="bytesValue">Specifies the field to store an array of bytes if the current data type is bytes. Specify a value for this field when type is equal to 4..</param>
-        /// <param name="doubleValue">Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2..</param>
-        /// <param name="int64Value">Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1..</param>
-        /// <param name="stringValue">Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3..</param>
-        public ValueData(List<int> bytesValue = default(List<int>), double? doubleValue = default(double?), long? int64Value = default(long?), string stringValue = default(string))
+        /// <param name="oneofData">oneofData.</param>
+        public ValueData(Object oneofData = default(Object))
         {
-            this.BytesValue = bytesValue;
-            this.DoubleValue = doubleValue;
-            this.Int64Value = int64Value;
-            this.StringValue = stringValue;
-            this.BytesValue = bytesValue;
-            this.DoubleValue = doubleValue;
-            this.Int64Value = int64Value;
-            this.StringValue = stringValue;
+            this.OneofData = oneofData;
         }
         
         /// <summary>
-        /// Specifies the field to store an array of bytes if the current data type is bytes. Specify a value for this field when type is equal to 4.
+        /// Gets or Sets OneofData
         /// </summary>
-        /// <value>Specifies the field to store an array of bytes if the current data type is bytes. Specify a value for this field when type is equal to 4.</value>
-        [DataMember(Name="bytesValue", EmitDefaultValue=true)]
-        public List<int> BytesValue { get; set; }
-
-        /// <summary>
-        /// Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2.
-        /// </summary>
-        /// <value>Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2.</value>
-        [DataMember(Name="doubleValue", EmitDefaultValue=true)]
-        public double? DoubleValue { get; set; }
-
-        /// <summary>
-        /// Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1.
-        /// </summary>
-        /// <value>Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1.</value>
-        [DataMember(Name="int64Value", EmitDefaultValue=true)]
-        public long? Int64Value { get; set; }
-
-        /// <summary>
-        /// Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3.
-        /// </summary>
-        /// <value>Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3.</value>
-        [DataMember(Name="stringValue", EmitDefaultValue=true)]
-        public string StringValue { get; set; }
+        [DataMember(Name="OneofData", EmitDefaultValue=false)]
+        public Object OneofData { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -104,25 +72,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.BytesValue == input.BytesValue ||
-                    this.BytesValue != null &&
-                    input.BytesValue != null &&
-                    this.BytesValue.SequenceEqual(input.BytesValue)
-                ) && 
-                (
-                    this.DoubleValue == input.DoubleValue ||
-                    (this.DoubleValue != null &&
-                    this.DoubleValue.Equals(input.DoubleValue))
-                ) && 
-                (
-                    this.Int64Value == input.Int64Value ||
-                    (this.Int64Value != null &&
-                    this.Int64Value.Equals(input.Int64Value))
-                ) && 
-                (
-                    this.StringValue == input.StringValue ||
-                    (this.StringValue != null &&
-                    this.StringValue.Equals(input.StringValue))
+                    this.OneofData == input.OneofData ||
+                    (this.OneofData != null &&
+                    this.OneofData.Equals(input.OneofData))
                 );
         }
 
@@ -135,14 +87,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.BytesValue != null)
-                    hashCode = hashCode * 59 + this.BytesValue.GetHashCode();
-                if (this.DoubleValue != null)
-                    hashCode = hashCode * 59 + this.DoubleValue.GetHashCode();
-                if (this.Int64Value != null)
-                    hashCode = hashCode * 59 + this.Int64Value.GetHashCode();
-                if (this.StringValue != null)
-                    hashCode = hashCode * 59 + this.StringValue.GetHashCode();
+                if (this.OneofData != null)
+                    hashCode = hashCode * 59 + this.OneofData.GetHashCode();
                 return hashCode;
             }
         }

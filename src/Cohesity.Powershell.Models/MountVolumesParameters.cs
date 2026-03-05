@@ -24,12 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="MountVolumesParameters" /> class.
         /// </summary>
         /// <param name="bringDisksOnline">Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online..</param>
+        /// <param name="cloudCredentials">cloudCredentials.</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="targetSourceId">Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster..</param>
         /// <param name="useExistingAgent">Optional setting that determines if this will use an existing agent on the target vm to bring disks online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="volumeNames">Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation..</param>
-        public MountVolumesParameters(bool? bringDisksOnline = default(bool?), string password = default(string), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string), List<string> volumeNames = default(List<string>))
+        public MountVolumesParameters(bool? bringDisksOnline = default(bool?), CloudCredentials cloudCredentials = default(CloudCredentials), string password = default(string), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string), List<string> volumeNames = default(List<string>))
         {
             this.BringDisksOnline = bringDisksOnline;
             this.Password = password;
@@ -38,6 +39,7 @@ namespace Cohesity.Model
             this.Username = username;
             this.VolumeNames = volumeNames;
             this.BringDisksOnline = bringDisksOnline;
+            this.CloudCredentials = cloudCredentials;
             this.Password = password;
             this.TargetSourceId = targetSourceId;
             this.UseExistingAgent = useExistingAgent;
@@ -51,6 +53,12 @@ namespace Cohesity.Model
         /// <value>Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online.</value>
         [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
         public bool? BringDisksOnline { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudCredentials
+        /// </summary>
+        [DataMember(Name="cloudCredentials", EmitDefaultValue=false)]
+        public CloudCredentials CloudCredentials { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
@@ -129,6 +137,11 @@ namespace Cohesity.Model
                     this.BringDisksOnline.Equals(input.BringDisksOnline))
                 ) && 
                 (
+                    this.CloudCredentials == input.CloudCredentials ||
+                    (this.CloudCredentials != null &&
+                    this.CloudCredentials.Equals(input.CloudCredentials))
+                ) && 
+                (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
@@ -167,6 +180,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BringDisksOnline != null)
                     hashCode = hashCode * 59 + this.BringDisksOnline.GetHashCode();
+                if (this.CloudCredentials != null)
+                    hashCode = hashCode * 59 + this.CloudCredentials.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.TargetSourceId != null)

@@ -24,12 +24,14 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OracleSourceParams" /> class.
         /// </summary>
         /// <param name="additionalOracleDbParamsVec">A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name..</param>
+        /// <param name="nfsParams">nfsParams.</param>
         /// <param name="persistMountpoints">This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option..</param>
-        public OracleSourceParams(List<AdditionalOracleDBParams> additionalOracleDbParamsVec = default(List<AdditionalOracleDBParams>), bool? persistMountpoints = default(bool?))
+        public OracleSourceParams(List<AdditionalOracleDBParams> additionalOracleDbParamsVec = default(List<AdditionalOracleDBParams>), NFSParams nfsParams = default(NFSParams), bool? persistMountpoints = default(bool?))
         {
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
             this.PersistMountpoints = persistMountpoints;
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
+            this.NfsParams = nfsParams;
             this.PersistMountpoints = persistMountpoints;
         }
         
@@ -39,6 +41,12 @@ namespace Cohesity.Model
         /// <value>A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.</value>
         [DataMember(Name="additionalOracleDbParamsVec", EmitDefaultValue=true)]
         public List<AdditionalOracleDBParams> AdditionalOracleDbParamsVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NfsParams
+        /// </summary>
+        [DataMember(Name="nfsParams", EmitDefaultValue=false)]
+        public NFSParams NfsParams { get; set; }
 
         /// <summary>
         /// This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option.
@@ -90,6 +98,11 @@ namespace Cohesity.Model
                     this.AdditionalOracleDbParamsVec.SequenceEqual(input.AdditionalOracleDbParamsVec)
                 ) && 
                 (
+                    this.NfsParams == input.NfsParams ||
+                    (this.NfsParams != null &&
+                    this.NfsParams.Equals(input.NfsParams))
+                ) && 
+                (
                     this.PersistMountpoints == input.PersistMountpoints ||
                     (this.PersistMountpoints != null &&
                     this.PersistMountpoints.Equals(input.PersistMountpoints))
@@ -107,6 +120,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdditionalOracleDbParamsVec != null)
                     hashCode = hashCode * 59 + this.AdditionalOracleDbParamsVec.GetHashCode();
+                if (this.NfsParams != null)
+                    hashCode = hashCode * 59 + this.NfsParams.GetHashCode();
                 if (this.PersistMountpoints != null)
                     hashCode = hashCode * 59 + this.PersistMountpoints.GetHashCode();
                 return hashCode;

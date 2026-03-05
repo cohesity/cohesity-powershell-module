@@ -118,17 +118,19 @@ namespace Cohesity.Model
         /// <param name="copyPartial">Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured..</param>
         /// <param name="datalockConfig">datalockConfig.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
+        /// <param name="daysToKeepLog">Specifies the number of days to retain log run if Log Schedule exists on the external target..</param>
         /// <param name="multiplier">Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied..</param>
         /// <param name="periodicity">Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier..</param>
         /// <param name="runTimeouts">Run timeouts after which a run will get cancelled..</param>
         /// <param name="sourceClusterId">Specifies a the source cluster id from which the data must be archived..</param>
         /// <param name="target">Specifies the archival target to copy the Snapshots to..</param>
-        public SnapshotArchivalCopyPolicy(string id = default(string), BackupRunTypeEnum? backupRunType = default(BackupRunTypeEnum?), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), List<CancellationTimeoutParams> runTimeouts = default(List<CancellationTimeoutParams>), long? sourceClusterId = default(long?), ArchivalExternalTarget target = default(ArchivalExternalTarget))
+        public SnapshotArchivalCopyPolicy(string id = default(string), BackupRunTypeEnum? backupRunType = default(BackupRunTypeEnum?), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), List<CancellationTimeoutParams> runTimeouts = default(List<CancellationTimeoutParams>), long? sourceClusterId = default(long?), ArchivalExternalTarget target = default(ArchivalExternalTarget))
         {
             this.Id = id;
             this.BackupRunType = backupRunType;
             this.CopyPartial = copyPartial;
             this.DaysToKeep = daysToKeep;
+            this.DaysToKeepLog = daysToKeepLog;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
             this.RunTimeouts = runTimeouts;
@@ -139,6 +141,7 @@ namespace Cohesity.Model
             this.CopyPartial = copyPartial;
             this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
+            this.DaysToKeepLog = daysToKeepLog;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
             this.RunTimeouts = runTimeouts;
@@ -172,6 +175,13 @@ namespace Cohesity.Model
         /// <value>Specifies the number of days to retain copied Snapshots on the target.</value>
         [DataMember(Name="daysToKeep", EmitDefaultValue=true)]
         public long? DaysToKeep { get; set; }
+
+        /// <summary>
+        /// Specifies the number of days to retain log run if Log Schedule exists on the external target.
+        /// </summary>
+        /// <value>Specifies the number of days to retain log run if Log Schedule exists on the external target.</value>
+        [DataMember(Name="daysToKeepLog", EmitDefaultValue=true)]
+        public long? DaysToKeepLog { get; set; }
 
         /// <summary>
         /// Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied.
@@ -262,6 +272,11 @@ namespace Cohesity.Model
                     this.DaysToKeep.Equals(input.DaysToKeep))
                 ) && 
                 (
+                    this.DaysToKeepLog == input.DaysToKeepLog ||
+                    (this.DaysToKeepLog != null &&
+                    this.DaysToKeepLog.Equals(input.DaysToKeepLog))
+                ) && 
+                (
                     this.Multiplier == input.Multiplier ||
                     (this.Multiplier != null &&
                     this.Multiplier.Equals(input.Multiplier))
@@ -306,6 +321,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
+                if (this.DaysToKeepLog != null)
+                    hashCode = hashCode * 59 + this.DaysToKeepLog.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
                 hashCode = hashCode * 59 + this.Periodicity.GetHashCode();

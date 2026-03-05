@@ -23,21 +23,34 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQuotaAndUsage" /> class.
         /// </summary>
+        /// <param name="domain">Specifies the domain name of the user, where the principal&#39; account is maintained..</param>
         /// <param name="quotaPolicy">quotaPolicy.</param>
         /// <param name="sid">If interested in a user via smb_client, include SID. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn..</param>
         /// <param name="unixUid">If interested in a user via unix-identifier, include UnixUid. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided..</param>
         /// <param name="usageBytes">Current logical usage of user id in the input view..</param>
-        public UserQuotaAndUsage(QuotaPolicy quotaPolicy = default(QuotaPolicy), string sid = default(string), int? unixUid = default(int?), long? usageBytes = default(long?))
+        /// <param name="userName">Specifies the full name of the user..</param>
+        public UserQuotaAndUsage(string domain = default(string), QuotaPolicy quotaPolicy = default(QuotaPolicy), string sid = default(string), int? unixUid = default(int?), long? usageBytes = default(long?), string userName = default(string))
         {
+            this.Domain = domain;
             this.Sid = sid;
             this.UnixUid = unixUid;
             this.UsageBytes = usageBytes;
+            this.UserName = userName;
+            this.Domain = domain;
             this.QuotaPolicy = quotaPolicy;
             this.Sid = sid;
             this.UnixUid = unixUid;
             this.UsageBytes = usageBytes;
+            this.UserName = userName;
         }
         
+        /// <summary>
+        /// Specifies the domain name of the user, where the principal&#39; account is maintained.
+        /// </summary>
+        /// <value>Specifies the domain name of the user, where the principal&#39; account is maintained.</value>
+        [DataMember(Name="domain", EmitDefaultValue=true)]
+        public string Domain { get; set; }
+
         /// <summary>
         /// Gets or Sets QuotaPolicy
         /// </summary>
@@ -64,6 +77,13 @@ namespace Cohesity.Model
         /// <value>Current logical usage of user id in the input view.</value>
         [DataMember(Name="usageBytes", EmitDefaultValue=true)]
         public long? UsageBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the full name of the user.
+        /// </summary>
+        /// <value>Specifies the full name of the user.</value>
+        [DataMember(Name="userName", EmitDefaultValue=true)]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -102,6 +122,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Domain == input.Domain ||
+                    (this.Domain != null &&
+                    this.Domain.Equals(input.Domain))
+                ) && 
+                (
                     this.QuotaPolicy == input.QuotaPolicy ||
                     (this.QuotaPolicy != null &&
                     this.QuotaPolicy.Equals(input.QuotaPolicy))
@@ -120,6 +145,11 @@ namespace Cohesity.Model
                     this.UsageBytes == input.UsageBytes ||
                     (this.UsageBytes != null &&
                     this.UsageBytes.Equals(input.UsageBytes))
+                ) && 
+                (
+                    this.UserName == input.UserName ||
+                    (this.UserName != null &&
+                    this.UserName.Equals(input.UserName))
                 );
         }
 
@@ -132,6 +162,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Domain != null)
+                    hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.QuotaPolicy != null)
                     hashCode = hashCode * 59 + this.QuotaPolicy.GetHashCode();
                 if (this.Sid != null)
@@ -140,6 +172,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UnixUid.GetHashCode();
                 if (this.UsageBytes != null)
                     hashCode = hashCode * 59 + this.UsageBytes.GetHashCode();
+                if (this.UserName != null)
+                    hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 return hashCode;
             }
         }

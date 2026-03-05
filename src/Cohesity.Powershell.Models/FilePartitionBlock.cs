@@ -25,16 +25,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="diskFileName">Specifies the disk file name where the logical partition is..</param>
         /// <param name="lengthBytes">Specifies the length of the block in bytes..</param>
+        /// <param name="lvmDataOffsetBytes">Specifies the offset (in bytes) from the beginning of the volume where actual data starts, excluding LVM metadata. This helps in identifying the precise starting point of usable data on the volume..</param>
         /// <param name="number">Specifies a unique number of the partition within the linear disk file..</param>
         /// <param name="offsetBytes">Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file..</param>
-        public FilePartitionBlock(string diskFileName = default(string), long? lengthBytes = default(long?), long? number = default(long?), long? offsetBytes = default(long?))
+        public FilePartitionBlock(string diskFileName = default(string), long? lengthBytes = default(long?), long? lvmDataOffsetBytes = default(long?), long? number = default(long?), long? offsetBytes = default(long?))
         {
             this.DiskFileName = diskFileName;
             this.LengthBytes = lengthBytes;
+            this.LvmDataOffsetBytes = lvmDataOffsetBytes;
             this.Number = number;
             this.OffsetBytes = offsetBytes;
             this.DiskFileName = diskFileName;
             this.LengthBytes = lengthBytes;
+            this.LvmDataOffsetBytes = lvmDataOffsetBytes;
             this.Number = number;
             this.OffsetBytes = offsetBytes;
         }
@@ -52,6 +55,13 @@ namespace Cohesity.Model
         /// <value>Specifies the length of the block in bytes.</value>
         [DataMember(Name="lengthBytes", EmitDefaultValue=true)]
         public long? LengthBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the offset (in bytes) from the beginning of the volume where actual data starts, excluding LVM metadata. This helps in identifying the precise starting point of usable data on the volume.
+        /// </summary>
+        /// <value>Specifies the offset (in bytes) from the beginning of the volume where actual data starts, excluding LVM metadata. This helps in identifying the precise starting point of usable data on the volume.</value>
+        [DataMember(Name="lvmDataOffsetBytes", EmitDefaultValue=true)]
+        public long? LvmDataOffsetBytes { get; set; }
 
         /// <summary>
         /// Specifies a unique number of the partition within the linear disk file.
@@ -114,6 +124,11 @@ namespace Cohesity.Model
                     this.LengthBytes.Equals(input.LengthBytes))
                 ) && 
                 (
+                    this.LvmDataOffsetBytes == input.LvmDataOffsetBytes ||
+                    (this.LvmDataOffsetBytes != null &&
+                    this.LvmDataOffsetBytes.Equals(input.LvmDataOffsetBytes))
+                ) && 
+                (
                     this.Number == input.Number ||
                     (this.Number != null &&
                     this.Number.Equals(input.Number))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DiskFileName.GetHashCode();
                 if (this.LengthBytes != null)
                     hashCode = hashCode * 59 + this.LengthBytes.GetHashCode();
+                if (this.LvmDataOffsetBytes != null)
+                    hashCode = hashCode * 59 + this.LvmDataOffsetBytes.GetHashCode();
                 if (this.Number != null)
                     hashCode = hashCode * 59 + this.Number.GetHashCode();
                 if (this.OffsetBytes != null)

@@ -136,8 +136,11 @@ namespace Cohesity.Model
         /// <param name="stats">stats.</param>
         /// <param name="systemDisks">SystemDisk describes the node system disks..</param>
         /// <param name="timeRemaining">TimeRemaining is the overall total duration left to remove the entity..</param>
+        /// <param name="totalDiskBytes">Total disk bytes of the disks on the node..</param>
+        /// <param name="upgradeInProgress">UpgradeInProgress is used to mark a node being upgraded..</param>
+        /// <param name="usedDiskBytes">Used bytes of the disks on the node..</param>
         /// <param name="validationChecks">ValidationChecks specifies list of pre-check validations.</param>
-        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), string cohesityNodeSerial = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), string hardwareModel = default(string), string hostName = default(string), long? id = default(long?), bool? inMaintenanceMode = default(bool?), string ip = default(string), bool? isAppNode = default(bool?), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), long? offlineDiskCount = default(long?), List<string> offlineMountPathsOfDisks = default(List<string>), long? precheckTimestampSecs = default(long?), string productModel = default(string), long? progressPercentage = default(long?), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), long? removalTimestampSecs = default(long?), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>), long? timeRemaining = default(long?), List<PreCheckValidation> validationChecks = default(List<PreCheckValidation>))
+        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), string cohesityNodeSerial = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), string hardwareModel = default(string), string hostName = default(string), long? id = default(long?), bool? inMaintenanceMode = default(bool?), string ip = default(string), bool? isAppNode = default(bool?), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), long? offlineDiskCount = default(long?), List<string> offlineMountPathsOfDisks = default(List<string>), long? precheckTimestampSecs = default(long?), string productModel = default(string), long? progressPercentage = default(long?), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), long? removalTimestampSecs = default(long?), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>), long? timeRemaining = default(long?), long? totalDiskBytes = default(long?), bool? upgradeInProgress = default(bool?), long? usedDiskBytes = default(long?), List<PreCheckValidation> validationChecks = default(List<PreCheckValidation>))
         {
             this.CapacityByTier = capacityByTier;
             this.ClusterPartitionId = clusterPartitionId;
@@ -171,6 +174,9 @@ namespace Cohesity.Model
             this.SlotNumber = slotNumber;
             this.SystemDisks = systemDisks;
             this.TimeRemaining = timeRemaining;
+            this.TotalDiskBytes = totalDiskBytes;
+            this.UpgradeInProgress = upgradeInProgress;
+            this.UsedDiskBytes = usedDiskBytes;
             this.ValidationChecks = validationChecks;
             this.CapacityByTier = capacityByTier;
             this.ChassisInfo = chassisInfo;
@@ -207,6 +213,9 @@ namespace Cohesity.Model
             this.Stats = stats;
             this.SystemDisks = systemDisks;
             this.TimeRemaining = timeRemaining;
+            this.TotalDiskBytes = totalDiskBytes;
+            this.UpgradeInProgress = upgradeInProgress;
+            this.UsedDiskBytes = usedDiskBytes;
             this.ValidationChecks = validationChecks;
         }
         
@@ -439,6 +448,27 @@ namespace Cohesity.Model
         public long? TimeRemaining { get; set; }
 
         /// <summary>
+        /// Total disk bytes of the disks on the node.
+        /// </summary>
+        /// <value>Total disk bytes of the disks on the node.</value>
+        [DataMember(Name="totalDiskBytes", EmitDefaultValue=true)]
+        public long? TotalDiskBytes { get; set; }
+
+        /// <summary>
+        /// UpgradeInProgress is used to mark a node being upgraded.
+        /// </summary>
+        /// <value>UpgradeInProgress is used to mark a node being upgraded.</value>
+        [DataMember(Name="upgradeInProgress", EmitDefaultValue=true)]
+        public bool? UpgradeInProgress { get; set; }
+
+        /// <summary>
+        /// Used bytes of the disks on the node.
+        /// </summary>
+        /// <value>Used bytes of the disks on the node.</value>
+        [DataMember(Name="usedDiskBytes", EmitDefaultValue=true)]
+        public long? UsedDiskBytes { get; set; }
+
+        /// <summary>
         /// ValidationChecks specifies list of pre-check validations
         /// </summary>
         /// <value>ValidationChecks specifies list of pre-check validations</value>
@@ -662,6 +692,21 @@ namespace Cohesity.Model
                     this.TimeRemaining.Equals(input.TimeRemaining))
                 ) && 
                 (
+                    this.TotalDiskBytes == input.TotalDiskBytes ||
+                    (this.TotalDiskBytes != null &&
+                    this.TotalDiskBytes.Equals(input.TotalDiskBytes))
+                ) && 
+                (
+                    this.UpgradeInProgress == input.UpgradeInProgress ||
+                    (this.UpgradeInProgress != null &&
+                    this.UpgradeInProgress.Equals(input.UpgradeInProgress))
+                ) && 
+                (
+                    this.UsedDiskBytes == input.UsedDiskBytes ||
+                    (this.UsedDiskBytes != null &&
+                    this.UsedDiskBytes.Equals(input.UsedDiskBytes))
+                ) && 
+                (
                     this.ValidationChecks == input.ValidationChecks ||
                     this.ValidationChecks != null &&
                     input.ValidationChecks != null &&
@@ -746,6 +791,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SystemDisks.GetHashCode();
                 if (this.TimeRemaining != null)
                     hashCode = hashCode * 59 + this.TimeRemaining.GetHashCode();
+                if (this.TotalDiskBytes != null)
+                    hashCode = hashCode * 59 + this.TotalDiskBytes.GetHashCode();
+                if (this.UpgradeInProgress != null)
+                    hashCode = hashCode * 59 + this.UpgradeInProgress.GetHashCode();
+                if (this.UsedDiskBytes != null)
+                    hashCode = hashCode * 59 + this.UsedDiskBytes.GetHashCode();
                 if (this.ValidationChecks != null)
                     hashCode = hashCode * 59 + this.ValidationChecks.GetHashCode();
                 return hashCode;

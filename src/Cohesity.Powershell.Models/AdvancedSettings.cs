@@ -25,21 +25,27 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clonedDbBackupStatus">Whether to report error if SQL database is cloned..</param>
         /// <param name="dbBackupIfNotOnlineStatus">Whether to report error if SQL database is not online, it includes states such as offline, restoring as well as any other state for which db is not online..</param>
+        /// <param name="logChainBreakAutoTriggerOobIncrBackup">If true, out of band incremental backup will be started when the log chain is broken. It will be started at the end of the log backup..</param>
         /// <param name="missingDbBackupStatus">Fail the backup job when the database is missing. The database may be missing if it is deleted or corrupted..</param>
+        /// <param name="newDatabaseAutoTriggerOobIncrBackup">If true, out of band incremental backup will be started when a new database is found. It will be started at the end of the log backup..</param>
         /// <param name="offlineRestoringDbBackupStatus">Fail the backup job when database is offline or restoring..</param>
         /// <param name="readOnlyDbBackupStatus">Whether to skip backup for read-only SQL databases.</param>
         /// <param name="reportAllNonAutoprotectDbErrors">Whether to report error for all faulty dbs in non-autoprotect jobs. This will fail backup job if any db is offline/restoring/cloned etc..</param>
-        public AdvancedSettings(int? clonedDbBackupStatus = default(int?), int? dbBackupIfNotOnlineStatus = default(int?), int? missingDbBackupStatus = default(int?), int? offlineRestoringDbBackupStatus = default(int?), int? readOnlyDbBackupStatus = default(int?), int? reportAllNonAutoprotectDbErrors = default(int?))
+        public AdvancedSettings(int? clonedDbBackupStatus = default(int?), int? dbBackupIfNotOnlineStatus = default(int?), bool? logChainBreakAutoTriggerOobIncrBackup = default(bool?), int? missingDbBackupStatus = default(int?), bool? newDatabaseAutoTriggerOobIncrBackup = default(bool?), int? offlineRestoringDbBackupStatus = default(int?), int? readOnlyDbBackupStatus = default(int?), int? reportAllNonAutoprotectDbErrors = default(int?))
         {
             this.ClonedDbBackupStatus = clonedDbBackupStatus;
             this.DbBackupIfNotOnlineStatus = dbBackupIfNotOnlineStatus;
+            this.LogChainBreakAutoTriggerOobIncrBackup = logChainBreakAutoTriggerOobIncrBackup;
             this.MissingDbBackupStatus = missingDbBackupStatus;
+            this.NewDatabaseAutoTriggerOobIncrBackup = newDatabaseAutoTriggerOobIncrBackup;
             this.OfflineRestoringDbBackupStatus = offlineRestoringDbBackupStatus;
             this.ReadOnlyDbBackupStatus = readOnlyDbBackupStatus;
             this.ReportAllNonAutoprotectDbErrors = reportAllNonAutoprotectDbErrors;
             this.ClonedDbBackupStatus = clonedDbBackupStatus;
             this.DbBackupIfNotOnlineStatus = dbBackupIfNotOnlineStatus;
+            this.LogChainBreakAutoTriggerOobIncrBackup = logChainBreakAutoTriggerOobIncrBackup;
             this.MissingDbBackupStatus = missingDbBackupStatus;
+            this.NewDatabaseAutoTriggerOobIncrBackup = newDatabaseAutoTriggerOobIncrBackup;
             this.OfflineRestoringDbBackupStatus = offlineRestoringDbBackupStatus;
             this.ReadOnlyDbBackupStatus = readOnlyDbBackupStatus;
             this.ReportAllNonAutoprotectDbErrors = reportAllNonAutoprotectDbErrors;
@@ -60,11 +66,25 @@ namespace Cohesity.Model
         public int? DbBackupIfNotOnlineStatus { get; set; }
 
         /// <summary>
+        /// If true, out of band incremental backup will be started when the log chain is broken. It will be started at the end of the log backup.
+        /// </summary>
+        /// <value>If true, out of band incremental backup will be started when the log chain is broken. It will be started at the end of the log backup.</value>
+        [DataMember(Name="logChainBreakAutoTriggerOobIncrBackup", EmitDefaultValue=true)]
+        public bool? LogChainBreakAutoTriggerOobIncrBackup { get; set; }
+
+        /// <summary>
         /// Fail the backup job when the database is missing. The database may be missing if it is deleted or corrupted.
         /// </summary>
         /// <value>Fail the backup job when the database is missing. The database may be missing if it is deleted or corrupted.</value>
         [DataMember(Name="missingDbBackupStatus", EmitDefaultValue=true)]
         public int? MissingDbBackupStatus { get; set; }
+
+        /// <summary>
+        /// If true, out of band incremental backup will be started when a new database is found. It will be started at the end of the log backup.
+        /// </summary>
+        /// <value>If true, out of band incremental backup will be started when a new database is found. It will be started at the end of the log backup.</value>
+        [DataMember(Name="newDatabaseAutoTriggerOobIncrBackup", EmitDefaultValue=true)]
+        public bool? NewDatabaseAutoTriggerOobIncrBackup { get; set; }
 
         /// <summary>
         /// Fail the backup job when database is offline or restoring.
@@ -134,9 +154,19 @@ namespace Cohesity.Model
                     this.DbBackupIfNotOnlineStatus.Equals(input.DbBackupIfNotOnlineStatus))
                 ) && 
                 (
+                    this.LogChainBreakAutoTriggerOobIncrBackup == input.LogChainBreakAutoTriggerOobIncrBackup ||
+                    (this.LogChainBreakAutoTriggerOobIncrBackup != null &&
+                    this.LogChainBreakAutoTriggerOobIncrBackup.Equals(input.LogChainBreakAutoTriggerOobIncrBackup))
+                ) && 
+                (
                     this.MissingDbBackupStatus == input.MissingDbBackupStatus ||
                     (this.MissingDbBackupStatus != null &&
                     this.MissingDbBackupStatus.Equals(input.MissingDbBackupStatus))
+                ) && 
+                (
+                    this.NewDatabaseAutoTriggerOobIncrBackup == input.NewDatabaseAutoTriggerOobIncrBackup ||
+                    (this.NewDatabaseAutoTriggerOobIncrBackup != null &&
+                    this.NewDatabaseAutoTriggerOobIncrBackup.Equals(input.NewDatabaseAutoTriggerOobIncrBackup))
                 ) && 
                 (
                     this.OfflineRestoringDbBackupStatus == input.OfflineRestoringDbBackupStatus ||
@@ -168,8 +198,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClonedDbBackupStatus.GetHashCode();
                 if (this.DbBackupIfNotOnlineStatus != null)
                     hashCode = hashCode * 59 + this.DbBackupIfNotOnlineStatus.GetHashCode();
+                if (this.LogChainBreakAutoTriggerOobIncrBackup != null)
+                    hashCode = hashCode * 59 + this.LogChainBreakAutoTriggerOobIncrBackup.GetHashCode();
                 if (this.MissingDbBackupStatus != null)
                     hashCode = hashCode * 59 + this.MissingDbBackupStatus.GetHashCode();
+                if (this.NewDatabaseAutoTriggerOobIncrBackup != null)
+                    hashCode = hashCode * 59 + this.NewDatabaseAutoTriggerOobIncrBackup.GetHashCode();
                 if (this.OfflineRestoringDbBackupStatus != null)
                     hashCode = hashCode * 59 + this.OfflineRestoringDbBackupStatus.GetHashCode();
                 if (this.ReadOnlyDbBackupStatus != null)

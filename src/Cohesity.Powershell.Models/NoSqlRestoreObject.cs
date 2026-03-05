@@ -26,7 +26,7 @@ namespace Cohesity.Model
         /// <param name="objectRestorePropertiesMap">Key-Value pair for properties to apply on restore object. Ex. Compaction for cassandra or ShardKeyJson for Mongo..</param>
         /// <param name="objectUuid">Uuid of the object to be restored..</param>
         /// <param name="rename">The new name of the object after restore..</param>
-        public NoSqlRestoreObject(List<NoSqlRestoreObjectObjectRestorePropertiesMapEntry> objectRestorePropertiesMap = default(List<NoSqlRestoreObjectObjectRestorePropertiesMapEntry>), string objectUuid = default(string), string rename = default(string))
+        public NoSqlRestoreObject(Dictionary<string, string> objectRestorePropertiesMap = default(Dictionary<string, string>), string objectUuid = default(string), string rename = default(string))
         {
             this.ObjectRestorePropertiesMap = objectRestorePropertiesMap;
             this.ObjectUuid = objectUuid;
@@ -41,7 +41,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Key-Value pair for properties to apply on restore object. Ex. Compaction for cassandra or ShardKeyJson for Mongo.</value>
         [DataMember(Name="objectRestorePropertiesMap", EmitDefaultValue=true)]
-        public List<NoSqlRestoreObjectObjectRestorePropertiesMapEntry> ObjectRestorePropertiesMap { get; set; }
+        public Dictionary<string, string> ObjectRestorePropertiesMap { get; set; }
 
         /// <summary>
         /// Uuid of the object to be restored.

@@ -23,17 +23,20 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HiveConnectParams" /> class.
         /// </summary>
+        /// <param name="entityThresholdExceeded">Specifies if max entity count exceeded for protection source view..</param>
         /// <param name="hdfsEntityId">Specifies the entity id of the HDFS source for this Hive.</param>
         /// <param name="hiveDiscoveryParams">hiveDiscoveryParams.</param>
         /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="metastore">Specifies the Hive metastore host..</param>
         /// <param name="thriftPort">Specifies the Hive metastore thrift Port.</param>
-        public HiveConnectParams(long? hdfsEntityId = default(long?), HadoopDiscoveryParams hiveDiscoveryParams = default(HadoopDiscoveryParams), string kerberosPrincipal = default(string), string metastore = default(string), int? thriftPort = default(int?))
+        public HiveConnectParams(bool? entityThresholdExceeded = default(bool?), long? hdfsEntityId = default(long?), HadoopDiscoveryParams hiveDiscoveryParams = default(HadoopDiscoveryParams), string kerberosPrincipal = default(string), string metastore = default(string), int? thriftPort = default(int?))
         {
+            this.EntityThresholdExceeded = entityThresholdExceeded;
             this.HdfsEntityId = hdfsEntityId;
             this.KerberosPrincipal = kerberosPrincipal;
             this.Metastore = metastore;
             this.ThriftPort = thriftPort;
+            this.EntityThresholdExceeded = entityThresholdExceeded;
             this.HdfsEntityId = hdfsEntityId;
             this.HiveDiscoveryParams = hiveDiscoveryParams;
             this.KerberosPrincipal = kerberosPrincipal;
@@ -41,6 +44,13 @@ namespace Cohesity.Model
             this.ThriftPort = thriftPort;
         }
         
+        /// <summary>
+        /// Specifies if max entity count exceeded for protection source view.
+        /// </summary>
+        /// <value>Specifies if max entity count exceeded for protection source view.</value>
+        [DataMember(Name="entityThresholdExceeded", EmitDefaultValue=true)]
+        public bool? EntityThresholdExceeded { get; set; }
+
         /// <summary>
         /// Specifies the entity id of the HDFS source for this Hive
         /// </summary>
@@ -112,6 +122,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.EntityThresholdExceeded == input.EntityThresholdExceeded ||
+                    (this.EntityThresholdExceeded != null &&
+                    this.EntityThresholdExceeded.Equals(input.EntityThresholdExceeded))
+                ) && 
+                (
                     this.HdfsEntityId == input.HdfsEntityId ||
                     (this.HdfsEntityId != null &&
                     this.HdfsEntityId.Equals(input.HdfsEntityId))
@@ -147,6 +162,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EntityThresholdExceeded != null)
+                    hashCode = hashCode * 59 + this.EntityThresholdExceeded.GetHashCode();
                 if (this.HdfsEntityId != null)
                     hashCode = hashCode * 59 + this.HdfsEntityId.GetHashCode();
                 if (this.HiveDiscoveryParams != null)

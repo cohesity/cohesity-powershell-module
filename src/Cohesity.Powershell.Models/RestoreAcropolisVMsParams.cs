@@ -29,8 +29,9 @@ namespace Cohesity.Model
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
         /// <param name="storageContainer">storageContainer.</param>
+        /// <param name="targetPeCluster">targetPeCluster.</param>
         /// <param name="uuidConfig">uuidConfig.</param>
-        public RestoreAcropolisVMsParams(bool? copyRecovery = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? recoverExcludedDisksAsBlankDisks = default(bool?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), EntityProto storageContainer = default(EntityProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
+        public RestoreAcropolisVMsParams(bool? copyRecovery = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? recoverExcludedDisksAsBlankDisks = default(bool?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), EntityProto storageContainer = default(EntityProto), EntityProto targetPeCluster = default(EntityProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
             this.CopyRecovery = copyRecovery;
             this.RecoverExcludedDisksAsBlankDisks = recoverExcludedDisksAsBlankDisks;
@@ -40,6 +41,7 @@ namespace Cohesity.Model
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
             this.StorageContainer = storageContainer;
+            this.TargetPeCluster = targetPeCluster;
             this.UuidConfig = uuidConfig;
         }
         
@@ -80,6 +82,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="storageContainer", EmitDefaultValue=false)]
         public EntityProto StorageContainer { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TargetPeCluster
+        /// </summary>
+        [DataMember(Name="targetPeCluster", EmitDefaultValue=false)]
+        public EntityProto TargetPeCluster { get; set; }
 
         /// <summary>
         /// Gets or Sets UuidConfig
@@ -154,6 +162,11 @@ namespace Cohesity.Model
                     this.StorageContainer.Equals(input.StorageContainer))
                 ) && 
                 (
+                    this.TargetPeCluster == input.TargetPeCluster ||
+                    (this.TargetPeCluster != null &&
+                    this.TargetPeCluster.Equals(input.TargetPeCluster))
+                ) && 
+                (
                     this.UuidConfig == input.UuidConfig ||
                     (this.UuidConfig != null &&
                     this.UuidConfig.Equals(input.UuidConfig))
@@ -181,6 +194,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoredObjectsNetworkConfig.GetHashCode();
                 if (this.StorageContainer != null)
                     hashCode = hashCode * 59 + this.StorageContainer.GetHashCode();
+                if (this.TargetPeCluster != null)
+                    hashCode = hashCode * 59 + this.TargetPeCluster.GetHashCode();
                 if (this.UuidConfig != null)
                     hashCode = hashCode * 59 + this.UuidConfig.GetHashCode();
                 return hashCode;

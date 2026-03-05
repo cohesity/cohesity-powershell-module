@@ -54,19 +54,55 @@ namespace Cohesity.Model
         [DataMember(Name="replicationStrategy", EmitDefaultValue=true)]
         public ReplicationStrategyEnum? ReplicationStrategy { get; set; }
         /// <summary>
+        /// Specifies Type of Keyspace. Specifies the type of an Cassandra keyspace entity.
+        /// </summary>
+        /// <value>Specifies Type of Keyspace. Specifies the type of an Cassandra keyspace entity.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum KRegular for value: kRegular
+            /// </summary>
+            [EnumMember(Value = "kRegular")]
+            KRegular = 1,
+
+            /// <summary>
+            /// Enum KGraph for value: kGraph
+            /// </summary>
+            [EnumMember(Value = "kGraph")]
+            KGraph = 2,
+
+            /// <summary>
+            /// Enum KSystem for value: kSystem
+            /// </summary>
+            [EnumMember(Value = "kSystem")]
+            KSystem = 3
+
+        }
+
+        /// <summary>
+        /// Specifies Type of Keyspace. Specifies the type of an Cassandra keyspace entity.
+        /// </summary>
+        /// <value>Specifies Type of Keyspace. Specifies the type of an Cassandra keyspace entity.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="CassandraKeyspace" /> class.
         /// </summary>
         /// <param name="childrenCount">Number of documents in this bucket..</param>
         /// <param name="dcList">If the replication strategy is set as kNetwork, then dc_list will have a list of data centers to which the keyspace is being replicated to..</param>
         /// <param name="replicationStrategy">Replication stragegy for the keyspace. Specifies the type of an Cassandra source entity..</param>
-        public CassandraKeyspace(int? childrenCount = default(int?), List<string> dcList = default(List<string>), ReplicationStrategyEnum? replicationStrategy = default(ReplicationStrategyEnum?))
+        /// <param name="type">Specifies Type of Keyspace. Specifies the type of an Cassandra keyspace entity..</param>
+        public CassandraKeyspace(int? childrenCount = default(int?), List<string> dcList = default(List<string>), ReplicationStrategyEnum? replicationStrategy = default(ReplicationStrategyEnum?), TypeEnum? type = default(TypeEnum?))
         {
             this.ChildrenCount = childrenCount;
             this.DcList = dcList;
             this.ReplicationStrategy = replicationStrategy;
+            this.Type = type;
             this.ChildrenCount = childrenCount;
             this.DcList = dcList;
             this.ReplicationStrategy = replicationStrategy;
+            this.Type = type;
         }
         
         /// <summary>
@@ -133,6 +169,10 @@ namespace Cohesity.Model
                 (
                     this.ReplicationStrategy == input.ReplicationStrategy ||
                     this.ReplicationStrategy.Equals(input.ReplicationStrategy)
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -150,6 +190,7 @@ namespace Cohesity.Model
                 if (this.DcList != null)
                     hashCode = hashCode * 59 + this.DcList.GetHashCode();
                 hashCode = hashCode * 59 + this.ReplicationStrategy.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

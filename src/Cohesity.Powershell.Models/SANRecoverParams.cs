@@ -24,9 +24,11 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SANRecoverParams" /> class.
         /// </summary>
         /// <param name="sanGroupRecoverParams">sanGroupRecoverParams.</param>
-        public SANRecoverParams(SANGroupEntityRecoverParams sanGroupRecoverParams = default(SANGroupEntityRecoverParams))
+        /// <param name="sanStorageArraySnapParams">sanStorageArraySnapParams.</param>
+        public SANRecoverParams(SANGroupEntityRecoverParams sanGroupRecoverParams = default(SANGroupEntityRecoverParams), SANStorageArraySnapshotRecoverParams sanStorageArraySnapParams = default(SANStorageArraySnapshotRecoverParams))
         {
             this.SanGroupRecoverParams = sanGroupRecoverParams;
+            this.SanStorageArraySnapParams = sanStorageArraySnapParams;
         }
         
         /// <summary>
@@ -34,6 +36,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="sanGroupRecoverParams", EmitDefaultValue=false)]
         public SANGroupEntityRecoverParams SanGroupRecoverParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SanStorageArraySnapParams
+        /// </summary>
+        [DataMember(Name="sanStorageArraySnapParams", EmitDefaultValue=false)]
+        public SANStorageArraySnapshotRecoverParams SanStorageArraySnapParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +83,11 @@ namespace Cohesity.Model
                     this.SanGroupRecoverParams == input.SanGroupRecoverParams ||
                     (this.SanGroupRecoverParams != null &&
                     this.SanGroupRecoverParams.Equals(input.SanGroupRecoverParams))
+                ) && 
+                (
+                    this.SanStorageArraySnapParams == input.SanStorageArraySnapParams ||
+                    (this.SanStorageArraySnapParams != null &&
+                    this.SanStorageArraySnapParams.Equals(input.SanStorageArraySnapParams))
                 );
         }
 
@@ -89,6 +102,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.SanGroupRecoverParams != null)
                     hashCode = hashCode * 59 + this.SanGroupRecoverParams.GetHashCode();
+                if (this.SanStorageArraySnapParams != null)
+                    hashCode = hashCode * 59 + this.SanStorageArraySnapParams.GetHashCode();
                 return hashCode;
             }
         }

@@ -23,13 +23,33 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDBRecoverJobParams" /> class.
         /// </summary>
+        /// <param name="recoverUserRole">Should the agent Recover users and roles in this job..</param>
+        /// <param name="recoverZonesTags">Should the agent Recover zones/shard tags in this job..</param>
         /// <param name="suffix">A suffix that is to be applied to all recovered entities.</param>
-        public MongoDBRecoverJobParams(string suffix = default(string))
+        public MongoDBRecoverJobParams(bool? recoverUserRole = default(bool?), bool? recoverZonesTags = default(bool?), string suffix = default(string))
         {
+            this.RecoverUserRole = recoverUserRole;
+            this.RecoverZonesTags = recoverZonesTags;
             this.Suffix = suffix;
+            this.RecoverUserRole = recoverUserRole;
+            this.RecoverZonesTags = recoverZonesTags;
             this.Suffix = suffix;
         }
         
+        /// <summary>
+        /// Should the agent Recover users and roles in this job.
+        /// </summary>
+        /// <value>Should the agent Recover users and roles in this job.</value>
+        [DataMember(Name="recoverUserRole", EmitDefaultValue=true)]
+        public bool? RecoverUserRole { get; set; }
+
+        /// <summary>
+        /// Should the agent Recover zones/shard tags in this job.
+        /// </summary>
+        /// <value>Should the agent Recover zones/shard tags in this job.</value>
+        [DataMember(Name="recoverZonesTags", EmitDefaultValue=true)]
+        public bool? RecoverZonesTags { get; set; }
+
         /// <summary>
         /// A suffix that is to be applied to all recovered entities
         /// </summary>
@@ -74,6 +94,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.RecoverUserRole == input.RecoverUserRole ||
+                    (this.RecoverUserRole != null &&
+                    this.RecoverUserRole.Equals(input.RecoverUserRole))
+                ) && 
+                (
+                    this.RecoverZonesTags == input.RecoverZonesTags ||
+                    (this.RecoverZonesTags != null &&
+                    this.RecoverZonesTags.Equals(input.RecoverZonesTags))
+                ) && 
+                (
                     this.Suffix == input.Suffix ||
                     (this.Suffix != null &&
                     this.Suffix.Equals(input.Suffix))
@@ -89,6 +119,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.RecoverUserRole != null)
+                    hashCode = hashCode * 59 + this.RecoverUserRole.GetHashCode();
+                if (this.RecoverZonesTags != null)
+                    hashCode = hashCode * 59 + this.RecoverZonesTags.GetHashCode();
                 if (this.Suffix != null)
                     hashCode = hashCode * 59 + this.Suffix.GetHashCode();
                 return hashCode;

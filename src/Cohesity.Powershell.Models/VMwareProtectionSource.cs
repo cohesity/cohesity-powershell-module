@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class VMwareProtectionSource :  IEquatable<VMwareProtectionSource>
     {
         /// <summary>
+        /// This field specifies VMware cloud provider where VMC is hosted. &#39;kNone&#39; VMC source is hosted on unknown cloud provider. &#39;kAWS&#39; VMC source is hosted on AWS cloud. &#39;kAzure&#39; VMC source is hosted on Azure cloud. &#39;kGCP&#39; VMC source is hosted on GCP cloud.
+        /// </summary>
+        /// <value>This field specifies VMware cloud provider where VMC is hosted. &#39;kNone&#39; VMC source is hosted on unknown cloud provider. &#39;kAWS&#39; VMC source is hosted on AWS cloud. &#39;kAzure&#39; VMC source is hosted on Azure cloud. &#39;kGCP&#39; VMC source is hosted on GCP cloud.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum VMwareCloudProviderTypeEnum
+        {
+            /// <summary>
+            /// Enum KNone for value: kNone
+            /// </summary>
+            [EnumMember(Value = "kNone")]
+            KNone = 1,
+
+            /// <summary>
+            /// Enum KAWS for value: kAWS
+            /// </summary>
+            [EnumMember(Value = "kAWS")]
+            KAWS = 2,
+
+            /// <summary>
+            /// Enum KAzure for value: kAzure
+            /// </summary>
+            [EnumMember(Value = "kAzure")]
+            KAzure = 3,
+
+            /// <summary>
+            /// Enum KGCP for value: kGCP
+            /// </summary>
+            [EnumMember(Value = "kGCP")]
+            KGCP = 4
+
+        }
+
+        /// <summary>
+        /// This field specifies VMware cloud provider where VMC is hosted. &#39;kNone&#39; VMC source is hosted on unknown cloud provider. &#39;kAWS&#39; VMC source is hosted on AWS cloud. &#39;kAzure&#39; VMC source is hosted on Azure cloud. &#39;kGCP&#39; VMC source is hosted on GCP cloud.
+        /// </summary>
+        /// <value>This field specifies VMware cloud provider where VMC is hosted. &#39;kNone&#39; VMC source is hosted on unknown cloud provider. &#39;kAWS&#39; VMC source is hosted on AWS cloud. &#39;kAzure&#39; VMC source is hosted on Azure cloud. &#39;kGCP&#39; VMC source is hosted on GCP cloud.</value>
+        [DataMember(Name="VMwareCloudProviderType", EmitDefaultValue=true)]
+        public VMwareCloudProviderTypeEnum? VMwareCloudProviderType { get; set; }
+        /// <summary>
         /// Specifies the connection state of the Object and are only valid for ESXi hosts (&#39;kHostSystem&#39;) or Virtual Machines (&#39;kVirtualMachine&#39;). These enums are equivalent to the connection states documented in VMware&#39;s reference documentation. Examples of Cohesity connection states include &#39;kConnected&#39;, &#39;kDisconnected&#39;, &#39;kInacccessible&#39;, etc. &#39;kConnected&#39; indicates that server has access to virtual machine. &#39;kDisconnected&#39; indicates that server is currently disconnected to virtual machine. &#39;kInaccessible&#39; indicates that one or more configuration files are inacccessible. &#39;kInvalid&#39; indicates that virtual machine configuration is invalid. &#39;kOrphaned&#39; indicates that virtual machine is no longer registered on the host it is associated with. &#39;kNotResponding&#39; indicates that virtual machine has failed to respond due to external issues such as network connectivity, host not running etc.
         /// </summary>
         /// <value>Specifies the connection state of the Object and are only valid for ESXi hosts (&#39;kHostSystem&#39;) or Virtual Machines (&#39;kVirtualMachine&#39;). These enums are equivalent to the connection states documented in VMware&#39;s reference documentation. Examples of Cohesity connection states include &#39;kConnected&#39;, &#39;kDisconnected&#39;, &#39;kInacccessible&#39;, etc. &#39;kConnected&#39; indicates that server has access to virtual machine. &#39;kDisconnected&#39; indicates that server is currently disconnected to virtual machine. &#39;kInaccessible&#39; indicates that one or more configuration files are inacccessible. &#39;kInvalid&#39; indicates that virtual machine configuration is invalid. &#39;kOrphaned&#39; indicates that virtual machine is no longer registered on the host it is associated with. &#39;kNotResponding&#39; indicates that virtual machine has failed to respond due to external issues such as network connectivity, host not running etc.</value>
@@ -434,6 +473,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VMwareProtectionSource" /> class.
         /// </summary>
+        /// <param name="vMwareCloudProviderType">This field specifies VMware cloud provider where VMC is hosted. &#39;kNone&#39; VMC source is hosted on unknown cloud provider. &#39;kAWS&#39; VMC source is hosted on AWS cloud. &#39;kAzure&#39; VMC source is hosted on Azure cloud. &#39;kGCP&#39; VMC source is hosted on GCP cloud..</param>
         /// <param name="agentId">Specifies the id of the persistent agent..</param>
         /// <param name="agents">Specifies the list of agent information on the Virtual Machine. This is set only if the Virtual Machine has persistent agent..</param>
         /// <param name="cdpInfo">cdpInfo.</param>
@@ -455,8 +495,9 @@ namespace Cohesity.Model
         /// <param name="version">For vCenter and ESXi, this will show the software version. For VMs, this will show the hardware version..</param>
         /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="vmLinkingInfo">vmLinkingInfo.</param>
-        public VMwareProtectionSource(long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), VMwareCdpProtectionSourceInfo cdpInfo = default(VMwareCdpProtectionSourceInfo), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), IpDetails ipDetails = default(IpDetails), bool? isSaasConnector = default(bool?), bool? isVmTemplate = default(bool?), bool? isVmcEntity = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>), VmLinkingInfo vmLinkingInfo = default(VmLinkingInfo))
+        public VMwareProtectionSource(VMwareCloudProviderTypeEnum? vMwareCloudProviderType = default(VMwareCloudProviderTypeEnum?), long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), VMwareCdpProtectionSourceInfo cdpInfo = default(VMwareCdpProtectionSourceInfo), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), IpDetails ipDetails = default(IpDetails), bool? isSaasConnector = default(bool?), bool? isVmTemplate = default(bool?), bool? isVmcEntity = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>), VmLinkingInfo vmLinkingInfo = default(VmLinkingInfo))
         {
+            this.VMwareCloudProviderType = vMwareCloudProviderType;
             this.AgentId = agentId;
             this.Agents = agents;
             this.ConnectionState = connectionState;
@@ -473,6 +514,7 @@ namespace Cohesity.Model
             this.VCloudDirectorInfo = vCloudDirectorInfo;
             this.Version = version;
             this.VirtualDisks = virtualDisks;
+            this.VMwareCloudProviderType = vMwareCloudProviderType;
             this.AgentId = agentId;
             this.Agents = agents;
             this.CdpInfo = cdpInfo;
@@ -640,6 +682,10 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.VMwareCloudProviderType == input.VMwareCloudProviderType ||
+                    this.VMwareCloudProviderType.Equals(input.VMwareCloudProviderType)
+                ) && 
+                (
                     this.AgentId == input.AgentId ||
                     (this.AgentId != null &&
                     this.AgentId.Equals(input.AgentId))
@@ -754,6 +800,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.VMwareCloudProviderType.GetHashCode();
                 if (this.AgentId != null)
                     hashCode = hashCode * 59 + this.AgentId.GetHashCode();
                 if (this.Agents != null)

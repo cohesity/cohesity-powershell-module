@@ -43,7 +43,13 @@ namespace Cohesity.Model
             /// Enum KTable for value: kTable
             /// </summary>
             [EnumMember(Value = "kTable")]
-            KTable = 3
+            KTable = 3,
+
+            /// <summary>
+            /// Enum KView for value: kView
+            /// </summary>
+            [EnumMember(Value = "kView")]
+            KView = 4
 
         }
 

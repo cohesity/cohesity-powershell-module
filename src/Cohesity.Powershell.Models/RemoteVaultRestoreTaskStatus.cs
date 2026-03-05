@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteVaultRestoreTaskStatus" /> class.
         /// </summary>
+        /// <param name="cloudDomainFolder">Cloud Domain Folder  Specifies the cloud domain folder which the restore downloads from..</param>
         /// <param name="currentIndexingStatus">Specifies the status of an indexing task that builds an index from the Protection Job metadata retrieved from the remote Vault. The index contains information about Job Runs (Snapshots) for a Protection Job and is required to restore Snapshots to this local Cluster..</param>
         /// <param name="currentSnapshotStatus">Specifies the status of the Snapshot restore task. The Snapshot restore task restores the specified archived Snapshots from a remote Vault to this Cluster..</param>
         /// <param name="localProtectionJobUid">Specifies the globally unique id of the new inactive Protection Job created on the local Cluster as part of the restoration of archived data..</param>
@@ -31,8 +32,9 @@ namespace Cohesity.Model
         /// <param name="searchJobUid">Specifies the unique id of the search Job that searched the remote Vault..</param>
         /// <param name="vaultId">Vault Id  Specifies the Id of the vault from which the restore is going on..</param>
         /// <param name="vaultName">Vault Name  Specifies the name of the vault from which the restore is going on..</param>
-        public RemoteVaultRestoreTaskStatus(RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId), long? vaultId = default(long?), string vaultName = default(string))
+        public RemoteVaultRestoreTaskStatus(string cloudDomainFolder = default(string), RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId), long? vaultId = default(long?), string vaultName = default(string))
         {
+            this.CloudDomainFolder = cloudDomainFolder;
             this.CurrentIndexingStatus = currentIndexingStatus;
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;
@@ -40,6 +42,7 @@ namespace Cohesity.Model
             this.SearchJobUid = searchJobUid;
             this.VaultId = vaultId;
             this.VaultName = vaultName;
+            this.CloudDomainFolder = cloudDomainFolder;
             this.CurrentIndexingStatus = currentIndexingStatus;
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;
@@ -50,6 +53,13 @@ namespace Cohesity.Model
             this.VaultName = vaultName;
         }
         
+        /// <summary>
+        /// Cloud Domain Folder  Specifies the cloud domain folder which the restore downloads from.
+        /// </summary>
+        /// <value>Cloud Domain Folder  Specifies the cloud domain folder which the restore downloads from.</value>
+        [DataMember(Name="cloudDomainFolder", EmitDefaultValue=true)]
+        public string CloudDomainFolder { get; set; }
+
         /// <summary>
         /// Specifies the status of an indexing task that builds an index from the Protection Job metadata retrieved from the remote Vault. The index contains information about Job Runs (Snapshots) for a Protection Job and is required to restore Snapshots to this local Cluster.
         /// </summary>
@@ -142,6 +152,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudDomainFolder == input.CloudDomainFolder ||
+                    (this.CloudDomainFolder != null &&
+                    this.CloudDomainFolder.Equals(input.CloudDomainFolder))
+                ) && 
+                (
                     this.CurrentIndexingStatus == input.CurrentIndexingStatus ||
                     (this.CurrentIndexingStatus != null &&
                     this.CurrentIndexingStatus.Equals(input.CurrentIndexingStatus))
@@ -192,6 +207,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudDomainFolder != null)
+                    hashCode = hashCode * 59 + this.CloudDomainFolder.GetHashCode();
                 if (this.CurrentIndexingStatus != null)
                     hashCode = hashCode * 59 + this.CurrentIndexingStatus.GetHashCode();
                 if (this.CurrentSnapshotStatus != null)

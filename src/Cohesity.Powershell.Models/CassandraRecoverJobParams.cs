@@ -27,6 +27,9 @@ namespace Cohesity.Model
         /// <param name="finaliseRestoreTaskId">The task id which will be used by the finalise restore job..</param>
         /// <param name="graphHandlingEnabled">whether special graph handling is enabled.</param>
         /// <param name="isFinalisePhase">Whether the call is for the finalise restore phase..</param>
+        /// <param name="isInstantRecovery">isInstantRecovery.</param>
+        /// <param name="isLiveTableRestore">Whether this is a live table restore.</param>
+        /// <param name="isSystemKsRecovery">Whether this is a system keyspace recovery.</param>
         /// <param name="logRecoverParams">logRecoverParams.</param>
         /// <param name="logRestoreDirectory">Logs will be restored to this location..</param>
         /// <param name="restartAllowed">Option to restart Cassandra services after point in time recovery..</param>
@@ -35,14 +38,18 @@ namespace Cohesity.Model
         /// <param name="restartTime">Option to restart Cassandra services at the specified time.</param>
         /// <param name="restoreRolesAndPermissions">Whether to restore/skip roles and permissions in the job run..</param>
         /// <param name="rolesGflagEnabled">Whether the gflag to restore cassandra roles is enabled..</param>
+        /// <param name="runPreChecks">Whether to checks before recovery for fast fail e.x storage check.</param>
         /// <param name="selectedDataCenterVec">The data centers selected for recovery..</param>
         /// <param name="stagingDirectoryVec">Cassandra staging directory.</param>
         /// <param name="suffix">A suffix that is to be applied to all recovered entities TODO (faizan.khan) : Remove this..</param>
-        public CassandraRecoverJobParams(CassandraAdditionalParams cassandraAdditionalInfo = default(CassandraAdditionalParams), long? finaliseRestoreTaskId = default(long?), bool? graphHandlingEnabled = default(bool?), bool? isFinalisePhase = default(bool?), CassandraLogRecoverJobParams logRecoverParams = default(CassandraLogRecoverJobParams), string logRestoreDirectory = default(string), bool? restartAllowed = default(bool?), string restartCommand = default(string), bool? restartImmediately = default(bool?), long? restartTime = default(long?), bool? restoreRolesAndPermissions = default(bool?), bool? rolesGflagEnabled = default(bool?), List<string> selectedDataCenterVec = default(List<string>), List<string> stagingDirectoryVec = default(List<string>), string suffix = default(string))
+        public CassandraRecoverJobParams(CassandraAdditionalParams cassandraAdditionalInfo = default(CassandraAdditionalParams), long? finaliseRestoreTaskId = default(long?), bool? graphHandlingEnabled = default(bool?), bool? isFinalisePhase = default(bool?), bool? isInstantRecovery = default(bool?), bool? isLiveTableRestore = default(bool?), bool? isSystemKsRecovery = default(bool?), CassandraLogRecoverJobParams logRecoverParams = default(CassandraLogRecoverJobParams), string logRestoreDirectory = default(string), bool? restartAllowed = default(bool?), string restartCommand = default(string), bool? restartImmediately = default(bool?), long? restartTime = default(long?), bool? restoreRolesAndPermissions = default(bool?), bool? rolesGflagEnabled = default(bool?), bool? runPreChecks = default(bool?), List<string> selectedDataCenterVec = default(List<string>), List<string> stagingDirectoryVec = default(List<string>), string suffix = default(string))
         {
             this.FinaliseRestoreTaskId = finaliseRestoreTaskId;
             this.GraphHandlingEnabled = graphHandlingEnabled;
             this.IsFinalisePhase = isFinalisePhase;
+            this.IsInstantRecovery = isInstantRecovery;
+            this.IsLiveTableRestore = isLiveTableRestore;
+            this.IsSystemKsRecovery = isSystemKsRecovery;
             this.LogRestoreDirectory = logRestoreDirectory;
             this.RestartAllowed = restartAllowed;
             this.RestartCommand = restartCommand;
@@ -50,6 +57,7 @@ namespace Cohesity.Model
             this.RestartTime = restartTime;
             this.RestoreRolesAndPermissions = restoreRolesAndPermissions;
             this.RolesGflagEnabled = rolesGflagEnabled;
+            this.RunPreChecks = runPreChecks;
             this.SelectedDataCenterVec = selectedDataCenterVec;
             this.StagingDirectoryVec = stagingDirectoryVec;
             this.Suffix = suffix;
@@ -57,6 +65,9 @@ namespace Cohesity.Model
             this.FinaliseRestoreTaskId = finaliseRestoreTaskId;
             this.GraphHandlingEnabled = graphHandlingEnabled;
             this.IsFinalisePhase = isFinalisePhase;
+            this.IsInstantRecovery = isInstantRecovery;
+            this.IsLiveTableRestore = isLiveTableRestore;
+            this.IsSystemKsRecovery = isSystemKsRecovery;
             this.LogRecoverParams = logRecoverParams;
             this.LogRestoreDirectory = logRestoreDirectory;
             this.RestartAllowed = restartAllowed;
@@ -65,6 +76,7 @@ namespace Cohesity.Model
             this.RestartTime = restartTime;
             this.RestoreRolesAndPermissions = restoreRolesAndPermissions;
             this.RolesGflagEnabled = rolesGflagEnabled;
+            this.RunPreChecks = runPreChecks;
             this.SelectedDataCenterVec = selectedDataCenterVec;
             this.StagingDirectoryVec = stagingDirectoryVec;
             this.Suffix = suffix;
@@ -96,6 +108,26 @@ namespace Cohesity.Model
         /// <value>Whether the call is for the finalise restore phase.</value>
         [DataMember(Name="isFinalisePhase", EmitDefaultValue=true)]
         public bool? IsFinalisePhase { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsInstantRecovery
+        /// </summary>
+        [DataMember(Name="isInstantRecovery", EmitDefaultValue=true)]
+        public bool? IsInstantRecovery { get; set; }
+
+        /// <summary>
+        /// Whether this is a live table restore
+        /// </summary>
+        /// <value>Whether this is a live table restore</value>
+        [DataMember(Name="isLiveTableRestore", EmitDefaultValue=true)]
+        public bool? IsLiveTableRestore { get; set; }
+
+        /// <summary>
+        /// Whether this is a system keyspace recovery
+        /// </summary>
+        /// <value>Whether this is a system keyspace recovery</value>
+        [DataMember(Name="isSystemKsRecovery", EmitDefaultValue=true)]
+        public bool? IsSystemKsRecovery { get; set; }
 
         /// <summary>
         /// Gets or Sets LogRecoverParams
@@ -151,6 +183,13 @@ namespace Cohesity.Model
         /// <value>Whether the gflag to restore cassandra roles is enabled.</value>
         [DataMember(Name="rolesGflagEnabled", EmitDefaultValue=true)]
         public bool? RolesGflagEnabled { get; set; }
+
+        /// <summary>
+        /// Whether to checks before recovery for fast fail e.x storage check
+        /// </summary>
+        /// <value>Whether to checks before recovery for fast fail e.x storage check</value>
+        [DataMember(Name="runPreChecks", EmitDefaultValue=true)]
+        public bool? RunPreChecks { get; set; }
 
         /// <summary>
         /// The data centers selected for recovery.
@@ -230,6 +269,21 @@ namespace Cohesity.Model
                     this.IsFinalisePhase.Equals(input.IsFinalisePhase))
                 ) && 
                 (
+                    this.IsInstantRecovery == input.IsInstantRecovery ||
+                    (this.IsInstantRecovery != null &&
+                    this.IsInstantRecovery.Equals(input.IsInstantRecovery))
+                ) && 
+                (
+                    this.IsLiveTableRestore == input.IsLiveTableRestore ||
+                    (this.IsLiveTableRestore != null &&
+                    this.IsLiveTableRestore.Equals(input.IsLiveTableRestore))
+                ) && 
+                (
+                    this.IsSystemKsRecovery == input.IsSystemKsRecovery ||
+                    (this.IsSystemKsRecovery != null &&
+                    this.IsSystemKsRecovery.Equals(input.IsSystemKsRecovery))
+                ) && 
+                (
                     this.LogRecoverParams == input.LogRecoverParams ||
                     (this.LogRecoverParams != null &&
                     this.LogRecoverParams.Equals(input.LogRecoverParams))
@@ -270,6 +324,11 @@ namespace Cohesity.Model
                     this.RolesGflagEnabled.Equals(input.RolesGflagEnabled))
                 ) && 
                 (
+                    this.RunPreChecks == input.RunPreChecks ||
+                    (this.RunPreChecks != null &&
+                    this.RunPreChecks.Equals(input.RunPreChecks))
+                ) && 
+                (
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
                     input.SelectedDataCenterVec != null &&
@@ -305,6 +364,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GraphHandlingEnabled.GetHashCode();
                 if (this.IsFinalisePhase != null)
                     hashCode = hashCode * 59 + this.IsFinalisePhase.GetHashCode();
+                if (this.IsInstantRecovery != null)
+                    hashCode = hashCode * 59 + this.IsInstantRecovery.GetHashCode();
+                if (this.IsLiveTableRestore != null)
+                    hashCode = hashCode * 59 + this.IsLiveTableRestore.GetHashCode();
+                if (this.IsSystemKsRecovery != null)
+                    hashCode = hashCode * 59 + this.IsSystemKsRecovery.GetHashCode();
                 if (this.LogRecoverParams != null)
                     hashCode = hashCode * 59 + this.LogRecoverParams.GetHashCode();
                 if (this.LogRestoreDirectory != null)
@@ -321,6 +386,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreRolesAndPermissions.GetHashCode();
                 if (this.RolesGflagEnabled != null)
                     hashCode = hashCode * 59 + this.RolesGflagEnabled.GetHashCode();
+                if (this.RunPreChecks != null)
+                    hashCode = hashCode * 59 + this.RunPreChecks.GetHashCode();
                 if (this.SelectedDataCenterVec != null)
                     hashCode = hashCode * 59 + this.SelectedDataCenterVec.GetHashCode();
                 if (this.StagingDirectoryVec != null)

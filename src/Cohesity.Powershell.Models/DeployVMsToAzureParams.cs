@@ -29,19 +29,21 @@ namespace Cohesity.Model
         /// <param name="dataTransferInfo">dataTransferInfo.</param>
         /// <param name="networkResourceGroup">networkResourceGroup.</param>
         /// <param name="networkSecurityGroup">networkSecurityGroup.</param>
+        /// <param name="region">region.</param>
         /// <param name="resourceGroup">resourceGroup.</param>
         /// <param name="storageAccount">storageAccount.</param>
         /// <param name="storageContainer">storageContainer.</param>
         /// <param name="storageKey">storageKey.</param>
         /// <param name="storageResourceGroup">storageResourceGroup.</param>
         /// <param name="subnet">subnet.</param>
+        /// <param name="subscription">subscription.</param>
         /// <param name="tempVmResourceGroup">tempVmResourceGroup.</param>
         /// <param name="tempVmStorageAccount">tempVmStorageAccount.</param>
         /// <param name="tempVmStorageContainer">tempVmStorageContainer.</param>
         /// <param name="tempVmSubnet">tempVmSubnet.</param>
         /// <param name="tempVmVirtualNetwork">tempVmVirtualNetwork.</param>
         /// <param name="virtualNetwork">virtualNetwork.</param>
-        public DeployVMsToAzureParams(EntityProto availabilitySet = default(EntityProto), AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), DataTransferInfo dataTransferInfo = default(DataTransferInfo), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto tempVmResourceGroup = default(EntityProto), EntityProto tempVmStorageAccount = default(EntityProto), EntityProto tempVmStorageContainer = default(EntityProto), EntityProto tempVmSubnet = default(EntityProto), EntityProto tempVmVirtualNetwork = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
+        public DeployVMsToAzureParams(EntityProto availabilitySet = default(EntityProto), AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), DataTransferInfo dataTransferInfo = default(DataTransferInfo), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto region = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto subscription = default(EntityProto), EntityProto tempVmResourceGroup = default(EntityProto), EntityProto tempVmStorageAccount = default(EntityProto), EntityProto tempVmStorageContainer = default(EntityProto), EntityProto tempVmSubnet = default(EntityProto), EntityProto tempVmVirtualNetwork = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
         {
             this.AvailabilitySet = availabilitySet;
             this.AzureManagedDiskParams = azureManagedDiskParams;
@@ -49,12 +51,14 @@ namespace Cohesity.Model
             this.DataTransferInfo = dataTransferInfo;
             this.NetworkResourceGroup = networkResourceGroup;
             this.NetworkSecurityGroup = networkSecurityGroup;
+            this.Region = region;
             this.ResourceGroup = resourceGroup;
             this.StorageAccount = storageAccount;
             this.StorageContainer = storageContainer;
             this.StorageKey = storageKey;
             this.StorageResourceGroup = storageResourceGroup;
             this.Subnet = subnet;
+            this.Subscription = subscription;
             this.TempVmResourceGroup = tempVmResourceGroup;
             this.TempVmStorageAccount = tempVmStorageAccount;
             this.TempVmStorageContainer = tempVmStorageContainer;
@@ -100,6 +104,12 @@ namespace Cohesity.Model
         public EntityProto NetworkSecurityGroup { get; set; }
 
         /// <summary>
+        /// Gets or Sets Region
+        /// </summary>
+        [DataMember(Name="region", EmitDefaultValue=false)]
+        public EntityProto Region { get; set; }
+
+        /// <summary>
         /// Gets or Sets ResourceGroup
         /// </summary>
         [DataMember(Name="resourceGroup", EmitDefaultValue=false)]
@@ -134,6 +144,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="subnet", EmitDefaultValue=false)]
         public EntityProto Subnet { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Subscription
+        /// </summary>
+        [DataMember(Name="subscription", EmitDefaultValue=false)]
+        public EntityProto Subscription { get; set; }
 
         /// <summary>
         /// Gets or Sets TempVmResourceGroup
@@ -238,6 +254,11 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroup.Equals(input.NetworkSecurityGroup))
                 ) && 
                 (
+                    this.Region == input.Region ||
+                    (this.Region != null &&
+                    this.Region.Equals(input.Region))
+                ) && 
+                (
                     this.ResourceGroup == input.ResourceGroup ||
                     (this.ResourceGroup != null &&
                     this.ResourceGroup.Equals(input.ResourceGroup))
@@ -266,6 +287,11 @@ namespace Cohesity.Model
                     this.Subnet == input.Subnet ||
                     (this.Subnet != null &&
                     this.Subnet.Equals(input.Subnet))
+                ) && 
+                (
+                    this.Subscription == input.Subscription ||
+                    (this.Subscription != null &&
+                    this.Subscription.Equals(input.Subscription))
                 ) && 
                 (
                     this.TempVmResourceGroup == input.TempVmResourceGroup ||
@@ -320,6 +346,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetworkResourceGroup.GetHashCode();
                 if (this.NetworkSecurityGroup != null)
                     hashCode = hashCode * 59 + this.NetworkSecurityGroup.GetHashCode();
+                if (this.Region != null)
+                    hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.ResourceGroup != null)
                     hashCode = hashCode * 59 + this.ResourceGroup.GetHashCode();
                 if (this.StorageAccount != null)
@@ -332,6 +360,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StorageResourceGroup.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
+                if (this.Subscription != null)
+                    hashCode = hashCode * 59 + this.Subscription.GetHashCode();
                 if (this.TempVmResourceGroup != null)
                     hashCode = hashCode * 59 + this.TempVmResourceGroup.GetHashCode();
                 if (this.TempVmStorageAccount != null)

@@ -25,12 +25,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="awsKms">awsKms.</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
+        /// <param name="gcpKms">gcpKms.</param>
+        /// <param name="ibmKms">ibmKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
         /// <param name="keyName">Specifies name of the key..</param>
         /// <param name="serverName">Specifies the name given to the KMS Server..</param>
         /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
         /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
-        public KmsUpdateRequestParameters(AwsKmsUpdateParams awsKms = default(AwsKmsUpdateParams), CryptsoftKmsUpdateParams cryptsoftKms = default(CryptsoftKmsUpdateParams), long? id = default(long?), string keyName = default(string), string serverName = default(string), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
+        public KmsUpdateRequestParameters(AwsKmsUpdateParams awsKms = default(AwsKmsUpdateParams), CryptsoftKmsUpdateParams cryptsoftKms = default(CryptsoftKmsUpdateParams), GcpKmsUpdateParams gcpKms = default(GcpKmsUpdateParams), IbmKmsUpdateParams ibmKms = default(IbmKmsUpdateParams), long? id = default(long?), string keyName = default(string), string serverName = default(string), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
             this.Id = id;
             this.KeyName = keyName;
@@ -39,6 +41,8 @@ namespace Cohesity.Model
             this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
             this.CryptsoftKms = cryptsoftKms;
+            this.GcpKms = gcpKms;
+            this.IbmKms = ibmKms;
             this.Id = id;
             this.KeyName = keyName;
             this.ServerName = serverName;
@@ -57,6 +61,18 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cryptsoftKms", EmitDefaultValue=false)]
         public CryptsoftKmsUpdateParams CryptsoftKms { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GcpKms
+        /// </summary>
+        [DataMember(Name="gcpKms", EmitDefaultValue=false)]
+        public GcpKmsUpdateParams GcpKms { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IbmKms
+        /// </summary>
+        [DataMember(Name="ibmKms", EmitDefaultValue=false)]
+        public IbmKmsUpdateParams IbmKms { get; set; }
 
         /// <summary>
         /// The Id of a KMS server.
@@ -140,6 +156,16 @@ namespace Cohesity.Model
                     this.CryptsoftKms.Equals(input.CryptsoftKms))
                 ) && 
                 (
+                    this.GcpKms == input.GcpKms ||
+                    (this.GcpKms != null &&
+                    this.GcpKms.Equals(input.GcpKms))
+                ) && 
+                (
+                    this.IbmKms == input.IbmKms ||
+                    (this.IbmKms != null &&
+                    this.IbmKms.Equals(input.IbmKms))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -181,6 +207,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AwsKms.GetHashCode();
                 if (this.CryptsoftKms != null)
                     hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
+                if (this.GcpKms != null)
+                    hashCode = hashCode * 59 + this.GcpKms.GetHashCode();
+                if (this.IbmKms != null)
+                    hashCode = hashCode * 59 + this.IbmKms.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.KeyName != null)

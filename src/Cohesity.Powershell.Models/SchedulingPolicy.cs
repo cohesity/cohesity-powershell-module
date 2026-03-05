@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class SchedulingPolicy :  IEquatable<SchedulingPolicy>
     {
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kYearly&#39; means new Job Runs start yearly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kYearly&#39; means new Job Runs start yearly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PeriodicityEnum
         {
@@ -55,14 +55,20 @@ namespace Cohesity.Model
             /// Enum KCDP for value: kCDP
             /// </summary>
             [EnumMember(Value = "kCDP")]
-            KCDP = 5
+            KCDP = 5,
+
+            /// <summary>
+            /// Enum KYearly for value: kYearly
+            /// </summary>
+            [EnumMember(Value = "kYearly")]
+            KYearly = 6
 
         }
 
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kYearly&#39; means new Job Runs start yearly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kYearly&#39; means new Job Runs start yearly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
         [DataMember(Name="periodicity", EmitDefaultValue=true)]
         public PeriodicityEnum? Periodicity { get; set; }
         /// <summary>
@@ -71,20 +77,23 @@ namespace Cohesity.Model
         /// <param name="continuousSchedule">Specifies the time interval between two Job Runs of a continuous backup schedule and any QuietTime periods when new Job Runs should NOT be started. Set if periodicity is kContinuous..</param>
         /// <param name="dailySchedule">Specifies a daily or weekly backup schedule. Set if periodicity is kDaily..</param>
         /// <param name="monthlySchedule">Specifies a monthly backup schedule. Set if periodicity is kMonthly..</param>
-        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy..</param>
+        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kYearly&#39; means new Job Runs start yearly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy..</param>
         /// <param name="rpoSchedule">Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO..</param>
-        public SchedulingPolicy(ContinuousSchedule continuousSchedule = default(ContinuousSchedule), DailySchedule dailySchedule = default(DailySchedule), MonthlySchedule monthlySchedule = default(MonthlySchedule), PeriodicityEnum? periodicity = default(PeriodicityEnum?), RpoSchedule rpoSchedule = default(RpoSchedule))
+        /// <param name="yearlySchedule">Specifies a yearly backup schedule. Set if periodicity is kFirst..</param>
+        public SchedulingPolicy(ContinuousSchedule continuousSchedule = default(ContinuousSchedule), DailySchedule dailySchedule = default(DailySchedule), MonthlySchedule monthlySchedule = default(MonthlySchedule), PeriodicityEnum? periodicity = default(PeriodicityEnum?), RpoSchedule rpoSchedule = default(RpoSchedule), YearlySchedule yearlySchedule = default(YearlySchedule))
         {
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;
             this.Periodicity = periodicity;
             this.RpoSchedule = rpoSchedule;
+            this.YearlySchedule = yearlySchedule;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;
             this.Periodicity = periodicity;
             this.RpoSchedule = rpoSchedule;
+            this.YearlySchedule = yearlySchedule;
         }
         
         /// <summary>
@@ -114,6 +123,13 @@ namespace Cohesity.Model
         /// <value>Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO.</value>
         [DataMember(Name="rpoSchedule", EmitDefaultValue=true)]
         public RpoSchedule RpoSchedule { get; set; }
+
+        /// <summary>
+        /// Specifies a yearly backup schedule. Set if periodicity is kFirst.
+        /// </summary>
+        /// <value>Specifies a yearly backup schedule. Set if periodicity is kFirst.</value>
+        [DataMember(Name="yearlySchedule", EmitDefaultValue=true)]
+        public YearlySchedule YearlySchedule { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -174,6 +190,11 @@ namespace Cohesity.Model
                     this.RpoSchedule == input.RpoSchedule ||
                     (this.RpoSchedule != null &&
                     this.RpoSchedule.Equals(input.RpoSchedule))
+                ) && 
+                (
+                    this.YearlySchedule == input.YearlySchedule ||
+                    (this.YearlySchedule != null &&
+                    this.YearlySchedule.Equals(input.YearlySchedule))
                 );
         }
 
@@ -195,6 +216,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.RpoSchedule != null)
                     hashCode = hashCode * 59 + this.RpoSchedule.GetHashCode();
+                if (this.YearlySchedule != null)
+                    hashCode = hashCode * 59 + this.YearlySchedule.GetHashCode();
                 return hashCode;
             }
         }

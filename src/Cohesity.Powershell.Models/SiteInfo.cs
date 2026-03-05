@@ -44,11 +44,12 @@ namespace Cohesity.Model
         /// <param name="rootWebId">Rootwebid..</param>
         /// <param name="site">site.</param>
         /// <param name="sitepropVec">Vector of sites collection properties (for classic site collections). Got from Get-PnPSite..</param>
+        /// <param name="storageQuotaMb">Storage quota (in MB) allocated to the site. Determines the maximum allowed storage space for the site&#39;s content..</param>
         /// <param name="template">Site Template such as GROUP#0, POINTPUBLISHINGTOPIC#0,....</param>
         /// <param name="tenantsitepropVec">Vector of tenant sites collection properties (for modern site collections). Got from Get-PnPTenantSite..</param>
         /// <param name="timezoneId">Timezone Id. This is needed to create a site collection(tenant site)..</param>
         /// <param name="webpropVec">Vector of sites collection properties (for subsites). Got from Get-PnPWeb..</param>
-        public SiteInfo(string classification = default(string), int? compatibilityLevel = default(int?), string description = default(string), string design = default(string), string designId = default(string), string geolocation = default(string), string groupId = default(string), string hubsiteId = default(string), string hubsiteUrl = default(string), bool? isHubsite = default(bool?), bool? isMultilingual = default(bool?), bool? isPersonalsite = default(bool?), bool? isPublic = default(bool?), bool? isSubsite = default(bool?), int? lcid = default(int?), int? localeId = default(int?), List<string> ownerVec = default(List<string>), bool? readOnly = default(bool?), string rootWebId = default(string), SiteIdentity site = default(SiteIdentity), List<SiteProperty> sitepropVec = default(List<SiteProperty>), string template = default(string), List<SiteProperty> tenantsitepropVec = default(List<SiteProperty>), int? timezoneId = default(int?), List<SiteProperty> webpropVec = default(List<SiteProperty>))
+        public SiteInfo(string classification = default(string), int? compatibilityLevel = default(int?), string description = default(string), string design = default(string), string designId = default(string), string geolocation = default(string), string groupId = default(string), string hubsiteId = default(string), string hubsiteUrl = default(string), bool? isHubsite = default(bool?), bool? isMultilingual = default(bool?), bool? isPersonalsite = default(bool?), bool? isPublic = default(bool?), bool? isSubsite = default(bool?), int? lcid = default(int?), int? localeId = default(int?), List<string> ownerVec = default(List<string>), bool? readOnly = default(bool?), string rootWebId = default(string), SiteIdentity site = default(SiteIdentity), List<SiteProperty> sitepropVec = default(List<SiteProperty>), int? storageQuotaMb = default(int?), string template = default(string), List<SiteProperty> tenantsitepropVec = default(List<SiteProperty>), int? timezoneId = default(int?), List<SiteProperty> webpropVec = default(List<SiteProperty>))
         {
             this.Classification = classification;
             this.CompatibilityLevel = compatibilityLevel;
@@ -70,6 +71,7 @@ namespace Cohesity.Model
             this.ReadOnly = readOnly;
             this.RootWebId = rootWebId;
             this.SitepropVec = sitepropVec;
+            this.StorageQuotaMb = storageQuotaMb;
             this.Template = template;
             this.TenantsitepropVec = tenantsitepropVec;
             this.TimezoneId = timezoneId;
@@ -95,6 +97,7 @@ namespace Cohesity.Model
             this.RootWebId = rootWebId;
             this.Site = site;
             this.SitepropVec = sitepropVec;
+            this.StorageQuotaMb = storageQuotaMb;
             this.Template = template;
             this.TenantsitepropVec = tenantsitepropVec;
             this.TimezoneId = timezoneId;
@@ -246,6 +249,13 @@ namespace Cohesity.Model
         /// <value>Vector of sites collection properties (for classic site collections). Got from Get-PnPSite.</value>
         [DataMember(Name="sitepropVec", EmitDefaultValue=true)]
         public List<SiteProperty> SitepropVec { get; set; }
+
+        /// <summary>
+        /// Storage quota (in MB) allocated to the site. Determines the maximum allowed storage space for the site&#39;s content.
+        /// </summary>
+        /// <value>Storage quota (in MB) allocated to the site. Determines the maximum allowed storage space for the site&#39;s content.</value>
+        [DataMember(Name="storageQuotaMb", EmitDefaultValue=true)]
+        public int? StorageQuotaMb { get; set; }
 
         /// <summary>
         /// Site Template such as GROUP#0, POINTPUBLISHINGTOPIC#0,...
@@ -419,6 +429,11 @@ namespace Cohesity.Model
                     this.SitepropVec.SequenceEqual(input.SitepropVec)
                 ) && 
                 (
+                    this.StorageQuotaMb == input.StorageQuotaMb ||
+                    (this.StorageQuotaMb != null &&
+                    this.StorageQuotaMb.Equals(input.StorageQuotaMb))
+                ) && 
+                (
                     this.Template == input.Template ||
                     (this.Template != null &&
                     this.Template.Equals(input.Template))
@@ -493,6 +508,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Site.GetHashCode();
                 if (this.SitepropVec != null)
                     hashCode = hashCode * 59 + this.SitepropVec.GetHashCode();
+                if (this.StorageQuotaMb != null)
+                    hashCode = hashCode * 59 + this.StorageQuotaMb.GetHashCode();
                 if (this.Template != null)
                     hashCode = hashCode * 59 + this.Template.GetHashCode();
                 if (this.TenantsitepropVec != null)

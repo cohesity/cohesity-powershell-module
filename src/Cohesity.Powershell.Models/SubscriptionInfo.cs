@@ -27,19 +27,27 @@ namespace Cohesity.Model
         /// <param name="dataProtect">dataProtect.</param>
         /// <param name="dataProtectAzure">dataProtectAzure.</param>
         /// <param name="fortKnoxAzureCool">fortKnoxAzureCool.</param>
+        /// <param name="fortKnoxAzureCoolLRS">fortKnoxAzureCoolLRS.</param>
         /// <param name="fortKnoxAzureHot">fortKnoxAzureHot.</param>
+        /// <param name="fortKnoxAzureHotLRS">fortKnoxAzureHotLRS.</param>
         /// <param name="fortKnoxCold">fortKnoxCold.</param>
+        /// <param name="gaiaIndexStorages">gaiaIndexStorages.</param>
+        /// <param name="llms">llms.</param>
         /// <param name="ransomware">ransomware.</param>
         /// <param name="siteContinuity">siteContinuity.</param>
         /// <param name="threatProtection">threatProtection.</param>
-        public SubscriptionInfo(ClassificationInfo classification = default(ClassificationInfo), DataProtectInfo dataProtect = default(DataProtectInfo), DataProtectAzureInfo dataProtectAzure = default(DataProtectAzureInfo), FortKnoxAzureInfo fortKnoxAzureCool = default(FortKnoxAzureInfo), FortKnoxAzureInfo fortKnoxAzureHot = default(FortKnoxAzureInfo), FortKnoxColdInfo fortKnoxCold = default(FortKnoxColdInfo), RansomwareInfo ransomware = default(RansomwareInfo), SiteContinuityInfo siteContinuity = default(SiteContinuityInfo), ThreatProtectionInfo threatProtection = default(ThreatProtectionInfo))
+        public SubscriptionInfo(ClassificationInfo classification = default(ClassificationInfo), DataProtectInfo dataProtect = default(DataProtectInfo), DataProtectAzureInfo dataProtectAzure = default(DataProtectAzureInfo), FortKnoxAzureInfo fortKnoxAzureCool = default(FortKnoxAzureInfo), FortKnoxAzureInfo fortKnoxAzureCoolLRS = default(FortKnoxAzureInfo), FortKnoxAzureInfo fortKnoxAzureHot = default(FortKnoxAzureInfo), FortKnoxAzureInfo fortKnoxAzureHotLRS = default(FortKnoxAzureInfo), FortKnoxColdInfo fortKnoxCold = default(FortKnoxColdInfo), GaiaIndexStoragesInfo gaiaIndexStorages = default(GaiaIndexStoragesInfo), LlmsInfo llms = default(LlmsInfo), RansomwareInfo ransomware = default(RansomwareInfo), SiteContinuityInfo siteContinuity = default(SiteContinuityInfo), ThreatProtectionInfo threatProtection = default(ThreatProtectionInfo))
         {
             this.Classification = classification;
             this.DataProtect = dataProtect;
             this.DataProtectAzure = dataProtectAzure;
             this.FortKnoxAzureCool = fortKnoxAzureCool;
+            this.FortKnoxAzureCoolLRS = fortKnoxAzureCoolLRS;
             this.FortKnoxAzureHot = fortKnoxAzureHot;
+            this.FortKnoxAzureHotLRS = fortKnoxAzureHotLRS;
             this.FortKnoxCold = fortKnoxCold;
+            this.GaiaIndexStorages = gaiaIndexStorages;
+            this.Llms = llms;
             this.Ransomware = ransomware;
             this.SiteContinuity = siteContinuity;
             this.ThreatProtection = threatProtection;
@@ -70,16 +78,40 @@ namespace Cohesity.Model
         public FortKnoxAzureInfo FortKnoxAzureCool { get; set; }
 
         /// <summary>
+        /// Gets or Sets FortKnoxAzureCoolLRS
+        /// </summary>
+        [DataMember(Name="fortKnoxAzureCoolLRS", EmitDefaultValue=false)]
+        public FortKnoxAzureInfo FortKnoxAzureCoolLRS { get; set; }
+
+        /// <summary>
         /// Gets or Sets FortKnoxAzureHot
         /// </summary>
         [DataMember(Name="fortKnoxAzureHot", EmitDefaultValue=false)]
         public FortKnoxAzureInfo FortKnoxAzureHot { get; set; }
 
         /// <summary>
+        /// Gets or Sets FortKnoxAzureHotLRS
+        /// </summary>
+        [DataMember(Name="fortKnoxAzureHotLRS", EmitDefaultValue=false)]
+        public FortKnoxAzureInfo FortKnoxAzureHotLRS { get; set; }
+
+        /// <summary>
         /// Gets or Sets FortKnoxCold
         /// </summary>
         [DataMember(Name="fortKnoxCold", EmitDefaultValue=false)]
         public FortKnoxColdInfo FortKnoxCold { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GaiaIndexStorages
+        /// </summary>
+        [DataMember(Name="gaiaIndexStorages", EmitDefaultValue=false)]
+        public GaiaIndexStoragesInfo GaiaIndexStorages { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Llms
+        /// </summary>
+        [DataMember(Name="llms", EmitDefaultValue=false)]
+        public LlmsInfo Llms { get; set; }
 
         /// <summary>
         /// Gets or Sets Ransomware
@@ -156,14 +188,34 @@ namespace Cohesity.Model
                     this.FortKnoxAzureCool.Equals(input.FortKnoxAzureCool))
                 ) && 
                 (
+                    this.FortKnoxAzureCoolLRS == input.FortKnoxAzureCoolLRS ||
+                    (this.FortKnoxAzureCoolLRS != null &&
+                    this.FortKnoxAzureCoolLRS.Equals(input.FortKnoxAzureCoolLRS))
+                ) && 
+                (
                     this.FortKnoxAzureHot == input.FortKnoxAzureHot ||
                     (this.FortKnoxAzureHot != null &&
                     this.FortKnoxAzureHot.Equals(input.FortKnoxAzureHot))
                 ) && 
                 (
+                    this.FortKnoxAzureHotLRS == input.FortKnoxAzureHotLRS ||
+                    (this.FortKnoxAzureHotLRS != null &&
+                    this.FortKnoxAzureHotLRS.Equals(input.FortKnoxAzureHotLRS))
+                ) && 
+                (
                     this.FortKnoxCold == input.FortKnoxCold ||
                     (this.FortKnoxCold != null &&
                     this.FortKnoxCold.Equals(input.FortKnoxCold))
+                ) && 
+                (
+                    this.GaiaIndexStorages == input.GaiaIndexStorages ||
+                    (this.GaiaIndexStorages != null &&
+                    this.GaiaIndexStorages.Equals(input.GaiaIndexStorages))
+                ) && 
+                (
+                    this.Llms == input.Llms ||
+                    (this.Llms != null &&
+                    this.Llms.Equals(input.Llms))
                 ) && 
                 (
                     this.Ransomware == input.Ransomware ||
@@ -199,10 +251,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DataProtectAzure.GetHashCode();
                 if (this.FortKnoxAzureCool != null)
                     hashCode = hashCode * 59 + this.FortKnoxAzureCool.GetHashCode();
+                if (this.FortKnoxAzureCoolLRS != null)
+                    hashCode = hashCode * 59 + this.FortKnoxAzureCoolLRS.GetHashCode();
                 if (this.FortKnoxAzureHot != null)
                     hashCode = hashCode * 59 + this.FortKnoxAzureHot.GetHashCode();
+                if (this.FortKnoxAzureHotLRS != null)
+                    hashCode = hashCode * 59 + this.FortKnoxAzureHotLRS.GetHashCode();
                 if (this.FortKnoxCold != null)
                     hashCode = hashCode * 59 + this.FortKnoxCold.GetHashCode();
+                if (this.GaiaIndexStorages != null)
+                    hashCode = hashCode * 59 + this.GaiaIndexStorages.GetHashCode();
+                if (this.Llms != null)
+                    hashCode = hashCode * 59 + this.Llms.GetHashCode();
                 if (this.Ransomware != null)
                     hashCode = hashCode * 59 + this.Ransomware.GetHashCode();
                 if (this.SiteContinuity != null)

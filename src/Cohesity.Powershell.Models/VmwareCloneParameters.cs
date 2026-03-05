@@ -62,6 +62,7 @@ namespace Cohesity.Model
         /// <param name="poweredOn">Specifies the power state of the cloned or recovered objects. By default, the cloned or recovered objects are powered off..</param>
         /// <param name="prefix">Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
         /// <param name="preserveCustomAttributesDuringClone">Specifies whether or not to preserve the custom attributes during the clone operation. The default behavior is &#39;true&#39;..</param>
+        /// <param name="preserveMacAddress">Specifies whether to preserve mac address for the cloned/recovered VM. This option is applicable only for alternate location recovery/clone operation..</param>
         /// <param name="preserveTags">Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;..</param>
         /// <param name="recoveryProcessType">Specifies the type of recovery process to be performed. If unspecified, then an instant recovery will be performed. Specifies the recovery process type to be used.. &#39;kInstantRecovery&#39; indicates that an instant recovery should be performed. &#39;kCopyRecovery&#39; indicates that a copy recovery should be performed..</param>
         /// <param name="resourcePoolId">Specifies the resource pool where the cloned or recovered objects are attached. This field is mandatory for kCloneVMs Restore Tasks always. For kRecoverVMs Restore Tasks, this field is mandatory only if newParentId field is specified. If this field is not specified, recovered objects are attached to the original resource pool under the original parent..</param>
@@ -71,7 +72,7 @@ namespace Cohesity.Model
         /// <param name="vAppId">Specifies the ID of the vApp to which a VM should be restored..</param>
         /// <param name="vdcId">Specifies the ID of the VDC to which a VM should be restored..</param>
         /// <param name="vmFolderId">Specifies a folder where the VMs should be restored. This is applicable only when the VMs are being restored to an alternate location or if clone is being performed..</param>
-        public VmwareCloneParameters(bool? attemptDifferentialRestore = default(bool?), long? datastoreFolderId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), OrgVdcNetworkParams orgVdcNetwork = default(OrgVdcNetworkParams), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTags = default(bool?), RecoveryProcessTypeEnum? recoveryProcessType = default(RecoveryProcessTypeEnum?), long? resourcePoolId = default(long?), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), string suffix = default(string), long? vAppId = default(long?), long? vdcId = default(long?), long? vmFolderId = default(long?))
+        public VmwareCloneParameters(bool? attemptDifferentialRestore = default(bool?), long? datastoreFolderId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), OrgVdcNetworkParams orgVdcNetwork = default(OrgVdcNetworkParams), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveMacAddress = default(bool?), bool? preserveTags = default(bool?), RecoveryProcessTypeEnum? recoveryProcessType = default(RecoveryProcessTypeEnum?), long? resourcePoolId = default(long?), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), string suffix = default(string), long? vAppId = default(long?), long? vdcId = default(long?), long? vmFolderId = default(long?))
         {
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
             this.DatastoreFolderId = datastoreFolderId;
@@ -84,6 +85,7 @@ namespace Cohesity.Model
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveMacAddress = preserveMacAddress;
             this.PreserveTags = preserveTags;
             this.RecoveryProcessType = recoveryProcessType;
             this.ResourcePoolId = resourcePoolId;
@@ -105,6 +107,7 @@ namespace Cohesity.Model
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveMacAddress = preserveMacAddress;
             this.PreserveTags = preserveTags;
             this.RecoveryProcessType = recoveryProcessType;
             this.ResourcePoolId = resourcePoolId;
@@ -198,6 +201,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether or not to preserve the custom attributes during the clone operation. The default behavior is &#39;true&#39;.</value>
         [DataMember(Name="preserveCustomAttributesDuringClone", EmitDefaultValue=true)]
         public bool? PreserveCustomAttributesDuringClone { get; set; }
+
+        /// <summary>
+        /// Specifies whether to preserve mac address for the cloned/recovered VM. This option is applicable only for alternate location recovery/clone operation.
+        /// </summary>
+        /// <value>Specifies whether to preserve mac address for the cloned/recovered VM. This option is applicable only for alternate location recovery/clone operation.</value>
+        [DataMember(Name="preserveMacAddress", EmitDefaultValue=true)]
+        public bool? PreserveMacAddress { get; set; }
 
         /// <summary>
         /// Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;.
@@ -353,6 +363,11 @@ namespace Cohesity.Model
                     this.PreserveCustomAttributesDuringClone.Equals(input.PreserveCustomAttributesDuringClone))
                 ) && 
                 (
+                    this.PreserveMacAddress == input.PreserveMacAddress ||
+                    (this.PreserveMacAddress != null &&
+                    this.PreserveMacAddress.Equals(input.PreserveMacAddress))
+                ) && 
+                (
                     this.PreserveTags == input.PreserveTags ||
                     (this.PreserveTags != null &&
                     this.PreserveTags.Equals(input.PreserveTags))
@@ -431,6 +446,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Prefix.GetHashCode();
                 if (this.PreserveCustomAttributesDuringClone != null)
                     hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
+                if (this.PreserveMacAddress != null)
+                    hashCode = hashCode * 59 + this.PreserveMacAddress.GetHashCode();
                 if (this.PreserveTags != null)
                     hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
                 hashCode = hashCode * 59 + this.RecoveryProcessType.GetHashCode();

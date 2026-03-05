@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// RestoreOneDriveParams
+    /// NOTE: Per object/entity params should be put into O365OneDriveRestoreEntityParams going forward. Eventually RestoreOneDriveParams should only contain task/job level params that apply to all entities/users/objects in the task/job.
     /// </summary>
     [DataContract]
     public partial class RestoreOneDriveParams :  IEquatable<RestoreOneDriveParams>
@@ -24,19 +24,24 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreOneDriveParams" /> class.
         /// </summary>
         /// <param name="driveOwnerVec">The list of users/groups whose drives are being restored..</param>
+        /// <param name="phlFolderPrefix">When the drive type is kPreservationHoldLibrary, this folder prefix is pre-pended to the PHL restore path as either a folder (in the case of in place restore) or a folder name prefix (for alternate restore). If a drive with type kPreservationHoldLibrary is being restored, this prefix must be set as it is required for the restore..</param>
         /// <param name="restoreToOriginal">Whether or not all drive items are restored to original location..</param>
         /// <param name="targetDriveId">The id of the drive in which items will be restored..</param>
+        /// <param name="targetDriveQuota">targetDriveQuota.</param>
         /// <param name="targetFolderPath">All drives part of various users listed in drive_owner_vec will be restored to the drive belonging to target_user having id target_drive_id. Let&#39;s say drive_owner_vec is A and B; drive_vec of A and B is 111 and 222 respectively; target_user is C; target_drive_id is 333. The final folder-hierarchy after restore job is finished will look like this : C:333: {target_folder_path}/| |A/111/{whatever is there in restore_item_vec of 111} |B/222/{whatever is there in restore_item_vec of 222}.</param>
         /// <param name="targetUser">targetUser.</param>
-        public RestoreOneDriveParams(List<RestoreOneDriveParamsDriveOwner> driveOwnerVec = default(List<RestoreOneDriveParamsDriveOwner>), bool? restoreToOriginal = default(bool?), string targetDriveId = default(string), string targetFolderPath = default(string), EntityProto targetUser = default(EntityProto))
+        public RestoreOneDriveParams(List<RestoreOneDriveParamsDriveOwner> driveOwnerVec = default(List<RestoreOneDriveParamsDriveOwner>), string phlFolderPrefix = default(string), bool? restoreToOriginal = default(bool?), string targetDriveId = default(string), Quota targetDriveQuota = default(Quota), string targetFolderPath = default(string), EntityProto targetUser = default(EntityProto))
         {
             this.DriveOwnerVec = driveOwnerVec;
+            this.PhlFolderPrefix = phlFolderPrefix;
             this.RestoreToOriginal = restoreToOriginal;
             this.TargetDriveId = targetDriveId;
             this.TargetFolderPath = targetFolderPath;
             this.DriveOwnerVec = driveOwnerVec;
+            this.PhlFolderPrefix = phlFolderPrefix;
             this.RestoreToOriginal = restoreToOriginal;
             this.TargetDriveId = targetDriveId;
+            this.TargetDriveQuota = targetDriveQuota;
             this.TargetFolderPath = targetFolderPath;
             this.TargetUser = targetUser;
         }
@@ -47,6 +52,13 @@ namespace Cohesity.Model
         /// <value>The list of users/groups whose drives are being restored.</value>
         [DataMember(Name="driveOwnerVec", EmitDefaultValue=true)]
         public List<RestoreOneDriveParamsDriveOwner> DriveOwnerVec { get; set; }
+
+        /// <summary>
+        /// When the drive type is kPreservationHoldLibrary, this folder prefix is pre-pended to the PHL restore path as either a folder (in the case of in place restore) or a folder name prefix (for alternate restore). If a drive with type kPreservationHoldLibrary is being restored, this prefix must be set as it is required for the restore.
+        /// </summary>
+        /// <value>When the drive type is kPreservationHoldLibrary, this folder prefix is pre-pended to the PHL restore path as either a folder (in the case of in place restore) or a folder name prefix (for alternate restore). If a drive with type kPreservationHoldLibrary is being restored, this prefix must be set as it is required for the restore.</value>
+        [DataMember(Name="phlFolderPrefix", EmitDefaultValue=true)]
+        public string PhlFolderPrefix { get; set; }
 
         /// <summary>
         /// Whether or not all drive items are restored to original location.
@@ -61,6 +73,12 @@ namespace Cohesity.Model
         /// <value>The id of the drive in which items will be restored.</value>
         [DataMember(Name="targetDriveId", EmitDefaultValue=true)]
         public string TargetDriveId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TargetDriveQuota
+        /// </summary>
+        [DataMember(Name="targetDriveQuota", EmitDefaultValue=false)]
+        public Quota TargetDriveQuota { get; set; }
 
         /// <summary>
         /// All drives part of various users listed in drive_owner_vec will be restored to the drive belonging to target_user having id target_drive_id. Let&#39;s say drive_owner_vec is A and B; drive_vec of A and B is 111 and 222 respectively; target_user is C; target_drive_id is 333. The final folder-hierarchy after restore job is finished will look like this : C:333: {target_folder_path}/| |A/111/{whatever is there in restore_item_vec of 111} |B/222/{whatever is there in restore_item_vec of 222}
@@ -118,6 +136,11 @@ namespace Cohesity.Model
                     this.DriveOwnerVec.SequenceEqual(input.DriveOwnerVec)
                 ) && 
                 (
+                    this.PhlFolderPrefix == input.PhlFolderPrefix ||
+                    (this.PhlFolderPrefix != null &&
+                    this.PhlFolderPrefix.Equals(input.PhlFolderPrefix))
+                ) && 
+                (
                     this.RestoreToOriginal == input.RestoreToOriginal ||
                     (this.RestoreToOriginal != null &&
                     this.RestoreToOriginal.Equals(input.RestoreToOriginal))
@@ -126,6 +149,11 @@ namespace Cohesity.Model
                     this.TargetDriveId == input.TargetDriveId ||
                     (this.TargetDriveId != null &&
                     this.TargetDriveId.Equals(input.TargetDriveId))
+                ) && 
+                (
+                    this.TargetDriveQuota == input.TargetDriveQuota ||
+                    (this.TargetDriveQuota != null &&
+                    this.TargetDriveQuota.Equals(input.TargetDriveQuota))
                 ) && 
                 (
                     this.TargetFolderPath == input.TargetFolderPath ||
@@ -150,10 +178,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DriveOwnerVec != null)
                     hashCode = hashCode * 59 + this.DriveOwnerVec.GetHashCode();
+                if (this.PhlFolderPrefix != null)
+                    hashCode = hashCode * 59 + this.PhlFolderPrefix.GetHashCode();
                 if (this.RestoreToOriginal != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginal.GetHashCode();
                 if (this.TargetDriveId != null)
                     hashCode = hashCode * 59 + this.TargetDriveId.GetHashCode();
+                if (this.TargetDriveQuota != null)
+                    hashCode = hashCode * 59 + this.TargetDriveQuota.GetHashCode();
                 if (this.TargetFolderPath != null)
                     hashCode = hashCode * 59 + this.TargetFolderPath.GetHashCode();
                 if (this.TargetUser != null)

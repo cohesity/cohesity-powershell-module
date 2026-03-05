@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class AwsKmsConfiguration :  IEquatable<AwsKmsConfiguration>
     {
         /// <summary>
-        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthMethodEnum
         {
@@ -43,21 +43,27 @@ namespace Cohesity.Model
             /// Enum KUseHelios for value: kUseHelios
             /// </summary>
             [EnumMember(Value = "kUseHelios")]
-            KUseHelios = 3
+            KUseHelios = 3,
+
+            /// <summary>
+            /// Enum KUseInstanceProfile for value: kUseInstanceProfile
+            /// </summary>
+            [EnumMember(Value = "kUseInstanceProfile")]
+            KUseInstanceProfile = 4
 
         }
 
         /// <summary>
-        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [DataMember(Name="authMethod", EmitDefaultValue=true)]
         public AuthMethodEnum? AuthMethod { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsKmsConfiguration" /> class.
         /// </summary>
         /// <param name="accessKeyId">Access key id needed to access the cloud account. When update cluster config, should encrypte accessKeyId with cluster ID..</param>
-        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication..</param>
+        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication..</param>
         /// <param name="caCertificate">Specify the ca certificate path..</param>
         /// <param name="cmkAlias">The string alias of the CMK..</param>
         /// <param name="cmkArn">The Amazon Resource Number of AWS Customer Managed Key..</param>

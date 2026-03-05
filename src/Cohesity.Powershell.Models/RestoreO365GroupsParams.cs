@@ -27,15 +27,22 @@ namespace Cohesity.Model
         /// <param name="msGroupsVec">List of groups getting restored..</param>
         /// <param name="restoreOriginalOwnersMembers">Bool which specifies, if the original members/owners should be part of the newly created target group..</param>
         /// <param name="restoreToOriginal">Whether or not all groups are restored to original location..</param>
+        /// <param name="shouldRestoreLists">Bool which specifies if SP lists needs to be restored..</param>
+        /// <param name="shouldRestoreSystemDoclib">Bool which specifies if system doclib needs to be restored..</param>
+        /// <param name="shouldRestoreTemplate">Bool which specifies if group site template needs to be restored..</param>
         /// <param name="targetGroup">Target group in case restore_to_original is false..</param>
         /// <param name="targetGroupName">Target group name in case restore_to_original is false. This will be ignored if restoring to alternate existing group..</param>
         /// <param name="targetGroupOwner">The string which contains the owner smtp address for the target group..</param>
-        public RestoreO365GroupsParams(bool? createNewGroup = default(bool?), List<RestoreO365GroupsParamsMSGroupInfo> msGroupsVec = default(List<RestoreO365GroupsParamsMSGroupInfo>), bool? restoreOriginalOwnersMembers = default(bool?), bool? restoreToOriginal = default(bool?), string targetGroup = default(string), string targetGroupName = default(string), string targetGroupOwner = default(string))
+        /// <param name="targetGroupOwnerEntity">targetGroupOwnerEntity.</param>
+        public RestoreO365GroupsParams(bool? createNewGroup = default(bool?), List<RestoreO365GroupsParamsMSGroupInfo> msGroupsVec = default(List<RestoreO365GroupsParamsMSGroupInfo>), bool? restoreOriginalOwnersMembers = default(bool?), bool? restoreToOriginal = default(bool?), bool? shouldRestoreLists = default(bool?), bool? shouldRestoreSystemDoclib = default(bool?), bool? shouldRestoreTemplate = default(bool?), string targetGroup = default(string), string targetGroupName = default(string), string targetGroupOwner = default(string), EntityProto targetGroupOwnerEntity = default(EntityProto))
         {
             this.CreateNewGroup = createNewGroup;
             this.MsGroupsVec = msGroupsVec;
             this.RestoreOriginalOwnersMembers = restoreOriginalOwnersMembers;
             this.RestoreToOriginal = restoreToOriginal;
+            this.ShouldRestoreLists = shouldRestoreLists;
+            this.ShouldRestoreSystemDoclib = shouldRestoreSystemDoclib;
+            this.ShouldRestoreTemplate = shouldRestoreTemplate;
             this.TargetGroup = targetGroup;
             this.TargetGroupName = targetGroupName;
             this.TargetGroupOwner = targetGroupOwner;
@@ -43,9 +50,13 @@ namespace Cohesity.Model
             this.MsGroupsVec = msGroupsVec;
             this.RestoreOriginalOwnersMembers = restoreOriginalOwnersMembers;
             this.RestoreToOriginal = restoreToOriginal;
+            this.ShouldRestoreLists = shouldRestoreLists;
+            this.ShouldRestoreSystemDoclib = shouldRestoreSystemDoclib;
+            this.ShouldRestoreTemplate = shouldRestoreTemplate;
             this.TargetGroup = targetGroup;
             this.TargetGroupName = targetGroupName;
             this.TargetGroupOwner = targetGroupOwner;
+            this.TargetGroupOwnerEntity = targetGroupOwnerEntity;
         }
         
         /// <summary>
@@ -77,6 +88,27 @@ namespace Cohesity.Model
         public bool? RestoreToOriginal { get; set; }
 
         /// <summary>
+        /// Bool which specifies if SP lists needs to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if SP lists needs to be restored.</value>
+        [DataMember(Name="shouldRestoreLists", EmitDefaultValue=true)]
+        public bool? ShouldRestoreLists { get; set; }
+
+        /// <summary>
+        /// Bool which specifies if system doclib needs to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if system doclib needs to be restored.</value>
+        [DataMember(Name="shouldRestoreSystemDoclib", EmitDefaultValue=true)]
+        public bool? ShouldRestoreSystemDoclib { get; set; }
+
+        /// <summary>
+        /// Bool which specifies if group site template needs to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if group site template needs to be restored.</value>
+        [DataMember(Name="shouldRestoreTemplate", EmitDefaultValue=true)]
+        public bool? ShouldRestoreTemplate { get; set; }
+
+        /// <summary>
         /// Target group in case restore_to_original is false.
         /// </summary>
         /// <value>Target group in case restore_to_original is false.</value>
@@ -96,6 +128,12 @@ namespace Cohesity.Model
         /// <value>The string which contains the owner smtp address for the target group.</value>
         [DataMember(Name="targetGroupOwner", EmitDefaultValue=true)]
         public string TargetGroupOwner { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TargetGroupOwnerEntity
+        /// </summary>
+        [DataMember(Name="targetGroupOwnerEntity", EmitDefaultValue=false)]
+        public EntityProto TargetGroupOwnerEntity { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -155,6 +193,21 @@ namespace Cohesity.Model
                     this.RestoreToOriginal.Equals(input.RestoreToOriginal))
                 ) && 
                 (
+                    this.ShouldRestoreLists == input.ShouldRestoreLists ||
+                    (this.ShouldRestoreLists != null &&
+                    this.ShouldRestoreLists.Equals(input.ShouldRestoreLists))
+                ) && 
+                (
+                    this.ShouldRestoreSystemDoclib == input.ShouldRestoreSystemDoclib ||
+                    (this.ShouldRestoreSystemDoclib != null &&
+                    this.ShouldRestoreSystemDoclib.Equals(input.ShouldRestoreSystemDoclib))
+                ) && 
+                (
+                    this.ShouldRestoreTemplate == input.ShouldRestoreTemplate ||
+                    (this.ShouldRestoreTemplate != null &&
+                    this.ShouldRestoreTemplate.Equals(input.ShouldRestoreTemplate))
+                ) && 
+                (
                     this.TargetGroup == input.TargetGroup ||
                     (this.TargetGroup != null &&
                     this.TargetGroup.Equals(input.TargetGroup))
@@ -168,6 +221,11 @@ namespace Cohesity.Model
                     this.TargetGroupOwner == input.TargetGroupOwner ||
                     (this.TargetGroupOwner != null &&
                     this.TargetGroupOwner.Equals(input.TargetGroupOwner))
+                ) && 
+                (
+                    this.TargetGroupOwnerEntity == input.TargetGroupOwnerEntity ||
+                    (this.TargetGroupOwnerEntity != null &&
+                    this.TargetGroupOwnerEntity.Equals(input.TargetGroupOwnerEntity))
                 );
         }
 
@@ -188,12 +246,20 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreOriginalOwnersMembers.GetHashCode();
                 if (this.RestoreToOriginal != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginal.GetHashCode();
+                if (this.ShouldRestoreLists != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreLists.GetHashCode();
+                if (this.ShouldRestoreSystemDoclib != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreSystemDoclib.GetHashCode();
+                if (this.ShouldRestoreTemplate != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreTemplate.GetHashCode();
                 if (this.TargetGroup != null)
                     hashCode = hashCode * 59 + this.TargetGroup.GetHashCode();
                 if (this.TargetGroupName != null)
                     hashCode = hashCode * 59 + this.TargetGroupName.GetHashCode();
                 if (this.TargetGroupOwner != null)
                     hashCode = hashCode * 59 + this.TargetGroupOwner.GetHashCode();
+                if (this.TargetGroupOwnerEntity != null)
+                    hashCode = hashCode * 59 + this.TargetGroupOwnerEntity.GetHashCode();
                 return hashCode;
             }
         }

@@ -23,19 +23,29 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VMwareObjectId" /> class.
         /// </summary>
+        /// <param name="biosUuid">Specifies a UUID for the BIOS of a VMware object. This field will be populated only for VMware VMs and if the VMware source had been registered with the option to track VMs by their BIOS UUID..</param>
         /// <param name="morItem">Specifies the Managed Object Reference Item..</param>
         /// <param name="morType">Specifies the Managed Object Reference Type..</param>
         /// <param name="uuid">Specifies a Universally Unique Identifier (UUID) of a VMware Object..</param>
-        public VMwareObjectId(string morItem = default(string), string morType = default(string), string uuid = default(string))
+        public VMwareObjectId(string biosUuid = default(string), string morItem = default(string), string morType = default(string), string uuid = default(string))
         {
+            this.BiosUuid = biosUuid;
             this.MorItem = morItem;
             this.MorType = morType;
             this.Uuid = uuid;
+            this.BiosUuid = biosUuid;
             this.MorItem = morItem;
             this.MorType = morType;
             this.Uuid = uuid;
         }
         
+        /// <summary>
+        /// Specifies a UUID for the BIOS of a VMware object. This field will be populated only for VMware VMs and if the VMware source had been registered with the option to track VMs by their BIOS UUID.
+        /// </summary>
+        /// <value>Specifies a UUID for the BIOS of a VMware object. This field will be populated only for VMware VMs and if the VMware source had been registered with the option to track VMs by their BIOS UUID.</value>
+        [DataMember(Name="biosUuid", EmitDefaultValue=true)]
+        public string BiosUuid { get; set; }
+
         /// <summary>
         /// Specifies the Managed Object Reference Item.
         /// </summary>
@@ -94,6 +104,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BiosUuid == input.BiosUuid ||
+                    (this.BiosUuid != null &&
+                    this.BiosUuid.Equals(input.BiosUuid))
+                ) && 
+                (
                     this.MorItem == input.MorItem ||
                     (this.MorItem != null &&
                     this.MorItem.Equals(input.MorItem))
@@ -119,6 +134,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BiosUuid != null)
+                    hashCode = hashCode * 59 + this.BiosUuid.GetHashCode();
                 if (this.MorItem != null)
                     hashCode = hashCode * 59 + this.MorItem.GetHashCode();
                 if (this.MorType != null)

@@ -29,7 +29,8 @@ namespace Cohesity.Model
         /// <param name="enableCbtAllowed">Whether the backup job should allow enabling CBT for VM when the backup runs. Currently, by default, the backup run enables CBT for a VM during the backup if it&#39;s not already enabled. However, there may be a case, where customer doesn&#39;t want to enable CBT during the backup. This param will be used to determine that..</param>
         /// <param name="vappsToVmsList">List of all vApps and their corresponding child VMs being backed up in a backup run. This is only populated when vApp is being autoprotected..</param>
         /// <param name="vmwareDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.VMwareBackupSourceParams..</param>
-        public VMwareBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), bool? allowNbdsslTransportFallback = default(bool?), bool? allowVmsWithPhysicalRdmDisks = default(bool?), bool? enableCbtAllowed = default(bool?), List<VMwareBackupEnvParamsVAppChildVMsList> vappsToVmsList = default(List<VMwareBackupEnvParamsVAppChildVMsList>), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
+        /// <param name="vmwareDiskInclusionInfo">List of Virtual Disk(s) to be included from the backup job. These disks will be included for all VMs in this environment unless overriden by the disk inclusion list from BackupSourceParams.VMwareBackupSourceParams..</param>
+        public VMwareBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), bool? allowNbdsslTransportFallback = default(bool?), bool? allowVmsWithPhysicalRdmDisks = default(bool?), bool? enableCbtAllowed = default(bool?), List<VMwareBackupEnvParamsVAppChildVMsList> vappsToVmsList = default(List<VMwareBackupEnvParamsVAppChildVMsList>), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>), List<VMwareDiskFilterProto> vmwareDiskInclusionInfo = default(List<VMwareDiskFilterProto>))
         {
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
@@ -37,12 +38,14 @@ namespace Cohesity.Model
             this.EnableCbtAllowed = enableCbtAllowed;
             this.VappsToVmsList = vappsToVmsList;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
+            this.VmwareDiskInclusionInfo = vmwareDiskInclusionInfo;
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
             this.EnableCbtAllowed = enableCbtAllowed;
             this.VappsToVmsList = vappsToVmsList;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
+            this.VmwareDiskInclusionInfo = vmwareDiskInclusionInfo;
         }
         
         /// <summary>
@@ -86,6 +89,13 @@ namespace Cohesity.Model
         /// <value>List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.VMwareBackupSourceParams.</value>
         [DataMember(Name="vmwareDiskExclusionInfo", EmitDefaultValue=true)]
         public List<VMwareDiskExclusionProto> VmwareDiskExclusionInfo { get; set; }
+
+        /// <summary>
+        /// List of Virtual Disk(s) to be included from the backup job. These disks will be included for all VMs in this environment unless overriden by the disk inclusion list from BackupSourceParams.VMwareBackupSourceParams.
+        /// </summary>
+        /// <value>List of Virtual Disk(s) to be included from the backup job. These disks will be included for all VMs in this environment unless overriden by the disk inclusion list from BackupSourceParams.VMwareBackupSourceParams.</value>
+        [DataMember(Name="vmwareDiskInclusionInfo", EmitDefaultValue=true)]
+        public List<VMwareDiskFilterProto> VmwareDiskInclusionInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -154,6 +164,12 @@ namespace Cohesity.Model
                     this.VmwareDiskExclusionInfo != null &&
                     input.VmwareDiskExclusionInfo != null &&
                     this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
+                ) && 
+                (
+                    this.VmwareDiskInclusionInfo == input.VmwareDiskInclusionInfo ||
+                    this.VmwareDiskInclusionInfo != null &&
+                    input.VmwareDiskInclusionInfo != null &&
+                    this.VmwareDiskInclusionInfo.SequenceEqual(input.VmwareDiskInclusionInfo)
                 );
         }
 
@@ -178,6 +194,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VappsToVmsList.GetHashCode();
                 if (this.VmwareDiskExclusionInfo != null)
                     hashCode = hashCode * 59 + this.VmwareDiskExclusionInfo.GetHashCode();
+                if (this.VmwareDiskInclusionInfo != null)
+                    hashCode = hashCode * 59 + this.VmwareDiskInclusionInfo.GetHashCode();
                 return hashCode;
             }
         }

@@ -24,14 +24,19 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="NetworkMappingProto" /> class.
         /// </summary>
         /// <param name="disableNetwork">This can be set to true to indicate that the attached network should be left in disabled state. This value takes priority over the value in RestoredObjectNetworkConfigProto..</param>
+        /// <param name="networkAdapterName">Source VMs network adapter name for which mapping is selected. Example: \&quot;Network adapter 1\&quot;, \&quot;Network adapter 2\&quot;..</param>
+        /// <param name="orgVdcNetwork">orgVdcNetwork.</param>
         /// <param name="preserveMacAddressOnNewNetwork">VM&#39;s MAC address will be preserved on the new network. This value takes priority over the value in RestoredObjectNetworkConfigProto..</param>
         /// <param name="sourceNetworkEntity">sourceNetworkEntity.</param>
         /// <param name="targetNetworkEntity">targetNetworkEntity.</param>
-        public NetworkMappingProto(bool? disableNetwork = default(bool?), bool? preserveMacAddressOnNewNetwork = default(bool?), EntityProto sourceNetworkEntity = default(EntityProto), EntityProto targetNetworkEntity = default(EntityProto))
+        public NetworkMappingProto(bool? disableNetwork = default(bool?), string networkAdapterName = default(string), OrgVDCNetwork orgVdcNetwork = default(OrgVDCNetwork), bool? preserveMacAddressOnNewNetwork = default(bool?), EntityProto sourceNetworkEntity = default(EntityProto), EntityProto targetNetworkEntity = default(EntityProto))
         {
             this.DisableNetwork = disableNetwork;
+            this.NetworkAdapterName = networkAdapterName;
             this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
             this.DisableNetwork = disableNetwork;
+            this.NetworkAdapterName = networkAdapterName;
+            this.OrgVdcNetwork = orgVdcNetwork;
             this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
             this.SourceNetworkEntity = sourceNetworkEntity;
             this.TargetNetworkEntity = targetNetworkEntity;
@@ -43,6 +48,19 @@ namespace Cohesity.Model
         /// <value>This can be set to true to indicate that the attached network should be left in disabled state. This value takes priority over the value in RestoredObjectNetworkConfigProto.</value>
         [DataMember(Name="disableNetwork", EmitDefaultValue=true)]
         public bool? DisableNetwork { get; set; }
+
+        /// <summary>
+        /// Source VMs network adapter name for which mapping is selected. Example: \&quot;Network adapter 1\&quot;, \&quot;Network adapter 2\&quot;.
+        /// </summary>
+        /// <value>Source VMs network adapter name for which mapping is selected. Example: \&quot;Network adapter 1\&quot;, \&quot;Network adapter 2\&quot;.</value>
+        [DataMember(Name="networkAdapterName", EmitDefaultValue=true)]
+        public string NetworkAdapterName { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OrgVdcNetwork
+        /// </summary>
+        [DataMember(Name="orgVdcNetwork", EmitDefaultValue=false)]
+        public OrgVDCNetwork OrgVdcNetwork { get; set; }
 
         /// <summary>
         /// VM&#39;s MAC address will be preserved on the new network. This value takes priority over the value in RestoredObjectNetworkConfigProto.
@@ -105,6 +123,16 @@ namespace Cohesity.Model
                     this.DisableNetwork.Equals(input.DisableNetwork))
                 ) && 
                 (
+                    this.NetworkAdapterName == input.NetworkAdapterName ||
+                    (this.NetworkAdapterName != null &&
+                    this.NetworkAdapterName.Equals(input.NetworkAdapterName))
+                ) && 
+                (
+                    this.OrgVdcNetwork == input.OrgVdcNetwork ||
+                    (this.OrgVdcNetwork != null &&
+                    this.OrgVdcNetwork.Equals(input.OrgVdcNetwork))
+                ) && 
+                (
                     this.PreserveMacAddressOnNewNetwork == input.PreserveMacAddressOnNewNetwork ||
                     (this.PreserveMacAddressOnNewNetwork != null &&
                     this.PreserveMacAddressOnNewNetwork.Equals(input.PreserveMacAddressOnNewNetwork))
@@ -132,6 +160,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DisableNetwork != null)
                     hashCode = hashCode * 59 + this.DisableNetwork.GetHashCode();
+                if (this.NetworkAdapterName != null)
+                    hashCode = hashCode * 59 + this.NetworkAdapterName.GetHashCode();
+                if (this.OrgVdcNetwork != null)
+                    hashCode = hashCode * 59 + this.OrgVdcNetwork.GetHashCode();
                 if (this.PreserveMacAddressOnNewNetwork != null)
                     hashCode = hashCode * 59 + this.PreserveMacAddressOnNewNetwork.GetHashCode();
                 if (this.SourceNetworkEntity != null)

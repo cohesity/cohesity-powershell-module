@@ -21,59 +21,54 @@ namespace Cohesity.Model
     public partial class RpoSchedule :  IEquatable<RpoSchedule>
     {
         /// <summary>
-        /// Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.
+        /// Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinute specifies that the rpo interval unit is hours. kHour specifies that the rpo interval unit is hours. kDay specifies that the rpo interval unit is days. kWeek specifies that the rpo interval unit is weeks. kMonth specifies that the rpo interval unit is months.
         /// </summary>
-        /// <value>Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.</value>
+        /// <value>Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinute specifies that the rpo interval unit is hours. kHour specifies that the rpo interval unit is hours. kDay specifies that the rpo interval unit is days. kWeek specifies that the rpo interval unit is weeks. kMonth specifies that the rpo interval unit is months.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum IntervalUnitEnum
         {
             /// <summary>
-            /// Enum KMinutes for value: kMinutes
+            /// Enum KMinute for value: kMinute
             /// </summary>
-            [EnumMember(Value = "kMinutes")]
-            KMinutes = 1,
+            [EnumMember(Value = "kMinute")]
+            KMinute = 1,
 
             /// <summary>
-            /// Enum KHours for value: kHours
+            /// Enum KHour for value: kHour
             /// </summary>
-            [EnumMember(Value = "kHours")]
-            KHours = 2,
+            [EnumMember(Value = "kHour")]
+            KHour = 2,
 
             /// <summary>
-            /// Enum KDays for value: kDays
-            /// </summary>
-            [EnumMember(Value = "kDays")]
-            KDays = 3,
-
-            /// <summary>
-            /// Enum KWeeks for value: kWeeks
-            /// </summary>
-            [EnumMember(Value = "kWeeks")]
-            KWeeks = 4,
-
-            /// <summary>
-            /// Enum KMonths for value: kMonths
-            /// </summary>
-            [EnumMember(Value = "kMonths")]
-            KMonths = 5,
-            /// <summary>
-            /// Enum KDay for value: kMonths
+            /// Enum KDay for value: kDay
             /// </summary>
             [EnumMember(Value = "kDay")]
-            KDay = 6
+            KDay = 3,
+
+            /// <summary>
+            /// Enum KWeek for value: kWeek
+            /// </summary>
+            [EnumMember(Value = "kWeek")]
+            KWeek = 4,
+
+            /// <summary>
+            /// Enum KMonth for value: kMonth
+            /// </summary>
+            [EnumMember(Value = "kMonth")]
+            KMonth = 5
 
         }
 
         /// <summary>
-        /// Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.
+        /// Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinute specifies that the rpo interval unit is hours. kHour specifies that the rpo interval unit is hours. kDay specifies that the rpo interval unit is days. kWeek specifies that the rpo interval unit is weeks. kMonth specifies that the rpo interval unit is months.
         /// </summary>
-        /// <value>Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.</value>
+        /// <value>Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinute specifies that the rpo interval unit is hours. kHour specifies that the rpo interval unit is hours. kDay specifies that the rpo interval unit is days. kWeek specifies that the rpo interval unit is weeks. kMonth specifies that the rpo interval unit is months.</value>
         [DataMember(Name="intervalUnit", EmitDefaultValue=true)]
         public IntervalUnitEnum? IntervalUnit { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RpoSchedule" /> class.
         /// </summary>
-        /// <param name="intervalUnit">Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months..</param>
+        /// <param name="intervalUnit">Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinute specifies that the rpo interval unit is hours. kHour specifies that the rpo interval unit is hours. kDay specifies that the rpo interval unit is days. kWeek specifies that the rpo interval unit is weeks. kMonth specifies that the rpo interval unit is months..</param>
         /// <param name="multiplier">Specifies the multiplier value to be used with the  RPO interval unit value..</param>
         public RpoSchedule(IntervalUnitEnum? intervalUnit = default(IntervalUnitEnum?), long? multiplier = default(long?))
         {

@@ -25,16 +25,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="isMailEnabled">Specifies whether the Group is mail enabled. Mail enabled groups are used within Microsoft to distribute messages..</param>
         /// <param name="isSecurityEnabled">Specifies whether the Group is security enabled. Security enabled groups are used to grant access permissions to resources in Exchange and Active Directory..</param>
+        /// <param name="isTeamsGroup">Specifies whether this group is tagged to a Team..</param>
         /// <param name="memberCount">Specifies the count of members within the Group..</param>
         /// <param name="visibility">Specifies the visibility of the Group..</param>
-        public Office365GroupInfo(bool? isMailEnabled = default(bool?), bool? isSecurityEnabled = default(bool?), long? memberCount = default(long?), string visibility = default(string))
+        public Office365GroupInfo(bool? isMailEnabled = default(bool?), bool? isSecurityEnabled = default(bool?), bool? isTeamsGroup = default(bool?), long? memberCount = default(long?), string visibility = default(string))
         {
             this.IsMailEnabled = isMailEnabled;
             this.IsSecurityEnabled = isSecurityEnabled;
+            this.IsTeamsGroup = isTeamsGroup;
             this.MemberCount = memberCount;
             this.Visibility = visibility;
             this.IsMailEnabled = isMailEnabled;
             this.IsSecurityEnabled = isSecurityEnabled;
+            this.IsTeamsGroup = isTeamsGroup;
             this.MemberCount = memberCount;
             this.Visibility = visibility;
         }
@@ -52,6 +55,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether the Group is security enabled. Security enabled groups are used to grant access permissions to resources in Exchange and Active Directory.</value>
         [DataMember(Name="isSecurityEnabled", EmitDefaultValue=true)]
         public bool? IsSecurityEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether this group is tagged to a Team.
+        /// </summary>
+        /// <value>Specifies whether this group is tagged to a Team.</value>
+        [DataMember(Name="isTeamsGroup", EmitDefaultValue=true)]
+        public bool? IsTeamsGroup { get; set; }
 
         /// <summary>
         /// Specifies the count of members within the Group.
@@ -114,6 +124,11 @@ namespace Cohesity.Model
                     this.IsSecurityEnabled.Equals(input.IsSecurityEnabled))
                 ) && 
                 (
+                    this.IsTeamsGroup == input.IsTeamsGroup ||
+                    (this.IsTeamsGroup != null &&
+                    this.IsTeamsGroup.Equals(input.IsTeamsGroup))
+                ) && 
+                (
                     this.MemberCount == input.MemberCount ||
                     (this.MemberCount != null &&
                     this.MemberCount.Equals(input.MemberCount))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsMailEnabled.GetHashCode();
                 if (this.IsSecurityEnabled != null)
                     hashCode = hashCode * 59 + this.IsSecurityEnabled.GetHashCode();
+                if (this.IsTeamsGroup != null)
+                    hashCode = hashCode * 59 + this.IsTeamsGroup.GetHashCode();
                 if (this.MemberCount != null)
                     hashCode = hashCode * 59 + this.MemberCount.GetHashCode();
                 if (this.Visibility != null)

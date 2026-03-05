@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="PVCInfoPVCSpecResources" /> class.
         /// </summary>
         /// <param name="requests">Map of requested resources and their values..</param>
-        public PVCInfoPVCSpecResources(List<PVCInfoPVCSpecResourcesRequestsEntry> requests = default(List<PVCInfoPVCSpecResourcesRequestsEntry>))
+        public PVCInfoPVCSpecResources(Dictionary<string, string> requests = default(Dictionary<string, string>))
         {
             this.Requests = requests;
             this.Requests = requests;
@@ -35,7 +35,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map of requested resources and their values.</value>
         [DataMember(Name="requests", EmitDefaultValue=true)]
-        public List<PVCInfoPVCSpecResourcesRequestsEntry> Requests { get; set; }
+        public Dictionary<string, string> Requests { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

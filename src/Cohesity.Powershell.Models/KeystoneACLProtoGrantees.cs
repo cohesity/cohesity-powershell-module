@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="projectUsersMap">projectUsersMap.</param>
         /// <param name="roleNameVec">This field holds a list of Keystone roles for which any Keystone user with one (or more) of the roles on the project containing the swift container holding this KeystoneACLProto is granted ACL permission..</param>
         /// <param name="userIdVec">This field holds a list of keystone user ids who are granted ACL permission..</param>
-        public KeystoneACLProtoGrantees(bool? allUsers = default(bool?), List<string> projectIdVec = default(List<string>), List<KeystoneACLProtoGranteesProjectUsersMapEntry> projectUsersMap = default(List<KeystoneACLProtoGranteesProjectUsersMapEntry>), List<string> roleNameVec = default(List<string>), List<string> userIdVec = default(List<string>))
+        public KeystoneACLProtoGrantees(bool? allUsers = default(bool?), List<string> projectIdVec = default(List<string>), Dictionary<string, KeystoneACLProtoGranteesProjectUsers> projectUsersMap = default(Dictionary<string, KeystoneACLProtoGranteesProjectUsers>), List<string> roleNameVec = default(List<string>), List<string> userIdVec = default(List<string>))
         {
             this.AllUsers = allUsers;
             this.ProjectIdVec = projectIdVec;
@@ -60,7 +60,7 @@ namespace Cohesity.Model
         /// Gets or Sets ProjectUsersMap
         /// </summary>
         [DataMember(Name="projectUsersMap", EmitDefaultValue=true)]
-        public List<KeystoneACLProtoGranteesProjectUsersMapEntry> ProjectUsersMap { get; set; }
+        public Dictionary<string, KeystoneACLProtoGranteesProjectUsers> ProjectUsersMap { get; set; }
 
         /// <summary>
         /// This field holds a list of Keystone roles for which any Keystone user with one (or more) of the roles on the project containing the swift container holding this KeystoneACLProto is granted ACL permission.

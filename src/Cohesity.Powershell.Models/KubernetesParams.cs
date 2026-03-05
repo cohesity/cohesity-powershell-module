@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class KubernetesParams :  IEquatable<KubernetesParams>
     {
         /// <summary>
-        /// Specifies the distribution if the environment is kKubernetes. overrideDescription: true
+        /// Specifies the distribution if the environment is kKubernetes. overrideDescription: true kIKS, kROKS
         /// </summary>
-        /// <value>Specifies the distribution if the environment is kKubernetes. overrideDescription: true</value>
+        /// <value>Specifies the distribution if the environment is kKubernetes. overrideDescription: true kIKS, kROKS</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum KubernetesDistributionEnum
         {
@@ -72,47 +72,72 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the distribution if the environment is kKubernetes. overrideDescription: true
+        /// Specifies the distribution if the environment is kKubernetes. overrideDescription: true kIKS, kROKS
         /// </summary>
-        /// <value>Specifies the distribution if the environment is kKubernetes. overrideDescription: true</value>
+        /// <value>Specifies the distribution if the environment is kKubernetes. overrideDescription: true kIKS, kROKS</value>
         [DataMember(Name="kubernetesDistribution", EmitDefaultValue=true)]
         public KubernetesDistributionEnum? KubernetesDistribution { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KubernetesParams" /> class.
         /// </summary>
+        /// <param name="cohesityDataprotectPluginImageLocation">Specifies the location of custom Cohesity DataProtect plugin image in private registry..</param>
         /// <param name="datamoverImageLocation">Specifies the location of Datamover image in private registry..</param>
         /// <param name="datamoverServiceType">Specifies Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported. [default &#x3D; kNodePort]..</param>
         /// <param name="defaultVlanParams">defaultVlanParams.</param>
         /// <param name="initContainerImageLocation">Specifies the location of the image for init containers..</param>
-        /// <param name="kubernetesDistribution">Specifies the distribution if the environment is kKubernetes. overrideDescription: true.</param>
+        /// <param name="kubernetesDistribution">Specifies the distribution if the environment is kKubernetes. overrideDescription: true kIKS, kROKS.</param>
+        /// <param name="priorityClassName">Specifies the pritority class name during registration..</param>
+        /// <param name="resourceAnnotationList">Specifies resource Annotations information provided during registration..</param>
+        /// <param name="resourceLabelList">Specifies resource labels information provided during registration..</param>
+        /// <param name="sanField">Specifies the SAN field for agent certificate.</param>
         /// <param name="serviceAnnotations">Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer..</param>
         /// <param name="veleroAwsPluginImageLocation">Specifies the location of Velero AWS plugin image in private registry..</param>
         /// <param name="veleroImageLocation">Specifies the location of Velero image in private registry..</param>
+        /// <param name="veleroKubevirtPluginImageLocation">Specifies the location of Velero Kubevirt plugin image in private registry..</param>
         /// <param name="veleroOpenshiftPluginImageLocation">Specifies the location of the image for openshift plugin container..</param>
         /// <param name="vlanInfoVec">Specifies VLAN information provided during registration..</param>
-        public KubernetesParams(string datamoverImageLocation = default(string), int? datamoverServiceType = default(int?), VlanParameters defaultVlanParams = default(VlanParameters), string initContainerImageLocation = default(string), KubernetesDistributionEnum? kubernetesDistribution = default(KubernetesDistributionEnum?), List<VlanInfoServiceAnnotationsEntry> serviceAnnotations = default(List<VlanInfoServiceAnnotationsEntry>), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), List<KubernetesVlanInfo> vlanInfoVec = default(List<KubernetesVlanInfo>))
+        public KubernetesParams(string cohesityDataprotectPluginImageLocation = default(string), string datamoverImageLocation = default(string), int? datamoverServiceType = default(int?), VlanParameters defaultVlanParams = default(VlanParameters), string initContainerImageLocation = default(string), KubernetesDistributionEnum? kubernetesDistribution = default(KubernetesDistributionEnum?), string priorityClassName = default(string), List<K8sLabel> resourceAnnotationList = default(List<K8sLabel>), List<K8sLabel> resourceLabelList = default(List<K8sLabel>), List<string> sanField = default(List<string>), List<VlanInfoServiceAnnotationsEntry> serviceAnnotations = default(List<VlanInfoServiceAnnotationsEntry>), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroKubevirtPluginImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), List<KubernetesVlanInfo> vlanInfoVec = default(List<KubernetesVlanInfo>))
         {
+            this.CohesityDataprotectPluginImageLocation = cohesityDataprotectPluginImageLocation;
             this.DatamoverImageLocation = datamoverImageLocation;
             this.DatamoverServiceType = datamoverServiceType;
             this.InitContainerImageLocation = initContainerImageLocation;
             this.KubernetesDistribution = kubernetesDistribution;
+            this.PriorityClassName = priorityClassName;
+            this.ResourceAnnotationList = resourceAnnotationList;
+            this.ResourceLabelList = resourceLabelList;
+            this.SanField = sanField;
             this.ServiceAnnotations = serviceAnnotations;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
+            this.VeleroKubevirtPluginImageLocation = veleroKubevirtPluginImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
             this.VlanInfoVec = vlanInfoVec;
+            this.CohesityDataprotectPluginImageLocation = cohesityDataprotectPluginImageLocation;
             this.DatamoverImageLocation = datamoverImageLocation;
             this.DatamoverServiceType = datamoverServiceType;
             this.DefaultVlanParams = defaultVlanParams;
             this.InitContainerImageLocation = initContainerImageLocation;
             this.KubernetesDistribution = kubernetesDistribution;
+            this.PriorityClassName = priorityClassName;
+            this.ResourceAnnotationList = resourceAnnotationList;
+            this.ResourceLabelList = resourceLabelList;
+            this.SanField = sanField;
             this.ServiceAnnotations = serviceAnnotations;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
+            this.VeleroKubevirtPluginImageLocation = veleroKubevirtPluginImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
             this.VlanInfoVec = vlanInfoVec;
         }
         
+        /// <summary>
+        /// Specifies the location of custom Cohesity DataProtect plugin image in private registry.
+        /// </summary>
+        /// <value>Specifies the location of custom Cohesity DataProtect plugin image in private registry.</value>
+        [DataMember(Name="cohesityDataprotectPluginImageLocation", EmitDefaultValue=true)]
+        public string CohesityDataprotectPluginImageLocation { get; set; }
+
         /// <summary>
         /// Specifies the location of Datamover image in private registry.
         /// </summary>
@@ -141,6 +166,34 @@ namespace Cohesity.Model
         public string InitContainerImageLocation { get; set; }
 
         /// <summary>
+        /// Specifies the pritority class name during registration.
+        /// </summary>
+        /// <value>Specifies the pritority class name during registration.</value>
+        [DataMember(Name="priorityClassName", EmitDefaultValue=true)]
+        public string PriorityClassName { get; set; }
+
+        /// <summary>
+        /// Specifies resource Annotations information provided during registration.
+        /// </summary>
+        /// <value>Specifies resource Annotations information provided during registration.</value>
+        [DataMember(Name="resourceAnnotationList", EmitDefaultValue=true)]
+        public List<K8sLabel> ResourceAnnotationList { get; set; }
+
+        /// <summary>
+        /// Specifies resource labels information provided during registration.
+        /// </summary>
+        /// <value>Specifies resource labels information provided during registration.</value>
+        [DataMember(Name="resourceLabelList", EmitDefaultValue=true)]
+        public List<K8sLabel> ResourceLabelList { get; set; }
+
+        /// <summary>
+        /// Specifies the SAN field for agent certificate
+        /// </summary>
+        /// <value>Specifies the SAN field for agent certificate</value>
+        [DataMember(Name="sanField", EmitDefaultValue=true)]
+        public List<string> SanField { get; set; }
+
+        /// <summary>
         /// Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer.
         /// </summary>
         /// <value>Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer.</value>
@@ -160,6 +213,13 @@ namespace Cohesity.Model
         /// <value>Specifies the location of Velero image in private registry.</value>
         [DataMember(Name="veleroImageLocation", EmitDefaultValue=true)]
         public string VeleroImageLocation { get; set; }
+
+        /// <summary>
+        /// Specifies the location of Velero Kubevirt plugin image in private registry.
+        /// </summary>
+        /// <value>Specifies the location of Velero Kubevirt plugin image in private registry.</value>
+        [DataMember(Name="veleroKubevirtPluginImageLocation", EmitDefaultValue=true)]
+        public string VeleroKubevirtPluginImageLocation { get; set; }
 
         /// <summary>
         /// Specifies the location of the image for openshift plugin container.
@@ -212,6 +272,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CohesityDataprotectPluginImageLocation == input.CohesityDataprotectPluginImageLocation ||
+                    (this.CohesityDataprotectPluginImageLocation != null &&
+                    this.CohesityDataprotectPluginImageLocation.Equals(input.CohesityDataprotectPluginImageLocation))
+                ) && 
+                (
                     this.DatamoverImageLocation == input.DatamoverImageLocation ||
                     (this.DatamoverImageLocation != null &&
                     this.DatamoverImageLocation.Equals(input.DatamoverImageLocation))
@@ -236,6 +301,29 @@ namespace Cohesity.Model
                     this.KubernetesDistribution.Equals(input.KubernetesDistribution)
                 ) && 
                 (
+                    this.PriorityClassName == input.PriorityClassName ||
+                    (this.PriorityClassName != null &&
+                    this.PriorityClassName.Equals(input.PriorityClassName))
+                ) && 
+                (
+                    this.ResourceAnnotationList == input.ResourceAnnotationList ||
+                    this.ResourceAnnotationList != null &&
+                    input.ResourceAnnotationList != null &&
+                    this.ResourceAnnotationList.SequenceEqual(input.ResourceAnnotationList)
+                ) && 
+                (
+                    this.ResourceLabelList == input.ResourceLabelList ||
+                    this.ResourceLabelList != null &&
+                    input.ResourceLabelList != null &&
+                    this.ResourceLabelList.SequenceEqual(input.ResourceLabelList)
+                ) && 
+                (
+                    this.SanField == input.SanField ||
+                    this.SanField != null &&
+                    input.SanField != null &&
+                    this.SanField.SequenceEqual(input.SanField)
+                ) && 
+                (
                     this.ServiceAnnotations == input.ServiceAnnotations ||
                     this.ServiceAnnotations != null &&
                     input.ServiceAnnotations != null &&
@@ -250,6 +338,11 @@ namespace Cohesity.Model
                     this.VeleroImageLocation == input.VeleroImageLocation ||
                     (this.VeleroImageLocation != null &&
                     this.VeleroImageLocation.Equals(input.VeleroImageLocation))
+                ) && 
+                (
+                    this.VeleroKubevirtPluginImageLocation == input.VeleroKubevirtPluginImageLocation ||
+                    (this.VeleroKubevirtPluginImageLocation != null &&
+                    this.VeleroKubevirtPluginImageLocation.Equals(input.VeleroKubevirtPluginImageLocation))
                 ) && 
                 (
                     this.VeleroOpenshiftPluginImageLocation == input.VeleroOpenshiftPluginImageLocation ||
@@ -273,6 +366,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CohesityDataprotectPluginImageLocation != null)
+                    hashCode = hashCode * 59 + this.CohesityDataprotectPluginImageLocation.GetHashCode();
                 if (this.DatamoverImageLocation != null)
                     hashCode = hashCode * 59 + this.DatamoverImageLocation.GetHashCode();
                 if (this.DatamoverServiceType != null)
@@ -282,12 +377,22 @@ namespace Cohesity.Model
                 if (this.InitContainerImageLocation != null)
                     hashCode = hashCode * 59 + this.InitContainerImageLocation.GetHashCode();
                 hashCode = hashCode * 59 + this.KubernetesDistribution.GetHashCode();
+                if (this.PriorityClassName != null)
+                    hashCode = hashCode * 59 + this.PriorityClassName.GetHashCode();
+                if (this.ResourceAnnotationList != null)
+                    hashCode = hashCode * 59 + this.ResourceAnnotationList.GetHashCode();
+                if (this.ResourceLabelList != null)
+                    hashCode = hashCode * 59 + this.ResourceLabelList.GetHashCode();
+                if (this.SanField != null)
+                    hashCode = hashCode * 59 + this.SanField.GetHashCode();
                 if (this.ServiceAnnotations != null)
                     hashCode = hashCode * 59 + this.ServiceAnnotations.GetHashCode();
                 if (this.VeleroAwsPluginImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroAwsPluginImageLocation.GetHashCode();
                 if (this.VeleroImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroImageLocation.GetHashCode();
+                if (this.VeleroKubevirtPluginImageLocation != null)
+                    hashCode = hashCode * 59 + this.VeleroKubevirtPluginImageLocation.GetHashCode();
                 if (this.VeleroOpenshiftPluginImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroOpenshiftPluginImageLocation.GetHashCode();
                 if (this.VlanInfoVec != null)

@@ -24,16 +24,25 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="K8SFilterParams" /> class.
         /// </summary>
         /// <param name="entityVec">List of entities included in filter. This contains the list of entities corresponding to entity IDs in &#39;object_id_vec&#39; and the list of entities under the union of intersection of labels specified by &#39;label_vec_vec&#39;. This will be populated during backup run..</param>
+        /// <param name="labelEntityType">Denotes the entity type to which the above label filters apply to..</param>
         /// <param name="labelVecVec">Array of Arrays of Label Ids that Specify Persistent Volumes (PV) and Persistent Volume Claims (PVC) to include in filter. The outer array represents a union operation (i.e.: match any label rule), while the inner array represents an intersection operation (i.e.: match all label rules). See iris/apiSpecs/v2/common/adapters/kubernetes/jobs.yaml:filterLabelIds for full description..</param>
         /// <param name="objectIdVec">IDs of objects to be included in filter..</param>
-        public K8SFilterParams(List<Entity> entityVec = default(List<Entity>), List<K8SFilterParamsLabelVec> labelVecVec = default(List<K8SFilterParamsLabelVec>), List<long> objectIdVec = default(List<long>))
+        /// <param name="resources">Array of kubernetes resource types to be included in the filter..</param>
+        /// <param name="selectedResources">Information of the list of resource types that were filtered and the specific resources that were selected for filtering of that type. If this field is populated it assumes that the resources and object_id field are not populated..</param>
+        public K8SFilterParams(List<Entity> entityVec = default(List<Entity>), int? labelEntityType = default(int?), List<K8SFilterParamsLabelVec> labelVecVec = default(List<K8SFilterParamsLabelVec>), List<long> objectIdVec = default(List<long>), List<string> resources = default(List<string>), List<ResourceInfo> selectedResources = default(List<ResourceInfo>))
         {
             this.EntityVec = entityVec;
+            this.LabelEntityType = labelEntityType;
             this.LabelVecVec = labelVecVec;
             this.ObjectIdVec = objectIdVec;
+            this.Resources = resources;
+            this.SelectedResources = selectedResources;
             this.EntityVec = entityVec;
+            this.LabelEntityType = labelEntityType;
             this.LabelVecVec = labelVecVec;
             this.ObjectIdVec = objectIdVec;
+            this.Resources = resources;
+            this.SelectedResources = selectedResources;
         }
         
         /// <summary>
@@ -42,6 +51,13 @@ namespace Cohesity.Model
         /// <value>List of entities included in filter. This contains the list of entities corresponding to entity IDs in &#39;object_id_vec&#39; and the list of entities under the union of intersection of labels specified by &#39;label_vec_vec&#39;. This will be populated during backup run.</value>
         [DataMember(Name="entityVec", EmitDefaultValue=true)]
         public List<Entity> EntityVec { get; set; }
+
+        /// <summary>
+        /// Denotes the entity type to which the above label filters apply to.
+        /// </summary>
+        /// <value>Denotes the entity type to which the above label filters apply to.</value>
+        [DataMember(Name="labelEntityType", EmitDefaultValue=true)]
+        public int? LabelEntityType { get; set; }
 
         /// <summary>
         /// Array of Arrays of Label Ids that Specify Persistent Volumes (PV) and Persistent Volume Claims (PVC) to include in filter. The outer array represents a union operation (i.e.: match any label rule), while the inner array represents an intersection operation (i.e.: match all label rules). See iris/apiSpecs/v2/common/adapters/kubernetes/jobs.yaml:filterLabelIds for full description.
@@ -56,6 +72,20 @@ namespace Cohesity.Model
         /// <value>IDs of objects to be included in filter.</value>
         [DataMember(Name="objectIdVec", EmitDefaultValue=true)]
         public List<long> ObjectIdVec { get; set; }
+
+        /// <summary>
+        /// Array of kubernetes resource types to be included in the filter.
+        /// </summary>
+        /// <value>Array of kubernetes resource types to be included in the filter.</value>
+        [DataMember(Name="resources", EmitDefaultValue=true)]
+        public List<string> Resources { get; set; }
+
+        /// <summary>
+        /// Information of the list of resource types that were filtered and the specific resources that were selected for filtering of that type. If this field is populated it assumes that the resources and object_id field are not populated.
+        /// </summary>
+        /// <value>Information of the list of resource types that were filtered and the specific resources that were selected for filtering of that type. If this field is populated it assumes that the resources and object_id field are not populated.</value>
+        [DataMember(Name="selectedResources", EmitDefaultValue=true)]
+        public List<ResourceInfo> SelectedResources { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -100,6 +130,11 @@ namespace Cohesity.Model
                     this.EntityVec.SequenceEqual(input.EntityVec)
                 ) && 
                 (
+                    this.LabelEntityType == input.LabelEntityType ||
+                    (this.LabelEntityType != null &&
+                    this.LabelEntityType.Equals(input.LabelEntityType))
+                ) && 
+                (
                     this.LabelVecVec == input.LabelVecVec ||
                     this.LabelVecVec != null &&
                     input.LabelVecVec != null &&
@@ -110,6 +145,18 @@ namespace Cohesity.Model
                     this.ObjectIdVec != null &&
                     input.ObjectIdVec != null &&
                     this.ObjectIdVec.SequenceEqual(input.ObjectIdVec)
+                ) && 
+                (
+                    this.Resources == input.Resources ||
+                    this.Resources != null &&
+                    input.Resources != null &&
+                    this.Resources.SequenceEqual(input.Resources)
+                ) && 
+                (
+                    this.SelectedResources == input.SelectedResources ||
+                    this.SelectedResources != null &&
+                    input.SelectedResources != null &&
+                    this.SelectedResources.SequenceEqual(input.SelectedResources)
                 );
         }
 
@@ -124,10 +171,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.EntityVec != null)
                     hashCode = hashCode * 59 + this.EntityVec.GetHashCode();
+                if (this.LabelEntityType != null)
+                    hashCode = hashCode * 59 + this.LabelEntityType.GetHashCode();
                 if (this.LabelVecVec != null)
                     hashCode = hashCode * 59 + this.LabelVecVec.GetHashCode();
                 if (this.ObjectIdVec != null)
                     hashCode = hashCode * 59 + this.ObjectIdVec.GetHashCode();
+                if (this.Resources != null)
+                    hashCode = hashCode * 59 + this.Resources.GetHashCode();
+                if (this.SelectedResources != null)
+                    hashCode = hashCode * 59 + this.SelectedResources.GetHashCode();
                 return hashCode;
             }
         }

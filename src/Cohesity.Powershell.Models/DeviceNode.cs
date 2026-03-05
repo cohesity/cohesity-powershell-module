@@ -21,12 +21,42 @@ namespace Cohesity.Model
     public partial class DeviceNode :  IEquatable<DeviceNode>
     {
         /// <summary>
+        /// Specifies the type of device (data or metadata for thin pools) Device Type.  Specifies the type of device in the device tree. &#39;kThinPoolData&#39; indicates this is a data device. &#39;kThinPoolMetadata&#39; indicates this is a metadata device.
+        /// </summary>
+        /// <value>Specifies the type of device (data or metadata for thin pools) Device Type.  Specifies the type of device in the device tree. &#39;kThinPoolData&#39; indicates this is a data device. &#39;kThinPoolMetadata&#39; indicates this is a metadata device.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum DeviceTypeEnum
+        {
+            /// <summary>
+            /// Enum KThinPoolData for value: kThinPoolData
+            /// </summary>
+            [EnumMember(Value = "kThinPoolData")]
+            KThinPoolData = 1,
+
+            /// <summary>
+            /// Enum KThinPoolMetadata for value: kThinPoolMetadata
+            /// </summary>
+            [EnumMember(Value = "kThinPoolMetadata")]
+            KThinPoolMetadata = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the type of device (data or metadata for thin pools) Device Type.  Specifies the type of device in the device tree. &#39;kThinPoolData&#39; indicates this is a data device. &#39;kThinPoolMetadata&#39; indicates this is a metadata device.
+        /// </summary>
+        /// <value>Specifies the type of device (data or metadata for thin pools) Device Type.  Specifies the type of device in the device tree. &#39;kThinPoolData&#39; indicates this is a data device. &#39;kThinPoolMetadata&#39; indicates this is a metadata device.</value>
+        [DataMember(Name="deviceType", EmitDefaultValue=true)]
+        public DeviceTypeEnum? DeviceType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="DeviceNode" /> class.
         /// </summary>
+        /// <param name="deviceType">Specifies the type of device (data or metadata for thin pools) Device Type.  Specifies the type of device in the device tree. &#39;kThinPoolData&#39; indicates this is a data device. &#39;kThinPoolMetadata&#39; indicates this is a metadata device..</param>
         /// <param name="intermediateNode">intermediateNode.</param>
         /// <param name="leafNode">leafNode.</param>
-        public DeviceNode(DeviceTreeDetails intermediateNode = default(DeviceTreeDetails), FilePartitionBlock leafNode = default(FilePartitionBlock))
+        public DeviceNode(DeviceTypeEnum? deviceType = default(DeviceTypeEnum?), DeviceTreeDetails intermediateNode = default(DeviceTreeDetails), FilePartitionBlock leafNode = default(FilePartitionBlock))
         {
+            this.DeviceType = deviceType;
+            this.DeviceType = deviceType;
             this.IntermediateNode = intermediateNode;
             this.LeafNode = leafNode;
         }
@@ -80,6 +110,10 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.DeviceType == input.DeviceType ||
+                    this.DeviceType.Equals(input.DeviceType)
+                ) && 
+                (
                     this.IntermediateNode == input.IntermediateNode ||
                     (this.IntermediateNode != null &&
                     this.IntermediateNode.Equals(input.IntermediateNode))
@@ -100,6 +134,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.DeviceType.GetHashCode();
                 if (this.IntermediateNode != null)
                     hashCode = hashCode * 59 + this.IntermediateNode.GetHashCode();
                 if (this.LeafNode != null)

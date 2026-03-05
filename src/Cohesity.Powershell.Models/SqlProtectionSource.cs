@@ -159,6 +159,14 @@ namespace Cohesity.Model
             [EnumMember(Value = "kRootContainer")]
             KRootContainer = 5
 
+            ,
+
+            /// <summary>
+            /// Enum KAAGDatabase for value: kAAGDatabase
+            /// </summary>
+            [EnumMember(Value = "kAAGDatabase")]
+            KAAGDatabase = 6
+
         }
 
         /// <summary>
@@ -171,6 +179,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SqlProtectionSource" /> class.
         /// </summary>
         /// <param name="isAvailableForVssBackup">Specifies whether the database is marked as available for backup according to the SQL Server VSS writer. This may be false if either the state of the databases is not online, or if the VSS writer is not online. This field is set only for type &#39;kDatabase&#39;..</param>
+        /// <param name="aagInfo">aagInfo.</param>
         /// <param name="createdTimestamp">Specifies the time when the database was created. It is displayed in the timezone of the SQL server on which this database is running..</param>
         /// <param name="databaseName">Specifies the database name of the SQL Protection Source, if the type is database..</param>
         /// <param name="dbAagEntityId">Specifies the AAG entity id if the database is part of an AAG. This field is set only for type &#39;kDatabase&#39;..</param>
@@ -189,7 +198,7 @@ namespace Cohesity.Model
         /// <param name="sqlServerDbState">The state of the database as returned by SQL Server. Indicates the state of the database. The values correspond to the &#39;state&#39; field in the system table sys.databases. See https://goo.gl/P66XqM. &#39;kOnline&#39; indicates that database is in online state. &#39;kRestoring&#39; indicates that database is in restore state. &#39;kRecovering&#39; indicates that database is in recovery state. &#39;kRecoveryPending&#39; indicates that database recovery is in pending state. &#39;kSuspect&#39; indicates that primary filegroup is suspect and may be damaged. &#39;kEmergency&#39; indicates that manually forced emergency state. &#39;kOffline&#39; indicates that database is in offline state. &#39;kCopying&#39; indicates that database is in copying state. &#39;kOfflineSecondary&#39; indicates that secondary database is in offline state..</param>
         /// <param name="sqlServerInstanceVersion">sqlServerInstanceVersion.</param>
         /// <param name="type">Specifies the type of the managed Object in a SQL Protection Source. Examples of SQL Objects include &#39;kInstance&#39; and &#39;kDatabase&#39;. &#39;kInstance&#39; indicates that SQL server instance is being protected. &#39;kDatabase&#39; indicates that SQL server database is being protected. &#39;kAAG&#39; indicates that SQL AAG (AlwaysOn Availability Group) is being protected. &#39;kAAGRootContainer&#39; indicates that SQL AAG&#39;s root container is being protected. &#39;kRootContainer&#39; indicates root container for SQL sources..</param>
-        public SqlProtectionSource(bool? isAvailableForVssBackup = default(bool?), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), long? dbCompatibilityLevel = default(long?), List<string> dbFileGroups = default(List<string>), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), string dbOwnerUsername = default(string), string defaultDatabaseLocation = default(string), string defaultLogLocation = default(string), SqlSourceId id = default(SqlSourceId), bool? isEncrypted = default(bool?), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), SqlServerDbStateEnum? sqlServerDbState = default(SqlServerDbStateEnum?), SQLServerInstanceVersion sqlServerInstanceVersion = default(SQLServerInstanceVersion), TypeEnum? type = default(TypeEnum?))
+        public SqlProtectionSource(bool? isAvailableForVssBackup = default(bool?), AAGInfo aagInfo = default(AAGInfo), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), long? dbCompatibilityLevel = default(long?), List<string> dbFileGroups = default(List<string>), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), string dbOwnerUsername = default(string), string defaultDatabaseLocation = default(string), string defaultLogLocation = default(string), SqlSourceId id = default(SqlSourceId), bool? isEncrypted = default(bool?), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), SqlServerDbStateEnum? sqlServerDbState = default(SqlServerDbStateEnum?), SQLServerInstanceVersion sqlServerInstanceVersion = default(SQLServerInstanceVersion), TypeEnum? type = default(TypeEnum?))
         {
             this.IsAvailableForVssBackup = isAvailableForVssBackup;
             this.CreatedTimestamp = createdTimestamp;
@@ -209,6 +218,7 @@ namespace Cohesity.Model
             this.SqlServerDbState = sqlServerDbState;
             this.Type = type;
             this.IsAvailableForVssBackup = isAvailableForVssBackup;
+            this.AagInfo = aagInfo;
             this.CreatedTimestamp = createdTimestamp;
             this.DatabaseName = databaseName;
             this.DbAagEntityId = dbAagEntityId;
@@ -235,6 +245,12 @@ namespace Cohesity.Model
         /// <value>Specifies whether the database is marked as available for backup according to the SQL Server VSS writer. This may be false if either the state of the databases is not online, or if the VSS writer is not online. This field is set only for type &#39;kDatabase&#39;.</value>
         [DataMember(Name="IsAvailableForVssBackup", EmitDefaultValue=true)]
         public bool? IsAvailableForVssBackup { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AagInfo
+        /// </summary>
+        [DataMember(Name="aagInfo", EmitDefaultValue=false)]
+        public AAGInfo AagInfo { get; set; }
 
         /// <summary>
         /// Specifies the time when the database was created. It is displayed in the timezone of the SQL server on which this database is running.
@@ -381,6 +397,11 @@ namespace Cohesity.Model
                     this.IsAvailableForVssBackup.Equals(input.IsAvailableForVssBackup))
                 ) && 
                 (
+                    this.AagInfo == input.AagInfo ||
+                    (this.AagInfo != null &&
+                    this.AagInfo.Equals(input.AagInfo))
+                ) && 
+                (
                     this.CreatedTimestamp == input.CreatedTimestamp ||
                     (this.CreatedTimestamp != null &&
                     this.CreatedTimestamp.Equals(input.CreatedTimestamp))
@@ -482,6 +503,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.IsAvailableForVssBackup != null)
                     hashCode = hashCode * 59 + this.IsAvailableForVssBackup.GetHashCode();
+                if (this.AagInfo != null)
+                    hashCode = hashCode * 59 + this.AagInfo.GetHashCode();
                 if (this.CreatedTimestamp != null)
                     hashCode = hashCode * 59 + this.CreatedTimestamp.GetHashCode();
                 if (this.DatabaseName != null)

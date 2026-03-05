@@ -402,18 +402,20 @@ namespace Cohesity.Model
         /// <param name="category">Specifies a category for the privilege such as &#39;Access Management&#39;..</param>
         /// <param name="description">Specifies a description defining what the privilege provides..</param>
         /// <param name="isAvailableOnHelios">Specifies that this privilege is available for Helios operations..</param>
+        /// <param name="isAvailableOnNetBackup">Specifies that this privilege is available on NetBackup (a.k.a. Janus) clusters - which do not run DataProtect services like Magneto and does not support policies, sources, views, jobs, etc..</param>
         /// <param name="isCustomRoleDefault">Specifies if this privilege is automatically assigned to custom roles..</param>
         /// <param name="isSaaSOnly">Specifies that this privilege is available for SaaS operations..</param>
         /// <param name="isSpecial">Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;..</param>
         /// <param name="isViewOnly">Specifies if privilege is view-only privilege that cannot make changes..</param>
         /// <param name="label">Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;..</param>
         /// <param name="name">Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW..</param>
-        public PrivilegeInfo(PrivilegeIdEnum? privilegeId = default(PrivilegeIdEnum?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSaaSOnly = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
+        public PrivilegeInfo(PrivilegeIdEnum? privilegeId = default(PrivilegeIdEnum?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isAvailableOnNetBackup = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSaaSOnly = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
         {
             this.PrivilegeId = privilegeId;
             this.Category = category;
             this.Description = description;
             this.IsAvailableOnHelios = isAvailableOnHelios;
+            this.IsAvailableOnNetBackup = isAvailableOnNetBackup;
             this.IsCustomRoleDefault = isCustomRoleDefault;
             this.IsSaaSOnly = isSaaSOnly;
             this.IsSpecial = isSpecial;
@@ -424,6 +426,7 @@ namespace Cohesity.Model
             this.Category = category;
             this.Description = description;
             this.IsAvailableOnHelios = isAvailableOnHelios;
+            this.IsAvailableOnNetBackup = isAvailableOnNetBackup;
             this.IsCustomRoleDefault = isCustomRoleDefault;
             this.IsSaaSOnly = isSaaSOnly;
             this.IsSpecial = isSpecial;
@@ -452,6 +455,13 @@ namespace Cohesity.Model
         /// <value>Specifies that this privilege is available for Helios operations.</value>
         [DataMember(Name="isAvailableOnHelios", EmitDefaultValue=true)]
         public bool? IsAvailableOnHelios { get; set; }
+
+        /// <summary>
+        /// Specifies that this privilege is available on NetBackup (a.k.a. Janus) clusters - which do not run DataProtect services like Magneto and does not support policies, sources, views, jobs, etc.
+        /// </summary>
+        /// <value>Specifies that this privilege is available on NetBackup (a.k.a. Janus) clusters - which do not run DataProtect services like Magneto and does not support policies, sources, views, jobs, etc.</value>
+        [DataMember(Name="isAvailableOnNetBackup", EmitDefaultValue=true)]
+        public bool? IsAvailableOnNetBackup { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to custom roles.
@@ -551,6 +561,11 @@ namespace Cohesity.Model
                     this.IsAvailableOnHelios.Equals(input.IsAvailableOnHelios))
                 ) && 
                 (
+                    this.IsAvailableOnNetBackup == input.IsAvailableOnNetBackup ||
+                    (this.IsAvailableOnNetBackup != null &&
+                    this.IsAvailableOnNetBackup.Equals(input.IsAvailableOnNetBackup))
+                ) && 
+                (
                     this.IsCustomRoleDefault == input.IsCustomRoleDefault ||
                     (this.IsCustomRoleDefault != null &&
                     this.IsCustomRoleDefault.Equals(input.IsCustomRoleDefault))
@@ -598,6 +613,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.IsAvailableOnHelios != null)
                     hashCode = hashCode * 59 + this.IsAvailableOnHelios.GetHashCode();
+                if (this.IsAvailableOnNetBackup != null)
+                    hashCode = hashCode * 59 + this.IsAvailableOnNetBackup.GetHashCode();
                 if (this.IsCustomRoleDefault != null)
                     hashCode = hashCode * 59 + this.IsCustomRoleDefault.GetHashCode();
                 if (this.IsSaaSOnly != null)

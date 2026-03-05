@@ -27,7 +27,7 @@ namespace Cohesity.Model
         /// <param name="domain">Specifies the domain of the group..</param>
         /// <param name="name">Specifies the name of the group..</param>
         /// <param name="restricted">Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to..</param>
-        /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group..</param>
+        /// <param name="roles">Array of Roles.  Specifies the Cohesity role names to associate with the group. role names can be viewed by GET /irisservices/api/v1/public/roles, example: COHESITY_VIEWER The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group..</param>
         /// <param name="smbPrincipals">Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true..</param>
         /// <param name="tenantIds">Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed..</param>
         /// <param name="users">Specifies the SID of users who are members of the group. This field is used only for local groups..</param>
@@ -80,9 +80,9 @@ namespace Cohesity.Model
         public bool? Restricted { get; set; }
 
         /// <summary>
-        /// Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
+        /// Array of Roles.  Specifies the Cohesity role names to associate with the group. role names can be viewed by GET /irisservices/api/v1/public/roles, example: COHESITY_VIEWER The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
         /// </summary>
-        /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.</value>
+        /// <value>Array of Roles.  Specifies the Cohesity role names to associate with the group. role names can be viewed by GET /irisservices/api/v1/public/roles, example: COHESITY_VIEWER The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.</value>
         [DataMember(Name="roles", EmitDefaultValue=true)]
         public List<string> Roles { get; set; }
 

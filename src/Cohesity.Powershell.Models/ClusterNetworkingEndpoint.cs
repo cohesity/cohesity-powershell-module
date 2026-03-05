@@ -26,14 +26,17 @@ namespace Cohesity.Model
         /// <param name="fqdn">The Fully Qualified Domain Name..</param>
         /// <param name="ipv4Addr">The IPv4 address..</param>
         /// <param name="ipv6Addr">The IPv6 address..</param>
-        public ClusterNetworkingEndpoint(string fqdn = default(string), string ipv4Addr = default(string), string ipv6Addr = default(string))
+        /// <param name="isPreferredEndpoint">Specifies if this endpoint is preferred or not..</param>
+        public ClusterNetworkingEndpoint(string fqdn = default(string), string ipv4Addr = default(string), string ipv6Addr = default(string), bool? isPreferredEndpoint = default(bool?))
         {
             this.Fqdn = fqdn;
             this.Ipv4Addr = ipv4Addr;
             this.Ipv6Addr = ipv6Addr;
+            this.IsPreferredEndpoint = isPreferredEndpoint;
             this.Fqdn = fqdn;
             this.Ipv4Addr = ipv4Addr;
             this.Ipv6Addr = ipv6Addr;
+            this.IsPreferredEndpoint = isPreferredEndpoint;
         }
         
         /// <summary>
@@ -56,6 +59,13 @@ namespace Cohesity.Model
         /// <value>The IPv6 address.</value>
         [DataMember(Name="ipv6Addr", EmitDefaultValue=true)]
         public string Ipv6Addr { get; set; }
+
+        /// <summary>
+        /// Specifies if this endpoint is preferred or not.
+        /// </summary>
+        /// <value>Specifies if this endpoint is preferred or not.</value>
+        [DataMember(Name="isPreferredEndpoint", EmitDefaultValue=true)]
+        public bool? IsPreferredEndpoint { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +117,11 @@ namespace Cohesity.Model
                     this.Ipv6Addr == input.Ipv6Addr ||
                     (this.Ipv6Addr != null &&
                     this.Ipv6Addr.Equals(input.Ipv6Addr))
+                ) && 
+                (
+                    this.IsPreferredEndpoint == input.IsPreferredEndpoint ||
+                    (this.IsPreferredEndpoint != null &&
+                    this.IsPreferredEndpoint.Equals(input.IsPreferredEndpoint))
                 );
         }
 
@@ -125,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Ipv4Addr.GetHashCode();
                 if (this.Ipv6Addr != null)
                     hashCode = hashCode * 59 + this.Ipv6Addr.GetHashCode();
+                if (this.IsPreferredEndpoint != null)
+                    hashCode = hashCode * 59 + this.IsPreferredEndpoint.GetHashCode();
                 return hashCode;
             }
         }

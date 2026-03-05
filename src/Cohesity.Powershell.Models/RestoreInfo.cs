@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreInfo" /> class.
         /// </summary>
+        /// <param name="adapterMetadata">adapterMetadata.</param>
         /// <param name="archivalTarget">archivalTarget.</param>
         /// <param name="attemptNumber">Specifies the attempt number..</param>
         /// <param name="cloudDeployTarget">cloudDeployTarget.</param>
@@ -35,7 +36,7 @@ namespace Cohesity.Model
         /// <param name="startTimeUsecs">Specifies the start time specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="viewName">Specifies the name of the view..</param>
         /// <param name="vmHadIndependentDisks">Specifies if the VM had independent disks..</param>
-        public RestoreInfo(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), int? attemptNumber = default(int?), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource parentSource = default(ProtectionSource), long? restoreTimeUsecs = default(long?), string snapshotRelativeDirPath = default(string), ProtectionSource source = default(ProtectionSource), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreInfo(AdapterMetadata adapterMetadata = default(AdapterMetadata), ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), int? attemptNumber = default(int?), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource parentSource = default(ProtectionSource), long? restoreTimeUsecs = default(long?), string snapshotRelativeDirPath = default(string), ProtectionSource source = default(ProtectionSource), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
@@ -44,6 +45,7 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.ViewName = viewName;
             this.VmHadIndependentDisks = vmHadIndependentDisks;
+            this.AdapterMetadata = adapterMetadata;
             this.ArchivalTarget = archivalTarget;
             this.AttemptNumber = attemptNumber;
             this.CloudDeployTarget = cloudDeployTarget;
@@ -58,6 +60,12 @@ namespace Cohesity.Model
             this.VmHadIndependentDisks = vmHadIndependentDisks;
         }
         
+        /// <summary>
+        /// Gets or Sets AdapterMetadata
+        /// </summary>
+        [DataMember(Name="adapterMetadata", EmitDefaultValue=false)]
+        public AdapterMetadata AdapterMetadata { get; set; }
+
         /// <summary>
         /// Gets or Sets ArchivalTarget
         /// </summary>
@@ -174,6 +182,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdapterMetadata == input.AdapterMetadata ||
+                    (this.AdapterMetadata != null &&
+                    this.AdapterMetadata.Equals(input.AdapterMetadata))
+                ) && 
+                (
                     this.ArchivalTarget == input.ArchivalTarget ||
                     (this.ArchivalTarget != null &&
                     this.ArchivalTarget.Equals(input.ArchivalTarget))
@@ -244,6 +257,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdapterMetadata != null)
+                    hashCode = hashCode * 59 + this.AdapterMetadata.GetHashCode();
                 if (this.ArchivalTarget != null)
                     hashCode = hashCode * 59 + this.ArchivalTarget.GetHashCode();
                 if (this.AttemptNumber != null)

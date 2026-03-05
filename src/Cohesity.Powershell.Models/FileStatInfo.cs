@@ -25,9 +25,11 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="backupSourceInodeId">Source inode id metadata for certain adapters e.g. Netapp..</param>
         /// <param name="mtimeUsecs">If this is a file, the mtime as returned by stat..</param>
+        /// <param name="onedriveItemMetadata">onedriveItemMetadata.</param>
+        /// <param name="sharepointItemMetadata">sharepointItemMetadata.</param>
         /// <param name="size">If this is a file, the size of the file as returned by stat..</param>
         /// <param name="type">The type of this entity. This field will not be populated for ReadDir results, since the DirEntry already contains the type information..</param>
-        public FileStatInfo(long? backupSourceInodeId = default(long?), long? mtimeUsecs = default(long?), long? size = default(long?), int? type = default(int?))
+        public FileStatInfo(long? backupSourceInodeId = default(long?), long? mtimeUsecs = default(long?), OneDriveItemMetadata onedriveItemMetadata = default(OneDriveItemMetadata), SharepointItemMetadata sharepointItemMetadata = default(SharepointItemMetadata), long? size = default(long?), int? type = default(int?))
         {
             this.BackupSourceInodeId = backupSourceInodeId;
             this.MtimeUsecs = mtimeUsecs;
@@ -35,6 +37,8 @@ namespace Cohesity.Model
             this.Type = type;
             this.BackupSourceInodeId = backupSourceInodeId;
             this.MtimeUsecs = mtimeUsecs;
+            this.OnedriveItemMetadata = onedriveItemMetadata;
+            this.SharepointItemMetadata = sharepointItemMetadata;
             this.Size = size;
             this.Type = type;
         }
@@ -52,6 +56,18 @@ namespace Cohesity.Model
         /// <value>If this is a file, the mtime as returned by stat.</value>
         [DataMember(Name="mtimeUsecs", EmitDefaultValue=true)]
         public long? MtimeUsecs { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OnedriveItemMetadata
+        /// </summary>
+        [DataMember(Name="onedriveItemMetadata", EmitDefaultValue=false)]
+        public OneDriveItemMetadata OnedriveItemMetadata { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SharepointItemMetadata
+        /// </summary>
+        [DataMember(Name="sharepointItemMetadata", EmitDefaultValue=false)]
+        public SharepointItemMetadata SharepointItemMetadata { get; set; }
 
         /// <summary>
         /// If this is a file, the size of the file as returned by stat.
@@ -114,6 +130,16 @@ namespace Cohesity.Model
                     this.MtimeUsecs.Equals(input.MtimeUsecs))
                 ) && 
                 (
+                    this.OnedriveItemMetadata == input.OnedriveItemMetadata ||
+                    (this.OnedriveItemMetadata != null &&
+                    this.OnedriveItemMetadata.Equals(input.OnedriveItemMetadata))
+                ) && 
+                (
+                    this.SharepointItemMetadata == input.SharepointItemMetadata ||
+                    (this.SharepointItemMetadata != null &&
+                    this.SharepointItemMetadata.Equals(input.SharepointItemMetadata))
+                ) && 
+                (
                     this.Size == input.Size ||
                     (this.Size != null &&
                     this.Size.Equals(input.Size))
@@ -138,6 +164,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BackupSourceInodeId.GetHashCode();
                 if (this.MtimeUsecs != null)
                     hashCode = hashCode * 59 + this.MtimeUsecs.GetHashCode();
+                if (this.OnedriveItemMetadata != null)
+                    hashCode = hashCode * 59 + this.OnedriveItemMetadata.GetHashCode();
+                if (this.SharepointItemMetadata != null)
+                    hashCode = hashCode * 59 + this.SharepointItemMetadata.GetHashCode();
                 if (this.Size != null)
                     hashCode = hashCode * 59 + this.Size.GetHashCode();
                 if (this.Type != null)

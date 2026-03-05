@@ -28,17 +28,19 @@ namespace Cohesity.Model
         /// <param name="isDGaaSUser">Specifies whether user is a DGaaS licensed user..</param>
         /// <param name="isDMaaSUser">Specifies whether user is a DMaaS licensed user..</param>
         /// <param name="isDRaaSUser">Specifies whether user is a DRaaS licensed user..</param>
+        /// <param name="isGaiaUser">Specifies whether user is a Data Insights aka gaia licensed user..</param>
         /// <param name="isRPaaSUser">Specifies whether user is a RPaaS licensed user..</param>
         /// <param name="isSalesUser">Specifies whether user is a Sales person from Cohesity..</param>
         /// <param name="isSupportUser">Specifies whether user is a support person from Cohesity..</param>
         /// <param name="userId">Specifies the User Id assigned by Salesforce..</param>
-        public SalesforceAccountInfo(string accountId = default(string), string heliosAccessGrantStatus = default(string), bool? isDGaaSUser = default(bool?), bool? isDMaaSUser = default(bool?), bool? isDRaaSUser = default(bool?), bool? isRPaaSUser = default(bool?), bool? isSalesUser = default(bool?), bool? isSupportUser = default(bool?), string userId = default(string))
+        public SalesforceAccountInfo(string accountId = default(string), string heliosAccessGrantStatus = default(string), bool? isDGaaSUser = default(bool?), bool? isDMaaSUser = default(bool?), bool? isDRaaSUser = default(bool?), bool? isGaiaUser = default(bool?), bool? isRPaaSUser = default(bool?), bool? isSalesUser = default(bool?), bool? isSupportUser = default(bool?), string userId = default(string))
         {
             this.AccountId = accountId;
             this.HeliosAccessGrantStatus = heliosAccessGrantStatus;
             this.IsDGaaSUser = isDGaaSUser;
             this.IsDMaaSUser = isDMaaSUser;
             this.IsDRaaSUser = isDRaaSUser;
+            this.IsGaiaUser = isGaiaUser;
             this.IsRPaaSUser = isRPaaSUser;
             this.IsSalesUser = isSalesUser;
             this.IsSupportUser = isSupportUser;
@@ -48,6 +50,7 @@ namespace Cohesity.Model
             this.IsDGaaSUser = isDGaaSUser;
             this.IsDMaaSUser = isDMaaSUser;
             this.IsDRaaSUser = isDRaaSUser;
+            this.IsGaiaUser = isGaiaUser;
             this.IsRPaaSUser = isRPaaSUser;
             this.IsSalesUser = isSalesUser;
             this.IsSupportUser = isSupportUser;
@@ -88,6 +91,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether user is a DRaaS licensed user.</value>
         [DataMember(Name="isDRaaSUser", EmitDefaultValue=true)]
         public bool? IsDRaaSUser { get; set; }
+
+        /// <summary>
+        /// Specifies whether user is a Data Insights aka gaia licensed user.
+        /// </summary>
+        /// <value>Specifies whether user is a Data Insights aka gaia licensed user.</value>
+        [DataMember(Name="isGaiaUser", EmitDefaultValue=true)]
+        public bool? IsGaiaUser { get; set; }
 
         /// <summary>
         /// Specifies whether user is a RPaaS licensed user.
@@ -179,6 +189,11 @@ namespace Cohesity.Model
                     this.IsDRaaSUser.Equals(input.IsDRaaSUser))
                 ) && 
                 (
+                    this.IsGaiaUser == input.IsGaiaUser ||
+                    (this.IsGaiaUser != null &&
+                    this.IsGaiaUser.Equals(input.IsGaiaUser))
+                ) && 
+                (
                     this.IsRPaaSUser == input.IsRPaaSUser ||
                     (this.IsRPaaSUser != null &&
                     this.IsRPaaSUser.Equals(input.IsRPaaSUser))
@@ -219,6 +234,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsDMaaSUser.GetHashCode();
                 if (this.IsDRaaSUser != null)
                     hashCode = hashCode * 59 + this.IsDRaaSUser.GetHashCode();
+                if (this.IsGaiaUser != null)
+                    hashCode = hashCode * 59 + this.IsGaiaUser.GetHashCode();
                 if (this.IsRPaaSUser != null)
                     hashCode = hashCode * 59 + this.IsRPaaSUser.GetHashCode();
                 if (this.IsSalesUser != null)

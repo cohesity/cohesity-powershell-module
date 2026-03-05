@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class GoogleCloudCredentials :  IEquatable<GoogleCloudCredentials>
     {
         /// <summary>
+        /// Specifies the Google authentication method to be used for the request. Specifies the google authentication type to be used for API calls. &#39;kServiceAccountKeys&#39;: User will input a private key for the service account. &#39;kServiceAccountAttached&#39;: Assumes the identity of the service account attached to the GCP VM and retrieves an access token from the metadata server to authenticate calls to Google Cloud Storage &#39;kServiceAccountImpersonation&#39;: Assumes the identity of a specified service account, requiring that the GCP VM&#39;s attached service account has the necessary role to impersonate it. &#39;kHelios&#39;: Use Helios to acquire temporary credentials.
+        /// </summary>
+        /// <value>Specifies the Google authentication method to be used for the request. Specifies the google authentication type to be used for API calls. &#39;kServiceAccountKeys&#39;: User will input a private key for the service account. &#39;kServiceAccountAttached&#39;: Assumes the identity of the service account attached to the GCP VM and retrieves an access token from the metadata server to authenticate calls to Google Cloud Storage &#39;kServiceAccountImpersonation&#39;: Assumes the identity of a specified service account, requiring that the GCP VM&#39;s attached service account has the necessary role to impersonate it. &#39;kHelios&#39;: Use Helios to acquire temporary credentials.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AuthMethodEnum
+        {
+            /// <summary>
+            /// Enum KServiceAccountKeys for value: kServiceAccountKeys
+            /// </summary>
+            [EnumMember(Value = "kServiceAccountKeys")]
+            KServiceAccountKeys = 1,
+
+            /// <summary>
+            /// Enum KServiceAccountAttached for value: kServiceAccountAttached
+            /// </summary>
+            [EnumMember(Value = "kServiceAccountAttached")]
+            KServiceAccountAttached = 2,
+
+            /// <summary>
+            /// Enum KServiceAccountImpersonation for value: kServiceAccountImpersonation
+            /// </summary>
+            [EnumMember(Value = "kServiceAccountImpersonation")]
+            KServiceAccountImpersonation = 3,
+
+            /// <summary>
+            /// Enum KHelios for value: kHelios
+            /// </summary>
+            [EnumMember(Value = "kHelios")]
+            KHelios = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the Google authentication method to be used for the request. Specifies the google authentication type to be used for API calls. &#39;kServiceAccountKeys&#39;: User will input a private key for the service account. &#39;kServiceAccountAttached&#39;: Assumes the identity of the service account attached to the GCP VM and retrieves an access token from the metadata server to authenticate calls to Google Cloud Storage &#39;kServiceAccountImpersonation&#39;: Assumes the identity of a specified service account, requiring that the GCP VM&#39;s attached service account has the necessary role to impersonate it. &#39;kHelios&#39;: Use Helios to acquire temporary credentials.
+        /// </summary>
+        /// <value>Specifies the Google authentication method to be used for the request. Specifies the google authentication type to be used for API calls. &#39;kServiceAccountKeys&#39;: User will input a private key for the service account. &#39;kServiceAccountAttached&#39;: Assumes the identity of the service account attached to the GCP VM and retrieves an access token from the metadata server to authenticate calls to Google Cloud Storage &#39;kServiceAccountImpersonation&#39;: Assumes the identity of a specified service account, requiring that the GCP VM&#39;s attached service account has the necessary role to impersonate it. &#39;kHelios&#39;: Use Helios to acquire temporary credentials.</value>
+        [DataMember(Name="authMethod", EmitDefaultValue=true)]
+        public AuthMethodEnum? AuthMethod { get; set; }
+        /// <summary>
         /// Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.
         /// </summary>
         /// <value>Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.</value>
@@ -55,7 +94,13 @@ namespace Cohesity.Model
             /// Enum KGoogleMultiRegional for value: kGoogleMultiRegional
             /// </summary>
             [EnumMember(Value = "kGoogleMultiRegional")]
-            KGoogleMultiRegional = 5
+            KGoogleMultiRegional = 5,
+
+            /// <summary>
+            /// Enum KGoogleArchive for value: kGoogleArchive
+            /// </summary>
+            [EnumMember(Value = "kGoogleArchive")]
+            KGoogleArchive = 6
 
         }
 
@@ -68,18 +113,21 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GoogleCloudCredentials" /> class.
         /// </summary>
+        /// <param name="authMethod">Specifies the Google authentication method to be used for the request. Specifies the google authentication type to be used for API calls. &#39;kServiceAccountKeys&#39;: User will input a private key for the service account. &#39;kServiceAccountAttached&#39;: Assumes the identity of the service account attached to the GCP VM and retrieves an access token from the metadata server to authenticate calls to Google Cloud Storage &#39;kServiceAccountImpersonation&#39;: Assumes the identity of a specified service account, requiring that the GCP VM&#39;s attached service account has the necessary role to impersonate it. &#39;kHelios&#39;: Use Helios to acquire temporary credentials..</param>
         /// <param name="clientEmailAddress">Specifies the client email address used to access Google Cloud Storage..</param>
         /// <param name="clientPrivateKey">Specifies the private key used to access Google Cloud Storage that is generated when the service account is created..</param>
         /// <param name="projectId">Specifies the project id of an existing Google Cloud project to store objects..</param>
         /// <param name="tierType">Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world..</param>
         /// <param name="tiers">Specifies the list of all tiers for Google account..</param>
-        public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
+        public GoogleCloudCredentials(AuthMethodEnum? authMethod = default(AuthMethodEnum?), string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
+            this.AuthMethod = authMethod;
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ProjectId = projectId;
             this.TierType = tierType;
             this.Tiers = tiers;
+            this.AuthMethod = authMethod;
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ProjectId = projectId;
@@ -152,6 +200,10 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AuthMethod == input.AuthMethod ||
+                    this.AuthMethod.Equals(input.AuthMethod)
+                ) && 
+                (
                     this.ClientEmailAddress == input.ClientEmailAddress ||
                     (this.ClientEmailAddress != null &&
                     this.ClientEmailAddress.Equals(input.ClientEmailAddress))
@@ -187,6 +239,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.ClientEmailAddress != null)
                     hashCode = hashCode * 59 + this.ClientEmailAddress.GetHashCode();
                 if (this.ClientPrivateKey != null)

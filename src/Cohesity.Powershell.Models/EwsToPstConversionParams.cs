@@ -24,22 +24,28 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="EwsToPstConversionParams" /> class.
         /// </summary>
         /// <param name="createPst">Create Msg files or Pst. false value indicates only create msg files. Default value is true..</param>
+        /// <param name="encryptedPstPassword">Encrypted version of the pst_password above. The plain password should be cleared and the encrypted form should be persisted in the restore task state proto..</param>
         /// <param name="optionFlags">ConvertEwsToPst flags of type ConvertEwsToPSTOptionFlags..</param>
         /// <param name="pstNamePrefix">Name prefix for generated PST files..</param>
         /// <param name="pstPassword">Optional password to be set for the output PSTs..</param>
         /// <param name="pstSizeThreshold">PST rotation size in bytes..</param>
-        public EwsToPstConversionParams(bool? createPst = default(bool?), int? optionFlags = default(int?), string pstNamePrefix = default(string), string pstPassword = default(string), long? pstSizeThreshold = default(long?))
+        /// <param name="separateDownloadFiles">Whether there should be a separate PST file created per snapshot or not..</param>
+        public EwsToPstConversionParams(bool? createPst = default(bool?), string encryptedPstPassword = default(string), int? optionFlags = default(int?), string pstNamePrefix = default(string), string pstPassword = default(string), long? pstSizeThreshold = default(long?), bool? separateDownloadFiles = default(bool?))
         {
             this.CreatePst = createPst;
+            this.EncryptedPstPassword = encryptedPstPassword;
             this.OptionFlags = optionFlags;
             this.PstNamePrefix = pstNamePrefix;
             this.PstPassword = pstPassword;
             this.PstSizeThreshold = pstSizeThreshold;
+            this.SeparateDownloadFiles = separateDownloadFiles;
             this.CreatePst = createPst;
+            this.EncryptedPstPassword = encryptedPstPassword;
             this.OptionFlags = optionFlags;
             this.PstNamePrefix = pstNamePrefix;
             this.PstPassword = pstPassword;
             this.PstSizeThreshold = pstSizeThreshold;
+            this.SeparateDownloadFiles = separateDownloadFiles;
         }
         
         /// <summary>
@@ -48,6 +54,13 @@ namespace Cohesity.Model
         /// <value>Create Msg files or Pst. false value indicates only create msg files. Default value is true.</value>
         [DataMember(Name="createPst", EmitDefaultValue=true)]
         public bool? CreatePst { get; set; }
+
+        /// <summary>
+        /// Encrypted version of the pst_password above. The plain password should be cleared and the encrypted form should be persisted in the restore task state proto.
+        /// </summary>
+        /// <value>Encrypted version of the pst_password above. The plain password should be cleared and the encrypted form should be persisted in the restore task state proto.</value>
+        [DataMember(Name="encryptedPstPassword", EmitDefaultValue=true)]
+        public string EncryptedPstPassword { get; set; }
 
         /// <summary>
         /// ConvertEwsToPst flags of type ConvertEwsToPSTOptionFlags.
@@ -76,6 +89,13 @@ namespace Cohesity.Model
         /// <value>PST rotation size in bytes.</value>
         [DataMember(Name="pstSizeThreshold", EmitDefaultValue=true)]
         public long? PstSizeThreshold { get; set; }
+
+        /// <summary>
+        /// Whether there should be a separate PST file created per snapshot or not.
+        /// </summary>
+        /// <value>Whether there should be a separate PST file created per snapshot or not.</value>
+        [DataMember(Name="separateDownloadFiles", EmitDefaultValue=true)]
+        public bool? SeparateDownloadFiles { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -119,6 +139,11 @@ namespace Cohesity.Model
                     this.CreatePst.Equals(input.CreatePst))
                 ) && 
                 (
+                    this.EncryptedPstPassword == input.EncryptedPstPassword ||
+                    (this.EncryptedPstPassword != null &&
+                    this.EncryptedPstPassword.Equals(input.EncryptedPstPassword))
+                ) && 
+                (
                     this.OptionFlags == input.OptionFlags ||
                     (this.OptionFlags != null &&
                     this.OptionFlags.Equals(input.OptionFlags))
@@ -137,6 +162,11 @@ namespace Cohesity.Model
                     this.PstSizeThreshold == input.PstSizeThreshold ||
                     (this.PstSizeThreshold != null &&
                     this.PstSizeThreshold.Equals(input.PstSizeThreshold))
+                ) && 
+                (
+                    this.SeparateDownloadFiles == input.SeparateDownloadFiles ||
+                    (this.SeparateDownloadFiles != null &&
+                    this.SeparateDownloadFiles.Equals(input.SeparateDownloadFiles))
                 );
         }
 
@@ -151,6 +181,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CreatePst != null)
                     hashCode = hashCode * 59 + this.CreatePst.GetHashCode();
+                if (this.EncryptedPstPassword != null)
+                    hashCode = hashCode * 59 + this.EncryptedPstPassword.GetHashCode();
                 if (this.OptionFlags != null)
                     hashCode = hashCode * 59 + this.OptionFlags.GetHashCode();
                 if (this.PstNamePrefix != null)
@@ -159,6 +191,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PstPassword.GetHashCode();
                 if (this.PstSizeThreshold != null)
                     hashCode = hashCode * 59 + this.PstSizeThreshold.GetHashCode();
+                if (this.SeparateDownloadFiles != null)
+                    hashCode = hashCode * 59 + this.SeparateDownloadFiles.GetHashCode();
                 return hashCode;
             }
         }

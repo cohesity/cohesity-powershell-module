@@ -26,17 +26,20 @@ namespace Cohesity.Model
         /// <param name="absolutePath">Full path of the file being restored: the actual file path without the disk. E.g.: \\Program Files\\App\\file.txt.</param>
         /// <param name="attachedDiskId">Disk information of where the source file is currently located..</param>
         /// <param name="diskPartitionId">Disk partition to which the file belongs to..</param>
+        /// <param name="envParams">envParams.</param>
         /// <param name="fsUuid">File system UUID on which file resides..</param>
         /// <param name="inodeNumber">Inode number of the file. This is needed for snapmirror restore workflow..</param>
         /// <param name="isDirectory">Whether the path points to a directory..</param>
         /// <param name="isNonSimpleLdmVol">This will be set to true for recovery workflows for non-simple volumes on Windows Dynamic Disks. In that case, we will use VolumeInfo instead of some of the details captured here (e.g. virtual_disk_file) for determining disk and volume related details..</param>
+        /// <param name="isWindowsDedupeVol">Whether the file belongs to the Windows deduplication-enabled volume..</param>
+        /// <param name="itemId">Drive item id of the file to be restored. Currently will only be used for files. Only one of item_id or absolute path should be passed..</param>
         /// <param name="restoreBaseDirectory">This must be set to a directory path if restore_to_original_paths is false and restore task has multiple files which are not desired to be restore to one common location. If this filed is populated, &#39;absolute_path&#39; will be restored under this location. If this field is not populated all files in restore task will be restored to location specified in RestoreFilesPreferences..</param>
         /// <param name="restoreMountPoint">Mount point of the volume on which the file to be restored is located. E.g.: c:\\temp\\vhd_mount_1234.</param>
         /// <param name="sizeBytes">Size of the file in bytes. Required in FLR in GCP using Cloud Functions..</param>
         /// <param name="virtualDiskFile">Virtual disk file to which this file belongs to..</param>
         /// <param name="volumeId">Id of the volume..</param>
         /// <param name="volumePath">Original volume name (or drive letter). This is used while performing the copy to the original paths. E.g.: c:.</param>
-        public RestoredFileInfo(string absolutePath = default(string), int? attachedDiskId = default(int?), int? diskPartitionId = default(int?), string fsUuid = default(string), long? inodeNumber = default(long?), bool? isDirectory = default(bool?), bool? isNonSimpleLdmVol = default(bool?), string restoreBaseDirectory = default(string), string restoreMountPoint = default(string), long? sizeBytes = default(long?), string virtualDiskFile = default(string), string volumeId = default(string), string volumePath = default(string))
+        public RestoredFileInfo(string absolutePath = default(string), int? attachedDiskId = default(int?), int? diskPartitionId = default(int?), EnvRestoreFilesParams envParams = default(EnvRestoreFilesParams), string fsUuid = default(string), long? inodeNumber = default(long?), bool? isDirectory = default(bool?), bool? isNonSimpleLdmVol = default(bool?), bool? isWindowsDedupeVol = default(bool?), string itemId = default(string), string restoreBaseDirectory = default(string), string restoreMountPoint = default(string), long? sizeBytes = default(long?), string virtualDiskFile = default(string), string volumeId = default(string), string volumePath = default(string))
         {
             this.AbsolutePath = absolutePath;
             this.AttachedDiskId = attachedDiskId;
@@ -45,6 +48,8 @@ namespace Cohesity.Model
             this.InodeNumber = inodeNumber;
             this.IsDirectory = isDirectory;
             this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
+            this.IsWindowsDedupeVol = isWindowsDedupeVol;
+            this.ItemId = itemId;
             this.RestoreBaseDirectory = restoreBaseDirectory;
             this.RestoreMountPoint = restoreMountPoint;
             this.SizeBytes = sizeBytes;
@@ -54,10 +59,13 @@ namespace Cohesity.Model
             this.AbsolutePath = absolutePath;
             this.AttachedDiskId = attachedDiskId;
             this.DiskPartitionId = diskPartitionId;
+            this.EnvParams = envParams;
             this.FsUuid = fsUuid;
             this.InodeNumber = inodeNumber;
             this.IsDirectory = isDirectory;
             this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
+            this.IsWindowsDedupeVol = isWindowsDedupeVol;
+            this.ItemId = itemId;
             this.RestoreBaseDirectory = restoreBaseDirectory;
             this.RestoreMountPoint = restoreMountPoint;
             this.SizeBytes = sizeBytes;
@@ -88,6 +96,12 @@ namespace Cohesity.Model
         public int? DiskPartitionId { get; set; }
 
         /// <summary>
+        /// Gets or Sets EnvParams
+        /// </summary>
+        [DataMember(Name="envParams", EmitDefaultValue=false)]
+        public EnvRestoreFilesParams EnvParams { get; set; }
+
+        /// <summary>
         /// File system UUID on which file resides.
         /// </summary>
         /// <value>File system UUID on which file resides.</value>
@@ -114,6 +128,20 @@ namespace Cohesity.Model
         /// <value>This will be set to true for recovery workflows for non-simple volumes on Windows Dynamic Disks. In that case, we will use VolumeInfo instead of some of the details captured here (e.g. virtual_disk_file) for determining disk and volume related details.</value>
         [DataMember(Name="isNonSimpleLdmVol", EmitDefaultValue=true)]
         public bool? IsNonSimpleLdmVol { get; set; }
+
+        /// <summary>
+        /// Whether the file belongs to the Windows deduplication-enabled volume.
+        /// </summary>
+        /// <value>Whether the file belongs to the Windows deduplication-enabled volume.</value>
+        [DataMember(Name="isWindowsDedupeVol", EmitDefaultValue=true)]
+        public bool? IsWindowsDedupeVol { get; set; }
+
+        /// <summary>
+        /// Drive item id of the file to be restored. Currently will only be used for files. Only one of item_id or absolute path should be passed.
+        /// </summary>
+        /// <value>Drive item id of the file to be restored. Currently will only be used for files. Only one of item_id or absolute path should be passed.</value>
+        [DataMember(Name="itemId", EmitDefaultValue=true)]
+        public string ItemId { get; set; }
 
         /// <summary>
         /// This must be set to a directory path if restore_to_original_paths is false and restore task has multiple files which are not desired to be restore to one common location. If this filed is populated, &#39;absolute_path&#39; will be restored under this location. If this field is not populated all files in restore task will be restored to location specified in RestoreFilesPreferences.
@@ -209,6 +237,11 @@ namespace Cohesity.Model
                     this.DiskPartitionId.Equals(input.DiskPartitionId))
                 ) && 
                 (
+                    this.EnvParams == input.EnvParams ||
+                    (this.EnvParams != null &&
+                    this.EnvParams.Equals(input.EnvParams))
+                ) && 
+                (
                     this.FsUuid == input.FsUuid ||
                     (this.FsUuid != null &&
                     this.FsUuid.Equals(input.FsUuid))
@@ -227,6 +260,16 @@ namespace Cohesity.Model
                     this.IsNonSimpleLdmVol == input.IsNonSimpleLdmVol ||
                     (this.IsNonSimpleLdmVol != null &&
                     this.IsNonSimpleLdmVol.Equals(input.IsNonSimpleLdmVol))
+                ) && 
+                (
+                    this.IsWindowsDedupeVol == input.IsWindowsDedupeVol ||
+                    (this.IsWindowsDedupeVol != null &&
+                    this.IsWindowsDedupeVol.Equals(input.IsWindowsDedupeVol))
+                ) && 
+                (
+                    this.ItemId == input.ItemId ||
+                    (this.ItemId != null &&
+                    this.ItemId.Equals(input.ItemId))
                 ) && 
                 (
                     this.RestoreBaseDirectory == input.RestoreBaseDirectory ||
@@ -275,6 +318,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttachedDiskId.GetHashCode();
                 if (this.DiskPartitionId != null)
                     hashCode = hashCode * 59 + this.DiskPartitionId.GetHashCode();
+                if (this.EnvParams != null)
+                    hashCode = hashCode * 59 + this.EnvParams.GetHashCode();
                 if (this.FsUuid != null)
                     hashCode = hashCode * 59 + this.FsUuid.GetHashCode();
                 if (this.InodeNumber != null)
@@ -283,6 +328,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsDirectory.GetHashCode();
                 if (this.IsNonSimpleLdmVol != null)
                     hashCode = hashCode * 59 + this.IsNonSimpleLdmVol.GetHashCode();
+                if (this.IsWindowsDedupeVol != null)
+                    hashCode = hashCode * 59 + this.IsWindowsDedupeVol.GetHashCode();
+                if (this.ItemId != null)
+                    hashCode = hashCode * 59 + this.ItemId.GetHashCode();
                 if (this.RestoreBaseDirectory != null)
                     hashCode = hashCode * 59 + this.RestoreBaseDirectory.GetHashCode();
                 if (this.RestoreMountPoint != null)

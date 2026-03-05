@@ -30,8 +30,10 @@ namespace Cohesity.Model
         /// <param name="dataCenterVec">Data center information is required for backup and recovery..</param>
         /// <param name="dseSolrInfo">dseSolrInfo.</param>
         /// <param name="dseVersion">dseVersion.</param>
+        /// <param name="extraProperties">Extra properties about this source. (To avoid having to update proto).</param>
+        /// <param name="hostInfoVec">Info about select hosts of this cluster. Used to determine if some hosts have moved to another cassandra cluster..</param>
         /// <param name="tieredStorageDirsMap">Map of nodes to tiered storage directories.</param>
-        public CassandraAdditionalParams(string cassandraClasspathSuffix = default(string), string cassandraPartitioner = default(string), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), List<string> dataCenterVec = default(List<string>), DSESolrInfo dseSolrInfo = default(DSESolrInfo), string dseVersion = default(string), List<NodeToTieredStorageDirectoriesMap> tieredStorageDirsMap = default(List<NodeToTieredStorageDirectoriesMap>))
+        public CassandraAdditionalParams(string cassandraClasspathSuffix = default(string), string cassandraPartitioner = default(string), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), List<string> dataCenterVec = default(List<string>), DSESolrInfo dseSolrInfo = default(DSESolrInfo), string dseVersion = default(string), Dictionary<string, string> extraProperties = default(Dictionary<string, string>), List<CassandraHostInfo> hostInfoVec = default(List<CassandraHostInfo>), List<NodeToTieredStorageDirectoriesMap> tieredStorageDirsMap = default(List<NodeToTieredStorageDirectoriesMap>))
         {
             this.CassandraClasspathSuffix = cassandraClasspathSuffix;
             this.CassandraPartitioner = cassandraPartitioner;
@@ -39,6 +41,8 @@ namespace Cohesity.Model
             this.CommitLogBackupLocation = commitLogBackupLocation;
             this.DataCenterVec = dataCenterVec;
             this.DseVersion = dseVersion;
+            this.ExtraProperties = extraProperties;
+            this.HostInfoVec = hostInfoVec;
             this.TieredStorageDirsMap = tieredStorageDirsMap;
             this.CassandraClasspathSuffix = cassandraClasspathSuffix;
             this.CassandraPartitioner = cassandraPartitioner;
@@ -47,6 +51,8 @@ namespace Cohesity.Model
             this.DataCenterVec = dataCenterVec;
             this.DseSolrInfo = dseSolrInfo;
             this.DseVersion = dseVersion;
+            this.ExtraProperties = extraProperties;
+            this.HostInfoVec = hostInfoVec;
             this.TieredStorageDirsMap = tieredStorageDirsMap;
         }
         
@@ -96,6 +102,20 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="dseVersion", EmitDefaultValue=true)]
         public string DseVersion { get; set; }
+
+        /// <summary>
+        /// Extra properties about this source. (To avoid having to update proto)
+        /// </summary>
+        /// <value>Extra properties about this source. (To avoid having to update proto)</value>
+        [DataMember(Name="extraProperties", EmitDefaultValue=true)]
+        public Dictionary<string, string> ExtraProperties { get; set; }
+
+        /// <summary>
+        /// Info about select hosts of this cluster. Used to determine if some hosts have moved to another cassandra cluster.
+        /// </summary>
+        /// <value>Info about select hosts of this cluster. Used to determine if some hosts have moved to another cassandra cluster.</value>
+        [DataMember(Name="hostInfoVec", EmitDefaultValue=true)]
+        public List<CassandraHostInfo> HostInfoVec { get; set; }
 
         /// <summary>
         /// Map of nodes to tiered storage directories
@@ -177,6 +197,18 @@ namespace Cohesity.Model
                     this.DseVersion.Equals(input.DseVersion))
                 ) && 
                 (
+                    this.ExtraProperties == input.ExtraProperties ||
+                    this.ExtraProperties != null &&
+                    input.ExtraProperties != null &&
+                    this.ExtraProperties.SequenceEqual(input.ExtraProperties)
+                ) && 
+                (
+                    this.HostInfoVec == input.HostInfoVec ||
+                    this.HostInfoVec != null &&
+                    input.HostInfoVec != null &&
+                    this.HostInfoVec.SequenceEqual(input.HostInfoVec)
+                ) && 
+                (
                     this.TieredStorageDirsMap == input.TieredStorageDirsMap ||
                     this.TieredStorageDirsMap != null &&
                     input.TieredStorageDirsMap != null &&
@@ -207,6 +239,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DseSolrInfo.GetHashCode();
                 if (this.DseVersion != null)
                     hashCode = hashCode * 59 + this.DseVersion.GetHashCode();
+                if (this.ExtraProperties != null)
+                    hashCode = hashCode * 59 + this.ExtraProperties.GetHashCode();
+                if (this.HostInfoVec != null)
+                    hashCode = hashCode * 59 + this.HostInfoVec.GetHashCode();
                 if (this.TieredStorageDirsMap != null)
                     hashCode = hashCode * 59 + this.TieredStorageDirsMap.GetHashCode();
                 return hashCode;

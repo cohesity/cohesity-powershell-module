@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="restoreParentObjectVec">List of parent/child objects that need to be restored..</param>
         /// <param name="runStartTimeUsecs">The time when the corresponding backup run was started..</param>
         /// <param name="s3BucketInfo">s3BucketInfo.</param>
-        public SfdcRecoverJobParams(AuroraClusterInfo auroraClusterInfo = default(AuroraClusterInfo), string awsIamRole = default(string), bool? isAlternateRestore = default(bool?), bool? overwrite = default(bool?), List<SfdcRecoverJobParamsPrevFullSfdcServerTimestampUsecsMapEntry> prevFullSfdcServerTimestampUsecsMap = default(List<SfdcRecoverJobParamsPrevFullSfdcServerTimestampUsecsMapEntry>), List<string> restoreChildsObjectVec = default(List<string>), List<string> restoreParentObjectVec = default(List<string>), long? runStartTimeUsecs = default(long?), S3BucketInfo s3BucketInfo = default(S3BucketInfo))
+        public SfdcRecoverJobParams(AuroraClusterInfo auroraClusterInfo = default(AuroraClusterInfo), string awsIamRole = default(string), bool? isAlternateRestore = default(bool?), bool? overwrite = default(bool?), Dictionary<string, long> prevFullSfdcServerTimestampUsecsMap = default(Dictionary<string, long>), List<string> restoreChildsObjectVec = default(List<string>), List<string> restoreParentObjectVec = default(List<string>), long? runStartTimeUsecs = default(long?), S3BucketInfo s3BucketInfo = default(S3BucketInfo))
         {
             this.AwsIamRole = awsIamRole;
             this.IsAlternateRestore = isAlternateRestore;
@@ -84,7 +84,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>A map containing prev_full_sfdc_server_timestamp_usecs for the dependent objects.</value>
         [DataMember(Name="prevFullSfdcServerTimestampUsecsMap", EmitDefaultValue=true)]
-        public List<SfdcRecoverJobParamsPrevFullSfdcServerTimestampUsecsMapEntry> PrevFullSfdcServerTimestampUsecsMap { get; set; }
+        public Dictionary<string, long> PrevFullSfdcServerTimestampUsecsMap { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreChildsObjectVec

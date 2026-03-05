@@ -26,7 +26,7 @@ namespace Cohesity.Model
         /// <param name="matchLabels">This field is an object which consists of key-value pairs of all labels that must be matched by the selector.</param>
         /// <param name="name">Select all objects which have a label with key : \&quot;name\&quot; and value specified by this field..</param>
         /// <param name="serviceName">Select all objects which have a label with. key: \&quot;serviceName\&quot; and value as specified by this field..</param>
-        public LabelSelector(List<LabelSelectorMatchLabelsEntry> matchLabels = default(List<LabelSelectorMatchLabelsEntry>), string name = default(string), string serviceName = default(string))
+        public LabelSelector(Dictionary<string, string> matchLabels = default(Dictionary<string, string>), string name = default(string), string serviceName = default(string))
         {
             this.MatchLabels = matchLabels;
             this.Name = name;
@@ -41,7 +41,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>This field is an object which consists of key-value pairs of all labels that must be matched by the selector</value>
         [DataMember(Name="matchLabels", EmitDefaultValue=true)]
-        public List<LabelSelectorMatchLabelsEntry> MatchLabels { get; set; }
+        public Dictionary<string, string> MatchLabels { get; set; }
 
         /// <summary>
         /// Select all objects which have a label with key : \&quot;name\&quot; and value specified by this field.

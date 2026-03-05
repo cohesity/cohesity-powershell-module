@@ -37,8 +37,9 @@ namespace Cohesity.Model
         /// <param name="subnetWhitelist">Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.).</param>
         /// <param name="superUserSids">Specifies a list of user sids who have Superuser access to this share..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
+        /// <param name="viewId">Specifies the view id.</param>
         /// <param name="viewName">Specifies the view name this share belongs to..</param>
-        public Share(List<string> allSmbMountPaths = default(List<string>), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), string nfsMountPath = default(string), string path = default(string), string s3AccessPath = default(string), string shareName = default(string), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string tenantId = default(string), string viewName = default(string))
+        public Share(List<string> allSmbMountPaths = default(List<string>), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), string nfsMountPath = default(string), string path = default(string), string s3AccessPath = default(string), string shareName = default(string), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string tenantId = default(string), long? viewId = default(long?), string viewName = default(string))
         {
             this.AllSmbMountPaths = allSmbMountPaths;
             this.EnableFilerAuditLog = enableFilerAuditLog;
@@ -54,6 +55,7 @@ namespace Cohesity.Model
             this.SubnetWhitelist = subnetWhitelist;
             this.SuperUserSids = superUserSids;
             this.TenantId = tenantId;
+            this.ViewId = viewId;
             this.ViewName = viewName;
             this.AllSmbMountPaths = allSmbMountPaths;
             this.EnableFilerAuditLog = enableFilerAuditLog;
@@ -69,6 +71,7 @@ namespace Cohesity.Model
             this.SubnetWhitelist = subnetWhitelist;
             this.SuperUserSids = superUserSids;
             this.TenantId = tenantId;
+            this.ViewId = viewId;
             this.ViewName = viewName;
         }
         
@@ -169,6 +172,13 @@ namespace Cohesity.Model
         /// <value>Specifies the unique id of the tenant.</value>
         [DataMember(Name="tenantId", EmitDefaultValue=true)]
         public string TenantId { get; set; }
+
+        /// <summary>
+        /// Specifies the view id
+        /// </summary>
+        /// <value>Specifies the view id</value>
+        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the view name this share belongs to.
@@ -288,6 +298,11 @@ namespace Cohesity.Model
                     this.TenantId.Equals(input.TenantId))
                 ) && 
                 (
+                    this.ViewId == input.ViewId ||
+                    (this.ViewId != null &&
+                    this.ViewId.Equals(input.ViewId))
+                ) && 
+                (
                     this.ViewName == input.ViewName ||
                     (this.ViewName != null &&
                     this.ViewName.Equals(input.ViewName))
@@ -331,6 +346,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SuperUserSids.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                if (this.ViewId != null)
+                    hashCode = hashCode * 59 + this.ViewId.GetHashCode();
                 if (this.ViewName != null)
                     hashCode = hashCode * 59 + this.ViewName.GetHashCode();
                 return hashCode;

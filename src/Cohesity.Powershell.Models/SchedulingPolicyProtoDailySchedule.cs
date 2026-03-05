@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Sample protos: Every n days (n &gt;&#x3D; 1) Ex: For every 2 days, { frequency : 2 } Weekly schedule (Few selected weekdays) Ex: For every Monday, Tuesday { days : {kMonday, kTuesday} } NOTE: Only one of the &#39;days&#39; and &#39;frequency&#39; should be populated.
+    /// Weekly schedule (Few selected weekdays) Ex: For every Monday, Tuesday { days : {kMonday, kTuesday} }  NOTE: Only one of the &#39;days&#39; and &#39;frequency&#39; should be populated.
     /// </summary>
     [DataContract]
     public partial class SchedulingPolicyProtoDailySchedule :  IEquatable<SchedulingPolicyProtoDailySchedule>

@@ -85,16 +85,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="isHighlyAvailable">Specifies whether the VM is Highly Available or not..</param>
         /// <param name="version">Specifies the version of the VM. For example, 8.0, 5.0 etc..</param>
+        /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="vmBackupStatus">Specifies the status of the VM for backup purpose. overrideDescription: true Specifies the backup status of a HyperV Virtual Machine object. &#39;kSupported&#39; indicates the agent on the VM can do backup. &#39;kUnsupportedConfig&#39; indicates the agent on the VM cannot do backup. &#39;kMissing&#39; indicates the VM is not found in SCVMM..</param>
         /// <param name="vmBackupType">Specifies the type of backup supported by the VM. overrideDescription: true Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS..</param>
-        public HypervVirtualMachine(bool? isHighlyAvailable = default(bool?), string version = default(string), VmBackupStatusEnum? vmBackupStatus = default(VmBackupStatusEnum?), VmBackupTypeEnum? vmBackupType = default(VmBackupTypeEnum?))
+        public HypervVirtualMachine(bool? isHighlyAvailable = default(bool?), string version = default(string), List<VirtualDiskBasicInfo> virtualDisks = default(List<VirtualDiskBasicInfo>), VmBackupStatusEnum? vmBackupStatus = default(VmBackupStatusEnum?), VmBackupTypeEnum? vmBackupType = default(VmBackupTypeEnum?))
         {
             this.IsHighlyAvailable = isHighlyAvailable;
             this.Version = version;
+            this.VirtualDisks = virtualDisks;
             this.VmBackupStatus = vmBackupStatus;
             this.VmBackupType = vmBackupType;
             this.IsHighlyAvailable = isHighlyAvailable;
             this.Version = version;
+            this.VirtualDisks = virtualDisks;
             this.VmBackupStatus = vmBackupStatus;
             this.VmBackupType = vmBackupType;
         }
@@ -112,6 +115,13 @@ namespace Cohesity.Model
         /// <value>Specifies the version of the VM. For example, 8.0, 5.0 etc.</value>
         [DataMember(Name="version", EmitDefaultValue=true)]
         public string Version { get; set; }
+
+        /// <summary>
+        /// Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.
+        /// </summary>
+        /// <value>Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.</value>
+        [DataMember(Name="virtualDisks", EmitDefaultValue=true)]
+        public List<VirtualDiskBasicInfo> VirtualDisks { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -160,6 +170,12 @@ namespace Cohesity.Model
                     this.Version.Equals(input.Version))
                 ) && 
                 (
+                    this.VirtualDisks == input.VirtualDisks ||
+                    this.VirtualDisks != null &&
+                    input.VirtualDisks != null &&
+                    this.VirtualDisks.SequenceEqual(input.VirtualDisks)
+                ) && 
+                (
                     this.VmBackupStatus == input.VmBackupStatus ||
                     this.VmBackupStatus.Equals(input.VmBackupStatus)
                 ) && 
@@ -182,6 +198,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsHighlyAvailable.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
+                if (this.VirtualDisks != null)
+                    hashCode = hashCode * 59 + this.VirtualDisks.GetHashCode();
                 hashCode = hashCode * 59 + this.VmBackupStatus.GetHashCode();
                 hashCode = hashCode * 59 + this.VmBackupType.GetHashCode();
                 return hashCode;

@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterId">The id of the remote cluster..</param>
         /// <param name="clusterName">The name of the remote cluster..</param>
-        public ReplicationTarget(long? clusterId = default(long?), string clusterName = default(string))
+        /// <param name="ownershipContext">OwnershipContext of a replication target. By default all regular replication targets have the value of kOwnershipContextLocal. Replication targets configured for Onprem FortKnox will have the value of kOwnershipContextOnpremVault. Onprem FortKnox use same replication mechanism behind the scene, except a few differences as follows: 1. The Onprem FortKnox vaults are configured on Rx and auto synced to Tx. On Tx the vault configurations are read only. 2. During replication the connection is initiated from Rx, then Tx uses the connection to perform replication. Tx does not know the IP address of the Rx. 3. The Onprem FortKnox vaults use vault windows to control when replication can happen. Replication outside of vault windows will wait for the next window. Note: This proto message is encapsulated in various other protos and this field may not always be valid/correctly set. It is set correctly in the context of a policy..</param>
+        public ReplicationTarget(long? clusterId = default(long?), string clusterName = default(string), int? ownershipContext = default(int?))
         {
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
+            this.OwnershipContext = ownershipContext;
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
+            this.OwnershipContext = ownershipContext;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>The name of the remote cluster.</value>
         [DataMember(Name="clusterName", EmitDefaultValue=true)]
         public string ClusterName { get; set; }
+
+        /// <summary>
+        /// OwnershipContext of a replication target. By default all regular replication targets have the value of kOwnershipContextLocal. Replication targets configured for Onprem FortKnox will have the value of kOwnershipContextOnpremVault. Onprem FortKnox use same replication mechanism behind the scene, except a few differences as follows: 1. The Onprem FortKnox vaults are configured on Rx and auto synced to Tx. On Tx the vault configurations are read only. 2. During replication the connection is initiated from Rx, then Tx uses the connection to perform replication. Tx does not know the IP address of the Rx. 3. The Onprem FortKnox vaults use vault windows to control when replication can happen. Replication outside of vault windows will wait for the next window. Note: This proto message is encapsulated in various other protos and this field may not always be valid/correctly set. It is set correctly in the context of a policy.
+        /// </summary>
+        /// <value>OwnershipContext of a replication target. By default all regular replication targets have the value of kOwnershipContextLocal. Replication targets configured for Onprem FortKnox will have the value of kOwnershipContextOnpremVault. Onprem FortKnox use same replication mechanism behind the scene, except a few differences as follows: 1. The Onprem FortKnox vaults are configured on Rx and auto synced to Tx. On Tx the vault configurations are read only. 2. During replication the connection is initiated from Rx, then Tx uses the connection to perform replication. Tx does not know the IP address of the Rx. 3. The Onprem FortKnox vaults use vault windows to control when replication can happen. Replication outside of vault windows will wait for the next window. Note: This proto message is encapsulated in various other protos and this field may not always be valid/correctly set. It is set correctly in the context of a policy.</value>
+        [DataMember(Name="ownershipContext", EmitDefaultValue=true)]
+        public int? OwnershipContext { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.ClusterName == input.ClusterName ||
                     (this.ClusterName != null &&
                     this.ClusterName.Equals(input.ClusterName))
+                ) && 
+                (
+                    this.OwnershipContext == input.OwnershipContext ||
+                    (this.OwnershipContext != null &&
+                    this.OwnershipContext.Equals(input.OwnershipContext))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
+                if (this.OwnershipContext != null)
+                    hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
                 return hashCode;
             }
         }

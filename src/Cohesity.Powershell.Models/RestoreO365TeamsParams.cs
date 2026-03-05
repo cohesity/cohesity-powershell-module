@@ -27,18 +27,24 @@ namespace Cohesity.Model
         /// <param name="msTeamsVec">List of teams getting restored..</param>
         /// <param name="restoreOriginalOwnersMembers">Bool which specifies, if the original members/owners should be part of the newly created target team..</param>
         /// <param name="restoreToOriginal">Whether or not all teams are restored to original location..</param>
+        /// <param name="shouldRestoreLists">Bool which specifies if SP lists needs to be restored..</param>
+        /// <param name="shouldRestoreSystemDoclib">Bool which specifies if system doclib needs to be restored..</param>
+        /// <param name="shouldRestoreTemplate">Bool which specifies if group and private channel site templates need to be restored..</param>
         /// <param name="targetChannel">targetChannel.</param>
         /// <param name="targetMsTeamEntity">targetMsTeamEntity.</param>
         /// <param name="targetTeam">Target team in case restore_to_original is false..</param>
         /// <param name="targetTeamName">The display name for the target team. Specified when a new team needs to be created..</param>
         /// <param name="targetTeamOwner">The addtional team owner info for the specified by target team..</param>
         /// <param name="targetTeamOwnerEntity">targetTeamOwnerEntity.</param>
-        public RestoreO365TeamsParams(bool? createNewTeam = default(bool?), List<RestoreO365TeamsParamsMSTeamInfo> msTeamsVec = default(List<RestoreO365TeamsParamsMSTeamInfo>), bool? restoreOriginalOwnersMembers = default(bool?), bool? restoreToOriginal = default(bool?), RestoreO365TeamsParamsTargetChannel targetChannel = default(RestoreO365TeamsParamsTargetChannel), EntityProto targetMsTeamEntity = default(EntityProto), string targetTeam = default(string), string targetTeamName = default(string), string targetTeamOwner = default(string), EntityProto targetTeamOwnerEntity = default(EntityProto))
+        public RestoreO365TeamsParams(bool? createNewTeam = default(bool?), List<RestoreO365TeamsParamsMSTeamInfo> msTeamsVec = default(List<RestoreO365TeamsParamsMSTeamInfo>), bool? restoreOriginalOwnersMembers = default(bool?), bool? restoreToOriginal = default(bool?), bool? shouldRestoreLists = default(bool?), bool? shouldRestoreSystemDoclib = default(bool?), bool? shouldRestoreTemplate = default(bool?), RestoreO365TeamsParamsTargetChannel targetChannel = default(RestoreO365TeamsParamsTargetChannel), EntityProto targetMsTeamEntity = default(EntityProto), string targetTeam = default(string), string targetTeamName = default(string), string targetTeamOwner = default(string), EntityProto targetTeamOwnerEntity = default(EntityProto))
         {
             this.CreateNewTeam = createNewTeam;
             this.MsTeamsVec = msTeamsVec;
             this.RestoreOriginalOwnersMembers = restoreOriginalOwnersMembers;
             this.RestoreToOriginal = restoreToOriginal;
+            this.ShouldRestoreLists = shouldRestoreLists;
+            this.ShouldRestoreSystemDoclib = shouldRestoreSystemDoclib;
+            this.ShouldRestoreTemplate = shouldRestoreTemplate;
             this.TargetTeam = targetTeam;
             this.TargetTeamName = targetTeamName;
             this.TargetTeamOwner = targetTeamOwner;
@@ -46,6 +52,9 @@ namespace Cohesity.Model
             this.MsTeamsVec = msTeamsVec;
             this.RestoreOriginalOwnersMembers = restoreOriginalOwnersMembers;
             this.RestoreToOriginal = restoreToOriginal;
+            this.ShouldRestoreLists = shouldRestoreLists;
+            this.ShouldRestoreSystemDoclib = shouldRestoreSystemDoclib;
+            this.ShouldRestoreTemplate = shouldRestoreTemplate;
             this.TargetChannel = targetChannel;
             this.TargetMsTeamEntity = targetMsTeamEntity;
             this.TargetTeam = targetTeam;
@@ -81,6 +90,27 @@ namespace Cohesity.Model
         /// <value>Whether or not all teams are restored to original location.</value>
         [DataMember(Name="restoreToOriginal", EmitDefaultValue=true)]
         public bool? RestoreToOriginal { get; set; }
+
+        /// <summary>
+        /// Bool which specifies if SP lists needs to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if SP lists needs to be restored.</value>
+        [DataMember(Name="shouldRestoreLists", EmitDefaultValue=true)]
+        public bool? ShouldRestoreLists { get; set; }
+
+        /// <summary>
+        /// Bool which specifies if system doclib needs to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if system doclib needs to be restored.</value>
+        [DataMember(Name="shouldRestoreSystemDoclib", EmitDefaultValue=true)]
+        public bool? ShouldRestoreSystemDoclib { get; set; }
+
+        /// <summary>
+        /// Bool which specifies if group and private channel site templates need to be restored.
+        /// </summary>
+        /// <value>Bool which specifies if group and private channel site templates need to be restored.</value>
+        [DataMember(Name="shouldRestoreTemplate", EmitDefaultValue=true)]
+        public bool? ShouldRestoreTemplate { get; set; }
 
         /// <summary>
         /// Gets or Sets TargetChannel
@@ -179,6 +209,21 @@ namespace Cohesity.Model
                     this.RestoreToOriginal.Equals(input.RestoreToOriginal))
                 ) && 
                 (
+                    this.ShouldRestoreLists == input.ShouldRestoreLists ||
+                    (this.ShouldRestoreLists != null &&
+                    this.ShouldRestoreLists.Equals(input.ShouldRestoreLists))
+                ) && 
+                (
+                    this.ShouldRestoreSystemDoclib == input.ShouldRestoreSystemDoclib ||
+                    (this.ShouldRestoreSystemDoclib != null &&
+                    this.ShouldRestoreSystemDoclib.Equals(input.ShouldRestoreSystemDoclib))
+                ) && 
+                (
+                    this.ShouldRestoreTemplate == input.ShouldRestoreTemplate ||
+                    (this.ShouldRestoreTemplate != null &&
+                    this.ShouldRestoreTemplate.Equals(input.ShouldRestoreTemplate))
+                ) && 
+                (
                     this.TargetChannel == input.TargetChannel ||
                     (this.TargetChannel != null &&
                     this.TargetChannel.Equals(input.TargetChannel))
@@ -227,6 +272,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreOriginalOwnersMembers.GetHashCode();
                 if (this.RestoreToOriginal != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginal.GetHashCode();
+                if (this.ShouldRestoreLists != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreLists.GetHashCode();
+                if (this.ShouldRestoreSystemDoclib != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreSystemDoclib.GetHashCode();
+                if (this.ShouldRestoreTemplate != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreTemplate.GetHashCode();
                 if (this.TargetChannel != null)
                     hashCode = hashCode * 59 + this.TargetChannel.GetHashCode();
                 if (this.TargetMsTeamEntity != null)

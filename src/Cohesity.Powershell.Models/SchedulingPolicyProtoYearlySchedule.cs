@@ -23,19 +23,27 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulingPolicyProtoYearlySchedule" /> class.
         /// </summary>
-        /// <param name="dayOfTheYear">Count of the day on which to perform the backup (look above for a more detailed description)..</param>
-        public SchedulingPolicyProtoYearlySchedule(int? dayOfTheYear = default(int?))
+        /// <param name="dayOfTheYear">Count of the day on which to perform the backup (look above for a more detailed description). Only one of the fields below will be set. day_of_the_year month_day.</param>
+        /// <param name="monthDay">monthDay.</param>
+        public SchedulingPolicyProtoYearlySchedule(int? dayOfTheYear = default(int?), MonthDay monthDay = default(MonthDay))
         {
             this.DayOfTheYear = dayOfTheYear;
             this.DayOfTheYear = dayOfTheYear;
+            this.MonthDay = monthDay;
         }
         
         /// <summary>
-        /// Count of the day on which to perform the backup (look above for a more detailed description).
+        /// Count of the day on which to perform the backup (look above for a more detailed description). Only one of the fields below will be set. day_of_the_year month_day
         /// </summary>
-        /// <value>Count of the day on which to perform the backup (look above for a more detailed description).</value>
+        /// <value>Count of the day on which to perform the backup (look above for a more detailed description). Only one of the fields below will be set. day_of_the_year month_day</value>
         [DataMember(Name="dayOfTheYear", EmitDefaultValue=true)]
         public int? DayOfTheYear { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MonthDay
+        /// </summary>
+        [DataMember(Name="monthDay", EmitDefaultValue=false)]
+        public MonthDay MonthDay { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,6 +85,11 @@ namespace Cohesity.Model
                     this.DayOfTheYear == input.DayOfTheYear ||
                     (this.DayOfTheYear != null &&
                     this.DayOfTheYear.Equals(input.DayOfTheYear))
+                ) && 
+                (
+                    this.MonthDay == input.MonthDay ||
+                    (this.MonthDay != null &&
+                    this.MonthDay.Equals(input.MonthDay))
                 );
         }
 
@@ -91,6 +104,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DayOfTheYear != null)
                     hashCode = hashCode * 59 + this.DayOfTheYear.GetHashCode();
+                if (this.MonthDay != null)
+                    hashCode = hashCode * 59 + this.MonthDay.GetHashCode();
                 return hashCode;
             }
         }

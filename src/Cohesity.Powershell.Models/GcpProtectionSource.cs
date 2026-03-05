@@ -335,6 +335,9 @@ namespace Cohesity.Model
         /// <param name="clientEmailAddress">Specifies Client email address associated with the service account..</param>
         /// <param name="clientPrivateKey">Specifies Client private associated with the service account..</param>
         /// <param name="clusterNetworkInfo">clusterNetworkInfo.</param>
+        /// <param name="databaseDialect">Specifies the database dialect for Spanner databases (e.g., GOOGLE_STANDARD_SQL, POSTGRESQL)..</param>
+        /// <param name="databaseSizeBytes">Spanner-specific fields Specifies the database size in bytes for Spanner databases..</param>
+        /// <param name="databaseState">Specifies the database state for Spanner databases (e.g., DB_READY, DB_CREATING)..</param>
         /// <param name="gcpDiskInfoList">Specified list of disks attached to the GCP instances..</param>
         /// <param name="gcpFleetParams">gcpFleetParams.</param>
         /// <param name="gcpType">Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access..</param>
@@ -352,10 +355,13 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access..</param>
         /// <param name="vpcNetwork">Specifies the VPC Network to deploy proxy VMs..</param>
         /// <param name="vpcSubnetwork">Specifies the subnetwork to deploy proxy VMs..</param>
-        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), List<GcpDiskInfo> gcpDiskInfoList = default(List<GcpDiskInfo>), GcpFleetParams gcpFleetParams = default(GcpFleetParams), GcpTypeEnum? gcpType = default(GcpTypeEnum?), string hostProjectId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
+        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string databaseDialect = default(string), long? databaseSizeBytes = default(long?), string databaseState = default(string), List<GcpDiskInfo> gcpDiskInfoList = default(List<GcpDiskInfo>), GcpFleetParams gcpFleetParams = default(GcpFleetParams), GcpTypeEnum? gcpType = default(GcpTypeEnum?), string hostProjectId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
         {
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
+            this.DatabaseDialect = databaseDialect;
+            this.DatabaseSizeBytes = databaseSizeBytes;
+            this.DatabaseState = databaseState;
             this.GcpDiskInfoList = gcpDiskInfoList;
             this.GcpType = gcpType;
             this.HostProjectId = hostProjectId;
@@ -375,6 +381,9 @@ namespace Cohesity.Model
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ClusterNetworkInfo = clusterNetworkInfo;
+            this.DatabaseDialect = databaseDialect;
+            this.DatabaseSizeBytes = databaseSizeBytes;
+            this.DatabaseState = databaseState;
             this.GcpDiskInfoList = gcpDiskInfoList;
             this.GcpFleetParams = gcpFleetParams;
             this.GcpType = gcpType;
@@ -413,6 +422,27 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="clusterNetworkInfo", EmitDefaultValue=false)]
         public FleetNetworkParams ClusterNetworkInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the database dialect for Spanner databases (e.g., GOOGLE_STANDARD_SQL, POSTGRESQL).
+        /// </summary>
+        /// <value>Specifies the database dialect for Spanner databases (e.g., GOOGLE_STANDARD_SQL, POSTGRESQL).</value>
+        [DataMember(Name="databaseDialect", EmitDefaultValue=true)]
+        public string DatabaseDialect { get; set; }
+
+        /// <summary>
+        /// Spanner-specific fields Specifies the database size in bytes for Spanner databases.
+        /// </summary>
+        /// <value>Spanner-specific fields Specifies the database size in bytes for Spanner databases.</value>
+        [DataMember(Name="databaseSizeBytes", EmitDefaultValue=true)]
+        public long? DatabaseSizeBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the database state for Spanner databases (e.g., DB_READY, DB_CREATING).
+        /// </summary>
+        /// <value>Specifies the database state for Spanner databases (e.g., DB_READY, DB_CREATING).</value>
+        [DataMember(Name="databaseState", EmitDefaultValue=true)]
+        public string DatabaseState { get; set; }
 
         /// <summary>
         /// Specified list of disks attached to the GCP instances.
@@ -563,6 +593,21 @@ namespace Cohesity.Model
                     this.ClusterNetworkInfo.Equals(input.ClusterNetworkInfo))
                 ) && 
                 (
+                    this.DatabaseDialect == input.DatabaseDialect ||
+                    (this.DatabaseDialect != null &&
+                    this.DatabaseDialect.Equals(input.DatabaseDialect))
+                ) && 
+                (
+                    this.DatabaseSizeBytes == input.DatabaseSizeBytes ||
+                    (this.DatabaseSizeBytes != null &&
+                    this.DatabaseSizeBytes.Equals(input.DatabaseSizeBytes))
+                ) && 
+                (
+                    this.DatabaseState == input.DatabaseState ||
+                    (this.DatabaseState != null &&
+                    this.DatabaseState.Equals(input.DatabaseState))
+                ) && 
+                (
                     this.GcpDiskInfoList == input.GcpDiskInfoList ||
                     this.GcpDiskInfoList != null &&
                     input.GcpDiskInfoList != null &&
@@ -663,6 +708,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 if (this.ClusterNetworkInfo != null)
                     hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
+                if (this.DatabaseDialect != null)
+                    hashCode = hashCode * 59 + this.DatabaseDialect.GetHashCode();
+                if (this.DatabaseSizeBytes != null)
+                    hashCode = hashCode * 59 + this.DatabaseSizeBytes.GetHashCode();
+                if (this.DatabaseState != null)
+                    hashCode = hashCode * 59 + this.DatabaseState.GetHashCode();
                 if (this.GcpDiskInfoList != null)
                     hashCode = hashCode * 59 + this.GcpDiskInfoList.GetHashCode();
                 if (this.GcpFleetParams != null)

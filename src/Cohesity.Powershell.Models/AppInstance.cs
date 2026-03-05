@@ -92,6 +92,7 @@ namespace Cohesity.Model
         /// <param name="devVersion">Specifies version of the app provided by the developer..</param>
         /// <param name="durationUsecs">Specifies duration (in microseconds) for which the app instance has run..</param>
         /// <param name="exposedNodePorts">Specifies list of nodeports exposed by app instance..</param>
+        /// <param name="failureReasons">Specifies the failure reasons for the app.</param>
         /// <param name="healthDetail">Specifies the reason the app instance is unhealthy. Only set if app instance is unhealthy..</param>
         /// <param name="healthStatus">Specifies the current health status of the app instance..</param>
         /// <param name="httpsUi">Specifies app ui http config. If set to true, the App&#39;s UI uses https. Otherwise it uses http..</param>
@@ -106,7 +107,7 @@ namespace Cohesity.Model
         /// <param name="upgradableNewerVersionPresent">Specifies if the app instance is upgradable.</param>
         /// <param name="userSshKey">userSshKey.</param>
         /// <param name="vmGroups">Specifies list of all VM groups for this application. Each VM group contains a list of VMs. Information needed for UI like the nodePort, the port type etc. is stored for each VM..</param>
-        public AppInstance(string appAccessToken = default(string), long? appInstanceId = default(long?), string appName = default(string), long? appUid = default(long?), long? appVersion = default(long?), long? createdTimeUsecs = default(long?), string creationUid = default(string), string deploymentParameters = default(string), string description = default(string), string devVersion = default(string), long? durationUsecs = default(long?), List<NodePort> exposedNodePorts = default(List<NodePort>), string healthDetail = default(string), int? healthStatus = default(int?), bool? httpsUi = default(bool?), string _namespace = default(string), string nodeIp = default(string), int? nodePort = default(int?), AppInstanceSettings settings = default(AppInstanceSettings), StateEnum? state = default(StateEnum?), string stateDetail = default(string), string uiClusterIPSvcAddr = default(string), int? uiClusterIPSvcPort = default(int?), bool? upgradableNewerVersionPresent = default(bool?), UserSshKey userSshKey = default(UserSshKey), List<VmGroup> vmGroups = default(List<VmGroup>))
+        public AppInstance(string appAccessToken = default(string), long? appInstanceId = default(long?), string appName = default(string), long? appUid = default(long?), long? appVersion = default(long?), long? createdTimeUsecs = default(long?), string creationUid = default(string), string deploymentParameters = default(string), string description = default(string), string devVersion = default(string), long? durationUsecs = default(long?), List<NodePort> exposedNodePorts = default(List<NodePort>), List<FailureReason> failureReasons = default(List<FailureReason>), string healthDetail = default(string), int? healthStatus = default(int?), bool? httpsUi = default(bool?), string _namespace = default(string), string nodeIp = default(string), int? nodePort = default(int?), AppInstanceSettings settings = default(AppInstanceSettings), StateEnum? state = default(StateEnum?), string stateDetail = default(string), string uiClusterIPSvcAddr = default(string), int? uiClusterIPSvcPort = default(int?), bool? upgradableNewerVersionPresent = default(bool?), UserSshKey userSshKey = default(UserSshKey), List<VmGroup> vmGroups = default(List<VmGroup>))
         {
             this.AppAccessToken = appAccessToken;
             this.AppInstanceId = appInstanceId;
@@ -120,6 +121,7 @@ namespace Cohesity.Model
             this.DevVersion = devVersion;
             this.DurationUsecs = durationUsecs;
             this.ExposedNodePorts = exposedNodePorts;
+            this.FailureReasons = failureReasons;
             this.HealthDetail = healthDetail;
             this.HealthStatus = healthStatus;
             this.HttpsUi = httpsUi;
@@ -144,6 +146,7 @@ namespace Cohesity.Model
             this.DevVersion = devVersion;
             this.DurationUsecs = durationUsecs;
             this.ExposedNodePorts = exposedNodePorts;
+            this.FailureReasons = failureReasons;
             this.HealthDetail = healthDetail;
             this.HealthStatus = healthStatus;
             this.HttpsUi = httpsUi;
@@ -243,6 +246,13 @@ namespace Cohesity.Model
         /// <value>Specifies list of nodeports exposed by app instance.</value>
         [DataMember(Name="exposedNodePorts", EmitDefaultValue=true)]
         public List<NodePort> ExposedNodePorts { get; set; }
+
+        /// <summary>
+        /// Specifies the failure reasons for the app
+        /// </summary>
+        /// <value>Specifies the failure reasons for the app</value>
+        [DataMember(Name="failureReasons", EmitDefaultValue=true)]
+        public List<FailureReason> FailureReasons { get; set; }
 
         /// <summary>
         /// Specifies the reason the app instance is unhealthy. Only set if app instance is unhealthy.
@@ -430,6 +440,12 @@ namespace Cohesity.Model
                     this.ExposedNodePorts.SequenceEqual(input.ExposedNodePorts)
                 ) && 
                 (
+                    this.FailureReasons == input.FailureReasons ||
+                    this.FailureReasons != null &&
+                    input.FailureReasons != null &&
+                    this.FailureReasons.SequenceEqual(input.FailureReasons)
+                ) && 
+                (
                     this.HealthDetail == input.HealthDetail ||
                     (this.HealthDetail != null &&
                     this.HealthDetail.Equals(input.HealthDetail))
@@ -534,6 +550,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DurationUsecs.GetHashCode();
                 if (this.ExposedNodePorts != null)
                     hashCode = hashCode * 59 + this.ExposedNodePorts.GetHashCode();
+                if (this.FailureReasons != null)
+                    hashCode = hashCode * 59 + this.FailureReasons.GetHashCode();
                 if (this.HealthDetail != null)
                     hashCode = hashCode * 59 + this.HealthDetail.GetHashCode();
                 if (this.HealthStatus != null)

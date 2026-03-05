@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Each available extension is listed below along with the location of the proto file (relative to magneto/connectors) where it is defined.  RestoreFilesInfoProto extension                  Location               Extn &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; vmware::RestoreFilesInfo::vmware_restore_files_info vmware/vmware.proto     100 AgentRestoreFilesInfo::agent_restore_files_info  base/agent.proto        101 file::RestoreFilesInfo::restore_files_info file/file.proto         102 hyperv::RestoreFilesInfo::hyperv_restore_files_info hyperv/hyperv.proto     103 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+    /// Each available extension is listed below along with the location of the proto file (relative to magneto/connectors) where it is defined.  RestoreFilesInfoProto extension                  Location               Extn &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; vmware::RestoreFilesInfo::vmware_restore_files_info  vmware/vmware.proto     100  AgentRestoreFilesInfo::agent_restore_files_info  base/agent.proto        101 file::RestoreFilesInfo::restore_files_info  file/file.proto         102  hyperv::RestoreFilesInfo::hyperv_restore_files_info  hyperv/hyperv.proto     103  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
     /// </summary>
     [DataContract]
     public partial class RestoreFilesInfoProto :  IEquatable<RestoreFilesInfoProto>
@@ -24,22 +24,28 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreFilesInfoProto" /> class.
         /// </summary>
         /// <param name="downloadFilesPath">The path that the user should use to download files through the UI. If only a single file needs to be downloaded, this will be the path to that file. If a directory or multiple files &amp; directories need to be downloaded, this will be the path to the .zip file to download. Only applicable to a download files task..</param>
+        /// <param name="downloadFilesPathVec">This consists of list of file paths to be downloaded from UI separately. This can be used to send multiple files for download instead of single file in download_files_path..</param>
         /// <param name="error">error.</param>
+        /// <param name="expiryTimeUsecs">The expiry time of the view. Applicable for download files task (if filled by adapter)..</param>
         /// <param name="proxyEntityConnectorParams">proxyEntityConnectorParams.</param>
         /// <param name="restoreFilesResultVec">Contains the result information of the restored files..</param>
         /// <param name="slaveTaskStartTimeUsecs">This is the timestamp at which the slave task started..</param>
         /// <param name="targetType">Specifies the target type for the task. The field is only valid if the task has got a permit..</param>
         /// <param name="teardownError">teardownError.</param>
         /// <param name="type">The type of environment this restore files info pertains to..</param>
-        public RestoreFilesInfoProto(string downloadFilesPath = default(string), ErrorProto error = default(ErrorProto), ConnectorParams proxyEntityConnectorParams = default(ConnectorParams), List<RestoreFileResultInfo> restoreFilesResultVec = default(List<RestoreFileResultInfo>), long? slaveTaskStartTimeUsecs = default(long?), int? targetType = default(int?), ErrorProto teardownError = default(ErrorProto), int? type = default(int?))
+        public RestoreFilesInfoProto(string downloadFilesPath = default(string), List<RestoreFilesInfoProtoDownloadFile> downloadFilesPathVec = default(List<RestoreFilesInfoProtoDownloadFile>), ErrorProto error = default(ErrorProto), long? expiryTimeUsecs = default(long?), ConnectorParams proxyEntityConnectorParams = default(ConnectorParams), List<RestoreFileResultInfo> restoreFilesResultVec = default(List<RestoreFileResultInfo>), long? slaveTaskStartTimeUsecs = default(long?), int? targetType = default(int?), ErrorProto teardownError = default(ErrorProto), int? type = default(int?))
         {
             this.DownloadFilesPath = downloadFilesPath;
+            this.DownloadFilesPathVec = downloadFilesPathVec;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.RestoreFilesResultVec = restoreFilesResultVec;
             this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
             this.TargetType = targetType;
             this.Type = type;
             this.DownloadFilesPath = downloadFilesPath;
+            this.DownloadFilesPathVec = downloadFilesPathVec;
             this.Error = error;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.ProxyEntityConnectorParams = proxyEntityConnectorParams;
             this.RestoreFilesResultVec = restoreFilesResultVec;
             this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
@@ -56,10 +62,24 @@ namespace Cohesity.Model
         public string DownloadFilesPath { get; set; }
 
         /// <summary>
+        /// This consists of list of file paths to be downloaded from UI separately. This can be used to send multiple files for download instead of single file in download_files_path.
+        /// </summary>
+        /// <value>This consists of list of file paths to be downloaded from UI separately. This can be used to send multiple files for download instead of single file in download_files_path.</value>
+        [DataMember(Name="downloadFilesPathVec", EmitDefaultValue=true)]
+        public List<RestoreFilesInfoProtoDownloadFile> DownloadFilesPathVec { get; set; }
+
+        /// <summary>
         /// Gets or Sets Error
         /// </summary>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
+
+        /// <summary>
+        /// The expiry time of the view. Applicable for download files task (if filled by adapter).
+        /// </summary>
+        /// <value>The expiry time of the view. Applicable for download files task (if filled by adapter).</value>
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
+        public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Gets or Sets ProxyEntityConnectorParams
@@ -143,9 +163,20 @@ namespace Cohesity.Model
                     this.DownloadFilesPath.Equals(input.DownloadFilesPath))
                 ) && 
                 (
+                    this.DownloadFilesPathVec == input.DownloadFilesPathVec ||
+                    this.DownloadFilesPathVec != null &&
+                    input.DownloadFilesPathVec != null &&
+                    this.DownloadFilesPathVec.SequenceEqual(input.DownloadFilesPathVec)
+                ) && 
+                (
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
+                ) && 
+                (
+                    this.ExpiryTimeUsecs == input.ExpiryTimeUsecs ||
+                    (this.ExpiryTimeUsecs != null &&
+                    this.ExpiryTimeUsecs.Equals(input.ExpiryTimeUsecs))
                 ) && 
                 (
                     this.ProxyEntityConnectorParams == input.ProxyEntityConnectorParams ||
@@ -191,8 +222,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DownloadFilesPath != null)
                     hashCode = hashCode * 59 + this.DownloadFilesPath.GetHashCode();
+                if (this.DownloadFilesPathVec != null)
+                    hashCode = hashCode * 59 + this.DownloadFilesPathVec.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.ExpiryTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.ExpiryTimeUsecs.GetHashCode();
                 if (this.ProxyEntityConnectorParams != null)
                     hashCode = hashCode * 59 + this.ProxyEntityConnectorParams.GetHashCode();
                 if (this.RestoreFilesResultVec != null)

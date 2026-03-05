@@ -386,15 +386,19 @@ namespace Cohesity.Model
         /// <param name="applicationId">Specifies Application Id of the active directory of Azure account..</param>
         /// <param name="applicationKey">Specifies Application key of the active directory of Azure account..</param>
         /// <param name="azureType">Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set..</param>
+        /// <param name="diskInfoList">Speecifies the list of Azure disk info..</param>
         /// <param name="domainName">Specifies Azure stack hub domain name for where the given subscription is present..</param>
         /// <param name="hostType">Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="ipAddresses">Specifies a list of IP addresses for entities of type &#39;kVirtualMachine&#39;..</param>
+        /// <param name="isHnsEnabled">IsHnsEnabled specifies whether the Storage Account has the Hierarchical Namespace (HNS) feature..</param>
+        /// <param name="isHnsEnabledContainer">IsHnsEnabled specifies whether the Storage Container has the Hierarchical Namespace (HNS) feature..</param>
         /// <param name="isManagedVm">Specifies whether VM is managed or not for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="location">Specifies the physical location of the resource group..</param>
         /// <param name="memoryMbytes">Specifies the amount of memory in MegaBytes of the Azure resource of type &#39;kComputeOptions&#39;..</param>
         /// <param name="name">Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set..</param>
         /// <param name="numCores">Specifies the number of CPU cores of the Azure resource of type &#39;kComputeOptions&#39;..</param>
         /// <param name="physicalSourceId">Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host..</param>
+        /// <param name="refreshErrorMessage">Specifies a message if there was any error encountered during the last refresh..</param>
         /// <param name="region">Specifies the region in which the Azure Stack will be registered..</param>
         /// <param name="resourceId">Specifies the unique Id of the resource given by the cloud provider..</param>
         /// <param name="restoreTaskId">Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension..</param>
@@ -403,20 +407,24 @@ namespace Cohesity.Model
         /// <param name="tagAttributes">Specifies the list of Azure tag attributes..</param>
         /// <param name="tenantId">Specifies Tenant Id of the active directory of Azure account..</param>
         /// <param name="type">Specifies the type of an Azure Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set..</param>
-        public AzureProtectionSource(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), string domainName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> ipAddresses = default(List<string>), bool? isManagedVm = default(bool?), string location = default(string), long? memoryMbytes = default(long?), string name = default(string), int? numCores = default(int?), long? physicalSourceId = default(long?), string region = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string subscriptionId = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), string tenantId = default(string), TypeEnum? type = default(TypeEnum?))
+        public AzureProtectionSource(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), List<AzureDiskInfo> diskInfoList = default(List<AzureDiskInfo>), string domainName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> ipAddresses = default(List<string>), bool? isHnsEnabled = default(bool?), bool? isHnsEnabledContainer = default(bool?), bool? isManagedVm = default(bool?), string location = default(string), long? memoryMbytes = default(long?), string name = default(string), int? numCores = default(int?), long? physicalSourceId = default(long?), string refreshErrorMessage = default(string), string region = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string subscriptionId = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), string tenantId = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.ApplicationId = applicationId;
             this.ApplicationKey = applicationKey;
             this.AzureType = azureType;
+            this.DiskInfoList = diskInfoList;
             this.DomainName = domainName;
             this.HostType = hostType;
             this.IpAddresses = ipAddresses;
+            this.IsHnsEnabled = isHnsEnabled;
+            this.IsHnsEnabledContainer = isHnsEnabledContainer;
             this.IsManagedVm = isManagedVm;
             this.Location = location;
             this.MemoryMbytes = memoryMbytes;
             this.Name = name;
             this.NumCores = numCores;
             this.PhysicalSourceId = physicalSourceId;
+            this.RefreshErrorMessage = refreshErrorMessage;
             this.Region = region;
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
@@ -428,15 +436,19 @@ namespace Cohesity.Model
             this.ApplicationId = applicationId;
             this.ApplicationKey = applicationKey;
             this.AzureType = azureType;
+            this.DiskInfoList = diskInfoList;
             this.DomainName = domainName;
             this.HostType = hostType;
             this.IpAddresses = ipAddresses;
+            this.IsHnsEnabled = isHnsEnabled;
+            this.IsHnsEnabledContainer = isHnsEnabledContainer;
             this.IsManagedVm = isManagedVm;
             this.Location = location;
             this.MemoryMbytes = memoryMbytes;
             this.Name = name;
             this.NumCores = numCores;
             this.PhysicalSourceId = physicalSourceId;
+            this.RefreshErrorMessage = refreshErrorMessage;
             this.Region = region;
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
@@ -462,6 +474,13 @@ namespace Cohesity.Model
         public string ApplicationKey { get; set; }
 
         /// <summary>
+        /// Speecifies the list of Azure disk info.
+        /// </summary>
+        /// <value>Speecifies the list of Azure disk info.</value>
+        [DataMember(Name="diskInfoList", EmitDefaultValue=true)]
+        public List<AzureDiskInfo> DiskInfoList { get; set; }
+
+        /// <summary>
         /// Specifies Azure stack hub domain name for where the given subscription is present.
         /// </summary>
         /// <value>Specifies Azure stack hub domain name for where the given subscription is present.</value>
@@ -474,6 +493,20 @@ namespace Cohesity.Model
         /// <value>Specifies a list of IP addresses for entities of type &#39;kVirtualMachine&#39;.</value>
         [DataMember(Name="ipAddresses", EmitDefaultValue=true)]
         public List<string> IpAddresses { get; set; }
+
+        /// <summary>
+        /// IsHnsEnabled specifies whether the Storage Account has the Hierarchical Namespace (HNS) feature.
+        /// </summary>
+        /// <value>IsHnsEnabled specifies whether the Storage Account has the Hierarchical Namespace (HNS) feature.</value>
+        [DataMember(Name="isHnsEnabled", EmitDefaultValue=true)]
+        public bool? IsHnsEnabled { get; set; }
+
+        /// <summary>
+        /// IsHnsEnabled specifies whether the Storage Container has the Hierarchical Namespace (HNS) feature.
+        /// </summary>
+        /// <value>IsHnsEnabled specifies whether the Storage Container has the Hierarchical Namespace (HNS) feature.</value>
+        [DataMember(Name="isHnsEnabledContainer", EmitDefaultValue=true)]
+        public bool? IsHnsEnabledContainer { get; set; }
 
         /// <summary>
         /// Specifies whether VM is managed or not for entities of type &#39;kVirtualMachine&#39;.
@@ -516,6 +549,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host.</value>
         [DataMember(Name="physicalSourceId", EmitDefaultValue=true)]
         public long? PhysicalSourceId { get; set; }
+
+        /// <summary>
+        /// Specifies a message if there was any error encountered during the last refresh.
+        /// </summary>
+        /// <value>Specifies a message if there was any error encountered during the last refresh.</value>
+        [DataMember(Name="refreshErrorMessage", EmitDefaultValue=true)]
+        public string RefreshErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the region in which the Azure Stack will be registered.
@@ -610,6 +650,12 @@ namespace Cohesity.Model
                     this.AzureType.Equals(input.AzureType)
                 ) && 
                 (
+                    this.DiskInfoList == input.DiskInfoList ||
+                    this.DiskInfoList != null &&
+                    input.DiskInfoList != null &&
+                    this.DiskInfoList.SequenceEqual(input.DiskInfoList)
+                ) && 
+                (
                     this.DomainName == input.DomainName ||
                     (this.DomainName != null &&
                     this.DomainName.Equals(input.DomainName))
@@ -623,6 +669,16 @@ namespace Cohesity.Model
                     this.IpAddresses != null &&
                     input.IpAddresses != null &&
                     this.IpAddresses.SequenceEqual(input.IpAddresses)
+                ) && 
+                (
+                    this.IsHnsEnabled == input.IsHnsEnabled ||
+                    (this.IsHnsEnabled != null &&
+                    this.IsHnsEnabled.Equals(input.IsHnsEnabled))
+                ) && 
+                (
+                    this.IsHnsEnabledContainer == input.IsHnsEnabledContainer ||
+                    (this.IsHnsEnabledContainer != null &&
+                    this.IsHnsEnabledContainer.Equals(input.IsHnsEnabledContainer))
                 ) && 
                 (
                     this.IsManagedVm == input.IsManagedVm ||
@@ -653,6 +709,11 @@ namespace Cohesity.Model
                     this.PhysicalSourceId == input.PhysicalSourceId ||
                     (this.PhysicalSourceId != null &&
                     this.PhysicalSourceId.Equals(input.PhysicalSourceId))
+                ) && 
+                (
+                    this.RefreshErrorMessage == input.RefreshErrorMessage ||
+                    (this.RefreshErrorMessage != null &&
+                    this.RefreshErrorMessage.Equals(input.RefreshErrorMessage))
                 ) && 
                 (
                     this.Region == input.Region ||
@@ -709,11 +770,17 @@ namespace Cohesity.Model
                 if (this.ApplicationKey != null)
                     hashCode = hashCode * 59 + this.ApplicationKey.GetHashCode();
                 hashCode = hashCode * 59 + this.AzureType.GetHashCode();
+                if (this.DiskInfoList != null)
+                    hashCode = hashCode * 59 + this.DiskInfoList.GetHashCode();
                 if (this.DomainName != null)
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IpAddresses != null)
                     hashCode = hashCode * 59 + this.IpAddresses.GetHashCode();
+                if (this.IsHnsEnabled != null)
+                    hashCode = hashCode * 59 + this.IsHnsEnabled.GetHashCode();
+                if (this.IsHnsEnabledContainer != null)
+                    hashCode = hashCode * 59 + this.IsHnsEnabledContainer.GetHashCode();
                 if (this.IsManagedVm != null)
                     hashCode = hashCode * 59 + this.IsManagedVm.GetHashCode();
                 if (this.Location != null)
@@ -726,6 +793,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumCores.GetHashCode();
                 if (this.PhysicalSourceId != null)
                     hashCode = hashCode * 59 + this.PhysicalSourceId.GetHashCode();
+                if (this.RefreshErrorMessage != null)
+                    hashCode = hashCode * 59 + this.RefreshErrorMessage.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.ResourceId != null)

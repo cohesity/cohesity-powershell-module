@@ -26,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="alternateRestoreBaseDirectory">This must be set to a directory path if restore_to_original_paths is false. All the files and directories restored will be restored under this location..</param>
         /// <param name="continueOnError">Whether to continue with the copy in case of encountering an error..</param>
         /// <param name="encryptionEnabled">Whether to enable encryption for NFS and SMB restores..</param>
+        /// <param name="fileRestoreExcludePaths">fileRestoreExcludePaths.</param>
         /// <param name="generateSshKeys">In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance..</param>
         /// <param name="overrideOriginals">This is relevant only if restore_to_original_paths is true. If this is true, then already existing files will be overridden, otherwise new files will be skipped..</param>
         /// <param name="preserveAcls">Whether to preserve the ACLs of the original file..</param>
@@ -35,7 +36,7 @@ namespace Cohesity.Model
         /// <param name="restoreToOriginalPaths">If this is true, then files will be restored to original paths..</param>
         /// <param name="saveSuccessFiles">Whether to save success files for FLR..</param>
         /// <param name="skipEstimation">Whether to skip the estimation step..</param>
-        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), int? restoreEntities = default(int?), bool? restoreToOriginalPaths = default(bool?), bool? saveSuccessFiles = default(bool?), bool? skipEstimation = default(bool?))
+        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), FileRestoreExclusion fileRestoreExcludePaths = default(FileRestoreExclusion), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), int? restoreEntities = default(int?), bool? restoreToOriginalPaths = default(bool?), bool? saveSuccessFiles = default(bool?), bool? skipEstimation = default(bool?))
         {
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
@@ -52,6 +53,7 @@ namespace Cohesity.Model
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
             this.EncryptionEnabled = encryptionEnabled;
+            this.FileRestoreExcludePaths = fileRestoreExcludePaths;
             this.GenerateSshKeys = generateSshKeys;
             this.OverrideOriginals = overrideOriginals;
             this.PreserveAcls = preserveAcls;
@@ -83,6 +85,12 @@ namespace Cohesity.Model
         /// <value>Whether to enable encryption for NFS and SMB restores.</value>
         [DataMember(Name="encryptionEnabled", EmitDefaultValue=true)]
         public bool? EncryptionEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FileRestoreExcludePaths
+        /// </summary>
+        [DataMember(Name="fileRestoreExcludePaths", EmitDefaultValue=false)]
+        public FileRestoreExclusion FileRestoreExcludePaths { get; set; }
 
         /// <summary>
         /// In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance.
@@ -199,6 +207,11 @@ namespace Cohesity.Model
                     this.EncryptionEnabled.Equals(input.EncryptionEnabled))
                 ) && 
                 (
+                    this.FileRestoreExcludePaths == input.FileRestoreExcludePaths ||
+                    (this.FileRestoreExcludePaths != null &&
+                    this.FileRestoreExcludePaths.Equals(input.FileRestoreExcludePaths))
+                ) && 
+                (
                     this.GenerateSshKeys == input.GenerateSshKeys ||
                     (this.GenerateSshKeys != null &&
                     this.GenerateSshKeys.Equals(input.GenerateSshKeys))
@@ -260,6 +273,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
                 if (this.EncryptionEnabled != null)
                     hashCode = hashCode * 59 + this.EncryptionEnabled.GetHashCode();
+                if (this.FileRestoreExcludePaths != null)
+                    hashCode = hashCode * 59 + this.FileRestoreExcludePaths.GetHashCode();
                 if (this.GenerateSshKeys != null)
                     hashCode = hashCode * 59 + this.GenerateSshKeys.GetHashCode();
                 if (this.OverrideOriginals != null)

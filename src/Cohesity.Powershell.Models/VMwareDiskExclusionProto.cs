@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// This message contains basic info of the disk to be excluded from backup. The info contained here: 1. should be enough to identify the disk during the backup job. 2. is a subset of the message fetched to be displayed to the end user. Example: entities/vmware.proto. Note: Currently this is only implemented for VMware type source.
+    /// This message is same as VMwareDiskFilterProto. A new field if any, should be added to both the messages. A build time check is being added for the same. This message contains basic info of the disk to be excluded from backup. The info contained here: 1. should be enough to identify the disk during the backup job. 2. is a subset of the message fetched to be displayed to the end user. Example: entities/vmware.proto.  Note: Currently this is only implemented for VMware type source.
     /// </summary>
     [DataContract]
     public partial class VMwareDiskExclusionProto :  IEquatable<VMwareDiskExclusionProto>
@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="VMwareDiskExclusionProto" /> class.
         /// </summary>
         /// <param name="controllerBusNumber">Controller&#39;s bus-id controlling the virtual disk in question..</param>
-        /// <param name="controllerType">Controller&#39;s type (SCSI, IDE etc)..</param>
+        /// <param name="controllerType">Controller&#39;s type (SCSI, IDE, NVMe etc)..</param>
         /// <param name="unitNumber">Disk unit number to identify the virtual disk within a controller..</param>
         public VMwareDiskExclusionProto(long? controllerBusNumber = default(long?), string controllerType = default(string), long? unitNumber = default(long?))
         {
@@ -44,9 +44,9 @@ namespace Cohesity.Model
         public long? ControllerBusNumber { get; set; }
 
         /// <summary>
-        /// Controller&#39;s type (SCSI, IDE etc).
+        /// Controller&#39;s type (SCSI, IDE, NVMe etc).
         /// </summary>
-        /// <value>Controller&#39;s type (SCSI, IDE etc).</value>
+        /// <value>Controller&#39;s type (SCSI, IDE, NVMe etc).</value>
         [DataMember(Name="controllerType", EmitDefaultValue=true)]
         public string ControllerType { get; set; }
 

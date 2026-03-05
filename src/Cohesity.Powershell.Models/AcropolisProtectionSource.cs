@@ -95,11 +95,14 @@ namespace Cohesity.Model
         /// <param name="ngtInstallStatus">Specified if NGT is installed on the VM. This is applicable to acropolis entity of type kVirtualMachine..</param>
         /// <param name="ngtReachable">Specifies if NGT on the VM is reachable from Controller VM. This is applicable to acropolis entity of type kVirtualMachine..</param>
         /// <param name="ngtVersion">Specifies version of NGT installed on the VM. This is applicable to acropolis entity of type kVirtualMachine..</param>
+        /// <param name="systemDefined">SystemDefined indicates whether the tag or capability is system-defined (true) or user-defined (false). System-defined tags are generally managed internally by the platform and not meant to be edited by users..</param>
+        /// <param name="tagAttributes">TagAttributes holds a list of additional attributes associated with the tag. These could include metadata like UUIDs, display names, and values for more detailed tag descriptions..</param>
         /// <param name="type">Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc..</param>
         /// <param name="uuid">Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment..</param>
+        /// <param name="value">Value represents the actual value of the tag assigned to the entity. For example, if the tag is \&quot;Environment\&quot;, the value could be \&quot;Production\&quot;..</param>
         /// <param name="version">Specifies the version of an Acropolis cluster or standalone cluster..</param>
         /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
-        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string), List<VirtualDiskConfig> virtualDisks = default(List<VirtualDiskConfig>))
+        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), List<int> ngtCapabilities = default(List<int>), int? ngtEnableStatus = default(int?), int? ngtInstallStatus = default(int?), bool? ngtReachable = default(bool?), string ngtVersion = default(string), bool? systemDefined = default(bool?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string value = default(string), string version = default(string), List<VirtualDiskConfig> virtualDisks = default(List<VirtualDiskConfig>))
         {
             this.ClusterUuid = clusterUuid;
             this.Description = description;
@@ -110,8 +113,11 @@ namespace Cohesity.Model
             this.NgtInstallStatus = ngtInstallStatus;
             this.NgtReachable = ngtReachable;
             this.NgtVersion = ngtVersion;
+            this.SystemDefined = systemDefined;
+            this.TagAttributes = tagAttributes;
             this.Type = type;
             this.Uuid = uuid;
+            this.Value = value;
             this.Version = version;
             this.VirtualDisks = virtualDisks;
             this.ClusterUuid = clusterUuid;
@@ -123,8 +129,11 @@ namespace Cohesity.Model
             this.NgtInstallStatus = ngtInstallStatus;
             this.NgtReachable = ngtReachable;
             this.NgtVersion = ngtVersion;
+            this.SystemDefined = systemDefined;
+            this.TagAttributes = tagAttributes;
             this.Type = type;
             this.Uuid = uuid;
+            this.Value = value;
             this.Version = version;
             this.VirtualDisks = virtualDisks;
         }
@@ -193,11 +202,32 @@ namespace Cohesity.Model
         public string NgtVersion { get; set; }
 
         /// <summary>
+        /// SystemDefined indicates whether the tag or capability is system-defined (true) or user-defined (false). System-defined tags are generally managed internally by the platform and not meant to be edited by users.
+        /// </summary>
+        /// <value>SystemDefined indicates whether the tag or capability is system-defined (true) or user-defined (false). System-defined tags are generally managed internally by the platform and not meant to be edited by users.</value>
+        [DataMember(Name="systemDefined", EmitDefaultValue=true)]
+        public bool? SystemDefined { get; set; }
+
+        /// <summary>
+        /// TagAttributes holds a list of additional attributes associated with the tag. These could include metadata like UUIDs, display names, and values for more detailed tag descriptions.
+        /// </summary>
+        /// <value>TagAttributes holds a list of additional attributes associated with the tag. These could include metadata like UUIDs, display names, and values for more detailed tag descriptions.</value>
+        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        public List<TagAttribute> TagAttributes { get; set; }
+
+        /// <summary>
         /// Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.
         /// </summary>
         /// <value>Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.</value>
         [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
+
+        /// <summary>
+        /// Value represents the actual value of the tag assigned to the entity. For example, if the tag is \&quot;Environment\&quot;, the value could be \&quot;Production\&quot;.
+        /// </summary>
+        /// <value>Value represents the actual value of the tag assigned to the entity. For example, if the tag is \&quot;Environment\&quot;, the value could be \&quot;Production\&quot;.</value>
+        [DataMember(Name="value", EmitDefaultValue=true)]
+        public string Value { get; set; }
 
         /// <summary>
         /// Specifies the version of an Acropolis cluster or standalone cluster.
@@ -296,6 +326,17 @@ namespace Cohesity.Model
                     this.NgtVersion.Equals(input.NgtVersion))
                 ) && 
                 (
+                    this.SystemDefined == input.SystemDefined ||
+                    (this.SystemDefined != null &&
+                    this.SystemDefined.Equals(input.SystemDefined))
+                ) && 
+                (
+                    this.TagAttributes == input.TagAttributes ||
+                    this.TagAttributes != null &&
+                    input.TagAttributes != null &&
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                ) && 
+                (
                     this.Type == input.Type ||
                     this.Type.Equals(input.Type)
                 ) && 
@@ -303,6 +344,11 @@ namespace Cohesity.Model
                     this.Uuid == input.Uuid ||
                     (this.Uuid != null &&
                     this.Uuid.Equals(input.Uuid))
+                ) && 
+                (
+                    this.Value == input.Value ||
+                    (this.Value != null &&
+                    this.Value.Equals(input.Value))
                 ) && 
                 (
                     this.Version == input.Version ||
@@ -344,9 +390,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NgtReachable.GetHashCode();
                 if (this.NgtVersion != null)
                     hashCode = hashCode * 59 + this.NgtVersion.GetHashCode();
+                if (this.SystemDefined != null)
+                    hashCode = hashCode * 59 + this.SystemDefined.GetHashCode();
+                if (this.TagAttributes != null)
+                    hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
+                if (this.Value != null)
+                    hashCode = hashCode * 59 + this.Value.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
                 if (this.VirtualDisks != null)

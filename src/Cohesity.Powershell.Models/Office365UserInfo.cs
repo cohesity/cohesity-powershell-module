@@ -55,19 +55,21 @@ namespace Cohesity.Model
         /// <param name="department">Specifies the department within the enterprise of the Office365 user..</param>
         /// <param name="designation">Specifies the designation of the Office365 user..</param>
         /// <param name="graphUuid">Specifies the MS Graph UUID for the given user entity..</param>
+        /// <param name="groupMembershipInfoList">Specifies the Group entities which hold this user entity as its member..</param>
         /// <param name="isMailboxEnabled">Specifies whether the Office365 user has a mailbox associated..</param>
         /// <param name="isOneDriveEnabled">Specifies whether the Office365 user has a OneDrive associated..</param>
         /// <param name="mailboxSize">Specifies the size of the Outlook Mailbox associated with this Office365 entity..</param>
         /// <param name="mailboxType">Specifies the type of mailbox associated Specifies the type of user mailbox. &#39;kUserMailbox&#39; indicates that the user has been assigned an individual mailbox. &#39;kSharedMailbox&#39; indicates that the user has been assigned a shared mailbox..</param>
         /// <param name="oneDriveId">Specifies the Id of the OneDrive associated with the this Office 365 entity..</param>
         /// <param name="oneDriveSize">Specifies the size of the OneDrive associated with this Office365 entity..</param>
-        public Office365UserInfo(string city = default(string), string country = default(string), string department = default(string), string designation = default(string), string graphUuid = default(string), bool? isMailboxEnabled = default(bool?), bool? isOneDriveEnabled = default(bool?), long? mailboxSize = default(long?), MailboxTypeEnum? mailboxType = default(MailboxTypeEnum?), string oneDriveId = default(string), long? oneDriveSize = default(long?))
+        public Office365UserInfo(string city = default(string), string country = default(string), string department = default(string), string designation = default(string), string graphUuid = default(string), List<GroupMembershipInfo> groupMembershipInfoList = default(List<GroupMembershipInfo>), bool? isMailboxEnabled = default(bool?), bool? isOneDriveEnabled = default(bool?), long? mailboxSize = default(long?), MailboxTypeEnum? mailboxType = default(MailboxTypeEnum?), string oneDriveId = default(string), long? oneDriveSize = default(long?))
         {
             this.City = city;
             this.Country = country;
             this.Department = department;
             this.Designation = designation;
             this.GraphUuid = graphUuid;
+            this.GroupMembershipInfoList = groupMembershipInfoList;
             this.IsMailboxEnabled = isMailboxEnabled;
             this.IsOneDriveEnabled = isOneDriveEnabled;
             this.MailboxSize = mailboxSize;
@@ -79,6 +81,7 @@ namespace Cohesity.Model
             this.Department = department;
             this.Designation = designation;
             this.GraphUuid = graphUuid;
+            this.GroupMembershipInfoList = groupMembershipInfoList;
             this.IsMailboxEnabled = isMailboxEnabled;
             this.IsOneDriveEnabled = isOneDriveEnabled;
             this.MailboxSize = mailboxSize;
@@ -121,6 +124,13 @@ namespace Cohesity.Model
         /// <value>Specifies the MS Graph UUID for the given user entity.</value>
         [DataMember(Name="graphUuid", EmitDefaultValue=true)]
         public string GraphUuid { get; set; }
+
+        /// <summary>
+        /// Specifies the Group entities which hold this user entity as its member.
+        /// </summary>
+        /// <value>Specifies the Group entities which hold this user entity as its member.</value>
+        [DataMember(Name="groupMembershipInfoList", EmitDefaultValue=true)]
+        public List<GroupMembershipInfo> GroupMembershipInfoList { get; set; }
 
         /// <summary>
         /// Specifies whether the Office365 user has a mailbox associated.
@@ -219,6 +229,12 @@ namespace Cohesity.Model
                     this.GraphUuid.Equals(input.GraphUuid))
                 ) && 
                 (
+                    this.GroupMembershipInfoList == input.GroupMembershipInfoList ||
+                    this.GroupMembershipInfoList != null &&
+                    input.GroupMembershipInfoList != null &&
+                    this.GroupMembershipInfoList.SequenceEqual(input.GroupMembershipInfoList)
+                ) && 
+                (
                     this.IsMailboxEnabled == input.IsMailboxEnabled ||
                     (this.IsMailboxEnabled != null &&
                     this.IsMailboxEnabled.Equals(input.IsMailboxEnabled))
@@ -268,6 +284,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Designation.GetHashCode();
                 if (this.GraphUuid != null)
                     hashCode = hashCode * 59 + this.GraphUuid.GetHashCode();
+                if (this.GroupMembershipInfoList != null)
+                    hashCode = hashCode * 59 + this.GroupMembershipInfoList.GetHashCode();
                 if (this.IsMailboxEnabled != null)
                     hashCode = hashCode * 59 + this.IsMailboxEnabled.GetHashCode();
                 if (this.IsOneDriveEnabled != null)

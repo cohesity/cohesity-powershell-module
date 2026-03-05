@@ -26,9 +26,10 @@ namespace Cohesity.Model
         /// <param name="fullAutoKillTimeoutSecs">Time in seconds after which the full backup of the database in given backup job should be auto-killed. If set to -1, then the backup will run until completion..</param>
         /// <param name="incrAutoKillTimeoutSecs">Time in seconds after which the incremental backup of the database in given backup job should be auto-killed. If set to -1, then the backup will run until completion..</param>
         /// <param name="logAutoKillTimeoutSecs">Time in seconds after which the log backup of the database in given backup job should be auto-killed. If set to -1, then the backup will run until completion..</param>
+        /// <param name="nfsParams">nfsParams.</param>
         /// <param name="persistMountpoints">Indicates whether the mountpoints created while backing up Oracle DBs should be persisted. If this is set to &#39;false&#39; all Oracle views mounted to the hosts will be unmounted at the end. Note: This parameter is for the entire Job. For overriding persistence of mountpoints for a subset of Oracle hosts within the job, refer OracleSourceParams..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public OracleBackupJobParams(long? fullAutoKillTimeoutSecs = default(long?), long? incrAutoKillTimeoutSecs = default(long?), long? logAutoKillTimeoutSecs = default(long?), bool? persistMountpoints = default(bool?), VlanParams vlanParams = default(VlanParams))
+        public OracleBackupJobParams(long? fullAutoKillTimeoutSecs = default(long?), long? incrAutoKillTimeoutSecs = default(long?), long? logAutoKillTimeoutSecs = default(long?), NFSParams nfsParams = default(NFSParams), bool? persistMountpoints = default(bool?), VlanParams vlanParams = default(VlanParams))
         {
             this.FullAutoKillTimeoutSecs = fullAutoKillTimeoutSecs;
             this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
@@ -37,6 +38,7 @@ namespace Cohesity.Model
             this.FullAutoKillTimeoutSecs = fullAutoKillTimeoutSecs;
             this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
             this.LogAutoKillTimeoutSecs = logAutoKillTimeoutSecs;
+            this.NfsParams = nfsParams;
             this.PersistMountpoints = persistMountpoints;
             this.VlanParams = vlanParams;
         }
@@ -61,6 +63,12 @@ namespace Cohesity.Model
         /// <value>Time in seconds after which the log backup of the database in given backup job should be auto-killed. If set to -1, then the backup will run until completion.</value>
         [DataMember(Name="logAutoKillTimeoutSecs", EmitDefaultValue=true)]
         public long? LogAutoKillTimeoutSecs { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NfsParams
+        /// </summary>
+        [DataMember(Name="nfsParams", EmitDefaultValue=false)]
+        public NFSParams NfsParams { get; set; }
 
         /// <summary>
         /// Indicates whether the mountpoints created while backing up Oracle DBs should be persisted. If this is set to &#39;false&#39; all Oracle views mounted to the hosts will be unmounted at the end. Note: This parameter is for the entire Job. For overriding persistence of mountpoints for a subset of Oracle hosts within the job, refer OracleSourceParams.
@@ -127,6 +135,11 @@ namespace Cohesity.Model
                     this.LogAutoKillTimeoutSecs.Equals(input.LogAutoKillTimeoutSecs))
                 ) && 
                 (
+                    this.NfsParams == input.NfsParams ||
+                    (this.NfsParams != null &&
+                    this.NfsParams.Equals(input.NfsParams))
+                ) && 
+                (
                     this.PersistMountpoints == input.PersistMountpoints ||
                     (this.PersistMountpoints != null &&
                     this.PersistMountpoints.Equals(input.PersistMountpoints))
@@ -153,6 +166,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IncrAutoKillTimeoutSecs.GetHashCode();
                 if (this.LogAutoKillTimeoutSecs != null)
                     hashCode = hashCode * 59 + this.LogAutoKillTimeoutSecs.GetHashCode();
+                if (this.NfsParams != null)
+                    hashCode = hashCode * 59 + this.NfsParams.GetHashCode();
                 if (this.PersistMountpoints != null)
                     hashCode = hashCode * 59 + this.PersistMountpoints.GetHashCode();
                 if (this.VlanParams != null)

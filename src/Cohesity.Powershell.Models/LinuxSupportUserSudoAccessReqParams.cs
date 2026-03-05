@@ -24,10 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="LinuxSupportUserSudoAccessReqParams" /> class.
         /// </summary>
         /// <param name="sudoAccessEnable">If the enable flag is set to true, the sudo access will be enabled. If the enable flag is set to false, the sudo access will be disabled..</param>
-        public LinuxSupportUserSudoAccessReqParams(bool? sudoAccessEnable = default(bool?))
+        /// <param name="sudoAccessEndTimestampMsecs">sudo access end time stamp in milliseconds since unix epoch..</param>
+        public LinuxSupportUserSudoAccessReqParams(bool? sudoAccessEnable = default(bool?), long? sudoAccessEndTimestampMsecs = default(long?))
         {
             this.SudoAccessEnable = sudoAccessEnable;
+            this.SudoAccessEndTimestampMsecs = sudoAccessEndTimestampMsecs;
             this.SudoAccessEnable = sudoAccessEnable;
+            this.SudoAccessEndTimestampMsecs = sudoAccessEndTimestampMsecs;
         }
         
         /// <summary>
@@ -36,6 +39,13 @@ namespace Cohesity.Model
         /// <value>If the enable flag is set to true, the sudo access will be enabled. If the enable flag is set to false, the sudo access will be disabled.</value>
         [DataMember(Name="sudoAccessEnable", EmitDefaultValue=true)]
         public bool? SudoAccessEnable { get; set; }
+
+        /// <summary>
+        /// sudo access end time stamp in milliseconds since unix epoch.
+        /// </summary>
+        /// <value>sudo access end time stamp in milliseconds since unix epoch.</value>
+        [DataMember(Name="sudoAccessEndTimestampMsecs", EmitDefaultValue=true)]
+        public long? SudoAccessEndTimestampMsecs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,6 +87,11 @@ namespace Cohesity.Model
                     this.SudoAccessEnable == input.SudoAccessEnable ||
                     (this.SudoAccessEnable != null &&
                     this.SudoAccessEnable.Equals(input.SudoAccessEnable))
+                ) && 
+                (
+                    this.SudoAccessEndTimestampMsecs == input.SudoAccessEndTimestampMsecs ||
+                    (this.SudoAccessEndTimestampMsecs != null &&
+                    this.SudoAccessEndTimestampMsecs.Equals(input.SudoAccessEndTimestampMsecs))
                 );
         }
 
@@ -91,6 +106,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.SudoAccessEnable != null)
                     hashCode = hashCode * 59 + this.SudoAccessEnable.GetHashCode();
+                if (this.SudoAccessEndTimestampMsecs != null)
+                    hashCode = hashCode * 59 + this.SudoAccessEndTimestampMsecs.GetHashCode();
                 return hashCode;
             }
         }

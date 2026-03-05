@@ -43,7 +43,7 @@ namespace Cohesity.Model
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
         /// <param name="targetViewPrefix">target_view_prefix is used to support multiple objects in a single tiering job. It helps in generating view name which are reasonably close to the original share name..</param>
         /// <param name="tieringGoal">Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering..</param>
-        public FileStubbingParams(List<NasAnalysisJobParamsAccessTimeBucket> accessTimeBuckets = default(List<NasAnalysisJobParamsAccessTimeBucket>), long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), List<NasAnalysisJobParamsFileTypeBucket> deniedFileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), List<NasAnalysisJobParamsFileSizeBucket> fileSizeBuckets = default(List<NasAnalysisJobParamsFileSizeBucket>), int? fileSizePolicy = default(int?), List<NasAnalysisJobParamsFileTypeBucket> fileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), List<NasAnalysisJobParamsModTimeBucket> modTimeBuckets = default(List<NasAnalysisJobParamsModTimeBucket>), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), List<FileStubbingParamsTargetViewMapEntry> targetViewMap = default(List<FileStubbingParamsTargetViewMapEntry>), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
+        public FileStubbingParams(List<NasAnalysisJobParamsAccessTimeBucket> accessTimeBuckets = default(List<NasAnalysisJobParamsAccessTimeBucket>), long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), List<NasAnalysisJobParamsFileTypeBucket> deniedFileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), List<NasAnalysisJobParamsFileSizeBucket> fileSizeBuckets = default(List<NasAnalysisJobParamsFileSizeBucket>), int? fileSizePolicy = default(int?), List<NasAnalysisJobParamsFileTypeBucket> fileTypeBuckets = default(List<NasAnalysisJobParamsFileTypeBucket>), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), List<NasAnalysisJobParamsModTimeBucket> modTimeBuckets = default(List<NasAnalysisJobParamsModTimeBucket>), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), Object targetViewMap = default(Object), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
         {
             this.AccessTimeBuckets = accessTimeBuckets;
             this.ColdFileWindow = coldFileWindow;
@@ -202,7 +202,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>The object&#39;s entity id to TargetViewData map where the data will be migrated.</value>
         [DataMember(Name="targetViewMap", EmitDefaultValue=true)]
-        public List<FileStubbingParamsTargetViewMapEntry> TargetViewMap { get; set; }
+        public Object TargetViewMap { get; set; }
 
         /// <summary>
         /// The target view name to which the data will be migrated.
@@ -348,9 +348,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.TargetViewMap == input.TargetViewMap ||
-                    this.TargetViewMap != null &&
-                    input.TargetViewMap != null &&
-                    this.TargetViewMap.SequenceEqual(input.TargetViewMap)
+                    (this.TargetViewMap != null &&
+                    this.TargetViewMap.Equals(input.TargetViewMap))
                 ) && 
                 (
                     this.TargetViewName == input.TargetViewName ||

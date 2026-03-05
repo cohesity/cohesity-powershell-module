@@ -28,35 +28,53 @@ namespace Cohesity.Model
         /// <param name="clusterEntity">clusterEntity.</param>
         /// <param name="clusterSoftwareVersion">Cluster software version..</param>
         /// <param name="datamoverServiceType">Indicates the kubernetes service type to use..</param>
+        /// <param name="enableS3ForBackupView">Whether backup job used a S3 enabled view or not.</param>
+        /// <param name="excludedPvcVec">List of PVCs that user requested to be excluded while doing restore..</param>
         /// <param name="initContainerImage">Container image used to mounting PVCs in temp pods..</param>
         /// <param name="isProtectionUsingDatamoverEnabled">This indicates if magneto_kubernetes_enable_protection_using_datamover is true and the flag is enabled in the feature enabler..</param>
         /// <param name="managementNamespace">Namespace in which restore job will be created in K8s cluster..</param>
         /// <param name="podMetadataVec">Information about pods in the namespace which was backed up..</param>
+        /// <param name="preserveMacAddress">Whether to preserve mac address for restored vm..</param>
+        /// <param name="pvcBackupSuccessVec">List of PVCs (PVC names) that were successfully backed up..</param>
+        /// <param name="pvcInfoMap">Map of PVC (names) to PvcInfo discovered in the backed up namespace..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="s3AccountId">S3 account ID that was used to register the source..</param>
+        /// <param name="skipRestoreValidation">Whether to skip restore validation..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public RestoreKubernetesNamespacesParams(long? backupClusterId = default(long?), string backupJobName = default(string), EntityProto clusterEntity = default(EntityProto), string clusterSoftwareVersion = default(string), int? datamoverServiceType = default(int?), string initContainerImage = default(string), bool? isProtectionUsingDatamoverEnabled = default(bool?), string managementNamespace = default(string), List<PodMetadata> podMetadataVec = default(List<PodMetadata>), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), string s3AccountId = default(string), VlanParams vlanParams = default(VlanParams))
+        public RestoreKubernetesNamespacesParams(long? backupClusterId = default(long?), string backupJobName = default(string), EntityProto clusterEntity = default(EntityProto), string clusterSoftwareVersion = default(string), int? datamoverServiceType = default(int?), bool? enableS3ForBackupView = default(bool?), List<string> excludedPvcVec = default(List<string>), string initContainerImage = default(string), bool? isProtectionUsingDatamoverEnabled = default(bool?), string managementNamespace = default(string), List<PodMetadata> podMetadataVec = default(List<PodMetadata>), bool? preserveMacAddress = default(bool?), List<string> pvcBackupSuccessVec = default(List<string>), Dictionary<string, PvcInfo> pvcInfoMap = default(Dictionary<string, PvcInfo>), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), string s3AccountId = default(string), bool? skipRestoreValidation = default(bool?), VlanParams vlanParams = default(VlanParams))
         {
             this.BackupClusterId = backupClusterId;
             this.BackupJobName = backupJobName;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.DatamoverServiceType = datamoverServiceType;
+            this.EnableS3ForBackupView = enableS3ForBackupView;
+            this.ExcludedPvcVec = excludedPvcVec;
             this.InitContainerImage = initContainerImage;
             this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
             this.ManagementNamespace = managementNamespace;
             this.PodMetadataVec = podMetadataVec;
+            this.PreserveMacAddress = preserveMacAddress;
+            this.PvcBackupSuccessVec = pvcBackupSuccessVec;
+            this.PvcInfoMap = pvcInfoMap;
             this.S3AccountId = s3AccountId;
+            this.SkipRestoreValidation = skipRestoreValidation;
             this.BackupClusterId = backupClusterId;
             this.BackupJobName = backupJobName;
             this.ClusterEntity = clusterEntity;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.DatamoverServiceType = datamoverServiceType;
+            this.EnableS3ForBackupView = enableS3ForBackupView;
+            this.ExcludedPvcVec = excludedPvcVec;
             this.InitContainerImage = initContainerImage;
             this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
             this.ManagementNamespace = managementNamespace;
             this.PodMetadataVec = podMetadataVec;
+            this.PreserveMacAddress = preserveMacAddress;
+            this.PvcBackupSuccessVec = pvcBackupSuccessVec;
+            this.PvcInfoMap = pvcInfoMap;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.S3AccountId = s3AccountId;
+            this.SkipRestoreValidation = skipRestoreValidation;
             this.VlanParams = vlanParams;
         }
         
@@ -95,6 +113,20 @@ namespace Cohesity.Model
         public int? DatamoverServiceType { get; set; }
 
         /// <summary>
+        /// Whether backup job used a S3 enabled view or not
+        /// </summary>
+        /// <value>Whether backup job used a S3 enabled view or not</value>
+        [DataMember(Name="enableS3ForBackupView", EmitDefaultValue=true)]
+        public bool? EnableS3ForBackupView { get; set; }
+
+        /// <summary>
+        /// List of PVCs that user requested to be excluded while doing restore.
+        /// </summary>
+        /// <value>List of PVCs that user requested to be excluded while doing restore.</value>
+        [DataMember(Name="excludedPvcVec", EmitDefaultValue=true)]
+        public List<string> ExcludedPvcVec { get; set; }
+
+        /// <summary>
         /// Container image used to mounting PVCs in temp pods.
         /// </summary>
         /// <value>Container image used to mounting PVCs in temp pods.</value>
@@ -123,6 +155,27 @@ namespace Cohesity.Model
         public List<PodMetadata> PodMetadataVec { get; set; }
 
         /// <summary>
+        /// Whether to preserve mac address for restored vm.
+        /// </summary>
+        /// <value>Whether to preserve mac address for restored vm.</value>
+        [DataMember(Name="preserveMacAddress", EmitDefaultValue=true)]
+        public bool? PreserveMacAddress { get; set; }
+
+        /// <summary>
+        /// List of PVCs (PVC names) that were successfully backed up.
+        /// </summary>
+        /// <value>List of PVCs (PVC names) that were successfully backed up.</value>
+        [DataMember(Name="pvcBackupSuccessVec", EmitDefaultValue=true)]
+        public List<string> PvcBackupSuccessVec { get; set; }
+
+        /// <summary>
+        /// Map of PVC (names) to PvcInfo discovered in the backed up namespace.
+        /// </summary>
+        /// <value>Map of PVC (names) to PvcInfo discovered in the backed up namespace.</value>
+        [DataMember(Name="pvcInfoMap", EmitDefaultValue=true)]
+        public Dictionary<string, PvcInfo> PvcInfoMap { get; set; }
+
+        /// <summary>
         /// Gets or Sets RenameRestoredObjectParam
         /// </summary>
         [DataMember(Name="renameRestoredObjectParam", EmitDefaultValue=false)]
@@ -134,6 +187,13 @@ namespace Cohesity.Model
         /// <value>S3 account ID that was used to register the source.</value>
         [DataMember(Name="s3AccountId", EmitDefaultValue=true)]
         public string S3AccountId { get; set; }
+
+        /// <summary>
+        /// Whether to skip restore validation.
+        /// </summary>
+        /// <value>Whether to skip restore validation.</value>
+        [DataMember(Name="skipRestoreValidation", EmitDefaultValue=true)]
+        public bool? SkipRestoreValidation { get; set; }
 
         /// <summary>
         /// Gets or Sets VlanParams
@@ -203,6 +263,17 @@ namespace Cohesity.Model
                     this.DatamoverServiceType.Equals(input.DatamoverServiceType))
                 ) && 
                 (
+                    this.EnableS3ForBackupView == input.EnableS3ForBackupView ||
+                    (this.EnableS3ForBackupView != null &&
+                    this.EnableS3ForBackupView.Equals(input.EnableS3ForBackupView))
+                ) && 
+                (
+                    this.ExcludedPvcVec == input.ExcludedPvcVec ||
+                    this.ExcludedPvcVec != null &&
+                    input.ExcludedPvcVec != null &&
+                    this.ExcludedPvcVec.SequenceEqual(input.ExcludedPvcVec)
+                ) && 
+                (
                     this.InitContainerImage == input.InitContainerImage ||
                     (this.InitContainerImage != null &&
                     this.InitContainerImage.Equals(input.InitContainerImage))
@@ -224,6 +295,23 @@ namespace Cohesity.Model
                     this.PodMetadataVec.SequenceEqual(input.PodMetadataVec)
                 ) && 
                 (
+                    this.PreserveMacAddress == input.PreserveMacAddress ||
+                    (this.PreserveMacAddress != null &&
+                    this.PreserveMacAddress.Equals(input.PreserveMacAddress))
+                ) && 
+                (
+                    this.PvcBackupSuccessVec == input.PvcBackupSuccessVec ||
+                    this.PvcBackupSuccessVec != null &&
+                    input.PvcBackupSuccessVec != null &&
+                    this.PvcBackupSuccessVec.SequenceEqual(input.PvcBackupSuccessVec)
+                ) && 
+                (
+                    this.PvcInfoMap == input.PvcInfoMap ||
+                    this.PvcInfoMap != null &&
+                    input.PvcInfoMap != null &&
+                    this.PvcInfoMap.SequenceEqual(input.PvcInfoMap)
+                ) && 
+                (
                     this.RenameRestoredObjectParam == input.RenameRestoredObjectParam ||
                     (this.RenameRestoredObjectParam != null &&
                     this.RenameRestoredObjectParam.Equals(input.RenameRestoredObjectParam))
@@ -232,6 +320,11 @@ namespace Cohesity.Model
                     this.S3AccountId == input.S3AccountId ||
                     (this.S3AccountId != null &&
                     this.S3AccountId.Equals(input.S3AccountId))
+                ) && 
+                (
+                    this.SkipRestoreValidation == input.SkipRestoreValidation ||
+                    (this.SkipRestoreValidation != null &&
+                    this.SkipRestoreValidation.Equals(input.SkipRestoreValidation))
                 ) && 
                 (
                     this.VlanParams == input.VlanParams ||
@@ -259,6 +352,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
                 if (this.DatamoverServiceType != null)
                     hashCode = hashCode * 59 + this.DatamoverServiceType.GetHashCode();
+                if (this.EnableS3ForBackupView != null)
+                    hashCode = hashCode * 59 + this.EnableS3ForBackupView.GetHashCode();
+                if (this.ExcludedPvcVec != null)
+                    hashCode = hashCode * 59 + this.ExcludedPvcVec.GetHashCode();
                 if (this.InitContainerImage != null)
                     hashCode = hashCode * 59 + this.InitContainerImage.GetHashCode();
                 if (this.IsProtectionUsingDatamoverEnabled != null)
@@ -267,10 +364,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ManagementNamespace.GetHashCode();
                 if (this.PodMetadataVec != null)
                     hashCode = hashCode * 59 + this.PodMetadataVec.GetHashCode();
+                if (this.PreserveMacAddress != null)
+                    hashCode = hashCode * 59 + this.PreserveMacAddress.GetHashCode();
+                if (this.PvcBackupSuccessVec != null)
+                    hashCode = hashCode * 59 + this.PvcBackupSuccessVec.GetHashCode();
+                if (this.PvcInfoMap != null)
+                    hashCode = hashCode * 59 + this.PvcInfoMap.GetHashCode();
                 if (this.RenameRestoredObjectParam != null)
                     hashCode = hashCode * 59 + this.RenameRestoredObjectParam.GetHashCode();
                 if (this.S3AccountId != null)
                     hashCode = hashCode * 59 + this.S3AccountId.GetHashCode();
+                if (this.SkipRestoreValidation != null)
+                    hashCode = hashCode * 59 + this.SkipRestoreValidation.GetHashCode();
                 if (this.VlanParams != null)
                     hashCode = hashCode * 59 + this.VlanParams.GetHashCode();
                 return hashCode;

@@ -51,11 +51,14 @@ namespace Cohesity.Model
         /// <param name="rbd">rbd.</param>
         /// <param name="scaleIo">scaleIo.</param>
         /// <param name="secret">secret.</param>
+        /// <param name="secretVolume">secretVolume.</param>
         /// <param name="storageos">storageos.</param>
+        /// <param name="volumeMode">Volume mode. Possible value could Filesystem, Block or empty(implying Filesystem)..</param>
         /// <param name="vsphereVolume">vsphereVolume.</param>
-        public PodInfoPodSpecVolumeInfo(PodInfoPodSpecVolumeInfoAWSEBS awsElasticBlockStore = default(PodInfoPodSpecVolumeInfoAWSEBS), PodInfoPodSpecVolumeInfoAzureDisk azureDisk = default(PodInfoPodSpecVolumeInfoAzureDisk), PodInfoPodSpecVolumeInfoAzureFile azureFile = default(PodInfoPodSpecVolumeInfoAzureFile), PodInfoPodSpecVolumeInfoCephfs cephfs = default(PodInfoPodSpecVolumeInfoCephfs), PodInfoPodSpecVolumeInfoCinder cinder = default(PodInfoPodSpecVolumeInfoCinder), PodInfoPodSpecVolumeInfoConfigMap configMap = default(PodInfoPodSpecVolumeInfoConfigMap), PodInfoPodSpecVolumeInfoCSI csi = default(PodInfoPodSpecVolumeInfoCSI), PodInfoPodSpecVolumeInfoDownwardAPI downwardApi = default(PodInfoPodSpecVolumeInfoDownwardAPI), Object emptyDir = default(Object), PodInfoPodSpecVolumeInfoEphemeralVolumeSource ephemeral = default(PodInfoPodSpecVolumeInfoEphemeralVolumeSource), PodInfoPodSpecVolumeInfoFC fc = default(PodInfoPodSpecVolumeInfoFC), PodInfoPodSpecVolumeInfoFlex flexVolume = default(PodInfoPodSpecVolumeInfoFlex), PodInfoPodSpecVolumeInfoFlocker flocker = default(PodInfoPodSpecVolumeInfoFlocker), PodInfoPodSpecVolumeInfoGcePersistentDisk gcePersistentDisk = default(PodInfoPodSpecVolumeInfoGcePersistentDisk), PodInfoPodSpecVolumeInfoGlusterFs glusterfs = default(PodInfoPodSpecVolumeInfoGlusterFs), PodInfoPodSpecVolumeInfoHostPath hostPath = default(PodInfoPodSpecVolumeInfoHostPath), PodInfoPodSpecVolumeInfoISCSI iscsi = default(PodInfoPodSpecVolumeInfoISCSI), PodInfoPodSpecVolumeInfoLocal local = default(PodInfoPodSpecVolumeInfoLocal), string name = default(string), PodInfoPodSpecVolumeInfoNFS nfs = default(PodInfoPodSpecVolumeInfoNFS), PodInfoPodSpecVolumeInfoPVC persistentVolumeClaim = default(PodInfoPodSpecVolumeInfoPVC), PodInfoPodSpecVolumeInfoPhotonPersistentDisk photonPersistentDisk = default(PodInfoPodSpecVolumeInfoPhotonPersistentDisk), PodInfoPodSpecVolumeInfoPortworx portworxVolume = default(PodInfoPodSpecVolumeInfoPortworx), PodInfoPodSpecVolumeInfoProjected projected = default(PodInfoPodSpecVolumeInfoProjected), PodInfoPodSpecVolumeInfoQuobyte quobyte = default(PodInfoPodSpecVolumeInfoQuobyte), PodInfoPodSpecVolumeInfoRBD rbd = default(PodInfoPodSpecVolumeInfoRBD), PodInfoPodSpecVolumeInfoScaleIO scaleIo = default(PodInfoPodSpecVolumeInfoScaleIO), PodInfoPodSpecVolumeInfoConfigMap secret = default(PodInfoPodSpecVolumeInfoConfigMap), PodInfoPodSpecVolumeInfoStorageOS storageos = default(PodInfoPodSpecVolumeInfoStorageOS), PodInfoPodSpecVolumeInfoVsphereVirtualDisk vsphereVolume = default(PodInfoPodSpecVolumeInfoVsphereVirtualDisk))
+        public PodInfoPodSpecVolumeInfo(PodInfoPodSpecVolumeInfoAWSEBS awsElasticBlockStore = default(PodInfoPodSpecVolumeInfoAWSEBS), PodInfoPodSpecVolumeInfoAzureDisk azureDisk = default(PodInfoPodSpecVolumeInfoAzureDisk), PodInfoPodSpecVolumeInfoAzureFile azureFile = default(PodInfoPodSpecVolumeInfoAzureFile), PodInfoPodSpecVolumeInfoCephfs cephfs = default(PodInfoPodSpecVolumeInfoCephfs), PodInfoPodSpecVolumeInfoCinder cinder = default(PodInfoPodSpecVolumeInfoCinder), PodInfoPodSpecVolumeInfoConfigMap configMap = default(PodInfoPodSpecVolumeInfoConfigMap), PodInfoPodSpecVolumeInfoCSI csi = default(PodInfoPodSpecVolumeInfoCSI), PodInfoPodSpecVolumeInfoDownwardAPI downwardApi = default(PodInfoPodSpecVolumeInfoDownwardAPI), Object emptyDir = default(Object), PodInfoPodSpecVolumeInfoEphemeralVolumeSource ephemeral = default(PodInfoPodSpecVolumeInfoEphemeralVolumeSource), PodInfoPodSpecVolumeInfoFC fc = default(PodInfoPodSpecVolumeInfoFC), PodInfoPodSpecVolumeInfoFlex flexVolume = default(PodInfoPodSpecVolumeInfoFlex), PodInfoPodSpecVolumeInfoFlocker flocker = default(PodInfoPodSpecVolumeInfoFlocker), PodInfoPodSpecVolumeInfoGcePersistentDisk gcePersistentDisk = default(PodInfoPodSpecVolumeInfoGcePersistentDisk), PodInfoPodSpecVolumeInfoGlusterFs glusterfs = default(PodInfoPodSpecVolumeInfoGlusterFs), PodInfoPodSpecVolumeInfoHostPath hostPath = default(PodInfoPodSpecVolumeInfoHostPath), PodInfoPodSpecVolumeInfoISCSI iscsi = default(PodInfoPodSpecVolumeInfoISCSI), PodInfoPodSpecVolumeInfoLocal local = default(PodInfoPodSpecVolumeInfoLocal), string name = default(string), PodInfoPodSpecVolumeInfoNFS nfs = default(PodInfoPodSpecVolumeInfoNFS), PodInfoPodSpecVolumeInfoPVC persistentVolumeClaim = default(PodInfoPodSpecVolumeInfoPVC), PodInfoPodSpecVolumeInfoPhotonPersistentDisk photonPersistentDisk = default(PodInfoPodSpecVolumeInfoPhotonPersistentDisk), PodInfoPodSpecVolumeInfoPortworx portworxVolume = default(PodInfoPodSpecVolumeInfoPortworx), PodInfoPodSpecVolumeInfoProjected projected = default(PodInfoPodSpecVolumeInfoProjected), PodInfoPodSpecVolumeInfoQuobyte quobyte = default(PodInfoPodSpecVolumeInfoQuobyte), PodInfoPodSpecVolumeInfoRBD rbd = default(PodInfoPodSpecVolumeInfoRBD), PodInfoPodSpecVolumeInfoScaleIO scaleIo = default(PodInfoPodSpecVolumeInfoScaleIO), PodInfoPodSpecVolumeInfoConfigMap secret = default(PodInfoPodSpecVolumeInfoConfigMap), PodInfoPodSpecVolumeInfoSecretVolumeSource secretVolume = default(PodInfoPodSpecVolumeInfoSecretVolumeSource), PodInfoPodSpecVolumeInfoStorageOS storageos = default(PodInfoPodSpecVolumeInfoStorageOS), string volumeMode = default(string), PodInfoPodSpecVolumeInfoVsphereVirtualDisk vsphereVolume = default(PodInfoPodSpecVolumeInfoVsphereVirtualDisk))
         {
             this.Name = name;
+            this.VolumeMode = volumeMode;
             this.AwsElasticBlockStore = awsElasticBlockStore;
             this.AzureDisk = azureDisk;
             this.AzureFile = azureFile;
@@ -84,7 +87,9 @@ namespace Cohesity.Model
             this.Rbd = rbd;
             this.ScaleIo = scaleIo;
             this.Secret = secret;
+            this.SecretVolume = secretVolume;
             this.Storageos = storageos;
+            this.VolumeMode = volumeMode;
             this.VsphereVolume = vsphereVolume;
         }
         
@@ -258,10 +263,23 @@ namespace Cohesity.Model
         public PodInfoPodSpecVolumeInfoConfigMap Secret { get; set; }
 
         /// <summary>
+        /// Gets or Sets SecretVolume
+        /// </summary>
+        [DataMember(Name="secretVolume", EmitDefaultValue=false)]
+        public PodInfoPodSpecVolumeInfoSecretVolumeSource SecretVolume { get; set; }
+
+        /// <summary>
         /// Gets or Sets Storageos
         /// </summary>
         [DataMember(Name="storageos", EmitDefaultValue=false)]
         public PodInfoPodSpecVolumeInfoStorageOS Storageos { get; set; }
+
+        /// <summary>
+        /// Volume mode. Possible value could Filesystem, Block or empty(implying Filesystem).
+        /// </summary>
+        /// <value>Volume mode. Possible value could Filesystem, Block or empty(implying Filesystem).</value>
+        [DataMember(Name="volumeMode", EmitDefaultValue=true)]
+        public string VolumeMode { get; set; }
 
         /// <summary>
         /// Gets or Sets VsphereVolume
@@ -446,9 +464,19 @@ namespace Cohesity.Model
                     this.Secret.Equals(input.Secret))
                 ) && 
                 (
+                    this.SecretVolume == input.SecretVolume ||
+                    (this.SecretVolume != null &&
+                    this.SecretVolume.Equals(input.SecretVolume))
+                ) && 
+                (
                     this.Storageos == input.Storageos ||
                     (this.Storageos != null &&
                     this.Storageos.Equals(input.Storageos))
+                ) && 
+                (
+                    this.VolumeMode == input.VolumeMode ||
+                    (this.VolumeMode != null &&
+                    this.VolumeMode.Equals(input.VolumeMode))
                 ) && 
                 (
                     this.VsphereVolume == input.VsphereVolume ||
@@ -522,8 +550,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ScaleIo.GetHashCode();
                 if (this.Secret != null)
                     hashCode = hashCode * 59 + this.Secret.GetHashCode();
+                if (this.SecretVolume != null)
+                    hashCode = hashCode * 59 + this.SecretVolume.GetHashCode();
                 if (this.Storageos != null)
                     hashCode = hashCode * 59 + this.Storageos.GetHashCode();
+                if (this.VolumeMode != null)
+                    hashCode = hashCode * 59 + this.VolumeMode.GetHashCode();
                 if (this.VsphereVolume != null)
                     hashCode = hashCode * 59 + this.VsphereVolume.GetHashCode();
                 return hashCode;

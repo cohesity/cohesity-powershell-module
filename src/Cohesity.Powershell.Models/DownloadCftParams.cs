@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="fileName">Specifies the file name of the cloud formation template..</param>
         /// <param name="filePath">Specifies the file path of the template. If passed null, \&quot;/home/cohesity/bin\&quot; will be considered as file path..</param>
-        public DownloadCftParams(string fileName = default(string), string filePath = default(string))
+        /// <param name="isExternalTarget">Specifies which workflow the CFT download is for. If true, then the CFT download is for external target registration Else, it is assumed for source registration..</param>
+        public DownloadCftParams(string fileName = default(string), string filePath = default(string), bool? isExternalTarget = default(bool?))
         {
             this.FileName = fileName;
             this.FilePath = filePath;
+            this.IsExternalTarget = isExternalTarget;
             this.FileName = fileName;
             this.FilePath = filePath;
+            this.IsExternalTarget = isExternalTarget;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>Specifies the file path of the template. If passed null, \&quot;/home/cohesity/bin\&quot; will be considered as file path.</value>
         [DataMember(Name="filePath", EmitDefaultValue=true)]
         public string FilePath { get; set; }
+
+        /// <summary>
+        /// Specifies which workflow the CFT download is for. If true, then the CFT download is for external target registration Else, it is assumed for source registration.
+        /// </summary>
+        /// <value>Specifies which workflow the CFT download is for. If true, then the CFT download is for external target registration Else, it is assumed for source registration.</value>
+        [DataMember(Name="isExternalTarget", EmitDefaultValue=true)]
+        public bool? IsExternalTarget { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.FilePath == input.FilePath ||
                     (this.FilePath != null &&
                     this.FilePath.Equals(input.FilePath))
+                ) && 
+                (
+                    this.IsExternalTarget == input.IsExternalTarget ||
+                    (this.IsExternalTarget != null &&
+                    this.IsExternalTarget.Equals(input.IsExternalTarget))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FileName.GetHashCode();
                 if (this.FilePath != null)
                     hashCode = hashCode * 59 + this.FilePath.GetHashCode();
+                if (this.IsExternalTarget != null)
+                    hashCode = hashCode * 59 + this.IsExternalTarget.GetHashCode();
                 return hashCode;
             }
         }

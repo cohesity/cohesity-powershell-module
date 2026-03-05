@@ -115,7 +115,25 @@ namespace Cohesity.Model
             /// Enum Swift for value: Swift
             /// </summary>
             [EnumMember(Value = "Swift")]
-            Swift = 15
+            Swift = 15,
+
+            /// <summary>
+            /// Enum ExternalTargets for value: ExternalTargets
+            /// </summary>
+            [EnumMember(Value = "ExternalTargets")]
+            ExternalTargets = 16,
+
+            /// <summary>
+            /// Enum HyxRealms for value: HyxRealms
+            /// </summary>
+            [EnumMember(Value = "HyxRealms")]
+            HyxRealms = 17,
+
+            /// <summary>
+            /// Enum HyxConnectors for value: HyxConnectors
+            /// </summary>
+            [EnumMember(Value = "HyxConnectors")]
+            HyxConnectors = 18
 
         }
 

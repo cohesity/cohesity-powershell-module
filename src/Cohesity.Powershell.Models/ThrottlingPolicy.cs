@@ -26,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="datastoreStreamsConfig">datastoreStreamsConfig.</param>
         /// <param name="datastoreThrottlingPolicies">This field can be used to override the throttling policy for individual datastores..</param>
         /// <param name="entity">entity.</param>
+        /// <param name="genericThrottlingConfig">genericThrottlingConfig.</param>
         /// <param name="isDatastoreStreamsConfigEnabled">Whether datastore streams can be configured on all datastores that are part of the registered entity. If set to true, then the config within &#39;DatastoreStreamsConfig&#39; would be applicable to all those datastores..</param>
         /// <param name="isMaxSnapshotsConfigEnabled">Whether we will use storage snapshot managmement max snap config to all volumes/luns that are part of the registered entity..</param>
         /// <param name="isMaxSpaceConfigEnabled">Whether we will use storage snapshot managmement max space config to all volumes/luns that are part of the registered entity..</param>
@@ -36,7 +37,7 @@ namespace Cohesity.Model
         /// <param name="storageArraySnapshotMaxSnapshotConfig">storageArraySnapshotMaxSnapshotConfig.</param>
         /// <param name="storageArraySnapshotMaxSpaceConfig">storageArraySnapshotMaxSpaceConfig.</param>
         /// <param name="storageArraySnapshotThrottlingPolicies">This field is used for throttling policy for individual volume/lun..</param>
-        public ThrottlingPolicy(ThrottlingPolicyDatastoreStreamsConfig datastoreStreamsConfig = default(ThrottlingPolicyDatastoreStreamsConfig), List<ThrottlingPolicyDatastoreThrottlingPolicy> datastoreThrottlingPolicies = default(List<ThrottlingPolicyDatastoreThrottlingPolicy>), EntityProto entity = default(EntityProto), bool? isDatastoreStreamsConfigEnabled = default(bool?), bool? isMaxSnapshotsConfigEnabled = default(bool?), bool? isMaxSpaceConfigEnabled = default(bool?), bool? isRegisteredSourceThrottlingConfigEnabled = default(bool?), bool? isThrottlingEnabled = default(bool?), ThrottlingPolicyLatencyThresholds latencyThresholds = default(ThrottlingPolicyLatencyThresholds), ThrottlingPolicyRegisteredSourceThrottlingConfig registeredSourceThrottlingConfig = default(ThrottlingPolicyRegisteredSourceThrottlingConfig), ThrottlingPolicyStorageArraySnapshotMaxSnapshotConfig storageArraySnapshotMaxSnapshotConfig = default(ThrottlingPolicyStorageArraySnapshotMaxSnapshotConfig), ThrottlingPolicyStorageArraySnapshotMaxSpaceConfig storageArraySnapshotMaxSpaceConfig = default(ThrottlingPolicyStorageArraySnapshotMaxSpaceConfig), List<ThrottlingPolicyStorageArraySnapshotThrottlingPolicy> storageArraySnapshotThrottlingPolicies = default(List<ThrottlingPolicyStorageArraySnapshotThrottlingPolicy>))
+        public ThrottlingPolicy(ThrottlingPolicyDatastoreStreamsConfig datastoreStreamsConfig = default(ThrottlingPolicyDatastoreStreamsConfig), List<ThrottlingPolicyDatastoreThrottlingPolicy> datastoreThrottlingPolicies = default(List<ThrottlingPolicyDatastoreThrottlingPolicy>), EntityProto entity = default(EntityProto), ThrottlingPolicyGenericThrottlingConfig genericThrottlingConfig = default(ThrottlingPolicyGenericThrottlingConfig), bool? isDatastoreStreamsConfigEnabled = default(bool?), bool? isMaxSnapshotsConfigEnabled = default(bool?), bool? isMaxSpaceConfigEnabled = default(bool?), bool? isRegisteredSourceThrottlingConfigEnabled = default(bool?), bool? isThrottlingEnabled = default(bool?), ThrottlingPolicyLatencyThresholds latencyThresholds = default(ThrottlingPolicyLatencyThresholds), ThrottlingPolicyRegisteredSourceThrottlingConfig registeredSourceThrottlingConfig = default(ThrottlingPolicyRegisteredSourceThrottlingConfig), ThrottlingPolicyStorageArraySnapshotMaxSnapshotConfig storageArraySnapshotMaxSnapshotConfig = default(ThrottlingPolicyStorageArraySnapshotMaxSnapshotConfig), ThrottlingPolicyStorageArraySnapshotMaxSpaceConfig storageArraySnapshotMaxSpaceConfig = default(ThrottlingPolicyStorageArraySnapshotMaxSpaceConfig), List<ThrottlingPolicyStorageArraySnapshotThrottlingPolicy> storageArraySnapshotThrottlingPolicies = default(List<ThrottlingPolicyStorageArraySnapshotThrottlingPolicy>))
         {
             this.DatastoreThrottlingPolicies = datastoreThrottlingPolicies;
             this.IsDatastoreStreamsConfigEnabled = isDatastoreStreamsConfigEnabled;
@@ -48,6 +49,7 @@ namespace Cohesity.Model
             this.DatastoreStreamsConfig = datastoreStreamsConfig;
             this.DatastoreThrottlingPolicies = datastoreThrottlingPolicies;
             this.Entity = entity;
+            this.GenericThrottlingConfig = genericThrottlingConfig;
             this.IsDatastoreStreamsConfigEnabled = isDatastoreStreamsConfigEnabled;
             this.IsMaxSnapshotsConfigEnabled = isMaxSnapshotsConfigEnabled;
             this.IsMaxSpaceConfigEnabled = isMaxSpaceConfigEnabled;
@@ -78,6 +80,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="entity", EmitDefaultValue=false)]
         public EntityProto Entity { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GenericThrottlingConfig
+        /// </summary>
+        [DataMember(Name="genericThrottlingConfig", EmitDefaultValue=false)]
+        public ThrottlingPolicyGenericThrottlingConfig GenericThrottlingConfig { get; set; }
 
         /// <summary>
         /// Whether datastore streams can be configured on all datastores that are part of the registered entity. If set to true, then the config within &#39;DatastoreStreamsConfig&#39; would be applicable to all those datastores.
@@ -198,6 +206,11 @@ namespace Cohesity.Model
                     this.Entity.Equals(input.Entity))
                 ) && 
                 (
+                    this.GenericThrottlingConfig == input.GenericThrottlingConfig ||
+                    (this.GenericThrottlingConfig != null &&
+                    this.GenericThrottlingConfig.Equals(input.GenericThrottlingConfig))
+                ) && 
+                (
                     this.IsDatastoreStreamsConfigEnabled == input.IsDatastoreStreamsConfigEnabled ||
                     (this.IsDatastoreStreamsConfigEnabled != null &&
                     this.IsDatastoreStreamsConfigEnabled.Equals(input.IsDatastoreStreamsConfigEnabled))
@@ -265,6 +278,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatastoreThrottlingPolicies.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
+                if (this.GenericThrottlingConfig != null)
+                    hashCode = hashCode * 59 + this.GenericThrottlingConfig.GetHashCode();
                 if (this.IsDatastoreStreamsConfigEnabled != null)
                     hashCode = hashCode * 59 + this.IsDatastoreStreamsConfigEnabled.GetHashCode();
                 if (this.IsMaxSnapshotsConfigEnabled != null)

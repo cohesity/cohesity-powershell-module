@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class User :  IEquatable<User>
     {
         /// <summary>
-        /// Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.
+        /// Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SAML based SSO user. &#39;kAuthMcmOnPrem&#39; implies authenticated user is an OnPrem MCM user. &#39;kAuthService&#39; implies authenticated client is an API consumer. &#39;kAuthMsftSelfService&#39; implies authenticated client is MSFT based via OIDC. &#39;kAuthOidcSso&#39; implies authenticated user is an SSO user via OIDC.
         /// </summary>
-        /// <value>Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.</value>
+        /// <value>Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SAML based SSO user. &#39;kAuthMcmOnPrem&#39; implies authenticated user is an OnPrem MCM user. &#39;kAuthService&#39; implies authenticated client is an API consumer. &#39;kAuthMsftSelfService&#39; implies authenticated client is MSFT based via OIDC. &#39;kAuthOidcSso&#39; implies authenticated user is an SSO user via OIDC.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthenticationTypeEnum
         {
@@ -55,14 +55,38 @@ namespace Cohesity.Model
             /// Enum KAuthSso for value: kAuthSso
             /// </summary>
             [EnumMember(Value = "kAuthSso")]
-            KAuthSso = 5
+            KAuthSso = 5,
+
+            /// <summary>
+            /// Enum KAuthMcmOnPrem for value: kAuthMcmOnPrem
+            /// </summary>
+            [EnumMember(Value = "kAuthMcmOnPrem")]
+            KAuthMcmOnPrem = 6,
+
+            /// <summary>
+            /// Enum KAuthService for value: kAuthService
+            /// </summary>
+            [EnumMember(Value = "kAuthService")]
+            KAuthService = 7,
+
+            /// <summary>
+            /// Enum KAuthMsftSelfService for value: kAuthMsftSelfService
+            /// </summary>
+            [EnumMember(Value = "kAuthMsftSelfService")]
+            KAuthMsftSelfService = 8,
+
+            /// <summary>
+            /// Enum KAuthOidcSso for value: kAuthOidcSso
+            /// </summary>
+            [EnumMember(Value = "kAuthOidcSso")]
+            KAuthOidcSso = 9
 
         }
 
         /// <summary>
-        /// Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.
+        /// Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SAML based SSO user. &#39;kAuthMcmOnPrem&#39; implies authenticated user is an OnPrem MCM user. &#39;kAuthService&#39; implies authenticated client is an API consumer. &#39;kAuthMsftSelfService&#39; implies authenticated client is MSFT based via OIDC. &#39;kAuthOidcSso&#39; implies authenticated user is an SSO user via OIDC.
         /// </summary>
-        /// <value>Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.</value>
+        /// <value>Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SAML based SSO user. &#39;kAuthMcmOnPrem&#39; implies authenticated user is an OnPrem MCM user. &#39;kAuthService&#39; implies authenticated client is an API consumer. &#39;kAuthMsftSelfService&#39; implies authenticated client is MSFT based via OIDC. &#39;kAuthOidcSso&#39; implies authenticated user is an SSO user via OIDC.</value>
         [DataMember(Name="authenticationType", EmitDefaultValue=true)]
         public AuthenticationTypeEnum? AuthenticationType { get; set; }
         /// <summary>
@@ -492,7 +516,7 @@ namespace Cohesity.Model
         /// <param name="additionalGroupNames">Array of Additional Groups.  Specifies the names of additional groups this User may belong to..</param>
         /// <param name="allowDsoModify">Specifies if the data security user can be modified by the admin users..</param>
         /// <param name="auditLogSettings">auditLogSettings.</param>
-        /// <param name="authenticationType">Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user..</param>
+        /// <param name="authenticationType">Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SAML based SSO user. &#39;kAuthMcmOnPrem&#39; implies authenticated user is an OnPrem MCM user. &#39;kAuthService&#39; implies authenticated client is an API consumer. &#39;kAuthMsftSelfService&#39; implies authenticated client is MSFT based via OIDC. &#39;kAuthOidcSso&#39; implies authenticated user is an SSO user via OIDC..</param>
         /// <param name="clusterIdentifiers">Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters..</param>
         /// <param name="createdTimeMsecs">Specifies the epoch time in milliseconds when the user account was created on the Cohesity Cluster..</param>
         /// <param name="currentPassword">Specifies the current password when updating the password..</param>
@@ -503,6 +527,7 @@ namespace Cohesity.Model
         /// <param name="expiredTimeMsecs">Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in..</param>
         /// <param name="forcePasswordChange">Specifies whether to force user to change password..</param>
         /// <param name="googleAccount">googleAccount.</param>
+        /// <param name="ibmUserMetadata">ibmUserMetadata.</param>
         /// <param name="idpUserInfo">idpUserInfo.</param>
         /// <param name="intercomMessengerToken">Specifies the messenger token for intercom identity verification..</param>
         /// <param name="isAccountLocked">Specifies whether the user account is locked..</param>
@@ -512,6 +537,8 @@ namespace Cohesity.Model
         /// <param name="lockoutReason">Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons..</param>
         /// <param name="mfaInfo">mfaInfo.</param>
         /// <param name="mfaMethods">Specifies MFA methods that enabled on the cluster..</param>
+        /// <param name="msftUserInfo">msftUserInfo.</param>
+        /// <param name="objectClass">Specifies object class of user, could be either user or group..</param>
         /// <param name="orgMembership">OrgMembership contains the list of all available tenantIds for this user to switch to. Only when creating the session user, this field is populated on the fly. We discover the tenantIds from various groups assigned to the users..</param>
         /// <param name="password">Specifies the password of this user..</param>
         /// <param name="preferences">preferences.</param>
@@ -531,7 +558,7 @@ namespace Cohesity.Model
         /// <param name="tenantAccesses">Specifies the tenant access available to current user. NOTE: Currently used for Helios..</param>
         /// <param name="tenantId">Specifies the effective Tenant ID of the user..</param>
         /// <param name="username">Specifies the login name of the user..</param>
-        public User(ADUserInfo adUserInfo = default(ADUserInfo), List<string> additionalGroupNames = default(List<string>), bool? allowDsoModify = default(bool?), AuditLogSettings auditLogSettings = default(AuditLogSettings), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string currentPassword = default(string), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), bool? forcePasswordChange = default(bool?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IdpUserInfo idpUserInfo = default(IdpUserInfo), string intercomMessengerToken = default(string), bool? isAccountLocked = default(bool?), bool? isActive = default(bool?), long? lastSuccessfulLoginTimeMsecs = default(long?), long? lastUpdatedTimeMsecs = default(long?), LockoutReasonEnum? lockoutReason = default(LockoutReasonEnum?), MfaInfo mfaInfo = default(MfaInfo), List<string> mfaMethods = default(List<string>), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), long? previousLoginTimeMsecs = default(long?), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), SpogContext spogContext = default(SpogContext), SubscriptionInfo subscriptionInfo = default(SubscriptionInfo), List<TenantAccess> tenantAccesses = default(List<TenantAccess>), string tenantId = default(string), string username = default(string))
+        public User(ADUserInfo adUserInfo = default(ADUserInfo), List<string> additionalGroupNames = default(List<string>), bool? allowDsoModify = default(bool?), AuditLogSettings auditLogSettings = default(AuditLogSettings), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string currentPassword = default(string), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), bool? forcePasswordChange = default(bool?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IbmUserMetadata ibmUserMetadata = default(IbmUserMetadata), IdpUserInfo idpUserInfo = default(IdpUserInfo), string intercomMessengerToken = default(string), bool? isAccountLocked = default(bool?), bool? isActive = default(bool?), long? lastSuccessfulLoginTimeMsecs = default(long?), long? lastUpdatedTimeMsecs = default(long?), LockoutReasonEnum? lockoutReason = default(LockoutReasonEnum?), MfaInfo mfaInfo = default(MfaInfo), List<string> mfaMethods = default(List<string>), MsftUserInfo msftUserInfo = default(MsftUserInfo), string objectClass = default(string), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), long? previousLoginTimeMsecs = default(long?), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), SpogContext spogContext = default(SpogContext), SubscriptionInfo subscriptionInfo = default(SubscriptionInfo), List<TenantAccess> tenantAccesses = default(List<TenantAccess>), string tenantId = default(string), string username = default(string))
         {
             this.AdditionalGroupNames = additionalGroupNames;
             this.AllowDsoModify = allowDsoModify;
@@ -552,6 +579,7 @@ namespace Cohesity.Model
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
             this.LockoutReason = lockoutReason;
             this.MfaMethods = mfaMethods;
+            this.ObjectClass = objectClass;
             this.OrgMembership = orgMembership;
             this.Password = password;
             this.PreviousLoginTimeMsecs = previousLoginTimeMsecs;
@@ -582,6 +610,7 @@ namespace Cohesity.Model
             this.ExpiredTimeMsecs = expiredTimeMsecs;
             this.ForcePasswordChange = forcePasswordChange;
             this.GoogleAccount = googleAccount;
+            this.IbmUserMetadata = ibmUserMetadata;
             this.IdpUserInfo = idpUserInfo;
             this.IntercomMessengerToken = intercomMessengerToken;
             this.IsAccountLocked = isAccountLocked;
@@ -591,6 +620,8 @@ namespace Cohesity.Model
             this.LockoutReason = lockoutReason;
             this.MfaInfo = mfaInfo;
             this.MfaMethods = mfaMethods;
+            this.MsftUserInfo = msftUserInfo;
+            this.ObjectClass = objectClass;
             this.OrgMembership = orgMembership;
             this.Password = password;
             this.Preferences = preferences;
@@ -715,6 +746,12 @@ namespace Cohesity.Model
         public List<string> GroupRoles { get; private set; }
 
         /// <summary>
+        /// Gets or Sets IbmUserMetadata
+        /// </summary>
+        [DataMember(Name="ibmUserMetadata", EmitDefaultValue=false)]
+        public IbmUserMetadata IbmUserMetadata { get; set; }
+
+        /// <summary>
         /// Gets or Sets IdpUserInfo
         /// </summary>
         [DataMember(Name="idpUserInfo", EmitDefaultValue=false)]
@@ -781,6 +818,19 @@ namespace Cohesity.Model
         /// <value>Specifies MFA methods that enabled on the cluster.</value>
         [DataMember(Name="mfaMethods", EmitDefaultValue=true)]
         public List<string> MfaMethods { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MsftUserInfo
+        /// </summary>
+        [DataMember(Name="msftUserInfo", EmitDefaultValue=false)]
+        public MsftUserInfo MsftUserInfo { get; set; }
+
+        /// <summary>
+        /// Specifies object class of user, could be either user or group.
+        /// </summary>
+        /// <value>Specifies object class of user, could be either user or group.</value>
+        [DataMember(Name="objectClass", EmitDefaultValue=true)]
+        public string ObjectClass { get; set; }
 
         /// <summary>
         /// OrgMembership contains the list of all available tenantIds for this user to switch to. Only when creating the session user, this field is populated on the fly. We discover the tenantIds from various groups assigned to the users.
@@ -1023,6 +1073,11 @@ namespace Cohesity.Model
                     this.GroupRoles.SequenceEqual(input.GroupRoles)
                 ) && 
                 (
+                    this.IbmUserMetadata == input.IbmUserMetadata ||
+                    (this.IbmUserMetadata != null &&
+                    this.IbmUserMetadata.Equals(input.IbmUserMetadata))
+                ) && 
+                (
                     this.IdpUserInfo == input.IdpUserInfo ||
                     (this.IdpUserInfo != null &&
                     this.IdpUserInfo.Equals(input.IdpUserInfo))
@@ -1076,6 +1131,16 @@ namespace Cohesity.Model
                     this.MfaMethods != null &&
                     input.MfaMethods != null &&
                     this.MfaMethods.SequenceEqual(input.MfaMethods)
+                ) && 
+                (
+                    this.MsftUserInfo == input.MsftUserInfo ||
+                    (this.MsftUserInfo != null &&
+                    this.MsftUserInfo.Equals(input.MsftUserInfo))
+                ) && 
+                (
+                    this.ObjectClass == input.ObjectClass ||
+                    (this.ObjectClass != null &&
+                    this.ObjectClass.Equals(input.ObjectClass))
                 ) && 
                 (
                     this.OrgMembership == input.OrgMembership ||
@@ -1217,6 +1282,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GoogleAccount.GetHashCode();
                 if (this.GroupRoles != null)
                     hashCode = hashCode * 59 + this.GroupRoles.GetHashCode();
+                if (this.IbmUserMetadata != null)
+                    hashCode = hashCode * 59 + this.IbmUserMetadata.GetHashCode();
                 if (this.IdpUserInfo != null)
                     hashCode = hashCode * 59 + this.IdpUserInfo.GetHashCode();
                 if (this.IntercomMessengerToken != null)
@@ -1238,6 +1305,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MfaInfo.GetHashCode();
                 if (this.MfaMethods != null)
                     hashCode = hashCode * 59 + this.MfaMethods.GetHashCode();
+                if (this.MsftUserInfo != null)
+                    hashCode = hashCode * 59 + this.MsftUserInfo.GetHashCode();
+                if (this.ObjectClass != null)
+                    hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
                 if (this.OrgMembership != null)
                     hashCode = hashCode * 59 + this.OrgMembership.GetHashCode();
                 if (this.Password != null)

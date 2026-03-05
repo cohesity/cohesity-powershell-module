@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Each available extension is listed below along with the location of the proto file (relative to magneto/connectors) where it is defined. The only exception is view.proto and physical.proto which reside in magneto/base.  SnapshotInfoProto extension                     Location              Extn &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; vmware::SnapshotInfo::vmware_snapshot_info     vmware/vmware.proto       100 sql::SnapshotInfo::sql_snapshot_info           sql/sql.proto             101 view::SnapshotInfo::view_snapshot_info         base/view.proto           102 physical::SnapshotInfo::physical_snapshot_info base/physical.proto       103 san::SnapshotInfo::san_snapshot_info           san/san.proto             104 file::SnapshotInfo::file_snapshot_info         file/file.proto           105 hyperv::SnapshotInfo::hyperv_snapshot_info     hyperv/hyperv.proto       106 acropolis::SnapshotInfo:: acropolis_snapshot_info                        acropolis/acropolis.proto 107 kvm::SnapshotInfo::kvm_snapshot_info           kvm/kvm.proto             108 app_file::SnapshotInfo::app_file_snapshot_info app_file/app_file.proto   109 oracle::SnapshotInfo::oracle_snapshot_info     oracle/oracle.proto       110 aws::SnapshotInfo::aws_snapshot_info           aws/aws.proto             111 outlook::SnapshotInfo::outlook_snapshot_info   outlook/outlook.proto     112 azure::SnapshotInfo::azure_snapshot_info       azure/azure.proto         113 gcp::SnapshotInfo::gcp_snapshot_info           gcp/gcp.proto             114 ad::SnapshotInfo::ad_snapshot_info             ad/ad.proto               115 MSGraph::SnapshotInfo::one_drive_snapshot_info ms_graph/graph.proto      116 kubernetes::SnapshotInfo:: kubernetes_snapshot_info kubernetes/kubernetes.proto 117 aws::RDSSnapshotInfo::rds_snapshot_info        aws/aws.proto             118 o365::SnapshotInfo::o365_snapshot_info         o365/o365.proto           119 exchange::SnapshotInfo::exchange_snapshot_info exchange/exchange.proto   120 o365::SharepointSnapshotInfo::sharepoint_snapshot_info o365/o365.proto           121 MSGraph::SharepointListSnapshotInfo::sharepoint_list_snapshot_info ms_graph/graph.proto      122 cdp::SnapshotInfo::cdp_snapshot_info           base/cdp.proto            123 imanis::SnapshotInfo::nosql_snapshot_info      imanis/nosql.proto        124 o365::PublicFolderSnapshotInfo::public_folder_snapshot_info o365/o365.proto           125 SnapshotInfo::uda_snapshot_info                uda.proto                 126 o365::TeamsSnapshotInfo::teams_snapshot_info   o365/o365.proto           127 o365::O365GroupSnapshotInfo::o365_group_snapshot_info o365/o365.proto           128 SnapshotInfo::sfdc_snapshot_info               sfdc_service.proto        129 san::GroupSnapshotInfo::group_snapshot_info    san/san.proto             130 rds::OracleRmanSnapshotInfo::rds_oracle_rman_snapshot_info rds/rds.proto             131 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+    /// Each available extension is listed below along with the location of the proto file (relative to magneto/connectors) where it is defined. The only exception is view.proto and physical.proto which reside in magneto/base.  SnapshotInfoProto extension                     Location              Extn &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; vmware::SnapshotInfo::vmware_snapshot_info     vmware/vmware.proto       100 sql::SnapshotInfo::sql_snapshot_info           sql/sql.proto             101 view::SnapshotInfo::view_snapshot_info         base/view.proto           102 physical::SnapshotInfo::physical_snapshot_info base/physical.proto       103 san::SnapshotInfo::san_snapshot_info           san/san.proto             104 file::SnapshotInfo::file_snapshot_info         file/file.proto           105 hyperv::SnapshotInfo::hyperv_snapshot_info     hyperv/hyperv.proto       106 acropolis::SnapshotInfo:: acropolis_snapshot_info                        acropolis/acropolis.proto 107 kvm::SnapshotInfo::kvm_snapshot_info           kvm/kvm.proto             108 app_file::SnapshotInfo::app_file_snapshot_info app_file/app_file.proto   109 oracle::SnapshotInfo::oracle_snapshot_info     oracle/oracle.proto       110 aws::SnapshotInfo::aws_snapshot_info           aws/aws.proto             111 outlook::SnapshotInfo::outlook_snapshot_info   outlook/outlook.proto     112 azure::SnapshotInfo::azure_snapshot_info       azure/azure.proto         113 gcp::SnapshotInfo::gcp_snapshot_info           gcp/gcp.proto             114 ad::SnapshotInfo::ad_snapshot_info             ad/ad.proto               115 MSGraph::SnapshotInfo::one_drive_snapshot_info ms_graph/graph.proto      116 kubernetes::SnapshotInfo:: kubernetes_snapshot_info  kubernetes/kubernetes.proto 117  aws::RDSSnapshotInfo::rds_snapshot_info        aws/aws.proto             118 o365::SnapshotInfo::o365_snapshot_info         o365/o365.proto           119 exchange::SnapshotInfo::exchange_snapshot_info exchange/exchange.proto   120 o365::SharepointSnapshotInfo::sharepoint_snapshot_info  o365/o365.proto           121  MSGraph::SharepointListSnapshotInfo::sharepoint_list_snapshot_info  ms_graph/graph.proto      122  cdp::SnapshotInfo::cdp_snapshot_info           base/cdp.proto            123 imanis::SnapshotInfo::nosql_snapshot_info      imanis/nosql.proto        124 o365::PublicFolderSnapshotInfo::public_folder_snapshot_info  o365/o365.proto           125  SnapshotInfo::uda_snapshot_info                uda.proto                 126 o365::TeamsSnapshotInfo::teams_snapshot_info   o365/o365.proto           127 o365::O365GroupSnapshotInfo::o365_group_snapshot_info  o365/o365.proto           128  SnapshotInfo::sfdc_snapshot_info               sfdc_service.proto        129 san::GroupSnapshotInfo::san_group_snapshot_info  san/san.proto             130  rds::OracleRmanSnapshotInfo::rds_oracle_rman_snapshot_info  rds/rds.proto             131  o365::ChatsSnapshotInfo::chats_snapshot_info   o365/o365.proto           132 o365::M365CSMSnapshotInfo::m365_csm_snapshot_info  o365/o365.proto           133  SnapshotInfo::generic_adapter_snapshot_info    generic_adapter.proto     134 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
     /// </summary>
     [DataContract]
     public partial class SnapshotInfoProto :  IEquatable<SnapshotInfoProto>
@@ -23,7 +23,9 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SnapshotInfoProto" /> class.
         /// </summary>
+        /// <param name="additionalBackupMetadata">Backup metadata returned by generic adapter as opaque bytes..</param>
         /// <param name="changeRocksdbName">The name of the rocksdb directory for writing high change directories. It is stored in &#39;config&#39; directory of the current view..</param>
+        /// <param name="directiveFileViewPath">The name of the directive file persisted to view, this will be set after successfully persisting the directive file to view..</param>
         /// <param name="errorRocksdbName">The name of the rocksdb directory for errors seen during this backup, stored in &#39;config&#39; directory of the current view..</param>
         /// <param name="fileWalkDone">This field is only applicable for NAS and file backup jobs. It indicates whether the file walk portion of the backup has completed. TODO(amandeep): Rename this as this can be used for multiple workflows..</param>
         /// <param name="frontEndSizeInfo">frontEndSizeInfo.</param>
@@ -45,7 +47,9 @@ namespace Cohesity.Model
         /// <param name="sourceSnapshotName">This field is only relevant for NAS backups where we are backing up from a ReadOnly or DataProtect volume, or an RW volume with Snapdiff. For RW volumes, Cohesity will create the snapshot on NetApp, while for DP volumes, Cohesity will use the existing snapshot..</param>
         /// <param name="sourceSnapshotStatus">Indicates the state of the source snapshot if it is being managed by the master op. &#39;source_snapshot_name&#39; will be set to indicate the snapshot name. At the moment, this feature is enabled only for Netapp &amp; Isilon adapters to support continuous snapshotting feature..</param>
         /// <param name="storageSnapshotProvider">storageSnapshotProvider.</param>
+        /// <param name="successFilesRocksdbName">The name of the rocksdb directory for success files seen during backup, stored in &#39;config&#39; directory of the current view..</param>
         /// <param name="targetType">Specifies the target type for the task. The field is only valid if the task has got a permit..</param>
+        /// <param name="tieringReportsInfo">tieringReportsInfo.</param>
         /// <param name="totalBytesReadFromSource">Contains the information regarding number of bytes that are read from the source (such as VM) so far..</param>
         /// <param name="totalBytesTiered">Total amount of data successfully tiered from the NAS source..</param>
         /// <param name="totalBytesToReadFromSource">Contains the total number of bytes that will be read from the source (such as VM) for this snapshot..</param>
@@ -53,16 +57,20 @@ namespace Cohesity.Model
         /// <param name="totalEntityCount">The total number of file and directory entities visited in this backup. Only applicable to file based backups..</param>
         /// <param name="totalLogicalBackupSizeBytes">Logical size of the source whose snapshot is being taken. This is the amount of data we would have read from the source had this been a full backup..</param>
         /// <param name="totalPrimaryPhysicalSizeBytes">Contains the information regarding number of bytes that the source (such as VM) has taken up on the primary storage..</param>
+        /// <param name="totalSparseFiles">Number of sparse entities changes for the current run..</param>
         /// <param name="totalZeroFillBytes">Total number of bytes to be zero-filled in Snap FS as part of this backup. Currently applicable only for VMware backups..</param>
         /// <param name="type">The type of environment this snapshot info pertains to..</param>
+        /// <param name="usedViewModule">Indicates whether view module was used in the creation of this snapshot..</param>
         /// <param name="viewCaseInsensitivityAltered">Whether during the backup, the backup view&#39;s case insensitivity property has been altered. If so, Madrox needs to take corresponding actions during replication..</param>
         /// <param name="viewName">The data view name under which the snapshot was created. NOTE: This is populated only for View, Puppeteer, NAS and Oracle backup..</param>
         /// <param name="viewNameToGc">The view name under which the snapshot of the migrated data was created. NOTE: This is populated only for data migration tasks..</param>
         /// <param name="warnings">Warnings if any. These warnings will be propogated to the UI by master..</param>
         /// <param name="zeroFillTaskWeightScaleDownFactor">Factor by which weight of a zero-fill sub-task should be scaled down. This is used while creating sub-task monitors..</param>
-        public SnapshotInfoProto(string changeRocksdbName = default(string), string errorRocksdbName = default(string), bool? fileWalkDone = default(bool?), SizeInfo frontEndSizeInfo = default(SizeInfo), string metadataViewName = default(string), int? numAppInstances = default(int?), int? numAppObjects = default(int?), ScriptExecutionStatus postBackupScriptStatus = default(ScriptExecutionStatus), ScriptExecutionStatus postSnapshotScriptStatus = default(ScriptExecutionStatus), ScriptExecutionStatus preBackupScriptStatus = default(ScriptExecutionStatus), bool? reacquirePermit = default(bool?), string relativeSnapshotDir = default(string), string rootPath = default(string), string scribeTableColumn = default(string), string scribeTableRow = default(string), long? slaveTaskStartTimeUsecs = default(long?), int? snapshotExpiryTime = default(int?), ObjectSnapshotType snapshotType = default(ObjectSnapshotType), long? sourceSnapshotCreateTimeUsecs = default(long?), string sourceSnapshotName = default(string), int? sourceSnapshotStatus = default(int?), StorageSnapshotProviderParams storageSnapshotProvider = default(StorageSnapshotProviderParams), int? targetType = default(int?), long? totalBytesReadFromSource = default(long?), long? totalBytesTiered = default(long?), long? totalBytesToReadFromSource = default(long?), long? totalChangedEntityCount = default(long?), long? totalEntityCount = default(long?), long? totalLogicalBackupSizeBytes = default(long?), long? totalPrimaryPhysicalSizeBytes = default(long?), long? totalZeroFillBytes = default(long?), int? type = default(int?), bool? viewCaseInsensitivityAltered = default(bool?), string viewName = default(string), string viewNameToGc = default(string), List<ErrorProto> warnings = default(List<ErrorProto>), long? zeroFillTaskWeightScaleDownFactor = default(long?))
+        public SnapshotInfoProto(List<int> additionalBackupMetadata = default(List<int>), string changeRocksdbName = default(string), string directiveFileViewPath = default(string), string errorRocksdbName = default(string), bool? fileWalkDone = default(bool?), SizeInfo frontEndSizeInfo = default(SizeInfo), string metadataViewName = default(string), int? numAppInstances = default(int?), int? numAppObjects = default(int?), ScriptExecutionStatus postBackupScriptStatus = default(ScriptExecutionStatus), ScriptExecutionStatus postSnapshotScriptStatus = default(ScriptExecutionStatus), ScriptExecutionStatus preBackupScriptStatus = default(ScriptExecutionStatus), bool? reacquirePermit = default(bool?), string relativeSnapshotDir = default(string), string rootPath = default(string), string scribeTableColumn = default(string), string scribeTableRow = default(string), long? slaveTaskStartTimeUsecs = default(long?), int? snapshotExpiryTime = default(int?), ObjectSnapshotType snapshotType = default(ObjectSnapshotType), long? sourceSnapshotCreateTimeUsecs = default(long?), string sourceSnapshotName = default(string), int? sourceSnapshotStatus = default(int?), StorageSnapshotProviderParams storageSnapshotProvider = default(StorageSnapshotProviderParams), string successFilesRocksdbName = default(string), int? targetType = default(int?), TieringReportsInfo tieringReportsInfo = default(TieringReportsInfo), long? totalBytesReadFromSource = default(long?), long? totalBytesTiered = default(long?), long? totalBytesToReadFromSource = default(long?), long? totalChangedEntityCount = default(long?), long? totalEntityCount = default(long?), long? totalLogicalBackupSizeBytes = default(long?), long? totalPrimaryPhysicalSizeBytes = default(long?), long? totalSparseFiles = default(long?), long? totalZeroFillBytes = default(long?), int? type = default(int?), bool? usedViewModule = default(bool?), bool? viewCaseInsensitivityAltered = default(bool?), string viewName = default(string), string viewNameToGc = default(string), List<ErrorProto> warnings = default(List<ErrorProto>), long? zeroFillTaskWeightScaleDownFactor = default(long?))
         {
+            this.AdditionalBackupMetadata = additionalBackupMetadata;
             this.ChangeRocksdbName = changeRocksdbName;
+            this.DirectiveFileViewPath = directiveFileViewPath;
             this.ErrorRocksdbName = errorRocksdbName;
             this.FileWalkDone = fileWalkDone;
             this.MetadataViewName = metadataViewName;
@@ -78,6 +86,7 @@ namespace Cohesity.Model
             this.SourceSnapshotCreateTimeUsecs = sourceSnapshotCreateTimeUsecs;
             this.SourceSnapshotName = sourceSnapshotName;
             this.SourceSnapshotStatus = sourceSnapshotStatus;
+            this.SuccessFilesRocksdbName = successFilesRocksdbName;
             this.TargetType = targetType;
             this.TotalBytesReadFromSource = totalBytesReadFromSource;
             this.TotalBytesTiered = totalBytesTiered;
@@ -86,14 +95,18 @@ namespace Cohesity.Model
             this.TotalEntityCount = totalEntityCount;
             this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
             this.TotalPrimaryPhysicalSizeBytes = totalPrimaryPhysicalSizeBytes;
+            this.TotalSparseFiles = totalSparseFiles;
             this.TotalZeroFillBytes = totalZeroFillBytes;
             this.Type = type;
+            this.UsedViewModule = usedViewModule;
             this.ViewCaseInsensitivityAltered = viewCaseInsensitivityAltered;
             this.ViewName = viewName;
             this.ViewNameToGc = viewNameToGc;
             this.Warnings = warnings;
             this.ZeroFillTaskWeightScaleDownFactor = zeroFillTaskWeightScaleDownFactor;
+            this.AdditionalBackupMetadata = additionalBackupMetadata;
             this.ChangeRocksdbName = changeRocksdbName;
+            this.DirectiveFileViewPath = directiveFileViewPath;
             this.ErrorRocksdbName = errorRocksdbName;
             this.FileWalkDone = fileWalkDone;
             this.FrontEndSizeInfo = frontEndSizeInfo;
@@ -115,7 +128,9 @@ namespace Cohesity.Model
             this.SourceSnapshotName = sourceSnapshotName;
             this.SourceSnapshotStatus = sourceSnapshotStatus;
             this.StorageSnapshotProvider = storageSnapshotProvider;
+            this.SuccessFilesRocksdbName = successFilesRocksdbName;
             this.TargetType = targetType;
+            this.TieringReportsInfo = tieringReportsInfo;
             this.TotalBytesReadFromSource = totalBytesReadFromSource;
             this.TotalBytesTiered = totalBytesTiered;
             this.TotalBytesToReadFromSource = totalBytesToReadFromSource;
@@ -123,8 +138,10 @@ namespace Cohesity.Model
             this.TotalEntityCount = totalEntityCount;
             this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
             this.TotalPrimaryPhysicalSizeBytes = totalPrimaryPhysicalSizeBytes;
+            this.TotalSparseFiles = totalSparseFiles;
             this.TotalZeroFillBytes = totalZeroFillBytes;
             this.Type = type;
+            this.UsedViewModule = usedViewModule;
             this.ViewCaseInsensitivityAltered = viewCaseInsensitivityAltered;
             this.ViewName = viewName;
             this.ViewNameToGc = viewNameToGc;
@@ -133,11 +150,25 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Backup metadata returned by generic adapter as opaque bytes.
+        /// </summary>
+        /// <value>Backup metadata returned by generic adapter as opaque bytes.</value>
+        [DataMember(Name="additionalBackupMetadata", EmitDefaultValue=true)]
+        public List<int> AdditionalBackupMetadata { get; set; }
+
+        /// <summary>
         /// The name of the rocksdb directory for writing high change directories. It is stored in &#39;config&#39; directory of the current view.
         /// </summary>
         /// <value>The name of the rocksdb directory for writing high change directories. It is stored in &#39;config&#39; directory of the current view.</value>
         [DataMember(Name="changeRocksdbName", EmitDefaultValue=true)]
         public string ChangeRocksdbName { get; set; }
+
+        /// <summary>
+        /// The name of the directive file persisted to view, this will be set after successfully persisting the directive file to view.
+        /// </summary>
+        /// <value>The name of the directive file persisted to view, this will be set after successfully persisting the directive file to view.</value>
+        [DataMember(Name="directiveFileViewPath", EmitDefaultValue=true)]
+        public string DirectiveFileViewPath { get; set; }
 
         /// <summary>
         /// The name of the rocksdb directory for errors seen during this backup, stored in &#39;config&#39; directory of the current view.
@@ -281,11 +312,24 @@ namespace Cohesity.Model
         public StorageSnapshotProviderParams StorageSnapshotProvider { get; set; }
 
         /// <summary>
+        /// The name of the rocksdb directory for success files seen during backup, stored in &#39;config&#39; directory of the current view.
+        /// </summary>
+        /// <value>The name of the rocksdb directory for success files seen during backup, stored in &#39;config&#39; directory of the current view.</value>
+        [DataMember(Name="successFilesRocksdbName", EmitDefaultValue=true)]
+        public string SuccessFilesRocksdbName { get; set; }
+
+        /// <summary>
         /// Specifies the target type for the task. The field is only valid if the task has got a permit.
         /// </summary>
         /// <value>Specifies the target type for the task. The field is only valid if the task has got a permit.</value>
         [DataMember(Name="targetType", EmitDefaultValue=true)]
         public int? TargetType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TieringReportsInfo
+        /// </summary>
+        [DataMember(Name="tieringReportsInfo", EmitDefaultValue=false)]
+        public TieringReportsInfo TieringReportsInfo { get; set; }
 
         /// <summary>
         /// Contains the information regarding number of bytes that are read from the source (such as VM) so far.
@@ -337,6 +381,13 @@ namespace Cohesity.Model
         public long? TotalPrimaryPhysicalSizeBytes { get; set; }
 
         /// <summary>
+        /// Number of sparse entities changes for the current run.
+        /// </summary>
+        /// <value>Number of sparse entities changes for the current run.</value>
+        [DataMember(Name="totalSparseFiles", EmitDefaultValue=true)]
+        public long? TotalSparseFiles { get; set; }
+
+        /// <summary>
         /// Total number of bytes to be zero-filled in Snap FS as part of this backup. Currently applicable only for VMware backups.
         /// </summary>
         /// <value>Total number of bytes to be zero-filled in Snap FS as part of this backup. Currently applicable only for VMware backups.</value>
@@ -349,6 +400,13 @@ namespace Cohesity.Model
         /// <value>The type of environment this snapshot info pertains to.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
+
+        /// <summary>
+        /// Indicates whether view module was used in the creation of this snapshot.
+        /// </summary>
+        /// <value>Indicates whether view module was used in the creation of this snapshot.</value>
+        [DataMember(Name="usedViewModule", EmitDefaultValue=true)]
+        public bool? UsedViewModule { get; set; }
 
         /// <summary>
         /// Whether during the backup, the backup view&#39;s case insensitivity property has been altered. If so, Madrox needs to take corresponding actions during replication.
@@ -422,9 +480,20 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalBackupMetadata == input.AdditionalBackupMetadata ||
+                    this.AdditionalBackupMetadata != null &&
+                    input.AdditionalBackupMetadata != null &&
+                    this.AdditionalBackupMetadata.SequenceEqual(input.AdditionalBackupMetadata)
+                ) && 
+                (
                     this.ChangeRocksdbName == input.ChangeRocksdbName ||
                     (this.ChangeRocksdbName != null &&
                     this.ChangeRocksdbName.Equals(input.ChangeRocksdbName))
+                ) && 
+                (
+                    this.DirectiveFileViewPath == input.DirectiveFileViewPath ||
+                    (this.DirectiveFileViewPath != null &&
+                    this.DirectiveFileViewPath.Equals(input.DirectiveFileViewPath))
                 ) && 
                 (
                     this.ErrorRocksdbName == input.ErrorRocksdbName ||
@@ -532,9 +601,19 @@ namespace Cohesity.Model
                     this.StorageSnapshotProvider.Equals(input.StorageSnapshotProvider))
                 ) && 
                 (
+                    this.SuccessFilesRocksdbName == input.SuccessFilesRocksdbName ||
+                    (this.SuccessFilesRocksdbName != null &&
+                    this.SuccessFilesRocksdbName.Equals(input.SuccessFilesRocksdbName))
+                ) && 
+                (
                     this.TargetType == input.TargetType ||
                     (this.TargetType != null &&
                     this.TargetType.Equals(input.TargetType))
+                ) && 
+                (
+                    this.TieringReportsInfo == input.TieringReportsInfo ||
+                    (this.TieringReportsInfo != null &&
+                    this.TieringReportsInfo.Equals(input.TieringReportsInfo))
                 ) && 
                 (
                     this.TotalBytesReadFromSource == input.TotalBytesReadFromSource ||
@@ -572,6 +651,11 @@ namespace Cohesity.Model
                     this.TotalPrimaryPhysicalSizeBytes.Equals(input.TotalPrimaryPhysicalSizeBytes))
                 ) && 
                 (
+                    this.TotalSparseFiles == input.TotalSparseFiles ||
+                    (this.TotalSparseFiles != null &&
+                    this.TotalSparseFiles.Equals(input.TotalSparseFiles))
+                ) && 
+                (
                     this.TotalZeroFillBytes == input.TotalZeroFillBytes ||
                     (this.TotalZeroFillBytes != null &&
                     this.TotalZeroFillBytes.Equals(input.TotalZeroFillBytes))
@@ -580,6 +664,11 @@ namespace Cohesity.Model
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.UsedViewModule == input.UsedViewModule ||
+                    (this.UsedViewModule != null &&
+                    this.UsedViewModule.Equals(input.UsedViewModule))
                 ) && 
                 (
                     this.ViewCaseInsensitivityAltered == input.ViewCaseInsensitivityAltered ||
@@ -618,8 +707,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalBackupMetadata != null)
+                    hashCode = hashCode * 59 + this.AdditionalBackupMetadata.GetHashCode();
                 if (this.ChangeRocksdbName != null)
                     hashCode = hashCode * 59 + this.ChangeRocksdbName.GetHashCode();
+                if (this.DirectiveFileViewPath != null)
+                    hashCode = hashCode * 59 + this.DirectiveFileViewPath.GetHashCode();
                 if (this.ErrorRocksdbName != null)
                     hashCode = hashCode * 59 + this.ErrorRocksdbName.GetHashCode();
                 if (this.FileWalkDone != null)
@@ -662,8 +755,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SourceSnapshotStatus.GetHashCode();
                 if (this.StorageSnapshotProvider != null)
                     hashCode = hashCode * 59 + this.StorageSnapshotProvider.GetHashCode();
+                if (this.SuccessFilesRocksdbName != null)
+                    hashCode = hashCode * 59 + this.SuccessFilesRocksdbName.GetHashCode();
                 if (this.TargetType != null)
                     hashCode = hashCode * 59 + this.TargetType.GetHashCode();
+                if (this.TieringReportsInfo != null)
+                    hashCode = hashCode * 59 + this.TieringReportsInfo.GetHashCode();
                 if (this.TotalBytesReadFromSource != null)
                     hashCode = hashCode * 59 + this.TotalBytesReadFromSource.GetHashCode();
                 if (this.TotalBytesTiered != null)
@@ -678,10 +775,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TotalLogicalBackupSizeBytes.GetHashCode();
                 if (this.TotalPrimaryPhysicalSizeBytes != null)
                     hashCode = hashCode * 59 + this.TotalPrimaryPhysicalSizeBytes.GetHashCode();
+                if (this.TotalSparseFiles != null)
+                    hashCode = hashCode * 59 + this.TotalSparseFiles.GetHashCode();
                 if (this.TotalZeroFillBytes != null)
                     hashCode = hashCode * 59 + this.TotalZeroFillBytes.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UsedViewModule != null)
+                    hashCode = hashCode * 59 + this.UsedViewModule.GetHashCode();
                 if (this.ViewCaseInsensitivityAltered != null)
                     hashCode = hashCode * 59 + this.ViewCaseInsensitivityAltered.GetHashCode();
                 if (this.ViewName != null)

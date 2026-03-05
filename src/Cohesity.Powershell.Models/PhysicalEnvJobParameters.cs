@@ -23,15 +23,25 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalEnvJobParameters" /> class.
         /// </summary>
+        /// <param name="cobmrBackup">Specifies whether to enable CoBMR backup..</param>
         /// <param name="filePathFilters">filePathFilters.</param>
         /// <param name="incrementalSnapshotUponRestart">If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false..</param>
-        public PhysicalEnvJobParameters(FilePathFilter filePathFilters = default(FilePathFilter), bool? incrementalSnapshotUponRestart = default(bool?))
+        public PhysicalEnvJobParameters(bool? cobmrBackup = default(bool?), FilePathFilter filePathFilters = default(FilePathFilter), bool? incrementalSnapshotUponRestart = default(bool?))
         {
+            this.CobmrBackup = cobmrBackup;
             this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
+            this.CobmrBackup = cobmrBackup;
             this.FilePathFilters = filePathFilters;
             this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
         }
         
+        /// <summary>
+        /// Specifies whether to enable CoBMR backup.
+        /// </summary>
+        /// <value>Specifies whether to enable CoBMR backup.</value>
+        [DataMember(Name="CobmrBackup", EmitDefaultValue=true)]
+        public bool? CobmrBackup { get; set; }
+
         /// <summary>
         /// Gets or Sets FilePathFilters
         /// </summary>
@@ -82,6 +92,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CobmrBackup == input.CobmrBackup ||
+                    (this.CobmrBackup != null &&
+                    this.CobmrBackup.Equals(input.CobmrBackup))
+                ) && 
+                (
                     this.FilePathFilters == input.FilePathFilters ||
                     (this.FilePathFilters != null &&
                     this.FilePathFilters.Equals(input.FilePathFilters))
@@ -102,6 +117,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CobmrBackup != null)
+                    hashCode = hashCode * 59 + this.CobmrBackup.GetHashCode();
                 if (this.FilePathFilters != null)
                     hashCode = hashCode * 59 + this.FilePathFilters.GetHashCode();
                 if (this.IncrementalSnapshotUponRestart != null)

@@ -28,17 +28,23 @@ namespace Cohesity.Model
         /// <param name="includeInRestore">Whether or not to restore the PDB when restoring the CDB. Before this field was added, agent&#39;s behavior was to include the PDBs provided, there was no exclusion. By keeping the value as default true we will ensure the agent behaves the same way if someone upgrades agent service and the magneto service is still old..</param>
         /// <param name="pdbEntityInfoVec">pdbEntityInfoVec.</param>
         /// <param name="renamePdbMap">If rename pdb is provided, list of new names for the pdb..</param>
-        public PDBRestoreParam(bool? dropPdbsIfExists = default(bool?), bool? existingCdb = default(bool?), bool? includeInRestore = default(bool?), CDBEntityInfo pdbEntityInfoVec = default(CDBEntityInfo), List<PDBRestoreParamRenamePdbMapEntry> renamePdbMap = default(List<PDBRestoreParamRenamePdbMapEntry>))
+        /// <param name="sourceCdbKeystorePassword">The keystore password of the source CDB..</param>
+        /// <param name="targetCdbKeystorePassword">The keystore password of the target CDB..</param>
+        public PDBRestoreParam(bool? dropPdbsIfExists = default(bool?), bool? existingCdb = default(bool?), bool? includeInRestore = default(bool?), CDBEntityInfo pdbEntityInfoVec = default(CDBEntityInfo), Dictionary<string, string> renamePdbMap = default(Dictionary<string, string>), string sourceCdbKeystorePassword = default(string), string targetCdbKeystorePassword = default(string))
         {
             this.DropPdbsIfExists = dropPdbsIfExists;
             this.ExistingCdb = existingCdb;
             this.IncludeInRestore = includeInRestore;
             this.RenamePdbMap = renamePdbMap;
+            this.SourceCdbKeystorePassword = sourceCdbKeystorePassword;
+            this.TargetCdbKeystorePassword = targetCdbKeystorePassword;
             this.DropPdbsIfExists = dropPdbsIfExists;
             this.ExistingCdb = existingCdb;
             this.IncludeInRestore = includeInRestore;
             this.PdbEntityInfoVec = pdbEntityInfoVec;
             this.RenamePdbMap = renamePdbMap;
+            this.SourceCdbKeystorePassword = sourceCdbKeystorePassword;
+            this.TargetCdbKeystorePassword = targetCdbKeystorePassword;
         }
         
         /// <summary>
@@ -73,7 +79,21 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>If rename pdb is provided, list of new names for the pdb.</value>
         [DataMember(Name="renamePdbMap", EmitDefaultValue=true)]
-        public List<PDBRestoreParamRenamePdbMapEntry> RenamePdbMap { get; set; }
+        public Dictionary<string, string> RenamePdbMap { get; set; }
+
+        /// <summary>
+        /// The keystore password of the source CDB.
+        /// </summary>
+        /// <value>The keystore password of the source CDB.</value>
+        [DataMember(Name="sourceCdbKeystorePassword", EmitDefaultValue=true)]
+        public string SourceCdbKeystorePassword { get; set; }
+
+        /// <summary>
+        /// The keystore password of the target CDB.
+        /// </summary>
+        /// <value>The keystore password of the target CDB.</value>
+        [DataMember(Name="targetCdbKeystorePassword", EmitDefaultValue=true)]
+        public string TargetCdbKeystorePassword { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -136,6 +156,16 @@ namespace Cohesity.Model
                     this.RenamePdbMap != null &&
                     input.RenamePdbMap != null &&
                     this.RenamePdbMap.SequenceEqual(input.RenamePdbMap)
+                ) && 
+                (
+                    this.SourceCdbKeystorePassword == input.SourceCdbKeystorePassword ||
+                    (this.SourceCdbKeystorePassword != null &&
+                    this.SourceCdbKeystorePassword.Equals(input.SourceCdbKeystorePassword))
+                ) && 
+                (
+                    this.TargetCdbKeystorePassword == input.TargetCdbKeystorePassword ||
+                    (this.TargetCdbKeystorePassword != null &&
+                    this.TargetCdbKeystorePassword.Equals(input.TargetCdbKeystorePassword))
                 );
         }
 
@@ -158,6 +188,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PdbEntityInfoVec.GetHashCode();
                 if (this.RenamePdbMap != null)
                     hashCode = hashCode * 59 + this.RenamePdbMap.GetHashCode();
+                if (this.SourceCdbKeystorePassword != null)
+                    hashCode = hashCode * 59 + this.SourceCdbKeystorePassword.GetHashCode();
+                if (this.TargetCdbKeystorePassword != null)
+                    hashCode = hashCode * 59 + this.TargetCdbKeystorePassword.GetHashCode();
                 return hashCode;
             }
         }

@@ -111,243 +111,15 @@ namespace Cohesity.Model
             /// Enum KNimble for value: kNimble
             /// </summary>
             [EnumMember(Value = "kNimble")]
-            KNimble = 8,
-
-            /// <summary>
-            /// Enum KAzure for value: kAzure
-            /// </summary>
-            [EnumMember(Value = "kAzure")]
-            KAzure = 9,
-
-            /// <summary>
-            /// Enum KNetapp for value: kNetapp
-            /// </summary>
-            [EnumMember(Value = "kNetapp")]
-            KNetapp = 10,
-
-            /// <summary>
-            /// Enum KAgent for value: kAgent
-            /// </summary>
-            [EnumMember(Value = "kAgent")]
-            KAgent = 11,
-
-            /// <summary>
-            /// Enum KGenericNas for value: kGenericNas
-            /// </summary>
-            [EnumMember(Value = "kGenericNas")]
-            KGenericNas = 12,
-
-            /// <summary>
-            /// Enum KAcropolis for value: kAcropolis
-            /// </summary>
-            [EnumMember(Value = "kAcropolis")]
-            KAcropolis = 13,
-
-            /// <summary>
-            /// Enum KPhysicalFiles for value: kPhysicalFiles
-            /// </summary>
-            [EnumMember(Value = "kPhysicalFiles")]
-            KPhysicalFiles = 14,
-
-            /// <summary>
-            /// Enum KIsilon for value: kIsilon
-            /// </summary>
-            [EnumMember(Value = "kIsilon")]
-            KIsilon = 15,
-
-            /// <summary>
-            /// Enum KGPFS for value: kGPFS
-            /// </summary>
-            [EnumMember(Value = "kGPFS")]
-            KGPFS = 16,
-
-            /// <summary>
-            /// Enum KKVM for value: kKVM
-            /// </summary>
-            [EnumMember(Value = "kKVM")]
-            KKVM = 17,
-
-            /// <summary>
-            /// Enum KAWS for value: kAWS
-            /// </summary>
-            [EnumMember(Value = "kAWS")]
-            KAWS = 18,
-
-            /// <summary>
-            /// Enum KExchange for value: kExchange
-            /// </summary>
-            [EnumMember(Value = "kExchange")]
-            KExchange = 19,
-
-            /// <summary>
-            /// Enum KHyperVVSS for value: kHyperVVSS
-            /// </summary>
-            [EnumMember(Value = "kHyperVVSS")]
-            KHyperVVSS = 20,
-
-            /// <summary>
-            /// Enum KOracle for value: kOracle
-            /// </summary>
-            [EnumMember(Value = "kOracle")]
-            KOracle = 21,
-
-            /// <summary>
-            /// Enum KGCP for value: kGCP
-            /// </summary>
-            [EnumMember(Value = "kGCP")]
-            KGCP = 22,
-
-            /// <summary>
-            /// Enum KFlashBlade for value: kFlashBlade
-            /// </summary>
-            [EnumMember(Value = "kFlashBlade")]
-            KFlashBlade = 23,
-
-            /// <summary>
-            /// Enum KAWSNative for value: kAWSNative
-            /// </summary>
-            [EnumMember(Value = "kAWSNative")]
-            KAWSNative = 24,
-
-            /// <summary>
-            /// Enum KO365 for value: kO365
-            /// </summary>
-            [EnumMember(Value = "kO365")]
-            KO365 = 25,
-
-            /// <summary>
-            /// Enum KO365Outlook for value: kO365Outlook
-            /// </summary>
-            [EnumMember(Value = "kO365Outlook")]
-            KO365Outlook = 26,
-
-            /// <summary>
-            /// Enum KHyperFlex for value: kHyperFlex
-            /// </summary>
-            [EnumMember(Value = "kHyperFlex")]
-            KHyperFlex = 27,
-
-            /// <summary>
-            /// Enum KGCPNative for value: kGCPNative
-            /// </summary>
-            [EnumMember(Value = "kGCPNative")]
-            KGCPNative = 28,
-
-            /// <summary>
-            /// Enum KAzureNative for value: kAzureNative
-            /// </summary>
-            [EnumMember(Value = "kAzureNative")]
-            KAzureNative = 29,
-
-            /// <summary>
-            /// Enum KKubernetes for value: kKubernetes
-            /// </summary>
-            [EnumMember(Value = "kKubernetes")]
-            KKubernetes = 30,
-
-            /// <summary>
-            /// Enum KElastifile for value: kElastifile
-            /// </summary>
-            [EnumMember(Value = "kElastifile")]
-            KElastifile = 31,
-
-            /// <summary>
-            /// Enum KAD for value: kAD
-            /// </summary>
-            [EnumMember(Value = "kAD")]
-            KAD = 32,
-
-            /// <summary>
-            /// Enum KRDSSnapshotManager for value: kRDSSnapshotManager
-            /// </summary>
-            [EnumMember(Value = "kRDSSnapshotManager")]
-            KRDSSnapshotManager = 33,
-
-            /// <summary>
-            /// Enum KCassandra for value: kCassandra
-            /// </summary>
-            [EnumMember(Value = "kCassandra")]
-            KCassandra = 34,
-
-            /// <summary>
-            /// Enum KMongoDB for value: kMongoDB
-            /// </summary>
-            [EnumMember(Value = "kMongoDB")]
-            KMongoDB = 35,
-
-            /// <summary>
-            /// Enum KCouchbase for value: kCouchbase
-            /// </summary>
-            [EnumMember(Value = "kCouchbase")]
-            KCouchbase = 36,
-
-            /// <summary>
-            /// Enum KHdfs for value: kHdfs
-            /// </summary>
-            [EnumMember(Value = "kHdfs")]
-            KHdfs = 37,
-
-            /// <summary>
-            /// Enum KHive for value: kHive
-            /// </summary>
-            [EnumMember(Value = "kHive")]
-            KHive = 38,
-
-            /// <summary>
-            /// Enum KHBase for value: kHBase
-            /// </summary>
-            [EnumMember(Value = "kHBase")]
-            KHBase = 39,
-
-            /// <summary>
-            /// Enum KUDA for value: kUDA
-            /// </summary>
-            [EnumMember(Value = "kUDA")]
-            KUDA = 40,
-
-            /// <summary>
-            /// Enum KO365Teams for value: kO365Teams
-            /// </summary>
-            [EnumMember(Value = "kO365Teams")]
-            KO365Teams = 41,
-
-            /// <summary>
-            /// Enum KO365Group for value: kO365Group
-            /// </summary>
-            [EnumMember(Value = "kO365Group")]
-            KO365Group = 42,
-
-            /// <summary>
-            /// Enum KO365Exchange for value: kO365Exchange
-            /// </summary>
-            [EnumMember(Value = "kO365Exchange")]
-            KO365Exchange = 43,
-
-            /// <summary>
-            /// Enum KO365OneDrive for value: kO365OneDrive
-            /// </summary>
-            [EnumMember(Value = "kO365OneDrive")]
-            KO365OneDrive = 44,
-
-            /// <summary>
-            /// Enum KO365Sharepoint for value: kO365Sharepoint
-            /// </summary>
-            [EnumMember(Value = "kO365Sharepoint")]
-            KO365Sharepoint = 45,
-
-            /// <summary>
-            /// Enum KO365PublicFolders for value: kO365PublicFolders
-            /// </summary>
-            [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46
+            KNimble = 8
 
         }
 
 
         /// <summary>
-        /// Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.
+        /// Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kHpe3Par&#39; indicates the Hpe 3Par Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIbmFlashSystem&#39; indicates the IBM Flash System Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kSAPHANA&#39; indicates SAP HANA protection source environment. &#39;kDB2&#39; indicates DB2 Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment. &#39;kPostgres&#39; indicates the Postgres Protection Source environment. kHpe3Par, kIbmFlashSystem, kAzure, kNetapp, kAgent, kGenericNas, kAcropolis, kPhysicalFiles, kIsilon, kGPFS, kKVM, kAWS, kExchange, kHyperVVSS, kOracle, kGCP, kFlashBlade, kAWSNative, kO365, kO365Outlook, kHyperFlex, kGCPNative, kAzureNative, kKubernetes, kElastifile, kAD, kRDSSnapshotManager, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase, kUDA, kSAPHANA, kO365Teams, kO365Group, kO365Exchange, kO365OneDrive, kO365Sharepoint, kO365PublicFolders, kMongoDBPhysical, kPostgres
         /// </summary>
-        /// <value>Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.</value>
+        /// <value>Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kHpe3Par&#39; indicates the Hpe 3Par Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIbmFlashSystem&#39; indicates the IBM Flash System Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kSAPHANA&#39; indicates SAP HANA protection source environment. &#39;kDB2&#39; indicates DB2 Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment. &#39;kPostgres&#39; indicates the Postgres Protection Source environment. kHpe3Par, kIbmFlashSystem, kAzure, kNetapp, kAgent, kGenericNas, kAcropolis, kPhysicalFiles, kIsilon, kGPFS, kKVM, kAWS, kExchange, kHyperVVSS, kOracle, kGCP, kFlashBlade, kAWSNative, kO365, kO365Outlook, kHyperFlex, kGCPNative, kAzureNative, kKubernetes, kElastifile, kAD, kRDSSnapshotManager, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase, kUDA, kSAPHANA, kO365Teams, kO365Group, kO365Exchange, kO365OneDrive, kO365Sharepoint, kO365PublicFolders, kMongoDBPhysical, kPostgres</value>
         [DataMember(Name="environments", EmitDefaultValue=true)]
         public List<EnvironmentsEnum> Environments { get; set; }
         /// <summary>
@@ -357,11 +129,13 @@ namespace Cohesity.Model
         /// <param name="allowedIpAddresses">Specifies the list of IP Addresses on the registered source to be exclusively allowed for doing any type of IO operations..</param>
         /// <param name="authenticationErrorMessage">Specifies an authentication error message. This indicates the given credentials are rejected and the registration of the source is not successful..</param>
         /// <param name="authenticationStatus">Specifies the status of the authenticating to the Protection Source when registering it with Cohesity Cluster. If the status is &#39;kFinished&#39; and there is no error, registration is successful. Specifies the status of the authentication during the registration of a Protection Source. &#39;kPending&#39; indicates the authentication is in progress. &#39;kScheduled&#39; indicates the authentication is scheduled. &#39;kFinished&#39; indicates the authentication is completed. &#39;kRefreshInProgress&#39; indicates the refresh is in progress..</param>
+        /// <param name="azureParams">azureParams.</param>
         /// <param name="blacklistedIpAddresses">This field is deprecated. Use DeniedIpAddresses instead. deprecated: true.</param>
         /// <param name="cassandraParams">cassandraParams.</param>
+        /// <param name="cloudCredentials">cloudCredentials.</param>
         /// <param name="couchbaseParams">couchbaseParams.</param>
         /// <param name="deniedIpAddresses">Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations..</param>
-        /// <param name="environments">Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment..</param>
+        /// <param name="environments">Specifies a list of applications environment that are registered with this Protection Source such as &#39;kSQL&#39;. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kHpe3Par&#39; indicates the Hpe 3Par Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIbmFlashSystem&#39; indicates the IBM Flash System Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kSAPHANA&#39; indicates SAP HANA protection source environment. &#39;kDB2&#39; indicates DB2 Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment. &#39;kPostgres&#39; indicates the Postgres Protection Source environment. kHpe3Par, kIbmFlashSystem, kAzure, kNetapp, kAgent, kGenericNas, kAcropolis, kPhysicalFiles, kIsilon, kGPFS, kKVM, kAWS, kExchange, kHyperVVSS, kOracle, kGCP, kFlashBlade, kAWSNative, kO365, kO365Outlook, kHyperFlex, kGCPNative, kAzureNative, kKubernetes, kElastifile, kAD, kRDSSnapshotManager, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase, kUDA, kSAPHANA, kO365Teams, kO365Group, kO365Exchange, kO365OneDrive, kO365Sharepoint, kO365PublicFolders, kMongoDBPhysical, kPostgres.</param>
         /// <param name="hbaseParams">hbaseParams.</param>
         /// <param name="hdfsParams">hdfsParams.</param>
         /// <param name="hiveParams">hiveParams.</param>
@@ -372,6 +146,7 @@ namespace Cohesity.Model
         /// <param name="minimumFreeSpaceGB">Specifies the minimum free space in GiB of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in GiB) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments..</param>
         /// <param name="minimumFreeSpacePercent">Specifies the minimum free space in percentage of the space expected to be available on the datastore where the virtual disks of the VM being backed up. If the amount of free space(in percentage) is lower than the value given by this field, backup will be aborted. Note that this field is applicable only to &#39;kVMware&#39; type of environments..</param>
         /// <param name="mongodbParams">mongodbParams.</param>
+        /// <param name="mongodbPhysicalParams">mongodbPhysicalParams.</param>
         /// <param name="nasMountCredentials">Specifies the credentials required to mount directories on the NetApp server if given..</param>
         /// <param name="o365Params">o365Params.</param>
         /// <param name="office365CredentialsList">Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365..</param>
@@ -389,13 +164,14 @@ namespace Cohesity.Model
         /// <param name="throttlingPolicy">throttlingPolicy.</param>
         /// <param name="throttlingPolicyOverrides">Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply..</param>
         /// <param name="udaParams">udaParams.</param>
+        /// <param name="updateLastBackupDetails">Specifies if the last backup time and status should be updated for the VMs protected from the vCenter..</param>
         /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
         /// <param name="useVmBiosUuid">Specifies if registered vCenter is using BIOS UUID to track virtual machines..</param>
         /// <param name="userMessages">Specifies the additional details encountered during registration. Though the registration may succeed, user messages imply the host environment requires some cleanup or fixing..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="vlanParams">vlanParams.</param>
         /// <param name="warningMessages">Specifies a list of warnings encountered during registration. Though the registration may succeed, warning messages imply the host environment requires some cleanup or fixing..</param>
-        public RegisteredSourceInfo(ConnectorParameters accessInfo = default(ConnectorParameters), List<string> allowedIpAddresses = default(List<string>), string authenticationErrorMessage = default(string), AuthenticationStatusEnum? authenticationStatus = default(AuthenticationStatusEnum?), List<string> blacklistedIpAddresses = default(List<string>), CassandraConnectParams cassandraParams = default(CassandraConnectParams), CouchbaseConnectParams couchbaseParams = default(CouchbaseConnectParams), List<string> deniedIpAddresses = default(List<string>), List<EnvironmentsEnum> environments = default(List<EnvironmentsEnum>), HBaseConnectParams hbaseParams = default(HBaseConnectParams), HdfsConnectParams hdfsParams = default(HdfsConnectParams), HiveConnectParams hiveParams = default(HiveConnectParams), bool? isDbAuthenticated = default(bool?), bool? isStorageArraySnapshotEnabled = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), bool? linkVmsAcrossVcenter = default(bool?), long? minimumFreeSpaceGB = default(long?), long? minimumFreeSpacePercent = default(long?), MongoDBConnectParams mongodbParams = default(MongoDBConnectParams), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), O365ConnectParams o365Params = default(O365ConnectParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), PhysicalParams physicalParams = default(PhysicalParams), string progressMonitorPath = default(string), string refreshErrorMessage = default(string), long? refreshTimeUsecs = default(long?), List<RegisteredAppInfo> registeredAppsInfo = default(List<RegisteredAppInfo>), long? registrationTimeUsecs = default(long?), SfdcParams sfdcParams = default(SfdcParams), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), UdaConnectParams udaParams = default(UdaConnectParams), bool? useOAuthForExchangeOnline = default(bool?), bool? useVmBiosUuid = default(bool?), List<string> userMessages = default(List<string>), string username = default(string), VlanParameters vlanParams = default(VlanParameters), List<string> warningMessages = default(List<string>))
+        public RegisteredSourceInfo(ConnectorParameters accessInfo = default(ConnectorParameters), List<string> allowedIpAddresses = default(List<string>), string authenticationErrorMessage = default(string), AuthenticationStatusEnum? authenticationStatus = default(AuthenticationStatusEnum?), AzureParams azureParams = default(AzureParams), List<string> blacklistedIpAddresses = default(List<string>), CassandraConnectParams cassandraParams = default(CassandraConnectParams), CloudCredentials cloudCredentials = default(CloudCredentials), CouchbaseConnectParams couchbaseParams = default(CouchbaseConnectParams), List<string> deniedIpAddresses = default(List<string>), List<EnvironmentsEnum> environments = default(List<EnvironmentsEnum>), HBaseConnectParams hbaseParams = default(HBaseConnectParams), HdfsConnectParams hdfsParams = default(HdfsConnectParams), HiveConnectParams hiveParams = default(HiveConnectParams), bool? isDbAuthenticated = default(bool?), bool? isStorageArraySnapshotEnabled = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), bool? linkVmsAcrossVcenter = default(bool?), long? minimumFreeSpaceGB = default(long?), long? minimumFreeSpacePercent = default(long?), MongoDBConnectParams mongodbParams = default(MongoDBConnectParams), MongoDBPhysicalParams mongodbPhysicalParams = default(MongoDBPhysicalParams), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), O365ConnectParams o365Params = default(O365ConnectParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), PhysicalParams physicalParams = default(PhysicalParams), string progressMonitorPath = default(string), string refreshErrorMessage = default(string), long? refreshTimeUsecs = default(long?), List<RegisteredAppInfo> registeredAppsInfo = default(List<RegisteredAppInfo>), long? registrationTimeUsecs = default(long?), SfdcParams sfdcParams = default(SfdcParams), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), UdaConnectParams udaParams = default(UdaConnectParams), bool? updateLastBackupDetails = default(bool?), bool? useOAuthForExchangeOnline = default(bool?), bool? useVmBiosUuid = default(bool?), List<string> userMessages = default(List<string>), string username = default(string), VlanParameters vlanParams = default(VlanParameters), List<string> warningMessages = default(List<string>))
         {
             this.AllowedIpAddresses = allowedIpAddresses;
             this.AuthenticationErrorMessage = authenticationErrorMessage;
@@ -420,6 +196,7 @@ namespace Cohesity.Model
             this.RegistrationTimeUsecs = registrationTimeUsecs;
             this.Subnets = subnets;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
+            this.UpdateLastBackupDetails = updateLastBackupDetails;
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
             this.UseVmBiosUuid = useVmBiosUuid;
             this.UserMessages = userMessages;
@@ -429,8 +206,10 @@ namespace Cohesity.Model
             this.AllowedIpAddresses = allowedIpAddresses;
             this.AuthenticationErrorMessage = authenticationErrorMessage;
             this.AuthenticationStatus = authenticationStatus;
+            this.AzureParams = azureParams;
             this.BlacklistedIpAddresses = blacklistedIpAddresses;
             this.CassandraParams = cassandraParams;
+            this.CloudCredentials = cloudCredentials;
             this.CouchbaseParams = couchbaseParams;
             this.DeniedIpAddresses = deniedIpAddresses;
             this.Environments = environments;
@@ -444,6 +223,7 @@ namespace Cohesity.Model
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
             this.MinimumFreeSpacePercent = minimumFreeSpacePercent;
             this.MongodbParams = mongodbParams;
+            this.MongodbPhysicalParams = mongodbPhysicalParams;
             this.NasMountCredentials = nasMountCredentials;
             this.O365Params = o365Params;
             this.Office365CredentialsList = office365CredentialsList;
@@ -461,6 +241,7 @@ namespace Cohesity.Model
             this.ThrottlingPolicy = throttlingPolicy;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
             this.UdaParams = udaParams;
+            this.UpdateLastBackupDetails = updateLastBackupDetails;
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
             this.UseVmBiosUuid = useVmBiosUuid;
             this.UserMessages = userMessages;
@@ -490,6 +271,12 @@ namespace Cohesity.Model
         public string AuthenticationErrorMessage { get; set; }
 
         /// <summary>
+        /// Gets or Sets AzureParams
+        /// </summary>
+        [DataMember(Name="azureParams", EmitDefaultValue=false)]
+        public AzureParams AzureParams { get; set; }
+
+        /// <summary>
         /// This field is deprecated. Use DeniedIpAddresses instead. deprecated: true
         /// </summary>
         /// <value>This field is deprecated. Use DeniedIpAddresses instead. deprecated: true</value>
@@ -501,6 +288,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cassandraParams", EmitDefaultValue=false)]
         public CassandraConnectParams CassandraParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudCredentials
+        /// </summary>
+        [DataMember(Name="cloudCredentials", EmitDefaultValue=false)]
+        public CloudCredentials CloudCredentials { get; set; }
 
         /// <summary>
         /// Gets or Sets CouchbaseParams
@@ -579,6 +372,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="mongodbParams", EmitDefaultValue=false)]
         public MongoDBConnectParams MongodbParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MongodbPhysicalParams
+        /// </summary>
+        [DataMember(Name="mongodbPhysicalParams", EmitDefaultValue=false)]
+        public MongoDBPhysicalParams MongodbPhysicalParams { get; set; }
 
         /// <summary>
         /// Specifies the credentials required to mount directories on the NetApp server if given.
@@ -695,6 +494,13 @@ namespace Cohesity.Model
         public UdaConnectParams UdaParams { get; set; }
 
         /// <summary>
+        /// Specifies if the last backup time and status should be updated for the VMs protected from the vCenter.
+        /// </summary>
+        /// <value>Specifies if the last backup time and status should be updated for the VMs protected from the vCenter.</value>
+        [DataMember(Name="updateLastBackupDetails", EmitDefaultValue=true)]
+        public bool? UpdateLastBackupDetails { get; set; }
+
+        /// <summary>
         /// Specifies whether OAuth should be used for authentication in case of Exchange Online.
         /// </summary>
         /// <value>Specifies whether OAuth should be used for authentication in case of Exchange Online.</value>
@@ -792,6 +598,11 @@ namespace Cohesity.Model
                     this.AuthenticationStatus.Equals(input.AuthenticationStatus)
                 ) && 
                 (
+                    this.AzureParams == input.AzureParams ||
+                    (this.AzureParams != null &&
+                    this.AzureParams.Equals(input.AzureParams))
+                ) && 
+                (
                     this.BlacklistedIpAddresses == input.BlacklistedIpAddresses ||
                     this.BlacklistedIpAddresses != null &&
                     input.BlacklistedIpAddresses != null &&
@@ -801,6 +612,11 @@ namespace Cohesity.Model
                     this.CassandraParams == input.CassandraParams ||
                     (this.CassandraParams != null &&
                     this.CassandraParams.Equals(input.CassandraParams))
+                ) && 
+                (
+                    this.CloudCredentials == input.CloudCredentials ||
+                    (this.CloudCredentials != null &&
+                    this.CloudCredentials.Equals(input.CloudCredentials))
                 ) && 
                 (
                     this.CouchbaseParams == input.CouchbaseParams ||
@@ -866,6 +682,11 @@ namespace Cohesity.Model
                     this.MongodbParams == input.MongodbParams ||
                     (this.MongodbParams != null &&
                     this.MongodbParams.Equals(input.MongodbParams))
+                ) && 
+                (
+                    this.MongodbPhysicalParams == input.MongodbPhysicalParams ||
+                    (this.MongodbPhysicalParams != null &&
+                    this.MongodbPhysicalParams.Equals(input.MongodbPhysicalParams))
                 ) && 
                 (
                     this.NasMountCredentials == input.NasMountCredentials ||
@@ -958,6 +779,11 @@ namespace Cohesity.Model
                     this.UdaParams.Equals(input.UdaParams))
                 ) && 
                 (
+                    this.UpdateLastBackupDetails == input.UpdateLastBackupDetails ||
+                    (this.UpdateLastBackupDetails != null &&
+                    this.UpdateLastBackupDetails.Equals(input.UpdateLastBackupDetails))
+                ) && 
+                (
                     this.UseOAuthForExchangeOnline == input.UseOAuthForExchangeOnline ||
                     (this.UseOAuthForExchangeOnline != null &&
                     this.UseOAuthForExchangeOnline.Equals(input.UseOAuthForExchangeOnline))
@@ -1007,10 +833,14 @@ namespace Cohesity.Model
                 if (this.AuthenticationErrorMessage != null)
                     hashCode = hashCode * 59 + this.AuthenticationErrorMessage.GetHashCode();
                 hashCode = hashCode * 59 + this.AuthenticationStatus.GetHashCode();
+                if (this.AzureParams != null)
+                    hashCode = hashCode * 59 + this.AzureParams.GetHashCode();
                 if (this.BlacklistedIpAddresses != null)
                     hashCode = hashCode * 59 + this.BlacklistedIpAddresses.GetHashCode();
                 if (this.CassandraParams != null)
                     hashCode = hashCode * 59 + this.CassandraParams.GetHashCode();
+                if (this.CloudCredentials != null)
+                    hashCode = hashCode * 59 + this.CloudCredentials.GetHashCode();
                 if (this.CouchbaseParams != null)
                     hashCode = hashCode * 59 + this.CouchbaseParams.GetHashCode();
                 if (this.DeniedIpAddresses != null)
@@ -1036,6 +866,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MinimumFreeSpacePercent.GetHashCode();
                 if (this.MongodbParams != null)
                     hashCode = hashCode * 59 + this.MongodbParams.GetHashCode();
+                if (this.MongodbPhysicalParams != null)
+                    hashCode = hashCode * 59 + this.MongodbPhysicalParams.GetHashCode();
                 if (this.NasMountCredentials != null)
                     hashCode = hashCode * 59 + this.NasMountCredentials.GetHashCode();
                 if (this.O365Params != null)
@@ -1070,6 +902,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ThrottlingPolicyOverrides.GetHashCode();
                 if (this.UdaParams != null)
                     hashCode = hashCode * 59 + this.UdaParams.GetHashCode();
+                if (this.UpdateLastBackupDetails != null)
+                    hashCode = hashCode * 59 + this.UpdateLastBackupDetails.GetHashCode();
                 if (this.UseOAuthForExchangeOnline != null)
                     hashCode = hashCode * 59 + this.UseOAuthForExchangeOnline.GetHashCode();
                 if (this.UseVmBiosUuid != null)

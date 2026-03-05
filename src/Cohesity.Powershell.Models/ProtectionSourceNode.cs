@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectionSourceNode
+    /// Many different node types are supported such as &#39;kComputeResource&#39; and &#39;kResourcePool&#39;.
     /// </summary>
     [DataContract]
     public partial class ProtectionSourceNode :  IEquatable<ProtectionSourceNode>
@@ -24,9 +24,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ProtectionSourceNode" /> class.
         /// </summary>
         /// <param name="applicationNodes">Array of Child Subtrees.  Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM..</param>
+        /// <param name="credentialList">Specifies the Credential vector of the external metadata. Currently only postgres credentials for the aws entities are populated, can be extended to other usecase as well..</param>
         /// <param name="entityPaginationParameters">entityPaginationParameters.</param>
         /// <param name="entityPermissionInfo">entityPermissionInfo.</param>
         /// <param name="logicalSize">Specifies the logical size of the data in bytes for the Object on this node. Presence of this field indicates this node is a leaf node..</param>
+        /// <param name="maintenanceModeConfig">maintenanceModeConfig.</param>
+        /// <param name="maintenanceModeSummary">Specifies object protectionInfo information for the entities..</param>
         /// <param name="nodes">Array of Child Nodes.  Specifies children of the current node in the Protection Sources hierarchy. When representing Objects in memory, the entire Object subtree hierarchy is represented. You can use this subtree to navigate down the Object hierarchy..</param>
         /// <param name="objectProtectionInfo">objectProtectionInfo.</param>
         /// <param name="protectedSourcesSummary">Array of Protected Objects.  Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector..</param>
@@ -35,10 +38,12 @@ namespace Cohesity.Model
         /// <param name="totalDowntieredSizeInBytes">Specifies the total bytes downtiered from the source so far..</param>
         /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
         /// <param name="unprotectedSourcesSummary">Array of Unprotected Sources.  Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from..</param>
-        public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), PaginationParameters entityPaginationParameters = default(PaginationParameters), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), ObjectProtectionInfo objectProtectionInfo = default(ObjectProtectionInfo), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
+        public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), List<AppCredentials> credentialList = default(List<AppCredentials>), PaginationParameters entityPaginationParameters = default(PaginationParameters), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), MaintenanceModeConfigProto maintenanceModeConfig = default(MaintenanceModeConfigProto), List<MaintenanceModeSummary> maintenanceModeSummary = default(List<MaintenanceModeSummary>), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), ObjectProtectionInfo objectProtectionInfo = default(ObjectProtectionInfo), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
             this.ApplicationNodes = applicationNodes;
+            this.CredentialList = credentialList;
             this.LogicalSize = logicalSize;
+            this.MaintenanceModeSummary = maintenanceModeSummary;
             this.Nodes = nodes;
             this.ProtectedSourcesSummary = protectedSourcesSummary;
             this.ProtectionSource = protectionSource;
@@ -47,9 +52,12 @@ namespace Cohesity.Model
             this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
             this.UnprotectedSourcesSummary = unprotectedSourcesSummary;
             this.ApplicationNodes = applicationNodes;
+            this.CredentialList = credentialList;
             this.EntityPaginationParameters = entityPaginationParameters;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSize = logicalSize;
+            this.MaintenanceModeConfig = maintenanceModeConfig;
+            this.MaintenanceModeSummary = maintenanceModeSummary;
             this.Nodes = nodes;
             this.ObjectProtectionInfo = objectProtectionInfo;
             this.ProtectedSourcesSummary = protectedSourcesSummary;
@@ -66,6 +74,13 @@ namespace Cohesity.Model
         /// <value>Array of Child Subtrees.  Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.</value>
         [DataMember(Name="applicationNodes", EmitDefaultValue=true)]
         public List<ProtectionSourceNode> ApplicationNodes { get; set; }
+
+        /// <summary>
+        /// Specifies the Credential vector of the external metadata. Currently only postgres credentials for the aws entities are populated, can be extended to other usecase as well.
+        /// </summary>
+        /// <value>Specifies the Credential vector of the external metadata. Currently only postgres credentials for the aws entities are populated, can be extended to other usecase as well.</value>
+        [DataMember(Name="credentialList", EmitDefaultValue=true)]
+        public List<AppCredentials> CredentialList { get; set; }
 
         /// <summary>
         /// Gets or Sets EntityPaginationParameters
@@ -85,6 +100,19 @@ namespace Cohesity.Model
         /// <value>Specifies the logical size of the data in bytes for the Object on this node. Presence of this field indicates this node is a leaf node.</value>
         [DataMember(Name="logicalSize", EmitDefaultValue=true)]
         public long? LogicalSize { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MaintenanceModeConfig
+        /// </summary>
+        [DataMember(Name="maintenanceModeConfig", EmitDefaultValue=false)]
+        public MaintenanceModeConfigProto MaintenanceModeConfig { get; set; }
+
+        /// <summary>
+        /// Specifies object protectionInfo information for the entities.
+        /// </summary>
+        /// <value>Specifies object protectionInfo information for the entities.</value>
+        [DataMember(Name="maintenanceModeSummary", EmitDefaultValue=true)]
+        public List<MaintenanceModeSummary> MaintenanceModeSummary { get; set; }
 
         /// <summary>
         /// Array of Child Nodes.  Specifies children of the current node in the Protection Sources hierarchy. When representing Objects in memory, the entire Object subtree hierarchy is represented. You can use this subtree to navigate down the Object hierarchy.
@@ -184,6 +212,12 @@ namespace Cohesity.Model
                     this.ApplicationNodes.SequenceEqual(input.ApplicationNodes)
                 ) && 
                 (
+                    this.CredentialList == input.CredentialList ||
+                    this.CredentialList != null &&
+                    input.CredentialList != null &&
+                    this.CredentialList.SequenceEqual(input.CredentialList)
+                ) && 
+                (
                     this.EntityPaginationParameters == input.EntityPaginationParameters ||
                     (this.EntityPaginationParameters != null &&
                     this.EntityPaginationParameters.Equals(input.EntityPaginationParameters))
@@ -197,6 +231,17 @@ namespace Cohesity.Model
                     this.LogicalSize == input.LogicalSize ||
                     (this.LogicalSize != null &&
                     this.LogicalSize.Equals(input.LogicalSize))
+                ) && 
+                (
+                    this.MaintenanceModeConfig == input.MaintenanceModeConfig ||
+                    (this.MaintenanceModeConfig != null &&
+                    this.MaintenanceModeConfig.Equals(input.MaintenanceModeConfig))
+                ) && 
+                (
+                    this.MaintenanceModeSummary == input.MaintenanceModeSummary ||
+                    this.MaintenanceModeSummary != null &&
+                    input.MaintenanceModeSummary != null &&
+                    this.MaintenanceModeSummary.SequenceEqual(input.MaintenanceModeSummary)
                 ) && 
                 (
                     this.Nodes == input.Nodes ||
@@ -254,12 +299,18 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ApplicationNodes != null)
                     hashCode = hashCode * 59 + this.ApplicationNodes.GetHashCode();
+                if (this.CredentialList != null)
+                    hashCode = hashCode * 59 + this.CredentialList.GetHashCode();
                 if (this.EntityPaginationParameters != null)
                     hashCode = hashCode * 59 + this.EntityPaginationParameters.GetHashCode();
                 if (this.EntityPermissionInfo != null)
                     hashCode = hashCode * 59 + this.EntityPermissionInfo.GetHashCode();
                 if (this.LogicalSize != null)
                     hashCode = hashCode * 59 + this.LogicalSize.GetHashCode();
+                if (this.MaintenanceModeConfig != null)
+                    hashCode = hashCode * 59 + this.MaintenanceModeConfig.GetHashCode();
+                if (this.MaintenanceModeSummary != null)
+                    hashCode = hashCode * 59 + this.MaintenanceModeSummary.GetHashCode();
                 if (this.Nodes != null)
                     hashCode = hashCode * 59 + this.Nodes.GetHashCode();
                 if (this.ObjectProtectionInfo != null)

@@ -26,15 +26,18 @@ namespace Cohesity.Model
         /// <param name="error">error.</param>
         /// <param name="executing">Indicates if a script is executing. This is particularly useful when there is a cancellation request and Magneto crashes at that point before cleaning up the running script..</param>
         /// <param name="exitCode">Exit code of the script..</param>
+        /// <param name="output">Output of the script, if any..</param>
         /// <param name="state">Execution state of the script..</param>
-        public ScriptExecutionStatus(ErrorProto error = default(ErrorProto), bool? executing = default(bool?), int? exitCode = default(int?), int? state = default(int?))
+        public ScriptExecutionStatus(ErrorProto error = default(ErrorProto), bool? executing = default(bool?), int? exitCode = default(int?), string output = default(string), int? state = default(int?))
         {
             this.Executing = executing;
             this.ExitCode = exitCode;
+            this.Output = output;
             this.State = state;
             this.Error = error;
             this.Executing = executing;
             this.ExitCode = exitCode;
+            this.Output = output;
             this.State = state;
         }
         
@@ -57,6 +60,13 @@ namespace Cohesity.Model
         /// <value>Exit code of the script.</value>
         [DataMember(Name="exitCode", EmitDefaultValue=true)]
         public int? ExitCode { get; set; }
+
+        /// <summary>
+        /// Output of the script, if any.
+        /// </summary>
+        /// <value>Output of the script, if any.</value>
+        [DataMember(Name="output", EmitDefaultValue=true)]
+        public string Output { get; set; }
 
         /// <summary>
         /// Execution state of the script.
@@ -117,6 +127,11 @@ namespace Cohesity.Model
                     this.ExitCode.Equals(input.ExitCode))
                 ) && 
                 (
+                    this.Output == input.Output ||
+                    (this.Output != null &&
+                    this.Output.Equals(input.Output))
+                ) && 
+                (
                     this.State == input.State ||
                     (this.State != null &&
                     this.State.Equals(input.State))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Executing.GetHashCode();
                 if (this.ExitCode != null)
                     hashCode = hashCode * 59 + this.ExitCode.GetHashCode();
+                if (this.Output != null)
+                    hashCode = hashCode * 59 + this.Output.GetHashCode();
                 if (this.State != null)
                     hashCode = hashCode * 59 + this.State.GetHashCode();
                 return hashCode;

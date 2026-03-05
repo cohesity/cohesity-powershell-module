@@ -1,0 +1,135 @@
+// Copyright 2019 Cohesity Inc.
+
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Cohesity.Model
+{
+    /// <summary>
+    /// This message is same as VMwareDiskExclusionProto. A new field if any, should be added to both the messages. A build time check is being added for the same. Due to backwards compatibility issues which could arise on renaming a message type, a new message is being created for disk filtering. This message contains basic info of the disk to be filtered during backup. Currently it is being used to filter disks which should be included in the backup.
+    /// </summary>
+    [DataContract]
+    public partial class VMwareDiskFilterProto :  IEquatable<VMwareDiskFilterProto>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VMwareDiskFilterProto" /> class.
+        /// </summary>
+        /// <param name="controllerBusNumber">Controller&#39;s bus-id controlling the virtual disk in question..</param>
+        /// <param name="controllerType">Controller&#39;s type (SCSI, IDE, NVMe etc)..</param>
+        /// <param name="unitNumber">Disk unit number to identify the virtual disk within a controller..</param>
+        public VMwareDiskFilterProto(long? controllerBusNumber = default(long?), string controllerType = default(string), long? unitNumber = default(long?))
+        {
+            this.ControllerBusNumber = controllerBusNumber;
+            this.ControllerType = controllerType;
+            this.UnitNumber = unitNumber;
+            this.ControllerBusNumber = controllerBusNumber;
+            this.ControllerType = controllerType;
+            this.UnitNumber = unitNumber;
+        }
+        
+        /// <summary>
+        /// Controller&#39;s bus-id controlling the virtual disk in question.
+        /// </summary>
+        /// <value>Controller&#39;s bus-id controlling the virtual disk in question.</value>
+        [DataMember(Name="controllerBusNumber", EmitDefaultValue=true)]
+        public long? ControllerBusNumber { get; set; }
+
+        /// <summary>
+        /// Controller&#39;s type (SCSI, IDE, NVMe etc).
+        /// </summary>
+        /// <value>Controller&#39;s type (SCSI, IDE, NVMe etc).</value>
+        [DataMember(Name="controllerType", EmitDefaultValue=true)]
+        public string ControllerType { get; set; }
+
+        /// <summary>
+        /// Disk unit number to identify the virtual disk within a controller.
+        /// </summary>
+        /// <value>Disk unit number to identify the virtual disk within a controller.</value>
+        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
+        public long? UnitNumber { get; set; }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString() { return ToJson(); }
+  
+        /// <summary>
+        /// Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public virtual string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Returns true if objects are equal
+        /// </summary>
+        /// <param name="input">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object input)
+        {
+            return this.Equals(input as VMwareDiskFilterProto);
+        }
+
+        /// <summary>
+        /// Returns true if VMwareDiskFilterProto instances are equal
+        /// </summary>
+        /// <param name="input">Instance of VMwareDiskFilterProto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(VMwareDiskFilterProto input)
+        {
+            if (input == null)
+                return false;
+
+            return 
+                (
+                    this.ControllerBusNumber == input.ControllerBusNumber ||
+                    (this.ControllerBusNumber != null &&
+                    this.ControllerBusNumber.Equals(input.ControllerBusNumber))
+                ) && 
+                (
+                    this.ControllerType == input.ControllerType ||
+                    (this.ControllerType != null &&
+                    this.ControllerType.Equals(input.ControllerType))
+                ) && 
+                (
+                    this.UnitNumber == input.UnitNumber ||
+                    (this.UnitNumber != null &&
+                    this.UnitNumber.Equals(input.UnitNumber))
+                );
+        }
+
+        /// <summary>
+        /// Gets the hash code
+        /// </summary>
+        /// <returns>Hash code</returns>
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hashCode = 41;
+                if (this.ControllerBusNumber != null)
+                    hashCode = hashCode * 59 + this.ControllerBusNumber.GetHashCode();
+                if (this.ControllerType != null)
+                    hashCode = hashCode * 59 + this.ControllerType.GetHashCode();
+                if (this.UnitNumber != null)
+                    hashCode = hashCode * 59 + this.UnitNumber.GetHashCode();
+                return hashCode;
+            }
+        }
+
+    }
+
+}
+

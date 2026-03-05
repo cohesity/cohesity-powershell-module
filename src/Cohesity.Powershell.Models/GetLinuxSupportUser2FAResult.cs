@@ -24,16 +24,22 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="GetLinuxSupportUser2FAResult" /> class.
         /// </summary>
         /// <param name="emailID">emailID.</param>
+        /// <param name="enabled">enabled.</param>
+        /// <param name="otpVerificationState">otpVerificationState.</param>
         /// <param name="tOTPQRCodeUrl">tOTPQRCodeUrl.</param>
         /// <param name="tOTPSecretKey">tOTPSecretKey.</param>
         /// <param name="twoFAMode">twoFAMode.</param>
-        public GetLinuxSupportUser2FAResult(string emailID = default(string), string tOTPQRCodeUrl = default(string), string tOTPSecretKey = default(string), long? twoFAMode = default(long?))
+        public GetLinuxSupportUser2FAResult(string emailID = default(string), bool? enabled = default(bool?), string otpVerificationState = default(string), string tOTPQRCodeUrl = default(string), string tOTPSecretKey = default(string), long? twoFAMode = default(long?))
         {
             this.EmailID = emailID;
+            this.Enabled = enabled;
+            this.OtpVerificationState = otpVerificationState;
             this.TOTPQRCodeUrl = tOTPQRCodeUrl;
             this.TOTPSecretKey = tOTPSecretKey;
             this.TwoFAMode = twoFAMode;
             this.EmailID = emailID;
+            this.Enabled = enabled;
+            this.OtpVerificationState = otpVerificationState;
             this.TOTPQRCodeUrl = tOTPQRCodeUrl;
             this.TOTPSecretKey = tOTPSecretKey;
             this.TwoFAMode = twoFAMode;
@@ -44,6 +50,18 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="EmailID", EmitDefaultValue=true)]
         public string EmailID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Enabled
+        /// </summary>
+        [DataMember(Name="Enabled", EmitDefaultValue=true)]
+        public bool? Enabled { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OtpVerificationState
+        /// </summary>
+        [DataMember(Name="OtpVerificationState", EmitDefaultValue=true)]
+        public string OtpVerificationState { get; set; }
 
         /// <summary>
         /// Gets or Sets TOTPQRCodeUrl
@@ -105,6 +123,16 @@ namespace Cohesity.Model
                     this.EmailID.Equals(input.EmailID))
                 ) && 
                 (
+                    this.Enabled == input.Enabled ||
+                    (this.Enabled != null &&
+                    this.Enabled.Equals(input.Enabled))
+                ) && 
+                (
+                    this.OtpVerificationState == input.OtpVerificationState ||
+                    (this.OtpVerificationState != null &&
+                    this.OtpVerificationState.Equals(input.OtpVerificationState))
+                ) && 
+                (
                     this.TOTPQRCodeUrl == input.TOTPQRCodeUrl ||
                     (this.TOTPQRCodeUrl != null &&
                     this.TOTPQRCodeUrl.Equals(input.TOTPQRCodeUrl))
@@ -132,6 +160,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.EmailID != null)
                     hashCode = hashCode * 59 + this.EmailID.GetHashCode();
+                if (this.Enabled != null)
+                    hashCode = hashCode * 59 + this.Enabled.GetHashCode();
+                if (this.OtpVerificationState != null)
+                    hashCode = hashCode * 59 + this.OtpVerificationState.GetHashCode();
                 if (this.TOTPQRCodeUrl != null)
                     hashCode = hashCode * 59 + this.TOTPQRCodeUrl.GetHashCode();
                 if (this.TOTPSecretKey != null)

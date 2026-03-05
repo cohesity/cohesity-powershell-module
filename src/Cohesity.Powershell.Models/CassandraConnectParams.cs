@@ -30,6 +30,7 @@ namespace Cohesity.Model
         /// <param name="configDirectory">Specifies the Directory path containing Config YAML for discovery..</param>
         /// <param name="dataCenters">Specifies the List of all physical data center or virtual data center. In most cases, the data centers will be listed after discovery operation however, if they are not listed, you must manually type the data center names. Leaving the field blank will disallow data center-specific backup or restore. Entering a subset of all data centers may cause problems in data movement..</param>
         /// <param name="dseConfigDirectory">Specifies the Directory from where DSE specific configuration can be read..</param>
+        /// <param name="dseVersion">DSE version.</param>
         /// <param name="isDseAuthenticator">Specifies whether this cluster has DSE Authenticator..</param>
         /// <param name="isDseTieredStorage">Specifies whether this cluster has DSE tiered storage..</param>
         /// <param name="isJmxAuthEnable">Specifies if JMX Authentication enabled in this cluster..</param>
@@ -38,13 +39,14 @@ namespace Cohesity.Model
         /// <param name="seeds">Specifies the Seed nodes of this Cassandra cluster..</param>
         /// <param name="solrNodes">Specifies the Solr node IP Addresses.</param>
         /// <param name="solrPort">Specifies the Solr node Port..</param>
-        public CassandraConnectParams(CassandraPortsInfo cassandraPortsInfo = default(CassandraPortsInfo), CassandraSecurityInfo cassandraSecurityInfo = default(CassandraSecurityInfo), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), string configDirectory = default(string), List<string> dataCenters = default(List<string>), string dseConfigDirectory = default(string), bool? isDseAuthenticator = default(bool?), bool? isDseTieredStorage = default(bool?), bool? isJmxAuthEnable = default(bool?), string kerberosPrincipal = default(string), string primaryHost = default(string), List<string> seeds = default(List<string>), List<string> solrNodes = default(List<string>), int? solrPort = default(int?))
+        public CassandraConnectParams(CassandraPortsInfo cassandraPortsInfo = default(CassandraPortsInfo), CassandraSecurityInfo cassandraSecurityInfo = default(CassandraSecurityInfo), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), string configDirectory = default(string), List<string> dataCenters = default(List<string>), string dseConfigDirectory = default(string), string dseVersion = default(string), bool? isDseAuthenticator = default(bool?), bool? isDseTieredStorage = default(bool?), bool? isJmxAuthEnable = default(bool?), string kerberosPrincipal = default(string), string primaryHost = default(string), List<string> seeds = default(List<string>), List<string> solrNodes = default(List<string>), int? solrPort = default(int?))
         {
             this.CassandraVersion = cassandraVersion;
             this.CommitLogBackupLocation = commitLogBackupLocation;
             this.ConfigDirectory = configDirectory;
             this.DataCenters = dataCenters;
             this.DseConfigDirectory = dseConfigDirectory;
+            this.DseVersion = dseVersion;
             this.IsDseAuthenticator = isDseAuthenticator;
             this.IsDseTieredStorage = isDseTieredStorage;
             this.IsJmxAuthEnable = isJmxAuthEnable;
@@ -60,6 +62,7 @@ namespace Cohesity.Model
             this.ConfigDirectory = configDirectory;
             this.DataCenters = dataCenters;
             this.DseConfigDirectory = dseConfigDirectory;
+            this.DseVersion = dseVersion;
             this.IsDseAuthenticator = isDseAuthenticator;
             this.IsDseTieredStorage = isDseTieredStorage;
             this.IsJmxAuthEnable = isJmxAuthEnable;
@@ -116,6 +119,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Directory from where DSE specific configuration can be read.</value>
         [DataMember(Name="dseConfigDirectory", EmitDefaultValue=true)]
         public string DseConfigDirectory { get; set; }
+
+        /// <summary>
+        /// DSE version
+        /// </summary>
+        /// <value>DSE version</value>
+        [DataMember(Name="dseVersion", EmitDefaultValue=true)]
+        public string DseVersion { get; set; }
 
         /// <summary>
         /// Specifies whether this cluster has DSE Authenticator.
@@ -246,6 +256,11 @@ namespace Cohesity.Model
                     this.DseConfigDirectory.Equals(input.DseConfigDirectory))
                 ) && 
                 (
+                    this.DseVersion == input.DseVersion ||
+                    (this.DseVersion != null &&
+                    this.DseVersion.Equals(input.DseVersion))
+                ) && 
+                (
                     this.IsDseAuthenticator == input.IsDseAuthenticator ||
                     (this.IsDseAuthenticator != null &&
                     this.IsDseAuthenticator.Equals(input.IsDseAuthenticator))
@@ -312,6 +327,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DataCenters.GetHashCode();
                 if (this.DseConfigDirectory != null)
                     hashCode = hashCode * 59 + this.DseConfigDirectory.GetHashCode();
+                if (this.DseVersion != null)
+                    hashCode = hashCode * 59 + this.DseVersion.GetHashCode();
                 if (this.IsDseAuthenticator != null)
                     hashCode = hashCode * 59 + this.IsDseAuthenticator.GetHashCode();
                 if (this.IsDseTieredStorage != null)

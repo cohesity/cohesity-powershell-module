@@ -31,21 +31,25 @@ namespace Cohesity.Model
         /// <param name="clusterIncarnationId">Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster..</param>
         /// <param name="compressionEnabled">Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster..</param>
         /// <param name="description">Specifies any additional information if needed..</param>
+        /// <param name="effectiveAesEncryptionMode">Specifies the effective AES Encryption mode negotiated between local and the remote cluster..</param>
         /// <param name="encryptionKey">Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster..</param>
         /// <param name="localIps">Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster..</param>
         /// <param name="multiTenancyEnabled">Specifies if Multi-tenancy is enabled on the remote cluster..</param>
         /// <param name="name">Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster..</param>
         /// <param name="networkInterface">Specifies the name of the network interfaces to use for communicating with the remote Cluster..</param>
+        /// <param name="ownershipContext">Specifies the ownership context of the remote cluster..</param>
         /// <param name="purposeRemoteAccess">Whether the remote cluster will be used for remote access for SPOG..</param>
         /// <param name="purposeReplication">Whether the remote cluster will be used for replication..</param>
         /// <param name="remoteAccessCredentials">remoteAccessCredentials.</param>
         /// <param name="remoteIps">Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
         /// <param name="reverseRegisted">Specifies whether the Rx regiseter the Tx..</param>
+        /// <param name="supportedAesEncryptionMode">Specifies the AES Encryption mode of the remote cluster..</param>
         /// <param name="tenantId">Specifies the tenant Id of the organization that created this remote cluster configuration..</param>
         /// <param name="tenantViewBoxSharingEnabled">Specifies if tenant ViewBox sharing is enabled on the remote cluster..</param>
+        /// <param name="tlsEnabled">Specifies if the TLS is enabled on the remote cluster..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), bool? multiTenancyEnabled = default(bool?), string name = default(string), string networkInterface = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), bool? reverseRegisted = default(bool?), string tenantId = default(string), bool? tenantViewBoxSharingEnabled = default(bool?), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
+        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string effectiveAesEncryptionMode = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), bool? multiTenancyEnabled = default(bool?), string name = default(string), string networkInterface = default(string), string ownershipContext = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), bool? reverseRegisted = default(bool?), string supportedAesEncryptionMode = default(string), string tenantId = default(string), bool? tenantViewBoxSharingEnabled = default(bool?), bool? tlsEnabled = default(bool?), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
@@ -54,17 +58,21 @@ namespace Cohesity.Model
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
             this.Description = description;
+            this.EffectiveAesEncryptionMode = effectiveAesEncryptionMode;
             this.EncryptionKey = encryptionKey;
             this.LocalIps = localIps;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NetworkInterface = networkInterface;
+            this.OwnershipContext = ownershipContext;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
             this.RemoteIps = remoteIps;
             this.ReverseRegisted = reverseRegisted;
+            this.SupportedAesEncryptionMode = supportedAesEncryptionMode;
             this.TenantId = tenantId;
             this.TenantViewBoxSharingEnabled = tenantViewBoxSharingEnabled;
+            this.TlsEnabled = tlsEnabled;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
             this.AllEndpointsReachable = allEndpointsReachable;
@@ -75,18 +83,22 @@ namespace Cohesity.Model
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
             this.Description = description;
+            this.EffectiveAesEncryptionMode = effectiveAesEncryptionMode;
             this.EncryptionKey = encryptionKey;
             this.LocalIps = localIps;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NetworkInterface = networkInterface;
+            this.OwnershipContext = ownershipContext;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
             this.RemoteAccessCredentials = remoteAccessCredentials;
             this.RemoteIps = remoteIps;
             this.ReverseRegisted = reverseRegisted;
+            this.SupportedAesEncryptionMode = supportedAesEncryptionMode;
             this.TenantId = tenantId;
             this.TenantViewBoxSharingEnabled = tenantViewBoxSharingEnabled;
+            this.TlsEnabled = tlsEnabled;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
         }
@@ -147,6 +159,13 @@ namespace Cohesity.Model
         public string Description { get; set; }
 
         /// <summary>
+        /// Specifies the effective AES Encryption mode negotiated between local and the remote cluster.
+        /// </summary>
+        /// <value>Specifies the effective AES Encryption mode negotiated between local and the remote cluster.</value>
+        [DataMember(Name="effectiveAesEncryptionMode", EmitDefaultValue=true)]
+        public string EffectiveAesEncryptionMode { get; set; }
+
+        /// <summary>
         /// Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.
         /// </summary>
         /// <value>Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.</value>
@@ -180,6 +199,13 @@ namespace Cohesity.Model
         /// <value>Specifies the name of the network interfaces to use for communicating with the remote Cluster.</value>
         [DataMember(Name="networkInterface", EmitDefaultValue=true)]
         public string NetworkInterface { get; set; }
+
+        /// <summary>
+        /// Specifies the ownership context of the remote cluster.
+        /// </summary>
+        /// <value>Specifies the ownership context of the remote cluster.</value>
+        [DataMember(Name="ownershipContext", EmitDefaultValue=true)]
+        public string OwnershipContext { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for remote access for SPOG.
@@ -216,6 +242,13 @@ namespace Cohesity.Model
         public bool? ReverseRegisted { get; set; }
 
         /// <summary>
+        /// Specifies the AES Encryption mode of the remote cluster.
+        /// </summary>
+        /// <value>Specifies the AES Encryption mode of the remote cluster.</value>
+        [DataMember(Name="supportedAesEncryptionMode", EmitDefaultValue=true)]
+        public string SupportedAesEncryptionMode { get; set; }
+
+        /// <summary>
         /// Specifies the tenant Id of the organization that created this remote cluster configuration.
         /// </summary>
         /// <value>Specifies the tenant Id of the organization that created this remote cluster configuration.</value>
@@ -228,6 +261,13 @@ namespace Cohesity.Model
         /// <value>Specifies if tenant ViewBox sharing is enabled on the remote cluster.</value>
         [DataMember(Name="tenantViewBoxSharingEnabled", EmitDefaultValue=true)]
         public bool? TenantViewBoxSharingEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies if the TLS is enabled on the remote cluster.
+        /// </summary>
+        /// <value>Specifies if the TLS is enabled on the remote cluster.</value>
+        [DataMember(Name="tlsEnabled", EmitDefaultValue=true)]
+        public bool? TlsEnabled { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user name used to connect to the remote Cluster.
@@ -320,6 +360,11 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.EffectiveAesEncryptionMode == input.EffectiveAesEncryptionMode ||
+                    (this.EffectiveAesEncryptionMode != null &&
+                    this.EffectiveAesEncryptionMode.Equals(input.EffectiveAesEncryptionMode))
+                ) && 
+                (
                     this.EncryptionKey == input.EncryptionKey ||
                     (this.EncryptionKey != null &&
                     this.EncryptionKey.Equals(input.EncryptionKey))
@@ -344,6 +389,11 @@ namespace Cohesity.Model
                     this.NetworkInterface == input.NetworkInterface ||
                     (this.NetworkInterface != null &&
                     this.NetworkInterface.Equals(input.NetworkInterface))
+                ) && 
+                (
+                    this.OwnershipContext == input.OwnershipContext ||
+                    (this.OwnershipContext != null &&
+                    this.OwnershipContext.Equals(input.OwnershipContext))
                 ) && 
                 (
                     this.PurposeRemoteAccess == input.PurposeRemoteAccess ||
@@ -372,6 +422,11 @@ namespace Cohesity.Model
                     this.ReverseRegisted.Equals(input.ReverseRegisted))
                 ) && 
                 (
+                    this.SupportedAesEncryptionMode == input.SupportedAesEncryptionMode ||
+                    (this.SupportedAesEncryptionMode != null &&
+                    this.SupportedAesEncryptionMode.Equals(input.SupportedAesEncryptionMode))
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -380,6 +435,11 @@ namespace Cohesity.Model
                     this.TenantViewBoxSharingEnabled == input.TenantViewBoxSharingEnabled ||
                     (this.TenantViewBoxSharingEnabled != null &&
                     this.TenantViewBoxSharingEnabled.Equals(input.TenantViewBoxSharingEnabled))
+                ) && 
+                (
+                    this.TlsEnabled == input.TlsEnabled ||
+                    (this.TlsEnabled != null &&
+                    this.TlsEnabled.Equals(input.TlsEnabled))
                 ) && 
                 (
                     this.UserName == input.UserName ||
@@ -419,6 +479,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CompressionEnabled.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.EffectiveAesEncryptionMode != null)
+                    hashCode = hashCode * 59 + this.EffectiveAesEncryptionMode.GetHashCode();
                 if (this.EncryptionKey != null)
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
                 if (this.LocalIps != null)
@@ -429,6 +491,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NetworkInterface != null)
                     hashCode = hashCode * 59 + this.NetworkInterface.GetHashCode();
+                if (this.OwnershipContext != null)
+                    hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
                 if (this.PurposeRemoteAccess != null)
                     hashCode = hashCode * 59 + this.PurposeRemoteAccess.GetHashCode();
                 if (this.PurposeReplication != null)
@@ -439,10 +503,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteIps.GetHashCode();
                 if (this.ReverseRegisted != null)
                     hashCode = hashCode * 59 + this.ReverseRegisted.GetHashCode();
+                if (this.SupportedAesEncryptionMode != null)
+                    hashCode = hashCode * 59 + this.SupportedAesEncryptionMode.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.TenantViewBoxSharingEnabled != null)
                     hashCode = hashCode * 59 + this.TenantViewBoxSharingEnabled.GetHashCode();
+                if (this.TlsEnabled != null)
+                    hashCode = hashCode * 59 + this.TlsEnabled.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 if (this.ViewBoxPairInfo != null)

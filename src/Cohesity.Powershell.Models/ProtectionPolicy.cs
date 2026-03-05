@@ -88,6 +88,7 @@ namespace Cohesity.Model
         /// <param name="cdpSchedulingPolicy">cdpSchedulingPolicy.</param>
         /// <param name="cloudDeployPolicies">Array of Cloud Deploy Policies.  Specifies settings for copying Snapshots to Cloud. CloudDeploy target where backup snapshots may be converted and stored. It also defines the retention of copied Snapshots on the Cloud..</param>
         /// <param name="datalockConfig">datalockConfig.</param>
+        /// <param name="datalockConfigCdp">datalockConfigCdp.</param>
         /// <param name="datalockConfigLog">datalockConfigLog.</param>
         /// <param name="datalockConfigSystem">datalockConfigSystem.</param>
         /// <param name="daysToKeep">Specifies how many days to retain Snapshots on the Cohesity Cluster..</param>
@@ -118,7 +119,7 @@ namespace Cohesity.Model
         /// <param name="tenantIds">Specifies which organizations have been assigned this policy. This value is only populated for the cluster admin for now..</param>
         /// <param name="type">Specifies the type of the protection policy. &#39;kRegular&#39; means a regular Protection Policy. &#39;kRPO&#39; means an RPO Protection Policy..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshots. When a WORM retention type is specified, the snapshots of the Protection Jobs using this policy will be kept until the maximum of the snapshot retention time. During that time, the snapshots cannot be deleted. This field is deprecated. Use DataLockConfig for incremental runs, DataLockConfigLog for log runs, DataLockConfigSystem for BMR runs, and DataLockConfig in extended retention and for copy targets config. deprecated: true &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
-        public ProtectionPolicy(List<CancellationTimeoutParams> backupRunTimeouts = default(List<CancellationTimeoutParams>), List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), bool? isCascadedReplicationPolicy = default(bool?), bool? isReplicated = default(bool?), bool? isUsable = default(bool?), long? lastModificationTimeUsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? numSecsToKeep = default(int?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
+        public ProtectionPolicy(List<CancellationTimeoutParams> backupRunTimeouts = default(List<CancellationTimeoutParams>), List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), DataLockConfig datalockConfig = default(DataLockConfig), DataLockConfig datalockConfigCdp = default(DataLockConfig), DataLockConfig datalockConfigLog = default(DataLockConfig), DataLockConfig datalockConfigSystem = default(DataLockConfig), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), bool? isCascadedReplicationPolicy = default(bool?), bool? isReplicated = default(bool?), bool? isUsable = default(bool?), long? lastModificationTimeUsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), long? numSecsToKeep = default(long?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy storageArraySnapshotSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
             this.BackupRunTimeouts = backupRunTimeouts;
             this.BlackoutPeriods = blackoutPeriods;
@@ -152,6 +153,7 @@ namespace Cohesity.Model
             this.CdpSchedulingPolicy = cdpSchedulingPolicy;
             this.CloudDeployPolicies = cloudDeployPolicies;
             this.DatalockConfig = datalockConfig;
+            this.DatalockConfigCdp = datalockConfigCdp;
             this.DatalockConfigLog = datalockConfigLog;
             this.DatalockConfigSystem = datalockConfigSystem;
             this.DaysToKeep = daysToKeep;
@@ -216,6 +218,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="datalockConfig", EmitDefaultValue=false)]
         public DataLockConfig DatalockConfig { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DatalockConfigCdp
+        /// </summary>
+        [DataMember(Name="datalockConfigCdp", EmitDefaultValue=false)]
+        public DataLockConfig DatalockConfigCdp { get; set; }
 
         /// <summary>
         /// Gets or Sets DatalockConfigLog
@@ -338,7 +346,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the number of mins/hours/days in seconds to retain CDP backups if CDP schedule exists.</value>
         [DataMember(Name="numSecsToKeep", EmitDefaultValue=true)]
-        public int? NumSecsToKeep { get; set; }
+        public long? NumSecsToKeep { get; set; }
 
         /// <summary>
         /// Specifies the parent global policy Id. This must be specified when creating a policy from global policy template.
@@ -470,6 +478,11 @@ namespace Cohesity.Model
                     this.DatalockConfig == input.DatalockConfig ||
                     (this.DatalockConfig != null &&
                     this.DatalockConfig.Equals(input.DatalockConfig))
+                ) && 
+                (
+                    this.DatalockConfigCdp == input.DatalockConfigCdp ||
+                    (this.DatalockConfigCdp != null &&
+                    this.DatalockConfigCdp.Equals(input.DatalockConfigCdp))
                 ) && 
                 (
                     this.DatalockConfigLog == input.DatalockConfigLog ||
@@ -644,6 +657,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudDeployPolicies.GetHashCode();
                 if (this.DatalockConfig != null)
                     hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
+                if (this.DatalockConfigCdp != null)
+                    hashCode = hashCode * 59 + this.DatalockConfigCdp.GetHashCode();
                 if (this.DatalockConfigLog != null)
                     hashCode = hashCode * 59 + this.DatalockConfigLog.GetHashCode();
                 if (this.DatalockConfigSystem != null)

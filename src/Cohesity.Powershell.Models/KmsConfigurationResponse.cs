@@ -93,6 +93,7 @@ namespace Cohesity.Model
         /// <param name="azureKms">azureKms.</param>
         /// <param name="connectionStatus">Specifies if connection to this KMS exists..</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
+        /// <param name="gcpKms">gcpKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
         /// <param name="keyName">Specifies name of the key..</param>
         /// <param name="ownershipContext">Specifies the consumption model for the KMS Key..</param>
@@ -102,7 +103,7 @@ namespace Cohesity.Model
         /// <param name="usageType">Specifies the usage type of the kms config. kArchival indicates this is used for regular archival. kRpaasArchival indicates this is used for RPaaS only..</param>
         /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
         /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
-        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), AzureKmsConfiguration azureKms = default(AzureKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string keyName = default(string), string ownershipContext = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), int? usageType = default(int?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
+        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), AzureKmsConfiguration azureKms = default(AzureKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), GcpKmsConfiguration gcpKms = default(GcpKmsConfiguration), long? id = default(long?), string keyName = default(string), string ownershipContext = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), int? usageType = default(int?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
             this.ConnectionStatus = connectionStatus;
             this.Id = id;
@@ -118,6 +119,7 @@ namespace Cohesity.Model
             this.AzureKms = azureKms;
             this.ConnectionStatus = connectionStatus;
             this.CryptsoftKms = cryptsoftKms;
+            this.GcpKms = gcpKms;
             this.Id = id;
             this.KeyName = keyName;
             this.OwnershipContext = ownershipContext;
@@ -153,6 +155,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cryptsoftKms", EmitDefaultValue=false)]
         public CryptsoftKmsConfigResponse CryptsoftKms { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GcpKms
+        /// </summary>
+        [DataMember(Name="gcpKms", EmitDefaultValue=false)]
+        public GcpKmsConfiguration GcpKms { get; set; }
 
         /// <summary>
         /// The Id of a KMS server.
@@ -260,6 +268,11 @@ namespace Cohesity.Model
                     this.CryptsoftKms.Equals(input.CryptsoftKms))
                 ) && 
                 (
+                    this.GcpKms == input.GcpKms ||
+                    (this.GcpKms != null &&
+                    this.GcpKms.Equals(input.GcpKms))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -323,6 +336,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConnectionStatus.GetHashCode();
                 if (this.CryptsoftKms != null)
                     hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
+                if (this.GcpKms != null)
+                    hashCode = hashCode * 59 + this.GcpKms.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.KeyName != null)

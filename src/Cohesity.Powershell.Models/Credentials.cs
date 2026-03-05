@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies credentials to access a target source.
+    /// Specifies credentials to access a target source. Extendend to support entity external metadata credentials.
     /// </summary>
     [DataContract]
     public partial class Credentials :  IEquatable<Credentials>
@@ -23,16 +23,24 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Credentials" /> class.
         /// </summary>
+        /// <param name="cloudCredentials">cloudCredentials.</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public Credentials(string password = default(string), string username = default(string))
+        public Credentials(CloudCredentials cloudCredentials = default(CloudCredentials), string password = default(string), string username = default(string))
         {
             this.Password = password;
             this.Username = username;
+            this.CloudCredentials = cloudCredentials;
             this.Password = password;
             this.Username = username;
         }
         
+        /// <summary>
+        /// Gets or Sets CloudCredentials
+        /// </summary>
+        [DataMember(Name="cloudCredentials", EmitDefaultValue=false)]
+        public CloudCredentials CloudCredentials { get; set; }
+
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
@@ -84,6 +92,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudCredentials == input.CloudCredentials ||
+                    (this.CloudCredentials != null &&
+                    this.CloudCredentials.Equals(input.CloudCredentials))
+                ) && 
+                (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
@@ -104,6 +117,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudCredentials != null)
+                    hashCode = hashCode * 59 + this.CloudCredentials.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.Username != null)

@@ -24,12 +24,15 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="MongoDBAdditionalParams" /> class.
         /// </summary>
         /// <param name="secondaryNodeTag">The tag associated with the secondary nodes from which backups should be performed..</param>
+        /// <param name="useFixedNodeForBackup">Set to true if this cluster uses fixed node for backup..</param>
         /// <param name="useSecondaryForBackup">Set to true if this cluster uses secondary nodes for backup..</param>
-        public MongoDBAdditionalParams(List<string> secondaryNodeTag = default(List<string>), bool? useSecondaryForBackup = default(bool?))
+        public MongoDBAdditionalParams(List<string> secondaryNodeTag = default(List<string>), bool? useFixedNodeForBackup = default(bool?), bool? useSecondaryForBackup = default(bool?))
         {
             this.SecondaryNodeTag = secondaryNodeTag;
+            this.UseFixedNodeForBackup = useFixedNodeForBackup;
             this.UseSecondaryForBackup = useSecondaryForBackup;
             this.SecondaryNodeTag = secondaryNodeTag;
+            this.UseFixedNodeForBackup = useFixedNodeForBackup;
             this.UseSecondaryForBackup = useSecondaryForBackup;
         }
         
@@ -39,6 +42,13 @@ namespace Cohesity.Model
         /// <value>The tag associated with the secondary nodes from which backups should be performed.</value>
         [DataMember(Name="secondaryNodeTag", EmitDefaultValue=true)]
         public List<string> SecondaryNodeTag { get; set; }
+
+        /// <summary>
+        /// Set to true if this cluster uses fixed node for backup.
+        /// </summary>
+        /// <value>Set to true if this cluster uses fixed node for backup.</value>
+        [DataMember(Name="useFixedNodeForBackup", EmitDefaultValue=true)]
+        public bool? UseFixedNodeForBackup { get; set; }
 
         /// <summary>
         /// Set to true if this cluster uses secondary nodes for backup.
@@ -90,6 +100,11 @@ namespace Cohesity.Model
                     this.SecondaryNodeTag.SequenceEqual(input.SecondaryNodeTag)
                 ) && 
                 (
+                    this.UseFixedNodeForBackup == input.UseFixedNodeForBackup ||
+                    (this.UseFixedNodeForBackup != null &&
+                    this.UseFixedNodeForBackup.Equals(input.UseFixedNodeForBackup))
+                ) && 
+                (
                     this.UseSecondaryForBackup == input.UseSecondaryForBackup ||
                     (this.UseSecondaryForBackup != null &&
                     this.UseSecondaryForBackup.Equals(input.UseSecondaryForBackup))
@@ -107,6 +122,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.SecondaryNodeTag != null)
                     hashCode = hashCode * 59 + this.SecondaryNodeTag.GetHashCode();
+                if (this.UseFixedNodeForBackup != null)
+                    hashCode = hashCode * 59 + this.UseFixedNodeForBackup.GetHashCode();
                 if (this.UseSecondaryForBackup != null)
                     hashCode = hashCode * 59 + this.UseSecondaryForBackup.GetHashCode();
                 return hashCode;

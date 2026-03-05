@@ -105,21 +105,34 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DeviceTreeDetails" /> class.
         /// </summary>
         /// <param name="combineMethod">Specifies how to combine the children of this node. The combining strategy for child devices. Some of these strategies imply constraint on the number of child devices. e.g. RAID5 will have 5 children. &#39;LINEAR&#39; indicates children are juxtaposed to form this device. &#39;STRIPE&#39; indicates children are striped. &#39;MIRROR&#39; indicates children are mirrored. &#39;RAID5&#39; &#39;RAID6&#39; &#39;ZERO&#39; &#39;THIN&#39; &#39;THINPOOL&#39; &#39;SNAPSHOT&#39; &#39;CACHE&#39; &#39;CACHEPOOL&#39;.</param>
+        /// <param name="deviceId">Specifies internal device identifier of the device to be activated as a thin volume..</param>
         /// <param name="deviceLength">Specifies the length of this device. This number should match the length that is calculated from the children and combining method..</param>
         /// <param name="deviceNodes">Specifies the children of this node in the device tree..</param>
         /// <param name="stripeSize">Specifies the size of the striped data if the data is striped..</param>
-        public DeviceTreeDetails(CombineMethodEnum? combineMethod = default(CombineMethodEnum?), long? deviceLength = default(long?), List<DeviceNode> deviceNodes = default(List<DeviceNode>), int? stripeSize = default(int?))
+        /// <param name="thinPoolChunkSize">Specifies the chunk size (in bytes) used by the thin pool for the LVM volume (for which this device tree is being built). This defines the granularity at which space is allocated for thin-provisioned volumes and does not include LVM metadata overhead..</param>
+        public DeviceTreeDetails(CombineMethodEnum? combineMethod = default(CombineMethodEnum?), long? deviceId = default(long?), long? deviceLength = default(long?), List<DeviceNode> deviceNodes = default(List<DeviceNode>), int? stripeSize = default(int?), long? thinPoolChunkSize = default(long?))
         {
             this.CombineMethod = combineMethod;
+            this.DeviceId = deviceId;
             this.DeviceLength = deviceLength;
             this.DeviceNodes = deviceNodes;
             this.StripeSize = stripeSize;
+            this.ThinPoolChunkSize = thinPoolChunkSize;
             this.CombineMethod = combineMethod;
+            this.DeviceId = deviceId;
             this.DeviceLength = deviceLength;
             this.DeviceNodes = deviceNodes;
             this.StripeSize = stripeSize;
+            this.ThinPoolChunkSize = thinPoolChunkSize;
         }
         
+        /// <summary>
+        /// Specifies internal device identifier of the device to be activated as a thin volume.
+        /// </summary>
+        /// <value>Specifies internal device identifier of the device to be activated as a thin volume.</value>
+        [DataMember(Name="deviceId", EmitDefaultValue=true)]
+        public long? DeviceId { get; set; }
+
         /// <summary>
         /// Specifies the length of this device. This number should match the length that is calculated from the children and combining method.
         /// </summary>
@@ -140,6 +153,13 @@ namespace Cohesity.Model
         /// <value>Specifies the size of the striped data if the data is striped.</value>
         [DataMember(Name="stripeSize", EmitDefaultValue=true)]
         public int? StripeSize { get; set; }
+
+        /// <summary>
+        /// Specifies the chunk size (in bytes) used by the thin pool for the LVM volume (for which this device tree is being built). This defines the granularity at which space is allocated for thin-provisioned volumes and does not include LVM metadata overhead.
+        /// </summary>
+        /// <value>Specifies the chunk size (in bytes) used by the thin pool for the LVM volume (for which this device tree is being built). This defines the granularity at which space is allocated for thin-provisioned volumes and does not include LVM metadata overhead.</value>
+        [DataMember(Name="thinPoolChunkSize", EmitDefaultValue=true)]
+        public long? ThinPoolChunkSize { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -182,6 +202,11 @@ namespace Cohesity.Model
                     this.CombineMethod.Equals(input.CombineMethod)
                 ) && 
                 (
+                    this.DeviceId == input.DeviceId ||
+                    (this.DeviceId != null &&
+                    this.DeviceId.Equals(input.DeviceId))
+                ) && 
+                (
                     this.DeviceLength == input.DeviceLength ||
                     (this.DeviceLength != null &&
                     this.DeviceLength.Equals(input.DeviceLength))
@@ -196,6 +221,11 @@ namespace Cohesity.Model
                     this.StripeSize == input.StripeSize ||
                     (this.StripeSize != null &&
                     this.StripeSize.Equals(input.StripeSize))
+                ) && 
+                (
+                    this.ThinPoolChunkSize == input.ThinPoolChunkSize ||
+                    (this.ThinPoolChunkSize != null &&
+                    this.ThinPoolChunkSize.Equals(input.ThinPoolChunkSize))
                 );
         }
 
@@ -209,12 +239,16 @@ namespace Cohesity.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.CombineMethod.GetHashCode();
+                if (this.DeviceId != null)
+                    hashCode = hashCode * 59 + this.DeviceId.GetHashCode();
                 if (this.DeviceLength != null)
                     hashCode = hashCode * 59 + this.DeviceLength.GetHashCode();
                 if (this.DeviceNodes != null)
                     hashCode = hashCode * 59 + this.DeviceNodes.GetHashCode();
                 if (this.StripeSize != null)
                     hashCode = hashCode * 59 + this.StripeSize.GetHashCode();
+                if (this.ThinPoolChunkSize != null)
+                    hashCode = hashCode * 59 + this.ThinPoolChunkSize.GetHashCode();
                 return hashCode;
             }
         }

@@ -23,8 +23,10 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreInfoProtoRestoreEntity" /> class.
         /// </summary>
+        /// <param name="additionalRestoreMetadata">Any additional metadata about the restore returned by adapter as opaque data..</param>
         /// <param name="entity">entity.</param>
         /// <param name="error">error.</param>
+        /// <param name="failedGranularRestoreObjects">List of granular objects which were not succesfully restored. This is a subset of the granular_restore_objects sent in the request..</param>
         /// <param name="progressMonitorTaskPath">The path relative to the root path of the restore task progress monitor of the progress monitor for this entity..</param>
         /// <param name="publicStatus">Iris-facing task state. This field is stamped during the export..</param>
         /// <param name="relativeRestorePaths">All the paths that the entity&#39;s files were restored to. Each path is relative to the destination view..</param>
@@ -34,8 +36,10 @@ namespace Cohesity.Model
         /// <param name="status">The restore status of the entity..</param>
         /// <param name="totalBytesRestored">Contains the information regarding total bytes restored for this entity. Currently updated only in case of outlook restore..</param>
         /// <param name="warnings">Optional warnings if any..</param>
-        public RestoreInfoProtoRestoreEntity(EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), string restoredViewName = default(string), int? status = default(int?), long? totalBytesRestored = default(long?), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreInfoProtoRestoreEntity(List<int> additionalRestoreMetadata = default(List<int>), EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), List<List<int>> failedGranularRestoreObjects = default(List<List<int>>), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), string restoredViewName = default(string), int? status = default(int?), long? totalBytesRestored = default(long?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
+            this.AdditionalRestoreMetadata = additionalRestoreMetadata;
+            this.FailedGranularRestoreObjects = failedGranularRestoreObjects;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.PublicStatus = publicStatus;
             this.RelativeRestorePaths = relativeRestorePaths;
@@ -43,8 +47,10 @@ namespace Cohesity.Model
             this.Status = status;
             this.TotalBytesRestored = totalBytesRestored;
             this.Warnings = warnings;
+            this.AdditionalRestoreMetadata = additionalRestoreMetadata;
             this.Entity = entity;
             this.Error = error;
+            this.FailedGranularRestoreObjects = failedGranularRestoreObjects;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.PublicStatus = publicStatus;
             this.RelativeRestorePaths = relativeRestorePaths;
@@ -57,6 +63,13 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Any additional metadata about the restore returned by adapter as opaque data.
+        /// </summary>
+        /// <value>Any additional metadata about the restore returned by adapter as opaque data.</value>
+        [DataMember(Name="additionalRestoreMetadata", EmitDefaultValue=true)]
+        public List<int> AdditionalRestoreMetadata { get; set; }
+
+        /// <summary>
         /// Gets or Sets Entity
         /// </summary>
         [DataMember(Name="entity", EmitDefaultValue=false)]
@@ -67,6 +80,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
+
+        /// <summary>
+        /// List of granular objects which were not succesfully restored. This is a subset of the granular_restore_objects sent in the request.
+        /// </summary>
+        /// <value>List of granular objects which were not succesfully restored. This is a subset of the granular_restore_objects sent in the request.</value>
+        [DataMember(Name="failedGranularRestoreObjects", EmitDefaultValue=true)]
+        public List<List<int>> FailedGranularRestoreObjects { get; set; }
 
         /// <summary>
         /// The path relative to the root path of the restore task progress monitor of the progress monitor for this entity.
@@ -166,6 +186,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalRestoreMetadata == input.AdditionalRestoreMetadata ||
+                    this.AdditionalRestoreMetadata != null &&
+                    input.AdditionalRestoreMetadata != null &&
+                    this.AdditionalRestoreMetadata.SequenceEqual(input.AdditionalRestoreMetadata)
+                ) && 
+                (
                     this.Entity == input.Entity ||
                     (this.Entity != null &&
                     this.Entity.Equals(input.Entity))
@@ -174,6 +200,12 @@ namespace Cohesity.Model
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
+                ) && 
+                (
+                    this.FailedGranularRestoreObjects == input.FailedGranularRestoreObjects ||
+                    this.FailedGranularRestoreObjects != null &&
+                    input.FailedGranularRestoreObjects != null &&
+                    this.FailedGranularRestoreObjects.SequenceEqual(input.FailedGranularRestoreObjects)
                 ) && 
                 (
                     this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
@@ -233,10 +265,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalRestoreMetadata != null)
+                    hashCode = hashCode * 59 + this.AdditionalRestoreMetadata.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.FailedGranularRestoreObjects != null)
+                    hashCode = hashCode * 59 + this.FailedGranularRestoreObjects.GetHashCode();
                 if (this.ProgressMonitorTaskPath != null)
                     hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.PublicStatus != null)

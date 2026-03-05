@@ -60,9 +60,9 @@ namespace Cohesity.Model
         [DataMember(Name="authMethod", EmitDefaultValue=true)]
         public AuthMethodEnum? AuthMethod { get; set; }
         /// <summary>
-        /// Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days.
+        /// Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days. &#39;kAzureTierCold&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days.
         /// </summary>
-        /// <value>Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days.</value>
+        /// <value>Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days. &#39;kAzureTierCold&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TierTypeEnum
         {
@@ -82,14 +82,20 @@ namespace Cohesity.Model
             /// Enum KAzureTierArchive for value: kAzureTierArchive
             /// </summary>
             [EnumMember(Value = "kAzureTierArchive")]
-            KAzureTierArchive = 3
+            KAzureTierArchive = 3,
+
+            /// <summary>
+            /// Enum KAzureTierCold for value: kAzureTierCold
+            /// </summary>
+            [EnumMember(Value = "kAzureTierCold")]
+            KAzureTierCold = 4
 
         }
 
         /// <summary>
-        /// Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days.
+        /// Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days. &#39;kAzureTierCold&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days.
         /// </summary>
-        /// <value>Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days.</value>
+        /// <value>Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days. &#39;kAzureTierCold&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days.</value>
         [DataMember(Name="tierType", EmitDefaultValue=true)]
         public TierTypeEnum? TierType { get; set; }
         /// <summary>
@@ -101,7 +107,7 @@ namespace Cohesity.Model
         /// <param name="region">Specifies the region for Azure account. This is only populated for FortKnox vaults..</param>
         /// <param name="storageAccessKey">Specifies the access key to use when accessing a storage tier in a Azure cloud service..</param>
         /// <param name="storageAccountName">Specifies the account name to use when accessing a storage tier in a Azure cloud service..</param>
-        /// <param name="tierType">Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days..</param>
+        /// <param name="tierType">Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days. &#39;kAzureTierCold&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days..</param>
         /// <param name="tiers">Specifies the list of all tiers for Amazon account..</param>
         public AzureCloudCredentials(AuthMethodEnum? authMethod = default(AuthMethodEnum?), string clientId = default(string), bool? isWormEnabled = default(bool?), string region = default(string), string storageAccessKey = default(string), string storageAccountName = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {

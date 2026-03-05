@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class AmazonCloudCredentials :  IEquatable<AmazonCloudCredentials>
     {
         /// <summary>
-        /// Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthMethodEnum
         {
@@ -43,14 +43,20 @@ namespace Cohesity.Model
             /// Enum KUseHelios for value: kUseHelios
             /// </summary>
             [EnumMember(Value = "kUseHelios")]
-            KUseHelios = 3
+            KUseHelios = 3,
+
+            /// <summary>
+            /// Enum KUseInstanceProfile for value: kUseInstanceProfile
+            /// </summary>
+            [EnumMember(Value = "kUseInstanceProfile")]
+            KUseInstanceProfile = 4
 
         }
 
         /// <summary>
-        /// Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [DataMember(Name="authMethod", EmitDefaultValue=true)]
         public AuthMethodEnum? AuthMethod { get; set; }
         /// <summary>
@@ -121,7 +127,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="isLambdaBasedGCEnabled">Specifies whether this vault supports AWS Lambda based GC. A Lambda function needs to be deployed in the customer&#39;s AWS environment or the IAM user should have permissions to create one..</param>
         /// <param name="accessKeyId">Specifies the access key for Amazon service account. See the Cohesity online help for the value to specify for this field based on the current S3 Compatible Vault (External Target) type. For example for Iron Mountain, specify the user name from Iron Mountain for this field..</param>
-        /// <param name="authMethod">Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication..</param>
+        /// <param name="authMethod">Specifies the auth method used for the request See the Cohesity online help for the value to specify for this field based on the current S3-compatible Vault (External Target) type. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication..</param>
         /// <param name="c2sAccessPortal">c2sAccessPortal.</param>
         /// <param name="credentialBlob">Specifies the credential blob to authenticate with credential endpoint..</param>
         /// <param name="credentialEndpoint">Specifies the credential process that generates the security token..</param>

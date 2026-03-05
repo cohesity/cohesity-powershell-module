@@ -59,7 +59,9 @@ namespace Cohesity.Model
         /// <param name="aesEncryptionMode">Specifies the default AES Encryption mode on the cluster..</param>
         /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
         /// <param name="appsSubnet">appsSubnet.</param>
+        /// <param name="attemptAgentPortsUpgrade">To attempt agent connection on port 21213 first.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
+        /// <param name="cloudRf1Enabled">Specifies if the Cloud RF1 is enabled on the cluster..</param>
         /// <param name="clusterAuditLogConfig">clusterAuditLogConfig.</param>
         /// <param name="dnsServerIps">Array of IP Addresses of DNS Servers.  Specifies the IP addresses of the DNS Servers used by the Cohesity Cluster..</param>
         /// <param name="domainNames">Array of Domain Names.  The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up..</param>
@@ -82,8 +84,11 @@ namespace Cohesity.Model
         /// <param name="ntpSettings">ntpSettings.</param>
         /// <param name="pcieSsdTierRebalanceDelaySecs">Specifies the rebalance delay in seconds for cluster PcieSSD storage tier..</param>
         /// <param name="protoRpcEncryptionEnabled">Specifies if protorpc encryption is enabled or not..</param>
+        /// <param name="reverseTunnelEnableExtension">ReverseTunnelEnableExtension specifies if the reverse tunnel should be extended..</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
+        /// <param name="reverseTunnelExtensionDurationHours">ReverseTunnelExtensionDurationHours specifies the number of hours to extend the reverse tunnel..</param>
+        /// <param name="s3VirtualHostedDomainNames">Specifies the list of domain names for S3 Virtual Hosted Style Paths. If set, all the Cohesity S3 Views in the cluster can be accessed using any of the specified domain names..</param>
         /// <param name="sataHddTierAdmissionControl">Specifies the admission control for cluster SATAHDD storage tier..</param>
         /// <param name="securityModeDod">Specifies if Security Mode DOD is enabled or not..</param>
         /// <param name="smbAdDisabled">Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled..</param>
@@ -93,12 +98,16 @@ namespace Cohesity.Model
         /// <param name="tenantViewboxSharingEnabled">In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false..</param>
         /// <param name="tieringAuditLogConfig">tieringAuditLogConfig.</param>
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
+        /// <param name="tlsEnabled">Specifies if the TLS is enabled on the remote cluster..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
+        /// <param name="useDefaultAgentPorts">To use default ports 50051 &amp; 21213.</param>
         /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
-        public UpdateClusterParams(string aesEncryptionMode = default(string), AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), int? sataHddTierAdmissionControl = default(int?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?))
+        public UpdateClusterParams(string aesEncryptionMode = default(string), AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), bool? attemptAgentPortsUpgrade = default(bool?), bool? bannerEnabled = default(bool?), bool? cloudRf1Enabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnableExtension = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), long? reverseTunnelExtensionDurationHours = default(long?), List<string> s3VirtualHostedDomainNames = default(List<string>), int? sataHddTierAdmissionControl = default(int?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? tlsEnabled = default(bool?), bool? turboMode = default(bool?), bool? useDefaultAgentPorts = default(bool?), bool? useHeimdall = default(bool?))
         {
             this.AesEncryptionMode = aesEncryptionMode;
+            this.AttemptAgentPortsUpgrade = attemptAgentPortsUpgrade;
             this.BannerEnabled = bannerEnabled;
+            this.CloudRf1Enabled = cloudRf1Enabled;
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
             this.EnableActiveMonitoring = enableActiveMonitoring;
@@ -118,8 +127,11 @@ namespace Cohesity.Model
             this.Name = name;
             this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
+            this.ReverseTunnelEnableExtension = reverseTunnelEnableExtension;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.ReverseTunnelExtensionDurationHours = reverseTunnelExtensionDurationHours;
+            this.S3VirtualHostedDomainNames = s3VirtualHostedDomainNames;
             this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
@@ -128,12 +140,16 @@ namespace Cohesity.Model
             this.SyslogServers = syslogServers;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.Timezone = timezone;
+            this.TlsEnabled = tlsEnabled;
             this.TurboMode = turboMode;
+            this.UseDefaultAgentPorts = useDefaultAgentPorts;
             this.UseHeimdall = useHeimdall;
             this.AesEncryptionMode = aesEncryptionMode;
             this.AmqpTargetConfig = amqpTargetConfig;
             this.AppsSubnet = appsSubnet;
+            this.AttemptAgentPortsUpgrade = attemptAgentPortsUpgrade;
             this.BannerEnabled = bannerEnabled;
+            this.CloudRf1Enabled = cloudRf1Enabled;
             this.ClusterAuditLogConfig = clusterAuditLogConfig;
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
@@ -156,8 +172,11 @@ namespace Cohesity.Model
             this.NtpSettings = ntpSettings;
             this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
+            this.ReverseTunnelEnableExtension = reverseTunnelEnableExtension;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.ReverseTunnelExtensionDurationHours = reverseTunnelExtensionDurationHours;
+            this.S3VirtualHostedDomainNames = s3VirtualHostedDomainNames;
             this.SataHddTierAdmissionControl = sataHddTierAdmissionControl;
             this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
@@ -167,7 +186,9 @@ namespace Cohesity.Model
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.TieringAuditLogConfig = tieringAuditLogConfig;
             this.Timezone = timezone;
+            this.TlsEnabled = tlsEnabled;
             this.TurboMode = turboMode;
+            this.UseDefaultAgentPorts = useDefaultAgentPorts;
             this.UseHeimdall = useHeimdall;
         }
         
@@ -191,11 +212,25 @@ namespace Cohesity.Model
         public Subnet AppsSubnet { get; set; }
 
         /// <summary>
+        /// To attempt agent connection on port 21213 first
+        /// </summary>
+        /// <value>To attempt agent connection on port 21213 first</value>
+        [DataMember(Name="attemptAgentPortsUpgrade", EmitDefaultValue=true)]
+        public bool? AttemptAgentPortsUpgrade { get; set; }
+
+        /// <summary>
         /// Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page.
         /// </summary>
         /// <value>Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page.</value>
         [DataMember(Name="bannerEnabled", EmitDefaultValue=true)]
         public bool? BannerEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies if the Cloud RF1 is enabled on the cluster.
+        /// </summary>
+        /// <value>Specifies if the Cloud RF1 is enabled on the cluster.</value>
+        [DataMember(Name="cloudRf1Enabled", EmitDefaultValue=true)]
+        public bool? CloudRf1Enabled { get; set; }
 
         /// <summary>
         /// Gets or Sets ClusterAuditLogConfig
@@ -342,6 +377,13 @@ namespace Cohesity.Model
         public bool? ProtoRpcEncryptionEnabled { get; set; }
 
         /// <summary>
+        /// ReverseTunnelEnableExtension specifies if the reverse tunnel should be extended.
+        /// </summary>
+        /// <value>ReverseTunnelEnableExtension specifies if the reverse tunnel should be extended.</value>
+        [DataMember(Name="reverseTunnelEnableExtension", EmitDefaultValue=true)]
+        public bool? ReverseTunnelEnableExtension { get; set; }
+
+        /// <summary>
         /// If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.
         /// </summary>
         /// <value>If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.</value>
@@ -354,6 +396,20 @@ namespace Cohesity.Model
         /// <value>ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled.</value>
         [DataMember(Name="reverseTunnelEndTimeMsecs", EmitDefaultValue=true)]
         public long? ReverseTunnelEndTimeMsecs { get; set; }
+
+        /// <summary>
+        /// ReverseTunnelExtensionDurationHours specifies the number of hours to extend the reverse tunnel.
+        /// </summary>
+        /// <value>ReverseTunnelExtensionDurationHours specifies the number of hours to extend the reverse tunnel.</value>
+        [DataMember(Name="reverseTunnelExtensionDurationHours", EmitDefaultValue=true)]
+        public long? ReverseTunnelExtensionDurationHours { get; set; }
+
+        /// <summary>
+        /// Specifies the list of domain names for S3 Virtual Hosted Style Paths. If set, all the Cohesity S3 Views in the cluster can be accessed using any of the specified domain names.
+        /// </summary>
+        /// <value>Specifies the list of domain names for S3 Virtual Hosted Style Paths. If set, all the Cohesity S3 Views in the cluster can be accessed using any of the specified domain names.</value>
+        [DataMember(Name="s3VirtualHostedDomainNames", EmitDefaultValue=true)]
+        public List<string> S3VirtualHostedDomainNames { get; set; }
 
         /// <summary>
         /// Specifies the admission control for cluster SATAHDD storage tier.
@@ -418,11 +474,25 @@ namespace Cohesity.Model
         public string Timezone { get; set; }
 
         /// <summary>
+        /// Specifies if the TLS is enabled on the remote cluster.
+        /// </summary>
+        /// <value>Specifies if the TLS is enabled on the remote cluster.</value>
+        [DataMember(Name="tlsEnabled", EmitDefaultValue=true)]
+        public bool? TlsEnabled { get; set; }
+
+        /// <summary>
         /// Specifies if the cluster is in Turbo mode.
         /// </summary>
         /// <value>Specifies if the cluster is in Turbo mode.</value>
         [DataMember(Name="turboMode", EmitDefaultValue=true)]
         public bool? TurboMode { get; set; }
+
+        /// <summary>
+        /// To use default ports 50051 &amp; 21213
+        /// </summary>
+        /// <value>To use default ports 50051 &amp; 21213</value>
+        [DataMember(Name="useDefaultAgentPorts", EmitDefaultValue=true)]
+        public bool? UseDefaultAgentPorts { get; set; }
 
         /// <summary>
         /// Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall.
@@ -483,9 +553,19 @@ namespace Cohesity.Model
                     this.AppsSubnet.Equals(input.AppsSubnet))
                 ) && 
                 (
+                    this.AttemptAgentPortsUpgrade == input.AttemptAgentPortsUpgrade ||
+                    (this.AttemptAgentPortsUpgrade != null &&
+                    this.AttemptAgentPortsUpgrade.Equals(input.AttemptAgentPortsUpgrade))
+                ) && 
+                (
                     this.BannerEnabled == input.BannerEnabled ||
                     (this.BannerEnabled != null &&
                     this.BannerEnabled.Equals(input.BannerEnabled))
+                ) && 
+                (
+                    this.CloudRf1Enabled == input.CloudRf1Enabled ||
+                    (this.CloudRf1Enabled != null &&
+                    this.CloudRf1Enabled.Equals(input.CloudRf1Enabled))
                 ) && 
                 (
                     this.ClusterAuditLogConfig == input.ClusterAuditLogConfig ||
@@ -599,6 +679,11 @@ namespace Cohesity.Model
                     this.ProtoRpcEncryptionEnabled.Equals(input.ProtoRpcEncryptionEnabled))
                 ) && 
                 (
+                    this.ReverseTunnelEnableExtension == input.ReverseTunnelEnableExtension ||
+                    (this.ReverseTunnelEnableExtension != null &&
+                    this.ReverseTunnelEnableExtension.Equals(input.ReverseTunnelEnableExtension))
+                ) && 
+                (
                     this.ReverseTunnelEnabled == input.ReverseTunnelEnabled ||
                     (this.ReverseTunnelEnabled != null &&
                     this.ReverseTunnelEnabled.Equals(input.ReverseTunnelEnabled))
@@ -607,6 +692,17 @@ namespace Cohesity.Model
                     this.ReverseTunnelEndTimeMsecs == input.ReverseTunnelEndTimeMsecs ||
                     (this.ReverseTunnelEndTimeMsecs != null &&
                     this.ReverseTunnelEndTimeMsecs.Equals(input.ReverseTunnelEndTimeMsecs))
+                ) && 
+                (
+                    this.ReverseTunnelExtensionDurationHours == input.ReverseTunnelExtensionDurationHours ||
+                    (this.ReverseTunnelExtensionDurationHours != null &&
+                    this.ReverseTunnelExtensionDurationHours.Equals(input.ReverseTunnelExtensionDurationHours))
+                ) && 
+                (
+                    this.S3VirtualHostedDomainNames == input.S3VirtualHostedDomainNames ||
+                    this.S3VirtualHostedDomainNames != null &&
+                    input.S3VirtualHostedDomainNames != null &&
+                    this.S3VirtualHostedDomainNames.SequenceEqual(input.S3VirtualHostedDomainNames)
                 ) && 
                 (
                     this.SataHddTierAdmissionControl == input.SataHddTierAdmissionControl ||
@@ -655,9 +751,19 @@ namespace Cohesity.Model
                     this.Timezone.Equals(input.Timezone))
                 ) && 
                 (
+                    this.TlsEnabled == input.TlsEnabled ||
+                    (this.TlsEnabled != null &&
+                    this.TlsEnabled.Equals(input.TlsEnabled))
+                ) && 
+                (
                     this.TurboMode == input.TurboMode ||
                     (this.TurboMode != null &&
                     this.TurboMode.Equals(input.TurboMode))
+                ) && 
+                (
+                    this.UseDefaultAgentPorts == input.UseDefaultAgentPorts ||
+                    (this.UseDefaultAgentPorts != null &&
+                    this.UseDefaultAgentPorts.Equals(input.UseDefaultAgentPorts))
                 ) && 
                 (
                     this.UseHeimdall == input.UseHeimdall ||
@@ -681,8 +787,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
+                if (this.AttemptAgentPortsUpgrade != null)
+                    hashCode = hashCode * 59 + this.AttemptAgentPortsUpgrade.GetHashCode();
                 if (this.BannerEnabled != null)
                     hashCode = hashCode * 59 + this.BannerEnabled.GetHashCode();
+                if (this.CloudRf1Enabled != null)
+                    hashCode = hashCode * 59 + this.CloudRf1Enabled.GetHashCode();
                 if (this.ClusterAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.ClusterAuditLogConfig.GetHashCode();
                 if (this.DnsServerIps != null)
@@ -726,10 +836,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PcieSsdTierRebalanceDelaySecs.GetHashCode();
                 if (this.ProtoRpcEncryptionEnabled != null)
                     hashCode = hashCode * 59 + this.ProtoRpcEncryptionEnabled.GetHashCode();
+                if (this.ReverseTunnelEnableExtension != null)
+                    hashCode = hashCode * 59 + this.ReverseTunnelEnableExtension.GetHashCode();
                 if (this.ReverseTunnelEnabled != null)
                     hashCode = hashCode * 59 + this.ReverseTunnelEnabled.GetHashCode();
                 if (this.ReverseTunnelEndTimeMsecs != null)
                     hashCode = hashCode * 59 + this.ReverseTunnelEndTimeMsecs.GetHashCode();
+                if (this.ReverseTunnelExtensionDurationHours != null)
+                    hashCode = hashCode * 59 + this.ReverseTunnelExtensionDurationHours.GetHashCode();
+                if (this.S3VirtualHostedDomainNames != null)
+                    hashCode = hashCode * 59 + this.S3VirtualHostedDomainNames.GetHashCode();
                 if (this.SataHddTierAdmissionControl != null)
                     hashCode = hashCode * 59 + this.SataHddTierAdmissionControl.GetHashCode();
                 if (this.SecurityModeDod != null)
@@ -748,8 +864,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TieringAuditLogConfig.GetHashCode();
                 if (this.Timezone != null)
                     hashCode = hashCode * 59 + this.Timezone.GetHashCode();
+                if (this.TlsEnabled != null)
+                    hashCode = hashCode * 59 + this.TlsEnabled.GetHashCode();
                 if (this.TurboMode != null)
                     hashCode = hashCode * 59 + this.TurboMode.GetHashCode();
+                if (this.UseDefaultAgentPorts != null)
+                    hashCode = hashCode * 59 + this.UseDefaultAgentPorts.GetHashCode();
                 if (this.UseHeimdall != null)
                     hashCode = hashCode * 59 + this.UseHeimdall.GetHashCode();
                 return hashCode;

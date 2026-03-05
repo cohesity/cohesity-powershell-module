@@ -23,16 +23,29 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UserId" /> class.
         /// </summary>
+        /// <param name="domain">Specifies the domain name of the user, where the principal&#39; account is maintained..</param>
         /// <param name="sid">If interested in a user via smb_client, include SID. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn..</param>
         /// <param name="unixUid">If interested in a user via unix-identifier, include UnixUid. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided..</param>
-        public UserId(string sid = default(string), int? unixUid = default(int?))
+        /// <param name="userName">Specifies the full name of the user..</param>
+        public UserId(string domain = default(string), string sid = default(string), int? unixUid = default(int?), string userName = default(string))
         {
+            this.Domain = domain;
             this.Sid = sid;
             this.UnixUid = unixUid;
+            this.UserName = userName;
+            this.Domain = domain;
             this.Sid = sid;
             this.UnixUid = unixUid;
+            this.UserName = userName;
         }
         
+        /// <summary>
+        /// Specifies the domain name of the user, where the principal&#39; account is maintained.
+        /// </summary>
+        /// <value>Specifies the domain name of the user, where the principal&#39; account is maintained.</value>
+        [DataMember(Name="domain", EmitDefaultValue=true)]
+        public string Domain { get; set; }
+
         /// <summary>
         /// If interested in a user via smb_client, include SID. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn.
         /// </summary>
@@ -46,6 +59,13 @@ namespace Cohesity.Model
         /// <value>If interested in a user via unix-identifier, include UnixUid. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided.</value>
         [DataMember(Name="unixUid", EmitDefaultValue=true)]
         public int? UnixUid { get; set; }
+
+        /// <summary>
+        /// Specifies the full name of the user.
+        /// </summary>
+        /// <value>Specifies the full name of the user.</value>
+        [DataMember(Name="userName", EmitDefaultValue=true)]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -84,6 +104,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Domain == input.Domain ||
+                    (this.Domain != null &&
+                    this.Domain.Equals(input.Domain))
+                ) && 
+                (
                     this.Sid == input.Sid ||
                     (this.Sid != null &&
                     this.Sid.Equals(input.Sid))
@@ -92,6 +117,11 @@ namespace Cohesity.Model
                     this.UnixUid == input.UnixUid ||
                     (this.UnixUid != null &&
                     this.UnixUid.Equals(input.UnixUid))
+                ) && 
+                (
+                    this.UserName == input.UserName ||
+                    (this.UserName != null &&
+                    this.UserName.Equals(input.UserName))
                 );
         }
 
@@ -104,10 +134,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Domain != null)
+                    hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.Sid != null)
                     hashCode = hashCode * 59 + this.Sid.GetHashCode();
                 if (this.UnixUid != null)
                     hashCode = hashCode * 59 + this.UnixUid.GetHashCode();
+                if (this.UserName != null)
+                    hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 return hashCode;
             }
         }

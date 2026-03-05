@@ -26,13 +26,16 @@ namespace Cohesity.Model
         /// <param name="cobmrBackup">Whether CoBMR backup is enabled. If true, Cristie executables will be run in agent so that bare metal restore can be performed..</param>
         /// <param name="enableIncrementalBackupAfterRestart">If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done. NOTE: This is applicable to windows host environments..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
-        public PhysicalBackupEnvParams(bool? cobmrBackup = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
+        /// <param name="vssExcludedWriters">List of VSS writers that are excluded..</param>
+        public PhysicalBackupEnvParams(bool? cobmrBackup = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), List<string> vssExcludedWriters = default(List<string>))
         {
             this.CobmrBackup = cobmrBackup;
             this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
+            this.VssExcludedWriters = vssExcludedWriters;
             this.CobmrBackup = cobmrBackup;
             this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
             this.FilteringPolicy = filteringPolicy;
+            this.VssExcludedWriters = vssExcludedWriters;
         }
         
         /// <summary>
@@ -54,6 +57,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// List of VSS writers that are excluded.
+        /// </summary>
+        /// <value>List of VSS writers that are excluded.</value>
+        [DataMember(Name="vssExcludedWriters", EmitDefaultValue=true)]
+        public List<string> VssExcludedWriters { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -105,6 +115,12 @@ namespace Cohesity.Model
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
+                ) && 
+                (
+                    this.VssExcludedWriters == input.VssExcludedWriters ||
+                    this.VssExcludedWriters != null &&
+                    input.VssExcludedWriters != null &&
+                    this.VssExcludedWriters.SequenceEqual(input.VssExcludedWriters)
                 );
         }
 
@@ -123,6 +139,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableIncrementalBackupAfterRestart.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.VssExcludedWriters != null)
+                    hashCode = hashCode * 59 + this.VssExcludedWriters.GetHashCode();
                 return hashCode;
             }
         }

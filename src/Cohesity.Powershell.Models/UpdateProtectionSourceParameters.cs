@@ -149,13 +149,16 @@ namespace Cohesity.Model
         /// <param name="isStorageArraySnapshotEnabled">Specifies if this source entity has enabled storage array snapshot or not..</param>
         /// <param name="agentEndpoint">Specifies the agent endpoint if it is different from the source endpoint..</param>
         /// <param name="allowedIpAddresses">Specifies the list of IP Addresses on the registered source to be exclusively allowed for doing any type of IO operations..</param>
+        /// <param name="asyncRegistration">Specified whether to do registration in async manner for VMware Sources..</param>
         /// <param name="awsCredentials">awsCredentials.</param>
         /// <param name="awsFleetParams">awsFleetParams.</param>
         /// <param name="azureCredentials">azureCredentials.</param>
         /// <param name="blacklistedIpAddresses">This field is deprecated. Use DeniedIpAddresses instead. deprecated: true.</param>
+        /// <param name="cloudCredentials">cloudCredentials.</param>
         /// <param name="clusterNetworkInfo">clusterNetworkInfo.</param>
         /// <param name="connectionId">Specifies the Bifrost realm to be associated with the source root. Whenever needed, the workflows related to this source would then only use Bifrosts from the specified realm..</param>
         /// <param name="deniedIpAddresses">Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations..</param>
+        /// <param name="enableM365CSMBackup">Specifies whether to enable M365 Storage Service API based(CSM) Backup for the M365 source..</param>
         /// <param name="endpoint">Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source..</param>
         /// <param name="exchangeDagProtectionPreference">exchangeDagProtectionPreference.</param>
         /// <param name="forceRegister">ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally..</param>
@@ -184,14 +187,16 @@ namespace Cohesity.Model
         /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public UpdateProtectionSourceParameters(bool? isStorageArraySnapshotEnabled = default(bool?), string agentEndpoint = default(string), List<string> allowedIpAddresses = default(List<string>), AwsCredentials awsCredentials = default(AwsCredentials), AwsFleetPublicParams awsFleetParams = default(AwsFleetPublicParams), AzureCredentials azureCredentials = default(AzureCredentials), List<string> blacklistedIpAddresses = default(List<string>), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), long? connectionId = default(long?), List<string> deniedIpAddresses = default(List<string>), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), GcpFleetParams gcpFleetParams = default(GcpFleetParams), HostTypeEnum? hostType = default(HostTypeEnum?), bool? isProxyHost = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), KubernetesParams kubernetesParams = default(KubernetesParams), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), List<long> proxyHostSourceIdList = default(List<long>), bool? reRegister = default(bool?), bool? restoreConfig = default(bool?), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useExistingCredentials = default(bool?), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
+        public UpdateProtectionSourceParameters(bool? isStorageArraySnapshotEnabled = default(bool?), string agentEndpoint = default(string), List<string> allowedIpAddresses = default(List<string>), bool? asyncRegistration = default(bool?), AwsCredentials awsCredentials = default(AwsCredentials), AwsFleetPublicParams awsFleetParams = default(AwsFleetPublicParams), AzureCredentials azureCredentials = default(AzureCredentials), List<string> blacklistedIpAddresses = default(List<string>), CloudCredentials cloudCredentials = default(CloudCredentials), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), long? connectionId = default(long?), List<string> deniedIpAddresses = default(List<string>), bool? enableM365CSMBackup = default(bool?), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), GcpFleetParams gcpFleetParams = default(GcpFleetParams), HostTypeEnum? hostType = default(HostTypeEnum?), bool? isProxyHost = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), KubernetesParams kubernetesParams = default(KubernetesParams), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), List<Credentials> office365ServiceAccountCredentialsList = default(List<Credentials>), string password = default(string), List<long> proxyHostSourceIdList = default(List<long>), bool? reRegister = default(bool?), bool? restoreConfig = default(bool?), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useExistingCredentials = default(bool?), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
         {
             this.IsStorageArraySnapshotEnabled = isStorageArraySnapshotEnabled;
             this.AgentEndpoint = agentEndpoint;
             this.AllowedIpAddresses = allowedIpAddresses;
+            this.AsyncRegistration = asyncRegistration;
             this.BlacklistedIpAddresses = blacklistedIpAddresses;
             this.ConnectionId = connectionId;
             this.DeniedIpAddresses = deniedIpAddresses;
+            this.EnableM365CSMBackup = enableM365CSMBackup;
             this.Endpoint = endpoint;
             this.ForceRegister = forceRegister;
             this.HostType = hostType;
@@ -215,13 +220,16 @@ namespace Cohesity.Model
             this.IsStorageArraySnapshotEnabled = isStorageArraySnapshotEnabled;
             this.AgentEndpoint = agentEndpoint;
             this.AllowedIpAddresses = allowedIpAddresses;
+            this.AsyncRegistration = asyncRegistration;
             this.AwsCredentials = awsCredentials;
             this.AwsFleetParams = awsFleetParams;
             this.AzureCredentials = azureCredentials;
             this.BlacklistedIpAddresses = blacklistedIpAddresses;
+            this.CloudCredentials = cloudCredentials;
             this.ClusterNetworkInfo = clusterNetworkInfo;
             this.ConnectionId = connectionId;
             this.DeniedIpAddresses = deniedIpAddresses;
+            this.EnableM365CSMBackup = enableM365CSMBackup;
             this.Endpoint = endpoint;
             this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.ForceRegister = forceRegister;
@@ -274,6 +282,13 @@ namespace Cohesity.Model
         public List<string> AllowedIpAddresses { get; set; }
 
         /// <summary>
+        /// Specified whether to do registration in async manner for VMware Sources.
+        /// </summary>
+        /// <value>Specified whether to do registration in async manner for VMware Sources.</value>
+        [DataMember(Name="asyncRegistration", EmitDefaultValue=true)]
+        public bool? AsyncRegistration { get; set; }
+
+        /// <summary>
         /// Gets or Sets AwsCredentials
         /// </summary>
         [DataMember(Name="awsCredentials", EmitDefaultValue=false)]
@@ -299,6 +314,12 @@ namespace Cohesity.Model
         public List<string> BlacklistedIpAddresses { get; set; }
 
         /// <summary>
+        /// Gets or Sets CloudCredentials
+        /// </summary>
+        [DataMember(Name="cloudCredentials", EmitDefaultValue=false)]
+        public CloudCredentials CloudCredentials { get; set; }
+
+        /// <summary>
         /// Gets or Sets ClusterNetworkInfo
         /// </summary>
         [DataMember(Name="clusterNetworkInfo", EmitDefaultValue=false)]
@@ -317,6 +338,13 @@ namespace Cohesity.Model
         /// <value>Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations.</value>
         [DataMember(Name="deniedIpAddresses", EmitDefaultValue=true)]
         public List<string> DeniedIpAddresses { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable M365 Storage Service API based(CSM) Backup for the M365 source.
+        /// </summary>
+        /// <value>Specifies whether to enable M365 Storage Service API based(CSM) Backup for the M365 source.</value>
+        [DataMember(Name="enableM365CSMBackup", EmitDefaultValue=true)]
+        public bool? EnableM365CSMBackup { get; set; }
 
         /// <summary>
         /// Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source.
@@ -552,6 +580,11 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
+                    this.AsyncRegistration == input.AsyncRegistration ||
+                    (this.AsyncRegistration != null &&
+                    this.AsyncRegistration.Equals(input.AsyncRegistration))
+                ) && 
+                (
                     this.AwsCredentials == input.AwsCredentials ||
                     (this.AwsCredentials != null &&
                     this.AwsCredentials.Equals(input.AwsCredentials))
@@ -573,6 +606,11 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddresses.SequenceEqual(input.BlacklistedIpAddresses)
                 ) && 
                 (
+                    this.CloudCredentials == input.CloudCredentials ||
+                    (this.CloudCredentials != null &&
+                    this.CloudCredentials.Equals(input.CloudCredentials))
+                ) && 
+                (
                     this.ClusterNetworkInfo == input.ClusterNetworkInfo ||
                     (this.ClusterNetworkInfo != null &&
                     this.ClusterNetworkInfo.Equals(input.ClusterNetworkInfo))
@@ -587,6 +625,11 @@ namespace Cohesity.Model
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
                     this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
+                ) && 
+                (
+                    this.EnableM365CSMBackup == input.EnableM365CSMBackup ||
+                    (this.EnableM365CSMBackup != null &&
+                    this.EnableM365CSMBackup.Equals(input.EnableM365CSMBackup))
                 ) && 
                 (
                     this.Endpoint == input.Endpoint ||
@@ -749,6 +792,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AgentEndpoint.GetHashCode();
                 if (this.AllowedIpAddresses != null)
                     hashCode = hashCode * 59 + this.AllowedIpAddresses.GetHashCode();
+                if (this.AsyncRegistration != null)
+                    hashCode = hashCode * 59 + this.AsyncRegistration.GetHashCode();
                 if (this.AwsCredentials != null)
                     hashCode = hashCode * 59 + this.AwsCredentials.GetHashCode();
                 if (this.AwsFleetParams != null)
@@ -757,12 +802,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AzureCredentials.GetHashCode();
                 if (this.BlacklistedIpAddresses != null)
                     hashCode = hashCode * 59 + this.BlacklistedIpAddresses.GetHashCode();
+                if (this.CloudCredentials != null)
+                    hashCode = hashCode * 59 + this.CloudCredentials.GetHashCode();
                 if (this.ClusterNetworkInfo != null)
                     hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
                 if (this.ConnectionId != null)
                     hashCode = hashCode * 59 + this.ConnectionId.GetHashCode();
                 if (this.DeniedIpAddresses != null)
                     hashCode = hashCode * 59 + this.DeniedIpAddresses.GetHashCode();
+                if (this.EnableM365CSMBackup != null)
+                    hashCode = hashCode * 59 + this.EnableM365CSMBackup.GetHashCode();
                 if (this.Endpoint != null)
                     hashCode = hashCode * 59 + this.Endpoint.GetHashCode();
                 if (this.ExchangeDagProtectionPreference != null)

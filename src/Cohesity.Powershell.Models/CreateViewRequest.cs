@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class CreateViewRequest :  IEquatable<CreateViewRequest>
     {
         /// <summary>
-        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.
+        /// Deprecated: Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.
         /// </summary>
-        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.</value>
+        /// <value>Deprecated: Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ProtocolAccessEnum
         {
@@ -66,9 +66,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.
+        /// Deprecated: Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.
         /// </summary>
-        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.</value>
+        /// <value>Deprecated: Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;.</value>
         [DataMember(Name="protocolAccess", EmitDefaultValue=true)]
         public ProtocolAccessEnum? ProtocolAccess { get; set; }
         /// <summary>
@@ -160,6 +160,7 @@ namespace Cohesity.Model
         /// <param name="accessSids">Array of Security Identifiers (SIDs)  Specifies the list of security identifiers (SIDs) for the restricted Principals who have access to this View..</param>
         /// <param name="antivirusScanConfig">antivirusScanConfig.</param>
         /// <param name="caseInsensitiveNamesEnabled">Specifies whether to support case insensitive file/folder names. This parameter can only be set during create and cannot be changed..</param>
+        /// <param name="dataLockMode">Specifies the WORM datalock mode for this view. This may be unset for WORM views created through legacy flows (such as Iris, Magneto snapshots, or cloning). WORM status must therefore be determined by worm_lock_expiry_usecs. Enum: [Compliance Enterprise].</param>
         /// <param name="description">Specifies an optional text description about the View..</param>
         /// <param name="enableFastDurableHandle">Specifies whether fast durable handle is enabled. If enabled, view open handle will be kept in memory, which results in a higher performance. But the handles cannot be recovered if node or service crashes..</param>
         /// <param name="enableFilerAuditLogging">Specifies if Filer Audit Logging is enabled for this view..</param>
@@ -185,7 +186,7 @@ namespace Cohesity.Model
         /// <param name="nfsRootSquash">nfsRootSquash.</param>
         /// <param name="overrideGlobalNetgroupWhitelist">Specifies whether view level client netgroup allowlist overrides cluster and global setting..</param>
         /// <param name="overrideGlobalWhitelist">Specifies whether view level client subnet allowlist overrides cluster and global setting..</param>
-        /// <param name="protocolAccess">Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;..</param>
+        /// <param name="protocolAccess">Deprecated: Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only. &#39;kUnknown&#39; indicates that the protocol access of a view does not match any of the above. In this case, the constant is used as &#39;catch-all&#39;..</param>
         /// <param name="qos">qos.</param>
         /// <param name="s3FolderSupportEnabled">Specifies whether to support s3 folder support feature on the view. This parameter can only be set during create and cannot be changed..</param>
         /// <param name="s3KeyMappingConfig">Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config..</param>
@@ -203,10 +204,12 @@ namespace Cohesity.Model
         /// <param name="viewBoxId">Specifies the id of the Storage Domain (View Box) where the View will be created. (required).</param>
         /// <param name="viewLockEnabled">Specifies whether view lock is enabled. If enabled the view cannot be modified or deleted until unlock. By default it is disabled..</param>
         /// <param name="viewPinningConfig">viewPinningConfig.</param>
-        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string description = default(string), bool? enableFastDurableHandle = default(bool?), bool? enableFilerAuditLogging = default(bool?), bool? enableLiveIndexing = default(bool?), bool? enableMetadataAccelerator = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbOplock = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), bool? isExternallyTriggeredBackupTarget = default(bool?), bool? isReadOnly = default(bool?), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), List<NisNetgroup> netgroupWhitelist = default(List<NisNetgroup>), NfsSquash nfsAllSquash = default(NfsSquash), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalNetgroupWhitelist = default(bool?), bool? overrideGlobalWhitelist = default(bool?), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), bool? s3FolderSupportEnabled = default(bool?), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string swiftProjectDomain = default(string), string swiftProjectName = default(string), string swiftUserDomain = default(string), string swiftUsername = default(string), string tenantId = default(string), long? viewBoxId = default(long?), bool? viewLockEnabled = default(bool?), ViewPinningConfig viewPinningConfig = default(ViewPinningConfig))
+        /// <param name="viewProtocol">Specifies the supported Protocols for the View..</param>
+        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string dataLockMode = default(string), string description = default(string), bool? enableFastDurableHandle = default(bool?), bool? enableFilerAuditLogging = default(bool?), bool? enableLiveIndexing = default(bool?), bool? enableMetadataAccelerator = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbOplock = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), bool? isExternallyTriggeredBackupTarget = default(bool?), bool? isReadOnly = default(bool?), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), List<NisNetgroup> netgroupWhitelist = default(List<NisNetgroup>), NfsSquash nfsAllSquash = default(NfsSquash), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalNetgroupWhitelist = default(bool?), bool? overrideGlobalWhitelist = default(bool?), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), bool? s3FolderSupportEnabled = default(bool?), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string swiftProjectDomain = default(string), string swiftProjectName = default(string), string swiftUserDomain = default(string), string swiftUsername = default(string), string tenantId = default(string), long? viewBoxId = default(long?), bool? viewLockEnabled = default(bool?), ViewPinningConfig viewPinningConfig = default(ViewPinningConfig), List<ViewProtocol> viewProtocol = default(List<ViewProtocol>))
         {
             this.AccessSids = accessSids;
             this.CaseInsensitiveNamesEnabled = caseInsensitiveNamesEnabled;
+            this.DataLockMode = dataLockMode;
             this.Description = description;
             this.EnableFastDurableHandle = enableFastDurableHandle;
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
@@ -241,9 +244,11 @@ namespace Cohesity.Model
             this.TenantId = tenantId;
             this.ViewBoxId = viewBoxId;
             this.ViewLockEnabled = viewLockEnabled;
+            this.ViewProtocol = viewProtocol;
             this.AccessSids = accessSids;
             this.AntivirusScanConfig = antivirusScanConfig;
             this.CaseInsensitiveNamesEnabled = caseInsensitiveNamesEnabled;
+            this.DataLockMode = dataLockMode;
             this.Description = description;
             this.EnableFastDurableHandle = enableFastDurableHandle;
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
@@ -285,6 +290,7 @@ namespace Cohesity.Model
             this.TenantId = tenantId;
             this.ViewLockEnabled = viewLockEnabled;
             this.ViewPinningConfig = viewPinningConfig;
+            this.ViewProtocol = viewProtocol;
         }
         
         /// <summary>
@@ -306,6 +312,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether to support case insensitive file/folder names. This parameter can only be set during create and cannot be changed.</value>
         [DataMember(Name="caseInsensitiveNamesEnabled", EmitDefaultValue=true)]
         public bool? CaseInsensitiveNamesEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies the WORM datalock mode for this view. This may be unset for WORM views created through legacy flows (such as Iris, Magneto snapshots, or cloning). WORM status must therefore be determined by worm_lock_expiry_usecs. Enum: [Compliance Enterprise]
+        /// </summary>
+        /// <value>Specifies the WORM datalock mode for this view. This may be unset for WORM views created through legacy flows (such as Iris, Magneto snapshots, or cloning). WORM status must therefore be determined by worm_lock_expiry_usecs. Enum: [Compliance Enterprise]</value>
+        [DataMember(Name="dataLockMode", EmitDefaultValue=true)]
+        public string DataLockMode { get; set; }
 
         /// <summary>
         /// Specifies an optional text description about the View.
@@ -579,6 +592,13 @@ namespace Cohesity.Model
         public ViewPinningConfig ViewPinningConfig { get; set; }
 
         /// <summary>
+        /// Specifies the supported Protocols for the View.
+        /// </summary>
+        /// <value>Specifies the supported Protocols for the View.</value>
+        [DataMember(Name="viewProtocol", EmitDefaultValue=true)]
+        public List<ViewProtocol> ViewProtocol { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -629,6 +649,11 @@ namespace Cohesity.Model
                     this.CaseInsensitiveNamesEnabled == input.CaseInsensitiveNamesEnabled ||
                     (this.CaseInsensitiveNamesEnabled != null &&
                     this.CaseInsensitiveNamesEnabled.Equals(input.CaseInsensitiveNamesEnabled))
+                ) && 
+                (
+                    this.DataLockMode == input.DataLockMode ||
+                    (this.DataLockMode != null &&
+                    this.DataLockMode.Equals(input.DataLockMode))
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -845,6 +870,12 @@ namespace Cohesity.Model
                     this.ViewPinningConfig == input.ViewPinningConfig ||
                     (this.ViewPinningConfig != null &&
                     this.ViewPinningConfig.Equals(input.ViewPinningConfig))
+                ) && 
+                (
+                    this.ViewProtocol == input.ViewProtocol ||
+                    this.ViewProtocol != null &&
+                    input.ViewProtocol != null &&
+                    this.ViewProtocol.SequenceEqual(input.ViewProtocol)
                 );
         }
 
@@ -863,6 +894,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AntivirusScanConfig.GetHashCode();
                 if (this.CaseInsensitiveNamesEnabled != null)
                     hashCode = hashCode * 59 + this.CaseInsensitiveNamesEnabled.GetHashCode();
+                if (this.DataLockMode != null)
+                    hashCode = hashCode * 59 + this.DataLockMode.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.EnableFastDurableHandle != null)
@@ -946,6 +979,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ViewLockEnabled.GetHashCode();
                 if (this.ViewPinningConfig != null)
                     hashCode = hashCode * 59 + this.ViewPinningConfig.GetHashCode();
+                if (this.ViewProtocol != null)
+                    hashCode = hashCode * 59 + this.ViewProtocol.GetHashCode();
                 return hashCode;
             }
         }

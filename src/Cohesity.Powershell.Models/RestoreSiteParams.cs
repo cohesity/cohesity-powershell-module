@@ -23,15 +23,22 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreSiteParams" /> class.
         /// </summary>
+        /// <param name="backupRootSiteUuid">Below fields are valid for teams/group subsite restore. If group/team is deleted we are updating source_site_uuid with new site uuid in case of original restore but we need backedup uuid and web url to construct url for subsites. Entity uuid of backedup source site in case of sharepoint restore. If the source site is not deleted, this field would be the same as source_site_uuid..</param>
+        /// <param name="backupRootWebUrl">Entity web url of backedup source site in case of sharepoint restore..</param>
         /// <param name="dstSiteName">Entity name of target site in case of sharepoint restore..</param>
         /// <param name="dstSiteUuid">Entity uuid of target site in case of sharepoint restore..</param>
         /// <param name="dstSiteWebUrl">Entity web url of target site in case of sharepoint restore..</param>
         /// <param name="parentSourceSharepointDomainName">The sharepoint domain name of the registered parent source from which the site is backed up..</param>
+        /// <param name="phlRestorePrefix">This prefix is pre-pended to the doc lib which is created for recovering PHL. This must be set if restore_phl_drive is set to true..</param>
+        /// <param name="restorePhlDrive">When set to true, the preservation hold library (PHL) drive for the site should be restored..</param>
         /// <param name="restoreTemplate">Indicates that we have to restore the Sharepoint site template also. This includes: 1) Create site if it does not exist. 2) Provision template..</param>
         /// <param name="restoreToOriginal">Whether or not all sites are restored to original location..</param>
+        /// <param name="restoreUserDoclibsBeforeProvisioningTemplate">Whether user doclibs should be restored before provisioning site template..</param>
+        /// <param name="shouldRestoreLists">Whether lists should be restore for this site restore..</param>
         /// <param name="siteOwnerVec">The list of sites whose drives are being restored..</param>
         /// <param name="siteResult">siteResult.</param>
         /// <param name="siteVersion">Versions for site restores. There can be incompatible changes across process restarts or across restores. To avoid issues, maintain a version for restore..</param>
+        /// <param name="skipClientSidePageFilesUpload">Whether pnp library should upload files linked to client side pages while provisioning template. This should be set if and only if files download was skipped during backup with the flag magneto_o365spo_pnp_pwsh_skip_site_page_files_for_domains. In this case, magneto_sharepoint_restore_user_doclibs_before_template_for_domains must also be set to restore site page references correctly..</param>
         /// <param name="snapFsRelativeSiteBackupResultPath">SnapFS relative path where the site template backup result proto is stored..</param>
         /// <param name="snapFsRelativeTemplatePath">SnapFS relative path where the template data is stored..</param>
         /// <param name="sourceSiteName">Entity name of source site in case of sharepoint restore..</param>
@@ -41,16 +48,23 @@ namespace Cohesity.Model
         /// <param name="targetDocLibPrefix">If alternate site is provided, customer may want to provide a custom prefix to document libraries that we create. In any case we would also have to distinguish the newly created document library as the alternate site provided by the customer may as well turn out to be the original backup site..</param>
         /// <param name="targetFolderPathPrefix">Target folder path prefix for granular restore. This is set in case of teams or groups restore..</param>
         /// <param name="targetSite">targetSite.</param>
-        public RestoreSiteParams(string dstSiteName = default(string), string dstSiteUuid = default(string), string dstSiteWebUrl = default(string), string parentSourceSharepointDomainName = default(string), bool? restoreTemplate = default(bool?), bool? restoreToOriginal = default(bool?), List<RestoreSiteParamsSiteOwner> siteOwnerVec = default(List<RestoreSiteParamsSiteOwner>), SiteBackupStatus siteResult = default(SiteBackupStatus), int? siteVersion = default(int?), string snapFsRelativeSiteBackupResultPath = default(string), string snapFsRelativeTemplatePath = default(string), string sourceSiteName = default(string), string sourceSiteUuid = default(string), string sourceWebUrl = default(string), string targetDocLibName = default(string), string targetDocLibPrefix = default(string), string targetFolderPathPrefix = default(string), EntityProto targetSite = default(EntityProto))
+        public RestoreSiteParams(string backupRootSiteUuid = default(string), string backupRootWebUrl = default(string), string dstSiteName = default(string), string dstSiteUuid = default(string), string dstSiteWebUrl = default(string), string parentSourceSharepointDomainName = default(string), string phlRestorePrefix = default(string), bool? restorePhlDrive = default(bool?), bool? restoreTemplate = default(bool?), bool? restoreToOriginal = default(bool?), bool? restoreUserDoclibsBeforeProvisioningTemplate = default(bool?), bool? shouldRestoreLists = default(bool?), List<RestoreSiteParamsSiteOwner> siteOwnerVec = default(List<RestoreSiteParamsSiteOwner>), SiteBackupStatus siteResult = default(SiteBackupStatus), int? siteVersion = default(int?), bool? skipClientSidePageFilesUpload = default(bool?), string snapFsRelativeSiteBackupResultPath = default(string), string snapFsRelativeTemplatePath = default(string), string sourceSiteName = default(string), string sourceSiteUuid = default(string), string sourceWebUrl = default(string), string targetDocLibName = default(string), string targetDocLibPrefix = default(string), string targetFolderPathPrefix = default(string), EntityProto targetSite = default(EntityProto))
         {
+            this.BackupRootSiteUuid = backupRootSiteUuid;
+            this.BackupRootWebUrl = backupRootWebUrl;
             this.DstSiteName = dstSiteName;
             this.DstSiteUuid = dstSiteUuid;
             this.DstSiteWebUrl = dstSiteWebUrl;
             this.ParentSourceSharepointDomainName = parentSourceSharepointDomainName;
+            this.PhlRestorePrefix = phlRestorePrefix;
+            this.RestorePhlDrive = restorePhlDrive;
             this.RestoreTemplate = restoreTemplate;
             this.RestoreToOriginal = restoreToOriginal;
+            this.RestoreUserDoclibsBeforeProvisioningTemplate = restoreUserDoclibsBeforeProvisioningTemplate;
+            this.ShouldRestoreLists = shouldRestoreLists;
             this.SiteOwnerVec = siteOwnerVec;
             this.SiteVersion = siteVersion;
+            this.SkipClientSidePageFilesUpload = skipClientSidePageFilesUpload;
             this.SnapFsRelativeSiteBackupResultPath = snapFsRelativeSiteBackupResultPath;
             this.SnapFsRelativeTemplatePath = snapFsRelativeTemplatePath;
             this.SourceSiteName = sourceSiteName;
@@ -59,15 +73,22 @@ namespace Cohesity.Model
             this.TargetDocLibName = targetDocLibName;
             this.TargetDocLibPrefix = targetDocLibPrefix;
             this.TargetFolderPathPrefix = targetFolderPathPrefix;
+            this.BackupRootSiteUuid = backupRootSiteUuid;
+            this.BackupRootWebUrl = backupRootWebUrl;
             this.DstSiteName = dstSiteName;
             this.DstSiteUuid = dstSiteUuid;
             this.DstSiteWebUrl = dstSiteWebUrl;
             this.ParentSourceSharepointDomainName = parentSourceSharepointDomainName;
+            this.PhlRestorePrefix = phlRestorePrefix;
+            this.RestorePhlDrive = restorePhlDrive;
             this.RestoreTemplate = restoreTemplate;
             this.RestoreToOriginal = restoreToOriginal;
+            this.RestoreUserDoclibsBeforeProvisioningTemplate = restoreUserDoclibsBeforeProvisioningTemplate;
+            this.ShouldRestoreLists = shouldRestoreLists;
             this.SiteOwnerVec = siteOwnerVec;
             this.SiteResult = siteResult;
             this.SiteVersion = siteVersion;
+            this.SkipClientSidePageFilesUpload = skipClientSidePageFilesUpload;
             this.SnapFsRelativeSiteBackupResultPath = snapFsRelativeSiteBackupResultPath;
             this.SnapFsRelativeTemplatePath = snapFsRelativeTemplatePath;
             this.SourceSiteName = sourceSiteName;
@@ -79,6 +100,20 @@ namespace Cohesity.Model
             this.TargetSite = targetSite;
         }
         
+        /// <summary>
+        /// Below fields are valid for teams/group subsite restore. If group/team is deleted we are updating source_site_uuid with new site uuid in case of original restore but we need backedup uuid and web url to construct url for subsites. Entity uuid of backedup source site in case of sharepoint restore. If the source site is not deleted, this field would be the same as source_site_uuid.
+        /// </summary>
+        /// <value>Below fields are valid for teams/group subsite restore. If group/team is deleted we are updating source_site_uuid with new site uuid in case of original restore but we need backedup uuid and web url to construct url for subsites. Entity uuid of backedup source site in case of sharepoint restore. If the source site is not deleted, this field would be the same as source_site_uuid.</value>
+        [DataMember(Name="backupRootSiteUuid", EmitDefaultValue=true)]
+        public string BackupRootSiteUuid { get; set; }
+
+        /// <summary>
+        /// Entity web url of backedup source site in case of sharepoint restore.
+        /// </summary>
+        /// <value>Entity web url of backedup source site in case of sharepoint restore.</value>
+        [DataMember(Name="backupRootWebUrl", EmitDefaultValue=true)]
+        public string BackupRootWebUrl { get; set; }
+
         /// <summary>
         /// Entity name of target site in case of sharepoint restore.
         /// </summary>
@@ -108,6 +143,20 @@ namespace Cohesity.Model
         public string ParentSourceSharepointDomainName { get; set; }
 
         /// <summary>
+        /// This prefix is pre-pended to the doc lib which is created for recovering PHL. This must be set if restore_phl_drive is set to true.
+        /// </summary>
+        /// <value>This prefix is pre-pended to the doc lib which is created for recovering PHL. This must be set if restore_phl_drive is set to true.</value>
+        [DataMember(Name="phlRestorePrefix", EmitDefaultValue=true)]
+        public string PhlRestorePrefix { get; set; }
+
+        /// <summary>
+        /// When set to true, the preservation hold library (PHL) drive for the site should be restored.
+        /// </summary>
+        /// <value>When set to true, the preservation hold library (PHL) drive for the site should be restored.</value>
+        [DataMember(Name="restorePhlDrive", EmitDefaultValue=true)]
+        public bool? RestorePhlDrive { get; set; }
+
+        /// <summary>
         /// Indicates that we have to restore the Sharepoint site template also. This includes: 1) Create site if it does not exist. 2) Provision template.
         /// </summary>
         /// <value>Indicates that we have to restore the Sharepoint site template also. This includes: 1) Create site if it does not exist. 2) Provision template.</value>
@@ -120,6 +169,20 @@ namespace Cohesity.Model
         /// <value>Whether or not all sites are restored to original location.</value>
         [DataMember(Name="restoreToOriginal", EmitDefaultValue=true)]
         public bool? RestoreToOriginal { get; set; }
+
+        /// <summary>
+        /// Whether user doclibs should be restored before provisioning site template.
+        /// </summary>
+        /// <value>Whether user doclibs should be restored before provisioning site template.</value>
+        [DataMember(Name="restoreUserDoclibsBeforeProvisioningTemplate", EmitDefaultValue=true)]
+        public bool? RestoreUserDoclibsBeforeProvisioningTemplate { get; set; }
+
+        /// <summary>
+        /// Whether lists should be restore for this site restore.
+        /// </summary>
+        /// <value>Whether lists should be restore for this site restore.</value>
+        [DataMember(Name="shouldRestoreLists", EmitDefaultValue=true)]
+        public bool? ShouldRestoreLists { get; set; }
 
         /// <summary>
         /// The list of sites whose drives are being restored.
@@ -140,6 +203,13 @@ namespace Cohesity.Model
         /// <value>Versions for site restores. There can be incompatible changes across process restarts or across restores. To avoid issues, maintain a version for restore.</value>
         [DataMember(Name="siteVersion", EmitDefaultValue=true)]
         public int? SiteVersion { get; set; }
+
+        /// <summary>
+        /// Whether pnp library should upload files linked to client side pages while provisioning template. This should be set if and only if files download was skipped during backup with the flag magneto_o365spo_pnp_pwsh_skip_site_page_files_for_domains. In this case, magneto_sharepoint_restore_user_doclibs_before_template_for_domains must also be set to restore site page references correctly.
+        /// </summary>
+        /// <value>Whether pnp library should upload files linked to client side pages while provisioning template. This should be set if and only if files download was skipped during backup with the flag magneto_o365spo_pnp_pwsh_skip_site_page_files_for_domains. In this case, magneto_sharepoint_restore_user_doclibs_before_template_for_domains must also be set to restore site page references correctly.</value>
+        [DataMember(Name="skipClientSidePageFilesUpload", EmitDefaultValue=true)]
+        public bool? SkipClientSidePageFilesUpload { get; set; }
 
         /// <summary>
         /// SnapFS relative path where the site template backup result proto is stored.
@@ -240,6 +310,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BackupRootSiteUuid == input.BackupRootSiteUuid ||
+                    (this.BackupRootSiteUuid != null &&
+                    this.BackupRootSiteUuid.Equals(input.BackupRootSiteUuid))
+                ) && 
+                (
+                    this.BackupRootWebUrl == input.BackupRootWebUrl ||
+                    (this.BackupRootWebUrl != null &&
+                    this.BackupRootWebUrl.Equals(input.BackupRootWebUrl))
+                ) && 
+                (
                     this.DstSiteName == input.DstSiteName ||
                     (this.DstSiteName != null &&
                     this.DstSiteName.Equals(input.DstSiteName))
@@ -260,6 +340,16 @@ namespace Cohesity.Model
                     this.ParentSourceSharepointDomainName.Equals(input.ParentSourceSharepointDomainName))
                 ) && 
                 (
+                    this.PhlRestorePrefix == input.PhlRestorePrefix ||
+                    (this.PhlRestorePrefix != null &&
+                    this.PhlRestorePrefix.Equals(input.PhlRestorePrefix))
+                ) && 
+                (
+                    this.RestorePhlDrive == input.RestorePhlDrive ||
+                    (this.RestorePhlDrive != null &&
+                    this.RestorePhlDrive.Equals(input.RestorePhlDrive))
+                ) && 
+                (
                     this.RestoreTemplate == input.RestoreTemplate ||
                     (this.RestoreTemplate != null &&
                     this.RestoreTemplate.Equals(input.RestoreTemplate))
@@ -268,6 +358,16 @@ namespace Cohesity.Model
                     this.RestoreToOriginal == input.RestoreToOriginal ||
                     (this.RestoreToOriginal != null &&
                     this.RestoreToOriginal.Equals(input.RestoreToOriginal))
+                ) && 
+                (
+                    this.RestoreUserDoclibsBeforeProvisioningTemplate == input.RestoreUserDoclibsBeforeProvisioningTemplate ||
+                    (this.RestoreUserDoclibsBeforeProvisioningTemplate != null &&
+                    this.RestoreUserDoclibsBeforeProvisioningTemplate.Equals(input.RestoreUserDoclibsBeforeProvisioningTemplate))
+                ) && 
+                (
+                    this.ShouldRestoreLists == input.ShouldRestoreLists ||
+                    (this.ShouldRestoreLists != null &&
+                    this.ShouldRestoreLists.Equals(input.ShouldRestoreLists))
                 ) && 
                 (
                     this.SiteOwnerVec == input.SiteOwnerVec ||
@@ -284,6 +384,11 @@ namespace Cohesity.Model
                     this.SiteVersion == input.SiteVersion ||
                     (this.SiteVersion != null &&
                     this.SiteVersion.Equals(input.SiteVersion))
+                ) && 
+                (
+                    this.SkipClientSidePageFilesUpload == input.SkipClientSidePageFilesUpload ||
+                    (this.SkipClientSidePageFilesUpload != null &&
+                    this.SkipClientSidePageFilesUpload.Equals(input.SkipClientSidePageFilesUpload))
                 ) && 
                 (
                     this.SnapFsRelativeSiteBackupResultPath == input.SnapFsRelativeSiteBackupResultPath ||
@@ -341,6 +446,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BackupRootSiteUuid != null)
+                    hashCode = hashCode * 59 + this.BackupRootSiteUuid.GetHashCode();
+                if (this.BackupRootWebUrl != null)
+                    hashCode = hashCode * 59 + this.BackupRootWebUrl.GetHashCode();
                 if (this.DstSiteName != null)
                     hashCode = hashCode * 59 + this.DstSiteName.GetHashCode();
                 if (this.DstSiteUuid != null)
@@ -349,16 +458,26 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DstSiteWebUrl.GetHashCode();
                 if (this.ParentSourceSharepointDomainName != null)
                     hashCode = hashCode * 59 + this.ParentSourceSharepointDomainName.GetHashCode();
+                if (this.PhlRestorePrefix != null)
+                    hashCode = hashCode * 59 + this.PhlRestorePrefix.GetHashCode();
+                if (this.RestorePhlDrive != null)
+                    hashCode = hashCode * 59 + this.RestorePhlDrive.GetHashCode();
                 if (this.RestoreTemplate != null)
                     hashCode = hashCode * 59 + this.RestoreTemplate.GetHashCode();
                 if (this.RestoreToOriginal != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginal.GetHashCode();
+                if (this.RestoreUserDoclibsBeforeProvisioningTemplate != null)
+                    hashCode = hashCode * 59 + this.RestoreUserDoclibsBeforeProvisioningTemplate.GetHashCode();
+                if (this.ShouldRestoreLists != null)
+                    hashCode = hashCode * 59 + this.ShouldRestoreLists.GetHashCode();
                 if (this.SiteOwnerVec != null)
                     hashCode = hashCode * 59 + this.SiteOwnerVec.GetHashCode();
                 if (this.SiteResult != null)
                     hashCode = hashCode * 59 + this.SiteResult.GetHashCode();
                 if (this.SiteVersion != null)
                     hashCode = hashCode * 59 + this.SiteVersion.GetHashCode();
+                if (this.SkipClientSidePageFilesUpload != null)
+                    hashCode = hashCode * 59 + this.SkipClientSidePageFilesUpload.GetHashCode();
                 if (this.SnapFsRelativeSiteBackupResultPath != null)
                     hashCode = hashCode * 59 + this.SnapFsRelativeSiteBackupResultPath.GetHashCode();
                 if (this.SnapFsRelativeTemplatePath != null)

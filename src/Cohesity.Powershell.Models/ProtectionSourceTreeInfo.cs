@@ -26,13 +26,14 @@ namespace Cohesity.Model
         /// <param name="applications">Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server..</param>
         /// <param name="entityPermissionInfo">entityPermissionInfo.</param>
         /// <param name="logicalSizeBytes">Specifies the logical size of the Protection Source in bytes..</param>
+        /// <param name="maintenanceModeConfig">maintenanceModeConfig.</param>
         /// <param name="registrationInfo">Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server..</param>
         /// <param name="rootNode">Specifies the Protection Source for the root node of the Protection Source tree..</param>
         /// <param name="stats">Specifies the stats of protection for a Protection Source Tree..</param>
         /// <param name="statsByEnv">Specifies the breakdown of the stats of protection by environment. overrideDescription: true.</param>
         /// <param name="totalDowntieredSizeInBytes">Specifies the total bytes downtiered from the source so far..</param>
         /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
-        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?))
+        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), MaintenanceModeConfigProto maintenanceModeConfig = default(MaintenanceModeConfigProto), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?))
         {
             this.Applications = applications;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -45,6 +46,7 @@ namespace Cohesity.Model
             this.Applications = applications;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSizeBytes = logicalSizeBytes;
+            this.MaintenanceModeConfig = maintenanceModeConfig;
             this.RegistrationInfo = registrationInfo;
             this.RootNode = rootNode;
             this.Stats = stats;
@@ -72,6 +74,12 @@ namespace Cohesity.Model
         /// <value>Specifies the logical size of the Protection Source in bytes.</value>
         [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
         public long? LogicalSizeBytes { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MaintenanceModeConfig
+        /// </summary>
+        [DataMember(Name="maintenanceModeConfig", EmitDefaultValue=false)]
+        public MaintenanceModeConfigProto MaintenanceModeConfig { get; set; }
 
         /// <summary>
         /// Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.
@@ -168,6 +176,11 @@ namespace Cohesity.Model
                     this.LogicalSizeBytes.Equals(input.LogicalSizeBytes))
                 ) && 
                 (
+                    this.MaintenanceModeConfig == input.MaintenanceModeConfig ||
+                    (this.MaintenanceModeConfig != null &&
+                    this.MaintenanceModeConfig.Equals(input.MaintenanceModeConfig))
+                ) && 
+                (
                     this.RegistrationInfo == input.RegistrationInfo ||
                     (this.RegistrationInfo != null &&
                     this.RegistrationInfo.Equals(input.RegistrationInfo))
@@ -215,6 +228,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EntityPermissionInfo.GetHashCode();
                 if (this.LogicalSizeBytes != null)
                     hashCode = hashCode * 59 + this.LogicalSizeBytes.GetHashCode();
+                if (this.MaintenanceModeConfig != null)
+                    hashCode = hashCode * 59 + this.MaintenanceModeConfig.GetHashCode();
                 if (this.RegistrationInfo != null)
                     hashCode = hashCode * 59 + this.RegistrationInfo.GetHashCode();
                 if (this.RootNode != null)

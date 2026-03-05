@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BackupJobProtoRemoteViewParams" /> class.
         /// </summary>
         /// <param name="remoteViewMap">A map from view id on source cluster to the view name params on remote cluster. This is applicable for view backups with replication configured in the policy..</param>
-        public BackupJobProtoRemoteViewParams(List<BackupJobProtoRemoteViewParamsRemoteViewMapEntry> remoteViewMap = default(List<BackupJobProtoRemoteViewParamsRemoteViewMapEntry>))
+        public BackupJobProtoRemoteViewParams(Object remoteViewMap = default(Object))
         {
             this.RemoteViewMap = remoteViewMap;
             this.RemoteViewMap = remoteViewMap;
@@ -35,7 +35,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>A map from view id on source cluster to the view name params on remote cluster. This is applicable for view backups with replication configured in the policy.</value>
         [DataMember(Name="remoteViewMap", EmitDefaultValue=true)]
-        public List<BackupJobProtoRemoteViewParamsRemoteViewMapEntry> RemoteViewMap { get; set; }
+        public Object RemoteViewMap { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,9 +75,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.RemoteViewMap == input.RemoteViewMap ||
-                    this.RemoteViewMap != null &&
-                    input.RemoteViewMap != null &&
-                    this.RemoteViewMap.SequenceEqual(input.RemoteViewMap)
+                    (this.RemoteViewMap != null &&
+                    this.RemoteViewMap.Equals(input.RemoteViewMap))
                 );
         }
 

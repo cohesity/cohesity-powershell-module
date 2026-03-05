@@ -25,17 +25,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="hypervParams">hypervParams.</param>
         /// <param name="readonlyMount">Allows the caller to force the Agent to perform a read-only mount. This is not usually required and we want to give customers the ability to mutate this mount for test/dev purposes..</param>
+        /// <param name="smbMountUserCreds">smbMountUserCreds.</param>
         /// <param name="targetEntity">targetEntity.</param>
         /// <param name="useExistingAgent">Whether this will use an existing agent on the target vm to do a restore operation..</param>
         /// <param name="vmwareParams">vmwareParams.</param>
         /// <param name="volumeNameVec">Optional names of volumes that need to be mounted. The names here correspond to the volume names obtained by Iris from Yoda as part of VMVolumeInfo call. NOTE: If this is not specified then all volumes that are part of the server will be mounted on the target entity..</param>
-        public MountVolumesParams(MountVolumesHyperVParams hypervParams = default(MountVolumesHyperVParams), bool? readonlyMount = default(bool?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams), List<string> volumeNameVec = default(List<string>))
+        public MountVolumesParams(MountVolumesHyperVParams hypervParams = default(MountVolumesHyperVParams), bool? readonlyMount = default(bool?), SMBMountUserCredentials smbMountUserCreds = default(SMBMountUserCredentials), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams), List<string> volumeNameVec = default(List<string>))
         {
             this.ReadonlyMount = readonlyMount;
             this.UseExistingAgent = useExistingAgent;
             this.VolumeNameVec = volumeNameVec;
             this.HypervParams = hypervParams;
             this.ReadonlyMount = readonlyMount;
+            this.SmbMountUserCreds = smbMountUserCreds;
             this.TargetEntity = targetEntity;
             this.UseExistingAgent = useExistingAgent;
             this.VmwareParams = vmwareParams;
@@ -54,6 +56,12 @@ namespace Cohesity.Model
         /// <value>Allows the caller to force the Agent to perform a read-only mount. This is not usually required and we want to give customers the ability to mutate this mount for test/dev purposes.</value>
         [DataMember(Name="readonlyMount", EmitDefaultValue=true)]
         public bool? ReadonlyMount { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SmbMountUserCreds
+        /// </summary>
+        [DataMember(Name="smbMountUserCreds", EmitDefaultValue=false)]
+        public SMBMountUserCredentials SmbMountUserCreds { get; set; }
 
         /// <summary>
         /// Gets or Sets TargetEntity
@@ -128,6 +136,11 @@ namespace Cohesity.Model
                     this.ReadonlyMount.Equals(input.ReadonlyMount))
                 ) && 
                 (
+                    this.SmbMountUserCreds == input.SmbMountUserCreds ||
+                    (this.SmbMountUserCreds != null &&
+                    this.SmbMountUserCreds.Equals(input.SmbMountUserCreds))
+                ) && 
+                (
                     this.TargetEntity == input.TargetEntity ||
                     (this.TargetEntity != null &&
                     this.TargetEntity.Equals(input.TargetEntity))
@@ -163,6 +176,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HypervParams.GetHashCode();
                 if (this.ReadonlyMount != null)
                     hashCode = hashCode * 59 + this.ReadonlyMount.GetHashCode();
+                if (this.SmbMountUserCreds != null)
+                    hashCode = hashCode * 59 + this.SmbMountUserCreds.GetHashCode();
                 if (this.TargetEntity != null)
                     hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
                 if (this.UseExistingAgent != null)

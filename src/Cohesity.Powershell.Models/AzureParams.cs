@@ -104,8 +104,9 @@ namespace Cohesity.Model
         /// <param name="tempVmStorageContainerId">Specifies the Storage container where temporary VM needs to be created..</param>
         /// <param name="tempVmSubnetId">Specifies the Subnet where temporary VM needs to be created..</param>
         /// <param name="tempVmVirtualNetworkId">Specifies the Virtual network where temporary VM needs to be created..</param>
+        /// <param name="useCases">Specifies the list of use cases for azure source..</param>
         /// <param name="virtualNetworkId">Specifies Id of the Virtual Network..</param>
-        public AzureParams(long? availabilitySetId = default(long?), DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
+        public AzureParams(long? availabilitySetId = default(long?), DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), List<string> useCases = default(List<string>), long? virtualNetworkId = default(long?))
         {
             this.AvailabilitySetId = availabilitySetId;
             this.DataDiskType = dataDiskType;
@@ -122,6 +123,7 @@ namespace Cohesity.Model
             this.TempVmStorageContainerId = tempVmStorageContainerId;
             this.TempVmSubnetId = tempVmSubnetId;
             this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
+            this.UseCases = useCases;
             this.VirtualNetworkId = virtualNetworkId;
             this.AvailabilitySetId = availabilitySetId;
             this.DataDiskType = dataDiskType;
@@ -138,6 +140,7 @@ namespace Cohesity.Model
             this.TempVmStorageContainerId = tempVmStorageContainerId;
             this.TempVmSubnetId = tempVmSubnetId;
             this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
+            this.UseCases = useCases;
             this.VirtualNetworkId = virtualNetworkId;
         }
         
@@ -231,6 +234,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Virtual network where temporary VM needs to be created.</value>
         [DataMember(Name="tempVmVirtualNetworkId", EmitDefaultValue=true)]
         public long? TempVmVirtualNetworkId { get; set; }
+
+        /// <summary>
+        /// Specifies the list of use cases for azure source.
+        /// </summary>
+        /// <value>Specifies the list of use cases for azure source.</value>
+        [DataMember(Name="useCases", EmitDefaultValue=true)]
+        public List<string> UseCases { get; set; }
 
         /// <summary>
         /// Specifies Id of the Virtual Network.
@@ -349,6 +359,12 @@ namespace Cohesity.Model
                     this.TempVmVirtualNetworkId.Equals(input.TempVmVirtualNetworkId))
                 ) && 
                 (
+                    this.UseCases == input.UseCases ||
+                    this.UseCases != null &&
+                    input.UseCases != null &&
+                    this.UseCases.SequenceEqual(input.UseCases)
+                ) && 
+                (
                     this.VirtualNetworkId == input.VirtualNetworkId ||
                     (this.VirtualNetworkId != null &&
                     this.VirtualNetworkId.Equals(input.VirtualNetworkId))
@@ -392,6 +408,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TempVmSubnetId.GetHashCode();
                 if (this.TempVmVirtualNetworkId != null)
                     hashCode = hashCode * 59 + this.TempVmVirtualNetworkId.GetHashCode();
+                if (this.UseCases != null)
+                    hashCode = hashCode * 59 + this.UseCases.GetHashCode();
                 if (this.VirtualNetworkId != null)
                     hashCode = hashCode * 59 + this.VirtualNetworkId.GetHashCode();
                 return hashCode;

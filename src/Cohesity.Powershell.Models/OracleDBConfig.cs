@@ -36,7 +36,8 @@ namespace Cohesity.Model
         /// <param name="redoLogConf">redoLogConf.</param>
         /// <param name="sgaTargetSize">SGA_TARGET_SIZE size [ Default value same as Source DB ]..</param>
         /// <param name="sharedPoolSize">Shared pool size [ Default value same as Source DB ]..</param>
-        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), List<OracleDBConfigPfileParameterMapEntry> pfileParameterMap = default(List<OracleDBConfigPfileParameterMapEntry>), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string))
+        /// <param name="tdeEnabled">Set to true if the restore is TDE enabled. This field is not populated from Iris API, instead, it is populated by Magneto by checking if the backup snapshots included for the restore has TDE data. Currently only PDB alternate restore will populate this field..</param>
+        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), Dictionary<string, string> pfileParameterMap = default(Dictionary<string, string>), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string), bool? tdeEnabled = default(bool?))
         {
             this.AuditLogDest = auditLogDest;
             this.BctFilePath = bctFilePath;
@@ -50,6 +51,7 @@ namespace Cohesity.Model
             this.PfileParameterMap = pfileParameterMap;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
+            this.TdeEnabled = tdeEnabled;
             this.AuditLogDest = auditLogDest;
             this.BctFilePath = bctFilePath;
             this.ControlFilePathVec = controlFilePathVec;
@@ -63,6 +65,7 @@ namespace Cohesity.Model
             this.RedoLogConf = redoLogConf;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
+            this.TdeEnabled = tdeEnabled;
         }
         
         /// <summary>
@@ -133,7 +136,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map of pfile parameters to its values.</value>
         [DataMember(Name="pfileParameterMap", EmitDefaultValue=true)]
-        public List<OracleDBConfigPfileParameterMapEntry> PfileParameterMap { get; set; }
+        public Dictionary<string, string> PfileParameterMap { get; set; }
 
         /// <summary>
         /// Gets or Sets RedoLogConf
@@ -154,6 +157,13 @@ namespace Cohesity.Model
         /// <value>Shared pool size [ Default value same as Source DB ].</value>
         [DataMember(Name="sharedPoolSize", EmitDefaultValue=true)]
         public string SharedPoolSize { get; set; }
+
+        /// <summary>
+        /// Set to true if the restore is TDE enabled. This field is not populated from Iris API, instead, it is populated by Magneto by checking if the backup snapshots included for the restore has TDE data. Currently only PDB alternate restore will populate this field.
+        /// </summary>
+        /// <value>Set to true if the restore is TDE enabled. This field is not populated from Iris API, instead, it is populated by Magneto by checking if the backup snapshots included for the restore has TDE data. Currently only PDB alternate restore will populate this field.</value>
+        [DataMember(Name="tdeEnabled", EmitDefaultValue=true)]
+        public bool? TdeEnabled { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -257,6 +267,11 @@ namespace Cohesity.Model
                     this.SharedPoolSize == input.SharedPoolSize ||
                     (this.SharedPoolSize != null &&
                     this.SharedPoolSize.Equals(input.SharedPoolSize))
+                ) && 
+                (
+                    this.TdeEnabled == input.TdeEnabled ||
+                    (this.TdeEnabled != null &&
+                    this.TdeEnabled.Equals(input.TdeEnabled))
                 );
         }
 
@@ -295,6 +310,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SgaTargetSize.GetHashCode();
                 if (this.SharedPoolSize != null)
                     hashCode = hashCode * 59 + this.SharedPoolSize.GetHashCode();
+                if (this.TdeEnabled != null)
+                    hashCode = hashCode * 59 + this.TdeEnabled.GetHashCode();
                 return hashCode;
             }
         }

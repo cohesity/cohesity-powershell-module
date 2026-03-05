@@ -27,7 +27,7 @@ namespace Cohesity.Model
         /// <param name="mode">mode.</param>
         /// <param name="path">path.</param>
         /// <param name="resourceFieldRef">resourceFieldRef.</param>
-        public PodInfoPodSpecVolumeInfoDownwardAPIVolumeFile(PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileObjectFieldSelector fieldRef = default(PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileObjectFieldSelector), int? mode = default(int?), string path = default(string), PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileResourceFieldSelector resourceFieldRef = default(PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileResourceFieldSelector))
+        public PodInfoPodSpecVolumeInfoDownwardAPIVolumeFile(ObjectFieldSelector fieldRef = default(ObjectFieldSelector), int? mode = default(int?), string path = default(string), PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileResourceFieldSelector resourceFieldRef = default(PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileResourceFieldSelector))
         {
             this.Mode = mode;
             this.Path = path;
@@ -41,7 +41,7 @@ namespace Cohesity.Model
         /// Gets or Sets FieldRef
         /// </summary>
         [DataMember(Name="fieldRef", EmitDefaultValue=false)]
-        public PodInfoPodSpecVolumeInfoDownwardAPIVolumeFileObjectFieldSelector FieldRef { get; set; }
+        public ObjectFieldSelector FieldRef { get; set; }
 
         /// <summary>
         /// Gets or Sets Mode

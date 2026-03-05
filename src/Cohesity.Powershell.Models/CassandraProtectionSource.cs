@@ -59,9 +59,10 @@ namespace Cohesity.Model
         /// <param name="clusterInfo">clusterInfo.</param>
         /// <param name="keyspaceInfo">keyspaceInfo.</param>
         /// <param name="name">Specifies the instance name of the Cassandra entity..</param>
+        /// <param name="tableInfo">tableInfo.</param>
         /// <param name="type">Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment..</param>
         /// <param name="uuid">Specifies the UUID for the Cassandra entity. Note : For each entity an ID unique within top level entity should be assigned by imanis backend. Example, UUID for a table can be the string &lt;keyspace_name&gt;.&lt;table_name&gt;.</param>
-        public CassandraProtectionSource(CassandraCluster clusterInfo = default(CassandraCluster), CassandraKeyspace keyspaceInfo = default(CassandraKeyspace), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
+        public CassandraProtectionSource(CassandraCluster clusterInfo = default(CassandraCluster), CassandraKeyspace keyspaceInfo = default(CassandraKeyspace), string name = default(string), CassandraTable tableInfo = default(CassandraTable), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
             this.Name = name;
             this.Type = type;
@@ -69,6 +70,7 @@ namespace Cohesity.Model
             this.ClusterInfo = clusterInfo;
             this.KeyspaceInfo = keyspaceInfo;
             this.Name = name;
+            this.TableInfo = tableInfo;
             this.Type = type;
             this.Uuid = uuid;
         }
@@ -91,6 +93,12 @@ namespace Cohesity.Model
         /// <value>Specifies the instance name of the Cassandra entity.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TableInfo
+        /// </summary>
+        [DataMember(Name="tableInfo", EmitDefaultValue=false)]
+        public CassandraTable TableInfo { get; set; }
 
         /// <summary>
         /// Specifies the UUID for the Cassandra entity. Note : For each entity an ID unique within top level entity should be assigned by imanis backend. Example, UUID for a table can be the string &lt;keyspace_name&gt;.&lt;table_name&gt;
@@ -151,6 +159,11 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.TableInfo == input.TableInfo ||
+                    (this.TableInfo != null &&
+                    this.TableInfo.Equals(input.TableInfo))
+                ) && 
+                (
                     this.Type == input.Type ||
                     this.Type.Equals(input.Type)
                 ) && 
@@ -176,6 +189,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KeyspaceInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.TableInfo != null)
+                    hashCode = hashCode * 59 + this.TableInfo.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();

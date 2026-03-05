@@ -24,12 +24,15 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OutlookBackupEnvParams" /> class.
         /// </summary>
         /// <param name="attrFilterPolicy">attrFilterPolicy.</param>
+        /// <param name="chatsBackupStartTimeMsecs">Specifies the time from which the backup process should start. Only data from this time onward will be included in the backup. It&#39;s epoch time in milliseconds..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
         /// <param name="shouldBackupMailbox">Specifies whether the mailbox for all the Office365 Users present in the protection job should be backed up..</param>
-        public OutlookBackupEnvParams(AttributeFilterPolicy attrFilterPolicy = default(AttributeFilterPolicy), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupMailbox = default(bool?))
+        public OutlookBackupEnvParams(AttributeFilterPolicy attrFilterPolicy = default(AttributeFilterPolicy), long? chatsBackupStartTimeMsecs = default(long?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupMailbox = default(bool?))
         {
+            this.ChatsBackupStartTimeMsecs = chatsBackupStartTimeMsecs;
             this.ShouldBackupMailbox = shouldBackupMailbox;
             this.AttrFilterPolicy = attrFilterPolicy;
+            this.ChatsBackupStartTimeMsecs = chatsBackupStartTimeMsecs;
             this.FilteringPolicy = filteringPolicy;
             this.ShouldBackupMailbox = shouldBackupMailbox;
         }
@@ -39,6 +42,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="attrFilterPolicy", EmitDefaultValue=false)]
         public AttributeFilterPolicy AttrFilterPolicy { get; set; }
+
+        /// <summary>
+        /// Specifies the time from which the backup process should start. Only data from this time onward will be included in the backup. It&#39;s epoch time in milliseconds.
+        /// </summary>
+        /// <value>Specifies the time from which the backup process should start. Only data from this time onward will be included in the backup. It&#39;s epoch time in milliseconds.</value>
+        [DataMember(Name="chatsBackupStartTimeMsecs", EmitDefaultValue=true)]
+        public long? ChatsBackupStartTimeMsecs { get; set; }
 
         /// <summary>
         /// Gets or Sets FilteringPolicy
@@ -95,6 +105,11 @@ namespace Cohesity.Model
                     this.AttrFilterPolicy.Equals(input.AttrFilterPolicy))
                 ) && 
                 (
+                    this.ChatsBackupStartTimeMsecs == input.ChatsBackupStartTimeMsecs ||
+                    (this.ChatsBackupStartTimeMsecs != null &&
+                    this.ChatsBackupStartTimeMsecs.Equals(input.ChatsBackupStartTimeMsecs))
+                ) && 
+                (
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
@@ -117,6 +132,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AttrFilterPolicy != null)
                     hashCode = hashCode * 59 + this.AttrFilterPolicy.GetHashCode();
+                if (this.ChatsBackupStartTimeMsecs != null)
+                    hashCode = hashCode * 59 + this.ChatsBackupStartTimeMsecs.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
                 if (this.ShouldBackupMailbox != null)

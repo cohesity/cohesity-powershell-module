@@ -167,10 +167,11 @@ namespace Cohesity.Model
         /// <param name="latestVersion">Specifies application version assigned by the AppStore for the latest version of an app..</param>
         /// <param name="metadata">metadata.</param>
         /// <param name="requiredPrivileges">Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API. kAutoMountAccess - Whether to allow auto-mounting all the views. kUnrestrictedAppUIAccess - Whether app requires unrestricted UI access (i.e. without passing app access token in URL). kAuditLogViewReadAccess - Whether app requires read access to the internal audit log view. kProtectedObjectAccess - Whether app requires read access to protected objects..</param>
+        /// <param name="stateDetail">ErrorMessage on failed installation..</param>
         /// <param name="uninstallTime">Specifies timestamp when the app was uninstalled..</param>
         /// <param name="version">Specifies application version assigned by the AppStore..</param>
         /// <param name="vmNameInfoList">List of vm name info objects..</param>
-        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), bool? externalIpRequired = default(bool?), List<ExternalNetworkInfo> externalNetworks = default(List<ExternalNetworkInfo>), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), List<string> instanceSizes = default(List<string>), bool? isLatest = default(bool?), long? latestVersion = default(long?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), long? uninstallTime = default(long?), long? version = default(long?), List<VmNameInfo> vmNameInfoList = default(List<VmNameInfo>))
+        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), bool? externalIpRequired = default(bool?), List<ExternalNetworkInfo> externalNetworks = default(List<ExternalNetworkInfo>), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), List<string> instanceSizes = default(List<string>), bool? isLatest = default(bool?), long? latestVersion = default(long?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), string stateDetail = default(string), long? uninstallTime = default(long?), long? version = default(long?), List<VmNameInfo> vmNameInfoList = default(List<VmNameInfo>))
         {
             this.AppId = appId;
             this.Clusters = clusters;
@@ -183,6 +184,7 @@ namespace Cohesity.Model
             this.IsLatest = isLatest;
             this.LatestVersion = latestVersion;
             this.RequiredPrivileges = requiredPrivileges;
+            this.StateDetail = stateDetail;
             this.UninstallTime = uninstallTime;
             this.Version = version;
             this.VmNameInfoList = vmNameInfoList;
@@ -198,6 +200,7 @@ namespace Cohesity.Model
             this.LatestVersion = latestVersion;
             this.Metadata = metadata;
             this.RequiredPrivileges = requiredPrivileges;
+            this.StateDetail = stateDetail;
             this.UninstallTime = uninstallTime;
             this.Version = version;
             this.VmNameInfoList = vmNameInfoList;
@@ -271,6 +274,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="metadata", EmitDefaultValue=false)]
         public AppMetadata Metadata { get; set; }
+
+        /// <summary>
+        /// ErrorMessage on failed installation.
+        /// </summary>
+        /// <value>ErrorMessage on failed installation.</value>
+        [DataMember(Name="stateDetail", EmitDefaultValue=true)]
+        public string StateDetail { get; set; }
 
         /// <summary>
         /// Specifies timestamp when the app was uninstalled.
@@ -391,6 +401,11 @@ namespace Cohesity.Model
                     this.RequiredPrivileges.SequenceEqual(input.RequiredPrivileges)
                 ) && 
                 (
+                    this.StateDetail == input.StateDetail ||
+                    (this.StateDetail != null &&
+                    this.StateDetail.Equals(input.StateDetail))
+                ) && 
+                (
                     this.UninstallTime == input.UninstallTime ||
                     (this.UninstallTime != null &&
                     this.UninstallTime.Equals(input.UninstallTime))
@@ -439,6 +454,8 @@ namespace Cohesity.Model
                 if (this.Metadata != null)
                     hashCode = hashCode * 59 + this.Metadata.GetHashCode();
                 hashCode = hashCode * 59 + this.RequiredPrivileges.GetHashCode();
+                if (this.StateDetail != null)
+                    hashCode = hashCode * 59 + this.StateDetail.GetHashCode();
                 if (this.UninstallTime != null)
                     hashCode = hashCode * 59 + this.UninstallTime.GetHashCode();
                 if (this.Version != null)

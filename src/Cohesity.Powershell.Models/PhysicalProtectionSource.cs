@@ -21,6 +21,69 @@ namespace Cohesity.Model
     public partial class PhysicalProtectionSource :  IEquatable<PhysicalProtectionSource>
     {
         /// <summary>
+        /// Specifies CPU architecture. Specifies the cpu architecture of a physical server.
+        /// </summary>
+        /// <value>Specifies CPU architecture. Specifies the cpu architecture of a physical server.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum CpuArchitectureEnum
+        {
+            /// <summary>
+            /// Enum Kunknown for value: kunknown
+            /// </summary>
+            [EnumMember(Value = "kunknown")]
+            Kunknown = 1,
+
+            /// <summary>
+            /// Enum Kx8664 for value: kx86_64
+            /// </summary>
+            [EnumMember(Value = "kx86_64")]
+            Kx8664 = 2,
+
+            /// <summary>
+            /// Enum Kppc64le for value: kppc64le
+            /// </summary>
+            [EnumMember(Value = "kppc64le")]
+            Kppc64le = 3,
+
+            /// <summary>
+            /// Enum Kppc for value: kppc
+            /// </summary>
+            [EnumMember(Value = "kppc")]
+            Kppc = 4,
+
+            /// <summary>
+            /// Enum Ks390x for value: ks390x
+            /// </summary>
+            [EnumMember(Value = "ks390x")]
+            Ks390x = 5,
+
+            /// <summary>
+            /// Enum Ksparc for value: ksparc
+            /// </summary>
+            [EnumMember(Value = "ksparc")]
+            Ksparc = 6,
+
+            /// <summary>
+            /// Enum Kia64 for value: kia64
+            /// </summary>
+            [EnumMember(Value = "kia64")]
+            Kia64 = 7,
+
+            /// <summary>
+            /// Enum Kx86 for value: kx86
+            /// </summary>
+            [EnumMember(Value = "kx86")]
+            Kx86 = 8
+
+        }
+
+        /// <summary>
+        /// Specifies CPU architecture. Specifies the cpu architecture of a physical server.
+        /// </summary>
+        /// <value>Specifies CPU architecture. Specifies the cpu architecture of a physical server.</value>
+        [DataMember(Name="cpuArchitecture", EmitDefaultValue=true)]
+        public CpuArchitectureEnum? CpuArchitecture { get; set; }
+        /// <summary>
         /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
@@ -144,9 +207,9 @@ namespace Cohesity.Model
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
-        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
+        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster. &#39;kUnixCluster&#39; indicates a RedHat Pacemaker or any UnixCluster. &#39;kOracleCluster&#39; indicates Oracle clustered entity. This is updated after registration to either kOracleRACCluster or kOracleAPCluster.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.</value>
+        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster. &#39;kUnixCluster&#39; indicates a RedHat Pacemaker or any UnixCluster. &#39;kOracleCluster&#39; indicates Oracle clustered entity. This is updated after registration to either kOracleRACCluster or kOracleAPCluster.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -178,14 +241,26 @@ namespace Cohesity.Model
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 5
+            KOracleAPCluster = 5,
+
+            /// <summary>
+            /// Enum KUnixCluster for value: kUnixCluster
+            /// </summary>
+            [EnumMember(Value = "kUnixCluster")]
+            KUnixCluster = 6,
+
+            /// <summary>
+            /// Enum KOracleCluster for value: kOracleCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleCluster")]
+            KOracleCluster = 7
 
         }
 
         /// <summary>
-        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
+        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster. &#39;kUnixCluster&#39; indicates a RedHat Pacemaker or any UnixCluster. &#39;kOracleCluster&#39; indicates Oracle clustered entity. This is updated after registration to either kOracleRACCluster or kOracleAPCluster.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.</value>
+        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster. &#39;kUnixCluster&#39; indicates a RedHat Pacemaker or any UnixCluster. &#39;kOracleCluster&#39; indicates Oracle clustered entity. This is updated after registration to either kOracleRACCluster or kOracleAPCluster.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -193,6 +268,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="agents">Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information..</param>
         /// <param name="clusterSourceType">Specifies the type of cluster resource this source represents..</param>
+        /// <param name="cpuArchitecture">Specifies CPU architecture. Specifies the cpu architecture of a physical server..</param>
         /// <param name="hostName">Specifies the hostname..</param>
         /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
@@ -202,14 +278,15 @@ namespace Cohesity.Model
         /// <param name="networkingInfo">networkingInfo.</param>
         /// <param name="numProcessors">Specifies the number of processors on the host..</param>
         /// <param name="osName">Specifies a human readable name of the OS of the Protection Source..</param>
-        /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster..</param>
+        /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster. &#39;kUnixCluster&#39; indicates a RedHat Pacemaker or any UnixCluster. &#39;kOracleCluster&#39; indicates Oracle clustered entity. This is updated after registration to either kOracleRACCluster or kOracleAPCluster..</param>
         /// <param name="vcsVersion">Specifies cluster version for VCS host..</param>
         /// <param name="volumes">Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
         /// <param name="vsswriters">Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows.</param>
-        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string clusterSourceType = default(string), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), bool? isProxyHost = default(bool?), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>), List<VssWriter> vsswriters = default(List<VssWriter>))
+        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string clusterSourceType = default(string), CpuArchitectureEnum? cpuArchitecture = default(CpuArchitectureEnum?), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), bool? isProxyHost = default(bool?), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>), List<VssWriter> vsswriters = default(List<VssWriter>))
         {
             this.Agents = agents;
             this.ClusterSourceType = clusterSourceType;
+            this.CpuArchitecture = cpuArchitecture;
             this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
@@ -224,6 +301,7 @@ namespace Cohesity.Model
             this.Vsswriters = vsswriters;
             this.Agents = agents;
             this.ClusterSourceType = clusterSourceType;
+            this.CpuArchitecture = cpuArchitecture;
             this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
@@ -377,6 +455,10 @@ namespace Cohesity.Model
                     this.ClusterSourceType.Equals(input.ClusterSourceType))
                 ) && 
                 (
+                    this.CpuArchitecture == input.CpuArchitecture ||
+                    this.CpuArchitecture.Equals(input.CpuArchitecture)
+                ) && 
+                (
                     this.HostName == input.HostName ||
                     (this.HostName != null &&
                     this.HostName.Equals(input.HostName))
@@ -456,6 +538,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
                 if (this.ClusterSourceType != null)
                     hashCode = hashCode * 59 + this.ClusterSourceType.GetHashCode();
+                hashCode = hashCode * 59 + this.CpuArchitecture.GetHashCode();
                 if (this.HostName != null)
                     hashCode = hashCode * 59 + this.HostName.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();

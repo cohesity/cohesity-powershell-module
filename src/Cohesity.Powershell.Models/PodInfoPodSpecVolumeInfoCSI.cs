@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="readOnly">readOnly.</param>
         /// <param name="volumeAttributes">volumeAttributes.</param>
         /// <param name="volumeHandle">volumeHandle.</param>
-        public PodInfoPodSpecVolumeInfoCSI(ObjectReference controllerExpandSecretRef = default(ObjectReference), ObjectReference controllerPublishSecretRef = default(ObjectReference), string driver = default(string), string fsType = default(string), ObjectReference nodePublishSecretRef = default(ObjectReference), ObjectReference nodeStageSecretRef = default(ObjectReference), bool? readOnly = default(bool?), List<PodInfoPodSpecVolumeInfoCSIVolumeAttributesEntry> volumeAttributes = default(List<PodInfoPodSpecVolumeInfoCSIVolumeAttributesEntry>), string volumeHandle = default(string))
+        public PodInfoPodSpecVolumeInfoCSI(ObjectReference controllerExpandSecretRef = default(ObjectReference), ObjectReference controllerPublishSecretRef = default(ObjectReference), string driver = default(string), string fsType = default(string), ObjectReference nodePublishSecretRef = default(ObjectReference), ObjectReference nodeStageSecretRef = default(ObjectReference), bool? readOnly = default(bool?), Dictionary<string, string> volumeAttributes = default(Dictionary<string, string>), string volumeHandle = default(string))
         {
             this.Driver = driver;
             this.FsType = fsType;
@@ -96,7 +96,7 @@ namespace Cohesity.Model
         /// Gets or Sets VolumeAttributes
         /// </summary>
         [DataMember(Name="volumeAttributes", EmitDefaultValue=true)]
-        public List<PodInfoPodSpecVolumeInfoCSIVolumeAttributesEntry> VolumeAttributes { get; set; }
+        public Dictionary<string, string> VolumeAttributes { get; set; }
 
         /// <summary>
         /// Gets or Sets VolumeHandle

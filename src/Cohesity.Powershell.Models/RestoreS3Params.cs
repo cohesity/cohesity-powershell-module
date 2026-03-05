@@ -25,19 +25,22 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="isOriginalLocation">Flag specifying if it is an original location recovery or a new location..</param>
         /// <param name="newLocationParams">newLocationParams.</param>
-        /// <param name="objectPrefix">Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;..</param>
+        /// <param name="objectPrefix">Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;. All operations at S3 Bucket (lookup, upload, etc.) will prepend this prefix to the Object name..</param>
         /// <param name="overwriteObjectsInBucket">Flag specifying if we should overwrite if files are already present in the target location..</param>
+        /// <param name="prefixesToRecover">Specifies all the prefixes which we have to recover. If it is empty, then magneto will recover the whole bucket..</param>
         /// <param name="preserveObjectAttributes">Flag specifying if we should preserve object attributes at the time of restore..</param>
-        public RestoreS3Params(bool? isOriginalLocation = default(bool?), RestoreS3ParamsNewLocationParams newLocationParams = default(RestoreS3ParamsNewLocationParams), string objectPrefix = default(string), bool? overwriteObjectsInBucket = default(bool?), bool? preserveObjectAttributes = default(bool?))
+        public RestoreS3Params(bool? isOriginalLocation = default(bool?), RestoreS3ParamsNewLocationParams newLocationParams = default(RestoreS3ParamsNewLocationParams), string objectPrefix = default(string), bool? overwriteObjectsInBucket = default(bool?), List<string> prefixesToRecover = default(List<string>), bool? preserveObjectAttributes = default(bool?))
         {
             this.IsOriginalLocation = isOriginalLocation;
             this.ObjectPrefix = objectPrefix;
             this.OverwriteObjectsInBucket = overwriteObjectsInBucket;
+            this.PrefixesToRecover = prefixesToRecover;
             this.PreserveObjectAttributes = preserveObjectAttributes;
             this.IsOriginalLocation = isOriginalLocation;
             this.NewLocationParams = newLocationParams;
             this.ObjectPrefix = objectPrefix;
             this.OverwriteObjectsInBucket = overwriteObjectsInBucket;
+            this.PrefixesToRecover = prefixesToRecover;
             this.PreserveObjectAttributes = preserveObjectAttributes;
         }
         
@@ -55,9 +58,9 @@ namespace Cohesity.Model
         public RestoreS3ParamsNewLocationParams NewLocationParams { get; set; }
 
         /// <summary>
-        /// Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;.
+        /// Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;. All operations at S3 Bucket (lookup, upload, etc.) will prepend this prefix to the Object name.
         /// </summary>
-        /// <value>Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;.</value>
+        /// <value>Object prefix for the recovered objects. E.g. \&quot;/\&quot;, \&quot;/a/b\&quot;. All operations at S3 Bucket (lookup, upload, etc.) will prepend this prefix to the Object name.</value>
         [DataMember(Name="objectPrefix", EmitDefaultValue=true)]
         public string ObjectPrefix { get; set; }
 
@@ -67,6 +70,13 @@ namespace Cohesity.Model
         /// <value>Flag specifying if we should overwrite if files are already present in the target location.</value>
         [DataMember(Name="overwriteObjectsInBucket", EmitDefaultValue=true)]
         public bool? OverwriteObjectsInBucket { get; set; }
+
+        /// <summary>
+        /// Specifies all the prefixes which we have to recover. If it is empty, then magneto will recover the whole bucket.
+        /// </summary>
+        /// <value>Specifies all the prefixes which we have to recover. If it is empty, then magneto will recover the whole bucket.</value>
+        [DataMember(Name="prefixesToRecover", EmitDefaultValue=true)]
+        public List<string> PrefixesToRecover { get; set; }
 
         /// <summary>
         /// Flag specifying if we should preserve object attributes at the time of restore.
@@ -132,6 +142,12 @@ namespace Cohesity.Model
                     this.OverwriteObjectsInBucket.Equals(input.OverwriteObjectsInBucket))
                 ) && 
                 (
+                    this.PrefixesToRecover == input.PrefixesToRecover ||
+                    this.PrefixesToRecover != null &&
+                    input.PrefixesToRecover != null &&
+                    this.PrefixesToRecover.SequenceEqual(input.PrefixesToRecover)
+                ) && 
+                (
                     this.PreserveObjectAttributes == input.PreserveObjectAttributes ||
                     (this.PreserveObjectAttributes != null &&
                     this.PreserveObjectAttributes.Equals(input.PreserveObjectAttributes))
@@ -155,6 +171,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ObjectPrefix.GetHashCode();
                 if (this.OverwriteObjectsInBucket != null)
                     hashCode = hashCode * 59 + this.OverwriteObjectsInBucket.GetHashCode();
+                if (this.PrefixesToRecover != null)
+                    hashCode = hashCode * 59 + this.PrefixesToRecover.GetHashCode();
                 if (this.PreserveObjectAttributes != null)
                     hashCode = hashCode * 59 + this.PreserveObjectAttributes.GetHashCode();
                 return hashCode;

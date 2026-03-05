@@ -23,18 +23,20 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Office365Credentials" /> class.
         /// </summary>
+        /// <param name="clientCertificate">clientCertificate.</param>
         /// <param name="clientId">Specifies the application ID that the registration portal (apps.dev.microsoft.com) assigned..</param>
         /// <param name="clientSecret">Specifies the application secret that was created in app registration portal..</param>
         /// <param name="grantType">Specifies the application grant type. eg: For client credentials flow, set this to \&quot;client_credentials\&quot;; For refreshing access-token, set this to \&quot;refresh_token\&quot;..</param>
         /// <param name="scope">Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default.</param>
         /// <param name="useOAuthForExchangeOnline">This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true.</param>
-        public Office365Credentials(string clientId = default(string), string clientSecret = default(string), string grantType = default(string), string scope = default(string), bool? useOAuthForExchangeOnline = default(bool?))
+        public Office365Credentials(CertificateObject clientCertificate = default(CertificateObject), string clientId = default(string), string clientSecret = default(string), string grantType = default(string), string scope = default(string), bool? useOAuthForExchangeOnline = default(bool?))
         {
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.GrantType = grantType;
             this.Scope = scope;
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
+            this.ClientCertificate = clientCertificate;
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.GrantType = grantType;
@@ -42,6 +44,12 @@ namespace Cohesity.Model
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
         }
         
+        /// <summary>
+        /// Gets or Sets ClientCertificate
+        /// </summary>
+        [DataMember(Name="clientCertificate", EmitDefaultValue=false)]
+        public CertificateObject ClientCertificate { get; set; }
+
         /// <summary>
         /// Specifies the application ID that the registration portal (apps.dev.microsoft.com) assigned.
         /// </summary>
@@ -114,6 +122,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ClientCertificate == input.ClientCertificate ||
+                    (this.ClientCertificate != null &&
+                    this.ClientCertificate.Equals(input.ClientCertificate))
+                ) && 
+                (
                     this.ClientId == input.ClientId ||
                     (this.ClientId != null &&
                     this.ClientId.Equals(input.ClientId))
@@ -149,6 +162,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ClientCertificate != null)
+                    hashCode = hashCode * 59 + this.ClientCertificate.GetHashCode();
                 if (this.ClientId != null)
                     hashCode = hashCode * 59 + this.ClientId.GetHashCode();
                 if (this.ClientSecret != null)

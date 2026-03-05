@@ -24,9 +24,11 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SharepPointSiteBackupEnvParams" /> class.
         /// </summary>
         /// <param name="docLibFilteringPolicy">docLibFilteringPolicy.</param>
-        public SharepPointSiteBackupEnvParams(FilteringPolicyProto docLibFilteringPolicy = default(FilteringPolicyProto))
+        /// <param name="phlParams">phlParams.</param>
+        public SharepPointSiteBackupEnvParams(FilteringPolicyProto docLibFilteringPolicy = default(FilteringPolicyProto), PreservationHoldLibraryProtectionParams phlParams = default(PreservationHoldLibraryProtectionParams))
         {
             this.DocLibFilteringPolicy = docLibFilteringPolicy;
+            this.PhlParams = phlParams;
         }
         
         /// <summary>
@@ -34,6 +36,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="docLibFilteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto DocLibFilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PhlParams
+        /// </summary>
+        [DataMember(Name="phlParams", EmitDefaultValue=false)]
+        public PreservationHoldLibraryProtectionParams PhlParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +83,11 @@ namespace Cohesity.Model
                     this.DocLibFilteringPolicy == input.DocLibFilteringPolicy ||
                     (this.DocLibFilteringPolicy != null &&
                     this.DocLibFilteringPolicy.Equals(input.DocLibFilteringPolicy))
+                ) && 
+                (
+                    this.PhlParams == input.PhlParams ||
+                    (this.PhlParams != null &&
+                    this.PhlParams.Equals(input.PhlParams))
                 );
         }
 
@@ -89,6 +102,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DocLibFilteringPolicy != null)
                     hashCode = hashCode * 59 + this.DocLibFilteringPolicy.GetHashCode();
+                if (this.PhlParams != null)
+                    hashCode = hashCode * 59 + this.PhlParams.GetHashCode();
                 return hashCode;
             }
         }

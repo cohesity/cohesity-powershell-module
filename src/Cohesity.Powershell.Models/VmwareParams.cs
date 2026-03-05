@@ -23,13 +23,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VmwareParams" /> class.
         /// </summary>
+        /// <param name="updateLastBackupDetails">Specifies whether to update the last backup details, including the time of the backup attempt and backup status, for the virtual machines on the vCenter..</param>
         /// <param name="useVmBiosUuid">Specifies to use VM BIOS UUID to track virtual machines in the host..</param>
-        public VmwareParams(bool? useVmBiosUuid = default(bool?))
+        public VmwareParams(bool? updateLastBackupDetails = default(bool?), bool? useVmBiosUuid = default(bool?))
         {
+            this.UpdateLastBackupDetails = updateLastBackupDetails;
             this.UseVmBiosUuid = useVmBiosUuid;
+            this.UpdateLastBackupDetails = updateLastBackupDetails;
             this.UseVmBiosUuid = useVmBiosUuid;
         }
         
+        /// <summary>
+        /// Specifies whether to update the last backup details, including the time of the backup attempt and backup status, for the virtual machines on the vCenter.
+        /// </summary>
+        /// <value>Specifies whether to update the last backup details, including the time of the backup attempt and backup status, for the virtual machines on the vCenter.</value>
+        [DataMember(Name="UpdateLastBackupDetails", EmitDefaultValue=true)]
+        public bool? UpdateLastBackupDetails { get; set; }
+
         /// <summary>
         /// Specifies to use VM BIOS UUID to track virtual machines in the host.
         /// </summary>
@@ -74,6 +84,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.UpdateLastBackupDetails == input.UpdateLastBackupDetails ||
+                    (this.UpdateLastBackupDetails != null &&
+                    this.UpdateLastBackupDetails.Equals(input.UpdateLastBackupDetails))
+                ) && 
+                (
                     this.UseVmBiosUuid == input.UseVmBiosUuid ||
                     (this.UseVmBiosUuid != null &&
                     this.UseVmBiosUuid.Equals(input.UseVmBiosUuid))
@@ -89,6 +104,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.UpdateLastBackupDetails != null)
+                    hashCode = hashCode * 59 + this.UpdateLastBackupDetails.GetHashCode();
                 if (this.UseVmBiosUuid != null)
                     hashCode = hashCode * 59 + this.UseVmBiosUuid.GetHashCode();
                 return hashCode;

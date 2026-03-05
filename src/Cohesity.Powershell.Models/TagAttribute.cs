@@ -60,16 +60,19 @@ namespace Cohesity.Model
         /// <param name="id">Specifies the Coheisty id of the VM tag..</param>
         /// <param name="name">Specifies the VMware name of the VM tag..</param>
         /// <param name="uuid">Specifies the VMware Universally Unique Identifier (UUID) of the VM tag..</param>
-        public TagAttribute(GcpTagTypeEnum? gcpTagType = default(GcpTagTypeEnum?), long? id = default(long?), string name = default(string), string uuid = default(string))
+        /// <param name="value">Specifies the value of the tag..</param>
+        public TagAttribute(GcpTagTypeEnum? gcpTagType = default(GcpTagTypeEnum?), long? id = default(long?), string name = default(string), string uuid = default(string), string value = default(string))
         {
             this.GcpTagType = gcpTagType;
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
+            this.Value = value;
             this.GcpTagType = gcpTagType;
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
+            this.Value = value;
         }
         
         /// <summary>
@@ -92,6 +95,13 @@ namespace Cohesity.Model
         /// <value>Specifies the VMware Universally Unique Identifier (UUID) of the VM tag.</value>
         [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
+
+        /// <summary>
+        /// Specifies the value of the tag.
+        /// </summary>
+        /// <value>Specifies the value of the tag.</value>
+        [DataMember(Name="value", EmitDefaultValue=true)]
+        public string Value { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -147,6 +157,11 @@ namespace Cohesity.Model
                     this.Uuid == input.Uuid ||
                     (this.Uuid != null &&
                     this.Uuid.Equals(input.Uuid))
+                ) && 
+                (
+                    this.Value == input.Value ||
+                    (this.Value != null &&
+                    this.Value.Equals(input.Value))
                 );
         }
 
@@ -166,6 +181,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
+                if (this.Value != null)
+                    hashCode = hashCode * 59 + this.Value.GetHashCode();
                 return hashCode;
             }
         }

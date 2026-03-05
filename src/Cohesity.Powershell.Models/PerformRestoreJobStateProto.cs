@@ -26,11 +26,14 @@ namespace Cohesity.Model
         /// <param name="admittedTimeUsecs">The time at which the restore job was admitted to run on a Magneto master. This field will be set only after the status changes to &#39;kAdmitted&#39;. Using this field, amount of time spent in the waiting/queued state and the amount of time taken taken to actually run the job can be determined. wait time &#x3D; admitted_time_usecs - start_time_usecs run time &#x3D; end_time_usecs - admitted_time_usecs.</param>
         /// <param name="cancellationRequested">Whether this restore job has a pending cancellation request..</param>
         /// <param name="continueRestoreOnError">Whether to continue with the restore operation if restore of any object fails..</param>
+        /// <param name="customTagVec">Custom Tags will be attached to each temporary and permanant entity that will be created during this restore. Currently only being used for AWS and restore task type - kRecoverVMs..</param>
         /// <param name="dataTransferInfo">dataTransferInfo.</param>
         /// <param name="deployVmsToCloudTaskState">deployVmsToCloudTaskState.</param>
+        /// <param name="downloadChatsParams">downloadChatsParams.</param>
         /// <param name="encryptionParams">encryptionParams.</param>
         /// <param name="endTimeUsecs">If the restore job has finished, this field contains the end time for the job..</param>
         /// <param name="error">error.</param>
+        /// <param name="filterParams">filterParams.</param>
         /// <param name="leverageSanTransport">This is set to true by the user in order to restore the objects via SAN transport, as opposed to NBDSSL transport. NOTE: Not all adapters support this method. Currently only VMware..</param>
         /// <param name="name">The name of the restore job..</param>
         /// <param name="nosqlConnectParams">nosqlConnectParams.</param>
@@ -43,19 +46,26 @@ namespace Cohesity.Model
         /// <param name="progressMonitorTaskPath">Root path of a Pulse task tracking the progress of the restore job..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="renameRestoredVappParam">renameRestoredVappParam.</param>
+        /// <param name="requestSha1Checksum">Sha1 checksum of the restore request. This is used to identify the duplicate restore requests..</param>
         /// <param name="restoreAcropolisVmsParams">restoreAcropolisVmsParams.</param>
+        /// <param name="restoreAzureBlobStorageParams">restoreAzureBlobStorageParams.</param>
         /// <param name="restoreGroupsParams">restoreGroupsParams.</param>
         /// <param name="restoreJobId">A unique id for this restore job within the cluster..</param>
         /// <param name="restoreJobUid">restoreJobUid.</param>
         /// <param name="restoreKubernetesNamespacesParams">restoreKubernetesNamespacesParams.</param>
         /// <param name="restoreKvmVmsParams">restoreKvmVmsParams.</param>
+        /// <param name="restoreM365CsmParams">restoreM365CsmParams.</param>
+        /// <param name="restoreObjectCustomizations">Field to indicate the objects specific customization..</param>
+        /// <param name="restoreOutlookParams">restoreOutlookParams.</param>
         /// <param name="restoreParentSource">restoreParentSource.</param>
         /// <param name="restorePublicFoldersParams">restorePublicFoldersParams.</param>
         /// <param name="restoreS3Params">restoreS3Params.</param>
         /// <param name="restoreSiteParams">restoreSiteParams.</param>
+        /// <param name="restoreTargetEntityId">Entity Id of object inside which restored entities will be created..</param>
         /// <param name="restoreTaskStateProtoTmpl">restoreTaskStateProtoTmpl.</param>
         /// <param name="restoreTaskVec">Even if the user wanted to restore an entire job from the latest snapshot, this will have info of all the individual objects..</param>
         /// <param name="restoreTeamsParams">restoreTeamsParams.</param>
+        /// <param name="restoreVlanParams">restoreVlanParams.</param>
         /// <param name="restoreVmwareVmParams">restoreVmwareVmParams.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
         /// <param name="restoredToDifferentSource">Whether restore is being performed to a different parent source..</param>
@@ -64,18 +74,21 @@ namespace Cohesity.Model
         /// <param name="startTimeUsecs">The start time for this restore job..</param>
         /// <param name="status">Status of the restore job..</param>
         /// <param name="targetViewName">Name of the external view that the user specifies for restore operations. This field will be used to populate \&quot;full_view_name\&quot; field in PerformRestoreTaskStateProto so that each restore task uses the same view to clone the files into. This field currently only used for recovery type of kCloneVMs backed up using CDP VMs..</param>
+        /// <param name="transientInfo">magneto/master/vmware/vmware.proto 100  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;.</param>
         /// <param name="type">The type of restore being performed..</param>
+        /// <param name="udaRecoverJobParams">udaRecoverJobParams.</param>
         /// <param name="user">The user who requested this restore job..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="vcdConfig">vcdConfig.</param>
         /// <param name="viewBoxId">The view box id to which the restore job belongs to..</param>
         /// <param name="viewParams">viewParams.</param>
         /// <param name="warnings">Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task..</param>
-        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), EncryptionParams encryptionParams = default(EncryptionParams), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? leverageSanTransport = default(bool?), string name = default(string), NoSqlConnectParams nosqlConnectParams = default(NoSqlConnectParams), NoSqlRecoverJobParams nosqlRecoverJobParams = default(NoSqlRecoverJobParams), List<RestoreObject> objects = default(List<RestoreObject>), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), bool? physicalFlrParallelRestore = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreO365GroupsParams restoreGroupsParams = default(RestoreO365GroupsParams), long? restoreJobId = default(long?), UniversalIdProto restoreJobUid = default(UniversalIdProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), RestoreO365PublicFoldersParams restorePublicFoldersParams = default(RestoreO365PublicFoldersParams), RestoreS3Params restoreS3Params = default(RestoreS3Params), RestoreSiteParams restoreSiteParams = default(RestoreSiteParams), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreO365TeamsParams restoreTeamsParams = default(RestoreO365TeamsParams), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), bool? skipImageDeploy = default(bool?), bool? skipRigelForRestore = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), string targetViewName = default(string), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), ViewParams viewParams = default(ViewParams), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), List<CustomTag> customTagVec = default(List<CustomTag>), DataTransferInfo dataTransferInfo = default(DataTransferInfo), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DownloadChatsParams downloadChatsParams = default(DownloadChatsParams), EncryptionParams encryptionParams = default(EncryptionParams), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), CommonFilterExpression filterParams = default(CommonFilterExpression), bool? leverageSanTransport = default(bool?), string name = default(string), NoSqlConnectParams nosqlConnectParams = default(NoSqlConnectParams), NoSqlRecoverJobParams nosqlRecoverJobParams = default(NoSqlRecoverJobParams), List<RestoreObject> objects = default(List<RestoreObject>), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), bool? physicalFlrParallelRestore = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), List<int> requestSha1Checksum = default(List<int>), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreAzureBlobStorageParams restoreAzureBlobStorageParams = default(RestoreAzureBlobStorageParams), RestoreO365GroupsParams restoreGroupsParams = default(RestoreO365GroupsParams), long? restoreJobId = default(long?), UniversalIdProto restoreJobUid = default(UniversalIdProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), RestoreM365CSMParams restoreM365CsmParams = default(RestoreM365CSMParams), List<RestoreObjectCustomization> restoreObjectCustomizations = default(List<RestoreObjectCustomization>), RestoreOutlookParams restoreOutlookParams = default(RestoreOutlookParams), EntityProto restoreParentSource = default(EntityProto), RestoreO365PublicFoldersParams restorePublicFoldersParams = default(RestoreO365PublicFoldersParams), RestoreS3Params restoreS3Params = default(RestoreS3Params), RestoreSiteParams restoreSiteParams = default(RestoreSiteParams), long? restoreTargetEntityId = default(long?), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreO365TeamsParams restoreTeamsParams = default(RestoreO365TeamsParams), VlanParams restoreVlanParams = default(VlanParams), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), bool? skipImageDeploy = default(bool?), bool? skipRigelForRestore = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), string targetViewName = default(string), Object transientInfo = default(Object), int? type = default(int?), UdaRecoverJobParams udaRecoverJobParams = default(UdaRecoverJobParams), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), ViewParams viewParams = default(ViewParams), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
+            this.CustomTagVec = customTagVec;
             this.EndTimeUsecs = endTimeUsecs;
             this.LeverageSanTransport = leverageSanTransport;
             this.Name = name;
@@ -83,7 +96,10 @@ namespace Cohesity.Model
             this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
             this.PreserveTags = preserveTags;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RequestSha1Checksum = requestSha1Checksum;
             this.RestoreJobId = restoreJobId;
+            this.RestoreObjectCustomizations = restoreObjectCustomizations;
+            this.RestoreTargetEntityId = restoreTargetEntityId;
             this.RestoreTaskVec = restoreTaskVec;
             this.RestoredToDifferentSource = restoredToDifferentSource;
             this.SkipImageDeploy = skipImageDeploy;
@@ -98,11 +114,14 @@ namespace Cohesity.Model
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
+            this.CustomTagVec = customTagVec;
             this.DataTransferInfo = dataTransferInfo;
             this.DeployVmsToCloudTaskState = deployVmsToCloudTaskState;
+            this.DownloadChatsParams = downloadChatsParams;
             this.EncryptionParams = encryptionParams;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
+            this.FilterParams = filterParams;
             this.LeverageSanTransport = leverageSanTransport;
             this.Name = name;
             this.NosqlConnectParams = nosqlConnectParams;
@@ -115,19 +134,26 @@ namespace Cohesity.Model
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.RenameRestoredVappParam = renameRestoredVappParam;
+            this.RequestSha1Checksum = requestSha1Checksum;
             this.RestoreAcropolisVmsParams = restoreAcropolisVmsParams;
+            this.RestoreAzureBlobStorageParams = restoreAzureBlobStorageParams;
             this.RestoreGroupsParams = restoreGroupsParams;
             this.RestoreJobId = restoreJobId;
             this.RestoreJobUid = restoreJobUid;
             this.RestoreKubernetesNamespacesParams = restoreKubernetesNamespacesParams;
             this.RestoreKvmVmsParams = restoreKvmVmsParams;
+            this.RestoreM365CsmParams = restoreM365CsmParams;
+            this.RestoreObjectCustomizations = restoreObjectCustomizations;
+            this.RestoreOutlookParams = restoreOutlookParams;
             this.RestoreParentSource = restoreParentSource;
             this.RestorePublicFoldersParams = restorePublicFoldersParams;
             this.RestoreS3Params = restoreS3Params;
             this.RestoreSiteParams = restoreSiteParams;
+            this.RestoreTargetEntityId = restoreTargetEntityId;
             this.RestoreTaskStateProtoTmpl = restoreTaskStateProtoTmpl;
             this.RestoreTaskVec = restoreTaskVec;
             this.RestoreTeamsParams = restoreTeamsParams;
+            this.RestoreVlanParams = restoreVlanParams;
             this.RestoreVmwareVmParams = restoreVmwareVmParams;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
             this.RestoredToDifferentSource = restoredToDifferentSource;
@@ -136,7 +162,9 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.Status = status;
             this.TargetViewName = targetViewName;
+            this.TransientInfo = transientInfo;
             this.Type = type;
+            this.UdaRecoverJobParams = udaRecoverJobParams;
             this.User = user;
             this.UserInfo = userInfo;
             this.VcdConfig = vcdConfig;
@@ -167,6 +195,13 @@ namespace Cohesity.Model
         public bool? ContinueRestoreOnError { get; set; }
 
         /// <summary>
+        /// Custom Tags will be attached to each temporary and permanant entity that will be created during this restore. Currently only being used for AWS and restore task type - kRecoverVMs.
+        /// </summary>
+        /// <value>Custom Tags will be attached to each temporary and permanant entity that will be created during this restore. Currently only being used for AWS and restore task type - kRecoverVMs.</value>
+        [DataMember(Name="customTagVec", EmitDefaultValue=true)]
+        public List<CustomTag> CustomTagVec { get; set; }
+
+        /// <summary>
         /// Gets or Sets DataTransferInfo
         /// </summary>
         [DataMember(Name="dataTransferInfo", EmitDefaultValue=false)]
@@ -177,6 +212,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="deployVmsToCloudTaskState", EmitDefaultValue=false)]
         public DeployVMsToCloudTaskStateProto DeployVmsToCloudTaskState { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DownloadChatsParams
+        /// </summary>
+        [DataMember(Name="downloadChatsParams", EmitDefaultValue=false)]
+        public DownloadChatsParams DownloadChatsParams { get; set; }
 
         /// <summary>
         /// Gets or Sets EncryptionParams
@@ -196,6 +237,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FilterParams
+        /// </summary>
+        [DataMember(Name="filterParams", EmitDefaultValue=false)]
+        public CommonFilterExpression FilterParams { get; set; }
 
         /// <summary>
         /// This is set to true by the user in order to restore the objects via SAN transport, as opposed to NBDSSL transport. NOTE: Not all adapters support this method. Currently only VMware.
@@ -276,10 +323,23 @@ namespace Cohesity.Model
         public RenameObjectParamProto RenameRestoredVappParam { get; set; }
 
         /// <summary>
+        /// Sha1 checksum of the restore request. This is used to identify the duplicate restore requests.
+        /// </summary>
+        /// <value>Sha1 checksum of the restore request. This is used to identify the duplicate restore requests.</value>
+        [DataMember(Name="requestSha1Checksum", EmitDefaultValue=true)]
+        public List<int> RequestSha1Checksum { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreAcropolisVmsParams
         /// </summary>
         [DataMember(Name="restoreAcropolisVmsParams", EmitDefaultValue=false)]
         public RestoreAcropolisVMsParams RestoreAcropolisVmsParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreAzureBlobStorageParams
+        /// </summary>
+        [DataMember(Name="restoreAzureBlobStorageParams", EmitDefaultValue=false)]
+        public RestoreAzureBlobStorageParams RestoreAzureBlobStorageParams { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreGroupsParams
@@ -313,6 +373,25 @@ namespace Cohesity.Model
         public RestoreKVMVMsParams RestoreKvmVmsParams { get; set; }
 
         /// <summary>
+        /// Gets or Sets RestoreM365CsmParams
+        /// </summary>
+        [DataMember(Name="restoreM365CsmParams", EmitDefaultValue=false)]
+        public RestoreM365CSMParams RestoreM365CsmParams { get; set; }
+
+        /// <summary>
+        /// Field to indicate the objects specific customization.
+        /// </summary>
+        /// <value>Field to indicate the objects specific customization.</value>
+        [DataMember(Name="restoreObjectCustomizations", EmitDefaultValue=true)]
+        public List<RestoreObjectCustomization> RestoreObjectCustomizations { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreOutlookParams
+        /// </summary>
+        [DataMember(Name="restoreOutlookParams", EmitDefaultValue=false)]
+        public RestoreOutlookParams RestoreOutlookParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreParentSource
         /// </summary>
         [DataMember(Name="restoreParentSource", EmitDefaultValue=false)]
@@ -337,6 +416,13 @@ namespace Cohesity.Model
         public RestoreSiteParams RestoreSiteParams { get; set; }
 
         /// <summary>
+        /// Entity Id of object inside which restored entities will be created.
+        /// </summary>
+        /// <value>Entity Id of object inside which restored entities will be created.</value>
+        [DataMember(Name="restoreTargetEntityId", EmitDefaultValue=true)]
+        public long? RestoreTargetEntityId { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreTaskStateProtoTmpl
         /// </summary>
         [DataMember(Name="restoreTaskStateProtoTmpl", EmitDefaultValue=false)]
@@ -354,6 +440,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="restoreTeamsParams", EmitDefaultValue=false)]
         public RestoreO365TeamsParams RestoreTeamsParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreVlanParams
+        /// </summary>
+        [DataMember(Name="restoreVlanParams", EmitDefaultValue=false)]
+        public VlanParams RestoreVlanParams { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreVmwareVmParams
@@ -410,11 +502,24 @@ namespace Cohesity.Model
         public string TargetViewName { get; set; }
 
         /// <summary>
+        /// magneto/master/vmware/vmware.proto 100  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+        /// </summary>
+        /// <value>magneto/master/vmware/vmware.proto 100  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</value>
+        [DataMember(Name="transientInfo", EmitDefaultValue=false)]
+        public Object TransientInfo { get; set; }
+
+        /// <summary>
         /// The type of restore being performed.
         /// </summary>
         /// <value>The type of restore being performed.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
+
+        /// <summary>
+        /// Gets or Sets UdaRecoverJobParams
+        /// </summary>
+        [DataMember(Name="udaRecoverJobParams", EmitDefaultValue=false)]
+        public UdaRecoverJobParams UdaRecoverJobParams { get; set; }
 
         /// <summary>
         /// The user who requested this restore job.
@@ -507,6 +612,12 @@ namespace Cohesity.Model
                     this.ContinueRestoreOnError.Equals(input.ContinueRestoreOnError))
                 ) && 
                 (
+                    this.CustomTagVec == input.CustomTagVec ||
+                    this.CustomTagVec != null &&
+                    input.CustomTagVec != null &&
+                    this.CustomTagVec.SequenceEqual(input.CustomTagVec)
+                ) && 
+                (
                     this.DataTransferInfo == input.DataTransferInfo ||
                     (this.DataTransferInfo != null &&
                     this.DataTransferInfo.Equals(input.DataTransferInfo))
@@ -515,6 +626,11 @@ namespace Cohesity.Model
                     this.DeployVmsToCloudTaskState == input.DeployVmsToCloudTaskState ||
                     (this.DeployVmsToCloudTaskState != null &&
                     this.DeployVmsToCloudTaskState.Equals(input.DeployVmsToCloudTaskState))
+                ) && 
+                (
+                    this.DownloadChatsParams == input.DownloadChatsParams ||
+                    (this.DownloadChatsParams != null &&
+                    this.DownloadChatsParams.Equals(input.DownloadChatsParams))
                 ) && 
                 (
                     this.EncryptionParams == input.EncryptionParams ||
@@ -530,6 +646,11 @@ namespace Cohesity.Model
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
+                ) && 
+                (
+                    this.FilterParams == input.FilterParams ||
+                    (this.FilterParams != null &&
+                    this.FilterParams.Equals(input.FilterParams))
                 ) && 
                 (
                     this.LeverageSanTransport == input.LeverageSanTransport ||
@@ -593,9 +714,20 @@ namespace Cohesity.Model
                     this.RenameRestoredVappParam.Equals(input.RenameRestoredVappParam))
                 ) && 
                 (
+                    this.RequestSha1Checksum == input.RequestSha1Checksum ||
+                    this.RequestSha1Checksum != null &&
+                    input.RequestSha1Checksum != null &&
+                    this.RequestSha1Checksum.SequenceEqual(input.RequestSha1Checksum)
+                ) && 
+                (
                     this.RestoreAcropolisVmsParams == input.RestoreAcropolisVmsParams ||
                     (this.RestoreAcropolisVmsParams != null &&
                     this.RestoreAcropolisVmsParams.Equals(input.RestoreAcropolisVmsParams))
+                ) && 
+                (
+                    this.RestoreAzureBlobStorageParams == input.RestoreAzureBlobStorageParams ||
+                    (this.RestoreAzureBlobStorageParams != null &&
+                    this.RestoreAzureBlobStorageParams.Equals(input.RestoreAzureBlobStorageParams))
                 ) && 
                 (
                     this.RestoreGroupsParams == input.RestoreGroupsParams ||
@@ -623,6 +755,22 @@ namespace Cohesity.Model
                     this.RestoreKvmVmsParams.Equals(input.RestoreKvmVmsParams))
                 ) && 
                 (
+                    this.RestoreM365CsmParams == input.RestoreM365CsmParams ||
+                    (this.RestoreM365CsmParams != null &&
+                    this.RestoreM365CsmParams.Equals(input.RestoreM365CsmParams))
+                ) && 
+                (
+                    this.RestoreObjectCustomizations == input.RestoreObjectCustomizations ||
+                    this.RestoreObjectCustomizations != null &&
+                    input.RestoreObjectCustomizations != null &&
+                    this.RestoreObjectCustomizations.SequenceEqual(input.RestoreObjectCustomizations)
+                ) && 
+                (
+                    this.RestoreOutlookParams == input.RestoreOutlookParams ||
+                    (this.RestoreOutlookParams != null &&
+                    this.RestoreOutlookParams.Equals(input.RestoreOutlookParams))
+                ) && 
+                (
                     this.RestoreParentSource == input.RestoreParentSource ||
                     (this.RestoreParentSource != null &&
                     this.RestoreParentSource.Equals(input.RestoreParentSource))
@@ -643,6 +791,11 @@ namespace Cohesity.Model
                     this.RestoreSiteParams.Equals(input.RestoreSiteParams))
                 ) && 
                 (
+                    this.RestoreTargetEntityId == input.RestoreTargetEntityId ||
+                    (this.RestoreTargetEntityId != null &&
+                    this.RestoreTargetEntityId.Equals(input.RestoreTargetEntityId))
+                ) && 
+                (
                     this.RestoreTaskStateProtoTmpl == input.RestoreTaskStateProtoTmpl ||
                     (this.RestoreTaskStateProtoTmpl != null &&
                     this.RestoreTaskStateProtoTmpl.Equals(input.RestoreTaskStateProtoTmpl))
@@ -657,6 +810,11 @@ namespace Cohesity.Model
                     this.RestoreTeamsParams == input.RestoreTeamsParams ||
                     (this.RestoreTeamsParams != null &&
                     this.RestoreTeamsParams.Equals(input.RestoreTeamsParams))
+                ) && 
+                (
+                    this.RestoreVlanParams == input.RestoreVlanParams ||
+                    (this.RestoreVlanParams != null &&
+                    this.RestoreVlanParams.Equals(input.RestoreVlanParams))
                 ) && 
                 (
                     this.RestoreVmwareVmParams == input.RestoreVmwareVmParams ||
@@ -699,9 +857,19 @@ namespace Cohesity.Model
                     this.TargetViewName.Equals(input.TargetViewName))
                 ) && 
                 (
+                    this.TransientInfo == input.TransientInfo ||
+                    (this.TransientInfo != null &&
+                    this.TransientInfo.Equals(input.TransientInfo))
+                ) && 
+                (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.UdaRecoverJobParams == input.UdaRecoverJobParams ||
+                    (this.UdaRecoverJobParams != null &&
+                    this.UdaRecoverJobParams.Equals(input.UdaRecoverJobParams))
                 ) && 
                 (
                     this.User == input.User ||
@@ -751,16 +919,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CancellationRequested.GetHashCode();
                 if (this.ContinueRestoreOnError != null)
                     hashCode = hashCode * 59 + this.ContinueRestoreOnError.GetHashCode();
+                if (this.CustomTagVec != null)
+                    hashCode = hashCode * 59 + this.CustomTagVec.GetHashCode();
                 if (this.DataTransferInfo != null)
                     hashCode = hashCode * 59 + this.DataTransferInfo.GetHashCode();
                 if (this.DeployVmsToCloudTaskState != null)
                     hashCode = hashCode * 59 + this.DeployVmsToCloudTaskState.GetHashCode();
+                if (this.DownloadChatsParams != null)
+                    hashCode = hashCode * 59 + this.DownloadChatsParams.GetHashCode();
                 if (this.EncryptionParams != null)
                     hashCode = hashCode * 59 + this.EncryptionParams.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.FilterParams != null)
+                    hashCode = hashCode * 59 + this.FilterParams.GetHashCode();
                 if (this.LeverageSanTransport != null)
                     hashCode = hashCode * 59 + this.LeverageSanTransport.GetHashCode();
                 if (this.Name != null)
@@ -785,8 +959,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RenameRestoredObjectParam.GetHashCode();
                 if (this.RenameRestoredVappParam != null)
                     hashCode = hashCode * 59 + this.RenameRestoredVappParam.GetHashCode();
+                if (this.RequestSha1Checksum != null)
+                    hashCode = hashCode * 59 + this.RequestSha1Checksum.GetHashCode();
                 if (this.RestoreAcropolisVmsParams != null)
                     hashCode = hashCode * 59 + this.RestoreAcropolisVmsParams.GetHashCode();
+                if (this.RestoreAzureBlobStorageParams != null)
+                    hashCode = hashCode * 59 + this.RestoreAzureBlobStorageParams.GetHashCode();
                 if (this.RestoreGroupsParams != null)
                     hashCode = hashCode * 59 + this.RestoreGroupsParams.GetHashCode();
                 if (this.RestoreJobId != null)
@@ -797,6 +975,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreKubernetesNamespacesParams.GetHashCode();
                 if (this.RestoreKvmVmsParams != null)
                     hashCode = hashCode * 59 + this.RestoreKvmVmsParams.GetHashCode();
+                if (this.RestoreM365CsmParams != null)
+                    hashCode = hashCode * 59 + this.RestoreM365CsmParams.GetHashCode();
+                if (this.RestoreObjectCustomizations != null)
+                    hashCode = hashCode * 59 + this.RestoreObjectCustomizations.GetHashCode();
+                if (this.RestoreOutlookParams != null)
+                    hashCode = hashCode * 59 + this.RestoreOutlookParams.GetHashCode();
                 if (this.RestoreParentSource != null)
                     hashCode = hashCode * 59 + this.RestoreParentSource.GetHashCode();
                 if (this.RestorePublicFoldersParams != null)
@@ -805,12 +989,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreS3Params.GetHashCode();
                 if (this.RestoreSiteParams != null)
                     hashCode = hashCode * 59 + this.RestoreSiteParams.GetHashCode();
+                if (this.RestoreTargetEntityId != null)
+                    hashCode = hashCode * 59 + this.RestoreTargetEntityId.GetHashCode();
                 if (this.RestoreTaskStateProtoTmpl != null)
                     hashCode = hashCode * 59 + this.RestoreTaskStateProtoTmpl.GetHashCode();
                 if (this.RestoreTaskVec != null)
                     hashCode = hashCode * 59 + this.RestoreTaskVec.GetHashCode();
                 if (this.RestoreTeamsParams != null)
                     hashCode = hashCode * 59 + this.RestoreTeamsParams.GetHashCode();
+                if (this.RestoreVlanParams != null)
+                    hashCode = hashCode * 59 + this.RestoreVlanParams.GetHashCode();
                 if (this.RestoreVmwareVmParams != null)
                     hashCode = hashCode * 59 + this.RestoreVmwareVmParams.GetHashCode();
                 if (this.RestoredObjectsNetworkConfig != null)
@@ -827,8 +1015,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.TargetViewName != null)
                     hashCode = hashCode * 59 + this.TargetViewName.GetHashCode();
+                if (this.TransientInfo != null)
+                    hashCode = hashCode * 59 + this.TransientInfo.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UdaRecoverJobParams != null)
+                    hashCode = hashCode * 59 + this.UdaRecoverJobParams.GetHashCode();
                 if (this.User != null)
                     hashCode = hashCode * 59 + this.User.GetHashCode();
                 if (this.UserInfo != null)

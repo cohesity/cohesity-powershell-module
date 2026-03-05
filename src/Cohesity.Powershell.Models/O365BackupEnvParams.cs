@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Message to capture any additional backup params for Office365 environment. This encapsulates both Outlook &amp; OneDrive backup parameters.
+    /// Message to capture any additional backup params for Office365 environment. This encapsulates all M365 workload&#39;s backup parameters.
     /// </summary>
     [DataContract]
     public partial class O365BackupEnvParams :  IEquatable<O365BackupEnvParams>
@@ -29,8 +29,8 @@ namespace Cohesity.Model
         /// <param name="outlookBackupParams">outlookBackupParams.</param>
         /// <param name="publicFoldersBackupParams">publicFoldersBackupParams.</param>
         /// <param name="siteBackupParams">siteBackupParams.</param>
-        /// <param name="teamsBackupParams">Message to capture any additional backup params for Teams within the Office365 environment..</param>
-        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), Object groupBackupParams = default(Object), OneDriveBackupEnvParams onedriveBackupParams = default(OneDriveBackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PublicFoldersBackupEnvParams publicFoldersBackupParams = default(PublicFoldersBackupEnvParams), SharepPointSiteBackupEnvParams siteBackupParams = default(SharepPointSiteBackupEnvParams), Object teamsBackupParams = default(Object))
+        /// <param name="teamsBackupParams">teamsBackupParams.</param>
+        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), Object groupBackupParams = default(Object), OneDriveBackupEnvParams onedriveBackupParams = default(OneDriveBackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PublicFoldersBackupEnvParams publicFoldersBackupParams = default(PublicFoldersBackupEnvParams), SharepPointSiteBackupEnvParams siteBackupParams = default(SharepPointSiteBackupEnvParams), TeamsBackupEnvParams teamsBackupParams = default(TeamsBackupEnvParams))
         {
             this.FilteringPolicy = filteringPolicy;
             this.GroupBackupParams = groupBackupParams;
@@ -79,11 +79,10 @@ namespace Cohesity.Model
         public SharepPointSiteBackupEnvParams SiteBackupParams { get; set; }
 
         /// <summary>
-        /// Message to capture any additional backup params for Teams within the Office365 environment.
+        /// Gets or Sets TeamsBackupParams
         /// </summary>
-        /// <value>Message to capture any additional backup params for Teams within the Office365 environment.</value>
         [DataMember(Name="teamsBackupParams", EmitDefaultValue=false)]
-        public Object TeamsBackupParams { get; set; }
+        public TeamsBackupEnvParams TeamsBackupParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

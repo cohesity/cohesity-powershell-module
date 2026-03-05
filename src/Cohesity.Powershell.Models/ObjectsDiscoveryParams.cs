@@ -25,12 +25,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="discoverableObjectTypeList">Specifies the list of object types that will be discovered as part of source registration or refresh..</param>
         /// <param name="sitesDiscoveryParams">sitesDiscoveryParams.</param>
+        /// <param name="teamsAdditionalParams">teamsAdditionalParams.</param>
         /// <param name="usersDiscoveryParams">usersDiscoveryParams.</param>
-        public ObjectsDiscoveryParams(List<string> discoverableObjectTypeList = default(List<string>), SitesDiscoveryParams sitesDiscoveryParams = default(SitesDiscoveryParams), UsersDiscoveryParams usersDiscoveryParams = default(UsersDiscoveryParams))
+        public ObjectsDiscoveryParams(List<string> discoverableObjectTypeList = default(List<string>), SitesDiscoveryParams sitesDiscoveryParams = default(SitesDiscoveryParams), TeamsAdditionalParams teamsAdditionalParams = default(TeamsAdditionalParams), UsersDiscoveryParams usersDiscoveryParams = default(UsersDiscoveryParams))
         {
             this.DiscoverableObjectTypeList = discoverableObjectTypeList;
             this.DiscoverableObjectTypeList = discoverableObjectTypeList;
             this.SitesDiscoveryParams = sitesDiscoveryParams;
+            this.TeamsAdditionalParams = teamsAdditionalParams;
             this.UsersDiscoveryParams = usersDiscoveryParams;
         }
         
@@ -46,6 +48,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="sitesDiscoveryParams", EmitDefaultValue=false)]
         public SitesDiscoveryParams SitesDiscoveryParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TeamsAdditionalParams
+        /// </summary>
+        [DataMember(Name="teamsAdditionalParams", EmitDefaultValue=false)]
+        public TeamsAdditionalParams TeamsAdditionalParams { get; set; }
 
         /// <summary>
         /// Gets or Sets UsersDiscoveryParams
@@ -101,6 +109,11 @@ namespace Cohesity.Model
                     this.SitesDiscoveryParams.Equals(input.SitesDiscoveryParams))
                 ) && 
                 (
+                    this.TeamsAdditionalParams == input.TeamsAdditionalParams ||
+                    (this.TeamsAdditionalParams != null &&
+                    this.TeamsAdditionalParams.Equals(input.TeamsAdditionalParams))
+                ) && 
+                (
                     this.UsersDiscoveryParams == input.UsersDiscoveryParams ||
                     (this.UsersDiscoveryParams != null &&
                     this.UsersDiscoveryParams.Equals(input.UsersDiscoveryParams))
@@ -120,6 +133,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DiscoverableObjectTypeList.GetHashCode();
                 if (this.SitesDiscoveryParams != null)
                     hashCode = hashCode * 59 + this.SitesDiscoveryParams.GetHashCode();
+                if (this.TeamsAdditionalParams != null)
+                    hashCode = hashCode * 59 + this.TeamsAdditionalParams.GetHashCode();
                 if (this.UsersDiscoveryParams != null)
                     hashCode = hashCode * 59 + this.UsersDiscoveryParams.GetHashCode();
                 return hashCode;

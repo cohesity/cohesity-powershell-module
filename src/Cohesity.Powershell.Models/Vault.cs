@@ -441,9 +441,9 @@ namespace Cohesity.Model
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
-        /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS.
+        /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS. &#39;kLogbackup&#39; indicates the Vault is for logbackup.
         /// </summary>
-        /// <value>Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS.</value>
+        /// <value>Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS. &#39;kLogbackup&#39; indicates the Vault is for logbackup.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum UsageTypeEnum
         {
@@ -457,14 +457,20 @@ namespace Cohesity.Model
             /// Enum KCloudSpill for value: kCloudSpill
             /// </summary>
             [EnumMember(Value = "kCloudSpill")]
-            KCloudSpill = 2
+            KCloudSpill = 2,
+
+            /// <summary>
+            /// Enum KLogbackup for value: kLogbackup
+            /// </summary>
+            [EnumMember(Value = "kLogbackup")]
+            KLogbackup = 3
 
         }
 
         /// <summary>
-        /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS.
+        /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS. &#39;kLogbackup&#39; indicates the Vault is for logbackup.
         /// </summary>
-        /// <value>Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS.</value>
+        /// <value>Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS. &#39;kLogbackup&#39; indicates the Vault is for logbackup.</value>
         [DataMember(Name="usageType", EmitDefaultValue=true)]
         public UsageTypeEnum? UsageType { get; set; }
         /// <summary>
@@ -510,6 +516,7 @@ namespace Cohesity.Model
         /// <param name="deleteVaultError">Specifies the error message when deleting a vault..</param>
         /// <param name="description">Specifies a description about the Vault..</param>
         /// <param name="desiredWalLocation">Desired location for write ahead logs(wal). &#39;kHomePartition&#39; indicates desired wal location to be the home partition. &#39;kDisk&#39; indicates desired wal location to be the same disk as chunk repo. &#39;kScribe&#39; indicates desired wal location to be scribe. &#39;kScribeTable&#39; indicates chunk repository state is kept as key-value pairs in scribe..</param>
+        /// <param name="enableObjectLock">Specifies the mode of object lock (governance/compliance).</param>
         /// <param name="encryptionKeyFileDownloaded">Specifies if the encryption key file has been downloaded using the Cohesity Dashboard (Cohesity UI). If true, the encryption key has been downloaded using the Cohesity Dashboard. An encryption key can only be downloaded once using the Cohesity Dashboard..</param>
         /// <param name="encryptionPolicy">Specifies whether to send and store data in an encrypted format. &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted..</param>
         /// <param name="externalTargetType">Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault..</param>
@@ -527,11 +534,12 @@ namespace Cohesity.Model
         /// <param name="removalState">Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
         /// <param name="tenantIds">Specifies the list of tenants which will have a access to current vault..</param>
         /// <param name="type">Specifies the type of Vault. This field is deprecated. This field is split into ExternalTargetType in and TierType in respective credentials. Initialize those fields instead. deprecated: true &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault..</param>
-        /// <param name="usageType">Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS..</param>
+        /// <param name="usageType">Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data. &#39;kRpaasArchival&#39; indicates the Vault is for RPaaS. &#39;kLogbackup&#39; indicates the Vault is for logbackup..</param>
+        /// <param name="useRollingObjectLock">Specifies whether the vault should use rolling object lock..</param>
         /// <param name="vaultBandwidthLimits">vaultBandwidthLimits.</param>
         /// <param name="vaultOwnership">Specifies the ownership context for consumption. &#39;kOwnershipContextLocal&#39; indicates the Vault is used for local consumption &#39;kOwnershipContextFortKnox&#39; indicates the Vault is used for Fortknox consumption.</param>
         /// <param name="viewBoxName">Specifies the name of the associated viewbox that is to be created while registering vault in NextGen CE..</param>
-        public Vault(string caTrustedCertificate = default(string), string clientCertificate = default(string), string clientPrivateKey = default(string), CloudArchivalDirectConfig cloudArchivalDirectConfig = default(CloudArchivalDirectConfig), List<CloudDomainList> cloudDomainList = default(List<CloudDomainList>), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), VaultConfig config = default(VaultConfig), bool? customerManagingEncryptionKeys = default(bool?), bool? dedupEnabled = default(bool?), bool? dekRotationEnabled = default(bool?), string deleteVaultError = default(string), string description = default(string), DesiredWalLocationEnum? desiredWalLocation = default(DesiredWalLocationEnum?), bool? encryptionKeyFileDownloaded = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ExternalTargetTypeEnum? externalTargetType = default(ExternalTargetTypeEnum?), long? fullArchiveIntervalDays = default(long?), string globalId = default(string), long? id = default(long?), bool? incrementalArchivesEnabled = default(bool?), bool? isAwsSnowball = default(bool?), bool? isForeverIncrementalArchiveEnabled = default(bool?), bool? isPasswordEncrypted = default(bool?), long? keyFileDownloadTimeUsecs = default(long?), string keyFileDownloadUser = default(string), long? kmsServerId = default(long?), string name = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), VaultBandwidthLimits vaultBandwidthLimits = default(VaultBandwidthLimits), VaultOwnershipEnum? vaultOwnership = default(VaultOwnershipEnum?), string viewBoxName = default(string))
+        public Vault(string caTrustedCertificate = default(string), string clientCertificate = default(string), string clientPrivateKey = default(string), CloudArchivalDirectConfig cloudArchivalDirectConfig = default(CloudArchivalDirectConfig), List<CloudDomainList> cloudDomainList = default(List<CloudDomainList>), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), VaultConfig config = default(VaultConfig), bool? customerManagingEncryptionKeys = default(bool?), bool? dedupEnabled = default(bool?), bool? dekRotationEnabled = default(bool?), string deleteVaultError = default(string), string description = default(string), DesiredWalLocationEnum? desiredWalLocation = default(DesiredWalLocationEnum?), bool? enableObjectLock = default(bool?), bool? encryptionKeyFileDownloaded = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ExternalTargetTypeEnum? externalTargetType = default(ExternalTargetTypeEnum?), long? fullArchiveIntervalDays = default(long?), string globalId = default(string), long? id = default(long?), bool? incrementalArchivesEnabled = default(bool?), bool? isAwsSnowball = default(bool?), bool? isForeverIncrementalArchiveEnabled = default(bool?), bool? isPasswordEncrypted = default(bool?), long? keyFileDownloadTimeUsecs = default(long?), string keyFileDownloadUser = default(string), long? kmsServerId = default(long?), string name = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), bool? useRollingObjectLock = default(bool?), VaultBandwidthLimits vaultBandwidthLimits = default(VaultBandwidthLimits), VaultOwnershipEnum? vaultOwnership = default(VaultOwnershipEnum?), string viewBoxName = default(string))
         {
             this.CaTrustedCertificate = caTrustedCertificate;
             this.ClientCertificate = clientCertificate;
@@ -544,6 +552,7 @@ namespace Cohesity.Model
             this.DeleteVaultError = deleteVaultError;
             this.Description = description;
             this.DesiredWalLocation = desiredWalLocation;
+            this.EnableObjectLock = enableObjectLock;
             this.EncryptionKeyFileDownloaded = encryptionKeyFileDownloaded;
             this.EncryptionPolicy = encryptionPolicy;
             this.ExternalTargetType = externalTargetType;
@@ -562,6 +571,7 @@ namespace Cohesity.Model
             this.TenantIds = tenantIds;
             this.Type = type;
             this.UsageType = usageType;
+            this.UseRollingObjectLock = useRollingObjectLock;
             this.VaultOwnership = vaultOwnership;
             this.ViewBoxName = viewBoxName;
             this.CaTrustedCertificate = caTrustedCertificate;
@@ -577,6 +587,7 @@ namespace Cohesity.Model
             this.DeleteVaultError = deleteVaultError;
             this.Description = description;
             this.DesiredWalLocation = desiredWalLocation;
+            this.EnableObjectLock = enableObjectLock;
             this.EncryptionKeyFileDownloaded = encryptionKeyFileDownloaded;
             this.EncryptionPolicy = encryptionPolicy;
             this.ExternalTargetType = externalTargetType;
@@ -595,6 +606,7 @@ namespace Cohesity.Model
             this.TenantIds = tenantIds;
             this.Type = type;
             this.UsageType = usageType;
+            this.UseRollingObjectLock = useRollingObjectLock;
             this.VaultBandwidthLimits = vaultBandwidthLimits;
             this.VaultOwnership = vaultOwnership;
             this.ViewBoxName = viewBoxName;
@@ -674,6 +686,13 @@ namespace Cohesity.Model
         /// <value>Specifies a description about the Vault.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Specifies the mode of object lock (governance/compliance)
+        /// </summary>
+        /// <value>Specifies the mode of object lock (governance/compliance)</value>
+        [DataMember(Name="enableObjectLock", EmitDefaultValue=true)]
+        public bool? EnableObjectLock { get; set; }
 
         /// <summary>
         /// Specifies if the encryption key file has been downloaded using the Cohesity Dashboard (Cohesity UI). If true, the encryption key has been downloaded using the Cohesity Dashboard. An encryption key can only be downloaded once using the Cohesity Dashboard.
@@ -765,6 +784,13 @@ namespace Cohesity.Model
         /// <value>Specifies the list of tenants which will have a access to current vault.</value>
         [DataMember(Name="tenantIds", EmitDefaultValue=true)]
         public List<string> TenantIds { get; set; }
+
+        /// <summary>
+        /// Specifies whether the vault should use rolling object lock.
+        /// </summary>
+        /// <value>Specifies whether the vault should use rolling object lock.</value>
+        [DataMember(Name="useRollingObjectLock", EmitDefaultValue=true)]
+        public bool? UseRollingObjectLock { get; set; }
 
         /// <summary>
         /// Gets or Sets VaultBandwidthLimits
@@ -880,6 +906,11 @@ namespace Cohesity.Model
                     this.DesiredWalLocation.Equals(input.DesiredWalLocation)
                 ) && 
                 (
+                    this.EnableObjectLock == input.EnableObjectLock ||
+                    (this.EnableObjectLock != null &&
+                    this.EnableObjectLock.Equals(input.EnableObjectLock))
+                ) && 
+                (
                     this.EncryptionKeyFileDownloaded == input.EncryptionKeyFileDownloaded ||
                     (this.EncryptionKeyFileDownloaded != null &&
                     this.EncryptionKeyFileDownloaded.Equals(input.EncryptionKeyFileDownloaded))
@@ -966,6 +997,11 @@ namespace Cohesity.Model
                     this.UsageType.Equals(input.UsageType)
                 ) && 
                 (
+                    this.UseRollingObjectLock == input.UseRollingObjectLock ||
+                    (this.UseRollingObjectLock != null &&
+                    this.UseRollingObjectLock.Equals(input.UseRollingObjectLock))
+                ) && 
+                (
                     this.VaultBandwidthLimits == input.VaultBandwidthLimits ||
                     (this.VaultBandwidthLimits != null &&
                     this.VaultBandwidthLimits.Equals(input.VaultBandwidthLimits))
@@ -1014,6 +1050,8 @@ namespace Cohesity.Model
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 hashCode = hashCode * 59 + this.DesiredWalLocation.GetHashCode();
+                if (this.EnableObjectLock != null)
+                    hashCode = hashCode * 59 + this.EnableObjectLock.GetHashCode();
                 if (this.EncryptionKeyFileDownloaded != null)
                     hashCode = hashCode * 59 + this.EncryptionKeyFileDownloaded.GetHashCode();
                 hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
@@ -1045,6 +1083,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 hashCode = hashCode * 59 + this.UsageType.GetHashCode();
+                if (this.UseRollingObjectLock != null)
+                    hashCode = hashCode * 59 + this.UseRollingObjectLock.GetHashCode();
                 if (this.VaultBandwidthLimits != null)
                     hashCode = hashCode * 59 + this.VaultBandwidthLimits.GetHashCode();
                 hashCode = hashCode * 59 + this.VaultOwnership.GetHashCode();

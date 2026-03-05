@@ -25,12 +25,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="acropolisDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion/inclusion list from BackupSourceParams.AcropolisBackupSourceParams..</param>
         /// <param name="acropolisDiskInclusionInfo">List of Virtual Disk(s) to be included from the backup job. These disks will be included for all VMs in this environment and all other disks will be excluded. It can be overriden by the disk exclusion/inclusion list from BackupSourceParams.AcropolisBackupSourceParams..</param>
-        public AcropolisBackupJobParams(List<AcropolisDiskFilterProto> acropolisDiskExclusionInfo = default(List<AcropolisDiskFilterProto>), List<AcropolisDiskFilterProto> acropolisDiskInclusionInfo = default(List<AcropolisDiskFilterProto>))
+        /// <param name="peEntity">peEntity.</param>
+        public AcropolisBackupJobParams(List<AcropolisDiskFilterProto> acropolisDiskExclusionInfo = default(List<AcropolisDiskFilterProto>), List<AcropolisDiskFilterProto> acropolisDiskInclusionInfo = default(List<AcropolisDiskFilterProto>), EntityProto peEntity = default(EntityProto))
         {
             this.AcropolisDiskExclusionInfo = acropolisDiskExclusionInfo;
             this.AcropolisDiskInclusionInfo = acropolisDiskInclusionInfo;
             this.AcropolisDiskExclusionInfo = acropolisDiskExclusionInfo;
             this.AcropolisDiskInclusionInfo = acropolisDiskInclusionInfo;
+            this.PeEntity = peEntity;
         }
         
         /// <summary>
@@ -46,6 +48,12 @@ namespace Cohesity.Model
         /// <value>List of Virtual Disk(s) to be included from the backup job. These disks will be included for all VMs in this environment and all other disks will be excluded. It can be overriden by the disk exclusion/inclusion list from BackupSourceParams.AcropolisBackupSourceParams.</value>
         [DataMember(Name="acropolisDiskInclusionInfo", EmitDefaultValue=true)]
         public List<AcropolisDiskFilterProto> AcropolisDiskInclusionInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PeEntity
+        /// </summary>
+        [DataMember(Name="peEntity", EmitDefaultValue=false)]
+        public EntityProto PeEntity { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -94,6 +102,11 @@ namespace Cohesity.Model
                     this.AcropolisDiskInclusionInfo != null &&
                     input.AcropolisDiskInclusionInfo != null &&
                     this.AcropolisDiskInclusionInfo.SequenceEqual(input.AcropolisDiskInclusionInfo)
+                ) && 
+                (
+                    this.PeEntity == input.PeEntity ||
+                    (this.PeEntity != null &&
+                    this.PeEntity.Equals(input.PeEntity))
                 );
         }
 
@@ -110,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AcropolisDiskExclusionInfo.GetHashCode();
                 if (this.AcropolisDiskInclusionInfo != null)
                     hashCode = hashCode * 59 + this.AcropolisDiskInclusionInfo.GetHashCode();
+                if (this.PeEntity != null)
+                    hashCode = hashCode * 59 + this.PeEntity.GetHashCode();
                 return hashCode;
             }
         }

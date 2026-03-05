@@ -26,12 +26,15 @@ namespace Cohesity.Model
         /// <param name="sourceAppParams">sourceAppParams.</param>
         /// <param name="vmCredentials">vmCredentials.</param>
         /// <param name="vmwareDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams..</param>
-        public VMwareBackupSourceParams(SourceAppParams sourceAppParams = default(SourceAppParams), Credentials vmCredentials = default(Credentials), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
+        /// <param name="vmwareDiskInclusionInfo">List of Virtual Disk(s) to be included from the backup job for the source. Overrides the inclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams..</param>
+        public VMwareBackupSourceParams(SourceAppParams sourceAppParams = default(SourceAppParams), Credentials vmCredentials = default(Credentials), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>), List<VMwareDiskFilterProto> vmwareDiskInclusionInfo = default(List<VMwareDiskFilterProto>))
         {
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
+            this.VmwareDiskInclusionInfo = vmwareDiskInclusionInfo;
             this.SourceAppParams = sourceAppParams;
             this.VmCredentials = vmCredentials;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
+            this.VmwareDiskInclusionInfo = vmwareDiskInclusionInfo;
         }
         
         /// <summary>
@@ -52,6 +55,13 @@ namespace Cohesity.Model
         /// <value>List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams.</value>
         [DataMember(Name="vmwareDiskExclusionInfo", EmitDefaultValue=true)]
         public List<VMwareDiskExclusionProto> VmwareDiskExclusionInfo { get; set; }
+
+        /// <summary>
+        /// List of Virtual Disk(s) to be included from the backup job for the source. Overrides the inclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams.
+        /// </summary>
+        /// <value>List of Virtual Disk(s) to be included from the backup job for the source. Overrides the inclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams.</value>
+        [DataMember(Name="vmwareDiskInclusionInfo", EmitDefaultValue=true)]
+        public List<VMwareDiskFilterProto> VmwareDiskInclusionInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -104,6 +114,12 @@ namespace Cohesity.Model
                     this.VmwareDiskExclusionInfo != null &&
                     input.VmwareDiskExclusionInfo != null &&
                     this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
+                ) && 
+                (
+                    this.VmwareDiskInclusionInfo == input.VmwareDiskInclusionInfo ||
+                    this.VmwareDiskInclusionInfo != null &&
+                    input.VmwareDiskInclusionInfo != null &&
+                    this.VmwareDiskInclusionInfo.SequenceEqual(input.VmwareDiskInclusionInfo)
                 );
         }
 
@@ -122,6 +138,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VmCredentials.GetHashCode();
                 if (this.VmwareDiskExclusionInfo != null)
                     hashCode = hashCode * 59 + this.VmwareDiskExclusionInfo.GetHashCode();
+                if (this.VmwareDiskInclusionInfo != null)
+                    hashCode = hashCode * 59 + this.VmwareDiskInclusionInfo.GetHashCode();
                 return hashCode;
             }
         }

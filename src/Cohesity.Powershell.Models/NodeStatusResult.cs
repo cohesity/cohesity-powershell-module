@@ -167,8 +167,9 @@ namespace Cohesity.Model
         /// <param name="servicesNotAcked">[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal..</param>
         /// <param name="servicesNotAckedList">Services not acked yet for removal of this entity..</param>
         /// <param name="softwareVersion">Specifies the version of the software running on the Node..</param>
+        /// <param name="upgradeInProgress">UpgradeInProgress is used to mark a node being upgraded..</param>
         /// <param name="uptime">Uptime of node..</param>
-        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), bool? inMaintenanceMode = default(bool?), long? incarnationId = default(long?), string ip = default(string), bool? isAppNode = default(bool?), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), string softwareVersion = default(string), string uptime = default(string))
+        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), bool? inMaintenanceMode = default(bool?), long? incarnationId = default(long?), string ip = default(string), bool? isAppNode = default(bool?), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), string softwareVersion = default(string), bool? upgradeInProgress = default(bool?), string uptime = default(string))
         {
             this.ActiveOperation = activeOperation;
             this.ClusterId = clusterId;
@@ -188,6 +189,7 @@ namespace Cohesity.Model
             this.ServicesNotAcked = servicesNotAcked;
             this.ServicesNotAckedList = servicesNotAckedList;
             this.SoftwareVersion = softwareVersion;
+            this.UpgradeInProgress = upgradeInProgress;
             this.Uptime = uptime;
             this.ActiveOperation = activeOperation;
             this.ClusterId = clusterId;
@@ -207,6 +209,7 @@ namespace Cohesity.Model
             this.ServicesNotAcked = servicesNotAcked;
             this.ServicesNotAckedList = servicesNotAckedList;
             this.SoftwareVersion = softwareVersion;
+            this.UpgradeInProgress = upgradeInProgress;
             this.Uptime = uptime;
         }
         
@@ -321,6 +324,13 @@ namespace Cohesity.Model
         /// <value>Specifies the version of the software running on the Node.</value>
         [DataMember(Name="softwareVersion", EmitDefaultValue=true)]
         public string SoftwareVersion { get; set; }
+
+        /// <summary>
+        /// UpgradeInProgress is used to mark a node being upgraded.
+        /// </summary>
+        /// <value>UpgradeInProgress is used to mark a node being upgraded.</value>
+        [DataMember(Name="upgradeInProgress", EmitDefaultValue=true)]
+        public bool? UpgradeInProgress { get; set; }
 
         /// <summary>
         /// Uptime of node.
@@ -458,6 +468,11 @@ namespace Cohesity.Model
                     this.SoftwareVersion.Equals(input.SoftwareVersion))
                 ) && 
                 (
+                    this.UpgradeInProgress == input.UpgradeInProgress ||
+                    (this.UpgradeInProgress != null &&
+                    this.UpgradeInProgress.Equals(input.UpgradeInProgress))
+                ) && 
+                (
                     this.Uptime == input.Uptime ||
                     (this.Uptime != null &&
                     this.Uptime.Equals(input.Uptime))
@@ -507,6 +522,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ServicesNotAckedList.GetHashCode();
                 if (this.SoftwareVersion != null)
                     hashCode = hashCode * 59 + this.SoftwareVersion.GetHashCode();
+                if (this.UpgradeInProgress != null)
+                    hashCode = hashCode * 59 + this.UpgradeInProgress.GetHashCode();
                 if (this.Uptime != null)
                     hashCode = hashCode * 59 + this.Uptime.GetHashCode();
                 return hashCode;

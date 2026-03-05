@@ -30,6 +30,7 @@ namespace Cohesity.Model
         /// <param name="destroyCloneAppTaskInfo">destroyCloneAppTaskInfo.</param>
         /// <param name="destroyCloneVmTaskInfo">destroyCloneVmTaskInfo.</param>
         /// <param name="destroyMountVolumesTaskInfo">destroyMountVolumesTaskInfo.</param>
+        /// <param name="destroyRecoverDisksTaskInfo">destroyRecoverDisksTaskInfo.</param>
         /// <param name="endTimeUsecs">If the destroy clone task has finished, this field contains the end time of the task..</param>
         /// <param name="error">error.</param>
         /// <param name="folderEntity">folderEntity.</param>
@@ -39,6 +40,7 @@ namespace Cohesity.Model
         /// <param name="parentTaskId">The id of the task that triggered the destroy task. This will be used by refresh task to mark the destroy task as internal sub-task..</param>
         /// <param name="performCloneTaskId">The unique id of the task that performed the clone operation..</param>
         /// <param name="restoreType">The type of the restore/clone operation that is being destroyed..</param>
+        /// <param name="retryTeardown">Boolean to specify retry of tear down task..</param>
         /// <param name="scheduledConstituentId">Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled..</param>
         /// <param name="scheduledGandalfSessionId">scheduledGandalfSessionId.</param>
         /// <param name="startTimeUsecs">The start time of this destroy clone task..</param>
@@ -50,7 +52,7 @@ namespace Cohesity.Model
         /// <param name="vcdConfig">vcdConfig.</param>
         /// <param name="viewBoxId">The view box id to which &#39;view_name&#39; belongs to..</param>
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for the clone operation..</param>
-        public DestroyClonedTaskStateProto(int? actionExecutorTargetType = default(int?), string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
+        public DestroyClonedTaskStateProto(int? actionExecutorTargetType = default(int?), string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), DestroyRecoverDisksTaskInfoProto destroyRecoverDisksTaskInfo = default(DestroyRecoverDisksTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), bool? retryTeardown = default(bool?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
             this.ActionExecutorTargetType = actionExecutorTargetType;
             this.CloneTaskName = cloneTaskName;
@@ -60,6 +62,7 @@ namespace Cohesity.Model
             this.ParentTaskId = parentTaskId;
             this.PerformCloneTaskId = performCloneTaskId;
             this.RestoreType = restoreType;
+            this.RetryTeardown = retryTeardown;
             this.ScheduledConstituentId = scheduledConstituentId;
             this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
             this.StartTimeUsecs = startTimeUsecs;
@@ -76,6 +79,7 @@ namespace Cohesity.Model
             this.DestroyCloneAppTaskInfo = destroyCloneAppTaskInfo;
             this.DestroyCloneVmTaskInfo = destroyCloneVmTaskInfo;
             this.DestroyMountVolumesTaskInfo = destroyMountVolumesTaskInfo;
+            this.DestroyRecoverDisksTaskInfo = destroyRecoverDisksTaskInfo;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
             this.FolderEntity = folderEntity;
@@ -85,6 +89,7 @@ namespace Cohesity.Model
             this.ParentTaskId = parentTaskId;
             this.PerformCloneTaskId = performCloneTaskId;
             this.RestoreType = restoreType;
+            this.RetryTeardown = retryTeardown;
             this.ScheduledConstituentId = scheduledConstituentId;
             this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
             this.StartTimeUsecs = startTimeUsecs;
@@ -141,6 +146,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="destroyMountVolumesTaskInfo", EmitDefaultValue=false)]
         public DestroyMountVolumesTaskInfoProto DestroyMountVolumesTaskInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DestroyRecoverDisksTaskInfo
+        /// </summary>
+        [DataMember(Name="destroyRecoverDisksTaskInfo", EmitDefaultValue=false)]
+        public DestroyRecoverDisksTaskInfoProto DestroyRecoverDisksTaskInfo { get; set; }
 
         /// <summary>
         /// If the destroy clone task has finished, this field contains the end time of the task.
@@ -201,6 +212,13 @@ namespace Cohesity.Model
         /// <value>The type of the restore/clone operation that is being destroyed.</value>
         [DataMember(Name="restoreType", EmitDefaultValue=true)]
         public int? RestoreType { get; set; }
+
+        /// <summary>
+        /// Boolean to specify retry of tear down task.
+        /// </summary>
+        /// <value>Boolean to specify retry of tear down task.</value>
+        [DataMember(Name="retryTeardown", EmitDefaultValue=true)]
+        public bool? RetryTeardown { get; set; }
 
         /// <summary>
         /// Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.
@@ -348,6 +366,11 @@ namespace Cohesity.Model
                     this.DestroyMountVolumesTaskInfo.Equals(input.DestroyMountVolumesTaskInfo))
                 ) && 
                 (
+                    this.DestroyRecoverDisksTaskInfo == input.DestroyRecoverDisksTaskInfo ||
+                    (this.DestroyRecoverDisksTaskInfo != null &&
+                    this.DestroyRecoverDisksTaskInfo.Equals(input.DestroyRecoverDisksTaskInfo))
+                ) && 
+                (
                     this.EndTimeUsecs == input.EndTimeUsecs ||
                     (this.EndTimeUsecs != null &&
                     this.EndTimeUsecs.Equals(input.EndTimeUsecs))
@@ -391,6 +414,11 @@ namespace Cohesity.Model
                     this.RestoreType == input.RestoreType ||
                     (this.RestoreType != null &&
                     this.RestoreType.Equals(input.RestoreType))
+                ) && 
+                (
+                    this.RetryTeardown == input.RetryTeardown ||
+                    (this.RetryTeardown != null &&
+                    this.RetryTeardown.Equals(input.RetryTeardown))
                 ) && 
                 (
                     this.ScheduledConstituentId == input.ScheduledConstituentId ||
@@ -472,6 +500,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DestroyCloneVmTaskInfo.GetHashCode();
                 if (this.DestroyMountVolumesTaskInfo != null)
                     hashCode = hashCode * 59 + this.DestroyMountVolumesTaskInfo.GetHashCode();
+                if (this.DestroyRecoverDisksTaskInfo != null)
+                    hashCode = hashCode * 59 + this.DestroyRecoverDisksTaskInfo.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
@@ -490,6 +520,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PerformCloneTaskId.GetHashCode();
                 if (this.RestoreType != null)
                     hashCode = hashCode * 59 + this.RestoreType.GetHashCode();
+                if (this.RetryTeardown != null)
+                    hashCode = hashCode * 59 + this.RetryTeardown.GetHashCode();
                 if (this.ScheduledConstituentId != null)
                     hashCode = hashCode * 59 + this.ScheduledConstituentId.GetHashCode();
                 if (this.ScheduledGandalfSessionId != null)

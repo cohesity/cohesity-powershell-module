@@ -23,22 +23,33 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassificationInfo" /> class.
         /// </summary>
+        /// <param name="banner">banner.</param>
         /// <param name="endDate">Specifies the end date of the subscription..</param>
         /// <param name="isActive">Specifies whether the Datahawk Classification subscription is active..</param>
         /// <param name="isFreeTrial">Specifies whether the subscription is free trial..</param>
+        /// <param name="productDisplayName">Display name of the Product.</param>
         /// <param name="startDate">Specifies the start date of the subscription..</param>
-        public ClassificationInfo(string endDate = default(string), bool? isActive = default(bool?), bool? isFreeTrial = default(bool?), string startDate = default(string))
+        public ClassificationInfo(EntitlementBannerInfo banner = default(EntitlementBannerInfo), string endDate = default(string), bool? isActive = default(bool?), bool? isFreeTrial = default(bool?), string productDisplayName = default(string), string startDate = default(string))
         {
             this.EndDate = endDate;
             this.IsActive = isActive;
             this.IsFreeTrial = isFreeTrial;
+            this.ProductDisplayName = productDisplayName;
             this.StartDate = startDate;
+            this.Banner = banner;
             this.EndDate = endDate;
             this.IsActive = isActive;
             this.IsFreeTrial = isFreeTrial;
+            this.ProductDisplayName = productDisplayName;
             this.StartDate = startDate;
         }
         
+        /// <summary>
+        /// Gets or Sets Banner
+        /// </summary>
+        [DataMember(Name="banner", EmitDefaultValue=false)]
+        public EntitlementBannerInfo Banner { get; set; }
+
         /// <summary>
         /// Specifies the end date of the subscription.
         /// </summary>
@@ -59,6 +70,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether the subscription is free trial.</value>
         [DataMember(Name="isFreeTrial", EmitDefaultValue=true)]
         public bool? IsFreeTrial { get; set; }
+
+        /// <summary>
+        /// Display name of the Product
+        /// </summary>
+        /// <value>Display name of the Product</value>
+        [DataMember(Name="productDisplayName", EmitDefaultValue=true)]
+        public string ProductDisplayName { get; set; }
 
         /// <summary>
         /// Specifies the start date of the subscription.
@@ -104,6 +122,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Banner == input.Banner ||
+                    (this.Banner != null &&
+                    this.Banner.Equals(input.Banner))
+                ) && 
+                (
                     this.EndDate == input.EndDate ||
                     (this.EndDate != null &&
                     this.EndDate.Equals(input.EndDate))
@@ -117,6 +140,11 @@ namespace Cohesity.Model
                     this.IsFreeTrial == input.IsFreeTrial ||
                     (this.IsFreeTrial != null &&
                     this.IsFreeTrial.Equals(input.IsFreeTrial))
+                ) && 
+                (
+                    this.ProductDisplayName == input.ProductDisplayName ||
+                    (this.ProductDisplayName != null &&
+                    this.ProductDisplayName.Equals(input.ProductDisplayName))
                 ) && 
                 (
                     this.StartDate == input.StartDate ||
@@ -134,12 +162,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Banner != null)
+                    hashCode = hashCode * 59 + this.Banner.GetHashCode();
                 if (this.EndDate != null)
                     hashCode = hashCode * 59 + this.EndDate.GetHashCode();
                 if (this.IsActive != null)
                     hashCode = hashCode * 59 + this.IsActive.GetHashCode();
                 if (this.IsFreeTrial != null)
                     hashCode = hashCode * 59 + this.IsFreeTrial.GetHashCode();
+                if (this.ProductDisplayName != null)
+                    hashCode = hashCode * 59 + this.ProductDisplayName.GetHashCode();
                 if (this.StartDate != null)
                     hashCode = hashCode * 59 + this.StartDate.GetHashCode();
                 return hashCode;

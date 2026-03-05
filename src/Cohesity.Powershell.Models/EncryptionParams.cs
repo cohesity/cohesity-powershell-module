@@ -23,30 +23,20 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptionParams" /> class.
         /// </summary>
-        /// <param name="customKmsKeyArn">String containing kms key arn in case of custom key option. Example: arn:aws:kms:&lt;region&gt;:&lt;account_id&gt;:key/&lt;key_id&gt;.</param>
-        /// <param name="kmsKey">kmsKey.</param>
+        /// <param name="kmsKeyOneof">kmsKeyOneof.</param>
         /// <param name="shouldEncrypt">Whether to encrypt the restored instance&#39;s volumes or not. For recovery to new location, this will be true by default..</param>
-        public EncryptionParams(string customKmsKeyArn = default(string), EntityProto kmsKey = default(EntityProto), bool? shouldEncrypt = default(bool?))
+        public EncryptionParams(Object kmsKeyOneof = default(Object), bool? shouldEncrypt = default(bool?))
         {
-            this.CustomKmsKeyArn = customKmsKeyArn;
             this.ShouldEncrypt = shouldEncrypt;
-            this.CustomKmsKeyArn = customKmsKeyArn;
-            this.KmsKey = kmsKey;
+            this.KmsKeyOneof = kmsKeyOneof;
             this.ShouldEncrypt = shouldEncrypt;
         }
         
         /// <summary>
-        /// String containing kms key arn in case of custom key option. Example: arn:aws:kms:&lt;region&gt;:&lt;account_id&gt;:key/&lt;key_id&gt;
+        /// Gets or Sets KmsKeyOneof
         /// </summary>
-        /// <value>String containing kms key arn in case of custom key option. Example: arn:aws:kms:&lt;region&gt;:&lt;account_id&gt;:key/&lt;key_id&gt;</value>
-        [DataMember(Name="customKmsKeyArn", EmitDefaultValue=true)]
-        public string CustomKmsKeyArn { get; set; }
-
-        /// <summary>
-        /// Gets or Sets KmsKey
-        /// </summary>
-        [DataMember(Name="kmsKey", EmitDefaultValue=false)]
-        public EntityProto KmsKey { get; set; }
+        [DataMember(Name="KmsKeyOneof", EmitDefaultValue=false)]
+        public Object KmsKeyOneof { get; set; }
 
         /// <summary>
         /// Whether to encrypt the restored instance&#39;s volumes or not. For recovery to new location, this will be true by default.
@@ -92,14 +82,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.CustomKmsKeyArn == input.CustomKmsKeyArn ||
-                    (this.CustomKmsKeyArn != null &&
-                    this.CustomKmsKeyArn.Equals(input.CustomKmsKeyArn))
-                ) && 
-                (
-                    this.KmsKey == input.KmsKey ||
-                    (this.KmsKey != null &&
-                    this.KmsKey.Equals(input.KmsKey))
+                    this.KmsKeyOneof == input.KmsKeyOneof ||
+                    (this.KmsKeyOneof != null &&
+                    this.KmsKeyOneof.Equals(input.KmsKeyOneof))
                 ) && 
                 (
                     this.ShouldEncrypt == input.ShouldEncrypt ||
@@ -117,10 +102,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.CustomKmsKeyArn != null)
-                    hashCode = hashCode * 59 + this.CustomKmsKeyArn.GetHashCode();
-                if (this.KmsKey != null)
-                    hashCode = hashCode * 59 + this.KmsKey.GetHashCode();
+                if (this.KmsKeyOneof != null)
+                    hashCode = hashCode * 59 + this.KmsKeyOneof.GetHashCode();
                 if (this.ShouldEncrypt != null)
                     hashCode = hashCode * 59 + this.ShouldEncrypt.GetHashCode();
                 return hashCode;

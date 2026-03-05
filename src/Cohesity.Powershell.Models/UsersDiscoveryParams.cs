@@ -23,18 +23,21 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersDiscoveryParams" /> class.
         /// </summary>
+        /// <param name="allowChatsBackup">Specifies whether users&#39; chats should be backed up or not. If this is false or not specified users&#39; chats backup will not be done..</param>
         /// <param name="discoverUsersWithMailbox">Specifies if office 365 users with valid mailboxes should be discovered or not..</param>
         /// <param name="discoverUsersWithOnedrive">Specifies if office 365 users with valid Onedrives should be discovered or not..</param>
         /// <param name="fetchMailboxInfo">Specifies whether users&#39; mailbox info including the provisioning status, mailbox type &amp; in-place archival support will be fetched and processed..</param>
         /// <param name="fetchOneDriveInfo">Specifies whether users&#39; onedrive info including the provisioning status &amp; storage quota will be fetched and processed..</param>
         /// <param name="skipUsersWithoutMySite">Specifies whether to skip processing user who have uninitialized OneDrive or are without MySite..</param>
-        public UsersDiscoveryParams(bool? discoverUsersWithMailbox = default(bool?), bool? discoverUsersWithOnedrive = default(bool?), bool? fetchMailboxInfo = default(bool?), bool? fetchOneDriveInfo = default(bool?), bool? skipUsersWithoutMySite = default(bool?))
+        public UsersDiscoveryParams(bool? allowChatsBackup = default(bool?), bool? discoverUsersWithMailbox = default(bool?), bool? discoverUsersWithOnedrive = default(bool?), bool? fetchMailboxInfo = default(bool?), bool? fetchOneDriveInfo = default(bool?), bool? skipUsersWithoutMySite = default(bool?))
         {
+            this.AllowChatsBackup = allowChatsBackup;
             this.DiscoverUsersWithMailbox = discoverUsersWithMailbox;
             this.DiscoverUsersWithOnedrive = discoverUsersWithOnedrive;
             this.FetchMailboxInfo = fetchMailboxInfo;
             this.FetchOneDriveInfo = fetchOneDriveInfo;
             this.SkipUsersWithoutMySite = skipUsersWithoutMySite;
+            this.AllowChatsBackup = allowChatsBackup;
             this.DiscoverUsersWithMailbox = discoverUsersWithMailbox;
             this.DiscoverUsersWithOnedrive = discoverUsersWithOnedrive;
             this.FetchMailboxInfo = fetchMailboxInfo;
@@ -42,6 +45,13 @@ namespace Cohesity.Model
             this.SkipUsersWithoutMySite = skipUsersWithoutMySite;
         }
         
+        /// <summary>
+        /// Specifies whether users&#39; chats should be backed up or not. If this is false or not specified users&#39; chats backup will not be done.
+        /// </summary>
+        /// <value>Specifies whether users&#39; chats should be backed up or not. If this is false or not specified users&#39; chats backup will not be done.</value>
+        [DataMember(Name="allowChatsBackup", EmitDefaultValue=true)]
+        public bool? AllowChatsBackup { get; set; }
+
         /// <summary>
         /// Specifies if office 365 users with valid mailboxes should be discovered or not.
         /// </summary>
@@ -114,6 +124,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AllowChatsBackup == input.AllowChatsBackup ||
+                    (this.AllowChatsBackup != null &&
+                    this.AllowChatsBackup.Equals(input.AllowChatsBackup))
+                ) && 
+                (
                     this.DiscoverUsersWithMailbox == input.DiscoverUsersWithMailbox ||
                     (this.DiscoverUsersWithMailbox != null &&
                     this.DiscoverUsersWithMailbox.Equals(input.DiscoverUsersWithMailbox))
@@ -149,6 +164,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AllowChatsBackup != null)
+                    hashCode = hashCode * 59 + this.AllowChatsBackup.GetHashCode();
                 if (this.DiscoverUsersWithMailbox != null)
                     hashCode = hashCode * 59 + this.DiscoverUsersWithMailbox.GetHashCode();
                 if (this.DiscoverUsersWithOnedrive != null)

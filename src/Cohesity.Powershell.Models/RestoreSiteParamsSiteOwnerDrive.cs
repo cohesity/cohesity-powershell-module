@@ -27,16 +27,19 @@ namespace Cohesity.Model
         /// <param name="restoreDriveId">Id of the drive whose items are being restored..</param>
         /// <param name="restoreDriveName">Specifies the name of the drive whos items are being restored. NOTE: For restore either the drive Id or the name must be populated..</param>
         /// <param name="restorePathVec">List of drive paths that need to be restored..</param>
-        public RestoreSiteParamsSiteOwnerDrive(bool? isEntireDriveRequired = default(bool?), string restoreDriveId = default(string), string restoreDriveName = default(string), List<RestoreSiteParamsDriveItem> restorePathVec = default(List<RestoreSiteParamsDriveItem>))
+        /// <param name="siteId">Sharepoint site uuid to which this Drive belongs. This is needed for Teams and Groups having subsites, as multiple items across different subsites can be selected for granular recovery..</param>
+        public RestoreSiteParamsSiteOwnerDrive(bool? isEntireDriveRequired = default(bool?), string restoreDriveId = default(string), string restoreDriveName = default(string), List<RestoreSiteParamsDriveItem> restorePathVec = default(List<RestoreSiteParamsDriveItem>), string siteId = default(string))
         {
             this.IsEntireDriveRequired = isEntireDriveRequired;
             this.RestoreDriveId = restoreDriveId;
             this.RestoreDriveName = restoreDriveName;
             this.RestorePathVec = restorePathVec;
+            this.SiteId = siteId;
             this.IsEntireDriveRequired = isEntireDriveRequired;
             this.RestoreDriveId = restoreDriveId;
             this.RestoreDriveName = restoreDriveName;
             this.RestorePathVec = restorePathVec;
+            this.SiteId = siteId;
         }
         
         /// <summary>
@@ -66,6 +69,13 @@ namespace Cohesity.Model
         /// <value>List of drive paths that need to be restored.</value>
         [DataMember(Name="restorePathVec", EmitDefaultValue=true)]
         public List<RestoreSiteParamsDriveItem> RestorePathVec { get; set; }
+
+        /// <summary>
+        /// Sharepoint site uuid to which this Drive belongs. This is needed for Teams and Groups having subsites, as multiple items across different subsites can be selected for granular recovery.
+        /// </summary>
+        /// <value>Sharepoint site uuid to which this Drive belongs. This is needed for Teams and Groups having subsites, as multiple items across different subsites can be selected for granular recovery.</value>
+        [DataMember(Name="siteId", EmitDefaultValue=true)]
+        public string SiteId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -123,6 +133,11 @@ namespace Cohesity.Model
                     this.RestorePathVec != null &&
                     input.RestorePathVec != null &&
                     this.RestorePathVec.SequenceEqual(input.RestorePathVec)
+                ) && 
+                (
+                    this.SiteId == input.SiteId ||
+                    (this.SiteId != null &&
+                    this.SiteId.Equals(input.SiteId))
                 );
         }
 
@@ -143,6 +158,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreDriveName.GetHashCode();
                 if (this.RestorePathVec != null)
                     hashCode = hashCode * 59 + this.RestorePathVec.GetHashCode();
+                if (this.SiteId != null)
+                    hashCode = hashCode * 59 + this.SiteId.GetHashCode();
                 return hashCode;
             }
         }

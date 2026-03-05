@@ -43,11 +43,12 @@ namespace Cohesity.Model
         /// <param name="ipRanges">Array of range of ips. If specified in PUT request, Ips field will be ignored. Specifies ips in compressed way using list of [start, end] vips..</param>
         /// <param name="ips">Array of IPs.  Specifies a list of IPs in the VLAN..</param>
         /// <param name="mtu">mtu.</param>
+        /// <param name="staticVips">Static Vips.</param>
         /// <param name="subnet">Specifies the subnet of the VLAN. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address. It can carry V4 or V6 in case of requests, and carries V4 in case of response..</param>
         /// <param name="subnetV6">Specifies the subnet of the VLAN. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address..</param>
         /// <param name="tenantId">Optional tenant id that this vlan belongs to..</param>
         /// <param name="vlanName">Specifies the VLAN name of the vlanId..</param>
-        public Vlan(bool? addToClusterPartition = default(bool?), bool? allTenantAccess = default(bool?), bool? appIpVecInUse = default(bool?), List<string> appsips = default(List<string>), string description = default(string), List<DnsDelegationZone> dnsDelegationZones = default(List<DnsDelegationZone>), bool? ecmpEnabled = default(bool?), string gateway = default(string), string gatewayV6 = default(string), string hostname = default(string), int? id = default(int?), string ifaceGroupName = default(string), int? interfaceGroupId = default(int?), string interfaceName = default(string), int? ipFamily = default(int?), Dictionary<string, List<string>> ipPoolMap = default(Dictionary<string, List<string>>), IpRange ipRange = default(IpRange), List<IpRange> ipRanges = default(List<IpRange>), List<string> ips = default(List<string>), int? mtu = default(int?), Subnet subnet = default(Subnet), Subnet subnetV6 = default(Subnet), string tenantId = default(string), string vlanName = default(string))
+        public Vlan(bool? addToClusterPartition = default(bool?), bool? allTenantAccess = default(bool?), bool? appIpVecInUse = default(bool?), List<string> appsips = default(List<string>), string description = default(string), List<DnsDelegationZone> dnsDelegationZones = default(List<DnsDelegationZone>), bool? ecmpEnabled = default(bool?), string gateway = default(string), string gatewayV6 = default(string), string hostname = default(string), int? id = default(int?), string ifaceGroupName = default(string), int? interfaceGroupId = default(int?), string interfaceName = default(string), int? ipFamily = default(int?), Dictionary<string, List<string>> ipPoolMap = default(Dictionary<string, List<string>>), IpRange ipRange = default(IpRange), List<IpRange> ipRanges = default(List<IpRange>), List<string> ips = default(List<string>), int? mtu = default(int?), List<StaticVip> staticVips = default(List<StaticVip>), Subnet subnet = default(Subnet), Subnet subnetV6 = default(Subnet), string tenantId = default(string), string vlanName = default(string))
         {
             this.AddToClusterPartition = addToClusterPartition;
             this.AllTenantAccess = allTenantAccess;
@@ -68,6 +69,7 @@ namespace Cohesity.Model
             this.IpRanges = ipRanges;
             this.Ips = ips;
             this.Mtu = mtu;
+            this.StaticVips = staticVips;
             this.Subnet = subnet;
             this.SubnetV6 = subnetV6;
             this.TenantId = tenantId;
@@ -92,6 +94,7 @@ namespace Cohesity.Model
             this.IpRanges = ipRanges;
             this.Ips = ips;
             this.Mtu = mtu;
+            this.StaticVips = staticVips;
             this.Subnet = subnet;
             this.SubnetV6 = subnetV6;
             this.TenantId = tenantId;
@@ -235,6 +238,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="mtu", EmitDefaultValue=true)]
         public int? Mtu { get; set; }
+
+        /// <summary>
+        /// Static Vips
+        /// </summary>
+        /// <value>Static Vips</value>
+        [DataMember(Name="staticVips", EmitDefaultValue=true)]
+        public List<StaticVip> StaticVips { get; set; }
 
         /// <summary>
         /// Specifies the subnet of the VLAN. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address. It can carry V4 or V6 in case of requests, and carries V4 in case of response.
@@ -406,6 +416,12 @@ namespace Cohesity.Model
                     this.Mtu.Equals(input.Mtu))
                 ) && 
                 (
+                    this.StaticVips == input.StaticVips ||
+                    this.StaticVips != null &&
+                    input.StaticVips != null &&
+                    this.StaticVips.SequenceEqual(input.StaticVips)
+                ) && 
+                (
                     this.Subnet == input.Subnet ||
                     (this.Subnet != null &&
                     this.Subnet.Equals(input.Subnet))
@@ -476,6 +492,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Ips.GetHashCode();
                 if (this.Mtu != null)
                     hashCode = hashCode * 59 + this.Mtu.GetHashCode();
+                if (this.StaticVips != null)
+                    hashCode = hashCode * 59 + this.StaticVips.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
                 if (this.SubnetV6 != null)

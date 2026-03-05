@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NoSqlBackupJobParams" /> class.
         /// </summary>
+        /// <param name="autoScaleConcurrency">Specifies a flag to auto scale concurrency..</param>
         /// <param name="bandwidthBytesPerSecond">Net bandwidth bytes per second..</param>
         /// <param name="cassandraBackupJobParams">cassandraBackupJobParams.</param>
         /// <param name="compactionJobIntervalSecs">Frequency at which compaction jobs should run in seconds. Will be only applicable for Cassandra, Mongo and Couchbase environment..</param>
@@ -38,8 +39,9 @@ namespace Cohesity.Model
         /// <param name="lastGcRunTimeUsecs">The last time (in usecs) when the gc ran for this jobs..</param>
         /// <param name="mongodbBackupJobParams">mongodbBackupJobParams.</param>
         /// <param name="previousProtectedEntityIdsVec">List of Magneto entity Ids for the entities that were protected in the previous run..</param>
-        public NoSqlBackupJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraBackupJobParams cassandraBackupJobParams = default(CassandraBackupJobParams), long? compactionJobIntervalSecs = default(long?), int? concurrency = default(int?), Object couchbaseBackupJobParams = default(Object), long? gcJobIntervalSecs = default(long?), int? gcRetentionPeriodDays = default(int?), HBaseBackupJobParams hbaseBackupJobParams = default(HBaseBackupJobParams), HdfsBackupJobParams hdfsBackupJobParams = default(HdfsBackupJobParams), HiveBackupJobParams hiveBackupJobParams = default(HiveBackupJobParams), List<NoSqlBackupJobParamsImmediateAncestorMapEntry> immediateAncestorMap = default(List<NoSqlBackupJobParamsImmediateAncestorMapEntry>), long? lastCompactionRunTimeUsecs = default(long?), long? lastGcRunTimeUsecs = default(long?), MongoDBBackupJobParams mongodbBackupJobParams = default(MongoDBBackupJobParams), List<long> previousProtectedEntityIdsVec = default(List<long>))
+        public NoSqlBackupJobParams(bool? autoScaleConcurrency = default(bool?), long? bandwidthBytesPerSecond = default(long?), CassandraBackupJobParams cassandraBackupJobParams = default(CassandraBackupJobParams), long? compactionJobIntervalSecs = default(long?), int? concurrency = default(int?), Object couchbaseBackupJobParams = default(Object), long? gcJobIntervalSecs = default(long?), int? gcRetentionPeriodDays = default(int?), HBaseBackupJobParams hbaseBackupJobParams = default(HBaseBackupJobParams), HdfsBackupJobParams hdfsBackupJobParams = default(HdfsBackupJobParams), HiveBackupJobParams hiveBackupJobParams = default(HiveBackupJobParams), Object immediateAncestorMap = default(Object), long? lastCompactionRunTimeUsecs = default(long?), long? lastGcRunTimeUsecs = default(long?), MongoDBBackupJobParams mongodbBackupJobParams = default(MongoDBBackupJobParams), List<long> previousProtectedEntityIdsVec = default(List<long>))
         {
+            this.AutoScaleConcurrency = autoScaleConcurrency;
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.CompactionJobIntervalSecs = compactionJobIntervalSecs;
             this.Concurrency = concurrency;
@@ -49,6 +51,7 @@ namespace Cohesity.Model
             this.LastCompactionRunTimeUsecs = lastCompactionRunTimeUsecs;
             this.LastGcRunTimeUsecs = lastGcRunTimeUsecs;
             this.PreviousProtectedEntityIdsVec = previousProtectedEntityIdsVec;
+            this.AutoScaleConcurrency = autoScaleConcurrency;
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.CassandraBackupJobParams = cassandraBackupJobParams;
             this.CompactionJobIntervalSecs = compactionJobIntervalSecs;
@@ -66,6 +69,13 @@ namespace Cohesity.Model
             this.PreviousProtectedEntityIdsVec = previousProtectedEntityIdsVec;
         }
         
+        /// <summary>
+        /// Specifies a flag to auto scale concurrency.
+        /// </summary>
+        /// <value>Specifies a flag to auto scale concurrency.</value>
+        [DataMember(Name="autoScaleConcurrency", EmitDefaultValue=true)]
+        public bool? AutoScaleConcurrency { get; set; }
+
         /// <summary>
         /// Net bandwidth bytes per second.
         /// </summary>
@@ -137,7 +147,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>A mapping to the immediate ancestor for each protected entites. This is used in slave to populate immediate_ancestor_entity_id in Imanis EntityProto. The immediate_ancestor_entity_id is used by Imanis to populate entity id of non-leaf objects in yoda (such as databases, keyspaces)</value>
         [DataMember(Name="immediateAncestorMap", EmitDefaultValue=true)]
-        public List<NoSqlBackupJobParamsImmediateAncestorMapEntry> ImmediateAncestorMap { get; set; }
+        public Object ImmediateAncestorMap { get; set; }
 
         /// <summary>
         /// The last time (in usecs) when the compaction ran for this jobs.
@@ -203,6 +213,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AutoScaleConcurrency == input.AutoScaleConcurrency ||
+                    (this.AutoScaleConcurrency != null &&
+                    this.AutoScaleConcurrency.Equals(input.AutoScaleConcurrency))
+                ) && 
+                (
                     this.BandwidthBytesPerSecond == input.BandwidthBytesPerSecond ||
                     (this.BandwidthBytesPerSecond != null &&
                     this.BandwidthBytesPerSecond.Equals(input.BandwidthBytesPerSecond))
@@ -254,9 +269,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ImmediateAncestorMap == input.ImmediateAncestorMap ||
-                    this.ImmediateAncestorMap != null &&
-                    input.ImmediateAncestorMap != null &&
-                    this.ImmediateAncestorMap.SequenceEqual(input.ImmediateAncestorMap)
+                    (this.ImmediateAncestorMap != null &&
+                    this.ImmediateAncestorMap.Equals(input.ImmediateAncestorMap))
                 ) && 
                 (
                     this.LastCompactionRunTimeUsecs == input.LastCompactionRunTimeUsecs ||
@@ -290,6 +304,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AutoScaleConcurrency != null)
+                    hashCode = hashCode * 59 + this.AutoScaleConcurrency.GetHashCode();
                 if (this.BandwidthBytesPerSecond != null)
                     hashCode = hashCode * 59 + this.BandwidthBytesPerSecond.GetHashCode();
                 if (this.CassandraBackupJobParams != null)

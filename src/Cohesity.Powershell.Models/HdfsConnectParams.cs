@@ -48,23 +48,65 @@ namespace Cohesity.Model
         [DataMember(Name="hadoopDistribution", EmitDefaultValue=true)]
         public HadoopDistributionEnum? HadoopDistribution { get; set; }
         /// <summary>
+        /// Specifies the Hdfs connection type. Hdfs connection type.  &#39;DFS&#39; indicates Hdfs connection type DFS. &#39;WEBHDFS&#39; indicates Hdfs connection type WEBHDFS. &#39;HTTPFSLB&#39; indicates Hdfs connection type HTTPFS_LB. &#39;HTTPFS&#39; indicates Hdfs connection type HTTPFS.
+        /// </summary>
+        /// <value>Specifies the Hdfs connection type. Hdfs connection type.  &#39;DFS&#39; indicates Hdfs connection type DFS. &#39;WEBHDFS&#39; indicates Hdfs connection type WEBHDFS. &#39;HTTPFSLB&#39; indicates Hdfs connection type HTTPFS_LB. &#39;HTTPFS&#39; indicates Hdfs connection type HTTPFS.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum HdfsConnectionTypeEnum
+        {
+            /// <summary>
+            /// Enum DFS for value: DFS
+            /// </summary>
+            [EnumMember(Value = "DFS")]
+            DFS = 1,
+
+            /// <summary>
+            /// Enum WEBHDFS for value: WEBHDFS
+            /// </summary>
+            [EnumMember(Value = "WEBHDFS")]
+            WEBHDFS = 2,
+
+            /// <summary>
+            /// Enum HTTPFSLB for value: HTTPFSLB
+            /// </summary>
+            [EnumMember(Value = "HTTPFSLB")]
+            HTTPFSLB = 3,
+
+            /// <summary>
+            /// Enum HTTPFS for value: HTTPFS
+            /// </summary>
+            [EnumMember(Value = "HTTPFS")]
+            HTTPFS = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the Hdfs connection type. Hdfs connection type.  &#39;DFS&#39; indicates Hdfs connection type DFS. &#39;WEBHDFS&#39; indicates Hdfs connection type WEBHDFS. &#39;HTTPFSLB&#39; indicates Hdfs connection type HTTPFS_LB. &#39;HTTPFS&#39; indicates Hdfs connection type HTTPFS.
+        /// </summary>
+        /// <value>Specifies the Hdfs connection type. Hdfs connection type.  &#39;DFS&#39; indicates Hdfs connection type DFS. &#39;WEBHDFS&#39; indicates Hdfs connection type WEBHDFS. &#39;HTTPFSLB&#39; indicates Hdfs connection type HTTPFS_LB. &#39;HTTPFS&#39; indicates Hdfs connection type HTTPFS.</value>
+        [DataMember(Name="hdfsConnectionType", EmitDefaultValue=true)]
+        public HdfsConnectionTypeEnum? HdfsConnectionType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="HdfsConnectParams" /> class.
         /// </summary>
         /// <param name="hadoopDistribution">Specifies the Hadoop Distribution. Hadoop distribution.  &#39;CDH&#39; indicates Hadoop distribution type Cloudera. &#39;HDP&#39; indicates Hadoop distribution type Hortonworks..</param>
         /// <param name="hadoopVersion">Specifies the Hadoop version.</param>
+        /// <param name="hdfsConnectionType">Specifies the Hdfs connection type. Hdfs connection type.  &#39;DFS&#39; indicates Hdfs connection type DFS. &#39;WEBHDFS&#39; indicates Hdfs connection type WEBHDFS. &#39;HTTPFSLB&#39; indicates Hdfs connection type HTTPFS_LB. &#39;HTTPFS&#39; indicates Hdfs connection type HTTPFS..</param>
         /// <param name="hdfsDiscoveryParams">hdfsDiscoveryParams.</param>
         /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="namenode">Specifies the Namenode host or Nameservice..</param>
         /// <param name="port">Specifies the Webhdfs Port.</param>
-        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), HadoopDiscoveryParams hdfsDiscoveryParams = default(HadoopDiscoveryParams), string kerberosPrincipal = default(string), string namenode = default(string), int? port = default(int?))
+        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), HdfsConnectionTypeEnum? hdfsConnectionType = default(HdfsConnectionTypeEnum?), HadoopDiscoveryParams hdfsDiscoveryParams = default(HadoopDiscoveryParams), string kerberosPrincipal = default(string), string namenode = default(string), int? port = default(int?))
         {
             this.HadoopDistribution = hadoopDistribution;
             this.HadoopVersion = hadoopVersion;
+            this.HdfsConnectionType = hdfsConnectionType;
             this.KerberosPrincipal = kerberosPrincipal;
             this.Namenode = namenode;
             this.Port = port;
             this.HadoopDistribution = hadoopDistribution;
             this.HadoopVersion = hadoopVersion;
+            this.HdfsConnectionType = hdfsConnectionType;
             this.HdfsDiscoveryParams = hdfsDiscoveryParams;
             this.KerberosPrincipal = kerberosPrincipal;
             this.Namenode = namenode;
@@ -151,6 +193,10 @@ namespace Cohesity.Model
                     this.HadoopVersion.Equals(input.HadoopVersion))
                 ) && 
                 (
+                    this.HdfsConnectionType == input.HdfsConnectionType ||
+                    this.HdfsConnectionType.Equals(input.HdfsConnectionType)
+                ) && 
+                (
                     this.HdfsDiscoveryParams == input.HdfsDiscoveryParams ||
                     (this.HdfsDiscoveryParams != null &&
                     this.HdfsDiscoveryParams.Equals(input.HdfsDiscoveryParams))
@@ -184,6 +230,7 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.HadoopDistribution.GetHashCode();
                 if (this.HadoopVersion != null)
                     hashCode = hashCode * 59 + this.HadoopVersion.GetHashCode();
+                hashCode = hashCode * 59 + this.HdfsConnectionType.GetHashCode();
                 if (this.HdfsDiscoveryParams != null)
                     hashCode = hashCode * 59 + this.HdfsDiscoveryParams.GetHashCode();
                 if (this.KerberosPrincipal != null)

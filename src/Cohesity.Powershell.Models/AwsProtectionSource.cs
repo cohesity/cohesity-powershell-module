@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class AwsProtectionSource :  IEquatable<AwsProtectionSource>
     {
         /// <summary>
-        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthMethodEnum
         {
@@ -43,14 +43,20 @@ namespace Cohesity.Model
             /// Enum KUseHelios for value: kUseHelios
             /// </summary>
             [EnumMember(Value = "kUseHelios")]
-            KUseHelios = 3
+            KUseHelios = 3,
+
+            /// <summary>
+            /// Enum KUseInstanceProfile for value: kUseInstanceProfile
+            /// </summary>
+            [EnumMember(Value = "kUseInstanceProfile")]
+            KUseInstanceProfile = 4
 
         }
 
         /// <summary>
-        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.
         /// </summary>
-        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication.</value>
         [DataMember(Name="authMethod", EmitDefaultValue=true)]
         public AuthMethodEnum? AuthMethod { get; set; }
         /// <summary>
@@ -502,7 +508,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="accessKey">Specifies Access key of the AWS account..</param>
         /// <param name="amazonResourceName">Specifies Amazon Resource Name (owner ID) of the IAM user, act as an unique identifier of as AWS entity..</param>
-        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication..</param>
+        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication. &#39;kUseInstanceProfile&#39; indicates a instance profile based authentication..</param>
         /// <param name="awsFleetParams">awsFleetParams.</param>
         /// <param name="awsType">Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraTag&#39; represents a tag attached to an Aurora cluster. &#39;kAccount&#39; represents an AWS account. &#39;kAuroraCluster&#39; represents an Aurora cluster. &#39;kSubTaskPermit&#39; entity type will be used by slave sub-tasks to take permit for native backups, so that we can control the number of concurrent sub-tasks independent of the number of VMs being backed up concurrently. This does not represent any entity type in AWS entity hierarchy. &#39;kS3Bucket&#39; represents an S3 bucket. &#39;kS3Tag&#39; represents an S3 tag attached to S3 Bucket. &#39;kKmsKey&#39; represents a KMS key..</param>
         /// <param name="c2sServerInfo">c2sServerInfo.</param>
@@ -514,10 +520,12 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set..</param>
         /// <param name="ownerId">Specifies the owner id of the resource in AWS environment. With type, name and ownerId gives a globally unique identity to the AWS entity..</param>
         /// <param name="physicalSourceId">Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host..</param>
+        /// <param name="rdsOracleDbInfo">rdsOracleDbInfo.</param>
         /// <param name="regionId">Specifies the region Id of the entity if the entity is an EC2 instance..</param>
         /// <param name="resourceId">Specifies the unique Id of the resource given by the cloud provider..</param>
         /// <param name="restoreTaskId">Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension..</param>
         /// <param name="s3EntityInfo">s3EntityInfo.</param>
+        /// <param name="s3ProtectionParams">s3ProtectionParams.</param>
         /// <param name="secretAccessKey">Specifies Secret Access key of the AWS account..</param>
         /// <param name="subscriptionType">Specifies the subscription type of AWS such as &#39;kAWSCommercial&#39; or &#39;kAWSGovCloud&#39;. Specifies the subscription type of an AWS source entity. &#39;kAWSCommercial&#39; indicates a standard AWS subscription. &#39;kAWSGovCloud&#39; indicates a govt AWS subscription..</param>
         /// <param name="tagAttributes">Specifies the list of AWS tag attributes..</param>
@@ -525,7 +533,7 @@ namespace Cohesity.Model
         /// <param name="userAccountId">Specifies the account id derived from the ARN of the user..</param>
         /// <param name="userResourceName">Specifies the Amazon Resource Name (ARN) of the user..</param>
         /// <param name="volumes">Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance..</param>
-        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AwsFleetPublicParams awsFleetParams = default(AwsFleetPublicParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), S3EntityInfo s3EntityInfo = default(S3EntityInfo), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
+        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AwsFleetPublicParams awsFleetParams = default(AwsFleetPublicParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), RdsOracleDbInfo rdsOracleDbInfo = default(RdsOracleDbInfo), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), S3EntityInfo s3EntityInfo = default(S3EntityInfo), S3ProtectionParams s3ProtectionParams = default(S3ProtectionParams), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
         {
             this.AccessKey = accessKey;
             this.AmazonResourceName = amazonResourceName;
@@ -562,10 +570,12 @@ namespace Cohesity.Model
             this.Name = name;
             this.OwnerId = ownerId;
             this.PhysicalSourceId = physicalSourceId;
+            this.RdsOracleDbInfo = rdsOracleDbInfo;
             this.RegionId = regionId;
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
             this.S3EntityInfo = s3EntityInfo;
+            this.S3ProtectionParams = s3ProtectionParams;
             this.SecretAccessKey = secretAccessKey;
             this.SubscriptionType = subscriptionType;
             this.TagAttributes = tagAttributes;
@@ -650,6 +660,12 @@ namespace Cohesity.Model
         public long? PhysicalSourceId { get; set; }
 
         /// <summary>
+        /// Gets or Sets RdsOracleDbInfo
+        /// </summary>
+        [DataMember(Name="rdsOracleDbInfo", EmitDefaultValue=false)]
+        public RdsOracleDbInfo RdsOracleDbInfo { get; set; }
+
+        /// <summary>
         /// Specifies the region Id of the entity if the entity is an EC2 instance.
         /// </summary>
         /// <value>Specifies the region Id of the entity if the entity is an EC2 instance.</value>
@@ -675,6 +691,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="s3EntityInfo", EmitDefaultValue=false)]
         public S3EntityInfo S3EntityInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets S3ProtectionParams
+        /// </summary>
+        [DataMember(Name="s3ProtectionParams", EmitDefaultValue=false)]
+        public S3ProtectionParams S3ProtectionParams { get; set; }
 
         /// <summary>
         /// Specifies Secret Access key of the AWS account.
@@ -815,6 +837,11 @@ namespace Cohesity.Model
                     this.PhysicalSourceId.Equals(input.PhysicalSourceId))
                 ) && 
                 (
+                    this.RdsOracleDbInfo == input.RdsOracleDbInfo ||
+                    (this.RdsOracleDbInfo != null &&
+                    this.RdsOracleDbInfo.Equals(input.RdsOracleDbInfo))
+                ) && 
+                (
                     this.RegionId == input.RegionId ||
                     (this.RegionId != null &&
                     this.RegionId.Equals(input.RegionId))
@@ -833,6 +860,11 @@ namespace Cohesity.Model
                     this.S3EntityInfo == input.S3EntityInfo ||
                     (this.S3EntityInfo != null &&
                     this.S3EntityInfo.Equals(input.S3EntityInfo))
+                ) && 
+                (
+                    this.S3ProtectionParams == input.S3ProtectionParams ||
+                    (this.S3ProtectionParams != null &&
+                    this.S3ProtectionParams.Equals(input.S3ProtectionParams))
                 ) && 
                 (
                     this.SecretAccessKey == input.SecretAccessKey ||
@@ -905,6 +937,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
                 if (this.PhysicalSourceId != null)
                     hashCode = hashCode * 59 + this.PhysicalSourceId.GetHashCode();
+                if (this.RdsOracleDbInfo != null)
+                    hashCode = hashCode * 59 + this.RdsOracleDbInfo.GetHashCode();
                 if (this.RegionId != null)
                     hashCode = hashCode * 59 + this.RegionId.GetHashCode();
                 if (this.ResourceId != null)
@@ -913,6 +947,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.S3EntityInfo != null)
                     hashCode = hashCode * 59 + this.S3EntityInfo.GetHashCode();
+                if (this.S3ProtectionParams != null)
+                    hashCode = hashCode * 59 + this.S3ProtectionParams.GetHashCode();
                 if (this.SecretAccessKey != null)
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
                 hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();

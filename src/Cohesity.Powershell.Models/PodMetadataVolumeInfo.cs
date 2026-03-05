@@ -26,15 +26,18 @@ namespace Cohesity.Model
         /// <param name="pvName">The underlying PV name if this volume is a PVC. This will be used to identify name of the directory containing PVC data at the path /var/lib/kubelet/pods..</param>
         /// <param name="storageClass">Name of the storage class. This is only populated for PVCs..</param>
         /// <param name="volume">volume.</param>
+        /// <param name="volumeMode">Mode of volume. Possible value could Filesystem, Block or empty(implying Filesystem)..</param>
         /// <param name="volumePath">Path in S3 view where the volume data will be stored..</param>
-        public PodMetadataVolumeInfo(string pvName = default(string), string storageClass = default(string), PodInfoPodSpecVolumeInfo volume = default(PodInfoPodSpecVolumeInfo), string volumePath = default(string))
+        public PodMetadataVolumeInfo(string pvName = default(string), string storageClass = default(string), PodInfoPodSpecVolumeInfo volume = default(PodInfoPodSpecVolumeInfo), string volumeMode = default(string), string volumePath = default(string))
         {
             this.PvName = pvName;
             this.StorageClass = storageClass;
+            this.VolumeMode = volumeMode;
             this.VolumePath = volumePath;
             this.PvName = pvName;
             this.StorageClass = storageClass;
             this.Volume = volume;
+            this.VolumeMode = volumeMode;
             this.VolumePath = volumePath;
         }
         
@@ -57,6 +60,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="volume", EmitDefaultValue=false)]
         public PodInfoPodSpecVolumeInfo Volume { get; set; }
+
+        /// <summary>
+        /// Mode of volume. Possible value could Filesystem, Block or empty(implying Filesystem).
+        /// </summary>
+        /// <value>Mode of volume. Possible value could Filesystem, Block or empty(implying Filesystem).</value>
+        [DataMember(Name="volumeMode", EmitDefaultValue=true)]
+        public string VolumeMode { get; set; }
 
         /// <summary>
         /// Path in S3 view where the volume data will be stored.
@@ -117,6 +127,11 @@ namespace Cohesity.Model
                     this.Volume.Equals(input.Volume))
                 ) && 
                 (
+                    this.VolumeMode == input.VolumeMode ||
+                    (this.VolumeMode != null &&
+                    this.VolumeMode.Equals(input.VolumeMode))
+                ) && 
+                (
                     this.VolumePath == input.VolumePath ||
                     (this.VolumePath != null &&
                     this.VolumePath.Equals(input.VolumePath))
@@ -138,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StorageClass.GetHashCode();
                 if (this.Volume != null)
                     hashCode = hashCode * 59 + this.Volume.GetHashCode();
+                if (this.VolumeMode != null)
+                    hashCode = hashCode * 59 + this.VolumeMode.GetHashCode();
                 if (this.VolumePath != null)
                     hashCode = hashCode * 59 + this.VolumePath.GetHashCode();
                 return hashCode;

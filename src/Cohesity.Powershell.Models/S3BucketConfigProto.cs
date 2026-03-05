@@ -25,6 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="abacEnabled">bool representing if the view is ABAC enabled or not.</param>
         /// <param name="acl">acl.</param>
+        /// <param name="bucketLoggingConfig">bucketLoggingConfig.</param>
         /// <param name="bucketPolicy">bucketPolicy.</param>
         /// <param name="efficientMpuEnabled">bool representing whether MPUs are organized using S3 MPU 2.0 design. Should only be set while view creation and immutable there after..</param>
         /// <param name="enableObjStoreAccess">If set to false, we disable access to view using S3/Swift protocol. This overrides any &#39;protocol_access_info&#39; set on view for S3/Swift. This flag is added as the transition for S3 native to non-S3 native is disabled and therefore the access using S3/Swift protocol cannot be disabled by madrox..</param>
@@ -32,16 +33,20 @@ namespace Cohesity.Model
         /// <param name="initClusterIncarnationId">The cluster incarnation id for the cluster where the view was initially created without replication. For view on Rx, the init_incarnation_cluster_id will remain same as that of the initial cluster..</param>
         /// <param name="lifecycleConfig">lifecycleConfig.</param>
         /// <param name="maxSubfilesPerMpu">This tunable field defines the number of maximum subfiles a MPU directory can have..</param>
+        /// <param name="objNsRootDirsSuffix">For a view under-migration from S3 1.0 to 2.0, we will use newly created object and versions directories with following suffix in obj namespace. Prefix for these root directories is defined in s3_constants.cc.</param>
+        /// <param name="objectIdMigration">objectIdMigration.</param>
         /// <param name="objectTagsAdded">Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view..</param>
         /// <param name="ownerInfo">ownerInfo.</param>
         /// <param name="ownershipControls">ownershipControls.</param>
         /// <param name="prefixDelimiter">Delimiter used in prefix based request routing. An application needs to explicitly set the prefix_delimiter during bucket creation. If the prefix_delimiter is not explicitly set, &#39;/&#39; will be used as the default prefix delimiter for buckets that has prefix-based-routing enabled. SnapDiff backups uses &#39;/&#39; in the object names hence it was chosen as the default prefix to avoid further UI changes in this project. If there are other use cases that require a different prefix_delimiter, it has to be set during bucket creation. Once prefix_delimiter is chosen, it cannot be changed..</param>
         /// <param name="prefixToChildBucketMap">Stores the prefix to child bucket mapping to enable prefix based routing of object requests to child buckets..</param>
         /// <param name="protocolType">Protocol type of this bucket..</param>
+        /// <param name="s3EmbeddedCredConfig">s3EmbeddedCredConfig.</param>
+        /// <param name="snapObsBased">Whether this bucket is based on snap_obs(true) or snap_fs(false)..</param>
         /// <param name="swiftContainerTag">swiftContainerTag.</param>
         /// <param name="tagMap">Tags (or labels) assigned to the bucket. Tags are set of &lt;key, value&gt; pairs..</param>
         /// <param name="versioningState">versioningState.</param>
-        public S3BucketConfigProto(bool? abacEnabled = default(bool?), ACLProto acl = default(ACLProto), BucketPolicy bucketPolicy = default(BucketPolicy), bool? efficientMpuEnabled = default(bool?), bool? enableObjStoreAccess = default(bool?), long? initClusterId = default(long?), long? initClusterIncarnationId = default(long?), LifecycleConfigProto lifecycleConfig = default(LifecycleConfigProto), int? maxSubfilesPerMpu = default(int?), bool? objectTagsAdded = default(bool?), OwnerInfo ownerInfo = default(OwnerInfo), BucketOwnershipControls ownershipControls = default(BucketOwnershipControls), string prefixDelimiter = default(string), List<S3BucketConfigProtoPrefixToChildBucketMapEntry> prefixToChildBucketMap = default(List<S3BucketConfigProtoPrefixToChildBucketMapEntry>), int? protocolType = default(int?), SwiftContainerTaggingProto swiftContainerTag = default(SwiftContainerTaggingProto), List<S3BucketConfigProtoTagMapEntry> tagMap = default(List<S3BucketConfigProtoTagMapEntry>), int? versioningState = default(int?))
+        public S3BucketConfigProto(bool? abacEnabled = default(bool?), ACLProto acl = default(ACLProto), BucketLoggingProto bucketLoggingConfig = default(BucketLoggingProto), BucketPolicy bucketPolicy = default(BucketPolicy), bool? efficientMpuEnabled = default(bool?), bool? enableObjStoreAccess = default(bool?), long? initClusterId = default(long?), long? initClusterIncarnationId = default(long?), LifecycleConfigProto lifecycleConfig = default(LifecycleConfigProto), int? maxSubfilesPerMpu = default(int?), string objNsRootDirsSuffix = default(string), ObjectIdMigrationProto objectIdMigration = default(ObjectIdMigrationProto), bool? objectTagsAdded = default(bool?), OwnerInfo ownerInfo = default(OwnerInfo), BucketOwnershipControls ownershipControls = default(BucketOwnershipControls), string prefixDelimiter = default(string), Dictionary<string, string> prefixToChildBucketMap = default(Dictionary<string, string>), int? protocolType = default(int?), S3BucketConfigProtoS3EmbeddedCredentialConfig s3EmbeddedCredConfig = default(S3BucketConfigProtoS3EmbeddedCredentialConfig), bool? snapObsBased = default(bool?), SwiftContainerTaggingProto swiftContainerTag = default(SwiftContainerTaggingProto), Dictionary<string, string> tagMap = default(Dictionary<string, string>), int? versioningState = default(int?))
         {
             this.AbacEnabled = abacEnabled;
             this.EfficientMpuEnabled = efficientMpuEnabled;
@@ -49,14 +54,17 @@ namespace Cohesity.Model
             this.InitClusterId = initClusterId;
             this.InitClusterIncarnationId = initClusterIncarnationId;
             this.MaxSubfilesPerMpu = maxSubfilesPerMpu;
+            this.ObjNsRootDirsSuffix = objNsRootDirsSuffix;
             this.ObjectTagsAdded = objectTagsAdded;
             this.PrefixDelimiter = prefixDelimiter;
             this.PrefixToChildBucketMap = prefixToChildBucketMap;
             this.ProtocolType = protocolType;
+            this.SnapObsBased = snapObsBased;
             this.TagMap = tagMap;
             this.VersioningState = versioningState;
             this.AbacEnabled = abacEnabled;
             this.Acl = acl;
+            this.BucketLoggingConfig = bucketLoggingConfig;
             this.BucketPolicy = bucketPolicy;
             this.EfficientMpuEnabled = efficientMpuEnabled;
             this.EnableObjStoreAccess = enableObjStoreAccess;
@@ -64,12 +72,16 @@ namespace Cohesity.Model
             this.InitClusterIncarnationId = initClusterIncarnationId;
             this.LifecycleConfig = lifecycleConfig;
             this.MaxSubfilesPerMpu = maxSubfilesPerMpu;
+            this.ObjNsRootDirsSuffix = objNsRootDirsSuffix;
+            this.ObjectIdMigration = objectIdMigration;
             this.ObjectTagsAdded = objectTagsAdded;
             this.OwnerInfo = ownerInfo;
             this.OwnershipControls = ownershipControls;
             this.PrefixDelimiter = prefixDelimiter;
             this.PrefixToChildBucketMap = prefixToChildBucketMap;
             this.ProtocolType = protocolType;
+            this.S3EmbeddedCredConfig = s3EmbeddedCredConfig;
+            this.SnapObsBased = snapObsBased;
             this.SwiftContainerTag = swiftContainerTag;
             this.TagMap = tagMap;
             this.VersioningState = versioningState;
@@ -87,6 +99,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="acl", EmitDefaultValue=false)]
         public ACLProto Acl { get; set; }
+
+        /// <summary>
+        /// Gets or Sets BucketLoggingConfig
+        /// </summary>
+        [DataMember(Name="bucketLoggingConfig", EmitDefaultValue=false)]
+        public BucketLoggingProto BucketLoggingConfig { get; set; }
 
         /// <summary>
         /// Gets or Sets BucketPolicy
@@ -136,6 +154,19 @@ namespace Cohesity.Model
         public int? MaxSubfilesPerMpu { get; set; }
 
         /// <summary>
+        /// For a view under-migration from S3 1.0 to 2.0, we will use newly created object and versions directories with following suffix in obj namespace. Prefix for these root directories is defined in s3_constants.cc
+        /// </summary>
+        /// <value>For a view under-migration from S3 1.0 to 2.0, we will use newly created object and versions directories with following suffix in obj namespace. Prefix for these root directories is defined in s3_constants.cc</value>
+        [DataMember(Name="objNsRootDirsSuffix", EmitDefaultValue=true)]
+        public string ObjNsRootDirsSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ObjectIdMigration
+        /// </summary>
+        [DataMember(Name="objectIdMigration", EmitDefaultValue=false)]
+        public ObjectIdMigrationProto ObjectIdMigration { get; set; }
+
+        /// <summary>
         /// Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view.
         /// </summary>
         /// <value>Whether this view has ever had any object with tags. This should be enabled only when first object tag is ever put in this view.</value>
@@ -166,7 +197,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Stores the prefix to child bucket mapping to enable prefix based routing of object requests to child buckets.</value>
         [DataMember(Name="prefixToChildBucketMap", EmitDefaultValue=true)]
-        public List<S3BucketConfigProtoPrefixToChildBucketMapEntry> PrefixToChildBucketMap { get; set; }
+        public Dictionary<string, string> PrefixToChildBucketMap { get; set; }
 
         /// <summary>
         /// Protocol type of this bucket.
@@ -174,6 +205,19 @@ namespace Cohesity.Model
         /// <value>Protocol type of this bucket.</value>
         [DataMember(Name="protocolType", EmitDefaultValue=true)]
         public int? ProtocolType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets S3EmbeddedCredConfig
+        /// </summary>
+        [DataMember(Name="s3EmbeddedCredConfig", EmitDefaultValue=false)]
+        public S3BucketConfigProtoS3EmbeddedCredentialConfig S3EmbeddedCredConfig { get; set; }
+
+        /// <summary>
+        /// Whether this bucket is based on snap_obs(true) or snap_fs(false).
+        /// </summary>
+        /// <value>Whether this bucket is based on snap_obs(true) or snap_fs(false).</value>
+        [DataMember(Name="snapObsBased", EmitDefaultValue=true)]
+        public bool? SnapObsBased { get; set; }
 
         /// <summary>
         /// Gets or Sets SwiftContainerTag
@@ -186,7 +230,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Tags (or labels) assigned to the bucket. Tags are set of &lt;key, value&gt; pairs.</value>
         [DataMember(Name="tagMap", EmitDefaultValue=true)]
-        public List<S3BucketConfigProtoTagMapEntry> TagMap { get; set; }
+        public Dictionary<string, string> TagMap { get; set; }
 
         /// <summary>
         /// Gets or Sets VersioningState
@@ -241,6 +285,11 @@ namespace Cohesity.Model
                     this.Acl.Equals(input.Acl))
                 ) && 
                 (
+                    this.BucketLoggingConfig == input.BucketLoggingConfig ||
+                    (this.BucketLoggingConfig != null &&
+                    this.BucketLoggingConfig.Equals(input.BucketLoggingConfig))
+                ) && 
+                (
                     this.BucketPolicy == input.BucketPolicy ||
                     (this.BucketPolicy != null &&
                     this.BucketPolicy.Equals(input.BucketPolicy))
@@ -276,6 +325,16 @@ namespace Cohesity.Model
                     this.MaxSubfilesPerMpu.Equals(input.MaxSubfilesPerMpu))
                 ) && 
                 (
+                    this.ObjNsRootDirsSuffix == input.ObjNsRootDirsSuffix ||
+                    (this.ObjNsRootDirsSuffix != null &&
+                    this.ObjNsRootDirsSuffix.Equals(input.ObjNsRootDirsSuffix))
+                ) && 
+                (
+                    this.ObjectIdMigration == input.ObjectIdMigration ||
+                    (this.ObjectIdMigration != null &&
+                    this.ObjectIdMigration.Equals(input.ObjectIdMigration))
+                ) && 
+                (
                     this.ObjectTagsAdded == input.ObjectTagsAdded ||
                     (this.ObjectTagsAdded != null &&
                     this.ObjectTagsAdded.Equals(input.ObjectTagsAdded))
@@ -305,6 +364,16 @@ namespace Cohesity.Model
                     this.ProtocolType == input.ProtocolType ||
                     (this.ProtocolType != null &&
                     this.ProtocolType.Equals(input.ProtocolType))
+                ) && 
+                (
+                    this.S3EmbeddedCredConfig == input.S3EmbeddedCredConfig ||
+                    (this.S3EmbeddedCredConfig != null &&
+                    this.S3EmbeddedCredConfig.Equals(input.S3EmbeddedCredConfig))
+                ) && 
+                (
+                    this.SnapObsBased == input.SnapObsBased ||
+                    (this.SnapObsBased != null &&
+                    this.SnapObsBased.Equals(input.SnapObsBased))
                 ) && 
                 (
                     this.SwiftContainerTag == input.SwiftContainerTag ||
@@ -337,6 +406,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AbacEnabled.GetHashCode();
                 if (this.Acl != null)
                     hashCode = hashCode * 59 + this.Acl.GetHashCode();
+                if (this.BucketLoggingConfig != null)
+                    hashCode = hashCode * 59 + this.BucketLoggingConfig.GetHashCode();
                 if (this.BucketPolicy != null)
                     hashCode = hashCode * 59 + this.BucketPolicy.GetHashCode();
                 if (this.EfficientMpuEnabled != null)
@@ -351,6 +422,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LifecycleConfig.GetHashCode();
                 if (this.MaxSubfilesPerMpu != null)
                     hashCode = hashCode * 59 + this.MaxSubfilesPerMpu.GetHashCode();
+                if (this.ObjNsRootDirsSuffix != null)
+                    hashCode = hashCode * 59 + this.ObjNsRootDirsSuffix.GetHashCode();
+                if (this.ObjectIdMigration != null)
+                    hashCode = hashCode * 59 + this.ObjectIdMigration.GetHashCode();
                 if (this.ObjectTagsAdded != null)
                     hashCode = hashCode * 59 + this.ObjectTagsAdded.GetHashCode();
                 if (this.OwnerInfo != null)
@@ -363,6 +438,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PrefixToChildBucketMap.GetHashCode();
                 if (this.ProtocolType != null)
                     hashCode = hashCode * 59 + this.ProtocolType.GetHashCode();
+                if (this.S3EmbeddedCredConfig != null)
+                    hashCode = hashCode * 59 + this.S3EmbeddedCredConfig.GetHashCode();
+                if (this.SnapObsBased != null)
+                    hashCode = hashCode * 59 + this.SnapObsBased.GetHashCode();
                 if (this.SwiftContainerTag != null)
                     hashCode = hashCode * 59 + this.SwiftContainerTag.GetHashCode();
                 if (this.TagMap != null)

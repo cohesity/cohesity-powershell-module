@@ -28,18 +28,78 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandCloudClusterParameters" /> class.
         /// </summary>
+        /// <param name="diskAllNodesReachable">All nodes reachable property of the disks to designate..</param>
+        /// <param name="diskComponentExclusive">Component exclusive property of the disks to designate..</param>
+        /// <param name="diskSelfFaultTolerant">Self fault tolerant property of the disks to designate..</param>
+        /// <param name="diskSerials">Serial number of the disks to designate properties..</param>
+        /// <param name="diskTiers">Tiers of the disks to designate..</param>
         /// <param name="nodeIps">Specifies the list of IPs of the new Nodes. (required).</param>
-        public ExpandCloudClusterParameters(List<string> nodeIps = default(List<string>))
+        /// <param name="useAsComputeNode">UseAsComputeNode indicates whether the node should be used as a compute node or not..</param>
+        public ExpandCloudClusterParameters(List<bool> diskAllNodesReachable = default(List<bool>), List<string> diskComponentExclusive = default(List<string>), List<bool> diskSelfFaultTolerant = default(List<bool>), List<string> diskSerials = default(List<string>), List<string> diskTiers = default(List<string>), List<string> nodeIps = default(List<string>), List<bool> useAsComputeNode = default(List<bool>))
         {
+            this.DiskAllNodesReachable = diskAllNodesReachable;
+            this.DiskComponentExclusive = diskComponentExclusive;
+            this.DiskSelfFaultTolerant = diskSelfFaultTolerant;
+            this.DiskSerials = diskSerials;
+            this.DiskTiers = diskTiers;
             this.NodeIps = nodeIps;
+            this.UseAsComputeNode = useAsComputeNode;
+            this.DiskAllNodesReachable = diskAllNodesReachable;
+            this.DiskComponentExclusive = diskComponentExclusive;
+            this.DiskSelfFaultTolerant = diskSelfFaultTolerant;
+            this.DiskSerials = diskSerials;
+            this.DiskTiers = diskTiers;
+            this.UseAsComputeNode = useAsComputeNode;
         }
         
+        /// <summary>
+        /// All nodes reachable property of the disks to designate.
+        /// </summary>
+        /// <value>All nodes reachable property of the disks to designate.</value>
+        [DataMember(Name="diskAllNodesReachable", EmitDefaultValue=true)]
+        public List<bool> DiskAllNodesReachable { get; set; }
+
+        /// <summary>
+        /// Component exclusive property of the disks to designate.
+        /// </summary>
+        /// <value>Component exclusive property of the disks to designate.</value>
+        [DataMember(Name="diskComponentExclusive", EmitDefaultValue=true)]
+        public List<string> DiskComponentExclusive { get; set; }
+
+        /// <summary>
+        /// Self fault tolerant property of the disks to designate.
+        /// </summary>
+        /// <value>Self fault tolerant property of the disks to designate.</value>
+        [DataMember(Name="diskSelfFaultTolerant", EmitDefaultValue=true)]
+        public List<bool> DiskSelfFaultTolerant { get; set; }
+
+        /// <summary>
+        /// Serial number of the disks to designate properties.
+        /// </summary>
+        /// <value>Serial number of the disks to designate properties.</value>
+        [DataMember(Name="diskSerials", EmitDefaultValue=true)]
+        public List<string> DiskSerials { get; set; }
+
+        /// <summary>
+        /// Tiers of the disks to designate.
+        /// </summary>
+        /// <value>Tiers of the disks to designate.</value>
+        [DataMember(Name="diskTiers", EmitDefaultValue=true)]
+        public List<string> DiskTiers { get; set; }
+
         /// <summary>
         /// Specifies the list of IPs of the new Nodes.
         /// </summary>
         /// <value>Specifies the list of IPs of the new Nodes.</value>
         [DataMember(Name="nodeIps", EmitDefaultValue=true)]
         public List<string> NodeIps { get; set; }
+
+        /// <summary>
+        /// UseAsComputeNode indicates whether the node should be used as a compute node or not.
+        /// </summary>
+        /// <value>UseAsComputeNode indicates whether the node should be used as a compute node or not.</value>
+        [DataMember(Name="useAsComputeNode", EmitDefaultValue=true)]
+        public List<bool> UseAsComputeNode { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -78,10 +138,46 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.DiskAllNodesReachable == input.DiskAllNodesReachable ||
+                    this.DiskAllNodesReachable != null &&
+                    input.DiskAllNodesReachable != null &&
+                    this.DiskAllNodesReachable.SequenceEqual(input.DiskAllNodesReachable)
+                ) && 
+                (
+                    this.DiskComponentExclusive == input.DiskComponentExclusive ||
+                    this.DiskComponentExclusive != null &&
+                    input.DiskComponentExclusive != null &&
+                    this.DiskComponentExclusive.SequenceEqual(input.DiskComponentExclusive)
+                ) && 
+                (
+                    this.DiskSelfFaultTolerant == input.DiskSelfFaultTolerant ||
+                    this.DiskSelfFaultTolerant != null &&
+                    input.DiskSelfFaultTolerant != null &&
+                    this.DiskSelfFaultTolerant.SequenceEqual(input.DiskSelfFaultTolerant)
+                ) && 
+                (
+                    this.DiskSerials == input.DiskSerials ||
+                    this.DiskSerials != null &&
+                    input.DiskSerials != null &&
+                    this.DiskSerials.SequenceEqual(input.DiskSerials)
+                ) && 
+                (
+                    this.DiskTiers == input.DiskTiers ||
+                    this.DiskTiers != null &&
+                    input.DiskTiers != null &&
+                    this.DiskTiers.SequenceEqual(input.DiskTiers)
+                ) && 
+                (
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
                     input.NodeIps != null &&
                     this.NodeIps.SequenceEqual(input.NodeIps)
+                ) && 
+                (
+                    this.UseAsComputeNode == input.UseAsComputeNode ||
+                    this.UseAsComputeNode != null &&
+                    input.UseAsComputeNode != null &&
+                    this.UseAsComputeNode.SequenceEqual(input.UseAsComputeNode)
                 );
         }
 
@@ -94,8 +190,20 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.DiskAllNodesReachable != null)
+                    hashCode = hashCode * 59 + this.DiskAllNodesReachable.GetHashCode();
+                if (this.DiskComponentExclusive != null)
+                    hashCode = hashCode * 59 + this.DiskComponentExclusive.GetHashCode();
+                if (this.DiskSelfFaultTolerant != null)
+                    hashCode = hashCode * 59 + this.DiskSelfFaultTolerant.GetHashCode();
+                if (this.DiskSerials != null)
+                    hashCode = hashCode * 59 + this.DiskSerials.GetHashCode();
+                if (this.DiskTiers != null)
+                    hashCode = hashCode * 59 + this.DiskTiers.GetHashCode();
                 if (this.NodeIps != null)
                     hashCode = hashCode * 59 + this.NodeIps.GetHashCode();
+                if (this.UseAsComputeNode != null)
+                    hashCode = hashCode * 59 + this.UseAsComputeNode.GetHashCode();
                 return hashCode;
             }
         }

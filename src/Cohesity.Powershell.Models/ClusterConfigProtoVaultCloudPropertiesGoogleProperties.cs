@@ -23,13 +23,33 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ClusterConfigProtoVaultCloudPropertiesGoogleProperties" /> class.
         /// </summary>
+        /// <param name="enableLambdaBasedGc">Whether this vault supports Google functions Lambda based GC..</param>
+        /// <param name="lambdaFunctionVersion">Version of the Lambda function deployed in the cloud..</param>
         /// <param name="tierType">tierType.</param>
-        public ClusterConfigProtoVaultCloudPropertiesGoogleProperties(int? tierType = default(int?))
+        public ClusterConfigProtoVaultCloudPropertiesGoogleProperties(bool? enableLambdaBasedGc = default(bool?), int? lambdaFunctionVersion = default(int?), int? tierType = default(int?))
         {
+            this.EnableLambdaBasedGc = enableLambdaBasedGc;
+            this.LambdaFunctionVersion = lambdaFunctionVersion;
             this.TierType = tierType;
+            this.EnableLambdaBasedGc = enableLambdaBasedGc;
+            this.LambdaFunctionVersion = lambdaFunctionVersion;
             this.TierType = tierType;
         }
         
+        /// <summary>
+        /// Whether this vault supports Google functions Lambda based GC.
+        /// </summary>
+        /// <value>Whether this vault supports Google functions Lambda based GC.</value>
+        [DataMember(Name="enableLambdaBasedGc", EmitDefaultValue=true)]
+        public bool? EnableLambdaBasedGc { get; set; }
+
+        /// <summary>
+        /// Version of the Lambda function deployed in the cloud.
+        /// </summary>
+        /// <value>Version of the Lambda function deployed in the cloud.</value>
+        [DataMember(Name="lambdaFunctionVersion", EmitDefaultValue=true)]
+        public int? LambdaFunctionVersion { get; set; }
+
         /// <summary>
         /// Gets or Sets TierType
         /// </summary>
@@ -73,6 +93,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.EnableLambdaBasedGc == input.EnableLambdaBasedGc ||
+                    (this.EnableLambdaBasedGc != null &&
+                    this.EnableLambdaBasedGc.Equals(input.EnableLambdaBasedGc))
+                ) && 
+                (
+                    this.LambdaFunctionVersion == input.LambdaFunctionVersion ||
+                    (this.LambdaFunctionVersion != null &&
+                    this.LambdaFunctionVersion.Equals(input.LambdaFunctionVersion))
+                ) && 
+                (
                     this.TierType == input.TierType ||
                     (this.TierType != null &&
                     this.TierType.Equals(input.TierType))
@@ -88,6 +118,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EnableLambdaBasedGc != null)
+                    hashCode = hashCode * 59 + this.EnableLambdaBasedGc.GetHashCode();
+                if (this.LambdaFunctionVersion != null)
+                    hashCode = hashCode * 59 + this.LambdaFunctionVersion.GetHashCode();
                 if (this.TierType != null)
                     hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 return hashCode;

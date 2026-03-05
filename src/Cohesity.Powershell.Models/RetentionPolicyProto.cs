@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Message that specifies the retention policy for backup snapshots.
+    /// RetentionPolicyProto
     /// </summary>
     [DataContract]
     public partial class RetentionPolicyProto :  IEquatable<RetentionPolicyProto>
@@ -26,7 +26,7 @@ namespace Cohesity.Model
         /// <param name="numDaysToKeep">The number of days to keep the snapshots for a backup run..</param>
         /// <param name="numSecsToKeep">The number of seconds to keep the snapshots for a backup run..</param>
         /// <param name="wormRetention">wormRetention.</param>
-        public RetentionPolicyProto(long? numDaysToKeep = default(long?), int? numSecsToKeep = default(int?), WormRetentionProto wormRetention = default(WormRetentionProto))
+        public RetentionPolicyProto(long? numDaysToKeep = default(long?), long? numSecsToKeep = default(long?), WormRetentionProto wormRetention = default(WormRetentionProto))
         {
             this.NumDaysToKeep = numDaysToKeep;
             this.NumSecsToKeep = numSecsToKeep;
@@ -47,7 +47,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>The number of seconds to keep the snapshots for a backup run.</value>
         [DataMember(Name="numSecsToKeep", EmitDefaultValue=true)]
-        public int? NumSecsToKeep { get; set; }
+        public long? NumSecsToKeep { get; set; }
 
         /// <summary>
         /// Gets or Sets WormRetention

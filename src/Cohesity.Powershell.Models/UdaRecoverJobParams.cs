@@ -25,14 +25,20 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="capabilities">capabilities.</param>
         /// <param name="concurrency">Number of parallel streams to use for the restore..</param>
+        /// <param name="deploymentType">Deployment type for the UDA agent..</param>
+        /// <param name="externalDiskSku">If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall..</param>
         /// <param name="hostType">The agent host environment type..</param>
         /// <param name="hosts">List of hosts forming the UDA cluster..</param>
         /// <param name="localMountDir">Directory on the host where views will be mounted. (This is deprecated now and the value is derived from a gflag in agent.).</param>
         /// <param name="mountView">Whether to mount a view during restore..</param>
         /// <param name="mounts">Max number of view mounts to use for the restore..</param>
+        /// <param name="postRestoreJobScriptFailureTolerance">Enum to indicate next state if post restore source call fails on one or more node..</param>
+        /// <param name="preRestoreJobScriptFailureTolerance">Enum to indicate next state if pre restore source call fails on one or more node..</param>
         /// <param name="preferredControlNodes">Control nodes to connect for control path ops..</param>
         /// <param name="restoreArgs">Custom arguments which are applicable to the objects to be restored..</param>
         /// <param name="restoreJobArgumentsMap">Map to store custom arguments which will be provided to the recovery job scripts..</param>
+        /// <param name="restoreTargetEntity">restoreTargetEntity.</param>
+        /// <param name="restoreTargetEntityParents">Includes UdaRecoverJobParams::restore_target_entity and its parents. Passed so slave can take lock on these..</param>
         /// <param name="runStartTimeUsecs">The time when the corresponding backup run was started..</param>
         /// <param name="scriptDir">Path where the source scripts will be located..</param>
         /// <param name="sourceArgs">Custom arguments which will be provided to the source registration scripts..</param>
@@ -40,17 +46,22 @@ namespace Cohesity.Model
         /// <param name="sourceType">Universal Data Adapter source type for which recovery is being performed..</param>
         /// <param name="udaS3ViewBackupProperties">udaS3ViewBackupProperties.</param>
         /// <param name="useS3View">Whether S3 views should be used for restore..</param>
-        public UdaRecoverJobParams(UdaSourceCapabilities capabilities = default(UdaSourceCapabilities), int? concurrency = default(int?), int? hostType = default(int?), List<string> hosts = default(List<string>), string localMountDir = default(string), bool? mountView = default(bool?), int? mounts = default(int?), List<string> preferredControlNodes = default(List<string>), string restoreArgs = default(string), List<UdaRecoverJobParamsRestoreJobArgumentsMapEntry> restoreJobArgumentsMap = default(List<UdaRecoverJobParamsRestoreJobArgumentsMapEntry>), long? runStartTimeUsecs = default(long?), string scriptDir = default(string), string sourceArgs = default(string), List<UdaRecoverJobParamsSourceArgumentsMapEntry> sourceArgumentsMap = default(List<UdaRecoverJobParamsSourceArgumentsMapEntry>), string sourceType = default(string), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties), bool? useS3View = default(bool?))
+        public UdaRecoverJobParams(UdaSourceCapabilities capabilities = default(UdaSourceCapabilities), int? concurrency = default(int?), int? deploymentType = default(int?), string externalDiskSku = default(string), int? hostType = default(int?), List<string> hosts = default(List<string>), string localMountDir = default(string), bool? mountView = default(bool?), int? mounts = default(int?), int? postRestoreJobScriptFailureTolerance = default(int?), int? preRestoreJobScriptFailureTolerance = default(int?), List<string> preferredControlNodes = default(List<string>), string restoreArgs = default(string), Dictionary<string, UdaCustomArgument> restoreJobArgumentsMap = default(Dictionary<string, UdaCustomArgument>), EntityProto restoreTargetEntity = default(EntityProto), List<EntityProto> restoreTargetEntityParents = default(List<EntityProto>), long? runStartTimeUsecs = default(long?), string scriptDir = default(string), string sourceArgs = default(string), Dictionary<string, UdaCustomArgument> sourceArgumentsMap = default(Dictionary<string, UdaCustomArgument>), string sourceType = default(string), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties), bool? useS3View = default(bool?))
         {
             this.Concurrency = concurrency;
+            this.DeploymentType = deploymentType;
+            this.ExternalDiskSku = externalDiskSku;
             this.HostType = hostType;
             this.Hosts = hosts;
             this.LocalMountDir = localMountDir;
             this.MountView = mountView;
             this.Mounts = mounts;
+            this.PostRestoreJobScriptFailureTolerance = postRestoreJobScriptFailureTolerance;
+            this.PreRestoreJobScriptFailureTolerance = preRestoreJobScriptFailureTolerance;
             this.PreferredControlNodes = preferredControlNodes;
             this.RestoreArgs = restoreArgs;
             this.RestoreJobArgumentsMap = restoreJobArgumentsMap;
+            this.RestoreTargetEntityParents = restoreTargetEntityParents;
             this.RunStartTimeUsecs = runStartTimeUsecs;
             this.ScriptDir = scriptDir;
             this.SourceArgs = sourceArgs;
@@ -59,14 +70,20 @@ namespace Cohesity.Model
             this.UseS3View = useS3View;
             this.Capabilities = capabilities;
             this.Concurrency = concurrency;
+            this.DeploymentType = deploymentType;
+            this.ExternalDiskSku = externalDiskSku;
             this.HostType = hostType;
             this.Hosts = hosts;
             this.LocalMountDir = localMountDir;
             this.MountView = mountView;
             this.Mounts = mounts;
+            this.PostRestoreJobScriptFailureTolerance = postRestoreJobScriptFailureTolerance;
+            this.PreRestoreJobScriptFailureTolerance = preRestoreJobScriptFailureTolerance;
             this.PreferredControlNodes = preferredControlNodes;
             this.RestoreArgs = restoreArgs;
             this.RestoreJobArgumentsMap = restoreJobArgumentsMap;
+            this.RestoreTargetEntity = restoreTargetEntity;
+            this.RestoreTargetEntityParents = restoreTargetEntityParents;
             this.RunStartTimeUsecs = runStartTimeUsecs;
             this.ScriptDir = scriptDir;
             this.SourceArgs = sourceArgs;
@@ -88,6 +105,20 @@ namespace Cohesity.Model
         /// <value>Number of parallel streams to use for the restore.</value>
         [DataMember(Name="concurrency", EmitDefaultValue=true)]
         public int? Concurrency { get; set; }
+
+        /// <summary>
+        /// Deployment type for the UDA agent.
+        /// </summary>
+        /// <value>Deployment type for the UDA agent.</value>
+        [DataMember(Name="deploymentType", EmitDefaultValue=true)]
+        public int? DeploymentType { get; set; }
+
+        /// <summary>
+        /// If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall.
+        /// </summary>
+        /// <value>If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall.</value>
+        [DataMember(Name="externalDiskSku", EmitDefaultValue=true)]
+        public string ExternalDiskSku { get; set; }
 
         /// <summary>
         /// The agent host environment type.
@@ -125,6 +156,20 @@ namespace Cohesity.Model
         public int? Mounts { get; set; }
 
         /// <summary>
+        /// Enum to indicate next state if post restore source call fails on one or more node.
+        /// </summary>
+        /// <value>Enum to indicate next state if post restore source call fails on one or more node.</value>
+        [DataMember(Name="postRestoreJobScriptFailureTolerance", EmitDefaultValue=true)]
+        public int? PostRestoreJobScriptFailureTolerance { get; set; }
+
+        /// <summary>
+        /// Enum to indicate next state if pre restore source call fails on one or more node.
+        /// </summary>
+        /// <value>Enum to indicate next state if pre restore source call fails on one or more node.</value>
+        [DataMember(Name="preRestoreJobScriptFailureTolerance", EmitDefaultValue=true)]
+        public int? PreRestoreJobScriptFailureTolerance { get; set; }
+
+        /// <summary>
         /// Control nodes to connect for control path ops.
         /// </summary>
         /// <value>Control nodes to connect for control path ops.</value>
@@ -143,7 +188,20 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map to store custom arguments which will be provided to the recovery job scripts.</value>
         [DataMember(Name="restoreJobArgumentsMap", EmitDefaultValue=true)]
-        public List<UdaRecoverJobParamsRestoreJobArgumentsMapEntry> RestoreJobArgumentsMap { get; set; }
+        public Dictionary<string, UdaCustomArgument> RestoreJobArgumentsMap { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreTargetEntity
+        /// </summary>
+        [DataMember(Name="restoreTargetEntity", EmitDefaultValue=false)]
+        public EntityProto RestoreTargetEntity { get; set; }
+
+        /// <summary>
+        /// Includes UdaRecoverJobParams::restore_target_entity and its parents. Passed so slave can take lock on these.
+        /// </summary>
+        /// <value>Includes UdaRecoverJobParams::restore_target_entity and its parents. Passed so slave can take lock on these.</value>
+        [DataMember(Name="restoreTargetEntityParents", EmitDefaultValue=true)]
+        public List<EntityProto> RestoreTargetEntityParents { get; set; }
 
         /// <summary>
         /// The time when the corresponding backup run was started.
@@ -171,7 +229,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map to store custom arguments which will be provided to the source registration scripts.</value>
         [DataMember(Name="sourceArgumentsMap", EmitDefaultValue=true)]
-        public List<UdaRecoverJobParamsSourceArgumentsMapEntry> SourceArgumentsMap { get; set; }
+        public Dictionary<string, UdaCustomArgument> SourceArgumentsMap { get; set; }
 
         /// <summary>
         /// Universal Data Adapter source type for which recovery is being performed.
@@ -240,6 +298,16 @@ namespace Cohesity.Model
                     this.Concurrency.Equals(input.Concurrency))
                 ) && 
                 (
+                    this.DeploymentType == input.DeploymentType ||
+                    (this.DeploymentType != null &&
+                    this.DeploymentType.Equals(input.DeploymentType))
+                ) && 
+                (
+                    this.ExternalDiskSku == input.ExternalDiskSku ||
+                    (this.ExternalDiskSku != null &&
+                    this.ExternalDiskSku.Equals(input.ExternalDiskSku))
+                ) && 
+                (
                     this.HostType == input.HostType ||
                     (this.HostType != null &&
                     this.HostType.Equals(input.HostType))
@@ -266,6 +334,16 @@ namespace Cohesity.Model
                     this.Mounts.Equals(input.Mounts))
                 ) && 
                 (
+                    this.PostRestoreJobScriptFailureTolerance == input.PostRestoreJobScriptFailureTolerance ||
+                    (this.PostRestoreJobScriptFailureTolerance != null &&
+                    this.PostRestoreJobScriptFailureTolerance.Equals(input.PostRestoreJobScriptFailureTolerance))
+                ) && 
+                (
+                    this.PreRestoreJobScriptFailureTolerance == input.PreRestoreJobScriptFailureTolerance ||
+                    (this.PreRestoreJobScriptFailureTolerance != null &&
+                    this.PreRestoreJobScriptFailureTolerance.Equals(input.PreRestoreJobScriptFailureTolerance))
+                ) && 
+                (
                     this.PreferredControlNodes == input.PreferredControlNodes ||
                     this.PreferredControlNodes != null &&
                     input.PreferredControlNodes != null &&
@@ -281,6 +359,17 @@ namespace Cohesity.Model
                     this.RestoreJobArgumentsMap != null &&
                     input.RestoreJobArgumentsMap != null &&
                     this.RestoreJobArgumentsMap.SequenceEqual(input.RestoreJobArgumentsMap)
+                ) && 
+                (
+                    this.RestoreTargetEntity == input.RestoreTargetEntity ||
+                    (this.RestoreTargetEntity != null &&
+                    this.RestoreTargetEntity.Equals(input.RestoreTargetEntity))
+                ) && 
+                (
+                    this.RestoreTargetEntityParents == input.RestoreTargetEntityParents ||
+                    this.RestoreTargetEntityParents != null &&
+                    input.RestoreTargetEntityParents != null &&
+                    this.RestoreTargetEntityParents.SequenceEqual(input.RestoreTargetEntityParents)
                 ) && 
                 (
                     this.RunStartTimeUsecs == input.RunStartTimeUsecs ||
@@ -333,6 +422,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Capabilities.GetHashCode();
                 if (this.Concurrency != null)
                     hashCode = hashCode * 59 + this.Concurrency.GetHashCode();
+                if (this.DeploymentType != null)
+                    hashCode = hashCode * 59 + this.DeploymentType.GetHashCode();
+                if (this.ExternalDiskSku != null)
+                    hashCode = hashCode * 59 + this.ExternalDiskSku.GetHashCode();
                 if (this.HostType != null)
                     hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Hosts != null)
@@ -343,12 +436,20 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MountView.GetHashCode();
                 if (this.Mounts != null)
                     hashCode = hashCode * 59 + this.Mounts.GetHashCode();
+                if (this.PostRestoreJobScriptFailureTolerance != null)
+                    hashCode = hashCode * 59 + this.PostRestoreJobScriptFailureTolerance.GetHashCode();
+                if (this.PreRestoreJobScriptFailureTolerance != null)
+                    hashCode = hashCode * 59 + this.PreRestoreJobScriptFailureTolerance.GetHashCode();
                 if (this.PreferredControlNodes != null)
                     hashCode = hashCode * 59 + this.PreferredControlNodes.GetHashCode();
                 if (this.RestoreArgs != null)
                     hashCode = hashCode * 59 + this.RestoreArgs.GetHashCode();
                 if (this.RestoreJobArgumentsMap != null)
                     hashCode = hashCode * 59 + this.RestoreJobArgumentsMap.GetHashCode();
+                if (this.RestoreTargetEntity != null)
+                    hashCode = hashCode * 59 + this.RestoreTargetEntity.GetHashCode();
+                if (this.RestoreTargetEntityParents != null)
+                    hashCode = hashCode * 59 + this.RestoreTargetEntityParents.GetHashCode();
                 if (this.RunStartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.RunStartTimeUsecs.GetHashCode();
                 if (this.ScriptDir != null)

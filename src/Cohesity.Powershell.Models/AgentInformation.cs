@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class AgentInformation :  IEquatable<AgentInformation>
     {
         /// <summary>
+        /// Specifies the agent type. &#39;kCpp&#39; indicates a c++ agent. &#39;kJava&#39; indicates a java agent. &#39;kGo&#39; indicates a go agent. &#39;kLegacy&#39; indicates a go agent.
+        /// </summary>
+        /// <value>Specifies the agent type. &#39;kCpp&#39; indicates a c++ agent. &#39;kJava&#39; indicates a java agent. &#39;kGo&#39; indicates a go agent. &#39;kLegacy&#39; indicates a go agent.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AgentTypeEnum
+        {
+            /// <summary>
+            /// Enum KCpp for value: kCpp
+            /// </summary>
+            [EnumMember(Value = "kCpp")]
+            KCpp = 1,
+
+            /// <summary>
+            /// Enum KJava for value: kJava
+            /// </summary>
+            [EnumMember(Value = "kJava")]
+            KJava = 2,
+
+            /// <summary>
+            /// Enum KGo for value: kGo
+            /// </summary>
+            [EnumMember(Value = "kGo")]
+            KGo = 3,
+
+            /// <summary>
+            /// Enum KLegacy for value: kLegacy
+            /// </summary>
+            [EnumMember(Value = "kLegacy")]
+            KLegacy = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the agent type. &#39;kCpp&#39; indicates a c++ agent. &#39;kJava&#39; indicates a java agent. &#39;kGo&#39; indicates a go agent. &#39;kLegacy&#39; indicates a go agent.
+        /// </summary>
+        /// <value>Specifies the agent type. &#39;kCpp&#39; indicates a c++ agent. &#39;kJava&#39; indicates a java agent. &#39;kGo&#39; indicates a go agent. &#39;kLegacy&#39; indicates a go agent.</value>
+        [DataMember(Name="agentType", EmitDefaultValue=true)]
+        public AgentTypeEnum? AgentType { get; set; }
+        /// <summary>
         /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system.</value>
@@ -281,6 +320,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AgentInformation" /> class.
         /// </summary>
+        /// <param name="agentType">Specifies the agent type. &#39;kCpp&#39; indicates a c++ agent. &#39;kJava&#39; indicates a java agent. &#39;kGo&#39; indicates a go agent. &#39;kLegacy&#39; indicates a go agent..</param>
         /// <param name="cbmrVersion">Specifies the version if Cristie BMR product is installed on the host..</param>
         /// <param name="fileCbtInfo">fileCbtInfo.</param>
         /// <param name="hostType">Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
@@ -296,8 +336,9 @@ namespace Cohesity.Model
         /// <param name="upgradeStatusMessage">Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade..</param>
         /// <param name="version">Specifies the version of the Agent software..</param>
         /// <param name="volCbtInfo">volCbtInfo.</param>
-        public AgentInformation(string cbmrVersion = default(string), CbtInfo fileCbtInfo = default(CbtInfo), HostTypeEnum? hostType = default(HostTypeEnum?), long? id = default(long?), string name = default(string), bool? oracleMultiNodeChannelSupported = default(bool?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), bool? sourceSideDedupEnabled = default(bool?), StatusEnum? status = default(StatusEnum?), string statusMessage = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), UpgradeStatusEnum? upgradeStatus = default(UpgradeStatusEnum?), string upgradeStatusMessage = default(string), string version = default(string), CbtInfo volCbtInfo = default(CbtInfo))
+        public AgentInformation(AgentTypeEnum? agentType = default(AgentTypeEnum?), string cbmrVersion = default(string), CbtInfo fileCbtInfo = default(CbtInfo), HostTypeEnum? hostType = default(HostTypeEnum?), long? id = default(long?), string name = default(string), bool? oracleMultiNodeChannelSupported = default(bool?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), bool? sourceSideDedupEnabled = default(bool?), StatusEnum? status = default(StatusEnum?), string statusMessage = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), UpgradeStatusEnum? upgradeStatus = default(UpgradeStatusEnum?), string upgradeStatusMessage = default(string), string version = default(string), CbtInfo volCbtInfo = default(CbtInfo))
         {
+            this.AgentType = agentType;
             this.CbmrVersion = cbmrVersion;
             this.HostType = hostType;
             this.Id = id;
@@ -310,6 +351,7 @@ namespace Cohesity.Model
             this.UpgradeStatus = upgradeStatus;
             this.UpgradeStatusMessage = upgradeStatusMessage;
             this.Version = version;
+            this.AgentType = agentType;
             this.CbmrVersion = cbmrVersion;
             this.FileCbtInfo = fileCbtInfo;
             this.HostType = hostType;
@@ -438,6 +480,10 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AgentType == input.AgentType ||
+                    this.AgentType.Equals(input.AgentType)
+                ) && 
+                (
                     this.CbmrVersion == input.CbmrVersion ||
                     (this.CbmrVersion != null &&
                     this.CbmrVersion.Equals(input.CbmrVersion))
@@ -519,6 +565,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.AgentType.GetHashCode();
                 if (this.CbmrVersion != null)
                     hashCode = hashCode * 59 + this.CbmrVersion.GetHashCode();
                 if (this.FileCbtInfo != null)

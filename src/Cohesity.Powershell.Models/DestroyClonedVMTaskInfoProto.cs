@@ -28,7 +28,8 @@ namespace Cohesity.Model
         /// <param name="destroyClonedEntityInfoVec">Vector of all cloned entities that this destroy task will teardown..</param>
         /// <param name="type">The type of environment this destroy clone task info pertains to..</param>
         /// <param name="viewDeleted">Whether the clone view was deleted by the destroy task..</param>
-        public DestroyClonedVMTaskInfoProto(string datastoreNotUnmountedReason = default(string), bool? datastoreUnmounted = default(bool?), List<DestroyClonedEntityInfoProto> destroyClonedEntityInfoVec = default(List<DestroyClonedEntityInfoProto>), int? type = default(int?), bool? viewDeleted = default(bool?))
+        /// <param name="vmwareCustomStoragePolicyInfo">vmwareCustomStoragePolicyInfo.</param>
+        public DestroyClonedVMTaskInfoProto(string datastoreNotUnmountedReason = default(string), bool? datastoreUnmounted = default(bool?), List<DestroyClonedEntityInfoProto> destroyClonedEntityInfoVec = default(List<DestroyClonedEntityInfoProto>), int? type = default(int?), bool? viewDeleted = default(bool?), VMwareStoragePolicyInfo vmwareCustomStoragePolicyInfo = default(VMwareStoragePolicyInfo))
         {
             this.DatastoreNotUnmountedReason = datastoreNotUnmountedReason;
             this.DatastoreUnmounted = datastoreUnmounted;
@@ -40,6 +41,7 @@ namespace Cohesity.Model
             this.DestroyClonedEntityInfoVec = destroyClonedEntityInfoVec;
             this.Type = type;
             this.ViewDeleted = viewDeleted;
+            this.VmwareCustomStoragePolicyInfo = vmwareCustomStoragePolicyInfo;
         }
         
         /// <summary>
@@ -76,6 +78,12 @@ namespace Cohesity.Model
         /// <value>Whether the clone view was deleted by the destroy task.</value>
         [DataMember(Name="viewDeleted", EmitDefaultValue=true)]
         public bool? ViewDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VmwareCustomStoragePolicyInfo
+        /// </summary>
+        [DataMember(Name="vmwareCustomStoragePolicyInfo", EmitDefaultValue=false)]
+        public VMwareStoragePolicyInfo VmwareCustomStoragePolicyInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -138,6 +146,11 @@ namespace Cohesity.Model
                     this.ViewDeleted == input.ViewDeleted ||
                     (this.ViewDeleted != null &&
                     this.ViewDeleted.Equals(input.ViewDeleted))
+                ) && 
+                (
+                    this.VmwareCustomStoragePolicyInfo == input.VmwareCustomStoragePolicyInfo ||
+                    (this.VmwareCustomStoragePolicyInfo != null &&
+                    this.VmwareCustomStoragePolicyInfo.Equals(input.VmwareCustomStoragePolicyInfo))
                 );
         }
 
@@ -160,6 +173,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewDeleted != null)
                     hashCode = hashCode * 59 + this.ViewDeleted.GetHashCode();
+                if (this.VmwareCustomStoragePolicyInfo != null)
+                    hashCode = hashCode * 59 + this.VmwareCustomStoragePolicyInfo.GetHashCode();
                 return hashCode;
             }
         }

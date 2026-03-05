@@ -28,15 +28,17 @@ namespace Cohesity.Model
         /// <param name="idpId">Specifies the unique Id assigned by the Cluster for the IdP..</param>
         /// <param name="isFloatingUser">Specifies whether or not this is a floating user..</param>
         /// <param name="issuerId">Specifies the unique identifier assigned by the vendor for this Cluster..</param>
+        /// <param name="oidcIdpId">Specifies the unique ID of the OIDC Idp..</param>
         /// <param name="userId">Specifies the unique identifier assigned by the vendor for the user..</param>
         /// <param name="vendor">Specifies the vendor providing the IdP service..</param>
-        public IdpUserInfo(List<string> groupSids = default(List<string>), List<string> groups = default(List<string>), long? idpId = default(long?), bool? isFloatingUser = default(bool?), string issuerId = default(string), string userId = default(string), string vendor = default(string))
+        public IdpUserInfo(List<string> groupSids = default(List<string>), List<string> groups = default(List<string>), long? idpId = default(long?), bool? isFloatingUser = default(bool?), string issuerId = default(string), long? oidcIdpId = default(long?), string userId = default(string), string vendor = default(string))
         {
             this.GroupSids = groupSids;
             this.Groups = groups;
             this.IdpId = idpId;
             this.IsFloatingUser = isFloatingUser;
             this.IssuerId = issuerId;
+            this.OidcIdpId = oidcIdpId;
             this.UserId = userId;
             this.Vendor = vendor;
             this.GroupSids = groupSids;
@@ -44,6 +46,7 @@ namespace Cohesity.Model
             this.IdpId = idpId;
             this.IsFloatingUser = isFloatingUser;
             this.IssuerId = issuerId;
+            this.OidcIdpId = oidcIdpId;
             this.UserId = userId;
             this.Vendor = vendor;
         }
@@ -82,6 +85,13 @@ namespace Cohesity.Model
         /// <value>Specifies the unique identifier assigned by the vendor for this Cluster.</value>
         [DataMember(Name="issuerId", EmitDefaultValue=true)]
         public string IssuerId { get; set; }
+
+        /// <summary>
+        /// Specifies the unique ID of the OIDC Idp.
+        /// </summary>
+        /// <value>Specifies the unique ID of the OIDC Idp.</value>
+        [DataMember(Name="oidcIdpId", EmitDefaultValue=true)]
+        public long? OidcIdpId { get; set; }
 
         /// <summary>
         /// Specifies the unique identifier assigned by the vendor for the user.
@@ -161,6 +171,11 @@ namespace Cohesity.Model
                     this.IssuerId.Equals(input.IssuerId))
                 ) && 
                 (
+                    this.OidcIdpId == input.OidcIdpId ||
+                    (this.OidcIdpId != null &&
+                    this.OidcIdpId.Equals(input.OidcIdpId))
+                ) && 
+                (
                     this.UserId == input.UserId ||
                     (this.UserId != null &&
                     this.UserId.Equals(input.UserId))
@@ -191,6 +206,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsFloatingUser.GetHashCode();
                 if (this.IssuerId != null)
                     hashCode = hashCode * 59 + this.IssuerId.GetHashCode();
+                if (this.OidcIdpId != null)
+                    hashCode = hashCode * 59 + this.OidcIdpId.GetHashCode();
                 if (this.UserId != null)
                     hashCode = hashCode * 59 + this.UserId.GetHashCode();
                 if (this.Vendor != null)

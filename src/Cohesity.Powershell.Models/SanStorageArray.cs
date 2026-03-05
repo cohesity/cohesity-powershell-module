@@ -23,22 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SanStorageArray" /> class.
         /// </summary>
+        /// <param name="hardwareModel">Specifies the hardware model of the SAN Storage Array..</param>
         /// <param name="id">Specifies a unique id of a SAN Storage Array. The id is unique across Cohesity Clusters..</param>
         /// <param name="ports">Specifies the SAN ports of the SAN Storage Array..</param>
         /// <param name="revision">Specifies the revision of the SAN Storage Array..</param>
         /// <param name="version">Specifies the version of the SAN Storage Array..</param>
-        public SanStorageArray(string id = default(string), List<IscsiSanPort> ports = default(List<IscsiSanPort>), string revision = default(string), string version = default(string))
+        public SanStorageArray(string hardwareModel = default(string), string id = default(string), List<IscsiSanPort> ports = default(List<IscsiSanPort>), string revision = default(string), string version = default(string))
         {
+            this.HardwareModel = hardwareModel;
             this.Id = id;
             this.Ports = ports;
             this.Revision = revision;
             this.Version = version;
+            this.HardwareModel = hardwareModel;
             this.Id = id;
             this.Ports = ports;
             this.Revision = revision;
             this.Version = version;
         }
         
+        /// <summary>
+        /// Specifies the hardware model of the SAN Storage Array.
+        /// </summary>
+        /// <value>Specifies the hardware model of the SAN Storage Array.</value>
+        [DataMember(Name="hardwareModel", EmitDefaultValue=true)]
+        public string HardwareModel { get; set; }
+
         /// <summary>
         /// Specifies a unique id of a SAN Storage Array. The id is unique across Cohesity Clusters.
         /// </summary>
@@ -104,6 +114,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.HardwareModel == input.HardwareModel ||
+                    (this.HardwareModel != null &&
+                    this.HardwareModel.Equals(input.HardwareModel))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -135,6 +150,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.HardwareModel != null)
+                    hashCode = hashCode * 59 + this.HardwareModel.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Ports != null)

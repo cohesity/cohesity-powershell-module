@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FreeNodeInformation" /> class.
         /// </summary>
+        /// <param name="chassisModel">Specifies the model number of the Chassis the Node is installed in..</param>
         /// <param name="chassisSerial">Specifies the serial number of the Chassis the Node is installed in..</param>
         /// <param name="connectedTo">Specifies whether or not this is the Node that is sending the response..</param>
         /// <param name="hostname">Free node hostname..</param>
@@ -33,11 +34,14 @@ namespace Cohesity.Model
         /// <param name="nodeSerial">Specifies the serial number of the Node..</param>
         /// <param name="nodeUiSlot">Specifies the postition for the UI to display the Node in the Cluster creation page..</param>
         /// <param name="numSlotsInChassis">Specifies the number of Node slots present in the Chassis where this Node is installed..</param>
+        /// <param name="primaryIPv4Address">IPv4 addresses in primary interface&#39;s LAN..</param>
+        /// <param name="primaryIPv6Address">IPv6 addresses in primary interface&#39;s LAN..</param>
         /// <param name="productModel">Specifies the product model of the node..</param>
         /// <param name="slotNumber">Specifies the number of the slot the Node is installed in..</param>
         /// <param name="softwareVersion">Specifies the version of the software installed on the Node..</param>
-        public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), string hostname = default(string), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), List<string> ips = default(List<string>), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
+        public FreeNodeInformation(string chassisModel = default(string), string chassisSerial = default(string), bool? connectedTo = default(bool?), string hostname = default(string), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), List<string> ips = default(List<string>), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string primaryIPv4Address = default(string), string primaryIPv6Address = default(string), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
         {
+            this.ChassisModel = chassisModel;
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
             this.Hostname = hostname;
@@ -48,9 +52,12 @@ namespace Cohesity.Model
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
+            this.PrimaryIPv4Address = primaryIPv4Address;
+            this.PrimaryIPv6Address = primaryIPv6Address;
             this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
             this.SoftwareVersion = softwareVersion;
+            this.ChassisModel = chassisModel;
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
             this.Hostname = hostname;
@@ -61,11 +68,20 @@ namespace Cohesity.Model
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
+            this.PrimaryIPv4Address = primaryIPv4Address;
+            this.PrimaryIPv6Address = primaryIPv6Address;
             this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
             this.SoftwareVersion = softwareVersion;
         }
         
+        /// <summary>
+        /// Specifies the model number of the Chassis the Node is installed in.
+        /// </summary>
+        /// <value>Specifies the model number of the Chassis the Node is installed in.</value>
+        [DataMember(Name="chassisModel", EmitDefaultValue=true)]
+        public string ChassisModel { get; set; }
+
         /// <summary>
         /// Specifies the serial number of the Chassis the Node is installed in.
         /// </summary>
@@ -137,6 +153,20 @@ namespace Cohesity.Model
         public int? NumSlotsInChassis { get; set; }
 
         /// <summary>
+        /// IPv4 addresses in primary interface&#39;s LAN.
+        /// </summary>
+        /// <value>IPv4 addresses in primary interface&#39;s LAN.</value>
+        [DataMember(Name="primaryIPv4Address", EmitDefaultValue=true)]
+        public string PrimaryIPv4Address { get; set; }
+
+        /// <summary>
+        /// IPv6 addresses in primary interface&#39;s LAN.
+        /// </summary>
+        /// <value>IPv6 addresses in primary interface&#39;s LAN.</value>
+        [DataMember(Name="primaryIPv6Address", EmitDefaultValue=true)]
+        public string PrimaryIPv6Address { get; set; }
+
+        /// <summary>
         /// Specifies the product model of the node.
         /// </summary>
         /// <value>Specifies the product model of the node.</value>
@@ -194,6 +224,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ChassisModel == input.ChassisModel ||
+                    (this.ChassisModel != null &&
+                    this.ChassisModel.Equals(input.ChassisModel))
+                ) && 
+                (
                     this.ChassisSerial == input.ChassisSerial ||
                     (this.ChassisSerial != null &&
                     this.ChassisSerial.Equals(input.ChassisSerial))
@@ -245,6 +280,16 @@ namespace Cohesity.Model
                     this.NumSlotsInChassis.Equals(input.NumSlotsInChassis))
                 ) && 
                 (
+                    this.PrimaryIPv4Address == input.PrimaryIPv4Address ||
+                    (this.PrimaryIPv4Address != null &&
+                    this.PrimaryIPv4Address.Equals(input.PrimaryIPv4Address))
+                ) && 
+                (
+                    this.PrimaryIPv6Address == input.PrimaryIPv6Address ||
+                    (this.PrimaryIPv6Address != null &&
+                    this.PrimaryIPv6Address.Equals(input.PrimaryIPv6Address))
+                ) && 
+                (
                     this.ProductModel == input.ProductModel ||
                     (this.ProductModel != null &&
                     this.ProductModel.Equals(input.ProductModel))
@@ -270,6 +315,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ChassisModel != null)
+                    hashCode = hashCode * 59 + this.ChassisModel.GetHashCode();
                 if (this.ChassisSerial != null)
                     hashCode = hashCode * 59 + this.ChassisSerial.GetHashCode();
                 if (this.ConnectedTo != null)
@@ -290,6 +337,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeUiSlot.GetHashCode();
                 if (this.NumSlotsInChassis != null)
                     hashCode = hashCode * 59 + this.NumSlotsInChassis.GetHashCode();
+                if (this.PrimaryIPv4Address != null)
+                    hashCode = hashCode * 59 + this.PrimaryIPv4Address.GetHashCode();
+                if (this.PrimaryIPv6Address != null)
+                    hashCode = hashCode * 59 + this.PrimaryIPv6Address.GetHashCode();
                 if (this.ProductModel != null)
                     hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
                 if (this.SlotNumber != null)

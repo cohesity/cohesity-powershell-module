@@ -23,22 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NodeDeleteResult" /> class.
         /// </summary>
+        /// <param name="clearedPreCheckResult">True if PreCheck result is cleared.</param>
         /// <param name="id">Id of the node to be marked for deletion..</param>
         /// <param name="markNodeForRemoval">MarkNodeForRemoval indicates if the node is marked for removal.</param>
         /// <param name="timestampSecs">TimestampSecs specifies the last run time of the pre-checks execution in Unix epoch timestamp in seconds.</param>
         /// <param name="validationChecks">ValidationChecks specifies list of pre-check validations.</param>
-        public NodeDeleteResult(long? id = default(long?), bool? markNodeForRemoval = default(bool?), long? timestampSecs = default(long?), List<PreCheckValidation> validationChecks = default(List<PreCheckValidation>))
+        public NodeDeleteResult(bool? clearedPreCheckResult = default(bool?), long? id = default(long?), bool? markNodeForRemoval = default(bool?), long? timestampSecs = default(long?), List<PreCheckValidation> validationChecks = default(List<PreCheckValidation>))
         {
+            this.ClearedPreCheckResult = clearedPreCheckResult;
             this.Id = id;
             this.MarkNodeForRemoval = markNodeForRemoval;
             this.TimestampSecs = timestampSecs;
             this.ValidationChecks = validationChecks;
+            this.ClearedPreCheckResult = clearedPreCheckResult;
             this.Id = id;
             this.MarkNodeForRemoval = markNodeForRemoval;
             this.TimestampSecs = timestampSecs;
             this.ValidationChecks = validationChecks;
         }
         
+        /// <summary>
+        /// True if PreCheck result is cleared
+        /// </summary>
+        /// <value>True if PreCheck result is cleared</value>
+        [DataMember(Name="clearedPreCheckResult", EmitDefaultValue=true)]
+        public bool? ClearedPreCheckResult { get; set; }
+
         /// <summary>
         /// Id of the node to be marked for deletion.
         /// </summary>
@@ -104,6 +114,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ClearedPreCheckResult == input.ClearedPreCheckResult ||
+                    (this.ClearedPreCheckResult != null &&
+                    this.ClearedPreCheckResult.Equals(input.ClearedPreCheckResult))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -135,6 +150,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ClearedPreCheckResult != null)
+                    hashCode = hashCode * 59 + this.ClearedPreCheckResult.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.MarkNodeForRemoval != null)

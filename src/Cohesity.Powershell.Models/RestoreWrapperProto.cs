@@ -28,8 +28,9 @@ namespace Cohesity.Model
         /// <param name="performRefreshTaskStateVec">Contains information of the refresh tasks for a clone.</param>
         /// <param name="performRestoreJobState">performRestoreJobState.</param>
         /// <param name="performRestoreTaskState">performRestoreTaskState.</param>
+        /// <param name="recreatedLocalCopyState">recreatedLocalCopyState.</param>
         /// <param name="restoreSubTaskWrapperProtoVec">If this restore has sub tasks, the following field will get populated with the wrapper proto of all of its sub-tasks.  Note that this field is only populated for Iris in response to &#39;GetRestoreTasksArg&#39; RPC. It is not persisted in Magneto&#39;s WAL.  List of environments that use this field: kSQL : Used for multi-stage SQL restore that supports a hot-standy..</param>
-        public RestoreWrapperProto(List<DestroyClonedTaskStateProto> destroyClonedTaskStateVec = default(List<DestroyClonedTaskStateProto>), RestoreWrapperProto ownerRestoreWrapperProto = default(RestoreWrapperProto), List<PerformRestoreTaskStateProto> performRefreshTaskStateVec = default(List<PerformRestoreTaskStateProto>), PerformRestoreJobStateProto performRestoreJobState = default(PerformRestoreJobStateProto), PerformRestoreTaskStateProto performRestoreTaskState = default(PerformRestoreTaskStateProto), List<Object> restoreSubTaskWrapperProtoVec = default(List<Object>))
+        public RestoreWrapperProto(List<DestroyClonedTaskStateProto> destroyClonedTaskStateVec = default(List<DestroyClonedTaskStateProto>), RestoreWrapperProto ownerRestoreWrapperProto = default(RestoreWrapperProto), List<PerformRestoreTaskStateProto> performRefreshTaskStateVec = default(List<PerformRestoreTaskStateProto>), PerformRestoreJobStateProto performRestoreJobState = default(PerformRestoreJobStateProto), PerformRestoreTaskStateProto performRestoreTaskState = default(PerformRestoreTaskStateProto), RecreateLocalCopyStateProto recreatedLocalCopyState = default(RecreateLocalCopyStateProto), List<Object> restoreSubTaskWrapperProtoVec = default(List<Object>))
         {
             this.DestroyClonedTaskStateVec = destroyClonedTaskStateVec;
             this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
@@ -39,6 +40,7 @@ namespace Cohesity.Model
             this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
             this.PerformRestoreJobState = performRestoreJobState;
             this.PerformRestoreTaskState = performRestoreTaskState;
+            this.RecreatedLocalCopyState = recreatedLocalCopyState;
             this.RestoreSubTaskWrapperProtoVec = restoreSubTaskWrapperProtoVec;
         }
         
@@ -73,6 +75,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="performRestoreTaskState", EmitDefaultValue=false)]
         public PerformRestoreTaskStateProto PerformRestoreTaskState { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RecreatedLocalCopyState
+        /// </summary>
+        [DataMember(Name="recreatedLocalCopyState", EmitDefaultValue=false)]
+        public RecreateLocalCopyStateProto RecreatedLocalCopyState { get; set; }
 
         /// <summary>
         /// If this restore has sub tasks, the following field will get populated with the wrapper proto of all of its sub-tasks.  Note that this field is only populated for Iris in response to &#39;GetRestoreTasksArg&#39; RPC. It is not persisted in Magneto&#39;s WAL.  List of environments that use this field: kSQL : Used for multi-stage SQL restore that supports a hot-standy.
@@ -145,6 +153,11 @@ namespace Cohesity.Model
                     this.PerformRestoreTaskState.Equals(input.PerformRestoreTaskState))
                 ) && 
                 (
+                    this.RecreatedLocalCopyState == input.RecreatedLocalCopyState ||
+                    (this.RecreatedLocalCopyState != null &&
+                    this.RecreatedLocalCopyState.Equals(input.RecreatedLocalCopyState))
+                ) && 
+                (
                     this.RestoreSubTaskWrapperProtoVec == input.RestoreSubTaskWrapperProtoVec ||
                     this.RestoreSubTaskWrapperProtoVec != null &&
                     input.RestoreSubTaskWrapperProtoVec != null &&
@@ -171,6 +184,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PerformRestoreJobState.GetHashCode();
                 if (this.PerformRestoreTaskState != null)
                     hashCode = hashCode * 59 + this.PerformRestoreTaskState.GetHashCode();
+                if (this.RecreatedLocalCopyState != null)
+                    hashCode = hashCode * 59 + this.RecreatedLocalCopyState.GetHashCode();
                 if (this.RestoreSubTaskWrapperProtoVec != null)
                     hashCode = hashCode * 59 + this.RestoreSubTaskWrapperProtoVec.GetHashCode();
                 return hashCode;

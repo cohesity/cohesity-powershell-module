@@ -26,7 +26,7 @@ namespace Cohesity.Model
         /// <param name="name">This is the name of the  Org VDC network..</param>
         /// <param name="networkType">This is the type of the corresponding network on VCenter..</param>
         /// <param name="vcdUuid">This is the uuid of Org VDC network as identified by VCD..</param>
-        /// <param name="vcenterMorefUuid">This is the moref of the corresponding network on VCenter..</param>
+        /// <param name="vcenterMorefUuid">Field numbers 3 and 4 are now deprecated. This is the moref of the corresponding network on VCenter..</param>
         public OrgVDCNetwork(string name = default(string), string networkType = default(string), string vcdUuid = default(string), string vcenterMorefUuid = default(string))
         {
             this.Name = name;
@@ -61,9 +61,9 @@ namespace Cohesity.Model
         public string VcdUuid { get; set; }
 
         /// <summary>
-        /// This is the moref of the corresponding network on VCenter.
+        /// Field numbers 3 and 4 are now deprecated. This is the moref of the corresponding network on VCenter.
         /// </summary>
-        /// <value>This is the moref of the corresponding network on VCenter.</value>
+        /// <value>Field numbers 3 and 4 are now deprecated. This is the moref of the corresponding network on VCenter.</value>
         [DataMember(Name="vcenterMorefUuid", EmitDefaultValue=true)]
         public string VcenterMorefUuid { get; set; }
 

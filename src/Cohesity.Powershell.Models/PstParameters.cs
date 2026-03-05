@@ -26,14 +26,17 @@ namespace Cohesity.Model
         /// <param name="createPst">Specifies if create a PST or MSG for input items. For 6.6 we always set this to true..</param>
         /// <param name="pstPassword">Specifies Password to be set for generated PSTs..</param>
         /// <param name="pstSizeThreshold">Specifies PST size threshold in bytes..</param>
-        public PstParameters(bool? createPst = default(bool?), string pstPassword = default(string), long? pstSizeThreshold = default(long?))
+        /// <param name="separateDownloadFiles">Whether or not each object should get its own resulting pst download file..</param>
+        public PstParameters(bool? createPst = default(bool?), string pstPassword = default(string), long? pstSizeThreshold = default(long?), bool? separateDownloadFiles = default(bool?))
         {
             this.CreatePst = createPst;
             this.PstPassword = pstPassword;
             this.PstSizeThreshold = pstSizeThreshold;
+            this.SeparateDownloadFiles = separateDownloadFiles;
             this.CreatePst = createPst;
             this.PstPassword = pstPassword;
             this.PstSizeThreshold = pstSizeThreshold;
+            this.SeparateDownloadFiles = separateDownloadFiles;
         }
         
         /// <summary>
@@ -56,6 +59,13 @@ namespace Cohesity.Model
         /// <value>Specifies PST size threshold in bytes.</value>
         [DataMember(Name="pstSizeThreshold", EmitDefaultValue=true)]
         public long? PstSizeThreshold { get; set; }
+
+        /// <summary>
+        /// Whether or not each object should get its own resulting pst download file.
+        /// </summary>
+        /// <value>Whether or not each object should get its own resulting pst download file.</value>
+        [DataMember(Name="separateDownloadFiles", EmitDefaultValue=true)]
+        public bool? SeparateDownloadFiles { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +117,11 @@ namespace Cohesity.Model
                     this.PstSizeThreshold == input.PstSizeThreshold ||
                     (this.PstSizeThreshold != null &&
                     this.PstSizeThreshold.Equals(input.PstSizeThreshold))
+                ) && 
+                (
+                    this.SeparateDownloadFiles == input.SeparateDownloadFiles ||
+                    (this.SeparateDownloadFiles != null &&
+                    this.SeparateDownloadFiles.Equals(input.SeparateDownloadFiles))
                 );
         }
 
@@ -125,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PstPassword.GetHashCode();
                 if (this.PstSizeThreshold != null)
                     hashCode = hashCode * 59 + this.PstSizeThreshold.GetHashCode();
+                if (this.SeparateDownloadFiles != null)
+                    hashCode = hashCode * 59 + this.SeparateDownloadFiles.GetHashCode();
                 return hashCode;
             }
         }

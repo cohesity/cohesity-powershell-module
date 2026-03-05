@@ -24,11 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="VaultParamsRestoreParams" /> class.
         /// </summary>
         /// <param name="allowMarkedForRemoval">allowMarkedForRemoval.</param>
+        /// <param name="azure">azure.</param>
         /// <param name="glacier">glacier.</param>
-        public VaultParamsRestoreParams(bool? allowMarkedForRemoval = default(bool?), VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
+        public VaultParamsRestoreParams(bool? allowMarkedForRemoval = default(bool?), VaultParamsRestoreParamsAzure azure = default(VaultParamsRestoreParamsAzure), VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
         {
             this.AllowMarkedForRemoval = allowMarkedForRemoval;
             this.AllowMarkedForRemoval = allowMarkedForRemoval;
+            this.Azure = azure;
             this.Glacier = glacier;
         }
         
@@ -37,6 +39,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="allowMarkedForRemoval", EmitDefaultValue=true)]
         public bool? AllowMarkedForRemoval { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Azure
+        /// </summary>
+        [DataMember(Name="azure", EmitDefaultValue=false)]
+        public VaultParamsRestoreParamsAzure Azure { get; set; }
 
         /// <summary>
         /// Gets or Sets Glacier
@@ -86,6 +94,11 @@ namespace Cohesity.Model
                     this.AllowMarkedForRemoval.Equals(input.AllowMarkedForRemoval))
                 ) && 
                 (
+                    this.Azure == input.Azure ||
+                    (this.Azure != null &&
+                    this.Azure.Equals(input.Azure))
+                ) && 
+                (
                     this.Glacier == input.Glacier ||
                     (this.Glacier != null &&
                     this.Glacier.Equals(input.Glacier))
@@ -103,6 +116,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllowMarkedForRemoval != null)
                     hashCode = hashCode * 59 + this.AllowMarkedForRemoval.GetHashCode();
+                if (this.Azure != null)
+                    hashCode = hashCode * 59 + this.Azure.GetHashCode();
                 if (this.Glacier != null)
                     hashCode = hashCode * 59 + this.Glacier.GetHashCode();
                 return hashCode;

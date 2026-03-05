@@ -26,13 +26,17 @@ namespace Cohesity.Model
         /// <param name="amazonProperties">amazonProperties.</param>
         /// <param name="azureProperties">azureProperties.</param>
         /// <param name="googleProperties">googleProperties.</param>
+        /// <param name="ibmCosProperties">ibmCosProperties.</param>
         /// <param name="oracleProperties">oracleProperties.</param>
-        public ClusterConfigProtoVaultCloudProperties(ClusterConfigProtoVaultCloudPropertiesAmazonProperties amazonProperties = default(ClusterConfigProtoVaultCloudPropertiesAmazonProperties), ClusterConfigProtoVaultCloudPropertiesAzureProperties azureProperties = default(ClusterConfigProtoVaultCloudPropertiesAzureProperties), ClusterConfigProtoVaultCloudPropertiesGoogleProperties googleProperties = default(ClusterConfigProtoVaultCloudPropertiesGoogleProperties), ClusterConfigProtoVaultCloudPropertiesOracleProperties oracleProperties = default(ClusterConfigProtoVaultCloudPropertiesOracleProperties))
+        /// <param name="s3CompatibleProperties">s3CompatibleProperties.</param>
+        public ClusterConfigProtoVaultCloudProperties(ClusterConfigProtoVaultCloudPropertiesAmazonProperties amazonProperties = default(ClusterConfigProtoVaultCloudPropertiesAmazonProperties), ClusterConfigProtoVaultCloudPropertiesAzureProperties azureProperties = default(ClusterConfigProtoVaultCloudPropertiesAzureProperties), ClusterConfigProtoVaultCloudPropertiesGoogleProperties googleProperties = default(ClusterConfigProtoVaultCloudPropertiesGoogleProperties), ClusterConfigProtoVaultCloudPropertiesIBMCosProperties ibmCosProperties = default(ClusterConfigProtoVaultCloudPropertiesIBMCosProperties), ClusterConfigProtoVaultCloudPropertiesOracleProperties oracleProperties = default(ClusterConfigProtoVaultCloudPropertiesOracleProperties), ClusterConfigProtoVaultCloudPropertiesS3CompatibleProperties s3CompatibleProperties = default(ClusterConfigProtoVaultCloudPropertiesS3CompatibleProperties))
         {
             this.AmazonProperties = amazonProperties;
             this.AzureProperties = azureProperties;
             this.GoogleProperties = googleProperties;
+            this.IbmCosProperties = ibmCosProperties;
             this.OracleProperties = oracleProperties;
+            this.S3CompatibleProperties = s3CompatibleProperties;
         }
         
         /// <summary>
@@ -54,10 +58,22 @@ namespace Cohesity.Model
         public ClusterConfigProtoVaultCloudPropertiesGoogleProperties GoogleProperties { get; set; }
 
         /// <summary>
+        /// Gets or Sets IbmCosProperties
+        /// </summary>
+        [DataMember(Name="ibmCosProperties", EmitDefaultValue=false)]
+        public ClusterConfigProtoVaultCloudPropertiesIBMCosProperties IbmCosProperties { get; set; }
+
+        /// <summary>
         /// Gets or Sets OracleProperties
         /// </summary>
         [DataMember(Name="oracleProperties", EmitDefaultValue=false)]
         public ClusterConfigProtoVaultCloudPropertiesOracleProperties OracleProperties { get; set; }
+
+        /// <summary>
+        /// Gets or Sets S3CompatibleProperties
+        /// </summary>
+        [DataMember(Name="s3CompatibleProperties", EmitDefaultValue=false)]
+        public ClusterConfigProtoVaultCloudPropertiesS3CompatibleProperties S3CompatibleProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -111,9 +127,19 @@ namespace Cohesity.Model
                     this.GoogleProperties.Equals(input.GoogleProperties))
                 ) && 
                 (
+                    this.IbmCosProperties == input.IbmCosProperties ||
+                    (this.IbmCosProperties != null &&
+                    this.IbmCosProperties.Equals(input.IbmCosProperties))
+                ) && 
+                (
                     this.OracleProperties == input.OracleProperties ||
                     (this.OracleProperties != null &&
                     this.OracleProperties.Equals(input.OracleProperties))
+                ) && 
+                (
+                    this.S3CompatibleProperties == input.S3CompatibleProperties ||
+                    (this.S3CompatibleProperties != null &&
+                    this.S3CompatibleProperties.Equals(input.S3CompatibleProperties))
                 );
         }
 
@@ -132,8 +158,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AzureProperties.GetHashCode();
                 if (this.GoogleProperties != null)
                     hashCode = hashCode * 59 + this.GoogleProperties.GetHashCode();
+                if (this.IbmCosProperties != null)
+                    hashCode = hashCode * 59 + this.IbmCosProperties.GetHashCode();
                 if (this.OracleProperties != null)
                     hashCode = hashCode * 59 + this.OracleProperties.GetHashCode();
+                if (this.S3CompatibleProperties != null)
+                    hashCode = hashCode * 59 + this.S3CompatibleProperties.GetHashCode();
                 return hashCode;
             }
         }

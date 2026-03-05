@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="forAllValues">This field describes whether the condition matches all of the input values matches against any at least one of the values in &#39;condition_key_values_map&#39;..</param>
         /// <param name="forAnyValue">This field describes whether the condition matches any of the input values matches against any one of the values in &#39;condition_key_values_map&#39;..</param>
         /// <param name="ifExists">This field describes whether to evaluate condition as true if the condition key does not exist and if it exists then it should match the values from &#39;condition_key_values_map&#39;..</param>
-        public Condition(int? condOperator = default(int?), List<ConditionConditionKeyValuesMapEntry> conditionKeyValuesMap = default(List<ConditionConditionKeyValuesMapEntry>), bool? forAllValues = default(bool?), bool? forAnyValue = default(bool?), bool? ifExists = default(bool?))
+        public Condition(int? condOperator = default(int?), Dictionary<string, ConditionKeyValues> conditionKeyValuesMap = default(Dictionary<string, ConditionKeyValues>), bool? forAllValues = default(bool?), bool? forAnyValue = default(bool?), bool? ifExists = default(bool?))
         {
             this.CondOperator = condOperator;
             this.ConditionKeyValuesMap = conditionKeyValuesMap;
@@ -54,7 +54,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>This field describes the condition keys and the values specified for that key. An example of key is \&quot;s3:x-amz-acl\&quot; with values like \&quot;public-read\&quot;, meaning that the request should include \&quot;public-read\&quot; in the ACL header.</value>
         [DataMember(Name="conditionKeyValuesMap", EmitDefaultValue=true)]
-        public List<ConditionConditionKeyValuesMapEntry> ConditionKeyValuesMap { get; set; }
+        public Dictionary<string, ConditionKeyValues> ConditionKeyValuesMap { get; set; }
 
         /// <summary>
         /// This field describes whether the condition matches all of the input values matches against any at least one of the values in &#39;condition_key_values_map&#39;.

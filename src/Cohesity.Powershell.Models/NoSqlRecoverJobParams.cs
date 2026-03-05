@@ -26,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="bandwidthBytesPerSecond">Net bandwidth bytes per second.</param>
         /// <param name="cassandraRecoverJobParams">cassandraRecoverJobParams.</param>
         /// <param name="concurrency">Max number of mappers.</param>
+        /// <param name="continueRestoreOnError">ENG-345531 (only for Cassandra currently) - whether to continue restore if we encounter error for one of the objects.</param>
         /// <param name="couchbaseRecoverJobParams">couchbaseRecoverJobParams.</param>
         /// <param name="hbaseRecoverJobParams">hbaseRecoverJobParams.</param>
         /// <param name="hdfsRecoverJobParams">hdfsRecoverJobParams.</param>
@@ -33,14 +34,16 @@ namespace Cohesity.Model
         /// <param name="mirrorJobParams">mirrorJobParams.</param>
         /// <param name="mongodbRecoverJobParams">mongodbRecoverJobParams.</param>
         /// <param name="overwrite">Whether to overwrite or keep the object if the object being recovered already exists in the destination..</param>
-        public NoSqlRecoverJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraRecoverJobParams cassandraRecoverJobParams = default(CassandraRecoverJobParams), int? concurrency = default(int?), CouchbaseRecoverJobParams couchbaseRecoverJobParams = default(CouchbaseRecoverJobParams), HBaseRecoverJobParams hbaseRecoverJobParams = default(HBaseRecoverJobParams), HdfsRecoverJobParams hdfsRecoverJobParams = default(HdfsRecoverJobParams), HiveRecoverJobParams hiveRecoverJobParams = default(HiveRecoverJobParams), NoSqlMirrorRecoveryJobParams mirrorJobParams = default(NoSqlMirrorRecoveryJobParams), MongoDBRecoverJobParams mongodbRecoverJobParams = default(MongoDBRecoverJobParams), bool? overwrite = default(bool?))
+        public NoSqlRecoverJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraRecoverJobParams cassandraRecoverJobParams = default(CassandraRecoverJobParams), int? concurrency = default(int?), bool? continueRestoreOnError = default(bool?), CouchbaseRecoverJobParams couchbaseRecoverJobParams = default(CouchbaseRecoverJobParams), HBaseRecoverJobParams hbaseRecoverJobParams = default(HBaseRecoverJobParams), HdfsRecoverJobParams hdfsRecoverJobParams = default(HdfsRecoverJobParams), HiveRecoverJobParams hiveRecoverJobParams = default(HiveRecoverJobParams), NoSqlMirrorRecoveryJobParams mirrorJobParams = default(NoSqlMirrorRecoveryJobParams), MongoDBRecoverJobParams mongodbRecoverJobParams = default(MongoDBRecoverJobParams), bool? overwrite = default(bool?))
         {
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.Concurrency = concurrency;
+            this.ContinueRestoreOnError = continueRestoreOnError;
             this.Overwrite = overwrite;
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.CassandraRecoverJobParams = cassandraRecoverJobParams;
             this.Concurrency = concurrency;
+            this.ContinueRestoreOnError = continueRestoreOnError;
             this.CouchbaseRecoverJobParams = couchbaseRecoverJobParams;
             this.HbaseRecoverJobParams = hbaseRecoverJobParams;
             this.HdfsRecoverJobParams = hdfsRecoverJobParams;
@@ -69,6 +72,13 @@ namespace Cohesity.Model
         /// <value>Max number of mappers</value>
         [DataMember(Name="concurrency", EmitDefaultValue=true)]
         public int? Concurrency { get; set; }
+
+        /// <summary>
+        /// ENG-345531 (only for Cassandra currently) - whether to continue restore if we encounter error for one of the objects
+        /// </summary>
+        /// <value>ENG-345531 (only for Cassandra currently) - whether to continue restore if we encounter error for one of the objects</value>
+        [DataMember(Name="continueRestoreOnError", EmitDefaultValue=true)]
+        public bool? ContinueRestoreOnError { get; set; }
 
         /// <summary>
         /// Gets or Sets CouchbaseRecoverJobParams
@@ -165,6 +175,11 @@ namespace Cohesity.Model
                     this.Concurrency.Equals(input.Concurrency))
                 ) && 
                 (
+                    this.ContinueRestoreOnError == input.ContinueRestoreOnError ||
+                    (this.ContinueRestoreOnError != null &&
+                    this.ContinueRestoreOnError.Equals(input.ContinueRestoreOnError))
+                ) && 
+                (
                     this.CouchbaseRecoverJobParams == input.CouchbaseRecoverJobParams ||
                     (this.CouchbaseRecoverJobParams != null &&
                     this.CouchbaseRecoverJobParams.Equals(input.CouchbaseRecoverJobParams))
@@ -216,6 +231,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CassandraRecoverJobParams.GetHashCode();
                 if (this.Concurrency != null)
                     hashCode = hashCode * 59 + this.Concurrency.GetHashCode();
+                if (this.ContinueRestoreOnError != null)
+                    hashCode = hashCode * 59 + this.ContinueRestoreOnError.GetHashCode();
                 if (this.CouchbaseRecoverJobParams != null)
                     hashCode = hashCode * 59 + this.CouchbaseRecoverJobParams.GetHashCode();
                 if (this.HbaseRecoverJobParams != null)

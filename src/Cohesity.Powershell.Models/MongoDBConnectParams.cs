@@ -67,20 +67,23 @@ namespace Cohesity.Model
         /// <param name="requiresSsl">Specifies whether connection is allowed through SSL only in this cluster..</param>
         /// <param name="secondaryNodeTag">MongoDB Secondary node tag. Required only if &#39;useSecondaryForBackup&#39; is true. The system will use this to identify the secondary nodes for reading backup data..</param>
         /// <param name="seeds">Specifies the seeds of this MongoDB Cluster..</param>
+        /// <param name="useFixedNodeForBackup">Set this to true if you want the system to peform backups from fixed nodes..</param>
         /// <param name="useSecondaryForBackup">Set this to true if you want the system to peform backups from secondary nodes..</param>
-        public MongoDBConnectParams(AuthTypeEnum? authType = default(AuthTypeEnum?), string authenticatingDatabaseName = default(string), bool? requiresSsl = default(bool?), string secondaryNodeTag = default(string), List<string> seeds = default(List<string>), bool? useSecondaryForBackup = default(bool?))
+        public MongoDBConnectParams(AuthTypeEnum? authType = default(AuthTypeEnum?), string authenticatingDatabaseName = default(string), bool? requiresSsl = default(bool?), string secondaryNodeTag = default(string), List<string> seeds = default(List<string>), bool? useFixedNodeForBackup = default(bool?), bool? useSecondaryForBackup = default(bool?))
         {
             this.AuthType = authType;
             this.AuthenticatingDatabaseName = authenticatingDatabaseName;
             this.RequiresSsl = requiresSsl;
             this.SecondaryNodeTag = secondaryNodeTag;
             this.Seeds = seeds;
+            this.UseFixedNodeForBackup = useFixedNodeForBackup;
             this.UseSecondaryForBackup = useSecondaryForBackup;
             this.AuthType = authType;
             this.AuthenticatingDatabaseName = authenticatingDatabaseName;
             this.RequiresSsl = requiresSsl;
             this.SecondaryNodeTag = secondaryNodeTag;
             this.Seeds = seeds;
+            this.UseFixedNodeForBackup = useFixedNodeForBackup;
             this.UseSecondaryForBackup = useSecondaryForBackup;
         }
         
@@ -111,6 +114,13 @@ namespace Cohesity.Model
         /// <value>Specifies the seeds of this MongoDB Cluster.</value>
         [DataMember(Name="seeds", EmitDefaultValue=true)]
         public List<string> Seeds { get; set; }
+
+        /// <summary>
+        /// Set this to true if you want the system to peform backups from fixed nodes.
+        /// </summary>
+        /// <value>Set this to true if you want the system to peform backups from fixed nodes.</value>
+        [DataMember(Name="useFixedNodeForBackup", EmitDefaultValue=true)]
+        public bool? UseFixedNodeForBackup { get; set; }
 
         /// <summary>
         /// Set this to true if you want the system to peform backups from secondary nodes.
@@ -181,6 +191,11 @@ namespace Cohesity.Model
                     this.Seeds.SequenceEqual(input.Seeds)
                 ) && 
                 (
+                    this.UseFixedNodeForBackup == input.UseFixedNodeForBackup ||
+                    (this.UseFixedNodeForBackup != null &&
+                    this.UseFixedNodeForBackup.Equals(input.UseFixedNodeForBackup))
+                ) && 
+                (
                     this.UseSecondaryForBackup == input.UseSecondaryForBackup ||
                     (this.UseSecondaryForBackup != null &&
                     this.UseSecondaryForBackup.Equals(input.UseSecondaryForBackup))
@@ -205,6 +220,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SecondaryNodeTag.GetHashCode();
                 if (this.Seeds != null)
                     hashCode = hashCode * 59 + this.Seeds.GetHashCode();
+                if (this.UseFixedNodeForBackup != null)
+                    hashCode = hashCode * 59 + this.UseFixedNodeForBackup.GetHashCode();
                 if (this.UseSecondaryForBackup != null)
                     hashCode = hashCode * 59 + this.UseSecondaryForBackup.GetHashCode();
                 return hashCode;

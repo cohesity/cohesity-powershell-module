@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="IsilonEnvParams" /> class.
         /// </summary>
         /// <param name="zoneConfigMap">Mapping from access zone name to configuration..</param>
-        public IsilonEnvParams(List<IsilonEnvParamsZoneConfigMapEntry> zoneConfigMap = default(List<IsilonEnvParamsZoneConfigMapEntry>))
+        public IsilonEnvParams(Dictionary<string, IsilonEnvParamsZoneConfig> zoneConfigMap = default(Dictionary<string, IsilonEnvParamsZoneConfig>))
         {
             this.ZoneConfigMap = zoneConfigMap;
             this.ZoneConfigMap = zoneConfigMap;
@@ -35,7 +35,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Mapping from access zone name to configuration.</value>
         [DataMember(Name="zoneConfigMap", EmitDefaultValue=true)]
-        public List<IsilonEnvParamsZoneConfigMapEntry> ZoneConfigMap { get; set; }
+        public Dictionary<string, IsilonEnvParamsZoneConfig> ZoneConfigMap { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

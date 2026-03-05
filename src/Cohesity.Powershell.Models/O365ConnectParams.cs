@@ -24,9 +24,11 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="O365ConnectParams" /> class.
         /// </summary>
         /// <param name="objectsDiscoveryParams">objectsDiscoveryParams.</param>
-        public O365ConnectParams(ObjectsDiscoveryParams objectsDiscoveryParams = default(ObjectsDiscoveryParams))
+        /// <param name="csmParams">csmParams.</param>
+        public O365ConnectParams(ObjectsDiscoveryParams objectsDiscoveryParams = default(ObjectsDiscoveryParams), M365CsmParams csmParams = default(M365CsmParams))
         {
             this.ObjectsDiscoveryParams = objectsDiscoveryParams;
+            this.CsmParams = csmParams;
         }
         
         /// <summary>
@@ -34,6 +36,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="ObjectsDiscoveryParams", EmitDefaultValue=false)]
         public ObjectsDiscoveryParams ObjectsDiscoveryParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CsmParams
+        /// </summary>
+        [DataMember(Name="csmParams", EmitDefaultValue=false)]
+        public M365CsmParams CsmParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +83,11 @@ namespace Cohesity.Model
                     this.ObjectsDiscoveryParams == input.ObjectsDiscoveryParams ||
                     (this.ObjectsDiscoveryParams != null &&
                     this.ObjectsDiscoveryParams.Equals(input.ObjectsDiscoveryParams))
+                ) && 
+                (
+                    this.CsmParams == input.CsmParams ||
+                    (this.CsmParams != null &&
+                    this.CsmParams.Equals(input.CsmParams))
                 );
         }
 
@@ -89,6 +102,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ObjectsDiscoveryParams != null)
                     hashCode = hashCode * 59 + this.ObjectsDiscoveryParams.GetHashCode();
+                if (this.CsmParams != null)
+                    hashCode = hashCode * 59 + this.CsmParams.GetHashCode();
                 return hashCode;
             }
         }

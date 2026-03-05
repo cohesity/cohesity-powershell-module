@@ -89,33 +89,46 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AppsConfig" /> class.
         /// </summary>
+        /// <param name="overrideNodeResourceReservation">Override node level resource reservation with cluster level.</param>
         /// <param name="allowExternalTraffic">Whether to allow pod external traffic..</param>
         /// <param name="allowUnrestictedViewAccess">Whether to allow apps unrestricted view access..</param>
         /// <param name="appsMode">Specifies the various modes for running apps. &#39;kDisabled&#39; specifies that apps are disabled. &#39;kBareMetal&#39; specifies that apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that apps could only run in containers on a VM hosted by the node..</param>
         /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="marketplaceAppsMode">Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node..</param>
+        /// <param name="nodeIds">ID of nodes in the cluster.</param>
         /// <param name="overcommitMemoryPct">The system memory to overcommit for apps..</param>
         /// <param name="reservedCpuMillicores">The CPU millicores to reserve for apps..</param>
         /// <param name="reservedMemoryPct">The system memory to reserve for apps..</param>
-        public AppsConfig(bool? allowExternalTraffic = default(bool?), bool? allowUnrestictedViewAccess = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), MarketplaceAppsModeEnum? marketplaceAppsMode = default(MarketplaceAppsModeEnum?), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
+        public AppsConfig(bool? overrideNodeResourceReservation = default(bool?), bool? allowExternalTraffic = default(bool?), bool? allowUnrestictedViewAccess = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), MarketplaceAppsModeEnum? marketplaceAppsMode = default(MarketplaceAppsModeEnum?), List<long> nodeIds = default(List<long>), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
         {
+            this.OverrideNodeResourceReservation = overrideNodeResourceReservation;
             this.AllowExternalTraffic = allowExternalTraffic;
             this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
             this.MarketplaceAppsMode = marketplaceAppsMode;
+            this.NodeIds = nodeIds;
             this.OvercommitMemoryPct = overcommitMemoryPct;
             this.ReservedCpuMillicores = reservedCpuMillicores;
             this.ReservedMemoryPct = reservedMemoryPct;
+            this.OverrideNodeResourceReservation = overrideNodeResourceReservation;
             this.AllowExternalTraffic = allowExternalTraffic;
             this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
             this.AppsSubnet = appsSubnet;
             this.MarketplaceAppsMode = marketplaceAppsMode;
+            this.NodeIds = nodeIds;
             this.OvercommitMemoryPct = overcommitMemoryPct;
             this.ReservedCpuMillicores = reservedCpuMillicores;
             this.ReservedMemoryPct = reservedMemoryPct;
         }
         
+        /// <summary>
+        /// Override node level resource reservation with cluster level
+        /// </summary>
+        /// <value>Override node level resource reservation with cluster level</value>
+        [DataMember(Name="OverrideNodeResourceReservation", EmitDefaultValue=true)]
+        public bool? OverrideNodeResourceReservation { get; set; }
+
         /// <summary>
         /// Whether to allow pod external traffic.
         /// </summary>
@@ -135,6 +148,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="appsSubnet", EmitDefaultValue=false)]
         public Subnet AppsSubnet { get; set; }
+
+        /// <summary>
+        /// ID of nodes in the cluster
+        /// </summary>
+        /// <value>ID of nodes in the cluster</value>
+        [DataMember(Name="nodeIds", EmitDefaultValue=true)]
+        public List<long> NodeIds { get; set; }
 
         /// <summary>
         /// The system memory to overcommit for apps.
@@ -194,6 +214,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.OverrideNodeResourceReservation == input.OverrideNodeResourceReservation ||
+                    (this.OverrideNodeResourceReservation != null &&
+                    this.OverrideNodeResourceReservation.Equals(input.OverrideNodeResourceReservation))
+                ) && 
+                (
                     this.AllowExternalTraffic == input.AllowExternalTraffic ||
                     (this.AllowExternalTraffic != null &&
                     this.AllowExternalTraffic.Equals(input.AllowExternalTraffic))
@@ -215,6 +240,12 @@ namespace Cohesity.Model
                 (
                     this.MarketplaceAppsMode == input.MarketplaceAppsMode ||
                     this.MarketplaceAppsMode.Equals(input.MarketplaceAppsMode)
+                ) && 
+                (
+                    this.NodeIds == input.NodeIds ||
+                    this.NodeIds != null &&
+                    input.NodeIds != null &&
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 ) && 
                 (
                     this.OvercommitMemoryPct == input.OvercommitMemoryPct ||
@@ -242,6 +273,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.OverrideNodeResourceReservation != null)
+                    hashCode = hashCode * 59 + this.OverrideNodeResourceReservation.GetHashCode();
                 if (this.AllowExternalTraffic != null)
                     hashCode = hashCode * 59 + this.AllowExternalTraffic.GetHashCode();
                 if (this.AllowUnrestictedViewAccess != null)
@@ -250,6 +283,8 @@ namespace Cohesity.Model
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
                 hashCode = hashCode * 59 + this.MarketplaceAppsMode.GetHashCode();
+                if (this.NodeIds != null)
+                    hashCode = hashCode * 59 + this.NodeIds.GetHashCode();
                 if (this.OvercommitMemoryPct != null)
                     hashCode = hashCode * 59 + this.OvercommitMemoryPct.GetHashCode();
                 if (this.ReservedCpuMillicores != null)

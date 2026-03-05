@@ -27,18 +27,21 @@ namespace Cohesity.Model
         /// <param name="content">Specifies the content of the banner..</param>
         /// <param name="createdTimeMsecs">createdTimeMsecs field is deprecated. Timestamp at which banner was created..</param>
         /// <param name="description">description field is deprecated. Specifies the description of this banner..</param>
+        /// <param name="isEnabled">IsEnabled field specifies enabled/disabled state of the banner..</param>
         /// <param name="lastUpdatedTimeMsecs">lastUpdatedTimeMsecs field is deprecated. Timestamp at which banner was last updated..</param>
-        public Banner(string bannerId = default(string), string content = default(string), long? createdTimeMsecs = default(long?), string description = default(string), long? lastUpdatedTimeMsecs = default(long?))
+        public Banner(string bannerId = default(string), string content = default(string), long? createdTimeMsecs = default(long?), string description = default(string), bool? isEnabled = default(bool?), long? lastUpdatedTimeMsecs = default(long?))
         {
             this.BannerId = bannerId;
             this.Content = content;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.Description = description;
+            this.IsEnabled = isEnabled;
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
             this.BannerId = bannerId;
             this.Content = content;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.Description = description;
+            this.IsEnabled = isEnabled;
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
         }
         
@@ -69,6 +72,13 @@ namespace Cohesity.Model
         /// <value>description field is deprecated. Specifies the description of this banner.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// IsEnabled field specifies enabled/disabled state of the banner.
+        /// </summary>
+        /// <value>IsEnabled field specifies enabled/disabled state of the banner.</value>
+        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        public bool? IsEnabled { get; set; }
 
         /// <summary>
         /// lastUpdatedTimeMsecs field is deprecated. Timestamp at which banner was last updated.
@@ -134,6 +144,11 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.IsEnabled == input.IsEnabled ||
+                    (this.IsEnabled != null &&
+                    this.IsEnabled.Equals(input.IsEnabled))
+                ) && 
+                (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
                     (this.LastUpdatedTimeMsecs != null &&
                     this.LastUpdatedTimeMsecs.Equals(input.LastUpdatedTimeMsecs))
@@ -157,6 +172,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CreatedTimeMsecs.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.IsEnabled != null)
+                    hashCode = hashCode * 59 + this.IsEnabled.GetHashCode();
                 if (this.LastUpdatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.LastUpdatedTimeMsecs.GetHashCode();
                 return hashCode;

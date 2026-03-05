@@ -52,16 +52,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterInfo">clusterInfo.</param>
         /// <param name="name">Specifies the instance name of the Universal Data Adapter entity..</param>
+        /// <param name="objectEncrypted">Shows whether backup of this source is encrypted or not..</param>
         /// <param name="objectInfo">objectInfo.</param>
         /// <param name="type">Specifies the type of the managed Object in Universal Data Adapter Protection Source. Specifies the type of an Universal Data Adapter source entity. &#39;kCluster&#39; indicates a Universal Data Adapter source, possibly distributed over several physical nodes. &#39;kObject&#39; indicates a generic object within the UDA environment..</param>
         /// <param name="uuid">Specifies the UUID for the Universal Data Adapter entity..</param>
-        public UdaProtectionSource(UdaCluster clusterInfo = default(UdaCluster), string name = default(string), UdaObject objectInfo = default(UdaObject), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
+        public UdaProtectionSource(UdaCluster clusterInfo = default(UdaCluster), string name = default(string), bool? objectEncrypted = default(bool?), UdaObject objectInfo = default(UdaObject), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
             this.Name = name;
+            this.ObjectEncrypted = objectEncrypted;
             this.Type = type;
             this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.Name = name;
+            this.ObjectEncrypted = objectEncrypted;
             this.ObjectInfo = objectInfo;
             this.Type = type;
             this.Uuid = uuid;
@@ -79,6 +82,13 @@ namespace Cohesity.Model
         /// <value>Specifies the instance name of the Universal Data Adapter entity.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Shows whether backup of this source is encrypted or not.
+        /// </summary>
+        /// <value>Shows whether backup of this source is encrypted or not.</value>
+        [DataMember(Name="objectEncrypted", EmitDefaultValue=true)]
+        public bool? ObjectEncrypted { get; set; }
 
         /// <summary>
         /// Gets or Sets ObjectInfo
@@ -140,6 +150,11 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.ObjectEncrypted == input.ObjectEncrypted ||
+                    (this.ObjectEncrypted != null &&
+                    this.ObjectEncrypted.Equals(input.ObjectEncrypted))
+                ) && 
+                (
                     this.ObjectInfo == input.ObjectInfo ||
                     (this.ObjectInfo != null &&
                     this.ObjectInfo.Equals(input.ObjectInfo))
@@ -168,6 +183,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.ObjectEncrypted != null)
+                    hashCode = hashCode * 59 + this.ObjectEncrypted.GetHashCode();
                 if (this.ObjectInfo != null)
                     hashCode = hashCode * 59 + this.ObjectInfo.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();

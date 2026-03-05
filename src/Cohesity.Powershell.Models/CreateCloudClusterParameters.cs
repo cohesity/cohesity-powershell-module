@@ -69,15 +69,28 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
         /// <param name="clusterSize">Specifies the size of the cluster. It is set as Large by default if the parameter is not specified..</param>
+        /// <param name="diskAllNodesReachable">All nodes reachable property of the disks to designate..</param>
+        /// <param name="diskComponentExclusive">Component exclusive property of the disks to designate..</param>
+        /// <param name="diskSelfFaultTolerant">Self fault tolerant property of the disks to designate..</param>
+        /// <param name="diskSerials">Serial number of the disks to designate properties..</param>
+        /// <param name="diskTiers">Tiers of the disks to designate..</param>
+        /// <param name="enableCloudRf1">Enable Cloud RF1 feature..</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
         /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeIps">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreateCloudClusterParameters(string clusterName = default(string), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
+        /// <param name="trustDomain">Specifies Trust Domain used for Service Identity..</param>
+        public CreateCloudClusterParameters(string clusterName = default(string), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), List<bool> diskAllNodesReachable = default(List<bool>), List<string> diskComponentExclusive = default(List<string>), List<bool> diskSelfFaultTolerant = default(List<bool>), List<string> diskSerials = default(List<string>), List<string> diskTiers = default(List<string>), bool? enableCloudRf1 = default(bool?), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>), string trustDomain = default(string))
         {
             this.ClusterName = clusterName;
             this.ClusterSize = clusterSize;
+            this.DiskAllNodesReachable = diskAllNodesReachable;
+            this.DiskComponentExclusive = diskComponentExclusive;
+            this.DiskSelfFaultTolerant = diskSelfFaultTolerant;
+            this.DiskSerials = diskSerials;
+            this.DiskTiers = diskTiers;
+            this.EnableCloudRf1 = enableCloudRf1;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
             // to ensure "networkConfig" is required (not null)
@@ -91,10 +104,18 @@ namespace Cohesity.Model
             }
 
             this.NodeIps = nodeIps;
+            this.TrustDomain = trustDomain;
             this.ClusterSize = clusterSize;
+            this.DiskAllNodesReachable = diskAllNodesReachable;
+            this.DiskComponentExclusive = diskComponentExclusive;
+            this.DiskSelfFaultTolerant = diskSelfFaultTolerant;
+            this.DiskSerials = diskSerials;
+            this.DiskTiers = diskTiers;
+            this.EnableCloudRf1 = enableCloudRf1;
             this.EncryptionConfig = encryptionConfig;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
+            this.TrustDomain = trustDomain;
         }
         
         /// <summary>
@@ -103,6 +124,48 @@ namespace Cohesity.Model
         /// <value>Specifies the name of the new Cluster.</value>
         [DataMember(Name="clusterName", EmitDefaultValue=true)]
         public string ClusterName { get; set; }
+
+        /// <summary>
+        /// All nodes reachable property of the disks to designate.
+        /// </summary>
+        /// <value>All nodes reachable property of the disks to designate.</value>
+        [DataMember(Name="diskAllNodesReachable", EmitDefaultValue=true)]
+        public List<bool> DiskAllNodesReachable { get; set; }
+
+        /// <summary>
+        /// Component exclusive property of the disks to designate.
+        /// </summary>
+        /// <value>Component exclusive property of the disks to designate.</value>
+        [DataMember(Name="diskComponentExclusive", EmitDefaultValue=true)]
+        public List<string> DiskComponentExclusive { get; set; }
+
+        /// <summary>
+        /// Self fault tolerant property of the disks to designate.
+        /// </summary>
+        /// <value>Self fault tolerant property of the disks to designate.</value>
+        [DataMember(Name="diskSelfFaultTolerant", EmitDefaultValue=true)]
+        public List<bool> DiskSelfFaultTolerant { get; set; }
+
+        /// <summary>
+        /// Serial number of the disks to designate properties.
+        /// </summary>
+        /// <value>Serial number of the disks to designate properties.</value>
+        [DataMember(Name="diskSerials", EmitDefaultValue=true)]
+        public List<string> DiskSerials { get; set; }
+
+        /// <summary>
+        /// Tiers of the disks to designate.
+        /// </summary>
+        /// <value>Tiers of the disks to designate.</value>
+        [DataMember(Name="diskTiers", EmitDefaultValue=true)]
+        public List<string> DiskTiers { get; set; }
+
+        /// <summary>
+        /// Enable Cloud RF1 feature.
+        /// </summary>
+        /// <value>Enable Cloud RF1 feature.</value>
+        [DataMember(Name="enableCloudRf1", EmitDefaultValue=true)]
+        public bool? EnableCloudRf1 { get; set; }
 
         /// <summary>
         /// Gets or Sets EncryptionConfig
@@ -136,6 +199,13 @@ namespace Cohesity.Model
         /// <value>Specifies the configuration for the nodes in the new cluster.</value>
         [DataMember(Name="nodeIps", EmitDefaultValue=true)]
         public List<string> NodeIps { get; set; }
+
+        /// <summary>
+        /// Specifies Trust Domain used for Service Identity.
+        /// </summary>
+        /// <value>Specifies Trust Domain used for Service Identity.</value>
+        [DataMember(Name="trustDomain", EmitDefaultValue=true)]
+        public string TrustDomain { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -183,6 +253,41 @@ namespace Cohesity.Model
                     this.ClusterSize.Equals(input.ClusterSize)
                 ) && 
                 (
+                    this.DiskAllNodesReachable == input.DiskAllNodesReachable ||
+                    this.DiskAllNodesReachable != null &&
+                    input.DiskAllNodesReachable != null &&
+                    this.DiskAllNodesReachable.SequenceEqual(input.DiskAllNodesReachable)
+                ) && 
+                (
+                    this.DiskComponentExclusive == input.DiskComponentExclusive ||
+                    this.DiskComponentExclusive != null &&
+                    input.DiskComponentExclusive != null &&
+                    this.DiskComponentExclusive.SequenceEqual(input.DiskComponentExclusive)
+                ) && 
+                (
+                    this.DiskSelfFaultTolerant == input.DiskSelfFaultTolerant ||
+                    this.DiskSelfFaultTolerant != null &&
+                    input.DiskSelfFaultTolerant != null &&
+                    this.DiskSelfFaultTolerant.SequenceEqual(input.DiskSelfFaultTolerant)
+                ) && 
+                (
+                    this.DiskSerials == input.DiskSerials ||
+                    this.DiskSerials != null &&
+                    input.DiskSerials != null &&
+                    this.DiskSerials.SequenceEqual(input.DiskSerials)
+                ) && 
+                (
+                    this.DiskTiers == input.DiskTiers ||
+                    this.DiskTiers != null &&
+                    input.DiskTiers != null &&
+                    this.DiskTiers.SequenceEqual(input.DiskTiers)
+                ) && 
+                (
+                    this.EnableCloudRf1 == input.EnableCloudRf1 ||
+                    (this.EnableCloudRf1 != null &&
+                    this.EnableCloudRf1.Equals(input.EnableCloudRf1))
+                ) && 
+                (
                     this.EncryptionConfig == input.EncryptionConfig ||
                     (this.EncryptionConfig != null &&
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
@@ -207,6 +312,11 @@ namespace Cohesity.Model
                     this.NodeIps != null &&
                     input.NodeIps != null &&
                     this.NodeIps.SequenceEqual(input.NodeIps)
+                ) && 
+                (
+                    this.TrustDomain == input.TrustDomain ||
+                    (this.TrustDomain != null &&
+                    this.TrustDomain.Equals(input.TrustDomain))
                 );
         }
 
@@ -222,6 +332,18 @@ namespace Cohesity.Model
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
+                if (this.DiskAllNodesReachable != null)
+                    hashCode = hashCode * 59 + this.DiskAllNodesReachable.GetHashCode();
+                if (this.DiskComponentExclusive != null)
+                    hashCode = hashCode * 59 + this.DiskComponentExclusive.GetHashCode();
+                if (this.DiskSelfFaultTolerant != null)
+                    hashCode = hashCode * 59 + this.DiskSelfFaultTolerant.GetHashCode();
+                if (this.DiskSerials != null)
+                    hashCode = hashCode * 59 + this.DiskSerials.GetHashCode();
+                if (this.DiskTiers != null)
+                    hashCode = hashCode * 59 + this.DiskTiers.GetHashCode();
+                if (this.EnableCloudRf1 != null)
+                    hashCode = hashCode * 59 + this.EnableCloudRf1.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
                 if (this.IpPreference != null)
@@ -232,6 +354,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetworkConfig.GetHashCode();
                 if (this.NodeIps != null)
                     hashCode = hashCode * 59 + this.NodeIps.GetHashCode();
+                if (this.TrustDomain != null)
+                    hashCode = hashCode * 59 + this.TrustDomain.GetHashCode();
                 return hashCode;
             }
         }

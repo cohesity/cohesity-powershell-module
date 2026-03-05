@@ -28,32 +28,38 @@ namespace Cohesity.Model
         /// <param name="dataFileDestination">Which directory to put the database data files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance..</param>
         /// <param name="dbRestoreOverwritePolicy">Policy to overwrite an existing DB during a restore operation..</param>
         /// <param name="enableChecksum">Whether restore checksums are enabled..</param>
+        /// <param name="flatFilesDestination">The destination location for the flat file recovery. This should not be empty if the restore type is kRecoverAppFiles. Note: In sql flat file recovery we don&#39;t support regex to move individual files to separate directory and all the backups files will be copied to this location..</param>
         /// <param name="instanceName">The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty..</param>
         /// <param name="isAutoSyncEnabled">The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true..</param>
         /// <param name="isMultiStageRestore">The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby..</param>
         /// <param name="keepCdc">Set to true to keep cdc on restored database..</param>
         /// <param name="logFileDestination">Which directory to put the database log files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance..</param>
+        /// <param name="logWithClause">&#39;log_with_clause&#39; contains WITH clause to be used in native sql log restore command. This is only applicable for native log restore..</param>
         /// <param name="multiStageRestoreOptions">multiStageRestoreOptions.</param>
         /// <param name="newDatabaseName">The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner..</param>
+        /// <param name="replayEntireLastLog">If this is set to true, we will replay the entire last log without STOPAT..</param>
         /// <param name="restoreTimeSecs">The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo)..</param>
         /// <param name="resumeRestore">Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option..</param>
         /// <param name="secondaryDataFileDestination">Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing..</param>
         /// <param name="secondaryDataFileDestinationVec">Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag..</param>
         /// <param name="withNoRecovery">Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore..</param>
-        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), bool? resumeRestore = default(bool?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
+        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string flatFilesDestination = default(string), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), string logWithClause = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), bool? replayEntireLastLog = default(bool?), long? restoreTimeSecs = default(long?), bool? resumeRestore = default(bool?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
         {
             this.CaptureTailLogs = captureTailLogs;
             this.ContinueAfterError = continueAfterError;
             this.DataFileDestination = dataFileDestination;
             this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
             this.EnableChecksum = enableChecksum;
+            this.FlatFilesDestination = flatFilesDestination;
             this.InstanceName = instanceName;
             this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.IsMultiStageRestore = isMultiStageRestore;
             this.KeepCdc = keepCdc;
             this.LogFileDestination = logFileDestination;
+            this.LogWithClause = logWithClause;
             this.NewDatabaseName = newDatabaseName;
+            this.ReplayEntireLastLog = replayEntireLastLog;
             this.RestoreTimeSecs = restoreTimeSecs;
             this.ResumeRestore = resumeRestore;
             this.SecondaryDataFileDestination = secondaryDataFileDestination;
@@ -65,13 +71,16 @@ namespace Cohesity.Model
             this.DataFileDestination = dataFileDestination;
             this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
             this.EnableChecksum = enableChecksum;
+            this.FlatFilesDestination = flatFilesDestination;
             this.InstanceName = instanceName;
             this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.IsMultiStageRestore = isMultiStageRestore;
             this.KeepCdc = keepCdc;
             this.LogFileDestination = logFileDestination;
+            this.LogWithClause = logWithClause;
             this.MultiStageRestoreOptions = multiStageRestoreOptions;
             this.NewDatabaseName = newDatabaseName;
+            this.ReplayEntireLastLog = replayEntireLastLog;
             this.RestoreTimeSecs = restoreTimeSecs;
             this.ResumeRestore = resumeRestore;
             this.SecondaryDataFileDestination = secondaryDataFileDestination;
@@ -116,6 +125,13 @@ namespace Cohesity.Model
         public bool? EnableChecksum { get; set; }
 
         /// <summary>
+        /// The destination location for the flat file recovery. This should not be empty if the restore type is kRecoverAppFiles. Note: In sql flat file recovery we don&#39;t support regex to move individual files to separate directory and all the backups files will be copied to this location.
+        /// </summary>
+        /// <value>The destination location for the flat file recovery. This should not be empty if the restore type is kRecoverAppFiles. Note: In sql flat file recovery we don&#39;t support regex to move individual files to separate directory and all the backups files will be copied to this location.</value>
+        [DataMember(Name="flatFilesDestination", EmitDefaultValue=true)]
+        public string FlatFilesDestination { get; set; }
+
+        /// <summary>
         /// The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty.
         /// </summary>
         /// <value>The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty.</value>
@@ -151,6 +167,13 @@ namespace Cohesity.Model
         public string LogFileDestination { get; set; }
 
         /// <summary>
+        /// &#39;log_with_clause&#39; contains WITH clause to be used in native sql log restore command. This is only applicable for native log restore.
+        /// </summary>
+        /// <value>&#39;log_with_clause&#39; contains WITH clause to be used in native sql log restore command. This is only applicable for native log restore.</value>
+        [DataMember(Name="logWithClause", EmitDefaultValue=true)]
+        public string LogWithClause { get; set; }
+
+        /// <summary>
         /// Gets or Sets MultiStageRestoreOptions
         /// </summary>
         [DataMember(Name="multiStageRestoreOptions", EmitDefaultValue=false)]
@@ -162,6 +185,13 @@ namespace Cohesity.Model
         /// <value>The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner.</value>
         [DataMember(Name="newDatabaseName", EmitDefaultValue=true)]
         public string NewDatabaseName { get; set; }
+
+        /// <summary>
+        /// If this is set to true, we will replay the entire last log without STOPAT.
+        /// </summary>
+        /// <value>If this is set to true, we will replay the entire last log without STOPAT.</value>
+        [DataMember(Name="replayEntireLastLog", EmitDefaultValue=true)]
+        public bool? ReplayEntireLastLog { get; set; }
 
         /// <summary>
         /// The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).
@@ -267,6 +297,11 @@ namespace Cohesity.Model
                     this.EnableChecksum.Equals(input.EnableChecksum))
                 ) && 
                 (
+                    this.FlatFilesDestination == input.FlatFilesDestination ||
+                    (this.FlatFilesDestination != null &&
+                    this.FlatFilesDestination.Equals(input.FlatFilesDestination))
+                ) && 
+                (
                     this.InstanceName == input.InstanceName ||
                     (this.InstanceName != null &&
                     this.InstanceName.Equals(input.InstanceName))
@@ -292,6 +327,11 @@ namespace Cohesity.Model
                     this.LogFileDestination.Equals(input.LogFileDestination))
                 ) && 
                 (
+                    this.LogWithClause == input.LogWithClause ||
+                    (this.LogWithClause != null &&
+                    this.LogWithClause.Equals(input.LogWithClause))
+                ) && 
+                (
                     this.MultiStageRestoreOptions == input.MultiStageRestoreOptions ||
                     (this.MultiStageRestoreOptions != null &&
                     this.MultiStageRestoreOptions.Equals(input.MultiStageRestoreOptions))
@@ -300,6 +340,11 @@ namespace Cohesity.Model
                     this.NewDatabaseName == input.NewDatabaseName ||
                     (this.NewDatabaseName != null &&
                     this.NewDatabaseName.Equals(input.NewDatabaseName))
+                ) && 
+                (
+                    this.ReplayEntireLastLog == input.ReplayEntireLastLog ||
+                    (this.ReplayEntireLastLog != null &&
+                    this.ReplayEntireLastLog.Equals(input.ReplayEntireLastLog))
                 ) && 
                 (
                     this.RestoreTimeSecs == input.RestoreTimeSecs ||
@@ -353,6 +398,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DbRestoreOverwritePolicy.GetHashCode();
                 if (this.EnableChecksum != null)
                     hashCode = hashCode * 59 + this.EnableChecksum.GetHashCode();
+                if (this.FlatFilesDestination != null)
+                    hashCode = hashCode * 59 + this.FlatFilesDestination.GetHashCode();
                 if (this.InstanceName != null)
                     hashCode = hashCode * 59 + this.InstanceName.GetHashCode();
                 if (this.IsAutoSyncEnabled != null)
@@ -363,10 +410,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KeepCdc.GetHashCode();
                 if (this.LogFileDestination != null)
                     hashCode = hashCode * 59 + this.LogFileDestination.GetHashCode();
+                if (this.LogWithClause != null)
+                    hashCode = hashCode * 59 + this.LogWithClause.GetHashCode();
                 if (this.MultiStageRestoreOptions != null)
                     hashCode = hashCode * 59 + this.MultiStageRestoreOptions.GetHashCode();
                 if (this.NewDatabaseName != null)
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
+                if (this.ReplayEntireLastLog != null)
+                    hashCode = hashCode * 59 + this.ReplayEntireLastLog.GetHashCode();
                 if (this.RestoreTimeSecs != null)
                     hashCode = hashCode * 59 + this.RestoreTimeSecs.GetHashCode();
                 if (this.ResumeRestore != null)

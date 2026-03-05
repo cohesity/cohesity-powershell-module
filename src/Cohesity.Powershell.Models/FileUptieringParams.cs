@@ -33,7 +33,7 @@ namespace Cohesity.Model
         /// <param name="sourceViewMap">The object&#39;s entity id to SourceViewData map from which the data will be uptieried..</param>
         /// <param name="sourceViewName">The source view name from which the data will be uptiered..</param>
         /// <param name="uptierAllFiles">If set, all files in the view will be uptiered regardless of file_select_policy, num_file_access, hot_file_window, file_size constraints..</param>
-        public FileUptieringParams(bool? enableAuditLogging = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), long? hotFileWindow = default(long?), string nfsMountPath = default(string), int? numFileAccess = default(int?), List<FileUptieringParamsSourceViewMapEntry> sourceViewMap = default(List<FileUptieringParamsSourceViewMapEntry>), string sourceViewName = default(string), bool? uptierAllFiles = default(bool?))
+        public FileUptieringParams(bool? enableAuditLogging = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), long? hotFileWindow = default(long?), string nfsMountPath = default(string), int? numFileAccess = default(int?), Object sourceViewMap = default(Object), string sourceViewName = default(string), bool? uptierAllFiles = default(bool?))
         {
             this.EnableAuditLogging = enableAuditLogging;
             this.FileSelectPolicy = fileSelectPolicy;
@@ -111,7 +111,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>The object&#39;s entity id to SourceViewData map from which the data will be uptieried.</value>
         [DataMember(Name="sourceViewMap", EmitDefaultValue=true)]
-        public List<FileUptieringParamsSourceViewMapEntry> SourceViewMap { get; set; }
+        public Object SourceViewMap { get; set; }
 
         /// <summary>
         /// The source view name from which the data will be uptiered.
@@ -200,9 +200,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SourceViewMap == input.SourceViewMap ||
-                    this.SourceViewMap != null &&
-                    input.SourceViewMap != null &&
-                    this.SourceViewMap.SequenceEqual(input.SourceViewMap)
+                    (this.SourceViewMap != null &&
+                    this.SourceViewMap.Equals(input.SourceViewMap))
                 ) && 
                 (
                     this.SourceViewName == input.SourceViewName ||

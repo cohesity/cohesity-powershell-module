@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Message that specifies the WORM attributes. WORM attributes can be associated with any of the following: 1. backup policy: compliance or administrative policy with worm retention. 2. backup runs: worm retention inherited from policy at successful backup run completion.. 3. backup tasks do not inherit WORM retention. Instead they check for WORM property on the corresponding backup run. There are no WORM attributes associated with the backup job.
+    /// There are no WORM attributes associated with the backup job.
     /// </summary>
     [DataContract]
     public partial class WormRetentionProto :  IEquatable<WormRetentionProto>

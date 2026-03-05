@@ -27,31 +27,52 @@ namespace Cohesity.Model
         /// <param name="dynamicConfig">Specifies whether the source supports the &#39;Dynamic Configuration&#39; capability..</param>
         /// <param name="entitySupport">Indicates if source has entity capability..</param>
         /// <param name="etLogBackup">Specifies whether the source supports externally triggered log backups..</param>
+        /// <param name="externalDisks">Only for sources in the cloud. A temporary external disk is provisoned in the cloud and mounted on the control node selected during backup / recovery for dump-sweep workflows that need a local disk to dump data. Prereq - non-mount, AGENT_ON_RIGEL..</param>
         /// <param name="fullBackup">fullBackup.</param>
         /// <param name="incrBackup">incrBackup.</param>
         /// <param name="logBackup">logBackup.</param>
         /// <param name="multiObjectRestore">Whether the source supports restore of multiple objects..</param>
+        /// <param name="pauseResumeBackup">pauseResumeBackup.</param>
+        /// <param name="postBackupJobScript">Triggers a post backup script on all nodes..</param>
+        /// <param name="postRestoreJobScript">Triggers a post restore script on all nodes..</param>
+        /// <param name="preBackupJobScript">Make a source call before actual start backup call..</param>
+        /// <param name="preRestoreJobScript">Triggers a pre restore script on all nodes..</param>
         /// <param name="resourceThrottling">resourceThrottling.</param>
-        public UdaSourceCapabilities(bool? autoLogBackup = default(bool?), bool? dynamicConfig = default(bool?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), bool? fullBackup = default(bool?), bool? incrBackup = default(bool?), bool? logBackup = default(bool?), bool? multiObjectRestore = default(bool?), bool? resourceThrottling = default(bool?))
+        /// <param name="snapfsCert">snapfsCert.</param>
+        public UdaSourceCapabilities(bool? autoLogBackup = default(bool?), bool? dynamicConfig = default(bool?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), bool? externalDisks = default(bool?), bool? fullBackup = default(bool?), bool? incrBackup = default(bool?), bool? logBackup = default(bool?), bool? multiObjectRestore = default(bool?), bool? pauseResumeBackup = default(bool?), bool? postBackupJobScript = default(bool?), bool? postRestoreJobScript = default(bool?), bool? preBackupJobScript = default(bool?), bool? preRestoreJobScript = default(bool?), bool? resourceThrottling = default(bool?), bool? snapfsCert = default(bool?))
         {
             this.AutoLogBackup = autoLogBackup;
             this.DynamicConfig = dynamicConfig;
             this.EntitySupport = entitySupport;
             this.EtLogBackup = etLogBackup;
+            this.ExternalDisks = externalDisks;
             this.FullBackup = fullBackup;
             this.IncrBackup = incrBackup;
             this.LogBackup = logBackup;
             this.MultiObjectRestore = multiObjectRestore;
+            this.PauseResumeBackup = pauseResumeBackup;
+            this.PostBackupJobScript = postBackupJobScript;
+            this.PostRestoreJobScript = postRestoreJobScript;
+            this.PreBackupJobScript = preBackupJobScript;
+            this.PreRestoreJobScript = preRestoreJobScript;
             this.ResourceThrottling = resourceThrottling;
+            this.SnapfsCert = snapfsCert;
             this.AutoLogBackup = autoLogBackup;
             this.DynamicConfig = dynamicConfig;
             this.EntitySupport = entitySupport;
             this.EtLogBackup = etLogBackup;
+            this.ExternalDisks = externalDisks;
             this.FullBackup = fullBackup;
             this.IncrBackup = incrBackup;
             this.LogBackup = logBackup;
             this.MultiObjectRestore = multiObjectRestore;
+            this.PauseResumeBackup = pauseResumeBackup;
+            this.PostBackupJobScript = postBackupJobScript;
+            this.PostRestoreJobScript = postRestoreJobScript;
+            this.PreBackupJobScript = preBackupJobScript;
+            this.PreRestoreJobScript = preRestoreJobScript;
             this.ResourceThrottling = resourceThrottling;
+            this.SnapfsCert = snapfsCert;
         }
         
         /// <summary>
@@ -82,6 +103,13 @@ namespace Cohesity.Model
         public bool? EtLogBackup { get; set; }
 
         /// <summary>
+        /// Only for sources in the cloud. A temporary external disk is provisoned in the cloud and mounted on the control node selected during backup / recovery for dump-sweep workflows that need a local disk to dump data. Prereq - non-mount, AGENT_ON_RIGEL.
+        /// </summary>
+        /// <value>Only for sources in the cloud. A temporary external disk is provisoned in the cloud and mounted on the control node selected during backup / recovery for dump-sweep workflows that need a local disk to dump data. Prereq - non-mount, AGENT_ON_RIGEL.</value>
+        [DataMember(Name="externalDisks", EmitDefaultValue=true)]
+        public bool? ExternalDisks { get; set; }
+
+        /// <summary>
         /// Gets or Sets FullBackup
         /// </summary>
         [DataMember(Name="fullBackup", EmitDefaultValue=true)]
@@ -107,10 +135,50 @@ namespace Cohesity.Model
         public bool? MultiObjectRestore { get; set; }
 
         /// <summary>
+        /// Gets or Sets PauseResumeBackup
+        /// </summary>
+        [DataMember(Name="pauseResumeBackup", EmitDefaultValue=true)]
+        public bool? PauseResumeBackup { get; set; }
+
+        /// <summary>
+        /// Triggers a post backup script on all nodes.
+        /// </summary>
+        /// <value>Triggers a post backup script on all nodes.</value>
+        [DataMember(Name="postBackupJobScript", EmitDefaultValue=true)]
+        public bool? PostBackupJobScript { get; set; }
+
+        /// <summary>
+        /// Triggers a post restore script on all nodes.
+        /// </summary>
+        /// <value>Triggers a post restore script on all nodes.</value>
+        [DataMember(Name="postRestoreJobScript", EmitDefaultValue=true)]
+        public bool? PostRestoreJobScript { get; set; }
+
+        /// <summary>
+        /// Make a source call before actual start backup call.
+        /// </summary>
+        /// <value>Make a source call before actual start backup call.</value>
+        [DataMember(Name="preBackupJobScript", EmitDefaultValue=true)]
+        public bool? PreBackupJobScript { get; set; }
+
+        /// <summary>
+        /// Triggers a pre restore script on all nodes.
+        /// </summary>
+        /// <value>Triggers a pre restore script on all nodes.</value>
+        [DataMember(Name="preRestoreJobScript", EmitDefaultValue=true)]
+        public bool? PreRestoreJobScript { get; set; }
+
+        /// <summary>
         /// Gets or Sets ResourceThrottling
         /// </summary>
         [DataMember(Name="resourceThrottling", EmitDefaultValue=true)]
         public bool? ResourceThrottling { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SnapfsCert
+        /// </summary>
+        [DataMember(Name="snapfsCert", EmitDefaultValue=true)]
+        public bool? SnapfsCert { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -169,6 +237,11 @@ namespace Cohesity.Model
                     this.EtLogBackup.Equals(input.EtLogBackup))
                 ) && 
                 (
+                    this.ExternalDisks == input.ExternalDisks ||
+                    (this.ExternalDisks != null &&
+                    this.ExternalDisks.Equals(input.ExternalDisks))
+                ) && 
+                (
                     this.FullBackup == input.FullBackup ||
                     (this.FullBackup != null &&
                     this.FullBackup.Equals(input.FullBackup))
@@ -189,9 +262,39 @@ namespace Cohesity.Model
                     this.MultiObjectRestore.Equals(input.MultiObjectRestore))
                 ) && 
                 (
+                    this.PauseResumeBackup == input.PauseResumeBackup ||
+                    (this.PauseResumeBackup != null &&
+                    this.PauseResumeBackup.Equals(input.PauseResumeBackup))
+                ) && 
+                (
+                    this.PostBackupJobScript == input.PostBackupJobScript ||
+                    (this.PostBackupJobScript != null &&
+                    this.PostBackupJobScript.Equals(input.PostBackupJobScript))
+                ) && 
+                (
+                    this.PostRestoreJobScript == input.PostRestoreJobScript ||
+                    (this.PostRestoreJobScript != null &&
+                    this.PostRestoreJobScript.Equals(input.PostRestoreJobScript))
+                ) && 
+                (
+                    this.PreBackupJobScript == input.PreBackupJobScript ||
+                    (this.PreBackupJobScript != null &&
+                    this.PreBackupJobScript.Equals(input.PreBackupJobScript))
+                ) && 
+                (
+                    this.PreRestoreJobScript == input.PreRestoreJobScript ||
+                    (this.PreRestoreJobScript != null &&
+                    this.PreRestoreJobScript.Equals(input.PreRestoreJobScript))
+                ) && 
+                (
                     this.ResourceThrottling == input.ResourceThrottling ||
                     (this.ResourceThrottling != null &&
                     this.ResourceThrottling.Equals(input.ResourceThrottling))
+                ) && 
+                (
+                    this.SnapfsCert == input.SnapfsCert ||
+                    (this.SnapfsCert != null &&
+                    this.SnapfsCert.Equals(input.SnapfsCert))
                 );
         }
 
@@ -212,6 +315,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EntitySupport.GetHashCode();
                 if (this.EtLogBackup != null)
                     hashCode = hashCode * 59 + this.EtLogBackup.GetHashCode();
+                if (this.ExternalDisks != null)
+                    hashCode = hashCode * 59 + this.ExternalDisks.GetHashCode();
                 if (this.FullBackup != null)
                     hashCode = hashCode * 59 + this.FullBackup.GetHashCode();
                 if (this.IncrBackup != null)
@@ -220,8 +325,20 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LogBackup.GetHashCode();
                 if (this.MultiObjectRestore != null)
                     hashCode = hashCode * 59 + this.MultiObjectRestore.GetHashCode();
+                if (this.PauseResumeBackup != null)
+                    hashCode = hashCode * 59 + this.PauseResumeBackup.GetHashCode();
+                if (this.PostBackupJobScript != null)
+                    hashCode = hashCode * 59 + this.PostBackupJobScript.GetHashCode();
+                if (this.PostRestoreJobScript != null)
+                    hashCode = hashCode * 59 + this.PostRestoreJobScript.GetHashCode();
+                if (this.PreBackupJobScript != null)
+                    hashCode = hashCode * 59 + this.PreBackupJobScript.GetHashCode();
+                if (this.PreRestoreJobScript != null)
+                    hashCode = hashCode * 59 + this.PreRestoreJobScript.GetHashCode();
                 if (this.ResourceThrottling != null)
                     hashCode = hashCode * 59 + this.ResourceThrottling.GetHashCode();
+                if (this.SnapfsCert != null)
+                    hashCode = hashCode * 59 + this.SnapfsCert.GetHashCode();
                 return hashCode;
             }
         }

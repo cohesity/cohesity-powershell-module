@@ -32,10 +32,11 @@ namespace Cohesity.Model
         /// <param name="encryptionConfig">encryptionConfig.</param>
         /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
+        /// <param name="netbackConfig">netbackConfig.</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeConfigs">Specifies the configuration for the nodes in the new cluster. (required).</param>
         /// <param name="trustDomain">Specifies Trust Domain used for Service Identity..</param>
-        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>), string trustDomain = default(string))
+        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), NetBackupConfiguration netbackConfig = default(NetBackupConfiguration), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>), string trustDomain = default(string))
         {
             this.ClusterName = clusterName;
             this.IpPreference = ipPreference;
@@ -55,6 +56,7 @@ namespace Cohesity.Model
             this.EncryptionConfig = encryptionConfig;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
+            this.NetbackConfig = netbackConfig;
             this.TrustDomain = trustDomain;
         }
         
@@ -84,6 +86,12 @@ namespace Cohesity.Model
         /// <value>Specifies the metadata fault tolerance.</value>
         [DataMember(Name="metadataFaultTolerance", EmitDefaultValue=true)]
         public int? MetadataFaultTolerance { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NetbackConfig
+        /// </summary>
+        [DataMember(Name="netbackConfig", EmitDefaultValue=false)]
+        public NetBackupConfiguration NetbackConfig { get; set; }
 
         /// <summary>
         /// Gets or Sets NetworkConfig
@@ -162,6 +170,11 @@ namespace Cohesity.Model
                     this.MetadataFaultTolerance.Equals(input.MetadataFaultTolerance))
                 ) && 
                 (
+                    this.NetbackConfig == input.NetbackConfig ||
+                    (this.NetbackConfig != null &&
+                    this.NetbackConfig.Equals(input.NetbackConfig))
+                ) && 
+                (
                     this.NetworkConfig == input.NetworkConfig ||
                     (this.NetworkConfig != null &&
                     this.NetworkConfig.Equals(input.NetworkConfig))
@@ -196,6 +209,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.MetadataFaultTolerance != null)
                     hashCode = hashCode * 59 + this.MetadataFaultTolerance.GetHashCode();
+                if (this.NetbackConfig != null)
+                    hashCode = hashCode * 59 + this.NetbackConfig.GetHashCode();
                 if (this.NetworkConfig != null)
                     hashCode = hashCode * 59 + this.NetworkConfig.GetHashCode();
                 if (this.NodeConfigs != null)

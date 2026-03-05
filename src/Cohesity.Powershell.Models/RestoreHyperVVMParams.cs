@@ -25,19 +25,25 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="copyRecovery">Whether to perform copy recovery..</param>
         /// <param name="datastoreEntity">datastoreEntity.</param>
+        /// <param name="overwriteExistingVms">If set to true, the existing VMs will be deleted first, and then the VMs will be restored to original location with same uuid..</param>
         /// <param name="powerStateConfig">powerStateConfig.</param>
+        /// <param name="recoverExcludedDisksAsBlankDisks">Whether disks that were excluded during backup should be recovered as blank disks..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="resourceEntity">resourceEntity.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
         /// <param name="useSmbService">Whether to recover via Cohesity SMB service..</param>
         /// <param name="uuidConfig">uuidConfig.</param>
-        public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? useSmbService = default(bool?), UuidConfigProto uuidConfig = default(UuidConfigProto))
+        public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), bool? overwriteExistingVms = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? recoverExcludedDisksAsBlankDisks = default(bool?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? useSmbService = default(bool?), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
             this.CopyRecovery = copyRecovery;
+            this.OverwriteExistingVms = overwriteExistingVms;
+            this.RecoverExcludedDisksAsBlankDisks = recoverExcludedDisksAsBlankDisks;
             this.UseSmbService = useSmbService;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntity = datastoreEntity;
+            this.OverwriteExistingVms = overwriteExistingVms;
             this.PowerStateConfig = powerStateConfig;
+            this.RecoverExcludedDisksAsBlankDisks = recoverExcludedDisksAsBlankDisks;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.ResourceEntity = resourceEntity;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
@@ -59,10 +65,24 @@ namespace Cohesity.Model
         public EntityProto DatastoreEntity { get; set; }
 
         /// <summary>
+        /// If set to true, the existing VMs will be deleted first, and then the VMs will be restored to original location with same uuid.
+        /// </summary>
+        /// <value>If set to true, the existing VMs will be deleted first, and then the VMs will be restored to original location with same uuid.</value>
+        [DataMember(Name="overwriteExistingVms", EmitDefaultValue=true)]
+        public bool? OverwriteExistingVms { get; set; }
+
+        /// <summary>
         /// Gets or Sets PowerStateConfig
         /// </summary>
         [DataMember(Name="powerStateConfig", EmitDefaultValue=false)]
         public PowerStateConfigProto PowerStateConfig { get; set; }
+
+        /// <summary>
+        /// Whether disks that were excluded during backup should be recovered as blank disks.
+        /// </summary>
+        /// <value>Whether disks that were excluded during backup should be recovered as blank disks.</value>
+        [DataMember(Name="recoverExcludedDisksAsBlankDisks", EmitDefaultValue=true)]
+        public bool? RecoverExcludedDisksAsBlankDisks { get; set; }
 
         /// <summary>
         /// Gets or Sets RenameRestoredObjectParam
@@ -142,9 +162,19 @@ namespace Cohesity.Model
                     this.DatastoreEntity.Equals(input.DatastoreEntity))
                 ) && 
                 (
+                    this.OverwriteExistingVms == input.OverwriteExistingVms ||
+                    (this.OverwriteExistingVms != null &&
+                    this.OverwriteExistingVms.Equals(input.OverwriteExistingVms))
+                ) && 
+                (
                     this.PowerStateConfig == input.PowerStateConfig ||
                     (this.PowerStateConfig != null &&
                     this.PowerStateConfig.Equals(input.PowerStateConfig))
+                ) && 
+                (
+                    this.RecoverExcludedDisksAsBlankDisks == input.RecoverExcludedDisksAsBlankDisks ||
+                    (this.RecoverExcludedDisksAsBlankDisks != null &&
+                    this.RecoverExcludedDisksAsBlankDisks.Equals(input.RecoverExcludedDisksAsBlankDisks))
                 ) && 
                 (
                     this.RenameRestoredObjectParam == input.RenameRestoredObjectParam ||
@@ -186,8 +216,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyRecovery.GetHashCode();
                 if (this.DatastoreEntity != null)
                     hashCode = hashCode * 59 + this.DatastoreEntity.GetHashCode();
+                if (this.OverwriteExistingVms != null)
+                    hashCode = hashCode * 59 + this.OverwriteExistingVms.GetHashCode();
                 if (this.PowerStateConfig != null)
                     hashCode = hashCode * 59 + this.PowerStateConfig.GetHashCode();
+                if (this.RecoverExcludedDisksAsBlankDisks != null)
+                    hashCode = hashCode * 59 + this.RecoverExcludedDisksAsBlankDisks.GetHashCode();
                 if (this.RenameRestoredObjectParam != null)
                     hashCode = hashCode * 59 + this.RenameRestoredObjectParam.GetHashCode();
                 if (this.ResourceEntity != null)

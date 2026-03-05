@@ -21,6 +21,33 @@ namespace Cohesity.Model
     public partial class AgentDeploymentStatusResponse :  IEquatable<AgentDeploymentStatusResponse>
     {
         /// <summary>
+        /// Specifies the status of the certificate. CertificateStatus specifies the status of the agent certificate
+        /// </summary>
+        /// <value>Specifies the status of the certificate. CertificateStatus specifies the status of the agent certificate</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum CertificateStatusEnum
+        {
+            /// <summary>
+            /// Enum Active for value: Active
+            /// </summary>
+            [EnumMember(Value = "Active")]
+            Active = 1,
+
+            /// <summary>
+            /// Enum Expired for value: Expired
+            /// </summary>
+            [EnumMember(Value = "Expired")]
+            Expired = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the status of the certificate. CertificateStatus specifies the status of the agent certificate
+        /// </summary>
+        /// <value>Specifies the status of the certificate. CertificateStatus specifies the status of the agent certificate</value>
+        [DataMember(Name="certificateStatus", EmitDefaultValue=true)]
+        public CertificateStatusEnum? CertificateStatus { get; set; }
+        /// <summary>
         /// Specifies the health status of the Cohesity agent. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state.
         /// </summary>
         /// <value>Specifies the health status of the Cohesity agent. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state.</value>
@@ -281,34 +308,80 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AgentDeploymentStatusResponse" /> class.
         /// </summary>
+        /// <param name="agentPort">Specifies the port agent is listening on..</param>
+        /// <param name="certificateExpiryTimeUsecs">Specifies the certificate expiry time for agent..</param>
+        /// <param name="certificateIssuer">Specifies the agent certificate status..</param>
+        /// <param name="certificateStatus">Specifies the status of the certificate. CertificateStatus specifies the status of the agent certificate.</param>
+        /// <param name="cipherType">Specifies cipher type being used by the agent..</param>
         /// <param name="compactVersion">Specifies the compact version of Cohesity agent. For example, 6.0.1..</param>
         /// <param name="healthStatus">Specifies the health status of the Cohesity agent. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state..</param>
         /// <param name="hostIp">Specifies the IP of the host on which the agent is installed..</param>
         /// <param name="hostOsType">Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kSapSybase&#39; indicates the SapSybase database system. &#39;kSapMaxDB&#39; indicates the SapMaxDB database system. &#39;kSapSybaseIQ&#39; indicates the SapSybaseIQ database system. &#39;kDB2&#39; indicates the DB2 database system. &#39;kSapASE&#39; indicates the SapASE database system. &#39;kMariaDB&#39; indicates the MariaDB database system. &#39;kPostgreSQL&#39; indicates the PostgreSQL database system. &#39;kHPUX&#39; indicates the HPUX database system. &#39;kVOS&#39; indicates the VOS database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="lastUpgradeStatus">Specifies the status of the last upgrade attempt. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed. &#39;kScheduled&#39; indicates that the Agent is scheduled for upgrade..</param>
+        /// <param name="sanFields">Specifies the SAN Fields present on the agent cert..</param>
         /// <param name="upgradability">Specifies the upgradability of the agent running on the server. Specifies the upgradability of the agent running on the physical server. &#39;kUpgradable&#39; indicates the Agent can be upgraded to the agent software version on the cluster. &#39;kCurrent&#39; indicates the Agent is running the latest version. &#39;kUnknown&#39; indicates the Agent&#39;s version is not known. &#39;kNonUpgradableInvalidVersion&#39; indicates the Agent&#39;s version is invalid. &#39;kNonUpgradableAgentIsNewer&#39; indicates the Agent&#39;s version is newer than the agent software version the cluster. &#39;kNonUpgradableAgentIsOld&#39; indicates the Agent&#39;s version is too old that does not support upgrades..</param>
         /// <param name="upgradeStatusMessage">Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade..</param>
         /// <param name="version">Specifies the Cohesity software version of the agent. For example: 6.0.1-release-YYYYMMDD_&lt;hash&gt;.</param>
-        public AgentDeploymentStatusResponse(string compactVersion = default(string), HealthStatusEnum? healthStatus = default(HealthStatusEnum?), string hostIp = default(string), HostOsTypeEnum? hostOsType = default(HostOsTypeEnum?), LastUpgradeStatusEnum? lastUpgradeStatus = default(LastUpgradeStatusEnum?), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), string upgradeStatusMessage = default(string), string version = default(string))
+        public AgentDeploymentStatusResponse(int? agentPort = default(int?), long? certificateExpiryTimeUsecs = default(long?), string certificateIssuer = default(string), CertificateStatusEnum? certificateStatus = default(CertificateStatusEnum?), string cipherType = default(string), string compactVersion = default(string), HealthStatusEnum? healthStatus = default(HealthStatusEnum?), string hostIp = default(string), HostOsTypeEnum? hostOsType = default(HostOsTypeEnum?), LastUpgradeStatusEnum? lastUpgradeStatus = default(LastUpgradeStatusEnum?), string sanFields = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), string upgradeStatusMessage = default(string), string version = default(string))
         {
+            this.AgentPort = agentPort;
+            this.CertificateExpiryTimeUsecs = certificateExpiryTimeUsecs;
+            this.CertificateIssuer = certificateIssuer;
+            this.CertificateStatus = certificateStatus;
+            this.CipherType = cipherType;
             this.CompactVersion = compactVersion;
             this.HealthStatus = healthStatus;
             this.HostIp = hostIp;
             this.HostOsType = hostOsType;
             this.LastUpgradeStatus = lastUpgradeStatus;
+            this.SanFields = sanFields;
             this.Upgradability = upgradability;
             this.UpgradeStatusMessage = upgradeStatusMessage;
             this.Version = version;
+            this.AgentPort = agentPort;
+            this.CertificateExpiryTimeUsecs = certificateExpiryTimeUsecs;
+            this.CertificateIssuer = certificateIssuer;
+            this.CertificateStatus = certificateStatus;
+            this.CipherType = cipherType;
             this.CompactVersion = compactVersion;
             this.HealthStatus = healthStatus;
             this.HostIp = hostIp;
             this.HostOsType = hostOsType;
             this.LastUpgradeStatus = lastUpgradeStatus;
+            this.SanFields = sanFields;
             this.Upgradability = upgradability;
             this.UpgradeStatusMessage = upgradeStatusMessage;
             this.Version = version;
         }
         
+        /// <summary>
+        /// Specifies the port agent is listening on.
+        /// </summary>
+        /// <value>Specifies the port agent is listening on.</value>
+        [DataMember(Name="agentPort", EmitDefaultValue=true)]
+        public int? AgentPort { get; set; }
+
+        /// <summary>
+        /// Specifies the certificate expiry time for agent.
+        /// </summary>
+        /// <value>Specifies the certificate expiry time for agent.</value>
+        [DataMember(Name="certificateExpiryTimeUsecs", EmitDefaultValue=true)]
+        public long? CertificateExpiryTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Specifies the agent certificate status.
+        /// </summary>
+        /// <value>Specifies the agent certificate status.</value>
+        [DataMember(Name="certificateIssuer", EmitDefaultValue=true)]
+        public string CertificateIssuer { get; set; }
+
+        /// <summary>
+        /// Specifies cipher type being used by the agent.
+        /// </summary>
+        /// <value>Specifies cipher type being used by the agent.</value>
+        [DataMember(Name="cipherType", EmitDefaultValue=true)]
+        public string CipherType { get; set; }
+
         /// <summary>
         /// Specifies the compact version of Cohesity agent. For example, 6.0.1.
         /// </summary>
@@ -322,6 +395,13 @@ namespace Cohesity.Model
         /// <value>Specifies the IP of the host on which the agent is installed.</value>
         [DataMember(Name="hostIp", EmitDefaultValue=true)]
         public string HostIp { get; set; }
+
+        /// <summary>
+        /// Specifies the SAN Fields present on the agent cert.
+        /// </summary>
+        /// <value>Specifies the SAN Fields present on the agent cert.</value>
+        [DataMember(Name="sanFields", EmitDefaultValue=true)]
+        public string SanFields { get; set; }
 
         /// <summary>
         /// Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade.
@@ -374,6 +454,30 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AgentPort == input.AgentPort ||
+                    (this.AgentPort != null &&
+                    this.AgentPort.Equals(input.AgentPort))
+                ) && 
+                (
+                    this.CertificateExpiryTimeUsecs == input.CertificateExpiryTimeUsecs ||
+                    (this.CertificateExpiryTimeUsecs != null &&
+                    this.CertificateExpiryTimeUsecs.Equals(input.CertificateExpiryTimeUsecs))
+                ) && 
+                (
+                    this.CertificateIssuer == input.CertificateIssuer ||
+                    (this.CertificateIssuer != null &&
+                    this.CertificateIssuer.Equals(input.CertificateIssuer))
+                ) && 
+                (
+                    this.CertificateStatus == input.CertificateStatus ||
+                    this.CertificateStatus.Equals(input.CertificateStatus)
+                ) && 
+                (
+                    this.CipherType == input.CipherType ||
+                    (this.CipherType != null &&
+                    this.CipherType.Equals(input.CipherType))
+                ) && 
+                (
                     this.CompactVersion == input.CompactVersion ||
                     (this.CompactVersion != null &&
                     this.CompactVersion.Equals(input.CompactVersion))
@@ -394,6 +498,11 @@ namespace Cohesity.Model
                 (
                     this.LastUpgradeStatus == input.LastUpgradeStatus ||
                     this.LastUpgradeStatus.Equals(input.LastUpgradeStatus)
+                ) && 
+                (
+                    this.SanFields == input.SanFields ||
+                    (this.SanFields != null &&
+                    this.SanFields.Equals(input.SanFields))
                 ) && 
                 (
                     this.Upgradability == input.Upgradability ||
@@ -420,6 +529,15 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AgentPort != null)
+                    hashCode = hashCode * 59 + this.AgentPort.GetHashCode();
+                if (this.CertificateExpiryTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.CertificateExpiryTimeUsecs.GetHashCode();
+                if (this.CertificateIssuer != null)
+                    hashCode = hashCode * 59 + this.CertificateIssuer.GetHashCode();
+                hashCode = hashCode * 59 + this.CertificateStatus.GetHashCode();
+                if (this.CipherType != null)
+                    hashCode = hashCode * 59 + this.CipherType.GetHashCode();
                 if (this.CompactVersion != null)
                     hashCode = hashCode * 59 + this.CompactVersion.GetHashCode();
                 hashCode = hashCode * 59 + this.HealthStatus.GetHashCode();
@@ -427,6 +545,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HostIp.GetHashCode();
                 hashCode = hashCode * 59 + this.HostOsType.GetHashCode();
                 hashCode = hashCode * 59 + this.LastUpgradeStatus.GetHashCode();
+                if (this.SanFields != null)
+                    hashCode = hashCode * 59 + this.SanFields.GetHashCode();
                 hashCode = hashCode * 59 + this.Upgradability.GetHashCode();
                 if (this.UpgradeStatusMessage != null)
                     hashCode = hashCode * 59 + this.UpgradeStatusMessage.GetHashCode();

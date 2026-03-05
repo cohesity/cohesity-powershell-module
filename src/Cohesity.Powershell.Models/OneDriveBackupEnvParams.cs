@@ -25,12 +25,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="attrFilterPolicy">attrFilterPolicy.</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
+        /// <param name="phlParams">phlParams.</param>
         /// <param name="shouldBackupOnedrive">Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up..</param>
-        public OneDriveBackupEnvParams(AttributeFilterPolicy attrFilterPolicy = default(AttributeFilterPolicy), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupOnedrive = default(bool?))
+        public OneDriveBackupEnvParams(AttributeFilterPolicy attrFilterPolicy = default(AttributeFilterPolicy), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), PreservationHoldLibraryProtectionParams phlParams = default(PreservationHoldLibraryProtectionParams), bool? shouldBackupOnedrive = default(bool?))
         {
             this.ShouldBackupOnedrive = shouldBackupOnedrive;
             this.AttrFilterPolicy = attrFilterPolicy;
             this.FilteringPolicy = filteringPolicy;
+            this.PhlParams = phlParams;
             this.ShouldBackupOnedrive = shouldBackupOnedrive;
         }
         
@@ -45,6 +47,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PhlParams
+        /// </summary>
+        [DataMember(Name="phlParams", EmitDefaultValue=false)]
+        public PreservationHoldLibraryProtectionParams PhlParams { get; set; }
 
         /// <summary>
         /// Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up.
@@ -100,6 +108,11 @@ namespace Cohesity.Model
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
                 ) && 
                 (
+                    this.PhlParams == input.PhlParams ||
+                    (this.PhlParams != null &&
+                    this.PhlParams.Equals(input.PhlParams))
+                ) && 
+                (
                     this.ShouldBackupOnedrive == input.ShouldBackupOnedrive ||
                     (this.ShouldBackupOnedrive != null &&
                     this.ShouldBackupOnedrive.Equals(input.ShouldBackupOnedrive))
@@ -119,6 +132,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttrFilterPolicy.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.PhlParams != null)
+                    hashCode = hashCode * 59 + this.PhlParams.GetHashCode();
                 if (this.ShouldBackupOnedrive != null)
                     hashCode = hashCode * 59 + this.ShouldBackupOnedrive.GetHashCode();
                 return hashCode;

@@ -23,13 +23,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="K8SFilterParamsLabelVec" /> class.
         /// </summary>
+        /// <param name="labelStrVec">Represents a list of all Labels (string &#39;key:value&#39;) that need to be present to create a positive match for the candidate volume to include..</param>
         /// <param name="labelVec">Represents a list of all Labels that need to be present to create a positive match for the candidate volume to include..</param>
-        public K8SFilterParamsLabelVec(List<long> labelVec = default(List<long>))
+        public K8SFilterParamsLabelVec(List<string> labelStrVec = default(List<string>), List<long> labelVec = default(List<long>))
         {
+            this.LabelStrVec = labelStrVec;
             this.LabelVec = labelVec;
+            this.LabelStrVec = labelStrVec;
             this.LabelVec = labelVec;
         }
         
+        /// <summary>
+        /// Represents a list of all Labels (string &#39;key:value&#39;) that need to be present to create a positive match for the candidate volume to include.
+        /// </summary>
+        /// <value>Represents a list of all Labels (string &#39;key:value&#39;) that need to be present to create a positive match for the candidate volume to include.</value>
+        [DataMember(Name="labelStrVec", EmitDefaultValue=true)]
+        public List<string> LabelStrVec { get; set; }
+
         /// <summary>
         /// Represents a list of all Labels that need to be present to create a positive match for the candidate volume to include.
         /// </summary>
@@ -74,6 +84,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.LabelStrVec == input.LabelStrVec ||
+                    this.LabelStrVec != null &&
+                    input.LabelStrVec != null &&
+                    this.LabelStrVec.SequenceEqual(input.LabelStrVec)
+                ) && 
+                (
                     this.LabelVec == input.LabelVec ||
                     this.LabelVec != null &&
                     input.LabelVec != null &&
@@ -90,6 +106,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.LabelStrVec != null)
+                    hashCode = hashCode * 59 + this.LabelStrVec.GetHashCode();
                 if (this.LabelVec != null)
                     hashCode = hashCode * 59 + this.LabelVec.GetHashCode();
                 return hashCode;

@@ -23,12 +23,22 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDBBackupJobParams" /> class.
         /// </summary>
+        /// <param name="backupUserRole">Should the agent backup users and roles in this job..</param>
         /// <param name="mongodbAdditionalInfo">mongodbAdditionalInfo.</param>
-        public MongoDBBackupJobParams(MongoDBAdditionalParams mongodbAdditionalInfo = default(MongoDBAdditionalParams))
+        public MongoDBBackupJobParams(bool? backupUserRole = default(bool?), MongoDBAdditionalParams mongodbAdditionalInfo = default(MongoDBAdditionalParams))
         {
+            this.BackupUserRole = backupUserRole;
+            this.BackupUserRole = backupUserRole;
             this.MongodbAdditionalInfo = mongodbAdditionalInfo;
         }
         
+        /// <summary>
+        /// Should the agent backup users and roles in this job.
+        /// </summary>
+        /// <value>Should the agent backup users and roles in this job.</value>
+        [DataMember(Name="backupUserRole", EmitDefaultValue=true)]
+        public bool? BackupUserRole { get; set; }
+
         /// <summary>
         /// Gets or Sets MongodbAdditionalInfo
         /// </summary>
@@ -72,6 +82,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BackupUserRole == input.BackupUserRole ||
+                    (this.BackupUserRole != null &&
+                    this.BackupUserRole.Equals(input.BackupUserRole))
+                ) && 
+                (
                     this.MongodbAdditionalInfo == input.MongodbAdditionalInfo ||
                     (this.MongodbAdditionalInfo != null &&
                     this.MongodbAdditionalInfo.Equals(input.MongodbAdditionalInfo))
@@ -87,6 +102,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BackupUserRole != null)
+                    hashCode = hashCode * 59 + this.BackupUserRole.GetHashCode();
                 if (this.MongodbAdditionalInfo != null)
                     hashCode = hashCode * 59 + this.MongodbAdditionalInfo.GetHashCode();
                 return hashCode;

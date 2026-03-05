@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="serviceAnnotations">Contains annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public VlanInfo(List<VlanInfoServiceAnnotationsEntry> serviceAnnotations = default(List<VlanInfoServiceAnnotationsEntry>), VlanParams vlanParams = default(VlanParams))
+        public VlanInfo(Dictionary<string, string> serviceAnnotations = default(Dictionary<string, string>), VlanParams vlanParams = default(VlanParams))
         {
             this.ServiceAnnotations = serviceAnnotations;
             this.ServiceAnnotations = serviceAnnotations;
@@ -37,7 +37,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Contains annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer.</value>
         [DataMember(Name="serviceAnnotations", EmitDefaultValue=true)]
-        public List<VlanInfoServiceAnnotationsEntry> ServiceAnnotations { get; set; }
+        public Dictionary<string, string> ServiceAnnotations { get; set; }
 
         /// <summary>
         /// Gets or Sets VlanParams

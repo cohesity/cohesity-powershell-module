@@ -21,9 +21,60 @@ namespace Cohesity.Model
     public partial class KubernetesProtectionSource :  IEquatable<KubernetesProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution.
+        /// Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity
         /// </summary>
-        /// <value>Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution.</value>
+        /// <value>Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum DatamoverUpgradabilityEnum
+        {
+            /// <summary>
+            /// Enum KUpgradable for value: kUpgradable
+            /// </summary>
+            [EnumMember(Value = "kUpgradable")]
+            KUpgradable = 1,
+
+            /// <summary>
+            /// Enum KCurrent for value: kCurrent
+            /// </summary>
+            [EnumMember(Value = "kCurrent")]
+            KCurrent = 2,
+
+            /// <summary>
+            /// Enum KUnknown for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kUnknown")]
+            KUnknown = 3,
+
+            /// <summary>
+            /// Enum KNonUpgradableInvalidVersion for value: kNonUpgradableInvalidVersion
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableInvalidVersion")]
+            KNonUpgradableInvalidVersion = 4,
+
+            /// <summary>
+            /// Enum KNonUpgradableIsNewer for value: kNonUpgradableIsNewer
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableIsNewer")]
+            KNonUpgradableIsNewer = 5,
+
+            /// <summary>
+            /// Enum KNonUpgradableIsOld for value: kNonUpgradableIsOld
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableIsOld")]
+            KNonUpgradableIsOld = 6
+
+        }
+
+        /// <summary>
+        /// Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity
+        /// </summary>
+        /// <value>Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity</value>
+        [DataMember(Name="datamoverUpgradability", EmitDefaultValue=true)]
+        public DatamoverUpgradabilityEnum? DatamoverUpgradability { get; set; }
+        /// <summary>
+        /// Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution. kIKS, kROKS
+        /// </summary>
+        /// <value>Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution. kIKS, kROKS</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DistributionEnum
         {
@@ -72,9 +123,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution.
+        /// Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution. kIKS, kROKS
         /// </summary>
-        /// <value>Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution.</value>
+        /// <value>Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution. kIKS, kROKS</value>
         [DataMember(Name="distribution", EmitDefaultValue=true)]
         public DistributionEnum? Distribution { get; set; }
         /// <summary>
@@ -111,27 +162,86 @@ namespace Cohesity.Model
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
+        /// Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.
+        /// </summary>
+        /// <value>Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum VeleroUpgradabilityEnum
+        {
+            /// <summary>
+            /// Enum KUpgradable for value: kUpgradable
+            /// </summary>
+            [EnumMember(Value = "kUpgradable")]
+            KUpgradable = 1,
+
+            /// <summary>
+            /// Enum KCurrent for value: kCurrent
+            /// </summary>
+            [EnumMember(Value = "kCurrent")]
+            KCurrent = 2,
+
+            /// <summary>
+            /// Enum KUnknown for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kUnknown")]
+            KUnknown = 3,
+
+            /// <summary>
+            /// Enum KNonUpgradableInvalidVersion for value: kNonUpgradableInvalidVersion
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableInvalidVersion")]
+            KNonUpgradableInvalidVersion = 4,
+
+            /// <summary>
+            /// Enum KNonUpgradableIsNewer for value: kNonUpgradableIsNewer
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableIsNewer")]
+            KNonUpgradableIsNewer = 5,
+
+            /// <summary>
+            /// Enum KNonUpgradableIsOld for value: kNonUpgradableIsOld
+            /// </summary>
+            [EnumMember(Value = "kNonUpgradableIsOld")]
+            KNonUpgradableIsOld = 6
+
+        }
+
+        /// <summary>
+        /// Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.
+        /// </summary>
+        /// <value>Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.</value>
+        [DataMember(Name="veleroUpgradability", EmitDefaultValue=true)]
+        public VeleroUpgradabilityEnum? VeleroUpgradability { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="KubernetesProtectionSource" /> class.
         /// </summary>
+        /// <param name="cohesityDataprotectPluginImageLocation">Specifies the location of custom Cohesity DataProtect plugin image in private registry..</param>
         /// <param name="datamoverImageLocation">Specifies the location of Datamover image in private registry..</param>
         /// <param name="datamoverServiceType">Specifies Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported. [default &#x3D; kNodePort]..</param>
         /// <param name="datamoverUpgradability">Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity.</param>
         /// <param name="defaultVlanParams">defaultVlanParams.</param>
         /// <param name="description">Specifies an optional description of the object..</param>
-        /// <param name="distribution">Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution..</param>
+        /// <param name="distribution">Specifies the type of the entity in a Kubernetes environment. Determines the K8s distribution. kIKS, kROKS.</param>
         /// <param name="initContainerImageLocation">Specifies the location of the image for init containers..</param>
         /// <param name="labelAttributes">Specifies the list of label attributes of this source..</param>
         /// <param name="name">Specifies a unique name of the Protection Source..</param>
+        /// <param name="priorityClassName">Specifies the pritority class name during registration..</param>
+        /// <param name="resourceAnnotationList">Specifies resource Annotations information provided during registration..</param>
+        /// <param name="resourceLabelList">Specifies resource labels information provided during registration..</param>
+        /// <param name="sanField">Specifies the SAN field for agent certificate.</param>
         /// <param name="serviceAnnotations">Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer..</param>
+        /// <param name="storageClass">Specifies storage class information of source..</param>
         /// <param name="type">Specifies the type of the entity in a Kubernetes environment. Specifies the type of a Kubernetes Protection Source. &#39;kCluster&#39; indicates a Kubernetes Cluster. &#39;kNamespace&#39; indicates a namespace in a Kubernetes Cluster. &#39;kService&#39; indicates a service running on a Kubernetes Cluster..</param>
         /// <param name="uuid">Specifies the UUID of the object..</param>
         /// <param name="veleroAwsPluginImageLocation">Specifies the location of Velero AWS plugin image in private registry..</param>
         /// <param name="veleroImageLocation">Specifies the location of Velero image in private registry..</param>
+        /// <param name="veleroKubevirtPluginImageLocation">Specifies the location of Velero Kubevirt plugin image in private registry..</param>
         /// <param name="veleroOpenshiftPluginImageLocation">Specifies the location of the image for openshift plugin container..</param>
         /// <param name="veleroUpgradability">Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity..</param>
         /// <param name="vlanInfoVec">Specifies VLAN information provided during registration..</param>
-        public KubernetesProtectionSource(string datamoverImageLocation = default(string), int? datamoverServiceType = default(int?), int? datamoverUpgradability = default(int?), VlanParameters defaultVlanParams = default(VlanParameters), string description = default(string), DistributionEnum? distribution = default(DistributionEnum?), string initContainerImageLocation = default(string), List<KubernetesLabelAttribute> labelAttributes = default(List<KubernetesLabelAttribute>), string name = default(string), List<VlanInfoServiceAnnotationsEntry> serviceAnnotations = default(List<VlanInfoServiceAnnotationsEntry>), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), int? veleroUpgradability = default(int?), List<KubernetesVlanInfo> vlanInfoVec = default(List<KubernetesVlanInfo>))
+        public KubernetesProtectionSource(string cohesityDataprotectPluginImageLocation = default(string), string datamoverImageLocation = default(string), int? datamoverServiceType = default(int?), DatamoverUpgradabilityEnum? datamoverUpgradability = default(DatamoverUpgradabilityEnum?), VlanParameters defaultVlanParams = default(VlanParameters), string description = default(string), DistributionEnum? distribution = default(DistributionEnum?), string initContainerImageLocation = default(string), List<KubernetesLabelAttribute> labelAttributes = default(List<KubernetesLabelAttribute>), string name = default(string), string priorityClassName = default(string), List<K8sLabel> resourceAnnotationList = default(List<K8sLabel>), List<K8sLabel> resourceLabelList = default(List<K8sLabel>), List<string> sanField = default(List<string>), List<VlanInfoServiceAnnotationsEntry> serviceAnnotations = default(List<VlanInfoServiceAnnotationsEntry>), List<KubernetesStorageClassInfo> storageClass = default(List<KubernetesStorageClassInfo>), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string veleroAwsPluginImageLocation = default(string), string veleroImageLocation = default(string), string veleroKubevirtPluginImageLocation = default(string), string veleroOpenshiftPluginImageLocation = default(string), VeleroUpgradabilityEnum? veleroUpgradability = default(VeleroUpgradabilityEnum?), List<KubernetesVlanInfo> vlanInfoVec = default(List<KubernetesVlanInfo>))
         {
+            this.CohesityDataprotectPluginImageLocation = cohesityDataprotectPluginImageLocation;
             this.DatamoverImageLocation = datamoverImageLocation;
             this.DatamoverServiceType = datamoverServiceType;
             this.DatamoverUpgradability = datamoverUpgradability;
@@ -140,14 +250,21 @@ namespace Cohesity.Model
             this.InitContainerImageLocation = initContainerImageLocation;
             this.LabelAttributes = labelAttributes;
             this.Name = name;
+            this.PriorityClassName = priorityClassName;
+            this.ResourceAnnotationList = resourceAnnotationList;
+            this.ResourceLabelList = resourceLabelList;
+            this.SanField = sanField;
             this.ServiceAnnotations = serviceAnnotations;
+            this.StorageClass = storageClass;
             this.Type = type;
             this.Uuid = uuid;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
+            this.VeleroKubevirtPluginImageLocation = veleroKubevirtPluginImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
             this.VeleroUpgradability = veleroUpgradability;
             this.VlanInfoVec = vlanInfoVec;
+            this.CohesityDataprotectPluginImageLocation = cohesityDataprotectPluginImageLocation;
             this.DatamoverImageLocation = datamoverImageLocation;
             this.DatamoverServiceType = datamoverServiceType;
             this.DatamoverUpgradability = datamoverUpgradability;
@@ -157,16 +274,29 @@ namespace Cohesity.Model
             this.InitContainerImageLocation = initContainerImageLocation;
             this.LabelAttributes = labelAttributes;
             this.Name = name;
+            this.PriorityClassName = priorityClassName;
+            this.ResourceAnnotationList = resourceAnnotationList;
+            this.ResourceLabelList = resourceLabelList;
+            this.SanField = sanField;
             this.ServiceAnnotations = serviceAnnotations;
+            this.StorageClass = storageClass;
             this.Type = type;
             this.Uuid = uuid;
             this.VeleroAwsPluginImageLocation = veleroAwsPluginImageLocation;
             this.VeleroImageLocation = veleroImageLocation;
+            this.VeleroKubevirtPluginImageLocation = veleroKubevirtPluginImageLocation;
             this.VeleroOpenshiftPluginImageLocation = veleroOpenshiftPluginImageLocation;
             this.VeleroUpgradability = veleroUpgradability;
             this.VlanInfoVec = vlanInfoVec;
         }
         
+        /// <summary>
+        /// Specifies the location of custom Cohesity DataProtect plugin image in private registry.
+        /// </summary>
+        /// <value>Specifies the location of custom Cohesity DataProtect plugin image in private registry.</value>
+        [DataMember(Name="cohesityDataprotectPluginImageLocation", EmitDefaultValue=true)]
+        public string CohesityDataprotectPluginImageLocation { get; set; }
+
         /// <summary>
         /// Specifies the location of Datamover image in private registry.
         /// </summary>
@@ -180,13 +310,6 @@ namespace Cohesity.Model
         /// <value>Specifies Type of service to be deployed for communication with DataMover pods. Currently, LoadBalancer and NodePort are supported. [default &#x3D; kNodePort].</value>
         [DataMember(Name="datamoverServiceType", EmitDefaultValue=true)]
         public int? DatamoverServiceType { get; set; }
-
-        /// <summary>
-        /// Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity
-        /// </summary>
-        /// <value>Specifies if the deployed Datamover image needs to be upgraded for this kubernetes entity</value>
-        [DataMember(Name="datamoverUpgradability", EmitDefaultValue=true)]
-        public int? DatamoverUpgradability { get; set; }
 
         /// <summary>
         /// Gets or Sets DefaultVlanParams
@@ -223,11 +346,46 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Specifies the pritority class name during registration.
+        /// </summary>
+        /// <value>Specifies the pritority class name during registration.</value>
+        [DataMember(Name="priorityClassName", EmitDefaultValue=true)]
+        public string PriorityClassName { get; set; }
+
+        /// <summary>
+        /// Specifies resource Annotations information provided during registration.
+        /// </summary>
+        /// <value>Specifies resource Annotations information provided during registration.</value>
+        [DataMember(Name="resourceAnnotationList", EmitDefaultValue=true)]
+        public List<K8sLabel> ResourceAnnotationList { get; set; }
+
+        /// <summary>
+        /// Specifies resource labels information provided during registration.
+        /// </summary>
+        /// <value>Specifies resource labels information provided during registration.</value>
+        [DataMember(Name="resourceLabelList", EmitDefaultValue=true)]
+        public List<K8sLabel> ResourceLabelList { get; set; }
+
+        /// <summary>
+        /// Specifies the SAN field for agent certificate
+        /// </summary>
+        /// <value>Specifies the SAN field for agent certificate</value>
+        [DataMember(Name="sanField", EmitDefaultValue=true)]
+        public List<string> SanField { get; set; }
+
+        /// <summary>
         /// Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer.
         /// </summary>
         /// <value>Specifies annotations to be put on services for IP allocation. Applicable only when service is of type LoadBalancer.</value>
         [DataMember(Name="serviceAnnotations", EmitDefaultValue=true)]
         public List<VlanInfoServiceAnnotationsEntry> ServiceAnnotations { get; set; }
+
+        /// <summary>
+        /// Specifies storage class information of source.
+        /// </summary>
+        /// <value>Specifies storage class information of source.</value>
+        [DataMember(Name="storageClass", EmitDefaultValue=true)]
+        public List<KubernetesStorageClassInfo> StorageClass { get; set; }
 
         /// <summary>
         /// Specifies the UUID of the object.
@@ -251,18 +409,18 @@ namespace Cohesity.Model
         public string VeleroImageLocation { get; set; }
 
         /// <summary>
+        /// Specifies the location of Velero Kubevirt plugin image in private registry.
+        /// </summary>
+        /// <value>Specifies the location of Velero Kubevirt plugin image in private registry.</value>
+        [DataMember(Name="veleroKubevirtPluginImageLocation", EmitDefaultValue=true)]
+        public string VeleroKubevirtPluginImageLocation { get; set; }
+
+        /// <summary>
         /// Specifies the location of the image for openshift plugin container.
         /// </summary>
         /// <value>Specifies the location of the image for openshift plugin container.</value>
         [DataMember(Name="veleroOpenshiftPluginImageLocation", EmitDefaultValue=true)]
         public string VeleroOpenshiftPluginImageLocation { get; set; }
-
-        /// <summary>
-        /// Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.
-        /// </summary>
-        /// <value>Specifies if the deployed Velero image needs to be upgraded for this kubernetes entity.</value>
-        [DataMember(Name="veleroUpgradability", EmitDefaultValue=true)]
-        public int? VeleroUpgradability { get; set; }
 
         /// <summary>
         /// Specifies VLAN information provided during registration.
@@ -308,6 +466,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CohesityDataprotectPluginImageLocation == input.CohesityDataprotectPluginImageLocation ||
+                    (this.CohesityDataprotectPluginImageLocation != null &&
+                    this.CohesityDataprotectPluginImageLocation.Equals(input.CohesityDataprotectPluginImageLocation))
+                ) && 
+                (
                     this.DatamoverImageLocation == input.DatamoverImageLocation ||
                     (this.DatamoverImageLocation != null &&
                     this.DatamoverImageLocation.Equals(input.DatamoverImageLocation))
@@ -319,8 +482,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DatamoverUpgradability == input.DatamoverUpgradability ||
-                    (this.DatamoverUpgradability != null &&
-                    this.DatamoverUpgradability.Equals(input.DatamoverUpgradability))
+                    this.DatamoverUpgradability.Equals(input.DatamoverUpgradability)
                 ) && 
                 (
                     this.DefaultVlanParams == input.DefaultVlanParams ||
@@ -353,10 +515,39 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.PriorityClassName == input.PriorityClassName ||
+                    (this.PriorityClassName != null &&
+                    this.PriorityClassName.Equals(input.PriorityClassName))
+                ) && 
+                (
+                    this.ResourceAnnotationList == input.ResourceAnnotationList ||
+                    this.ResourceAnnotationList != null &&
+                    input.ResourceAnnotationList != null &&
+                    this.ResourceAnnotationList.SequenceEqual(input.ResourceAnnotationList)
+                ) && 
+                (
+                    this.ResourceLabelList == input.ResourceLabelList ||
+                    this.ResourceLabelList != null &&
+                    input.ResourceLabelList != null &&
+                    this.ResourceLabelList.SequenceEqual(input.ResourceLabelList)
+                ) && 
+                (
+                    this.SanField == input.SanField ||
+                    this.SanField != null &&
+                    input.SanField != null &&
+                    this.SanField.SequenceEqual(input.SanField)
+                ) && 
+                (
                     this.ServiceAnnotations == input.ServiceAnnotations ||
                     this.ServiceAnnotations != null &&
                     input.ServiceAnnotations != null &&
                     this.ServiceAnnotations.SequenceEqual(input.ServiceAnnotations)
+                ) && 
+                (
+                    this.StorageClass == input.StorageClass ||
+                    this.StorageClass != null &&
+                    input.StorageClass != null &&
+                    this.StorageClass.SequenceEqual(input.StorageClass)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -378,14 +569,18 @@ namespace Cohesity.Model
                     this.VeleroImageLocation.Equals(input.VeleroImageLocation))
                 ) && 
                 (
+                    this.VeleroKubevirtPluginImageLocation == input.VeleroKubevirtPluginImageLocation ||
+                    (this.VeleroKubevirtPluginImageLocation != null &&
+                    this.VeleroKubevirtPluginImageLocation.Equals(input.VeleroKubevirtPluginImageLocation))
+                ) && 
+                (
                     this.VeleroOpenshiftPluginImageLocation == input.VeleroOpenshiftPluginImageLocation ||
                     (this.VeleroOpenshiftPluginImageLocation != null &&
                     this.VeleroOpenshiftPluginImageLocation.Equals(input.VeleroOpenshiftPluginImageLocation))
                 ) && 
                 (
                     this.VeleroUpgradability == input.VeleroUpgradability ||
-                    (this.VeleroUpgradability != null &&
-                    this.VeleroUpgradability.Equals(input.VeleroUpgradability))
+                    this.VeleroUpgradability.Equals(input.VeleroUpgradability)
                 ) && 
                 (
                     this.VlanInfoVec == input.VlanInfoVec ||
@@ -404,12 +599,13 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CohesityDataprotectPluginImageLocation != null)
+                    hashCode = hashCode * 59 + this.CohesityDataprotectPluginImageLocation.GetHashCode();
                 if (this.DatamoverImageLocation != null)
                     hashCode = hashCode * 59 + this.DatamoverImageLocation.GetHashCode();
                 if (this.DatamoverServiceType != null)
                     hashCode = hashCode * 59 + this.DatamoverServiceType.GetHashCode();
-                if (this.DatamoverUpgradability != null)
-                    hashCode = hashCode * 59 + this.DatamoverUpgradability.GetHashCode();
+                hashCode = hashCode * 59 + this.DatamoverUpgradability.GetHashCode();
                 if (this.DefaultVlanParams != null)
                     hashCode = hashCode * 59 + this.DefaultVlanParams.GetHashCode();
                 if (this.Description != null)
@@ -421,8 +617,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LabelAttributes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.PriorityClassName != null)
+                    hashCode = hashCode * 59 + this.PriorityClassName.GetHashCode();
+                if (this.ResourceAnnotationList != null)
+                    hashCode = hashCode * 59 + this.ResourceAnnotationList.GetHashCode();
+                if (this.ResourceLabelList != null)
+                    hashCode = hashCode * 59 + this.ResourceLabelList.GetHashCode();
+                if (this.SanField != null)
+                    hashCode = hashCode * 59 + this.SanField.GetHashCode();
                 if (this.ServiceAnnotations != null)
                     hashCode = hashCode * 59 + this.ServiceAnnotations.GetHashCode();
+                if (this.StorageClass != null)
+                    hashCode = hashCode * 59 + this.StorageClass.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
@@ -430,10 +636,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VeleroAwsPluginImageLocation.GetHashCode();
                 if (this.VeleroImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroImageLocation.GetHashCode();
+                if (this.VeleroKubevirtPluginImageLocation != null)
+                    hashCode = hashCode * 59 + this.VeleroKubevirtPluginImageLocation.GetHashCode();
                 if (this.VeleroOpenshiftPluginImageLocation != null)
                     hashCode = hashCode * 59 + this.VeleroOpenshiftPluginImageLocation.GetHashCode();
-                if (this.VeleroUpgradability != null)
-                    hashCode = hashCode * 59 + this.VeleroUpgradability.GetHashCode();
+                hashCode = hashCode * 59 + this.VeleroUpgradability.GetHashCode();
                 if (this.VlanInfoVec != null)
                     hashCode = hashCode * 59 + this.VlanInfoVec.GetHashCode();
                 return hashCode;

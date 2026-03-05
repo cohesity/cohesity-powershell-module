@@ -25,18 +25,21 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="id">Unique guid for the site in SPO. This is a unqiue identifier that can be used to compare sites..</param>
         /// <param name="serverRelativeurl">Optional ServerRelativeUrl. Not required..</param>
+        /// <param name="siteEntityId">Entity Id of the site..</param>
         /// <param name="title">Optional Title of site for display and logging purpose. Not mandatory..</param>
         /// <param name="url">Full Url of the site. Its of the form https://yourtenant.sharepoint.com/sites/yoursite or https://yourtenant.sharepoint.com/yoursite This parameter is required for all PnP operations..</param>
         /// <param name="webid">Unique guid for the site root web..</param>
-        public SiteIdentity(string id = default(string), string serverRelativeurl = default(string), string title = default(string), string url = default(string), string webid = default(string))
+        public SiteIdentity(string id = default(string), string serverRelativeurl = default(string), long? siteEntityId = default(long?), string title = default(string), string url = default(string), string webid = default(string))
         {
             this.Id = id;
             this.ServerRelativeurl = serverRelativeurl;
+            this.SiteEntityId = siteEntityId;
             this.Title = title;
             this.Url = url;
             this.Webid = webid;
             this.Id = id;
             this.ServerRelativeurl = serverRelativeurl;
+            this.SiteEntityId = siteEntityId;
             this.Title = title;
             this.Url = url;
             this.Webid = webid;
@@ -55,6 +58,13 @@ namespace Cohesity.Model
         /// <value>Optional ServerRelativeUrl. Not required.</value>
         [DataMember(Name="serverRelativeurl", EmitDefaultValue=true)]
         public string ServerRelativeurl { get; set; }
+
+        /// <summary>
+        /// Entity Id of the site.
+        /// </summary>
+        /// <value>Entity Id of the site.</value>
+        [DataMember(Name="siteEntityId", EmitDefaultValue=true)]
+        public long? SiteEntityId { get; set; }
 
         /// <summary>
         /// Optional Title of site for display and logging purpose. Not mandatory.
@@ -124,6 +134,11 @@ namespace Cohesity.Model
                     this.ServerRelativeurl.Equals(input.ServerRelativeurl))
                 ) && 
                 (
+                    this.SiteEntityId == input.SiteEntityId ||
+                    (this.SiteEntityId != null &&
+                    this.SiteEntityId.Equals(input.SiteEntityId))
+                ) && 
+                (
                     this.Title == input.Title ||
                     (this.Title != null &&
                     this.Title.Equals(input.Title))
@@ -153,6 +168,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.ServerRelativeurl != null)
                     hashCode = hashCode * 59 + this.ServerRelativeurl.GetHashCode();
+                if (this.SiteEntityId != null)
+                    hashCode = hashCode * 59 + this.SiteEntityId.GetHashCode();
                 if (this.Title != null)
                     hashCode = hashCode * 59 + this.Title.GetHashCode();
                 if (this.Url != null)

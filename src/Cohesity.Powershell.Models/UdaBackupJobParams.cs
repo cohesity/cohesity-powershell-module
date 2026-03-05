@@ -27,21 +27,27 @@ namespace Cohesity.Model
         /// <param name="concurrency">Max concurrency for the backup job..</param>
         /// <param name="entitySupport">Indicates if backup job was created after source acquired entity support capability..</param>
         /// <param name="etLogBackup">Indicates if backup job was created after source acquired externally triggered log backup capability..</param>
+        /// <param name="externalDiskSizeGb">If using external disks, this parameter will contain the user-requested disk size for the slave to consume when requesting a disk from heimdall..</param>
+        /// <param name="externalDiskSku">If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall..</param>
         /// <param name="fullBackupArgs">Custom arguments for full backup scripts..</param>
         /// <param name="incrementalBackupArgs">Custom arguments for incremental backup scripts..</param>
+        /// <param name="isLogBackupInPolicy">Specifies whether the log backup is configured in backup policy or not..</param>
         /// <param name="logBackupArgs">Custom arguments for log backup scripts..</param>
         /// <param name="mounts">Max number of view mounts per host..</param>
         /// <param name="sourceId">Id of the source to which the objects being protected belong to. This can be removed once entity hierarchy support is added to UDA and protected objects can be specified by their Ids instead of their names..</param>
         /// <param name="udaObjects">List of objects to be backed up..</param>
         /// <param name="udaS3ViewBackupProperties">udaS3ViewBackupProperties.</param>
-        public UdaBackupJobParams(List<UdaBackupJobParamsBackupJobArgumentsMapEntry> backupJobArgumentsMap = default(List<UdaBackupJobParamsBackupJobArgumentsMapEntry>), int? concurrency = default(int?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), string fullBackupArgs = default(string), string incrementalBackupArgs = default(string), string logBackupArgs = default(string), int? mounts = default(int?), long? sourceId = default(long?), List<UdaObjects> udaObjects = default(List<UdaObjects>), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties))
+        public UdaBackupJobParams(Dictionary<string, UdaCustomArgument> backupJobArgumentsMap = default(Dictionary<string, UdaCustomArgument>), int? concurrency = default(int?), bool? entitySupport = default(bool?), bool? etLogBackup = default(bool?), int? externalDiskSizeGb = default(int?), string externalDiskSku = default(string), string fullBackupArgs = default(string), string incrementalBackupArgs = default(string), bool? isLogBackupInPolicy = default(bool?), string logBackupArgs = default(string), int? mounts = default(int?), long? sourceId = default(long?), List<UdaObjects> udaObjects = default(List<UdaObjects>), UdaS3ViewBackupProperties udaS3ViewBackupProperties = default(UdaS3ViewBackupProperties))
         {
             this.BackupJobArgumentsMap = backupJobArgumentsMap;
             this.Concurrency = concurrency;
             this.EntitySupport = entitySupport;
             this.EtLogBackup = etLogBackup;
+            this.ExternalDiskSizeGb = externalDiskSizeGb;
+            this.ExternalDiskSku = externalDiskSku;
             this.FullBackupArgs = fullBackupArgs;
             this.IncrementalBackupArgs = incrementalBackupArgs;
+            this.IsLogBackupInPolicy = isLogBackupInPolicy;
             this.LogBackupArgs = logBackupArgs;
             this.Mounts = mounts;
             this.SourceId = sourceId;
@@ -50,8 +56,11 @@ namespace Cohesity.Model
             this.Concurrency = concurrency;
             this.EntitySupport = entitySupport;
             this.EtLogBackup = etLogBackup;
+            this.ExternalDiskSizeGb = externalDiskSizeGb;
+            this.ExternalDiskSku = externalDiskSku;
             this.FullBackupArgs = fullBackupArgs;
             this.IncrementalBackupArgs = incrementalBackupArgs;
+            this.IsLogBackupInPolicy = isLogBackupInPolicy;
             this.LogBackupArgs = logBackupArgs;
             this.Mounts = mounts;
             this.SourceId = sourceId;
@@ -64,7 +73,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map to store custom arguments which will be provided to the backup job scripts.</value>
         [DataMember(Name="backupJobArgumentsMap", EmitDefaultValue=true)]
-        public List<UdaBackupJobParamsBackupJobArgumentsMapEntry> BackupJobArgumentsMap { get; set; }
+        public Dictionary<string, UdaCustomArgument> BackupJobArgumentsMap { get; set; }
 
         /// <summary>
         /// Max concurrency for the backup job.
@@ -88,6 +97,20 @@ namespace Cohesity.Model
         public bool? EtLogBackup { get; set; }
 
         /// <summary>
+        /// If using external disks, this parameter will contain the user-requested disk size for the slave to consume when requesting a disk from heimdall.
+        /// </summary>
+        /// <value>If using external disks, this parameter will contain the user-requested disk size for the slave to consume when requesting a disk from heimdall.</value>
+        [DataMember(Name="externalDiskSizeGb", EmitDefaultValue=true)]
+        public int? ExternalDiskSizeGb { get; set; }
+
+        /// <summary>
+        /// If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall.
+        /// </summary>
+        /// <value>If using external disks, this parameter will contain the user-requested disk SKU for the slave to consume when requesting a disk from heimdall.</value>
+        [DataMember(Name="externalDiskSku", EmitDefaultValue=true)]
+        public string ExternalDiskSku { get; set; }
+
+        /// <summary>
         /// Custom arguments for full backup scripts.
         /// </summary>
         /// <value>Custom arguments for full backup scripts.</value>
@@ -100,6 +123,13 @@ namespace Cohesity.Model
         /// <value>Custom arguments for incremental backup scripts.</value>
         [DataMember(Name="incrementalBackupArgs", EmitDefaultValue=true)]
         public string IncrementalBackupArgs { get; set; }
+
+        /// <summary>
+        /// Specifies whether the log backup is configured in backup policy or not.
+        /// </summary>
+        /// <value>Specifies whether the log backup is configured in backup policy or not.</value>
+        [DataMember(Name="isLogBackupInPolicy", EmitDefaultValue=true)]
+        public bool? IsLogBackupInPolicy { get; set; }
 
         /// <summary>
         /// Custom arguments for log backup scripts.
@@ -193,6 +223,16 @@ namespace Cohesity.Model
                     this.EtLogBackup.Equals(input.EtLogBackup))
                 ) && 
                 (
+                    this.ExternalDiskSizeGb == input.ExternalDiskSizeGb ||
+                    (this.ExternalDiskSizeGb != null &&
+                    this.ExternalDiskSizeGb.Equals(input.ExternalDiskSizeGb))
+                ) && 
+                (
+                    this.ExternalDiskSku == input.ExternalDiskSku ||
+                    (this.ExternalDiskSku != null &&
+                    this.ExternalDiskSku.Equals(input.ExternalDiskSku))
+                ) && 
+                (
                     this.FullBackupArgs == input.FullBackupArgs ||
                     (this.FullBackupArgs != null &&
                     this.FullBackupArgs.Equals(input.FullBackupArgs))
@@ -201,6 +241,11 @@ namespace Cohesity.Model
                     this.IncrementalBackupArgs == input.IncrementalBackupArgs ||
                     (this.IncrementalBackupArgs != null &&
                     this.IncrementalBackupArgs.Equals(input.IncrementalBackupArgs))
+                ) && 
+                (
+                    this.IsLogBackupInPolicy == input.IsLogBackupInPolicy ||
+                    (this.IsLogBackupInPolicy != null &&
+                    this.IsLogBackupInPolicy.Equals(input.IsLogBackupInPolicy))
                 ) && 
                 (
                     this.LogBackupArgs == input.LogBackupArgs ||
@@ -247,10 +292,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EntitySupport.GetHashCode();
                 if (this.EtLogBackup != null)
                     hashCode = hashCode * 59 + this.EtLogBackup.GetHashCode();
+                if (this.ExternalDiskSizeGb != null)
+                    hashCode = hashCode * 59 + this.ExternalDiskSizeGb.GetHashCode();
+                if (this.ExternalDiskSku != null)
+                    hashCode = hashCode * 59 + this.ExternalDiskSku.GetHashCode();
                 if (this.FullBackupArgs != null)
                     hashCode = hashCode * 59 + this.FullBackupArgs.GetHashCode();
                 if (this.IncrementalBackupArgs != null)
                     hashCode = hashCode * 59 + this.IncrementalBackupArgs.GetHashCode();
+                if (this.IsLogBackupInPolicy != null)
+                    hashCode = hashCode * 59 + this.IsLogBackupInPolicy.GetHashCode();
                 if (this.LogBackupArgs != null)
                     hashCode = hashCode * 59 + this.LogBackupArgs.GetHashCode();
                 if (this.Mounts != null)

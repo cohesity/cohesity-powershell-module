@@ -24,21 +24,33 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ObjectMeta" /> class.
         /// </summary>
         /// <param name="annotations">Annotations added to the object..</param>
+        /// <param name="creationTimestamp">Timestamp representing the server time when this object was created..</param>
+        /// <param name="deletionTimestamp">Time at which this resource will be deleted. This field is set when the graceful deletion of the resource is started..</param>
+        /// <param name="generation">The generation of the CRD.</param>
         /// <param name="labels">A set of key-value pairs, capturing the labels of a k8s object..</param>
         /// <param name="name">Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated..</param>
         /// <param name="_namespace">Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \&quot;default\&quot; namespace, but \&quot;default\&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty..</param>
+        /// <param name="resourceVersion">The resource version for the CRD.</param>
         /// <param name="uid">UUID of the object queried..</param>
-        public ObjectMeta(List<ObjectMetaAnnotationsEntry> annotations = default(List<ObjectMetaAnnotationsEntry>), List<ObjectMetaLabelsEntry> labels = default(List<ObjectMetaLabelsEntry>), string name = default(string), string _namespace = default(string), string uid = default(string))
+        public ObjectMeta(Dictionary<string, string> annotations = default(Dictionary<string, string>), string creationTimestamp = default(string), string deletionTimestamp = default(string), int? generation = default(int?), Dictionary<string, string> labels = default(Dictionary<string, string>), string name = default(string), string _namespace = default(string), string resourceVersion = default(string), string uid = default(string))
         {
             this.Annotations = annotations;
+            this.CreationTimestamp = creationTimestamp;
+            this.DeletionTimestamp = deletionTimestamp;
+            this.Generation = generation;
             this.Labels = labels;
             this.Name = name;
             this.Namespace = _namespace;
+            this.ResourceVersion = resourceVersion;
             this.Uid = uid;
             this.Annotations = annotations;
+            this.CreationTimestamp = creationTimestamp;
+            this.DeletionTimestamp = deletionTimestamp;
+            this.Generation = generation;
             this.Labels = labels;
             this.Name = name;
             this.Namespace = _namespace;
+            this.ResourceVersion = resourceVersion;
             this.Uid = uid;
         }
         
@@ -47,14 +59,35 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Annotations added to the object.</value>
         [DataMember(Name="annotations", EmitDefaultValue=true)]
-        public List<ObjectMetaAnnotationsEntry> Annotations { get; set; }
+        public Dictionary<string, string> Annotations { get; set; }
+
+        /// <summary>
+        /// Timestamp representing the server time when this object was created.
+        /// </summary>
+        /// <value>Timestamp representing the server time when this object was created.</value>
+        [DataMember(Name="creationTimestamp", EmitDefaultValue=true)]
+        public string CreationTimestamp { get; set; }
+
+        /// <summary>
+        /// Time at which this resource will be deleted. This field is set when the graceful deletion of the resource is started.
+        /// </summary>
+        /// <value>Time at which this resource will be deleted. This field is set when the graceful deletion of the resource is started.</value>
+        [DataMember(Name="deletionTimestamp", EmitDefaultValue=true)]
+        public string DeletionTimestamp { get; set; }
+
+        /// <summary>
+        /// The generation of the CRD
+        /// </summary>
+        /// <value>The generation of the CRD</value>
+        [DataMember(Name="generation", EmitDefaultValue=true)]
+        public int? Generation { get; set; }
 
         /// <summary>
         /// A set of key-value pairs, capturing the labels of a k8s object.
         /// </summary>
         /// <value>A set of key-value pairs, capturing the labels of a k8s object.</value>
         [DataMember(Name="labels", EmitDefaultValue=true)]
-        public List<ObjectMetaLabelsEntry> Labels { get; set; }
+        public Dictionary<string, string> Labels { get; set; }
 
         /// <summary>
         /// Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated.
@@ -69,6 +102,13 @@ namespace Cohesity.Model
         /// <value>Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \&quot;default\&quot; namespace, but \&quot;default\&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.</value>
         [DataMember(Name="namespace", EmitDefaultValue=true)]
         public string Namespace { get; set; }
+
+        /// <summary>
+        /// The resource version for the CRD
+        /// </summary>
+        /// <value>The resource version for the CRD</value>
+        [DataMember(Name="resourceVersion", EmitDefaultValue=true)]
+        public string ResourceVersion { get; set; }
 
         /// <summary>
         /// UUID of the object queried.
@@ -120,6 +160,21 @@ namespace Cohesity.Model
                     this.Annotations.SequenceEqual(input.Annotations)
                 ) && 
                 (
+                    this.CreationTimestamp == input.CreationTimestamp ||
+                    (this.CreationTimestamp != null &&
+                    this.CreationTimestamp.Equals(input.CreationTimestamp))
+                ) && 
+                (
+                    this.DeletionTimestamp == input.DeletionTimestamp ||
+                    (this.DeletionTimestamp != null &&
+                    this.DeletionTimestamp.Equals(input.DeletionTimestamp))
+                ) && 
+                (
+                    this.Generation == input.Generation ||
+                    (this.Generation != null &&
+                    this.Generation.Equals(input.Generation))
+                ) && 
+                (
                     this.Labels == input.Labels ||
                     this.Labels != null &&
                     input.Labels != null &&
@@ -134,6 +189,11 @@ namespace Cohesity.Model
                     this.Namespace == input.Namespace ||
                     (this.Namespace != null &&
                     this.Namespace.Equals(input.Namespace))
+                ) && 
+                (
+                    this.ResourceVersion == input.ResourceVersion ||
+                    (this.ResourceVersion != null &&
+                    this.ResourceVersion.Equals(input.ResourceVersion))
                 ) && 
                 (
                     this.Uid == input.Uid ||
@@ -153,12 +213,20 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Annotations != null)
                     hashCode = hashCode * 59 + this.Annotations.GetHashCode();
+                if (this.CreationTimestamp != null)
+                    hashCode = hashCode * 59 + this.CreationTimestamp.GetHashCode();
+                if (this.DeletionTimestamp != null)
+                    hashCode = hashCode * 59 + this.DeletionTimestamp.GetHashCode();
+                if (this.Generation != null)
+                    hashCode = hashCode * 59 + this.Generation.GetHashCode();
                 if (this.Labels != null)
                     hashCode = hashCode * 59 + this.Labels.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Namespace != null)
                     hashCode = hashCode * 59 + this.Namespace.GetHashCode();
+                if (this.ResourceVersion != null)
+                    hashCode = hashCode * 59 + this.ResourceVersion.GetHashCode();
                 if (this.Uid != null)
                     hashCode = hashCode * 59 + this.Uid.GetHashCode();
                 return hashCode;

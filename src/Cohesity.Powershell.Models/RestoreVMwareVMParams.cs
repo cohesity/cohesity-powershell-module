@@ -29,6 +29,7 @@ namespace Cohesity.Model
         /// <param name="copyRecovery">Whether to perform copy recovery instead of instant recovery..</param>
         /// <param name="datastoreEntityVec">Datastore entities if the restore is to alternate location..</param>
         /// <param name="diskProvisionType">This specifies vmware virtual disk provisioning policies.</param>
+        /// <param name="hostEntity">hostEntity.</param>
         /// <param name="isOnPremDeploy">This will be true if this is on prem deploy task. attempt_differential_restore should also be set to true in case of doing on prem deploy..</param>
         /// <param name="orgVdcNetworkName">Specifies the name of the org VDC network to be used for the recovery. This is applicable for recovery to a VCD..</param>
         /// <param name="orgVdcNetworkVcdUuid">Specifies the VCD UUID of the org VDC network to be used for the recovery. This is applicable for recovery to a VCD..</param>
@@ -36,12 +37,14 @@ namespace Cohesity.Model
         /// <param name="powerOffAndRenameExistingVm">This option is only potentially populated in the case that there are no rename parameters specified for a recovery. Note that this option is mutually exclusive with overwrite_existing_vm..</param>
         /// <param name="preserveCustomAttributesDuringClone">Whether to preserve custom attributes for the clone op..</param>
         /// <param name="preserveTagsDuringClone">Whether to preserve tags for the clone op..</param>
+        /// <param name="recoverExcludedDiskAsBlankDisk">Indicates whether to recover the user excluded disk as blank disk..</param>
+        /// <param name="recoverIndependentDiskAsBlankDisk">Indicates whether to recover the independent disk as blank disk..</param>
         /// <param name="resourcePoolEntity">resourcePoolEntity.</param>
         /// <param name="storageProfileName">This is only populated for VCD restore to alternate location. It contains the name of the destination storage profile..</param>
         /// <param name="storageProfileVcdUuid">This is only populated for VCD restore to alternate location. It contains the vcd uuid of the destination storage profile..</param>
         /// <param name="targetDatastoreFolder">targetDatastoreFolder.</param>
         /// <param name="targetVmFolder">targetVmFolder.</param>
-        public RestoreVMwareVMParams(bool? allowNbdsslTransportFallback = default(bool?), bool? attemptDifferentialRestore = default(bool?), string catalogUuid = default(string), bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), int? diskProvisionType = default(int?), bool? isOnPremDeploy = default(bool?), string orgVdcNetworkName = default(string), string orgVdcNetworkVcdUuid = default(string), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
+        public RestoreVMwareVMParams(bool? allowNbdsslTransportFallback = default(bool?), bool? attemptDifferentialRestore = default(bool?), string catalogUuid = default(string), bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), int? diskProvisionType = default(int?), EntityProto hostEntity = default(EntityProto), bool? isOnPremDeploy = default(bool?), string orgVdcNetworkName = default(string), string orgVdcNetworkVcdUuid = default(string), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), bool? recoverExcludedDiskAsBlankDisk = default(bool?), bool? recoverIndependentDiskAsBlankDisk = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
         {
             this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
@@ -56,6 +59,8 @@ namespace Cohesity.Model
             this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.RecoverExcludedDiskAsBlankDisk = recoverExcludedDiskAsBlankDisk;
+            this.RecoverIndependentDiskAsBlankDisk = recoverIndependentDiskAsBlankDisk;
             this.StorageProfileName = storageProfileName;
             this.StorageProfileVcdUuid = storageProfileVcdUuid;
             this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
@@ -64,6 +69,7 @@ namespace Cohesity.Model
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntityVec = datastoreEntityVec;
             this.DiskProvisionType = diskProvisionType;
+            this.HostEntity = hostEntity;
             this.IsOnPremDeploy = isOnPremDeploy;
             this.OrgVdcNetworkName = orgVdcNetworkName;
             this.OrgVdcNetworkVcdUuid = orgVdcNetworkVcdUuid;
@@ -71,6 +77,8 @@ namespace Cohesity.Model
             this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.RecoverExcludedDiskAsBlankDisk = recoverExcludedDiskAsBlankDisk;
+            this.RecoverIndependentDiskAsBlankDisk = recoverIndependentDiskAsBlankDisk;
             this.ResourcePoolEntity = resourcePoolEntity;
             this.StorageProfileName = storageProfileName;
             this.StorageProfileVcdUuid = storageProfileVcdUuid;
@@ -121,6 +129,12 @@ namespace Cohesity.Model
         public int? DiskProvisionType { get; set; }
 
         /// <summary>
+        /// Gets or Sets HostEntity
+        /// </summary>
+        [DataMember(Name="hostEntity", EmitDefaultValue=false)]
+        public EntityProto HostEntity { get; set; }
+
+        /// <summary>
         /// This will be true if this is on prem deploy task. attempt_differential_restore should also be set to true in case of doing on prem deploy.
         /// </summary>
         /// <value>This will be true if this is on prem deploy task. attempt_differential_restore should also be set to true in case of doing on prem deploy.</value>
@@ -168,6 +182,20 @@ namespace Cohesity.Model
         /// <value>Whether to preserve tags for the clone op.</value>
         [DataMember(Name="preserveTagsDuringClone", EmitDefaultValue=true)]
         public bool? PreserveTagsDuringClone { get; set; }
+
+        /// <summary>
+        /// Indicates whether to recover the user excluded disk as blank disk.
+        /// </summary>
+        /// <value>Indicates whether to recover the user excluded disk as blank disk.</value>
+        [DataMember(Name="recoverExcludedDiskAsBlankDisk", EmitDefaultValue=true)]
+        public bool? RecoverExcludedDiskAsBlankDisk { get; set; }
+
+        /// <summary>
+        /// Indicates whether to recover the independent disk as blank disk.
+        /// </summary>
+        /// <value>Indicates whether to recover the independent disk as blank disk.</value>
+        [DataMember(Name="recoverIndependentDiskAsBlankDisk", EmitDefaultValue=true)]
+        public bool? RecoverIndependentDiskAsBlankDisk { get; set; }
 
         /// <summary>
         /// Gets or Sets ResourcePoolEntity
@@ -269,6 +297,11 @@ namespace Cohesity.Model
                     this.DiskProvisionType.Equals(input.DiskProvisionType))
                 ) && 
                 (
+                    this.HostEntity == input.HostEntity ||
+                    (this.HostEntity != null &&
+                    this.HostEntity.Equals(input.HostEntity))
+                ) && 
+                (
                     this.IsOnPremDeploy == input.IsOnPremDeploy ||
                     (this.IsOnPremDeploy != null &&
                     this.IsOnPremDeploy.Equals(input.IsOnPremDeploy))
@@ -302,6 +335,16 @@ namespace Cohesity.Model
                     this.PreserveTagsDuringClone == input.PreserveTagsDuringClone ||
                     (this.PreserveTagsDuringClone != null &&
                     this.PreserveTagsDuringClone.Equals(input.PreserveTagsDuringClone))
+                ) && 
+                (
+                    this.RecoverExcludedDiskAsBlankDisk == input.RecoverExcludedDiskAsBlankDisk ||
+                    (this.RecoverExcludedDiskAsBlankDisk != null &&
+                    this.RecoverExcludedDiskAsBlankDisk.Equals(input.RecoverExcludedDiskAsBlankDisk))
+                ) && 
+                (
+                    this.RecoverIndependentDiskAsBlankDisk == input.RecoverIndependentDiskAsBlankDisk ||
+                    (this.RecoverIndependentDiskAsBlankDisk != null &&
+                    this.RecoverIndependentDiskAsBlankDisk.Equals(input.RecoverIndependentDiskAsBlankDisk))
                 ) && 
                 (
                     this.ResourcePoolEntity == input.ResourcePoolEntity ||
@@ -351,6 +394,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatastoreEntityVec.GetHashCode();
                 if (this.DiskProvisionType != null)
                     hashCode = hashCode * 59 + this.DiskProvisionType.GetHashCode();
+                if (this.HostEntity != null)
+                    hashCode = hashCode * 59 + this.HostEntity.GetHashCode();
                 if (this.IsOnPremDeploy != null)
                     hashCode = hashCode * 59 + this.IsOnPremDeploy.GetHashCode();
                 if (this.OrgVdcNetworkName != null)
@@ -365,6 +410,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
                 if (this.PreserveTagsDuringClone != null)
                     hashCode = hashCode * 59 + this.PreserveTagsDuringClone.GetHashCode();
+                if (this.RecoverExcludedDiskAsBlankDisk != null)
+                    hashCode = hashCode * 59 + this.RecoverExcludedDiskAsBlankDisk.GetHashCode();
+                if (this.RecoverIndependentDiskAsBlankDisk != null)
+                    hashCode = hashCode * 59 + this.RecoverIndependentDiskAsBlankDisk.GetHashCode();
                 if (this.ResourcePoolEntity != null)
                     hashCode = hashCode * 59 + this.ResourcePoolEntity.GetHashCode();
                 if (this.StorageProfileName != null)

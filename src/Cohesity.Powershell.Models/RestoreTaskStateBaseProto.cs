@@ -28,6 +28,8 @@ namespace Cohesity.Model
         /// <param name="error">error.</param>
         /// <param name="isInternal">Whether the restore task is internal. This is currently used by standby restore tasks..</param>
         /// <param name="name">The name of the restore task..</param>
+        /// <param name="numGranularObjectsRestoredSuccessfully">Total number of objects that were successfully restored. The remaining objects were either skipped or had some error in restore operation..</param>
+        /// <param name="numGranularObjectsToRestore">Total number of objects which were requested to be restored..</param>
         /// <param name="parentSourceConnectionParams">parentSourceConnectionParams.</param>
         /// <param name="preprocessingError">preprocessingError.</param>
         /// <param name="publicStatus">Iris-facing task state. This field is stamped during the export..</param>
@@ -37,7 +39,7 @@ namespace Cohesity.Model
         /// <param name="scheduledGandalfSessionId">scheduledGandalfSessionId.</param>
         /// <param name="startTimeUsecs">The start time for this restore task..</param>
         /// <param name="status">Status of the restore task..</param>
-        /// <param name="taskId">A unique id for this task within the cluster..</param>
+        /// <param name="taskId">A unique id for this task within the cluster.  Reason for ignoring in tenant migration checks is that on the destination cluster the restore task id will be regenerated. So, the task id of a restore task on the source and destination cluster will not remain the same..</param>
         /// <param name="taskUid">taskUid.</param>
         /// <param name="totalLogicalSizeBytes">Logical size of this restore task. This is the amount of data that needs to be transferred to restore the entity..</param>
         /// <param name="totalPhysicalSizeBytes">Physical size of this restore task. This is the amount of data that was actually transferred to restore the entity..</param>
@@ -46,12 +48,14 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="userMessages">Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error..</param>
         /// <param name="warnings">The warnings encountered by this task (if any) during its execution..</param>
-        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? isInternal = default(bool?), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), ErrorProto preprocessingError = default(ErrorProto), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), UniversalIdProto taskUid = default(UniversalIdProto), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? isInternal = default(bool?), string name = default(string), long? numGranularObjectsRestoredSuccessfully = default(long?), long? numGranularObjectsToRestore = default(long?), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), ErrorProto preprocessingError = default(ErrorProto), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), UniversalIdProto taskUid = default(UniversalIdProto), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
             this.IsInternal = isInternal;
             this.Name = name;
+            this.NumGranularObjectsRestoredSuccessfully = numGranularObjectsRestoredSuccessfully;
+            this.NumGranularObjectsToRestore = numGranularObjectsToRestore;
             this.PublicStatus = publicStatus;
             this.RefreshStatus = refreshStatus;
             this.ScheduledConstituentId = scheduledConstituentId;
@@ -70,6 +74,8 @@ namespace Cohesity.Model
             this.Error = error;
             this.IsInternal = isInternal;
             this.Name = name;
+            this.NumGranularObjectsRestoredSuccessfully = numGranularObjectsRestoredSuccessfully;
+            this.NumGranularObjectsToRestore = numGranularObjectsToRestore;
             this.ParentSourceConnectionParams = parentSourceConnectionParams;
             this.PreprocessingError = preprocessingError;
             this.PublicStatus = publicStatus;
@@ -123,6 +129,20 @@ namespace Cohesity.Model
         /// <value>The name of the restore task.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Total number of objects that were successfully restored. The remaining objects were either skipped or had some error in restore operation.
+        /// </summary>
+        /// <value>Total number of objects that were successfully restored. The remaining objects were either skipped or had some error in restore operation.</value>
+        [DataMember(Name="numGranularObjectsRestoredSuccessfully", EmitDefaultValue=true)]
+        public long? NumGranularObjectsRestoredSuccessfully { get; set; }
+
+        /// <summary>
+        /// Total number of objects which were requested to be restored.
+        /// </summary>
+        /// <value>Total number of objects which were requested to be restored.</value>
+        [DataMember(Name="numGranularObjectsToRestore", EmitDefaultValue=true)]
+        public long? NumGranularObjectsToRestore { get; set; }
 
         /// <summary>
         /// Gets or Sets ParentSourceConnectionParams
@@ -184,9 +204,9 @@ namespace Cohesity.Model
         public int? Status { get; set; }
 
         /// <summary>
-        /// A unique id for this task within the cluster.
+        /// A unique id for this task within the cluster.  Reason for ignoring in tenant migration checks is that on the destination cluster the restore task id will be regenerated. So, the task id of a restore task on the source and destination cluster will not remain the same.
         /// </summary>
-        /// <value>A unique id for this task within the cluster.</value>
+        /// <value>A unique id for this task within the cluster.  Reason for ignoring in tenant migration checks is that on the destination cluster the restore task id will be regenerated. So, the task id of a restore task on the source and destination cluster will not remain the same.</value>
         [DataMember(Name="taskId", EmitDefaultValue=true)]
         public long? TaskId { get; set; }
 
@@ -306,6 +326,16 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.NumGranularObjectsRestoredSuccessfully == input.NumGranularObjectsRestoredSuccessfully ||
+                    (this.NumGranularObjectsRestoredSuccessfully != null &&
+                    this.NumGranularObjectsRestoredSuccessfully.Equals(input.NumGranularObjectsRestoredSuccessfully))
+                ) && 
+                (
+                    this.NumGranularObjectsToRestore == input.NumGranularObjectsToRestore ||
+                    (this.NumGranularObjectsToRestore != null &&
+                    this.NumGranularObjectsToRestore.Equals(input.NumGranularObjectsToRestore))
+                ) && 
+                (
                     this.ParentSourceConnectionParams == input.ParentSourceConnectionParams ||
                     (this.ParentSourceConnectionParams != null &&
                     this.ParentSourceConnectionParams.Equals(input.ParentSourceConnectionParams))
@@ -418,6 +448,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsInternal.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NumGranularObjectsRestoredSuccessfully != null)
+                    hashCode = hashCode * 59 + this.NumGranularObjectsRestoredSuccessfully.GetHashCode();
+                if (this.NumGranularObjectsToRestore != null)
+                    hashCode = hashCode * 59 + this.NumGranularObjectsToRestore.GetHashCode();
                 if (this.ParentSourceConnectionParams != null)
                     hashCode = hashCode * 59 + this.ParentSourceConnectionParams.GetHashCode();
                 if (this.PreprocessingError != null)

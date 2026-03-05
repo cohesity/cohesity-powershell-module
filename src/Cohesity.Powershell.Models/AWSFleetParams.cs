@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="networkParams">networkParams.</param>
         /// <param name="networkParamsMap">Map for a region to network params, as network params can be defined per region. Only set when kCustom fleet subnet type is being used..</param>
         /// <param name="networkParamsVec">Network information for the fleet. This will be only set when fleet_subnet_type is kCustom..</param>
-        public AWSFleetParams(int? fleetSubnetType = default(int?), List<AWSFleetParamsTag> fleetTagVec = default(List<AWSFleetParamsTag>), AWSFleetParamsNetworkParams networkParams = default(AWSFleetParamsNetworkParams), List<AWSFleetParamsNetworkParamsMapEntry> networkParamsMap = default(List<AWSFleetParamsNetworkParamsMapEntry>), List<AWSFleetParamsNetworkParams> networkParamsVec = default(List<AWSFleetParamsNetworkParams>))
+        public AWSFleetParams(int? fleetSubnetType = default(int?), List<AWSFleetParamsTag> fleetTagVec = default(List<AWSFleetParamsTag>), AWSFleetParamsNetworkParams networkParams = default(AWSFleetParamsNetworkParams), Dictionary<string, AWSFleetParamsNetworkParams> networkParamsMap = default(Dictionary<string, AWSFleetParamsNetworkParams>), List<AWSFleetParamsNetworkParams> networkParamsVec = default(List<AWSFleetParamsNetworkParams>))
         {
             this.FleetSubnetType = fleetSubnetType;
             this.FleetTagVec = fleetTagVec;
@@ -66,7 +66,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Map for a region to network params, as network params can be defined per region. Only set when kCustom fleet subnet type is being used.</value>
         [DataMember(Name="networkParamsMap", EmitDefaultValue=true)]
-        public List<AWSFleetParamsNetworkParamsMapEntry> NetworkParamsMap { get; set; }
+        public Dictionary<string, AWSFleetParamsNetworkParams> NetworkParamsMap { get; set; }
 
         /// <summary>
         /// Network information for the fleet. This will be only set when fleet_subnet_type is kCustom.

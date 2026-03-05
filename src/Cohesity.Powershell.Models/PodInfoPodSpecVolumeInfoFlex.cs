@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="options">options.</param>
         /// <param name="readOnly">readOnly.</param>
         /// <param name="secretRef">secretRef.</param>
-        public PodInfoPodSpecVolumeInfoFlex(string driver = default(string), string fsType = default(string), List<PodInfoPodSpecVolumeInfoFlexOptionsEntry> options = default(List<PodInfoPodSpecVolumeInfoFlexOptionsEntry>), bool? readOnly = default(bool?), ObjectReference secretRef = default(ObjectReference))
+        public PodInfoPodSpecVolumeInfoFlex(string driver = default(string), string fsType = default(string), Dictionary<string, string> options = default(Dictionary<string, string>), bool? readOnly = default(bool?), ObjectReference secretRef = default(ObjectReference))
         {
             this.Driver = driver;
             this.FsType = fsType;
@@ -57,7 +57,7 @@ namespace Cohesity.Model
         /// Gets or Sets Options
         /// </summary>
         [DataMember(Name="options", EmitDefaultValue=true)]
-        public List<PodInfoPodSpecVolumeInfoFlexOptionsEntry> Options { get; set; }
+        public Dictionary<string, string> Options { get; set; }
 
         /// <summary>
         /// Gets or Sets ReadOnly

@@ -23,21 +23,29 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UdaRecoverParams" /> class.
         /// </summary>
+        /// <param name="adapterMetadata">adapterMetadata.</param>
         /// <param name="logViewName">If the restore has logs to be replayed, &#39;log_view_name&#39; contains the name of log backup view to be mounted on the host..</param>
         /// <param name="restoreObjects">restoreObjects.</param>
         /// <param name="throttlingPolicy">throttlingPolicy.</param>
         /// <param name="viewBoxId">The view box where log backed up data has been saved..</param>
-        public UdaRecoverParams(string logViewName = default(string), List<UdaRestoreObject> restoreObjects = default(List<UdaRestoreObject>), ThrottlingPolicy throttlingPolicy = default(ThrottlingPolicy), long? viewBoxId = default(long?))
+        public UdaRecoverParams(AdapterMetadata adapterMetadata = default(AdapterMetadata), string logViewName = default(string), List<UdaRestoreObject> restoreObjects = default(List<UdaRestoreObject>), ThrottlingPolicy throttlingPolicy = default(ThrottlingPolicy), long? viewBoxId = default(long?))
         {
             this.LogViewName = logViewName;
             this.RestoreObjects = restoreObjects;
             this.ViewBoxId = viewBoxId;
+            this.AdapterMetadata = adapterMetadata;
             this.LogViewName = logViewName;
             this.RestoreObjects = restoreObjects;
             this.ThrottlingPolicy = throttlingPolicy;
             this.ViewBoxId = viewBoxId;
         }
         
+        /// <summary>
+        /// Gets or Sets AdapterMetadata
+        /// </summary>
+        [DataMember(Name="adapterMetadata", EmitDefaultValue=false)]
+        public AdapterMetadata AdapterMetadata { get; set; }
+
         /// <summary>
         /// If the restore has logs to be replayed, &#39;log_view_name&#39; contains the name of log backup view to be mounted on the host.
         /// </summary>
@@ -101,6 +109,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdapterMetadata == input.AdapterMetadata ||
+                    (this.AdapterMetadata != null &&
+                    this.AdapterMetadata.Equals(input.AdapterMetadata))
+                ) && 
+                (
                     this.LogViewName == input.LogViewName ||
                     (this.LogViewName != null &&
                     this.LogViewName.Equals(input.LogViewName))
@@ -132,6 +145,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdapterMetadata != null)
+                    hashCode = hashCode * 59 + this.AdapterMetadata.GetHashCode();
                 if (this.LogViewName != null)
                     hashCode = hashCode * 59 + this.LogViewName.GetHashCode();
                 if (this.RestoreObjects != null)

@@ -71,20 +71,26 @@ namespace Cohesity.Model
         /// <param name="archivalTarget">archivalTarget.</param>
         /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
+        /// <param name="daysToKeepLog">Specifies the number of days to retain log run if Log Schedule exists on the external target..</param>
         /// <param name="holdForLegalPurpose">Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role..</param>
         /// <param name="replicationTarget">replicationTarget.</param>
         /// <param name="type">Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform..</param>
-        public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), long? daysToKeep = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
+        /// <param name="updateRetentionReason">The reason why this update is needed.</param>
+        public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?), string updateRetentionReason = default(string))
         {
             this.DaysToKeep = daysToKeep;
+            this.DaysToKeepLog = daysToKeepLog;
             this.HoldForLegalPurpose = holdForLegalPurpose;
             this.Type = type;
+            this.UpdateRetentionReason = updateRetentionReason;
             this.ArchivalTarget = archivalTarget;
             this.CloudReplicationTarget = cloudReplicationTarget;
             this.DaysToKeep = daysToKeep;
+            this.DaysToKeepLog = daysToKeepLog;
             this.HoldForLegalPurpose = holdForLegalPurpose;
             this.ReplicationTarget = replicationTarget;
             this.Type = type;
+            this.UpdateRetentionReason = updateRetentionReason;
         }
         
         /// <summary>
@@ -107,6 +113,13 @@ namespace Cohesity.Model
         public long? DaysToKeep { get; set; }
 
         /// <summary>
+        /// Specifies the number of days to retain log run if Log Schedule exists on the external target.
+        /// </summary>
+        /// <value>Specifies the number of days to retain log run if Log Schedule exists on the external target.</value>
+        [DataMember(Name="daysToKeepLog", EmitDefaultValue=true)]
+        public long? DaysToKeepLog { get; set; }
+
+        /// <summary>
         /// Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role.
         /// </summary>
         /// <value>Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role.</value>
@@ -118,6 +131,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="replicationTarget", EmitDefaultValue=false)]
         public ReplicationTargetSettings ReplicationTarget { get; set; }
+
+        /// <summary>
+        /// The reason why this update is needed
+        /// </summary>
+        /// <value>The reason why this update is needed</value>
+        [DataMember(Name="updateRetentionReason", EmitDefaultValue=true)]
+        public string UpdateRetentionReason { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -171,6 +191,11 @@ namespace Cohesity.Model
                     this.DaysToKeep.Equals(input.DaysToKeep))
                 ) && 
                 (
+                    this.DaysToKeepLog == input.DaysToKeepLog ||
+                    (this.DaysToKeepLog != null &&
+                    this.DaysToKeepLog.Equals(input.DaysToKeepLog))
+                ) && 
+                (
                     this.HoldForLegalPurpose == input.HoldForLegalPurpose ||
                     (this.HoldForLegalPurpose != null &&
                     this.HoldForLegalPurpose.Equals(input.HoldForLegalPurpose))
@@ -183,6 +208,11 @@ namespace Cohesity.Model
                 (
                     this.Type == input.Type ||
                     this.Type.Equals(input.Type)
+                ) && 
+                (
+                    this.UpdateRetentionReason == input.UpdateRetentionReason ||
+                    (this.UpdateRetentionReason != null &&
+                    this.UpdateRetentionReason.Equals(input.UpdateRetentionReason))
                 );
         }
 
@@ -201,11 +231,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudReplicationTarget.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
+                if (this.DaysToKeepLog != null)
+                    hashCode = hashCode * 59 + this.DaysToKeepLog.GetHashCode();
                 if (this.HoldForLegalPurpose != null)
                     hashCode = hashCode * 59 + this.HoldForLegalPurpose.GetHashCode();
                 if (this.ReplicationTarget != null)
                     hashCode = hashCode * 59 + this.ReplicationTarget.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UpdateRetentionReason != null)
+                    hashCode = hashCode * 59 + this.UpdateRetentionReason.GetHashCode();
                 return hashCode;
             }
         }

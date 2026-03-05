@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BackupJobProto" /> class.
         /// </summary>
         /// <param name="abortInExclusionWindow">NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window)..</param>
+        /// <param name="additionalBackupJobParamsDontUseWithoutUtilityFunc">Backup job params defined for generic adapter. 7.2.2 used tag 101 for this. We renumbered this to 107 at a later time.  This field must be used only through provided utility functions to handle backwards incompatibility issues due to the re-numbering..</param>
         /// <param name="alertingPolicy">alertingPolicy.</param>
         /// <param name="allArchivalSnapshotsExpired">If job deletion status is kDeleteJobAndBackups and this field is set to true, then it  implies that expiration requests for all archival snapshots of this job (if any) have been acknowledged by Icebox. NOTE: This field may remain false for some period of time even if is_deleted field is set to true for the job..</param>
         /// <param name="allInternalReplicationViewsDeleted">Indicates that all the internal replication views have been deleted..</param>
@@ -34,6 +35,7 @@ namespace Cohesity.Model
         /// <param name="cloudPostSnapshotScript">cloudPostSnapshotScript.</param>
         /// <param name="cloudPreBackupScript">cloudPreBackupScript.</param>
         /// <param name="configVec">Common Backup Configuration Parameters.</param>
+        /// <param name="continueOnError">Indicates whether the backup should be failed on encountering an error. Currently used for physical file based backups..</param>
         /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
         /// <param name="createRemoteView">If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name. NOTE: From 6.6 onwards, remote view is always created for view backups if policy has replication. Hence, this bool is only used for Remote Adapter jobs (kPuppeteer)..</param>
         /// <param name="dataTransferInfo">dataTransferInfo.</param>
@@ -70,6 +72,7 @@ namespace Cohesity.Model
         /// <param name="lastModificationTimeUsecs">Time when this job description was last updated..</param>
         /// <param name="lastPauseModificationTimeUsecs">Time when the job was last paused or unpaused..</param>
         /// <param name="lastPauseReason">Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable..</param>
+        /// <param name="lastPausedByUsername">The user who paused this protection group..</param>
         /// <param name="lastStartTimeModificationTimeUsecs">Time when this job description was last updated..</param>
         /// <param name="lastUpdatedUsername">The user who modified the job most recently..</param>
         /// <param name="leverageNutanixSnapshots">This is set to true by the user if nutanix snapshot is requested This is applicable in case if the vcenter in question is registered as a management server on a prism endpoint. This flag will be ignored at the backend if it is not feasible to leverage nutanix snapshot..</param>
@@ -84,6 +87,7 @@ namespace Cohesity.Model
         /// <param name="objectBackupSpecUid">objectBackupSpecUid.</param>
         /// <param name="parentSource">parentSource.</param>
         /// <param name="pauseInBlackoutWindow">This field determines whether a backup run should be paused when it hits a blackout window (assuming that it was started earlier when it was not in an blackout window). The backup run will get resumed when the blackout period ends..</param>
+        /// <param name="pausedNote">Paused note provided by user containing the reasoning for pausing future runs if any..</param>
         /// <param name="performBrickBasedDedup">Whether or not to perform source side dedup..</param>
         /// <param name="performSourceSideDedup">Whether or not to perform source side dedup..</param>
         /// <param name="policyAppliedTimeMsecs">Epoch time in milliseconds when the policy was last applied to this job. This field will be used to determine whether a policy has changed after it was applied to a particular job..</param>
@@ -99,6 +103,7 @@ namespace Cohesity.Model
         /// <param name="remoteViewName">A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot. NOTE: From 6.6 onwards, we support protecting multiple views within a protection group, &#39;remote_view_params&#39; is the new field which captures this information for view backups, &#39;remote_view_name&#39; here is now only used for Remote Adapter jobs (kPuppeteer)..</param>
         /// <param name="remoteViewParams">remoteViewParams.</param>
         /// <param name="requiredFeatureVec">The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here..</param>
+        /// <param name="reservedField101">Go protobuf doesn&#39;t support unknown fields. So, we declare a bytes field in-lieu of marking reserved..</param>
         /// <param name="skipRigelForBackup">Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only..</param>
         /// <param name="skipTenantValidations">If set to true, skips tenant related validations. Default is false..</param>
         /// <param name="slaTimeMins">If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount..</param>
@@ -113,17 +118,20 @@ namespace Cohesity.Model
         /// <param name="timezone">Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code..</param>
         /// <param name="truncateLogs">Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment..</param>
         /// <param name="type">The type of environment this backup job corresponds to..</param>
+        /// <param name="useViewModuleDontUseWithoutUtilityFunc">This field must be used only through the utility functions in magneto/base/utils.h due to protobuf incompatibility issues between 7.1.2/7.2.2 timeframe (ENG-541211).  In 7.1.2, this field did not exist. In 7.2.2, this field was using tag 100.  We renumbered this to 105 at a later time. But we need to provide backwards compatibility with existing 7.2.2 clusters that have this field set. The getter utility function checks for tag 100 if tag 105 is not present..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box to which data will be written..</param>
-        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), bool? allArchivalSnapshotsExpired = default(bool?), bool? allInternalReplicationViewsDeleted = default(bool?), bool? allowParallelRuns = default(bool?), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), CloudBackupJobPreOrPostScript cloudPostBackupScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPostSnapshotScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPreBackupScript = default(CloudBackupJobPreOrPostScript), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), List<ErrorProto> ignorableErrorsInErrorDb = default(List<ErrorProto>), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isCdpSyncReplicationEnabled = default(bool?), bool? isCloudArchiveDirect = default(bool?), bool? isContinuousSnapshottingEnabled = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isInternal = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), List<BackupJobProtoIsSourcePausedMapEntry> isSourcePausedMap = default(List<BackupJobProtoIsSourcePausedMapEntry>), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), long? lastStartTimeModificationTimeUsecs = default(long?), string lastUpdatedUsername = default(string), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), long? logBackupSlaTimeMins = default(long?), int? maxAllowedSourceSnapshots = default(int?), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), UniversalIdProto objectBackupSpecUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), bool? pauseInBlackoutWindow = default(bool?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript postSnapshotScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), BackupJobProtoRemoteViewParams remoteViewParams = default(BackupJobProtoRemoteViewParams), List<string> requiredFeatureVec = default(List<string>), bool? skipRigelForBackup = default(bool?), bool? skipTenantValidations = default(bool?), long? slaTimeMins = default(long?), SourceFilters sourceFilters = default(SourceFilters), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), List<StandbyResource> standbyResourceVec = default(List<StandbyResource>), Time startTime = default(Time), bool? storageArraySnapshot = default(bool?), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), List<CancellationTimeout> taskTimeoutVec = default(List<CancellationTimeout>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), List<int> additionalBackupJobParamsDontUseWithoutUtilityFunc = default(List<int>), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), bool? allArchivalSnapshotsExpired = default(bool?), bool? allInternalReplicationViewsDeleted = default(bool?), bool? allowParallelRuns = default(bool?), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), CloudBackupJobPreOrPostScript cloudPostBackupScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPostSnapshotScript = default(CloudBackupJobPreOrPostScript), CloudBackupJobPreOrPostScript cloudPreBackupScript = default(CloudBackupJobPreOrPostScript), List<ConfigurationParams> configVec = default(List<ConfigurationParams>), bool? continueOnError = default(bool?), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), List<ErrorProto> ignorableErrorsInErrorDb = default(List<ErrorProto>), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isCdpSyncReplicationEnabled = default(bool?), bool? isCloudArchiveDirect = default(bool?), bool? isContinuousSnapshottingEnabled = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isInternal = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), Object isSourcePausedMap = default(Object), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastPausedByUsername = default(string), long? lastStartTimeModificationTimeUsecs = default(long?), string lastUpdatedUsername = default(string), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), long? logBackupSlaTimeMins = default(long?), int? maxAllowedSourceSnapshots = default(int?), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), UniversalIdProto objectBackupSpecUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), bool? pauseInBlackoutWindow = default(bool?), string pausedNote = default(string), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript postSnapshotScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), BackupJobProtoRemoteViewParams remoteViewParams = default(BackupJobProtoRemoteViewParams), List<string> requiredFeatureVec = default(List<string>), List<int> reservedField101 = default(List<int>), bool? skipRigelForBackup = default(bool?), bool? skipTenantValidations = default(bool?), long? slaTimeMins = default(long?), SourceFilters sourceFilters = default(SourceFilters), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), List<StandbyResource> standbyResourceVec = default(List<StandbyResource>), Time startTime = default(Time), bool? storageArraySnapshot = default(bool?), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), List<CancellationTimeout> taskTimeoutVec = default(List<CancellationTimeout>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), bool? useViewModuleDontUseWithoutUtilityFunc = default(bool?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AbortInExclusionWindow = abortInExclusionWindow;
+            this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc = additionalBackupJobParamsDontUseWithoutUtilityFunc;
             this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
             this.AllInternalReplicationViewsDeleted = allInternalReplicationViewsDeleted;
             this.AllowParallelRuns = allowParallelRuns;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
             this.ConfigVec = configVec;
+            this.ContinueOnError = continueOnError;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
             this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
@@ -151,6 +159,7 @@ namespace Cohesity.Model
             this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
+            this.LastPausedByUsername = lastPausedByUsername;
             this.LastStartTimeModificationTimeUsecs = lastStartTimeModificationTimeUsecs;
             this.LastUpdatedUsername = lastUpdatedUsername;
             this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
@@ -162,6 +171,7 @@ namespace Cohesity.Model
             this.Name = name;
             this.NumSnapshotsToKeepOnPrimary = numSnapshotsToKeepOnPrimary;
             this.PauseInBlackoutWindow = pauseInBlackoutWindow;
+            this.PausedNote = pausedNote;
             this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
@@ -172,6 +182,7 @@ namespace Cohesity.Model
             this.RemoteJobUids = remoteJobUids;
             this.RemoteViewName = remoteViewName;
             this.RequiredFeatureVec = requiredFeatureVec;
+            this.ReservedField101 = reservedField101;
             this.SkipRigelForBackup = skipRigelForBackup;
             this.SkipTenantValidations = skipTenantValidations;
             this.SlaTimeMins = slaTimeMins;
@@ -183,8 +194,10 @@ namespace Cohesity.Model
             this.Timezone = timezone;
             this.TruncateLogs = truncateLogs;
             this.Type = type;
+            this.UseViewModuleDontUseWithoutUtilityFunc = useViewModuleDontUseWithoutUtilityFunc;
             this.ViewBoxId = viewBoxId;
             this.AbortInExclusionWindow = abortInExclusionWindow;
+            this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc = additionalBackupJobParamsDontUseWithoutUtilityFunc;
             this.AlertingPolicy = alertingPolicy;
             this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
             this.AllInternalReplicationViewsDeleted = allInternalReplicationViewsDeleted;
@@ -195,6 +208,7 @@ namespace Cohesity.Model
             this.CloudPostSnapshotScript = cloudPostSnapshotScript;
             this.CloudPreBackupScript = cloudPreBackupScript;
             this.ConfigVec = configVec;
+            this.ContinueOnError = continueOnError;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
             this.DataTransferInfo = dataTransferInfo;
@@ -231,6 +245,7 @@ namespace Cohesity.Model
             this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
+            this.LastPausedByUsername = lastPausedByUsername;
             this.LastStartTimeModificationTimeUsecs = lastStartTimeModificationTimeUsecs;
             this.LastUpdatedUsername = lastUpdatedUsername;
             this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
@@ -245,6 +260,7 @@ namespace Cohesity.Model
             this.ObjectBackupSpecUid = objectBackupSpecUid;
             this.ParentSource = parentSource;
             this.PauseInBlackoutWindow = pauseInBlackoutWindow;
+            this.PausedNote = pausedNote;
             this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
@@ -260,6 +276,7 @@ namespace Cohesity.Model
             this.RemoteViewName = remoteViewName;
             this.RemoteViewParams = remoteViewParams;
             this.RequiredFeatureVec = requiredFeatureVec;
+            this.ReservedField101 = reservedField101;
             this.SkipRigelForBackup = skipRigelForBackup;
             this.SkipTenantValidations = skipTenantValidations;
             this.SlaTimeMins = slaTimeMins;
@@ -274,6 +291,7 @@ namespace Cohesity.Model
             this.Timezone = timezone;
             this.TruncateLogs = truncateLogs;
             this.Type = type;
+            this.UseViewModuleDontUseWithoutUtilityFunc = useViewModuleDontUseWithoutUtilityFunc;
             this.UserInfo = userInfo;
             this.ViewBoxId = viewBoxId;
         }
@@ -284,6 +302,13 @@ namespace Cohesity.Model
         /// <value>NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).</value>
         [DataMember(Name="abortInExclusionWindow", EmitDefaultValue=true)]
         public bool? AbortInExclusionWindow { get; set; }
+
+        /// <summary>
+        /// Backup job params defined for generic adapter. 7.2.2 used tag 101 for this. We renumbered this to 107 at a later time.  This field must be used only through provided utility functions to handle backwards incompatibility issues due to the re-numbering.
+        /// </summary>
+        /// <value>Backup job params defined for generic adapter. 7.2.2 used tag 101 for this. We renumbered this to 107 at a later time.  This field must be used only through provided utility functions to handle backwards incompatibility issues due to the re-numbering.</value>
+        [DataMember(Name="additionalBackupJobParamsDontUseWithoutUtilityFunc", EmitDefaultValue=true)]
+        public List<int> AdditionalBackupJobParamsDontUseWithoutUtilityFunc { get; set; }
 
         /// <summary>
         /// Gets or Sets AlertingPolicy
@@ -350,6 +375,13 @@ namespace Cohesity.Model
         /// <value>Common Backup Configuration Parameters</value>
         [DataMember(Name="configVec", EmitDefaultValue=true)]
         public List<ConfigurationParams> ConfigVec { get; set; }
+
+        /// <summary>
+        /// Indicates whether the backup should be failed on encountering an error. Currently used for physical file based backups.
+        /// </summary>
+        /// <value>Indicates whether the backup should be failed on encountering an error. Currently used for physical file based backups.</value>
+        [DataMember(Name="continueOnError", EmitDefaultValue=true)]
+        public bool? ContinueOnError { get; set; }
 
         /// <summary>
         /// Whether to continue backing up on quiesce failure.
@@ -545,7 +577,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>A map from entity id of the source to whether the source backup is paused.</value>
         [DataMember(Name="isSourcePausedMap", EmitDefaultValue=true)]
-        public List<BackupJobProtoIsSourcePausedMapEntry> IsSourcePausedMap { get; set; }
+        public Object IsSourcePausedMap { get; set; }
 
         /// <summary>
         /// Time when this job was first created.
@@ -593,6 +625,13 @@ namespace Cohesity.Model
         /// <value>Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable.</value>
         [DataMember(Name="lastPauseReason", EmitDefaultValue=true)]
         public int? LastPauseReason { get; set; }
+
+        /// <summary>
+        /// The user who paused this protection group.
+        /// </summary>
+        /// <value>The user who paused this protection group.</value>
+        [DataMember(Name="lastPausedByUsername", EmitDefaultValue=true)]
+        public string LastPausedByUsername { get; set; }
 
         /// <summary>
         /// Time when this job description was last updated.
@@ -688,6 +727,13 @@ namespace Cohesity.Model
         /// <value>This field determines whether a backup run should be paused when it hits a blackout window (assuming that it was started earlier when it was not in an blackout window). The backup run will get resumed when the blackout period ends.</value>
         [DataMember(Name="pauseInBlackoutWindow", EmitDefaultValue=true)]
         public bool? PauseInBlackoutWindow { get; set; }
+
+        /// <summary>
+        /// Paused note provided by user containing the reasoning for pausing future runs if any.
+        /// </summary>
+        /// <value>Paused note provided by user containing the reasoning for pausing future runs if any.</value>
+        [DataMember(Name="pausedNote", EmitDefaultValue=true)]
+        public string PausedNote { get; set; }
 
         /// <summary>
         /// Whether or not to perform source side dedup.
@@ -790,6 +836,13 @@ namespace Cohesity.Model
         public List<string> RequiredFeatureVec { get; set; }
 
         /// <summary>
+        /// Go protobuf doesn&#39;t support unknown fields. So, we declare a bytes field in-lieu of marking reserved.
+        /// </summary>
+        /// <value>Go protobuf doesn&#39;t support unknown fields. So, we declare a bytes field in-lieu of marking reserved.</value>
+        [DataMember(Name="reservedField_101", EmitDefaultValue=true)]
+        public List<int> ReservedField101 { get; set; }
+
+        /// <summary>
         /// Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only.
         /// </summary>
         /// <value>Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only.</value>
@@ -885,6 +938,13 @@ namespace Cohesity.Model
         public int? Type { get; set; }
 
         /// <summary>
+        /// This field must be used only through the utility functions in magneto/base/utils.h due to protobuf incompatibility issues between 7.1.2/7.2.2 timeframe (ENG-541211).  In 7.1.2, this field did not exist. In 7.2.2, this field was using tag 100.  We renumbered this to 105 at a later time. But we need to provide backwards compatibility with existing 7.2.2 clusters that have this field set. The getter utility function checks for tag 100 if tag 105 is not present.
+        /// </summary>
+        /// <value>This field must be used only through the utility functions in magneto/base/utils.h due to protobuf incompatibility issues between 7.1.2/7.2.2 timeframe (ENG-541211).  In 7.1.2, this field did not exist. In 7.2.2, this field was using tag 100.  We renumbered this to 105 at a later time. But we need to provide backwards compatibility with existing 7.2.2 clusters that have this field set. The getter utility function checks for tag 100 if tag 105 is not present.</value>
+        [DataMember(Name="useViewModuleDontUseWithoutUtilityFunc", EmitDefaultValue=true)]
+        public bool? UseViewModuleDontUseWithoutUtilityFunc { get; set; }
+
+        /// <summary>
         /// Gets or Sets UserInfo
         /// </summary>
         [DataMember(Name="userInfo", EmitDefaultValue=false)]
@@ -939,6 +999,12 @@ namespace Cohesity.Model
                     this.AbortInExclusionWindow.Equals(input.AbortInExclusionWindow))
                 ) && 
                 (
+                    this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc == input.AdditionalBackupJobParamsDontUseWithoutUtilityFunc ||
+                    this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc != null &&
+                    input.AdditionalBackupJobParamsDontUseWithoutUtilityFunc != null &&
+                    this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc.SequenceEqual(input.AdditionalBackupJobParamsDontUseWithoutUtilityFunc)
+                ) && 
+                (
                     this.AlertingPolicy == input.AlertingPolicy ||
                     (this.AlertingPolicy != null &&
                     this.AlertingPolicy.Equals(input.AlertingPolicy))
@@ -989,6 +1055,11 @@ namespace Cohesity.Model
                     this.ConfigVec != null &&
                     input.ConfigVec != null &&
                     this.ConfigVec.SequenceEqual(input.ConfigVec)
+                ) && 
+                (
+                    this.ContinueOnError == input.ContinueOnError ||
+                    (this.ContinueOnError != null &&
+                    this.ContinueOnError.Equals(input.ContinueOnError))
                 ) && 
                 (
                     this.ContinueOnQuiesceFailure == input.ContinueOnQuiesceFailure ||
@@ -1137,9 +1208,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.IsSourcePausedMap == input.IsSourcePausedMap ||
-                    this.IsSourcePausedMap != null &&
-                    input.IsSourcePausedMap != null &&
-                    this.IsSourcePausedMap.SequenceEqual(input.IsSourcePausedMap)
+                    (this.IsSourcePausedMap != null &&
+                    this.IsSourcePausedMap.Equals(input.IsSourcePausedMap))
                 ) && 
                 (
                     this.JobCreationTimeUsecs == input.JobCreationTimeUsecs ||
@@ -1175,6 +1245,11 @@ namespace Cohesity.Model
                     this.LastPauseReason == input.LastPauseReason ||
                     (this.LastPauseReason != null &&
                     this.LastPauseReason.Equals(input.LastPauseReason))
+                ) && 
+                (
+                    this.LastPausedByUsername == input.LastPausedByUsername ||
+                    (this.LastPausedByUsername != null &&
+                    this.LastPausedByUsername.Equals(input.LastPausedByUsername))
                 ) && 
                 (
                     this.LastStartTimeModificationTimeUsecs == input.LastStartTimeModificationTimeUsecs ||
@@ -1245,6 +1320,11 @@ namespace Cohesity.Model
                     this.PauseInBlackoutWindow == input.PauseInBlackoutWindow ||
                     (this.PauseInBlackoutWindow != null &&
                     this.PauseInBlackoutWindow.Equals(input.PauseInBlackoutWindow))
+                ) && 
+                (
+                    this.PausedNote == input.PausedNote ||
+                    (this.PausedNote != null &&
+                    this.PausedNote.Equals(input.PausedNote))
                 ) && 
                 (
                     this.PerformBrickBasedDedup == input.PerformBrickBasedDedup ||
@@ -1324,6 +1404,12 @@ namespace Cohesity.Model
                     this.RequiredFeatureVec.SequenceEqual(input.RequiredFeatureVec)
                 ) && 
                 (
+                    this.ReservedField101 == input.ReservedField101 ||
+                    this.ReservedField101 != null &&
+                    input.ReservedField101 != null &&
+                    this.ReservedField101.SequenceEqual(input.ReservedField101)
+                ) && 
+                (
                     this.SkipRigelForBackup == input.SkipRigelForBackup ||
                     (this.SkipRigelForBackup != null &&
                     this.SkipRigelForBackup.Equals(input.SkipRigelForBackup))
@@ -1398,6 +1484,11 @@ namespace Cohesity.Model
                     this.Type.Equals(input.Type))
                 ) && 
                 (
+                    this.UseViewModuleDontUseWithoutUtilityFunc == input.UseViewModuleDontUseWithoutUtilityFunc ||
+                    (this.UseViewModuleDontUseWithoutUtilityFunc != null &&
+                    this.UseViewModuleDontUseWithoutUtilityFunc.Equals(input.UseViewModuleDontUseWithoutUtilityFunc))
+                ) && 
+                (
                     this.UserInfo == input.UserInfo ||
                     (this.UserInfo != null &&
                     this.UserInfo.Equals(input.UserInfo))
@@ -1420,6 +1511,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AbortInExclusionWindow != null)
                     hashCode = hashCode * 59 + this.AbortInExclusionWindow.GetHashCode();
+                if (this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc != null)
+                    hashCode = hashCode * 59 + this.AdditionalBackupJobParamsDontUseWithoutUtilityFunc.GetHashCode();
                 if (this.AlertingPolicy != null)
                     hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
                 if (this.AllArchivalSnapshotsExpired != null)
@@ -1440,6 +1533,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudPreBackupScript.GetHashCode();
                 if (this.ConfigVec != null)
                     hashCode = hashCode * 59 + this.ConfigVec.GetHashCode();
+                if (this.ContinueOnError != null)
+                    hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
                 if (this.ContinueOnQuiesceFailure != null)
                     hashCode = hashCode * 59 + this.ContinueOnQuiesceFailure.GetHashCode();
                 if (this.CreateRemoteView != null)
@@ -1512,6 +1607,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LastPauseModificationTimeUsecs.GetHashCode();
                 if (this.LastPauseReason != null)
                     hashCode = hashCode * 59 + this.LastPauseReason.GetHashCode();
+                if (this.LastPausedByUsername != null)
+                    hashCode = hashCode * 59 + this.LastPausedByUsername.GetHashCode();
                 if (this.LastStartTimeModificationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.LastStartTimeModificationTimeUsecs.GetHashCode();
                 if (this.LastUpdatedUsername != null)
@@ -1540,6 +1637,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
                 if (this.PauseInBlackoutWindow != null)
                     hashCode = hashCode * 59 + this.PauseInBlackoutWindow.GetHashCode();
+                if (this.PausedNote != null)
+                    hashCode = hashCode * 59 + this.PausedNote.GetHashCode();
                 if (this.PerformBrickBasedDedup != null)
                     hashCode = hashCode * 59 + this.PerformBrickBasedDedup.GetHashCode();
                 if (this.PerformSourceSideDedup != null)
@@ -1570,6 +1669,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteViewParams.GetHashCode();
                 if (this.RequiredFeatureVec != null)
                     hashCode = hashCode * 59 + this.RequiredFeatureVec.GetHashCode();
+                if (this.ReservedField101 != null)
+                    hashCode = hashCode * 59 + this.ReservedField101.GetHashCode();
                 if (this.SkipRigelForBackup != null)
                     hashCode = hashCode * 59 + this.SkipRigelForBackup.GetHashCode();
                 if (this.SkipTenantValidations != null)
@@ -1598,6 +1699,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TruncateLogs.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UseViewModuleDontUseWithoutUtilityFunc != null)
+                    hashCode = hashCode * 59 + this.UseViewModuleDontUseWithoutUtilityFunc.GetHashCode();
                 if (this.UserInfo != null)
                     hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
                 if (this.ViewBoxId != null)

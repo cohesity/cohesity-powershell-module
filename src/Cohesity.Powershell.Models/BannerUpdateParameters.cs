@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="content">Specifies the content of the banner..</param>
         /// <param name="description">description field is deprecated. Specifies the description of this banner..</param>
-        public BannerUpdateParameters(string content = default(string), string description = default(string))
+        /// <param name="isEnabled">IsEnabled field specifies enabled/disabled state of the banner..</param>
+        public BannerUpdateParameters(string content = default(string), string description = default(string), bool? isEnabled = default(bool?))
         {
             this.Content = content;
             this.Description = description;
+            this.IsEnabled = isEnabled;
             this.Content = content;
             this.Description = description;
+            this.IsEnabled = isEnabled;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>description field is deprecated. Specifies the description of this banner.</value>
         [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// IsEnabled field specifies enabled/disabled state of the banner.
+        /// </summary>
+        /// <value>IsEnabled field specifies enabled/disabled state of the banner.</value>
+        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        public bool? IsEnabled { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
+                ) && 
+                (
+                    this.IsEnabled == input.IsEnabled ||
+                    (this.IsEnabled != null &&
+                    this.IsEnabled.Equals(input.IsEnabled))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Content.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.IsEnabled != null)
+                    hashCode = hashCode * 59 + this.IsEnabled.GetHashCode();
                 return hashCode;
             }
         }

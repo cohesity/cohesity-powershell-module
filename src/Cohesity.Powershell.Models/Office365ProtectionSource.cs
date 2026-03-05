@@ -134,6 +134,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Office365ProtectionSource" /> class.
         /// </summary>
+        /// <param name="attributeMap">Specifies the map from the Attribute type to its value associated with this Office365 entity..</param>
         /// <param name="description">Specifies the description of the Office 365 entity..</param>
         /// <param name="groupInfo">groupInfo.</param>
         /// <param name="name">Specifies the name of the office 365 entity..</param>
@@ -145,8 +146,9 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="uuid">Specifies the UUID of the Office 365 entity..</param>
         /// <param name="webUrl">URL that displays the site in the browser. This is applicable for Sharepoint entity..</param>
-        public Office365ProtectionSource(string description = default(string), Office365GroupInfo groupInfo = default(Office365GroupInfo), string name = default(string), string primarySMTPAddress = default(string), List<long> proxyHostSourceIdList = default(List<long>), Office365SiteInfo siteInfo = default(Office365SiteInfo), Office365TeamInfo teamInfo = default(Office365TeamInfo), TypeEnum? type = default(TypeEnum?), Office365UserInfo userInfo = default(Office365UserInfo), string uuid = default(string), string webUrl = default(string))
+        public Office365ProtectionSource(Dictionary<string, string> attributeMap = default(Dictionary<string, string>), string description = default(string), Office365GroupInfo groupInfo = default(Office365GroupInfo), string name = default(string), string primarySMTPAddress = default(string), List<long> proxyHostSourceIdList = default(List<long>), Office365SiteInfo siteInfo = default(Office365SiteInfo), Office365TeamInfo teamInfo = default(Office365TeamInfo), TypeEnum? type = default(TypeEnum?), Office365UserInfo userInfo = default(Office365UserInfo), string uuid = default(string), string webUrl = default(string))
         {
+            this.AttributeMap = attributeMap;
             this.Description = description;
             this.Name = name;
             this.PrimarySMTPAddress = primarySMTPAddress;
@@ -154,6 +156,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.Uuid = uuid;
             this.WebUrl = webUrl;
+            this.AttributeMap = attributeMap;
             this.Description = description;
             this.GroupInfo = groupInfo;
             this.Name = name;
@@ -167,6 +170,13 @@ namespace Cohesity.Model
             this.WebUrl = webUrl;
         }
         
+        /// <summary>
+        /// Specifies the map from the Attribute type to its value associated with this Office365 entity.
+        /// </summary>
+        /// <value>Specifies the map from the Attribute type to its value associated with this Office365 entity.</value>
+        [DataMember(Name="attributeMap", EmitDefaultValue=true)]
+        public Dictionary<string, string> AttributeMap { get; set; }
+
         /// <summary>
         /// Specifies the description of the Office 365 entity.
         /// </summary>
@@ -270,6 +280,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AttributeMap == input.AttributeMap ||
+                    this.AttributeMap != null &&
+                    input.AttributeMap != null &&
+                    this.AttributeMap.SequenceEqual(input.AttributeMap)
+                ) && 
+                (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
@@ -335,6 +351,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AttributeMap != null)
+                    hashCode = hashCode * 59 + this.AttributeMap.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.GroupInfo != null)

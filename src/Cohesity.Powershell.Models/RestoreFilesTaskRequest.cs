@@ -179,6 +179,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreFilesTaskRequest" /> class.
         /// </summary>
+        /// <param name="cloudCredentials">cloudCredentials.</param>
         /// <param name="continueOnError">Specifies if the Restore Task should continue even if the copy operation of some files and folders fails. If true, the Cohesity Cluster ignores intermittent errors and recovers as many files and folders as possible. If false, the Restore Task stops recovering when a copy operation fails..</param>
         /// <param name="fileRecoveryMethod">Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s..</param>
         /// <param name="filenames">Array of Files or Folders.  Specifies the files and folders to recover from the snapshot..</param>
@@ -197,7 +198,7 @@ namespace Cohesity.Model
         /// <param name="targetSourceId">Specifies the id of the target protection source (such as a VM) where the files and folders are recovered to..</param>
         /// <param name="useExistingAgent">Specifies whether this will use an existing agent on the target vm to do restore. Following field is deprecated and shall not be used. Please refer to the FileRecoveryMethod field for more information..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), FilterIpConfig filterIpConfig = default(FilterIpConfig), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
+        public RestoreFilesTaskRequest(CloudCredentials cloudCredentials = default(CloudCredentials), bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), FilterIpConfig filterIpConfig = default(FilterIpConfig), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
         {
             this.ContinueOnError = continueOnError;
             this.FileRecoveryMethod = fileRecoveryMethod;
@@ -216,6 +217,7 @@ namespace Cohesity.Model
             this.TargetSourceId = targetSourceId;
             this.UseExistingAgent = useExistingAgent;
             this.Username = username;
+            this.CloudCredentials = cloudCredentials;
             this.ContinueOnError = continueOnError;
             this.FileRecoveryMethod = fileRecoveryMethod;
             this.Filenames = filenames;
@@ -236,6 +238,12 @@ namespace Cohesity.Model
             this.Username = username;
         }
         
+        /// <summary>
+        /// Gets or Sets CloudCredentials
+        /// </summary>
+        [DataMember(Name="cloudCredentials", EmitDefaultValue=false)]
+        public CloudCredentials CloudCredentials { get; set; }
+
         /// <summary>
         /// Specifies if the Restore Task should continue even if the copy operation of some files and folders fails. If true, the Cohesity Cluster ignores intermittent errors and recovers as many files and folders as possible. If false, the Restore Task stops recovering when a copy operation fails.
         /// </summary>
@@ -384,6 +392,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudCredentials == input.CloudCredentials ||
+                    (this.CloudCredentials != null &&
+                    this.CloudCredentials.Equals(input.CloudCredentials))
+                ) && 
+                (
                     this.ContinueOnError == input.ContinueOnError ||
                     (this.ContinueOnError != null &&
                     this.ContinueOnError.Equals(input.ContinueOnError))
@@ -484,6 +497,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudCredentials != null)
+                    hashCode = hashCode * 59 + this.CloudCredentials.GetHashCode();
                 if (this.ContinueOnError != null)
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
                 hashCode = hashCode * 59 + this.FileRecoveryMethod.GetHashCode();

@@ -54,9 +54,42 @@ namespace Cohesity.Model
         [DataMember(Name="authenticationType", EmitDefaultValue=true)]
         public AuthenticationTypeEnum? AuthenticationType { get; set; }
         /// <summary>
-        /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
+        /// Specifies the deployment type of Cohesity Software. &#39;kStandAlone&#39; indicates the StandAlone/Default deployment of Cluster. &#39;kCDC&#39; indicates the Cluster is deployed by Cohesity &#39;kIBMBaaS&#39; indicates the Cluster deployed by IBM
         /// </summary>
-        /// <value>Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
+        /// <value>Specifies the deployment type of Cohesity Software. &#39;kStandAlone&#39; indicates the StandAlone/Default deployment of Cluster. &#39;kCDC&#39; indicates the Cluster is deployed by Cohesity &#39;kIBMBaaS&#39; indicates the Cluster deployed by IBM</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ClusterDeploymentTypeEnum
+        {
+            /// <summary>
+            /// Enum KStandAlone for value: kStandAlone
+            /// </summary>
+            [EnumMember(Value = "kStandAlone")]
+            KStandAlone = 1,
+
+            /// <summary>
+            /// Enum KCDC for value: kCDC
+            /// </summary>
+            [EnumMember(Value = "kCDC")]
+            KCDC = 2,
+
+            /// <summary>
+            /// Enum KIBMBaaS for value: kIBMBaaS
+            /// </summary>
+            [EnumMember(Value = "kIBMBaaS")]
+            KIBMBaaS = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the deployment type of Cohesity Software. &#39;kStandAlone&#39; indicates the StandAlone/Default deployment of Cluster. &#39;kCDC&#39; indicates the Cluster is deployed by Cohesity &#39;kIBMBaaS&#39; indicates the Cluster deployed by IBM
+        /// </summary>
+        /// <value>Specifies the deployment type of Cohesity Software. &#39;kStandAlone&#39; indicates the StandAlone/Default deployment of Cluster. &#39;kCDC&#39; indicates the Cluster is deployed by Cohesity &#39;kIBMBaaS&#39; indicates the Cluster deployed by IBM</value>
+        [DataMember(Name="clusterDeploymentType", EmitDefaultValue=true)]
+        public ClusterDeploymentTypeEnum? ClusterDeploymentType { get; set; }
+        /// <summary>
+        /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition. &#39;kIBMCloud&#39; indicates the Cohesity Cluster is hosted in a VM on IBM Cloud
+        /// </summary>
+        /// <value>Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition. &#39;kIBMCloud&#39; indicates the Cohesity Cluster is hosted in a VM on IBM Cloud</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ClusterTypeEnum
         {
@@ -88,26 +121,61 @@ namespace Cohesity.Model
             /// Enum KGoogleCloud for value: kGoogleCloud
             /// </summary>
             [EnumMember(Value = "kGoogleCloud")]
-            KGoogleCloud = 5
+            KGoogleCloud = 5,
+
+            /// <summary>
+            /// Enum KIBMCloud for value: kIBMCloud
+            /// </summary>
+            [EnumMember(Value = "kIBMCloud")]
+            KIBMCloud = 6
 
         }
 
         /// <summary>
-        /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
+        /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition. &#39;kIBMCloud&#39; indicates the Cohesity Cluster is hosted in a VM on IBM Cloud
         /// </summary>
-        /// <value>Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
+        /// <value>Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition. &#39;kIBMCloud&#39; indicates the Cohesity Cluster is hosted in a VM on IBM Cloud</value>
         [DataMember(Name="clusterType", EmitDefaultValue=true)]
         public ClusterTypeEnum? ClusterType { get; set; }
+        /// <summary>
+        /// Specifies the type of Cohesity Software. &#39;kOneHelios&#39; indicates the one helios Cohesity Cluster. &#39;kNetBackup&#39; indicates the NetBackup Cohesity Cluster. &#39;kRegular&#39; indicates the regular Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the type of Cohesity Software. &#39;kOneHelios&#39; indicates the one helios Cohesity Cluster. &#39;kNetBackup&#39; indicates the NetBackup Cohesity Cluster. &#39;kRegular&#39; indicates the regular Cohesity Cluster.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum SoftwareTypeEnum
+        {
+            /// <summary>
+            /// Enum KOneHelios for value: kOneHelios
+            /// </summary>
+            [EnumMember(Value = "kOneHelios")]
+            KOneHelios = 1,
+
+            /// <summary>
+            /// Enum KRegular for value: kRegular
+            /// </summary>
+            [EnumMember(Value = "kRegular")]
+            KRegular = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the type of Cohesity Software. &#39;kOneHelios&#39; indicates the one helios Cohesity Cluster. &#39;kNetBackup&#39; indicates the NetBackup Cohesity Cluster. &#39;kRegular&#39; indicates the regular Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the type of Cohesity Software. &#39;kOneHelios&#39; indicates the one helios Cohesity Cluster. &#39;kNetBackup&#39; indicates the NetBackup Cohesity Cluster. &#39;kRegular&#39; indicates the regular Cohesity Cluster.</value>
+        [DataMember(Name="softwareType", EmitDefaultValue=true)]
+        public SoftwareTypeEnum? SoftwareType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicClusterInfo" /> class.
         /// </summary>
         /// <param name="authenticationType">Specifies the authentication scheme for the cluster. &#39;kPasswordOnly&#39; indicates the normal cohesity authentication type. &#39;kCertificateOnly&#39; indicates that certificate based authentication has been enabled and the password based authentication has been turned off. &#39;kPasswordAndCertificate&#39; indicates that both the authenticatio schemes are required..</param>
         /// <param name="bannerEnabled">Specifies if banner is enabled on the cluster..</param>
+        /// <param name="clusterDeploymentType">Specifies the deployment type of Cohesity Software. &#39;kStandAlone&#39; indicates the StandAlone/Default deployment of Cluster. &#39;kCDC&#39; indicates the Cluster is deployed by Cohesity &#39;kIBMBaaS&#39; indicates the Cluster deployed by IBM.</param>
         /// <param name="clusterDomains">Specifies a list of domains joined to the Cohesity Cluster with their trust relationships..</param>
         /// <param name="clusterSoftwareVersion">This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true.</param>
-        /// <param name="clusterType">Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
+        /// <param name="clusterType">Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition. &#39;kIBMCloud&#39; indicates the Cohesity Cluster is hosted in a VM on IBM Cloud.</param>
         /// <param name="dodinModeEnabled">Specifies if dodin mode is enabled on the cluster..</param>
         /// <param name="domains">Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users..</param>
+        /// <param name="fipsCertVersion">Specifies the fips cert version.</param>
         /// <param name="idpConfigured">Specifies Idp is configured for the Cluster..</param>
         /// <param name="idpTenantExists">Specifies Idp is configured for a Tenant..</param>
         /// <param name="languageLocale">Specifies the language and locale for the Cohesity Cluster..</param>
@@ -115,15 +183,18 @@ namespace Cohesity.Model
         /// <param name="mcmOnPremMode">Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true..</param>
         /// <param name="multiTenancyEnabled">Specifies if multi-tenancy is enabled on the cluster..</param>
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
-        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), List<Domain> clusterDomains = default(List<Domain>), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), bool? dodinModeEnabled = default(bool?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
+        /// <param name="softwareType">Specifies the type of Cohesity Software. &#39;kOneHelios&#39; indicates the one helios Cohesity Cluster. &#39;kNetBackup&#39; indicates the NetBackup Cohesity Cluster. &#39;kRegular&#39; indicates the regular Cohesity Cluster..</param>
+        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), ClusterDeploymentTypeEnum? clusterDeploymentType = default(ClusterDeploymentTypeEnum?), List<Domain> clusterDomains = default(List<Domain>), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), bool? dodinModeEnabled = default(bool?), List<string> domains = default(List<string>), string fipsCertVersion = default(string), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string), SoftwareTypeEnum? softwareType = default(SoftwareTypeEnum?))
         {
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
+            this.ClusterDeploymentType = clusterDeploymentType;
             this.ClusterDomains = clusterDomains;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
             this.DodinModeEnabled = dodinModeEnabled;
             this.Domains = domains;
+            this.FipsCertVersion = fipsCertVersion;
             this.IdpConfigured = idpConfigured;
             this.IdpTenantExists = idpTenantExists;
             this.LanguageLocale = languageLocale;
@@ -131,13 +202,16 @@ namespace Cohesity.Model
             this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
+            this.SoftwareType = softwareType;
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
+            this.ClusterDeploymentType = clusterDeploymentType;
             this.ClusterDomains = clusterDomains;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
             this.DodinModeEnabled = dodinModeEnabled;
             this.Domains = domains;
+            this.FipsCertVersion = fipsCertVersion;
             this.IdpConfigured = idpConfigured;
             this.IdpTenantExists = idpTenantExists;
             this.LanguageLocale = languageLocale;
@@ -145,6 +219,7 @@ namespace Cohesity.Model
             this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
+            this.SoftwareType = softwareType;
         }
         
         /// <summary>
@@ -181,6 +256,13 @@ namespace Cohesity.Model
         /// <value>Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users.</value>
         [DataMember(Name="domains", EmitDefaultValue=true)]
         public List<string> Domains { get; set; }
+
+        /// <summary>
+        /// Specifies the fips cert version
+        /// </summary>
+        /// <value>Specifies the fips cert version</value>
+        [DataMember(Name="fipsCertVersion", EmitDefaultValue=true)]
+        public string FipsCertVersion { get; set; }
 
         /// <summary>
         /// Specifies the HeliosControlPlaneEnv.
@@ -284,6 +366,10 @@ namespace Cohesity.Model
                     this.BannerEnabled.Equals(input.BannerEnabled))
                 ) && 
                 (
+                    this.ClusterDeploymentType == input.ClusterDeploymentType ||
+                    this.ClusterDeploymentType.Equals(input.ClusterDeploymentType)
+                ) && 
+                (
                     this.ClusterDomains == input.ClusterDomains ||
                     this.ClusterDomains != null &&
                     input.ClusterDomains != null &&
@@ -308,6 +394,11 @@ namespace Cohesity.Model
                     this.Domains != null &&
                     input.Domains != null &&
                     this.Domains.SequenceEqual(input.Domains)
+                ) && 
+                (
+                    this.FipsCertVersion == input.FipsCertVersion ||
+                    (this.FipsCertVersion != null &&
+                    this.FipsCertVersion.Equals(input.FipsCertVersion))
                 ) && 
                 (
                     this.HeliosControlPlaneEnv == input.HeliosControlPlaneEnv ||
@@ -348,6 +439,10 @@ namespace Cohesity.Model
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.SoftwareType == input.SoftwareType ||
+                    this.SoftwareType.Equals(input.SoftwareType)
                 );
         }
 
@@ -363,6 +458,7 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
                 if (this.BannerEnabled != null)
                     hashCode = hashCode * 59 + this.BannerEnabled.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterDeploymentType.GetHashCode();
                 if (this.ClusterDomains != null)
                     hashCode = hashCode * 59 + this.ClusterDomains.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
@@ -372,6 +468,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DodinModeEnabled.GetHashCode();
                 if (this.Domains != null)
                     hashCode = hashCode * 59 + this.Domains.GetHashCode();
+                if (this.FipsCertVersion != null)
+                    hashCode = hashCode * 59 + this.FipsCertVersion.GetHashCode();
                 if (this.HeliosControlPlaneEnv != null)
                     hashCode = hashCode * 59 + this.HeliosControlPlaneEnv.GetHashCode();
                 if (this.IdpConfigured != null)
@@ -388,6 +486,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MultiTenancyEnabled.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                hashCode = hashCode * 59 + this.SoftwareType.GetHashCode();
                 return hashCode;
             }
         }
