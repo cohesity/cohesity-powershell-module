@@ -25,17 +25,17 @@ If the VM files/folders are indexed properly then use the Restore-CohesityFile c
 
 ### EXAMPLE 1
 ```
-Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd"  -restorePath "C:\" -wait
+Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd" -restorePath "C:\" -wait
 ```
 
 ### EXAMPLE 2
 ```
-Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VMD2" -fileNames "C:\Users\"  -restorePath "C:\temp\" -wait
+Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VMD2" -fileNames "C:\Users\" -restorePath "C:\temp\" -wait
 ```
 
 ### EXAMPLE 3
 ```
-Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd"  -restorePath "C:\" -taskName "Test_task" -wait
+Restore-CohesityFileV2 -sourceVM "SQL-UT-VM2" -targetVM "SQL-UT-VM2" -fileNames "C:\.rnd" -restorePath "C:\" -taskName "Test_task" -wait
 ```
 
 ## PARAMETERS

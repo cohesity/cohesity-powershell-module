@@ -204,7 +204,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 4/19/2023 12:34:48 AM
+Default value: 3/5/2026 4:23:40 AM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -290,13 +290,13 @@ Accept wildcard characters: False
 Specifies the environment that this job is protecting.
 Default is kView.
 
-Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
+Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KCassandra, KMongoDB, KCouchbase, KHdfs, KHive, KHBase, KUDA, KO365Teams, KO365Group, KO365Exchange, KO365OneDrive, KO365Sharepoint, KO365PublicFolders
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble
 
 Required: False
 Position: Named

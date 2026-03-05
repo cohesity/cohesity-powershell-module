@@ -8,17 +8,17 @@ Restores the specified VMware virtual machine from a previous backup.
 ### Default (Default)
 ```
 Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-SourceArchivalId <Int64>] [-TaskName <Object>]
- [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn] [-DatastoreId <Object>]
- [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>] [-NewParentId <Object>]
- [<CommonParameters>]
+ [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn] [-overwriteExistingVm]
+ [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>]
+ [-NewParentId <Object>] [<CommonParameters>]
 ```
 
 ### Jobrun
 ```
 Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-SourceArchivalId <Int64>] [-TaskName <Object>]
  [-JobRunId <Object>] [-StartTime <Object>] [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork]
- [-PoweredOn] [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>]
- [-NewParentId <Object>] [<CommonParameters>]
+ [-PoweredOn] [-overwriteExistingVm] [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>]
+ [-VmFolderId <Object>] [-NewParentId <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -191,6 +191,22 @@ Accept wildcard characters: False
 ### -PoweredOn
 Specifies the power state of the recovered VM.
 By default, the VM is powered off.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -overwriteExistingVm
+Specifies overwriting the existing VM with the restored VM.
+By default, the existing VM is not overwritten.
 
 ```yaml
 Type: SwitchParameter

@@ -8,7 +8,7 @@ The HyperV type can be a SCVMM server or HyperV Host.
 
 ```
 Register-CohesityProtectionSourceHyperV [-Server] <String> -HyperVType <Object> [-Credentials <PSCredential>]
- [<CommonParameters>]
+ [-ReturnObject] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -73,6 +73,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ReturnObject
+Set to true, if result need to returned in object format
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
