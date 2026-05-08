@@ -94,7 +94,7 @@ function Restore-CohesityRemoteFile {
                 $JobRunId = $snapshot.jobRunId
                 $StartTime = $snapshot.startedTimeUsecs
             }
-            
+
             # Validate Source VM
             $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
             $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL

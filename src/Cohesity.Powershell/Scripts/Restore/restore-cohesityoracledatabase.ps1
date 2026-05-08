@@ -136,7 +136,7 @@ function Restore-CohesityOracleDatabase {
 
                 if ($snapshotResult -and $snapshotResult.totalCount -ne 0) {
                     $snapshotDetail = $null
-                    $snapshotDetail = $snapshotResult.objectSnapshotInfo | Where-Object {$_.SnapshottedSource.ParentId -eq 
+                    $snapshotDetail = $snapshotResult.objectSnapshotInfo | Where-Object {$_.SnapshottedSource.ParentId -eq
                         $SourceId -and $_.SnapshottedSource.name -eq $SourceDatabaseName}
 
                     if ($null -ne $snapshotDetail){
@@ -180,13 +180,13 @@ function Restore-CohesityOracleDatabase {
             $jobUid = $searchDatabaseDetails.vmDocument.objectId.jobUid
 
             $oracleRestoreParams = [PSCustomObject]@{
-                captureTailLogs = $true
+                captureTailLogs = $CaptureTailLogs
             }
 
             # Required restore parameters for restoring database to alternate location
             $restoreParams = [PSCustomObject]@{}
             $alternateLocationParams = $null
- 
+
             if (($SourceId -ne $TargetSourceId) -or ($NewDatabaseName -ne $SourceDatabaseName)) {
                 Write-Output "Restoring database '$SourceDatabaseName' to an alternate location."
                 $dbfileDest = if ($DatabaseFileDestination) { $DatabaseFileDestination } else { $OracleHome }
@@ -200,7 +200,7 @@ function Restore-CohesityOracleDatabase {
 
                 $restoreParams | Add-Member -name targetHost -Type NoteProperty -Value @{
                     id = $TargetSourceId
-                }           
+                }
             } else {
                 Write-Output "Restoring database '$SourceDatabaseName' to an original location."
             }
@@ -211,7 +211,7 @@ function Restore-CohesityOracleDatabase {
             $restoreAppObject = [PSCustomObject]@{
                 appEntity     = [PSCustomObject]$searchDatabaseDetails.vmDocument.objectId.entity
                 restoreParams = [PSCustomObject]$restoreParams
-            
+
             }
 
             # Initialize variable required for restore
@@ -262,7 +262,7 @@ function Restore-CohesityOracleDatabase {
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
-           
+
         }
     }
     End {

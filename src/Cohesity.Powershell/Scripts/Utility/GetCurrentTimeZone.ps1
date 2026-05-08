@@ -16,7 +16,7 @@ function GetCurrentTimeZone {
             # $standardTZ = [TimeZoneConverter.TZConvert]::WindowsToIana($standardTZ)
             $tz = get-content $tz_file | ConvertFrom-Json
             $time_zone = $tz.$standardTZ
-            if ($time_zone -ne $null){
+            if ($null -ne $time_zone){
                 $standardTZ = $tz.$standardTZ
             }
             else{

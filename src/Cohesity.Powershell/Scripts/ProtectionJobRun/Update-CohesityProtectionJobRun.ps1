@@ -55,19 +55,19 @@ function Update-CohesityProtectionJobRun {
         [Int64]$ExtendRetention = $null,
         [Parameter(Mandatory = $True, ParameterSetName = "Archive")]
         # Specifies archive names.
-        [string[]]$ArchiveNames = $null,
+        [string[]]$ArchiveNames,
         [Parameter(Mandatory = $True, ParameterSetName = "Archive")]
         # Specifies archive retention.
-        [Int64]$ArchiveRetention = $null,
+        [Int64]$ArchiveRetention,
         [Parameter(Mandatory = $True, ParameterSetName = "Archive")]
         # Flag for archiving partial job runs.
         [switch]$ArchivePartialJobRun,
         [Parameter(Mandatory = $True, ParameterSetName = "Replication")]
         # Specifies replication names.
-        [string[]]$ReplicationNames = $null,
+        [string[]]$ReplicationNames,
         [Parameter(Mandatory = $True, ParameterSetName = "Replication")]
         # Specifies replication retention.
-        [Int64]$ReplicationRetention = $null,
+        [Int64]$ReplicationRetention,
         [Parameter(Mandatory = $True, ParameterSetName = "Replication")]
         # Flag for replication partial job runs.
         [switch]$ReplicationPartialJobRun,
