@@ -15,7 +15,8 @@ function New-CohesityView {
         Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -JobId 17955 -JobRunId 17956 -StartTime 1582878606980416
         Clones a view from a job with job run id and start time.
     #>
-    [CmdletBinding(DefaultParameterSetName = "Default")]
+    [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $true)]
+    [OutputType('System.Object')]
     param(
         [Parameter(Mandatory = $true)]
         # Specifies view name.
@@ -68,7 +69,7 @@ function New-CohesityView {
     }
 
     Process {
-
+        if ($PSCmdlet.ShouldProcess($Name, "Creating new Cohesity View")) {
         $storageDomainObj = Get-CohesityStorageDomain -Names $StorageDomainName
         if (-not $storageDomainObj) {
             Write-Output "Could not proceed, storage domain '$StorageDomainName' not found."
@@ -85,15 +86,17 @@ function New-CohesityView {
             qos                         = @{
                 principalName = $QosPolicy
             }
-            caseInsensitiveNamesEnabled = $CaseInsensitiveNamesEnabled.IsPresent
-            enableSmbViewDiscovery      = $EnableSmbViewDiscovery.IsPresent
+            caseInsensitiveNamesEnabled = $CaseInsensitiveNames.IsPresent
+            enableSmbViewDiscovery      = $BrowsableShares.IsPresent
+            smbAccessBasedEnumeration   = $SmbAccessBasedEnumeration.IsPresent
             storagePolicyOverride       = @{
                 disableInlineDedupAndCompression = $DisableInlineDedupAndCompression.IsPresent
             }
         }
 
         if (("BackupTarget" -eq $Category) -and ($AccessProtocols.Length -ne 1)) {
-            return "Select only one protocol for 'Backup Target' view category"
+            Write-Output "Select only one protocol for 'Backup Target' view category"
+            return
         }
         elseif (("BackupTarget" -eq $Category) -and ("All" -eq $AccessProtocols)) {
             $payload.protocolAccess += @{
@@ -146,6 +149,7 @@ function New-CohesityView {
             $errorMsg = "View : Failed to create"
             Write-Output $errorMsg
             CSLog -Message $errorMsg
+        }
         }
     }
 

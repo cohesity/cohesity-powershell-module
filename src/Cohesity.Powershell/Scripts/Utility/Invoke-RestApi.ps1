@@ -79,11 +79,19 @@ function Invoke-RestApi {
         }
 
         If ($PSVersionTable.PSVersion.Major -ge 6) {
-            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName -SslProtocol Tls12
+            if ($PSBoundParameters.ContainsKey('Body')) {
+                $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -ContentType "application/json" -UserAgent $Global:CohesityUserAgentName -SslProtocol Tls12
+            } else {
+                $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName -SslProtocol Tls12
+            }
         }
         else {
             Enable-SelfSignedCertificates
-            $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
+                if ($PSBoundParameters.ContainsKey('Body')) {
+                    $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -ContentType "application/json" -UserAgent $Global:CohesityUserAgentName -ErrorAction SilentlyContinue
+                } else {
+                    $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName -ErrorAction SilentlyContinue
+                }
         }
 
         # To satisfy ScriptAnalyzer
@@ -125,7 +133,13 @@ function Invoke-RestApi {
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
         $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $errorMsg
-        Write-Output $errorMsg
+        try {
+            $errorJson = $_.Exception.Message | ConvertFrom-Json
+            Write-Output "API Error : $($errorJson.errorCode)"
+            Write-Output "Message   : $($errorJson.message)"
+        } catch {
+            Write-Output $errorMsg
+        }
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
         if (401 -eq $Global:CohesityAPIStatus.StatusCode) {

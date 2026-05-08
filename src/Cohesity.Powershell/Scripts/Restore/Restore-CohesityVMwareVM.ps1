@@ -97,6 +97,13 @@ function Restore-CohesityVMwareVM {
             return
         }
 
+        if ($job.Environment -eq "kAcropolis") {
+            $errorMsg = "Restore-CohesityVMwareVM does not support Acropolis VMs. " +
+                        "Please use Restore-CohesityAcropolisVM instead."
+            Write-Output $errorMsg
+            return
+        }
+
         if ($job.IsActive -eq $false) {
 
             $searchURL = '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
@@ -213,7 +220,7 @@ function Restore-CohesityVMwareVM {
                 }
                 renameRestoredObjectParam    = $renameVMObject
                 restoredObjectsNetworkConfig = @{
-                    networkEntity = $networkDetail.networkEntity
+                    networkEntity  = $networkDetail.networkEntity
                     disableNetwork = $DisableNetwork.IsPresent
                 }
                 restoreParentSource          = $vmwareDetail
@@ -239,7 +246,7 @@ function Restore-CohesityVMwareVM {
                     return
                 }
                 $archivalTarget = @{
-                    vaultId = $vaultDetail.Id
+                    vaultId   = $vaultDetail.Id
                     vaultName = $vaultDetail.name
                     vaultType = "kCloud"
                 }
@@ -252,15 +259,15 @@ function Restore-CohesityVMwareVM {
                 objects          = @($object)
                 type             = "kRecoverVMs"
                 vmwareParameters = @{
-                    datastoreId    = $DatastoreId
-                    disableNetwork = $DisableNetwork.IsPresent
-                    networkId      = $NetworkId
-                    poweredOn      = $PoweredOn.IsPresent
+                    datastoreId         = $DatastoreId
+                    disableNetwork      = $DisableNetwork.IsPresent
+                    networkId           = $NetworkId
+                    poweredOn           = $PoweredOn.IsPresent
                     overwriteExistingVm = $overwriteExistingVm.IsPresent
-                    prefix         = $VmNamePrefix
-                    resourcePoolId = $ResourcePoolId
-                    suffix         = $VmNameSuffix
-                    vmFolderId     = $VmFolderId
+                    prefix              = $VmNamePrefix
+                    resourcePoolId      = $ResourcePoolId
+                    suffix              = $VmNameSuffix
+                    vmFolderId          = $VmFolderId
                 }
                 newParentId      = $NewParentId
             }
@@ -273,8 +280,14 @@ function Restore-CohesityVMwareVM {
             $resp
         }
         else {
-            $errorMsg = $resp | ConvertTo-Json
-            Write-Output ("Vmware VM : Failed to restore" + $errorMsg)
+            if ($Global:CohesityAPIError) {
+                $errorDetails = $Global:CohesityAPIError.Message
+                Write-Output "Restore-CohesityVMwareVM : Failed to restore VM."
+                Write-Output "Error : $errorDetails"
+            }
+            else {
+                Write-Output "Restore-CohesityVMwareVM : Failed to restore VM."
+            }
         }
     }
     End {

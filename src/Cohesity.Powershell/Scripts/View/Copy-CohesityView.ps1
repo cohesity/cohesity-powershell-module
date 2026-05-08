@@ -45,11 +45,11 @@ function Copy-CohesityView {
         [Parameter(Mandatory = $true, ParameterSetName = "JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
         # Job run id for the protected source view.
-        [long]$JobRunId = 0,
+        [long]$JobRunId ,
         [Parameter(Mandatory = $true, ParameterSetName = "JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
         # Start time for the protected source view.
-        [long]$StartTime = 0
+        [long]$StartTime
     )
     Begin {
     }
@@ -95,10 +95,10 @@ function Copy-CohesityView {
                 protectionSourceId = $sourceView.ViewProtection.MagnetoEntityId
             }
 
-            if ($JobRunId -gt 0) {
+            if ($JobRunId) {
                 $cloneObject.Add("jobRunId", $JobRunId)
             }
-            if ($StartTime -gt 0) {
+            if ($StartTime) {
                 $cloneObject.Add("startedTimeUsecs", $StartTime)
             }
             $cloneObjects = @()

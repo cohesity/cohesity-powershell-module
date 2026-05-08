@@ -79,6 +79,7 @@ function Restore-CohesityRemoteFileV2 {
     }
 
     Process {
+        if ($PSCmdlet.ShouldProcess($TaskName, "Restoring Cohesity Remote File")) {
         $recoverMethodObj = @{
             'ExistingAgent' = 'UseExistingAgent';
             'AutoDeploy'    = 'AutoDeploy';
@@ -158,7 +159,7 @@ function Restore-CohesityRemoteFileV2 {
                 return
             }
         }
-            
+
         # Construct payload for restore
         $absolutePath = $(if ($fileObj[0].path -eq '/') { "/{0}" -f $fileObj[0].name } else { "{0}/{1}" -f $fileObj[0].path, $fileObj[0].name })
         $isDirectory = $(if ($fileObj[0].type -eq 'Directory') { $true } else { $false })
@@ -203,7 +204,7 @@ function Restore-CohesityRemoteFileV2 {
                         recoverToOriginalTarget = !$restoreToNewSource;
                         overwriteExisting       = $OverwriteExisting.IsPresent;
                         preserveAttributes      = $PreserveAttributes.IsPresent;
-                        continueOnError         = $ContinueOnError.IsPresent                            
+                        continueOnError         = $ContinueOnError.IsPresent
                     };
                 }
 
@@ -333,6 +334,7 @@ function Restore-CohesityRemoteFileV2 {
             Write-Output $errorMsg
             CSLog -Message $errorMsg
         }
+    }
     }
     End {
     }

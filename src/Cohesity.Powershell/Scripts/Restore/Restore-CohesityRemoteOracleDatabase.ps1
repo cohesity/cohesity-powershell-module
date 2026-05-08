@@ -20,7 +20,7 @@ function Restore-CohesityRemoteOracleDatabase {
         $TargetSourceId = $sourceObj[0].protectionSource.id
         .EXAMPLE
         Restore-CohesityRemoteOracleDatabase -DatabaseName db_1 -SourceName x.x.x.x -OracleHome /u01/app/oracle/product/19c/db_1 -OracleBase /u01/app/oracle/product/ -DatabaseFileDestination /u01/app/oracle/product/19c/db_1 -TargetSource y.y.y.y -JobId 12 -NewDatabaseName new_db1 -SnapshotId abcd
-        Restores the specified oracle database from the remote cluster using specified snapshot, protected by job with id 12, from the source with id 3 to the target oracle source y.y.y.y. With specified restore settings.        
+        Restores the specified oracle database from the remote cluster using specified snapshot, protected by job with id 12, from the source with id 3 to the target oracle source y.y.y.y. With specified restore settings.
         To get the snapshot id for restore,
         $snapshotObj = Find-CohesityObjectSnapshot -Object <databaseId>
         $SnapshotId = $snapshotObj[0].id
@@ -94,6 +94,7 @@ function Restore-CohesityRemoteOracleDatabase {
     }
 
     Process {
+        if ($PSCmdlet.ShouldProcess($TaskName, "Restoring Cohesity Remote Oracle Database")) {
         # Construct v2 protection group id from provided v1 protection group id
         $clusterURL = '/v2/clusters'
         $clusterResult = Invoke-RestApi -Method Get -Uri $clusterURL
@@ -153,7 +154,7 @@ function Restore-CohesityRemoteOracleDatabase {
             If not, collect the latest recoverable job run information.
         #>
         if (-not $SnapshotId) {
-            Write-Host "Fetching latest snapshot for restore."
+            Write-Output "Fetching latest snapshot for restore."
             $snapshotInfo = $searchObj.latestSnapshotsInfo
             if ($snapshotInfo -and $snapshotInfo.Length -ne 0) {
                 $snapshotObj = $snapshotInfo[0].localSnapshotInfo
@@ -175,7 +176,7 @@ function Restore-CohesityRemoteOracleDatabase {
                 return
             }
         }
-            
+
         # Construct payload for restore
         $payload = @{
             name                = $TaskName
@@ -214,7 +215,7 @@ function Restore-CohesityRemoteOracleDatabase {
                             sizeMBytes          = if ($RedoLogSizeInMb) { $RedoLogSizeInMb } else { 20 }
                         }
                     }
-                }                            
+                }
             };
         }
 
@@ -230,6 +231,7 @@ function Restore-CohesityRemoteOracleDatabase {
             Write-Output $errorMsg
             CSLog -Message $errorMsg
         }
+    }
     }
     End {
     }
