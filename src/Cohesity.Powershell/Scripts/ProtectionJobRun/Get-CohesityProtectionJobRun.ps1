@@ -13,6 +13,7 @@ function Get-CohesityProtectionJobRun {
         Get-CohesityProtectionJobRun -SourceId 2
         Only job runs protecting the specified source Id are returned.
     #>
+    [OutputType('System.Array')]
     [OutputType('System.Object[]')]
     [CmdletBinding()]
     Param(
