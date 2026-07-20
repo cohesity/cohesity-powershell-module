@@ -74,11 +74,6 @@ function Get-CohesityProtectionJobRun {
     }
 
     Process {
-        # Resolve JobName -> job id(s).
-        # Iris /protectionJobs?names= uses substring match (as designed), so
-        # names=VM_Small can also return VM_Small_Group (ENG-703124 / FI-67546).
-        # Filter to exact name (case-insensitive), then always treat as an array
-        # so $job.id never fails when multiple objects are returned.
         $jobIds = @()
         if ($JobName) {
             $jobs = @(Get-CohesityProtectionJob -Names $JobName |
