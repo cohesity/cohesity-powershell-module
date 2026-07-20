@@ -14,6 +14,7 @@ function Get-CohesityProtectionJobRun {
         Only job runs protecting the specified source Id are returned.
     #>
     [OutputType('System.Array')]
+    [OutputType('System.Object[]')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true, ParameterSetName = "Id")]
@@ -73,22 +74,21 @@ function Get-CohesityProtectionJobRun {
     }
 
     Process {
-        $url = '/irisservices/api/v1/public/protectionRuns'
+        $jobIds = @()
         if ($JobName) {
-            $jobObject = Get-CohesityProtectionJob -Names $JobName
-            if (-not $jobObject) {
+            $jobs = @(Get-CohesityProtectionJob -Names $JobName |
+                Where-Object { $_.name -ieq $JobName })
+            if ($jobs.Count -eq 0) {
                 Write-Output "Job name '$JobName' does not exists"
-                return $null
+                return @()
             }
-            $JobId = $jobObject.id
+            $jobIds = @($jobs | ForEach-Object { $_.id })
         }
+        elseif ($JobId) {
+            $jobIds = @($JobId)
+        }
+
         $filter = ""
-        if ($JobId) {
-            if ($filter -ne "") {
-                $filter += "&"
-            }
-            $filter += "jobId=$JobId"
-        }
         if ($StartedTime) {
             if ($filter -ne "") {
                 $filter += "&"
@@ -144,14 +144,32 @@ function Get-CohesityProtectionJobRun {
             $filter += "excludeNonRestoreableRuns=true"
         }
 
-        if ($filter -ne "") {
-            $url += "?" + $filter
+        # protectionRuns accepts a single jobId; query each match and merge.
+        $jobIdFilters = if ($jobIds.Count -gt 0) { $jobIds } else { @( $null ) }
+        $resp = @()
+        foreach ($id in $jobIdFilters) {
+            $url = '/irisservices/api/v1/public/protectionRuns'
+            $query = $filter
+            if ($null -ne $id) {
+                if ($query -ne "") {
+                    $query = "jobId=$id&$query"
+                }
+                else {
+                    $query = "jobId=$id"
+                }
+            }
+            if ($query -ne "") {
+                $url += "?" + $query
+            }
+            $page = Invoke-RestApi -Method Get -Uri $url
+            if ($page) {
+                $resp += @($page)
+            }
         }
 
-        $resp = Invoke-RestApi -Method Get -Uri $url
         if ($resp) {
             if (-not $IncludeDeleted.IsPresent) {
-                $resp = @($resp | where-object { $_.JobName -inotmatch '_DELETED' })
+                $resp = @($resp | Where-Object { $_.JobName -inotmatch '_DELETED' })
             }
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionRunInstance' -PassThru)

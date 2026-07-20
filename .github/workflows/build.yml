@@ -10,3 +10,22 @@ jobs:
         shell: powershell
         run: |
           Invoke-ScriptAnalyzer -Path "./src/Cohesity.Powershell/Scripts/*/*.ps1" -ExcludeRule PSAvoidGlobalVars, PSUseSingularNouns  | Should -Be $null
+
+  Unit-tests:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Pester
+        shell: powershell
+        run: |
+          Install-Module Pester -Force -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 5.0.0
+      - name: Run Get-CohesityProtectionJobRun unit tests
+        shell: powershell
+        run: |
+          Import-Module Pester -MinimumVersion 5.0.0
+          $cfg = New-PesterConfiguration
+          $cfg.Run.Path = './tests/Get-CohesityProtectionJobRun.Tests.ps1'
+          $cfg.Run.Exit = $true
+          $cfg.Output.Verbosity = 'Detailed'
+          Invoke-Pester -Configuration $cfg
