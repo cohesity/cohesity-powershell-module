@@ -156,6 +156,15 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// Overwrites the existing database if it already exists at the restore target.
+        /// When not specified, the overwrite policy defaults to kFailIfExists.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter DbRestoreOverwritePolicy { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Specifies a new name for the restored database.
         /// </para>
         /// </summary>
@@ -307,6 +316,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 {
                     applicationRestoreObject.SqlRestoreParameters.TargetSecondaryDataFilesDirectoryList = TargetSecondaryDataFilesDirectoryList;
                 }
+
+                applicationRestoreObject.SqlRestoreParameters.OverwritePolicy = DbRestoreOverwritePolicy.IsPresent
+                    ? Model.SqlRestoreParameters.OverwritePolicyEnum.KOverwrite
+                    : Model.SqlRestoreParameters.OverwritePolicyEnum.KFailIfExists;
 
                 if (TargetHostId != null)
                 {
