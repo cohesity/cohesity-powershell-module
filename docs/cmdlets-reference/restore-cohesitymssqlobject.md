@@ -8,7 +8,7 @@ Restores the specified MS SQL object from a previous backup.
 ```
 Restore-CohesityMSSQLObject -TaskName <String> -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
  [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepOffline] [-KeepCDC]
- [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
+ [-DbRestoreOverwritePolicy] [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
  [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
  [-TargetSecondaryDataFilesDirectoryList <System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]>]
  [-TargetHostId <Int64>] [-TargetHostParentId <Int64>] [-TargetHostCredential <PSCredential>]
@@ -185,6 +185,22 @@ Accept wildcard characters: False
 ### -KeepCDC
 This field prevents "change data capture" settings from being reomved.
 When a database or log backup is restored on another server and database is recovered.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DbRestoreOverwritePolicy
+Overwrites the existing database if it already exists at the restore target.
+When not specified, the overwrite policy defaults to kFailIfExists.
 
 ```yaml
 Type: SwitchParameter
