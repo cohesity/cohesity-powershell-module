@@ -85,7 +85,13 @@ namespace Cohesity.Model
             /// Enum KFinalizing for value: kFinalizing
             /// </summary>
             [EnumMember(Value = "kFinalizing")]
-            KFinalizing = 10
+            KFinalizing = 10,
+
+            /// <summary>
+            /// Enum KSkipped for value: kSkipped
+            /// </summary>
+            [EnumMember(Value = "kSkipped")]
+            KSkipped = 11,
 
         }
 
