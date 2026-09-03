@@ -7,29 +7,21 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 
 ### Default (Default)
 ```
-Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
- [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
+Restore-CohesityRemoteMSSQLObject [-TaskName <String>] [-SourceId <Int64>] [-HostSourceId <Int64>]
+ -JobId <Int64> [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
  [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
  [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SqlHost <String>] [-SqlObjectName <String>] [-TargetHost <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Jobrun
 ```
-Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
- [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>]
- [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
- [-TargetLogFilesDirectory <String>] [-TargetSecondaryDataFilesDirectoryList <Object[]>]
- [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### SQL Host
-```
-Restore-CohesityRemoteMSSQLObject [-TaskName <String>] [-SqlHost <String>] [-SqlObjectName <String>] [-JobId <Int64>]
- [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
- [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
- [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-DbRestoreOverwritePolicy] [-TargetHost <String>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-CohesityRemoteMSSQLObject [-TaskName <String>] [-SourceId <Int64>] [-HostSourceId <Int64>]
+ -JobId <Int64> [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepCDC]
+ [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
+ [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
+ [-TargetSecondaryDataFilesDirectoryList <Object[]>] [-DbRestoreOverwritePolicy] [-TargetHostId <Int64>]
+ [-SqlHost <String>] [-SqlObjectName <String>] [-TargetHost <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +34,7 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
 ```
 
-Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520 with the latest recoverable snapshot information.
+Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
 $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
 Get the source id, $mssqlObjects\[0\].SnapshottedSource.Id
 Get the source instance id, $mssqlObjects\[0\].SnapshottedSource.SqlProtectionSource.OwnerId
@@ -50,12 +42,19 @@ Use the DbRestoreOverwritePolicy:$true for overriding the existing database
 
 ### EXAMPLE 2
 ```
+Restore-CohesityRemoteMSSQLObject -SqlHost x.x.x.x -JobId 31520 -SqlObjectName instance/databse_1 -TargetHost y.y.y.y -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
+```
+
+Restore MSSQL database from remote cluster with database name database_1 from the sql host x.x.x.x, and job id as 31520 to the target host y.y.y.y
+
+### EXAMPLE 3
+```
 Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
 ```
 
 Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
 
-### EXAMPLE 3
+### EXAMPLE 4
 ```
 Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r20 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -Confirm:$false -TargetSecondaryDataFilesDirectoryList $patternList
 ```
@@ -66,13 +65,6 @@ $pattern1 = @{filePattern = "*.mdf"; targetDirectory = "c:\test"}
 $pattern2 = @{filePattern = "*.ldf"; targetDirectory = "c:\test1"}
 $patternList += $pattern1
 $patternList += $pattern2
-
-### EXAMPLE 4
-```
-Restore-CohesityRemoteMSSQLObject -SqlHost x.x.x.x -JobId 31520 -SqlObjectName instance/databse_1 -TargetHost y.y.y.y -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true        
-```
-
-Restore MSSQL database from remote cluster with database name database_1 from the sql host x.x.x.x, and job id as 31520 to the target host y.y.y.y with latest recoverable snapshot information.
 
 ## PARAMETERS
 
@@ -233,51 +225,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SqlHost
-Specifies the SQL host from which database need to be restored.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SqlObjectName
-Specifies the name of the SQL Object to be restored.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TargetHost
-Specifies the target host if the application is to be restored to a different host.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -RestoreTimeSecs
 Specifies the time in the past to which the SQL database needs to be restored.
 This allows for granular recovery of SQL databases.
@@ -379,6 +326,51 @@ Aliases:
 Required: False
 Position: Named
 Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SqlHost
+Specifies the SQL Host information
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SqlObjectName
+Specifies the SQL Object Name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TargetHost
+Specifies the target host to restore
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

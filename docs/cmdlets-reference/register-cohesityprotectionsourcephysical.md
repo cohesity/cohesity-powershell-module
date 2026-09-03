@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of host.
 Must be set to KLinux or KWindows.
 
-Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
+Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
 
 ```yaml
 Type: HostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther
+Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KSapOracle, KCockroachDB, KMySQL, KOther, KSapSybase, KSapMaxDB, KSapSybaseIQ, KDB2, KSapASE, KMariaDB, KPostgreSQL, KVOS, KHPUX
 
 Required: True
 Position: Named

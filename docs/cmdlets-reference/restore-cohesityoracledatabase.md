@@ -6,11 +6,15 @@ From cluster restores the specified Oracle database from a previous backup.
 ## SYNTAX
 
 ```
-Restore-CohesityOracleDatabase [[-CaptureTailLogs] <String>] [[-DatabaseFileDestination] <String>] [[-JobId] <Long>] [[-JobRunId] <Long>]  [[-NewDatabaseName] <String>] [[-NumRedoLogGroup] <Long>] [[-NumTempFiles] <Long>] [[-OracleBase] <String>] [[-OracleHome] <String>] [[-RedoLogMemberPath] <String[]>] [[-RedoLogSizeInMb] <Long>] [[-RedoLogMemberPrefix] <String>] [[-SourceDatabaseName] <String>] [[-SourceName] <String>] [[-TargetSourceId] <Long>] [[-TaskName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-CohesityOracleDatabase [[-TaskName] <String>] [-SourceName] <String> [-SourceDatabaseName] <String>
+ [-OracleHome] <String> [-OracleBase] <String> [[-DatabaseFileDestination] <String>] [-TargetSourceId] <Int64>
+ [-JobId] <Int64> [[-JobRunId] <Int64>] [[-CaptureTailLogs] <String>] [[-NewDatabaseName] <String>]
+ [[-NumRedoLogGroup] <Int64>] [[-RedoLogMemberPath] <String[]>] [[-RedoLogMemberPrefix] <String>]
+ [[-RedoLogSizeInMb] <Int64>] [[-NumTempFiles] <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-From cluster restores the specified Oracle database from a latest recoverable or specified backup.
+From cluster restores the specified Oracle database from a previous backup.
 
 ## EXAMPLES
 
@@ -44,9 +48,8 @@ Restore oracle database "database_1" with mentioned job run id, in the target or
 
 ## PARAMETERS
 
-### -CaptureTailLogs
-Specifies if the tail logs are to be captured before the restore operation.
-This is only applicable if restoring the database to its hosting Protection Source and the database is not being renamed.
+### -TaskName
+Specifies the name of the restore task.
 
 ```yaml
 Type: String
@@ -55,6 +58,67 @@ Aliases:
 
 Required: False
 Position: 1
+Default value: "Restore-Oracle-Object-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SourceName
+Specifies the source name of the Oracle database to restore.
+This can be obtained using Get-CohesityProtectionSource -Environments kOracle.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SourceDatabaseName
+Specifies a name of the database to recover.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OracleHome
+Specifies the Oracle home directory path.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OracleBase
+Specifies the Oracle base directory path.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -69,8 +133,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: ORACLE_HOME
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TargetSourceId
+Specifies the id of Oracle source id to restore the database.
+
+```yaml
+Type: Int64
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 7
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -84,7 +163,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: 8
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -101,8 +180,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 9
 Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CaptureTailLogs
+Specifies if the tail logs are to be captured before the restore operation.
+This is only applicable if restoring the database to its hosting Protection Source and the database is not being renamed.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 10
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -116,7 +211,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 11
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -126,58 +221,13 @@ Accept wildcard characters: False
 Number of redo log groups.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 12
 Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -NumTempFiles
-How many tempfiles to use for the recovered database.
-
-```yaml
-Type: Long
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 7
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OracleBase
-Specifies the Oracle base directory path.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 8
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OracleHome
-Specifies the Oracle home directory path.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 9
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -191,22 +241,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 10
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -RedoLogSizeInMb
-Size of the member in MB.
-
-```yaml
-Type: Long
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 11
+Position: 13
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -221,67 +256,37 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SourceDatabaseName
-Specifies a name of the database to recover.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 13
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SourceName
-Specifies the source name of the Oracle database to restore.
-This can be obtained using Get-CohesityProtectionSource -Environments kOracle.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
 Position: 14
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TaskName
-Specifies the name of the restore task.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 15
-Default value: "Restore-Oracle-Object-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TargetSourceId
-Specifies the id of Oracle source id to restore the database.
+### -RedoLogSizeInMb
+Size of the member in MB.
 
 ```yaml
 Type: Int64
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
+Position: 15
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NumTempFiles
+Specifies no.
+of tempfiles to be used for the recovered database.
+
+```yaml
+Type: Int64
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: 16
 Default value: 0
 Accept pipeline input: False

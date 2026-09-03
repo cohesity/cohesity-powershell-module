@@ -6,7 +6,12 @@ Restores the specified oracle database from a remote backup.
 ## SYNTAX
 
 ```
-Restore-CohesityRemoteOracleDatabase [[-BCTFilePath] <String>] [[-DatabaseFileDestination] <String>] [-EnableArchiveLogMode] [[-DatabaseName] <String>] [[-JobId] <Long>] [[-NewDatabaseName] <String>] [-NoFilenameCheck] [[-NumRedoLogGroup] <Long>] [[-NumTempFiles] <Long>] [[-OracleBase] <String>] [[-OracleHome] <String>] [[-RedoLogMemberPath] <String[]>] [[-RedoLogMemberPrefix] <String>] [[-RedoLogSizeInMb] <Long>] [[-SnapshotId] <String>] [[-SourceId] <Long>] [[-TargetSource] <String>] [[-TargetSourceId] <Long>] [[-TaskName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Restore-CohesityRemoteOracleDatabase [[-BCTFilePath] <String>] [-DatabaseFileDestination] <String>
+ [-EnableArchiveLogMode] [-DatabaseName] <String> [-JobId] <Int64> [-NewDatabaseName] <String>
+ [-NoFilenameCheck] [[-NumRedoLogGroup] <Int64>] [[-NumTempFiles] <Int64>] [-OracleBase] <String>
+ [-OracleHome] <String> [[-RedoLogMemberPath] <String[]>] [[-RedoLogMemberPrefix] <String>]
+ [[-RedoLogSizeInMb] <Int64>] [[-SnapshotId] <String>] [-SourceId] <Int64> [[-TargetSource] <String>]
+ [[-TargetSourceId] <Int64>] [[-TaskName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -19,25 +24,26 @@ Restores the specified oracle database from a remote backup.
 Restore-CohesityRemoteOracleDatabase -DatabaseName db_1 -SourceId 3 -OracleHome /u01/app/oracle/product/19c/db_1 -OracleBase /u01/app/oracle/product/ -DatabaseFileDestination /u01/app/oracle/product/19c/db_1 -TargetSourceId 1 -JobId 12 -NewDatabaseName new_db1 -RedoLogMemberPath '/' -NoFilenameCheck -EnableArchiveLogMode -NumRedoLogGroup 3
 ```
 
-Restores the specified oracle database from the remote cluster using latest snapshot, protected by job with id 12, from the source with id 3 to the target oracle source with id 1. With specified restore settings.
+Restores the specified oracle database from the remote cluster using latest snapshot, protected by job with id 12, from the source with id 3 to the target oracle source with id 1.
+With specified restore settings.
 To get the source details to be restored,
-&ensp; $oracleObj = Find-CohesityObjectsForRestore -Environments KOracle
-&ensp; $DatabaseName = $oracleObj[0].SnapshottedSource.name
-&ensp; $SourceId = $oracleObj[0].SnapshottedSource.ParentId
+$oracleObj = Find-CohesityObjectsForRestore -Environments KOracle
+$DatabaseName = $oracleObj\[0\].SnapshottedSource.name
+$SourceId = $oracleObj\[0\].SnapshottedSource.ParentId
 To get the target source detail, where database need to be restored,
-&ensp; $sourceObj = Get-CohesityProtectionSource -Environments kOracle
-&ensp; $TargetSourceId = $sourceObj[0].protectionSource.id
+$sourceObj = Get-CohesityProtectionSource -Environments kOracle
+$TargetSourceId = $sourceObj\[0\].protectionSource.id
 
 ### EXAMPLE 2
 ```
 Restore-CohesityRemoteOracleDatabase -DatabaseName db_1 -SourceName x.x.x.x -OracleHome /u01/app/oracle/product/19c/db_1 -OracleBase /u01/app/oracle/product/ -DatabaseFileDestination /u01/app/oracle/product/19c/db_1 -TargetSource y.y.y.y -JobId 12 -NewDatabaseName new_db1 -SnapshotId abcd
 ```
 
-Restores the specified oracle database from the remote cluster using specified snapshot, protected by job with id 12, from the source with id 3 to the target oracle source y.y.y.y. With specified restore settings.        
+Restores the specified oracle database from the remote cluster using specified snapshot, protected by job with id 12, from the source with id 3 to the target oracle source y.y.y.y.
+With specified restore settings.
 To get the snapshot id for restore,
-&ensp; $snapshotObj = Find-CohesityObjectSnapshot -Object <databaseId>
-&ensp; $SnapshotId = $snapshotObj[0].id
-
+$snapshotObj = Find-CohesityObjectSnapshot -Object \<databaseId\>
+$SnapshotId = $snapshotObj\[0\].id
 
 ## PARAMETERS
 
@@ -80,14 +86,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -DatabaseName
-Specifies the job id that backed up this Oracle database.
+Specifies name of the database to recover.
 
 ```yaml
 Type: String
@@ -95,7 +101,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -110,7 +116,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: 4
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -140,7 +146,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -150,7 +156,7 @@ Accept wildcard characters: False
 Number of redo log groups.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -162,10 +168,11 @@ Accept wildcard characters: False
 ```
 
 ### -NumTempFiles
-How many tempfiles to use for the recovered database.
+Specifies no.
+of tempfiles to be used for the recovered database.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -230,7 +237,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 12
+Position: 11
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -240,19 +247,20 @@ Accept wildcard characters: False
 Size of the member in MB.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 11
-Default value: None
+Position: 12
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -SnapshotId
-Specifies the snapshot id for this Oracle database. If not specified the latest snapshot will be used to restore.
+Specifies the snapshot id for this Oracle database.
+If not specified the latest snapshot will be used to restore.
 
 ```yaml
 Type: String
@@ -260,8 +268,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 11
-Default value: Latest Recoverable Snapshot
+Position: 13
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -270,20 +278,19 @@ Accept wildcard characters: False
 Specifies id of an oracle source from where database need to be restored.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 13
-Default value: None
+Position: 14
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TargetSource
 Specifies the name of an alternate Oracle source where database to be restored.
-This can be obtained using Get-CohesityProtectionSource -Environments kOracle.
 
 ```yaml
 Type: String
@@ -291,7 +298,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 14
+Position: 15
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -301,13 +308,13 @@ Accept wildcard characters: False
 Specifies the id of an alternate Oracle source where database to be restored.
 
 ```yaml
-Type: Long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 15
-Default value: None
+Position: 16
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -321,8 +328,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 15
-Default value: "Restore-Oracle-Object-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
+Position: 17
+Default value: "Recover_Oracle_" + (Get-Date -Format "MMM_dd_yyyy_h_mm_tt").ToString()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -366,7 +373,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Published by Cohesity
+Published by Cohesity.
 
 ## RELATED LINKS
 

@@ -229,6 +229,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Array
+### System.Object[]
 ## NOTES
 Published by Cohesity
 

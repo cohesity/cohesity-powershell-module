@@ -13,7 +13,7 @@ Restore-CohesityRemoteFile [[-TaskName] <String>] [-FileNames] <String[]> [-JobI
 ```
 
 ## DESCRIPTION
-Request to create a Restore Task for recovering files or folders from a remote target.
+Restores the specified files or folders from a remote cluster.
 
 ## EXAMPLES
 
@@ -22,21 +22,14 @@ Request to create a Restore Task for recovering files or folders from a remote t
 Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
 ```
 
-Restores the file from the specified source to the target windows VM using the latest backup from remote target.
+Restores the specified file to the target windows VM with specified source id from the latest backup.
 
 ### EXAMPLE 2
 ```
-Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -JobRunId 3005 -StartTime 1690646467987573 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+Restore-CohesityRemoteFile -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
 ```
 
-Restores the file from the specified source to the target windows VM using the specified snapshot from remote target.
-
-### EXAMPLE 3
-```
-Restore-CohesityRemoteFile  -FileNames "/C/myFolder" -NewBaseDirectory "C:\temp\restore" -JobId 61592 -SourceId 3517 -TargetSourceId 3098
-```
-
-Restores the file from the specified source to the target physical server using the latest backup from remote target.
+Restores the specified file to the target physical server with specified source id from the latest backup.
 
 ## PARAMETERS
 
@@ -268,8 +261,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-This commandlet will be deprecated in future. Please refer and use the commandlet [Restore-CohesityRemoteFileV2](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/restore-cohesityremotefilev2) instead.
+Published by Cohesity.
 
 ## RELATED LINKS
-[Read More](https://cohesity.github.io/cohesity-powershell-module/#/README)
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 
