@@ -112,6 +112,7 @@ FunctionsToExport = @(
                     'New-CohesityPhysicalServerProtectionJob'
                     'New-CohesityProtectionPolicy',
                     'New-CohesityRoutes',
+					'New-CohesitySessionId',
                     'New-CohesityStorageDomain',
                     'New-CohesityUserGroup',
                     'New-CohesityVirtualIP',
