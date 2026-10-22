@@ -145,7 +145,12 @@ function Get-CohesityProtectionJobRun {
         }
 
         # protectionRuns accepts a single jobId; query each match and merge.
-        $jobIdFilters = if ($jobIds.Count -gt 0) { $jobIds } else { @( $null ) }
+        if ($jobIds.Count -gt 0) {
+            $jobIdFilters = @($jobIds)
+        }
+        else {
+            $jobIdFilters = @($null)
+        }
         $resp = @()
         foreach ($id in $jobIdFilters) {
             $url = '/irisservices/api/v1/public/protectionRuns'
