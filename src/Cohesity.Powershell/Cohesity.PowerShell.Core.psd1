@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.Core.dll'
 
 # Version number of this module.
-ModuleVersion = '1.10.5'
+ModuleVersion = '1.10.6'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
