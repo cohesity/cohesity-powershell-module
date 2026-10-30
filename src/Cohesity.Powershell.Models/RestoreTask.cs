@@ -253,7 +253,13 @@ namespace Cohesity.Model
             /// Enum KCloneVMsToView for value: kCloneVMsToView
             /// </summary>
             [EnumMember(Value = "kCloneVMsToView")]
-            KCloneVMsToView = 19
+            KCloneVMsToView = 19,
+
+            /// <summary>
+            /// Enum KRecoverAppFiles for value: kRecoverAppFiles
+            /// </summary>
+            [EnumMember(Value = "kRecoverAppFiles")]
+            KRecoverAppFiles = 20
 
         }
 
